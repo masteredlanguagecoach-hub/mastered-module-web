@@ -37,7 +37,7 @@
   </script>
 
   <!-- React 18 & Babel Standalone CDNs -->
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
@@ -82,43 +82,6 @@
 
     const LIVE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbqPvlxmAFOgtXn-VJ9b9fuvjOL3hsy18wSCu4xYhfVIcnLMVWGVbeD6XsLxv1ZG_2/exec";
     const LIVE_SPREADSHEET_ID = "1N5YkP6U8RaafRD_bsULTzlaDSC0Vbmfj9l_XCt1S_Rg";
-    const BASE_DRIVE_FOLDER = "https://drive.google.com/drive/folders/1caUZyxqCEas1q9F8Z_3Xd4lhLjOsjqCx";
-
-    // GENERATE ALL 32 MODULES CURRICULUM
-    const MODULE_TOPICS = [
-      "Foundation Vocal Clarity & Articulation",
-      "Executive Tone & Voice Projection",
-      "Professional Accent Neutralization & Rhythm",
-      "High-Stakes Business Communication & Pitch",
-      "Advanced Vocabulary & Idiomatic Expression",
-      "Mastering Dynamic Pause & Cadence",
-      "Persuasive Public Speaking & Presence",
-      "Professional Interview & Q&A Mastery",
-      "Executive Negotiation & Debate Speaking",
-      "Storytelling for Leadership & Presentations",
-      "Cross-Cultural Business Communication",
-      "Active Listening & Conversational Agility",
-      "Crisis Communication & Pressure Handling",
-      "Corporate Meeting & Roundtable Leadership",
-      "Strategic Elevator Pitches & Brevity",
-      "Voice Intonation & Emotional Resonance",
-      "Public Relations & Media Speaking Skills",
-      "Mastering Pronunciation & Vowel Precision",
-      "Executive Presence in Virtual & Remote Meetings",
-      "Influential Workplace Coaching & Feedback",
-      "Strategic Sales Communication & Objection Handling",
-      "Advanced Phrasal Verbs & Formal Registers",
-      "Conference Keynote & Address Preparation",
-      "Spontaneous Speaking & Impromptu Mastery",
-      "Assertive Communication & Conflict Resolution",
-      "Dialect Awareness & Global Accent Alignment",
-      "Executive Panel Discussion & Group Dynamics",
-      "Technical Concept Communication to Non-Tech Audiences",
-      "Body Language & Non-Verbal Vocal Alignment",
-      "Professional Networking & Small Talk Mastery",
-      "Advanced Public Rhetoric & Persuasion Tools",
-      "Final Executive Speaking Capstone & Mastery Review"
-    ];
 
     const THUMBNAILS = [
       "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop&q=80",
@@ -127,68 +90,309 @@
       "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&auto=format&fit=crop&q=80"
     ];
 
-    const ALL_32_MODULES = Array.from({ length: 32 }, (_, i) => {
-      const num = i + 1;
-      const modId = `MOD-${num < 10 ? '0' + num : num}`;
-      return {
-        moduleId: modId,
-        moduleNumber: num,
-        title: `Module ${num}: ${MODULE_TOPICS[i]}`,
-        description: `Executive fluency training module focusing on ${MODULE_TOPICS[i].toLowerCase()}. Includes Video 1, Audio Drill, PDF Notes, and Quiz assessment.`,
-        thumbnail: THUMBNAILS[i % THUMBNAILS.length],
-        video1: BASE_DRIVE_FOLDER,
-        video2: '',
-        audio: BASE_DRIVE_FOLDER,
-        pdf: BASE_DRIVE_FOLDER,
-        quizId: `QUIZ-${num < 10 ? '0' + num : num}`,
+    // EXACT 25 REAL CURRICULUM MODULES
+    const EXACT_25_MODULES = [
+      {
+        moduleId: "MOD-01",
+        moduleNumber: 1,
+        title: "Module 1: Introducing Yourself",
+        description: "After completing this module, you will be able to:\n✅ Introduce yourself confidently.\n✅ Answer simple personal questions.\n✅ Speak about yourself for 1–2 minutes without reading.",
+        thumbnail: THUMBNAILS[0],
+        video1: "https://drive.google.com/file/d/1PlpAAReBks5dvmJ3ECNPBo9xms4hlj95/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1n6SsfzENammsejKtUVOonv2xuwFsyjl7/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1MC8atyCkDeoHh3hl1c33ye1_yQs-z20K/view?usp=drive_link",
         published: true,
-        order: num
-      };
-    });
-
-    const ALL_32_QUIZZES = Array.from({ length: 32 }, (_, i) => {
-      const num = i + 1;
-      const qId = `QUIZ-${num < 10 ? '0' + num : num}`;
-      const modId = `MOD-${num < 10 ? '0' + num : num}`;
-      return {
-        quizId: qId,
-        moduleId: modId,
-        title: `Module ${num} Mastery Quiz - ${MODULE_TOPICS[i]}`,
-        passPercentage: 80,
-        timeLimit: 10
-      };
-    });
-
-    const ALL_32_QUESTIONS = Array.from({ length: 32 }, (_, i) => {
-      const num = i + 1;
-      const qId = `QUIZ-${num < 10 ? '0' + num : num}`;
-      const topic = MODULE_TOPICS[i];
-
-      return [
-        {
-          id: `Q-${num}-1`,
-          quizId: qId,
-          question: `What is the primary executive goal of ${topic}?`,
-          optionA: "To speak faster without taking pauses",
-          optionB: "To articulate ideas clearly with confidence, proper tone, and cadence",
-          optionC: "To memorize scripted speeches word for word",
-          optionD: "To eliminate all natural voice inflections",
-          correctAnswer: "B",
-          explanation: "Executive communication emphasizes clear articulation, posture, and confident vocal cadence."
-        },
-        {
-          id: `Q-${num}-2`,
-          quizId: qId,
-          question: `When applying ${topic} in business meetings, which technique is most effective?`,
-          optionA: "Using intentional strategic pauses for emphasis",
-          optionB: "Speaking loudly over other participants",
-          optionC: "Reading directly from slides without eye contact",
-          optionD: "Avoiding vocal pitch variations",
-          correctAnswer: "A",
-          explanation: "Strategic pauses allow key messages to resonate with high-level decision makers."
-        }
-      ];
-    }).flat();
+        order: 1
+      },
+      {
+        moduleId: "MOD-02",
+        moduleNumber: 2,
+        title: "Module 2: Talking About Other People",
+        description: "After completing this module, you will be able to:\n✅ Talk about other people confidently.\n✅ Introduce your family and friends.\n✅ Use He, She, We, They correctly.\n✅ Use is and are correctly.",
+        thumbnail: THUMBNAILS[1],
+        video1: "https://drive.google.com/file/d/1LqElWmN11Eq5KOTYx4supsmQY8ltgVZ4/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1HKEUPtwx8zpWE74kYaasSBHwL7gNuMmw/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1U08-bKu6rfOl4djVL9ChYva-UXajlIH1/view?usp=drive_link",
+        published: true,
+        order: 2
+      },
+      {
+        moduleId: "MOD-03",
+        moduleNumber: 3,
+        title: "Module 3: Family, Possessions & Demonstratives",
+        description: "After completing this module, you will be able to:\n✅ Talk about your family confidently.\n✅ Talk about the things you have.\n✅ Identify people and objects near and far.\n✅ Use have, has, this, that, these, those correctly.",
+        thumbnail: THUMBNAILS[2],
+        video1: "https://drive.google.com/file/d/1U6cDGr4esX3dLxY9aNkCLW82e5PjBQnT/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1EtombvuV3lfKRCTRbTHAlt14CLGI06mo/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1ODilgHaZjxpe9aq3A7I4ESMpwjNBl_SR/view?usp=drive_link",
+        published: true,
+        order: 3
+      },
+      {
+        moduleId: "MOD-04",
+        moduleNumber: 4,
+        title: "Module 4: Expressing Abilities & Polite Requests",
+        description: "After completing this module, you will be able to:\n✅ Talk about your abilities confidently.\n✅ Say what you can and can’t do.\n✅ Ask for help politely.\n✅ Use can, can’t, and could correctly.",
+        thumbnail: THUMBNAILS[3],
+        video1: "https://drive.google.com/file/d/15KXdAtmi5rbW7DZxxKFP1GFTv4B8oFGW/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1u4F9cY0WLYOHvSE129UfNy3CSlB2jGXA/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1UeVlzB_c8zH9QqYcZbSH-FuxYUk4l3Uo/view?usp=drive_link",
+        published: true,
+        order: 4
+      },
+      {
+        moduleId: "MOD-05",
+        moduleNumber: 5,
+        title: "Module 5: Daily Duties & Advice",
+        description: "After completing this module, you will be able to:\n✅ Talk about your daily responsibilities.\n✅ Describe duties at home, work, or school.\n✅ Give simple advice confidently.\n✅ Use have to, has to, had to, and should correctly.",
+        thumbnail: THUMBNAILS[0],
+        video1: "https://drive.google.com/file/d/1PmeJXjj1_h52A5QutvWKbkeizABcJe_I/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1tIRct9SAqVvn6wNaCgB8pshuywv2HIrg/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1WiVma-RG7arjb9jY3GUlfO2Q_PrWXPUu/view?usp=drive_link",
+        published: true,
+        order: 5
+      },
+      {
+        moduleId: "MOD-06",
+        moduleNumber: 6,
+        title: "Module 6: Polite Requests & Possibilities",
+        description: "After completing this module, you will be able to:\n✅ Make polite requests.\n✅ Express your wishes.\n✅ Talk about possibilities.\n✅ Use would, would like to, may, and might confidently.",
+        thumbnail: THUMBNAILS[1],
+        video1: "https://drive.google.com/file/d/1NdGNZfgTWH-mER-q2avL84K0d04dZUgY/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1kPrs0QsehrhXA_xToocMW4z9NjJLIlUu/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/127y_t0WNp7JQCP1t1BhzxG7wN-K2jFkG/view?usp=drive_link",
+        published: true,
+        order: 6
+      },
+      {
+        moduleId: "MOD-07",
+        moduleNumber: 7,
+        title: "Module 7: Asking Questions & Gathering Information",
+        description: "After completing this module, you will be able to:\n✅ Ask questions confidently.\n✅ Start and continue conversations.\n✅ Gather information naturally.\n✅ Use Who, Whom, What, When, Where, Why, Which, Whose, and How correctly.",
+        thumbnail: THUMBNAILS[2],
+        video1: "https://drive.google.com/file/d/19bzu0rYWgBvQ9aKsM6SMFUT1rzviKBlU/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1ffTYpvhkBaRxb22G0lsJlcviw1o81iPx/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1_NOOxcCZ2W8qX9X2Fc4qUXT1_C7IsdeT/view?usp=drive_link",
+        published: true,
+        order: 7
+      },
+      {
+        moduleId: "MOD-08",
+        moduleNumber: 8,
+        title: "Module 8: Prepositions, Articles & Nouns",
+        description: "After completing this module, you will be able to:\n✅ Use common prepositions correctly.\n✅ Use articles naturally.\n✅ Understand singular and plural nouns.\n✅ Describe time, place, and direction confidently.",
+        thumbnail: THUMBNAILS[3],
+        video1: "https://drive.google.com/file/d/15KrOIwXQuQnmOGRzdqrLehLldaHkL2lB/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1NsZte7_9TnY-9kyopzg_XvTqz1JsWWWE/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1zFChwG8AdX5iAENWKiyCAGW1qUW1xdAl/view?usp=drive_link",
+        published: true,
+        order: 8
+      },
+      {
+        moduleId: "MOD-09",
+        moduleNumber: 9,
+        title: "Module 9: Daily Routine & Habits (Simple Present Tense)",
+        description: "After completing this module, you will be able to:\n✅ Talk about your daily routine.\n✅ Describe your habits confidently.\n✅ Ask and answer questions about daily activities.\n✅ Use the Simple Present Tense naturally in conversation.",
+        thumbnail: THUMBNAILS[0],
+        video1: "https://drive.google.com/file/d/1JkfH0Abx5AzID1UE6BnulbmOfN3yyKsp/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1WLf6XpRb5Ay6Iog_ay4Lj-l7IvMklhtW/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1Sp0fO5iperm6UcNYDNqgElYty59XgN7z/view?usp=drive_link",
+        published: true,
+        order: 9
+      },
+      {
+        moduleId: "MOD-10",
+        moduleNumber: 10,
+        title: "Module 10: Action Verbs, Likes & Preferences",
+        description: "After completing this module, you will be able to:\n✅ Understand what a verb is.\n✅ Use action verbs correctly.\n✅ Express your likes, dislikes, preferences, and opinions.\n✅ Use the Simple Present Tense naturally.",
+        thumbnail: THUMBNAILS[1],
+        video1: "https://drive.google.com/file/d/1h2PAepMwLF5ETnknj9H5fK3F9g8R0Ynb/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1i8at0jfbokN4PJgQeH7wXt3R0kgYcDMR/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1pvk6IcCwGCr1A9u54csNrpI6jDten41H/view?usp=drive_link",
+        published: true,
+        order: 10
+      },
+      {
+        moduleId: "MOD-11",
+        moduleNumber: 11,
+        title: "Module 11: Frequency Adverbs & Complete Present Conversations",
+        description: "After completing this module, you will be able to:\n✅ Ask and answer questions confidently.\n✅ Talk about your daily routine and habits.\n✅ Use frequency adverbs naturally.\n✅ Have a complete conversation using the Simple Present Tense.",
+        thumbnail: THUMBNAILS[2],
+        video1: "https://drive.google.com/file/d/1hlivfbFwVsdeiETS9wCdXwdGNppAZlIi/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1iDqcg2EMutwurymHTESsSaEr_zjgqXiV/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1ELhCRjIB0GLZI108GBP4YPMTxgaBzBfT/view?usp=drive_link",
+        published: true,
+        order: 11
+      },
+      {
+        moduleId: "MOD-12",
+        moduleNumber: 12,
+        title: "Module 12: Actions Happening Now (Present Continuous Tense)",
+        description: "After completing this module, you will be able to:\n✅ Talk about actions happening now.\n✅ Describe what people are doing.\n✅ Use the Present Continuous Tense confidently.",
+        thumbnail: THUMBNAILS[3],
+        video1: "https://drive.google.com/file/d/1mXE9S3B0xSHKKMiVzE3ZQKUdYZ12VPMl/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1ItzSSMg5_bu7fhk3AApQlW-iDIfG4Nvq/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1hFa_uFankpX-_xyuIPS4muAr7sjH6vsA/view?usp=drive_link",
+        published: true,
+        order: 12
+      },
+      {
+        moduleId: "MOD-13",
+        moduleNumber: 13,
+        title: "Module 13: Present Continuous Questions & Planned Future",
+        description: "After completing this module, you will be able to:\n✅ Make negative sentences confidently.\n✅ Ask and answer Present Continuous questions.\n✅ Use WH questions naturally.\n✅ Talk about planned future activities.",
+        thumbnail: THUMBNAILS[0],
+        video1: "https://drive.google.com/file/d/1ovg0wzDIQJ7K27vJdBKCB7B3H6teKtZM/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1m5DAjfdPJjyz0SlmBf9Y_nG_UNaB_JHP/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1YkqjP5qYbUqtEim2QylTfVHjh9G-TBKK/view?usp=drive_link",
+        published: true,
+        order: 13
+      },
+      {
+        moduleId: "MOD-14",
+        moduleNumber: 14,
+        title: "Module 14: Completed Past Actions (Simple Past Tense)",
+        description: "After completing this module, you will be able to:\n✅ Talk about completed past actions.\n✅ Use regular and irregular past verbs correctly.\n✅ Describe yesterday, last week, and past experiences confidently.",
+        thumbnail: THUMBNAILS[1],
+        video1: "https://drive.google.com/file/d/1PcXxVZ0Jt0PclCf09hQCaWWkakjPAsN2/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1dsenRRLevrXBi2-99ydG0crxNHtP1paB/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1Y5L8Dcqah9X8CHjx92oYls94eHLyoLjg/view?usp=drive_link",
+        published: true,
+        order: 14
+      },
+      {
+        moduleId: "MOD-15",
+        moduleNumber: 15,
+        title: "Module 15: Past Questions & Past Experiences",
+        description: "After completing this module, you will be able to:\n✅ Make negative sentences in the Simple Past.\n✅ Ask and answer questions about the past.\n✅ Use WH questions naturally.\n✅ Talk confidently about past experiences.",
+        thumbnail: THUMBNAILS[2],
+        video1: "https://drive.google.com/file/d/18mUzPEid8yXDt137mzDEp7KiaXEUowlL/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/11eBiEamRPBXBs7s7ywEPxRCL7SZoGH_l/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1mCAgesjByIJIxjirWJ24nQl4lPASHxTc/view?usp=drive_link",
+        published: true,
+        order: 15
+      },
+      {
+        moduleId: "MOD-16",
+        moduleNumber: 16,
+        title: "Module 16: Storytelling & Linking Words in Past Tense",
+        description: "After completing this module, you will be able to:\n✅ Tell a simple story confidently.\n✅ Describe events in the correct order.\n✅ Use linking words naturally.\n✅ Use the Simple Past Tense while telling stories.",
+        thumbnail: THUMBNAILS[3],
+        video1: "https://drive.google.com/file/d/1TSaihtwPZn2XpHe8K972Pqs15c5XtsP2/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1HSQCk0bsdyZukk1CvgFpEKvapUmmlBu8/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1UK7mr1MM40QDKQwYFqOFn6BkWhRbiws6/view?usp=drive_link",
+        published: true,
+        order: 16
+      },
+      {
+        moduleId: "MOD-17",
+        moduleNumber: 17,
+        title: "Module 17: Past Continuous Tense & Interrupted Actions",
+        description: "After completing this module, you will be able to:\n✅ Describe actions that were happening in the past.\n✅ Explain interrupted actions naturally.\n✅ Use was/were + verb + ing correctly.\n✅ Speak confidently about past situations.",
+        thumbnail: THUMBNAILS[0],
+        video1: "https://drive.google.com/file/d/1A2F0t_JQ-hFbYRhbo-nIchgTcy55Lxk5/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/13bpfqAzsEuviZ3I3AUd6h4xuAu6USWJv/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1PBmK9UXxsEe5pZEJL5sBfllVz8ihlx-X/view?usp=drive_link",
+        published: true,
+        order: 17
+      },
+      {
+        moduleId: "MOD-18",
+        moduleNumber: 18,
+        title: "Module 18: Life Journey & Present Perfect Tense",
+        description: "After completing this module, you will be able to:\n✅ Share your life journey confidently.\n✅ Talk about your education, career, and achievements.\n✅ Describe your skills and experiences.\n✅ Use the Present Perfect Tense naturally.",
+        thumbnail: THUMBNAILS[1],
+        video1: "https://drive.google.com/file/d/1i9rZoekQ3y9kNIz-7pUb5iEa4LiLMK6j/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1hWXMwFG0K9PrwnOQmXWgw-UsXnDRvvVJ/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1Ztsg0ApRux5QEyfF_62kQ0eROeXBWHp2/view?usp=drive_link",
+        published: true,
+        order: 18
+      },
+      {
+        moduleId: "MOD-19",
+        moduleNumber: 19,
+        title: "Module 19: Recent Actions & Tasks (Already, Yet, Just)",
+        description: "After completing this module, you will be able to:\n✅ Talk about things you have recently completed.\n✅ Ask and answer about unfinished tasks.\n✅ Use already, yet, just, recently, still naturally.\n✅ Communicate confidently using the Present Perfect Tense.",
+        thumbnail: THUMBNAILS[2],
+        video1: "https://drive.google.com/file/d/17mOOGVDnv3U-tihXwA3Wss1Ry6Ayh4BH/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/15ysZpuzSqp1PcVlFt4KX9bRozgVUaDWk/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1-pFrMUhQzIcxidvkGCrigdHfkbF2ONFk/view?usp=drive_link",
+        published: true,
+        order: 19
+      },
+      {
+        moduleId: "MOD-20",
+        moduleNumber: 20,
+        title: "Module 20: Future Plans & Intentions (Be going to)",
+        description: "After completing this module, you will be able to:\n✅ Talk about your future plans confidently.\n✅ Describe your goals and intentions.\n✅ Use be going to correctly.\n✅ Speak naturally about upcoming events.",
+        thumbnail: THUMBNAILS[3],
+        video1: "https://drive.google.com/file/d/1UblLQ4VaJEBdqjROSvlArI5V26ucemYk/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1LtMFUv0uk0OszGlflDgE5SseLZAxp1w_/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1j39oU6LBQDYdrv14-gEJ1m5Tc4g1JnL6/view?usp=drive_link",
+        published: true,
+        order: 20
+      },
+      {
+        moduleId: "MOD-21",
+        moduleNumber: 21,
+        title: "Module 21: Promises & Future Predictions (Will)",
+        description: "After completing this module, you will be able to:\n✅ Make promises confidently.\n✅ Predict future events.\n✅ Use will correctly.\n✅ Encourage and reassure others naturally.",
+        thumbnail: THUMBNAILS[0],
+        video1: "https://drive.google.com/file/d/1z5JjrzoFRpi3dANqM7b_oVG2JNnDOLSx/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1V0MMkFPmjAd_-qDMjH78MwVf_Sj375RB/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1T87MGUXx00nkIDMKM9U86UEJzcFRw3H4/view?usp=drive_link",
+        published: true,
+        order: 21
+      },
+      {
+        moduleId: "MOD-22",
+        moduleNumber: 22,
+        title: "Module 22: Future Continuous Tense & Schedules",
+        description: "After completing this module, you will be able to:\n✅ Describe actions that will be happening in the future.\n✅ Talk about future schedules and activities.\n✅ Ask and answer questions about future ongoing actions.\n✅ Use the Future Continuous Tense confidently.",
+        thumbnail: THUMBNAILS[1],
+        video1: "https://drive.google.com/file/d/1wsFxghxS7REVB9MSMo1QWWVKZYD1KtCf/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1WqMGaUem1G9ZBcXuDmrQqWS8iIVcshMc/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1KobexEJO4nSIzcz6jOeYy7soSJyZfeJz/view?usp=drive_link",
+        published: true,
+        order: 22
+      },
+      {
+        moduleId: "MOD-23",
+        moduleNumber: 23,
+        title: "Module 23: Present Perfect Continuous (For & Since)",
+        description: "After completing this module, you will be able to:\n✅ Talk about actions that started in the past and are still continuing.\n✅ Use for and since correctly.\n✅ Ask and answer questions about ongoing activities.\n✅ Use the Present Perfect Continuous Tense confidently.",
+        thumbnail: THUMBNAILS[2],
+        video1: "https://drive.google.com/file/d/1ijvRoX5VGPpqF6zghWZD1MiPtBxJv0R0/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1ck1BEGBFbcazBmVzPMpDCPi7PlnMbPrn/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1d3mkyZtDQejyR3hkq8dJfKoiZpwAiAhy/view?usp=drive_link",
+        published: true,
+        order: 23
+      },
+      {
+        moduleId: "MOD-24",
+        moduleNumber: 24,
+        title: "Module 24: Shopping Conversations & Inquiries",
+        description: "After completing this module, you will be able to:\n✅ Start a conversation with a shopkeeper.\n✅ Ask about products, prices, sizes and colours.\n✅ Request help politely.\n✅ Use previously learned tenses naturally while shopping.",
+        thumbnail: THUMBNAILS[3],
+        video1: "https://drive.google.com/file/d/1aPKvGlDVNQxBTQca45OJMamtdjzqkikh/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1lhezZjKYyLqVzoIpmzQy67M57BMhDFA8/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1rVbxvFV4y1hvbScyHRnMKVgMDrjjAxtX/view?usp=drive_link",
+        published: true,
+        order: 24
+      },
+      {
+        moduleId: "MOD-25",
+        moduleNumber: 25,
+        title: "Module 25: Restaurant Conversations & Ordering Food",
+        description: "After completing this module, you will be able to:\n✅ Order food confidently in English.\n✅ Ask about the menu and prices.\n✅ Make polite requests.\n✅ Handle complete restaurant conversations naturally.",
+        thumbnail: THUMBNAILS[0],
+        video1: "https://drive.google.com/file/d/1c7H-tVR5WUopQMZdNw7RieVmCuH1CtBc/view?usp=drive_link",
+        audio: "https://drive.google.com/file/d/1IEdDIZPhm0CbSDq4vsfa4iMFNCB3jjIl/view?usp=drive_link",
+        pdf: "https://drive.google.com/file/d/1dm2tlDF1ppnwJxTJ-H1fUeG1GKB1X99l/view?usp=drive_link",
+        published: true,
+        order: 25
+      }
+    ];
 
     const INITIAL_STUDENTS = [
       {
@@ -263,7 +467,7 @@
       const [selectedModuleId, setSelectedModuleId] = useState(null);
       const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-      // LocalStorage-backed state stores pre-loaded with all 32 Modules & Quizzes
+      // LocalStorage-backed state stores pre-loaded with exact 25 modules
       const [students, setStudents] = useState(() => {
         const saved = localStorage.getItem('mastered_students');
         return saved ? JSON.parse(saved) : INITIAL_STUDENTS;
@@ -275,31 +479,11 @@
       });
 
       const [modules, setModules] = useState(() => {
-        const saved = localStorage.getItem('mastered_modules');
-        if (saved) {
-          const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length >= 32) return parsed;
-        }
-        return ALL_32_MODULES;
+        return EXACT_25_MODULES;
       });
 
-      const [quizzes, setQuizzes] = useState(() => {
-        const saved = localStorage.getItem('mastered_quizzes');
-        if (saved) {
-          const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length >= 32) return parsed;
-        }
-        return ALL_32_QUIZZES;
-      });
-
-      const [questions, setQuestions] = useState(() => {
-        const saved = localStorage.getItem('mastered_questions');
-        if (saved) {
-          const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-        }
-        return ALL_32_QUESTIONS;
-      });
+      const [quizzes, setQuizzes] = useState([]);
+      const [questions, setQuestions] = useState([]);
 
       const [userProgress, setUserProgress] = useState(() => {
         const saved = localStorage.getItem('mastered_progress');
@@ -310,14 +494,6 @@
       useEffect(() => {
         localStorage.setItem('mastered_modules', JSON.stringify(modules));
       }, [modules]);
-
-      useEffect(() => {
-        localStorage.setItem('mastered_quizzes', JSON.stringify(quizzes));
-      }, [quizzes]);
-
-      useEffect(() => {
-        localStorage.setItem('mastered_questions', JSON.stringify(questions));
-      }, [questions]);
 
       useEffect(() => {
         localStorage.setItem('mastered_students', JSON.stringify(students));
@@ -334,12 +510,6 @@
       // Lesson Sub-Tab inside Student Module View
       const [lessonTab, setLessonTab] = useState('video1');
 
-      // Student Quiz Runner Modal State
-      const [showQuizModal, setShowQuizModal] = useState(false);
-      const [quizAnswers, setQuizAnswers] = useState({});
-      const [quizSubmitted, setQuizSubmitted] = useState(false);
-      const [quizScore, setQuizScore] = useState(0);
-
       // Admin Module Modal Form State
       const [showModuleModal, setShowModuleModal] = useState(false);
       const [moduleForm, setModuleForm] = useState({
@@ -352,33 +522,8 @@
         video2: '',
         audio: '',
         pdf: '',
-        quizId: '',
         published: true,
         order: 1
-      });
-
-      // Admin Quiz Creator Modal State
-      const [showQuizModalAdmin, setShowQuizModalAdmin] = useState(false);
-      const [quizForm, setQuizForm] = useState({
-        quizId: '',
-        moduleId: '',
-        title: '',
-        passPercentage: 80,
-        timeLimit: 10
-      });
-
-      // Admin Question Form State
-      const [showQuestionModalAdmin, setShowQuestionModalAdmin] = useState(false);
-      const [questionForm, setQuestionForm] = useState({
-        id: '',
-        quizId: '',
-        question: '',
-        optionA: '',
-        optionB: '',
-        optionC: '',
-        optionD: '',
-        correctAnswer: 'A',
-        explanation: ''
       });
 
       // Toast Notification
@@ -462,13 +607,7 @@
         showToast(`✅ Approved request for ${req.name}! Added to Student Directory.`);
       };
 
-      // Reject Request
-      const handleRejectRequest = (reqId) => {
-        setRequests(prev => prev.map(r => r.requestId === reqId ? { ...r, status: 'Rejected' } : r));
-        showToast(`Request rejected.`);
-      };
-
-      // Save Module (Create / Edit) - REALTIME EDIT SUPPORT
+      // Save Module (Create / Edit)
       const handleSaveModule = async (e) => {
         e.preventDefault();
         const modId = moduleForm.moduleId || `MOD-${moduleForm.moduleNumber < 10 ? '0' + moduleForm.moduleNumber : moduleForm.moduleNumber}`;
@@ -502,103 +641,21 @@
         }
       };
 
-      // Save Quiz (Create / Edit)
-      const handleSaveQuiz = async (e) => {
-        e.preventDefault();
-        const qId = quizForm.quizId || `QUIZ-${Math.floor(100 + Math.random() * 900)}`;
-        const finalQuiz = {
-          ...quizForm,
-          quizId: qId,
-          passPercentage: Number(quizForm.passPercentage) || 80,
-          timeLimit: Number(quizForm.timeLimit) || 10
-        };
-
-        setQuizzes(prev => {
-          const idx = prev.findIndex(q => q.quizId === qId);
-          if (idx >= 0) {
-            const copy = [...prev];
-            copy[idx] = finalQuiz;
-            return copy;
-          }
-          return [...prev, finalQuiz];
-        });
-
-        if (finalQuiz.moduleId) {
-          setModules(prev => prev.map(m => m.moduleId === finalQuiz.moduleId ? { ...m, quizId: qId } : m));
-        }
-
-        setShowQuizModalAdmin(false);
-        callAppsScript('adminSaveQuiz', { quiz: finalQuiz });
-        showToast(`✅ Quiz "${finalQuiz.title}" updated successfully!`);
-      };
-
-      // Save Question (Create / Edit)
-      const handleSaveQuestion = async (e) => {
-        e.preventDefault();
-        const qstId = questionForm.id || `Q-${Math.floor(1000 + Math.random() * 9000)}`;
-        const finalQst = { ...questionForm, id: qstId };
-
-        setQuestions(prev => {
-          const idx = prev.findIndex(q => q.id === qstId);
-          if (idx >= 0) {
-            const copy = [...prev];
-            copy[idx] = finalQst;
-            return copy;
-          }
-          return [...prev, finalQst];
-        });
-
-        setShowQuestionModalAdmin(false);
-        callAppsScript('adminSaveQuestion', { question: finalQst });
-        showToast(`✅ Question saved & updated!`);
-      };
-
-      // Delete Question
-      const handleDeleteQuestion = (qId) => {
-        if (confirm("Delete this question?")) {
-          setQuestions(prev => prev.filter(q => q.id !== qId));
-          showToast("Question deleted.");
-        }
-      };
-
       // Update Student Progress
       const handleMarkItemComplete = (modId, itemKey) => {
         setUserProgress(prev => {
-          const existing = prev[modId] || { video1: false, video2: false, audio: false, pdf: false, quiz: false, percentage: 0 };
+          const existing = prev[modId] || { video1: false, audio: false, pdf: false, percentage: 0 };
           const updated = { ...existing, [itemKey]: true };
           
           let count = 0;
           if (updated.video1) count++;
-          if (updated.video2) count++;
           if (updated.audio) count++;
           if (updated.pdf) count++;
-          if (updated.quiz) count++;
-          updated.percentage = Math.round((count / 5) * 100);
+          updated.percentage = Math.round((count / 3) * 100);
 
           return { ...prev, [modId]: updated };
         });
         showToast("✨ Progress updated!");
-      };
-
-      // Student Quiz Submit Handler
-      const handleQuizSubmit = (quizObj) => {
-        const quizQuestions = questions.filter(q => q.quizId === quizObj.quizId);
-        if (quizQuestions.length === 0) {
-          alert("This quiz has no registered questions yet.");
-          return;
-        }
-
-        let correct = 0;
-        quizQuestions.forEach(q => {
-          if (quizAnswers[q.id] === q.correctAnswer) correct++;
-        });
-        const scorePct = Math.round((correct / quizQuestions.length) * 100);
-        setQuizScore(scorePct);
-        setQuizSubmitted(true);
-
-        if (scorePct >= quizObj.passPercentage) {
-          handleMarkItemComplete(quizObj.moduleId, 'quiz');
-        }
       };
 
       const pendingRequestsList = requests.filter(r => r.status === 'Pending');
@@ -795,7 +852,6 @@
                           Pending Requests ({pendingRequestsList.length})
                         </button>
                         <button onClick={() => { setActiveTab('admin-modules'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-modules' ? 'bg-blue-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Module Manager ({modules.length})</button>
-                        <button onClick={() => { setActiveTab('admin-quizzes'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-quizzes' ? 'bg-blue-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Quiz & Question Builder ({quizzes.length})</button>
                       </>
                     )}
                   </nav>
@@ -829,7 +885,6 @@
                         Pending Requests ({pendingRequestsList.length})
                       </button>
                       <button onClick={() => setActiveTab('admin-modules')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-modules' ? 'bg-blue-600 text-white' : 'hover:bg-slate-800'}`}>Module Manager ({modules.length})</button>
-                      <button onClick={() => setActiveTab('admin-quizzes')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-quizzes' ? 'bg-blue-600 text-white' : 'hover:bg-slate-800'}`}>Quiz & Question Builder ({quizzes.length})</button>
                     </>
                   )}
                 </nav>
@@ -837,8 +892,8 @@
 
               <div className="p-3 bg-slate-800/60 rounded-xl text-[11px] text-slate-400 space-y-2">
                 <div>
-                  <p className="font-bold text-slate-200">Database Engine</p>
-                  <p className="text-emerald-400 mt-0.5">● 32 Curriculum Modules Active</p>
+                  <p className="font-bold text-slate-200">Curriculum Active</p>
+                  <p className="text-emerald-400 mt-0.5">● 25 Modules Configured</p>
                 </div>
               </div>
             </aside>
@@ -856,7 +911,7 @@
                       <div>
                         <span className="text-[10px] sm:text-xs font-bold text-blue-400 uppercase tracking-wide">Module {activeModule.moduleNumber}</span>
                         <h2 className="text-xl sm:text-2xl font-extrabold mt-1">{activeModule.title}</h2>
-                        <p className="text-xs text-slate-300 mt-2 max-w-2xl leading-relaxed">{activeModule.description}</p>
+                        <div className="text-xs text-slate-300 mt-2 max-w-2xl leading-relaxed whitespace-pre-line">{activeModule.description}</div>
                       </div>
                       <div className="sm:text-right border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-800 flex sm:block justify-between items-center">
                         <span className="text-xs text-slate-400 font-bold">Completion</span>
@@ -868,12 +923,9 @@
 
                     {/* Touch-Friendly Lesson Tab Selector */}
                     <div className="flex overflow-x-auto no-scrollbar space-x-2 border-b pb-2">
-                      <button onClick={() => setLessonTab('video1')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'video1' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>Video Lesson 1</button>
+                      <button onClick={() => setLessonTab('video1')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'video1' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>Video Lesson</button>
                       {activeModule.audio && <button onClick={() => setLessonTab('audio')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'audio' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>Audio Accent Drill</button>}
-                      {activeModule.pdf && <button onClick={() => setLessonTab('pdf')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'pdf' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>PDF Notes</button>}
-                      {activeModule.quizId && (
-                        <button onClick={() => { setQuizSubmitted(false); setQuizAnswers({}); setShowQuizModal(true); }} className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shrink-0 ml-auto shadow-sm">Take Module Quiz</button>
-                      )}
+                      {activeModule.pdf && <button onClick={() => setLessonTab('pdf')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'pdf' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>PDF Workbook</button>}
                     </div>
 
                     {/* Responsive Content Viewport */}
@@ -881,7 +933,7 @@
                       {lessonTab === 'video1' && (
                         <div>
                           <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-3">
-                            <h4 className="font-bold text-sm text-slate-900">Video Lesson 1</h4>
+                            <h4 className="font-bold text-sm text-slate-900">Video Lesson</h4>
                             <button onClick={() => handleMarkItemComplete(activeModule.moduleId, 'video1')} className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-xl self-start sm:self-auto">✓ Mark Watched</button>
                           </div>
                           <div className="aspect-video w-full bg-slate-900 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner">
@@ -896,8 +948,19 @@
                             <h4 className="font-bold text-sm text-slate-900">Audio Accent Drill Player</h4>
                             <button onClick={() => handleMarkItemComplete(activeModule.moduleId, 'audio')} className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-xl self-start sm:self-auto">✓ Mark Audio Listened</button>
                           </div>
-                          <div className="bg-slate-900 p-4 rounded-2xl shadow-inner">
-                            <iframe src={getDriveEmbedUrl(activeModule.audio)} className="w-full h-16 border-0"></iframe>
+                          {/* FULL-HEIGHT UNCLIPPED AUDIO PLAYER CONTAINER */}
+                          <div className="bg-slate-900 p-4 sm:p-6 rounded-2xl shadow-inner space-y-3">
+                            <div className="w-full h-36 sm:h-44 rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
+                              <iframe src={getDriveEmbedUrl(activeModule.audio)} className="w-full h-full border-0"></iframe>
+                            </div>
+                            <a
+                              href={activeModule.audio}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center space-x-2 text-xs font-bold text-blue-400 hover:text-blue-300 pt-1"
+                            >
+                              <span>▶ Open Audio File in Google Drive</span>
+                            </a>
                           </div>
                         </div>
                       )}
@@ -908,53 +971,12 @@
                             <h4 className="font-bold text-sm text-slate-900">PDF Reference Workbook</h4>
                             <button onClick={() => handleMarkItemComplete(activeModule.moduleId, 'pdf')} className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-xl self-start sm:self-auto">✓ Mark PDF Read</button>
                           </div>
-                          <div className="h-[380px] sm:h-[500px] bg-slate-100 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner">
+                          <div className="h-[420px] sm:h-[550px] bg-slate-100 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner">
                             <iframe src={getDriveEmbedUrl(activeModule.pdf)} className="w-full h-full border-0"></iframe>
                           </div>
                         </div>
                       )}
                     </div>
-
-                    {/* Mobile-Adapted Quiz Modal */}
-                    {showQuizModal && (
-                      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
-                        <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 max-w-lg w-full border shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-                          <h3 className="text-base sm:text-lg font-bold text-slate-900">Module Mastery Assessment</h3>
-                          {!quizSubmitted ? (
-                            <div className="space-y-4 text-xs">
-                              {questions.filter(q => q.quizId === activeModule.quizId).length === 0 ? (
-                                <p className="text-slate-500 py-4 text-center">No questions added to this quiz yet by the coach.</p>
-                              ) : (
-                                questions.filter(q => q.quizId === activeModule.quizId).map((q, idx) => (
-                                  <div key={q.id} className="p-3.5 sm:p-4 bg-slate-50 rounded-2xl border space-y-2">
-                                    <p className="font-bold text-slate-900 text-xs sm:text-sm">{idx + 1}. {q.question}</p>
-                                    {['A', 'B', 'C', 'D'].map(opt => (
-                                      <label key={opt} className="flex items-center space-x-2.5 p-2.5 rounded-xl bg-white border cursor-pointer hover:bg-blue-50 text-xs">
-                                        <input type="radio" name={q.id} onChange={() => setQuizAnswers(prev => ({ ...prev, [q.id]: opt }))} />
-                                        <span><strong>{opt}:</strong> {q[`option${opt}`]}</span>
-                                      </label>
-                                    ))}
-                                  </div>
-                                ))
-                              )}
-                              <div className="flex justify-end space-x-2 pt-2">
-                                <button onClick={() => setShowQuizModal(false)} className="px-4 py-2 border rounded-xl font-bold">Cancel</button>
-                                {questions.filter(q => q.quizId === activeModule.quizId).length > 0 && (
-                                  <button onClick={() => handleQuizSubmit(quizzes.find(qz => qz.quizId === activeModule.quizId))} className="px-5 py-2 bg-blue-600 text-white font-bold rounded-xl shadow-md">Submit Answers</button>
-                                )}
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="text-center py-6 space-y-3">
-                              <h4 className="text-xl font-extrabold text-slate-900">Quiz Completed!</h4>
-                              <p className="text-3xl font-extrabold text-blue-600">{quizScore}% Score</p>
-                              <p className="text-xs text-slate-500">{quizScore >= 70 ? "🎉 Passed! Module quiz credit recorded." : "Score below target. Try again."}</p>
-                              <button onClick={() => { setShowQuizModal(false); setQuizSubmitted(false); }} className="px-6 py-2.5 bg-slate-900 text-white font-bold rounded-xl text-xs shadow-md">Close Quiz</button>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )}
                   </div>
                 ) : (
                   /* Student Dashboard / Modules List View */
@@ -969,7 +991,7 @@
 
                     <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 shadow-sm space-y-4">
                       <div className="flex justify-between items-center">
-                        <h3 className="text-sm sm:text-base font-extrabold text-slate-900">32 Executive Modules ({modules.length})</h3>
+                        <h3 className="text-sm sm:text-base font-extrabold text-slate-900">25 Curriculum Modules ({modules.length})</h3>
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
@@ -983,7 +1005,7 @@
                                   <span className="absolute top-2 left-2 bg-slate-900 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-md">Module {m.moduleNumber}</span>
                                 </div>
                                 <h4 className="font-bold text-sm sm:text-base text-slate-900">{m.title}</h4>
-                                <p className="text-xs text-slate-500 leading-relaxed mt-1 line-clamp-2">{m.description}</p>
+                                <div className="text-xs text-slate-500 leading-relaxed mt-1 line-clamp-2 whitespace-pre-line">{m.description}</div>
                               </div>
 
                               <div className="pt-2 border-t flex items-center justify-between">
@@ -1020,26 +1042,21 @@
                         </button>
                       </div>
 
-                      {/* Mobile Adaptive 2x2 Grid */}
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+                      {/* Mobile Adaptive Metrics Grid */}
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                         <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm"><p className="text-[11px] sm:text-xs text-slate-500 font-bold">Total Students</p><h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">{students.length}</h3></div>
                         <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm"><p className="text-[11px] sm:text-xs text-slate-500 font-bold">Pending Requests</p><h3 className="text-xl sm:text-2xl font-extrabold text-amber-600 mt-1">{pendingRequestsList.length}</h3></div>
                         <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm"><p className="text-[11px] sm:text-xs text-slate-500 font-bold">Active Modules</p><h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">{modules.length}</h3></div>
-                        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm"><p className="text-[11px] sm:text-xs text-slate-500 font-bold">Created Quizzes</p><h3 className="text-xl sm:text-2xl font-extrabold text-purple-600 mt-1">{quizzes.length}</h3></div>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         <div onClick={() => setActiveTab('admin-students')} className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-500 cursor-pointer transition shadow-sm">
                           <h4 className="font-bold text-sm text-slate-900">👥 Student Directory</h4>
                           <p className="text-xs text-slate-500 mt-1">Manage enrollments & credentials</p>
                         </div>
                         <div onClick={() => setActiveTab('admin-modules')} className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-500 cursor-pointer transition shadow-sm">
                           <h4 className="font-bold text-sm text-slate-900">📚 Module Manager</h4>
-                          <p className="text-xs text-slate-500 mt-1">Create & edit all 32 modules with Drive links</p>
-                        </div>
-                        <div onClick={() => setActiveTab('admin-quizzes')} className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-500 cursor-pointer transition shadow-sm">
-                          <h4 className="font-bold text-sm text-slate-900">❓ Quiz & Question Builder</h4>
-                          <p className="text-xs text-slate-500 mt-1">Edit quizzes & question bank</p>
+                          <p className="text-xs text-slate-500 mt-1">Create & edit all 25 modules with Drive links</p>
                         </div>
                       </div>
                     </div>
@@ -1116,7 +1133,7 @@
                                   ✓ Approve
                                 </button>
                                 <button
-                                  onClick={() => handleRejectRequest(req.requestId)}
+                                  onClick={() => setRequests(prev => prev.map(r => r.requestId === req.requestId ? { ...r, status: 'Rejected' } : r))}
                                   className="px-4 py-2.5 bg-slate-100 hover:bg-red-50 text-slate-600 hover:text-red-600 font-bold text-xs rounded-xl transition"
                                 >
                                   Reject
@@ -1129,13 +1146,13 @@
                     </div>
                   )}
 
-                  {/* Module Manager Tab - WITH EDIT MODULE & EDIT QUIZ BUTTONS */}
+                  {/* Module Manager Tab */}
                   {activeTab === 'admin-modules' && (
                     <div className="space-y-4 sm:space-y-6">
                       <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 flex flex-col sm:flex-row justify-between sm:items-center gap-3 shadow-sm">
                         <div>
-                          <h3 className="text-base sm:text-lg font-extrabold text-slate-900">32 Curriculum Modules Manager</h3>
-                          <p className="text-xs text-slate-500 mt-0.5">Click <strong>"Edit Module"</strong> on any module to change its links, titles, or attached quizzes.</p>
+                          <h3 className="text-base sm:text-lg font-extrabold text-slate-900">25 Curriculum Modules Manager</h3>
+                          <p className="text-xs text-slate-500 mt-0.5">Click <strong>"Edit Module"</strong> to modify titles, Drive links, or descriptions.</p>
                         </div>
 
                         <button
@@ -1150,7 +1167,6 @@
                               video2: '',
                               audio: '',
                               pdf: '',
-                              quizId: '',
                               published: true,
                               order: modules.length + 1
                             });
@@ -1174,7 +1190,7 @@
                               </div>
                               <div className="p-4 sm:p-5 space-y-1.5">
                                 <h4 className="font-bold text-sm sm:text-base text-slate-900">{m.title}</h4>
-                                <p className="text-xs text-slate-500 leading-relaxed line-clamp-2">{m.description}</p>
+                                <div className="text-xs text-slate-500 leading-relaxed line-clamp-2 whitespace-pre-line">{m.description}</div>
                               </div>
                             </div>
 
@@ -1213,13 +1229,6 @@
                                   <label className="block font-bold mb-1">Module Number</label>
                                   <input type="number" required value={moduleForm.moduleNumber} onChange={e => setModuleForm({ ...moduleForm, moduleNumber: e.target.value })} className="w-full p-2.5 border rounded-xl" />
                                 </div>
-                                <div>
-                                  <label className="block font-bold mb-1">Attached Quiz</label>
-                                  <select value={moduleForm.quizId} onChange={e => setModuleForm({ ...moduleForm, quizId: e.target.value })} className="w-full p-2.5 border rounded-xl">
-                                    <option value="">No Quiz Attached</option>
-                                    {quizzes.map(q => <option key={q.quizId} value={q.quizId}>{q.title}</option>)}
-                                  </select>
-                                </div>
                               </div>
 
                               <div>
@@ -1228,8 +1237,8 @@
                               </div>
 
                               <div>
-                                <label className="block font-bold mb-1">Description</label>
-                                <textarea rows={3} value={moduleForm.description} onChange={e => setModuleForm({ ...moduleForm, description: e.target.value })} className="w-full p-2.5 border rounded-xl"></textarea>
+                                <label className="block font-bold mb-1">Description / Objectives</label>
+                                <textarea rows={4} value={moduleForm.description} onChange={e => setModuleForm({ ...moduleForm, description: e.target.value })} className="w-full p-2.5 border rounded-xl font-mono text-[11px]"></textarea>
                               </div>
 
                               <div>
@@ -1239,7 +1248,7 @@
 
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t">
                                 <div>
-                                  <label className="block font-bold mb-1">Video 1 Drive Link</label>
+                                  <label className="block font-bold mb-1">Video Drive Link</label>
                                   <input type="url" value={moduleForm.video1} onChange={e => setModuleForm({ ...moduleForm, video1: e.target.value })} placeholder="https://drive.google.com/..." className="w-full p-2.5 border rounded-xl" />
                                 </div>
                                 <div>
@@ -1255,195 +1264,6 @@
                               <div className="flex justify-end space-x-2 pt-3">
                                 <button type="button" onClick={() => setShowModuleModal(false)} className="px-4 py-2 border rounded-xl font-bold">Cancel</button>
                                 <button type="submit" className="px-6 py-2 bg-blue-600 text-white font-bold rounded-xl shadow-md">Save & Update Module</button>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Quiz & Question Builder Tab - WITH EDIT QUIZ & EDIT QUESTION BUTTONS */}
-                  {activeTab === 'admin-quizzes' && (
-                    <div className="space-y-4 sm:space-y-6">
-                      <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 flex flex-col sm:flex-row justify-between sm:items-center gap-3 shadow-sm">
-                        <div>
-                          <h3 className="text-base sm:text-lg font-extrabold text-slate-900">32 Quizzes & Question Builder</h3>
-                          <p className="text-xs text-slate-500 mt-0.5">Edit quizzes and add multiple-choice questions for each module.</p>
-                        </div>
-
-                        <button
-                          onClick={() => {
-                            setQuizForm({ quizId: '', moduleId: '', title: '', passPercentage: 80, timeLimit: 10 });
-                            setShowQuizModalAdmin(true);
-                          }}
-                          className="px-4 sm:px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow-md self-start sm:self-auto"
-                        >
-                          + Create New Quiz
-                        </button>
-                      </div>
-
-                      <div className="space-y-4 sm:space-y-6">
-                        {quizzes.map(quiz => {
-                          const quizQsts = questions.filter(q => q.quizId === quiz.quizId);
-                          const modObj = modules.find(m => m.moduleId === quiz.moduleId);
-
-                          return (
-                            <div key={quiz.quizId} className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 space-y-4 shadow-sm">
-                              <div className="flex flex-col sm:flex-row justify-between sm:items-center border-b pb-3 gap-2">
-                                <div>
-                                  <span className="font-mono text-xs font-bold text-blue-600 uppercase">{quiz.quizId}</span>
-                                  <h4 className="text-base font-bold text-slate-900">{quiz.title}</h4>
-                                  <p className="text-xs text-slate-500">Target Pass: {quiz.passPercentage}% | Time Limit: {quiz.timeLimit} mins | Linked Module: {modObj ? modObj.title : 'None'}</p>
-                                </div>
-                                <div className="flex space-x-2">
-                                  <button
-                                    onClick={() => {
-                                      setQuizForm(quiz);
-                                      setShowQuizModalAdmin(true);
-                                    }}
-                                    className="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 font-bold text-xs rounded-xl"
-                                  >
-                                    ✏️ Edit Quiz
-                                  </button>
-                                  <button
-                                    onClick={() => {
-                                      setQuestionForm({ id: '', quizId: quiz.quizId, question: '', optionA: '', optionB: '', optionC: '', optionD: '', correctAnswer: 'A', explanation: '' });
-                                      setShowQuestionModalAdmin(true);
-                                    }}
-                                    className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl"
-                                  >
-                                    + Add Question ({quizQsts.length})
-                                  </button>
-                                </div>
-                              </div>
-
-                              <div className="space-y-2">
-                                {quizQsts.map((q, idx) => (
-                                  <div key={q.id} className="p-3 bg-slate-50 rounded-2xl border text-xs flex justify-between items-start gap-2">
-                                    <div className="space-y-1">
-                                      <p className="font-bold text-slate-900">{idx + 1}. {q.question}</p>
-                                      <p className="text-slate-600">A: {q.optionA} | B: {q.optionB} | C: {q.optionC} | D: {q.optionD}</p>
-                                      <p className="text-emerald-600 font-bold">Correct: Option {q.correctAnswer}</p>
-                                    </div>
-                                    <div className="flex space-x-1 shrink-0">
-                                      <button
-                                        onClick={() => {
-                                          setQuestionForm(q);
-                                          setShowQuestionModalAdmin(true);
-                                        }}
-                                        className="px-2.5 py-1 bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-[10px] rounded-lg"
-                                      >
-                                        Edit
-                                      </button>
-                                      <button
-                                        onClick={() => handleDeleteQuestion(q.id)}
-                                        className="px-2.5 py-1 bg-red-100 hover:bg-red-200 text-red-700 font-bold text-[10px] rounded-lg"
-                                      >
-                                        Del
-                                      </button>
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-
-                      {/* Create / Edit Quiz Modal */}
-                      {showQuizModalAdmin && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm">
-                          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 max-w-md w-full border shadow-2xl space-y-4">
-                            <h3 className="text-base sm:text-lg font-extrabold text-slate-900">
-                              {quizForm.quizId ? 'Edit Quiz Settings' : 'Create New Quiz'}
-                            </h3>
-
-                            <form onSubmit={handleSaveQuiz} className="space-y-3 text-xs">
-                              <div>
-                                <label className="block font-bold mb-1">Quiz Title</label>
-                                <input type="text" required value={quizForm.title} onChange={e => setQuizForm({ ...quizForm, title: e.target.value })} className="w-full p-2.5 border rounded-xl" />
-                              </div>
-
-                              <div>
-                                <label className="block font-bold mb-1">Link to Course Module</label>
-                                <select value={quizForm.moduleId} onChange={e => setQuizForm({ ...quizForm, moduleId: e.target.value })} className="w-full p-2.5 border rounded-xl">
-                                  <option value="">Select Module...</option>
-                                  {modules.map(m => <option key={m.moduleId} value={m.moduleId}>Module {m.moduleNumber}: {m.title}</option>)}
-                                </select>
-                              </div>
-
-                              <div className="grid grid-cols-2 gap-3">
-                                <div>
-                                  <label className="block font-bold mb-1">Passing Percentage %</label>
-                                  <input type="number" required value={quizForm.passPercentage} onChange={e => setQuizForm({ ...quizForm, passPercentage: e.target.value })} className="w-full p-2.5 border rounded-xl" />
-                                </div>
-                                <div>
-                                  <label className="block font-bold mb-1">Time Limit (mins)</label>
-                                  <input type="number" required value={quizForm.timeLimit} onChange={e => setQuizForm({ ...quizForm, timeLimit: e.target.value })} className="w-full p-2.5 border rounded-xl" />
-                                </div>
-                              </div>
-
-                              <div className="flex justify-end space-x-2 pt-3">
-                                <button type="button" onClick={() => setShowQuizModalAdmin(false)} className="px-4 py-2 border rounded-xl font-bold">Cancel</button>
-                                <button type="submit" className="px-5 py-2 bg-blue-600 text-white font-bold rounded-xl shadow-md">Save Quiz Settings</button>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Add / Edit Question Modal */}
-                      {showQuestionModalAdmin && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
-                          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 max-w-lg w-full border shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-                            <h3 className="text-base sm:text-lg font-extrabold text-slate-900">
-                              {questionForm.id ? 'Edit Question' : 'Add Question to Quiz'}
-                            </h3>
-
-                            <form onSubmit={handleSaveQuestion} className="space-y-3 text-xs">
-                              <div>
-                                <label className="block font-bold mb-1">Question Text</label>
-                                <textarea rows={2} required value={questionForm.question} onChange={e => setQuestionForm({ ...questionForm, question: e.target.value })} placeholder="Enter question..." className="w-full p-2.5 border rounded-xl"></textarea>
-                              </div>
-
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <div>
-                                  <label className="block font-bold mb-1">Option A</label>
-                                  <input type="text" required value={questionForm.optionA} onChange={e => setQuestionForm({ ...questionForm, optionA: e.target.value })} className="w-full p-2.5 border rounded-xl" />
-                                </div>
-                                <div>
-                                  <label className="block font-bold mb-1">Option B</label>
-                                  <input type="text" required value={questionForm.optionB} onChange={e => setQuestionForm({ ...questionForm, optionB: e.target.value })} className="w-full p-2.5 border rounded-xl" />
-                                </div>
-                                <div>
-                                  <label className="block font-bold mb-1">Option C</label>
-                                  <input type="text" required value={questionForm.optionC} onChange={e => setQuestionForm({ ...questionForm, optionC: e.target.value })} className="w-full p-2.5 border rounded-xl" />
-                                </div>
-                                <div>
-                                  <label className="block font-bold mb-1">Option D</label>
-                                  <input type="text" required value={questionForm.optionD} onChange={e => setQuestionForm({ ...questionForm, optionD: e.target.value })} className="w-full p-2.5 border rounded-xl" />
-                                </div>
-                              </div>
-
-                              <div>
-                                <label className="block font-bold mb-1">Correct Answer</label>
-                                <select value={questionForm.correctAnswer} onChange={e => setQuestionForm({ ...questionForm, correctAnswer: e.target.value })} className="w-full p-2.5 border rounded-xl">
-                                  <option value="A">Option A</option>
-                                  <option value="B">Option B</option>
-                                  <option value="C">Option C</option>
-                                  <option value="D">Option D</option>
-                                </select>
-                              </div>
-
-                              <div>
-                                <label className="block font-bold mb-1">Explanation Note</label>
-                                <input type="text" value={questionForm.explanation} onChange={e => setQuestionForm({ ...questionForm, explanation: e.target.value })} placeholder="Explanation shown after test..." className="w-full p-2.5 border rounded-xl" />
-                              </div>
-
-                              <div className="flex justify-end space-x-2 pt-3">
-                                <button type="button" onClick={() => setShowQuestionModalAdmin(false)} className="px-4 py-2 border rounded-xl font-bold">Cancel</button>
-                                <button type="submit" className="px-5 py-2 bg-blue-600 text-white font-bold rounded-xl shadow-md">Save Question</button>
                               </div>
                             </form>
                           </div>
@@ -1481,9 +1301,6 @@
                   </button>
                   <button onClick={() => setActiveTab('admin-modules')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-modules' ? 'text-blue-400' : 'text-slate-400'}`}>
                     <span>Modules ({modules.length})</span>
-                  </button>
-                  <button onClick={() => setActiveTab('admin-quizzes')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-quizzes' ? 'text-blue-400' : 'text-slate-400'}`}>
-                    <span>Quizzes</span>
                   </button>
                 </>
               )}
