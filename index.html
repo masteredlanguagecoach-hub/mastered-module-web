@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>MASTERED Language Coach | Premium Student Portal & Admin System</title>
   
   <!-- Google Fonts -->
@@ -46,12 +46,20 @@
       font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
       background-color: #F8FAFC;
       color: #0F172A;
+      -webkit-tap-highlight-color: transparent;
     }
     .glass-panel {
       background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
     ::-webkit-scrollbar {
       width: 6px;
@@ -148,8 +156,9 @@
       const [authScreen, setAuthScreen] = useState('login');
       const [activeTab, setActiveTab] = useState('dashboard');
       const [selectedModuleId, setSelectedModuleId] = useState(null);
+      const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-      // LocalStorage-backed state stores for permanent persistence across refreshes
+      // LocalStorage-backed state stores
       const [students, setStudents] = useState(() => {
         const saved = localStorage.getItem('mastered_students');
         return saved ? JSON.parse(saved) : INITIAL_STUDENTS;
@@ -182,7 +191,7 @@
 
       const [announcements, setAnnouncements] = useState(MOCK_ANNOUNCEMENTS);
 
-      // Save state changes to LocalStorage permanently
+      // Save state to LocalStorage
       useEffect(() => {
         localStorage.setItem('mastered_modules', JSON.stringify(modules));
       }, [modules]);
@@ -319,6 +328,7 @@
         setRole(null);
         setAuthScreen('login');
         setSelectedModuleId(null);
+        setMobileMenuOpen(false);
       };
 
       // Approve Request
@@ -352,7 +362,7 @@
         showToast(`Request rejected.`);
       };
 
-      // Save Module (Create / Edit) - REALTIME & PERMANENT SAVING
+      // Save Module (Create / Edit)
       const handleSaveModule = (e) => {
         e.preventDefault();
         const modId = moduleForm.moduleId || `MOD-${Math.floor(100 + Math.random() * 900)}`;
@@ -375,7 +385,7 @@
 
         callAppsScript('adminSaveModule', { module: finalMod });
         setShowModuleModal(false);
-        showToast(`✅ Module "${finalMod.title}" saved permanently! Now visible in Student Portal.`);
+        showToast(`✅ Module "${finalMod.title}" saved!`);
       };
 
       // Delete Module
@@ -386,7 +396,7 @@
         }
       };
 
-      // Save Quiz (Create / Edit)
+      // Save Quiz
       const handleSaveQuiz = (e) => {
         e.preventDefault();
         const qId = quizForm.quizId || `QUIZ-${Math.floor(100 + Math.random() * 900)}`;
@@ -413,7 +423,7 @@
 
         callAppsScript('adminSaveQuiz', { quiz: finalQuiz });
         setShowQuizModalAdmin(false);
-        showToast(`✅ Quiz "${finalQuiz.title}" saved permanently!`);
+        showToast(`✅ Quiz "${finalQuiz.title}" created successfully!`);
       };
 
       // Save Question
@@ -477,29 +487,46 @@
         }
       };
 
+      const pendingRequestsList = requests.filter(r => r.status === 'Pending');
+
       const Header = () => (
-        <header className="bg-white border-b border-slate-200 px-6 py-3 sticky top-0 z-30 shadow-sm flex items-center justify-between">
+        <header className="bg-white border-b border-slate-200 px-4 sm:px-6 py-3 sticky top-0 z-30 shadow-sm flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-extrabold text-lg shadow-md">
+            {currentUser && (
+              <button 
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden p-2 rounded-xl text-slate-700 bg-slate-100 hover:bg-slate-200 focus:outline-none"
+                aria-label="Toggle Navigation Menu"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {mobileMenuOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 6h16M4 12h16M4 18h16" />
+                  )}
+                </svg>
+              </button>
+            )}
+
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-extrabold text-base sm:text-lg shadow-md shrink-0">
               M
             </div>
             <div>
-              <h1 className="font-extrabold text-slate-900 text-base">
-                MASTERED <span className="text-blue-600 text-xs font-semibold uppercase tracking-wider">Language Coach</span>
+              <h1 className="font-extrabold text-slate-900 text-sm sm:text-base leading-tight">
+                MASTERED <span className="text-blue-600 text-[10px] sm:text-xs font-semibold uppercase tracking-wider block sm:inline">Language Coach</span>
               </h1>
-              <p className="text-[11px] text-slate-400">Speak With Confidence</p>
             </div>
           </div>
 
           {currentUser && (
-            <div className="flex items-center space-x-4">
-              <div className="text-right text-xs">
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <div className="text-right text-xs hidden sm:block">
                 <p className="font-bold text-slate-900">{currentUser.name}</p>
                 <p className="text-[10px] text-slate-500 font-mono">{role === 'student' ? currentUser.admissionNumber : currentUser.role}</p>
               </div>
               <button
                 onClick={handleLogout}
-                className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-red-50 hover:text-red-600 text-slate-700 font-bold text-xs transition"
+                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-red-50 hover:text-red-600 text-slate-700 font-bold text-xs transition"
               >
                 Sign Out
               </button>
@@ -513,10 +540,10 @@
         if (authScreen === 'request') {
           return (
             <div className="min-h-screen bg-slate-950 text-white flex flex-col justify-center items-center p-4">
-              <div className="bg-slate-900 border border-slate-800 p-8 rounded-3xl max-w-md w-full shadow-2xl">
-                <button onClick={() => setAuthScreen('login')} className="text-xs text-slate-400 hover:text-white mb-4">← Back to Login</button>
-                <h2 className="text-xl font-extrabold mb-2">Request Access</h2>
-                <p className="text-xs text-slate-400 mb-6">Submit details for admin enrollment approval.</p>
+              <div className="bg-slate-900 border border-slate-800 p-5 sm:p-8 rounded-3xl max-w-md w-full shadow-2xl">
+                <button onClick={() => setAuthScreen('login')} className="text-xs text-slate-400 hover:text-white mb-4 block">← Back to Login</button>
+                <h2 className="text-xl font-extrabold mb-1">Request Access</h2>
+                <p className="text-xs text-slate-400 mb-5">Submit details for admin enrollment approval.</p>
                 <form onSubmit={async (e) => {
                   e.preventDefault();
                   const newReq = {
@@ -533,7 +560,7 @@
                   callAppsScript('submitRequest', newReq);
                   alert("Your request has been sent successfully to Google Sheet! Please wait for admin approval.");
                   setAuthScreen('login');
-                }} className="space-y-4 text-xs">
+                }} className="space-y-3.5 text-xs">
                   <input name="name" type="text" required placeholder="Full Name" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
                   <input name="email" type="email" required placeholder="Email Address" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
                   <input name="phone" type="tel" required placeholder="Phone Number" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
@@ -552,21 +579,21 @@
         if (authScreen === 'admin-login') {
           return (
             <div className="min-h-screen bg-slate-950 text-white flex flex-col justify-center items-center p-4">
-              <div className="bg-slate-900 border border-slate-800 p-8 rounded-3xl max-w-md w-full shadow-2xl">
-                <button onClick={() => setAuthScreen('login')} className="text-xs text-slate-400 hover:text-white mb-4">← Student Login</button>
-                <h2 className="text-xl font-extrabold mb-2">Admin Console Login</h2>
+              <div className="bg-slate-900 border border-slate-800 p-5 sm:p-8 rounded-3xl max-w-md w-full shadow-2xl">
+                <button onClick={() => setAuthScreen('login')} className="text-xs text-slate-400 hover:text-white mb-4 block">← Student Login</button>
+                <h2 className="text-xl font-extrabold mb-1">Admin Console Login</h2>
                 <p className="text-xs text-slate-400 mb-4">Master System Console</p>
 
                 <div className="p-3 mb-4 rounded-xl bg-blue-950/60 border border-blue-800 text-[11px] text-blue-300">
                   <p className="font-bold">Admin Credentials:</p>
-                  <p className="mt-1"><code>masteredlanguagecoach@gmail.com</code> / <code>4languagecoach</code></p>
+                  <p className="mt-1 break-all"><code>masteredlanguagecoach@gmail.com</code> / <code>4languagecoach</code></p>
                 </div>
 
                 <form onSubmit={async (e) => {
                   e.preventDefault();
                   const res = await handleAdminLogin(e.target.email.value, e.target.password.value);
                   if (!res.success) alert(res.message);
-                }} className="space-y-4 text-xs">
+                }} className="space-y-3.5 text-xs">
                   <input name="email" type="email" defaultValue="masteredlanguagecoach@gmail.com" required placeholder="Admin Email" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
                   <input name="password" type="password" defaultValue="4languagecoach" required placeholder="Admin Password" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
                   <button type="submit" className="w-full py-3 bg-blue-600 hover:bg-blue-500 font-bold rounded-xl text-white">Enter Admin Console</button>
@@ -578,10 +605,10 @@
 
         return (
           <div className="min-h-screen bg-slate-950 text-white flex flex-col justify-center items-center p-4">
-            <div className="bg-slate-900 border border-slate-800 p-8 rounded-3xl max-w-md w-full shadow-2xl">
+            <div className="bg-slate-900 border border-slate-800 p-5 sm:p-8 rounded-3xl max-w-md w-full shadow-2xl">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center font-extrabold text-2xl mx-auto mb-3">M</div>
-                <h1 className="text-2xl font-extrabold">MASTERED <span className="text-blue-500 text-xs block font-semibold uppercase tracking-widest mt-1">Language Coach</span></h1>
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-blue-600 flex items-center justify-center font-extrabold text-2xl mx-auto mb-3">M</div>
+                <h1 className="text-xl sm:text-2xl font-extrabold">MASTERED <span className="text-blue-500 text-xs block font-semibold uppercase tracking-widest mt-1">Language Coach</span></h1>
                 <p className="text-xs text-slate-400 mt-1">Speak With Confidence — Student Portal</p>
               </div>
 
@@ -601,7 +628,7 @@
                 <button type="submit" className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 font-bold rounded-xl text-white shadow-lg shadow-blue-600/30">Sign In to Student Portal</button>
               </form>
 
-              <div className="mt-6 pt-6 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+              <div className="mt-6 pt-5 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
                 <button onClick={() => setAuthScreen('request')} className="hover:text-white text-blue-400 font-semibold underline">Request Access</button>
                 <button onClick={() => setAuthScreen('admin-login')} className="hover:text-white text-slate-500">Admin Portal</button>
               </div>
@@ -611,22 +638,65 @@
       }
 
       const activeModule = selectedModuleId ? modules.find(m => m.moduleId === selectedModuleId) : null;
-      const pendingRequestsList = requests.filter(r => r.status === 'Pending');
 
       return (
-        <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans relative">
+        <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans relative pb-16 lg:pb-0">
           <Header />
 
           {/* Toast Notification */}
           {toast && (
-            <div className="fixed top-4 right-4 z-50 px-5 py-3 rounded-2xl bg-slate-900 text-white shadow-2xl border border-slate-800 text-xs font-bold flex items-center space-x-2">
+            <div className="fixed top-4 right-4 left-4 sm:left-auto z-50 px-5 py-3 rounded-2xl bg-slate-900 text-white shadow-2xl border border-slate-800 text-xs font-bold flex items-center justify-center space-x-2">
               <span>{toast}</span>
             </div>
           )}
 
+          {/* Mobile Navigation Drawer Overlay */}
+          {mobileMenuOpen && (
+            <div className="fixed inset-0 z-40 lg:hidden flex flex-col bg-slate-950/80 backdrop-blur-md" onClick={() => setMobileMenuOpen(false)}>
+              <div className="bg-slate-900 text-white p-5 w-4/5 max-w-xs h-full flex flex-col justify-between shadow-2xl space-y-6" onClick={e => e.stopPropagation()}>
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center pb-4 border-b border-slate-800">
+                    <div>
+                      <p className="font-extrabold text-sm text-white">{currentUser.name}</p>
+                      <p className="text-[10px] text-blue-400 font-mono">{role === 'student' ? currentUser.admissionNumber : currentUser.role}</p>
+                    </div>
+                    <button onClick={() => setMobileMenuOpen(false)} className="text-slate-400 font-bold p-1">✕</button>
+                  </div>
+
+                  <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                    {role === 'student' ? 'Student Navigation' : 'Admin Navigation'}
+                  </p>
+
+                  <nav className="space-y-1.5 text-xs font-semibold">
+                    {role === 'student' ? (
+                      <>
+                        <button onClick={() => { setSelectedModuleId(null); setActiveTab('dashboard'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'dashboard' ? 'bg-blue-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Dashboard</button>
+                        <button onClick={() => { setSelectedModuleId(null); setActiveTab('modules'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'modules' ? 'bg-blue-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Modules Explorer ({modules.length})</button>
+                      </>
+                    ) : (
+                      <>
+                        <button onClick={() => { setActiveTab('admin-dashboard'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-dashboard' ? 'bg-blue-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Dashboard Metrics</button>
+                        <button onClick={() => { setActiveTab('admin-students'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-students' ? 'bg-blue-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Student Directory ({students.length})</button>
+                        <button onClick={() => { setActiveTab('admin-requests'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-requests' ? 'bg-blue-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>
+                          Pending Requests ({pendingRequestsList.length})
+                        </button>
+                        <button onClick={() => { setActiveTab('admin-modules'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-modules' ? 'bg-blue-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Module Manager ({modules.length})</button>
+                        <button onClick={() => { setActiveTab('admin-quizzes'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-quizzes' ? 'bg-blue-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Quiz & Question Builder ({quizzes.length})</button>
+                      </>
+                    )}
+                  </nav>
+                </div>
+
+                <div className="pt-4 border-t border-slate-800 space-y-3">
+                  <button onClick={handleLogout} className="w-full py-2.5 bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white font-bold text-xs rounded-xl transition">Sign Out</button>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="flex flex-1 max-w-7xl w-full mx-auto">
-            {/* Sidebar Navigation */}
-            <aside className="w-64 bg-slate-900 text-slate-300 p-4 min-h-[calc(100vh-65px)] hidden lg:flex flex-col justify-between">
+            {/* Desktop Sidebar Navigation */}
+            <aside className="w-64 bg-slate-900 text-slate-300 p-4 min-h-[calc(100vh-65px)] hidden lg:flex flex-col justify-between shrink-0">
               <div className="space-y-6">
                 <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider px-3">
                   {role === 'student' ? 'Student Menu' : 'Admin Control Hub'}
@@ -658,48 +728,48 @@
             </aside>
 
             {/* Main Content Viewport */}
-            <main className="flex-1 p-6 overflow-y-auto">
+            <main className="flex-1 p-4 sm:p-6 overflow-y-auto max-w-full">
               {/* STUDENT VIEWS */}
               {role === 'student' && (
                 selectedModuleId && activeModule ? (
                   /* Module Detail Room */
-                  <div className="space-y-6">
-                    <button onClick={() => setSelectedModuleId(null)} className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50">← Back to All Modules</button>
+                  <div className="space-y-4 sm:space-y-6">
+                    <button onClick={() => setSelectedModuleId(null)} className="px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50">← Back to All Modules</button>
                     
-                    <div className="bg-slate-900 text-white p-8 rounded-3xl shadow-xl flex justify-between items-center">
+                    <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-4">
                       <div>
-                        <span className="text-xs font-bold text-blue-400 uppercase">Module {activeModule.moduleNumber}</span>
-                        <h2 className="text-2xl font-extrabold mt-1">{activeModule.title}</h2>
-                        <p className="text-xs text-slate-300 mt-2 max-w-2xl">{activeModule.description}</p>
+                        <span className="text-[10px] sm:text-xs font-bold text-blue-400 uppercase tracking-wide">Module {activeModule.moduleNumber}</span>
+                        <h2 className="text-xl sm:text-2xl font-extrabold mt-1">{activeModule.title}</h2>
+                        <p className="text-xs text-slate-300 mt-2 max-w-2xl leading-relaxed">{activeModule.description}</p>
                       </div>
-                      <div className="text-right">
+                      <div className="sm:text-right border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-800 flex sm:block justify-between items-center">
                         <span className="text-xs text-slate-400 font-bold">Completion</span>
-                        <p className="text-2xl font-extrabold text-emerald-400">
+                        <p className="text-xl sm:text-2xl font-extrabold text-emerald-400">
                           {userProgress[activeModule.moduleId]?.percentage || 0}%
                         </p>
                       </div>
                     </div>
 
-                    {/* Lesson Tab Selector */}
-                    <div className="flex space-x-2 border-b pb-2">
-                      <button onClick={() => setLessonTab('video1')} className={`px-4 py-2 rounded-xl text-xs font-bold ${lessonTab === 'video1' ? 'bg-blue-600 text-white' : 'bg-white border text-slate-700'}`}>Video Lesson 1</button>
-                      {activeModule.video2 && <button onClick={() => setLessonTab('video2')} className={`px-4 py-2 rounded-xl text-xs font-bold ${lessonTab === 'video2' ? 'bg-blue-600 text-white' : 'bg-white border text-slate-700'}`}>Video Lesson 2</button>}
-                      {activeModule.audio && <button onClick={() => setLessonTab('audio')} className={`px-4 py-2 rounded-xl text-xs font-bold ${lessonTab === 'audio' ? 'bg-blue-600 text-white' : 'bg-white border text-slate-700'}`}>Audio Accent Drill</button>}
-                      {activeModule.pdf && <button onClick={() => setLessonTab('pdf')} className={`px-4 py-2 rounded-xl text-xs font-bold ${lessonTab === 'pdf' ? 'bg-blue-600 text-white' : 'bg-white border text-slate-700'}`}>PDF Notes</button>}
+                    {/* Touch-Friendly Lesson Tab Selector */}
+                    <div className="flex overflow-x-auto no-scrollbar space-x-2 border-b pb-2">
+                      <button onClick={() => setLessonTab('video1')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'video1' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>Video Lesson 1</button>
+                      {activeModule.video2 && <button onClick={() => setLessonTab('video2')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'video2' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>Video Lesson 2</button>}
+                      {activeModule.audio && <button onClick={() => setLessonTab('audio')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'audio' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>Audio Accent Drill</button>}
+                      {activeModule.pdf && <button onClick={() => setLessonTab('pdf')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'pdf' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>PDF Notes</button>}
                       {activeModule.quizId && (
-                        <button onClick={() => { setQuizSubmitted(false); setQuizAnswers({}); setShowQuizModal(true); }} className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold ml-auto">Take Module Quiz</button>
+                        <button onClick={() => { setQuizSubmitted(false); setQuizAnswers({}); setShowQuizModal(true); }} className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shrink-0 ml-auto shadow-sm">Take Module Quiz</button>
                       )}
                     </div>
 
-                    {/* Content Viewport */}
-                    <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    {/* Responsive Content Viewport */}
+                    <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 shadow-sm space-y-4">
                       {lessonTab === 'video1' && (
                         <div>
-                          <div className="flex justify-between items-center mb-3">
-                            <h4 className="font-bold text-sm text-slate-900">Video Lesson 1 (Google Drive Stream)</h4>
-                            <button onClick={() => handleMarkItemComplete(activeModule.moduleId, 'video1')} className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-xl">✓ Mark Watched</button>
+                          <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-3">
+                            <h4 className="font-bold text-sm text-slate-900">Video Lesson 1</h4>
+                            <button onClick={() => handleMarkItemComplete(activeModule.moduleId, 'video1')} className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-xl self-start sm:self-auto">✓ Mark Watched</button>
                           </div>
-                          <div className="aspect-video w-full bg-slate-900 rounded-2xl overflow-hidden">
+                          <div className="aspect-video w-full bg-slate-900 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner">
                             <iframe src={getDriveEmbedUrl(activeModule.video1)} className="w-full h-full border-0" allowFullScreen></iframe>
                           </div>
                         </div>
@@ -707,11 +777,11 @@
 
                       {lessonTab === 'video2' && activeModule.video2 && (
                         <div>
-                          <div className="flex justify-between items-center mb-3">
-                            <h4 className="font-bold text-sm text-slate-900">Video Lesson 2 (Google Drive Stream)</h4>
-                            <button onClick={() => handleMarkItemComplete(activeModule.moduleId, 'video2')} className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-xl">✓ Mark Watched</button>
+                          <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-3">
+                            <h4 className="font-bold text-sm text-slate-900">Video Lesson 2</h4>
+                            <button onClick={() => handleMarkItemComplete(activeModule.moduleId, 'video2')} className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-xl self-start sm:self-auto">✓ Mark Watched</button>
                           </div>
-                          <div className="aspect-video w-full bg-slate-900 rounded-2xl overflow-hidden">
+                          <div className="aspect-video w-full bg-slate-900 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner">
                             <iframe src={getDriveEmbedUrl(activeModule.video2)} className="w-full h-full border-0" allowFullScreen></iframe>
                           </div>
                         </div>
@@ -719,11 +789,11 @@
 
                       {lessonTab === 'audio' && activeModule.audio && (
                         <div className="space-y-4">
-                          <div className="flex justify-between items-center">
+                          <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
                             <h4 className="font-bold text-sm text-slate-900">Audio Accent Drill Player</h4>
-                            <button onClick={() => handleMarkItemComplete(activeModule.moduleId, 'audio')} className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-xl">✓ Mark Audio Listened</button>
+                            <button onClick={() => handleMarkItemComplete(activeModule.moduleId, 'audio')} className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-xl self-start sm:self-auto">✓ Mark Audio Listened</button>
                           </div>
-                          <div className="bg-slate-900 p-4 rounded-2xl">
+                          <div className="bg-slate-900 p-4 rounded-2xl shadow-inner">
                             <iframe src={getDriveEmbedUrl(activeModule.audio)} className="w-full h-16 border-0"></iframe>
                           </div>
                         </div>
@@ -731,52 +801,52 @@
 
                       {lessonTab === 'pdf' && activeModule.pdf && (
                         <div className="space-y-4">
-                          <div className="flex justify-between items-center">
+                          <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
                             <h4 className="font-bold text-sm text-slate-900">PDF Reference Workbook</h4>
-                            <button onClick={() => handleMarkItemComplete(activeModule.moduleId, 'pdf')} className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-xl">✓ Mark PDF Read</button>
+                            <button onClick={() => handleMarkItemComplete(activeModule.moduleId, 'pdf')} className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-xl self-start sm:self-auto">✓ Mark PDF Read</button>
                           </div>
-                          <div className="h-[500px] bg-slate-100 rounded-2xl overflow-hidden">
+                          <div className="h-[380px] sm:h-[500px] bg-slate-100 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner">
                             <iframe src={getDriveEmbedUrl(activeModule.pdf)} className="w-full h-full border-0"></iframe>
                           </div>
                         </div>
                       )}
                     </div>
 
-                    {/* Quiz Modal */}
+                    {/* Mobile-Adapted Quiz Modal */}
                     {showQuizModal && (
-                      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
-                        <div className="bg-white rounded-3xl p-6 max-w-lg w-full border shadow-2xl space-y-4">
-                          <h3 className="text-lg font-bold text-slate-900">Module Mastery Assessment</h3>
+                      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
+                        <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 max-w-lg w-full border shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+                          <h3 className="text-base sm:text-lg font-bold text-slate-900">Module Mastery Assessment</h3>
                           {!quizSubmitted ? (
                             <div className="space-y-4 text-xs">
                               {questions.filter(q => q.quizId === activeModule.quizId).length === 0 ? (
                                 <p className="text-slate-500 py-4 text-center">No questions added to this quiz yet by the coach.</p>
                               ) : (
                                 questions.filter(q => q.quizId === activeModule.quizId).map((q, idx) => (
-                                  <div key={q.id} className="p-4 bg-slate-50 rounded-2xl border space-y-2">
-                                    <p className="font-bold text-slate-900">{idx + 1}. {q.question}</p>
+                                  <div key={q.id} className="p-3.5 sm:p-4 bg-slate-50 rounded-2xl border space-y-2">
+                                    <p className="font-bold text-slate-900 text-xs sm:text-sm">{idx + 1}. {q.question}</p>
                                     {['A', 'B', 'C', 'D'].map(opt => (
-                                      <label key={opt} className="flex items-center space-x-2 p-2 rounded-xl bg-white border cursor-pointer hover:bg-blue-50">
+                                      <label key={opt} className="flex items-center space-x-2.5 p-2.5 rounded-xl bg-white border cursor-pointer hover:bg-blue-50 text-xs">
                                         <input type="radio" name={q.id} onChange={() => setQuizAnswers(prev => ({ ...prev, [q.id]: opt }))} />
-                                        <span>{opt}: {q[`option${opt}`]}</span>
+                                        <span><strong>{opt}:</strong> {q[`option${opt}`]}</span>
                                       </label>
                                     ))}
                                   </div>
                                 ))
                               )}
-                              <div className="flex justify-end space-x-2">
+                              <div className="flex justify-end space-x-2 pt-2">
                                 <button onClick={() => setShowQuizModal(false)} className="px-4 py-2 border rounded-xl font-bold">Cancel</button>
                                 {questions.filter(q => q.quizId === activeModule.quizId).length > 0 && (
-                                  <button onClick={() => handleQuizSubmit(quizzes.find(qz => qz.quizId === activeModule.quizId))} className="px-5 py-2 bg-blue-600 text-white font-bold rounded-xl">Submit Answers</button>
+                                  <button onClick={() => handleQuizSubmit(quizzes.find(qz => qz.quizId === activeModule.quizId))} className="px-5 py-2 bg-blue-600 text-white font-bold rounded-xl shadow-md">Submit Answers</button>
                                 )}
                               </div>
                             </div>
                           ) : (
                             <div className="text-center py-6 space-y-3">
                               <h4 className="text-xl font-extrabold text-slate-900">Quiz Completed!</h4>
-                              <p className="text-2xl font-extrabold text-blue-600">{quizScore}% Score</p>
+                              <p className="text-3xl font-extrabold text-blue-600">{quizScore}% Score</p>
                               <p className="text-xs text-slate-500">{quizScore >= 70 ? "🎉 Passed! Module quiz credit recorded." : "Score below target. Try again."}</p>
-                              <button onClick={() => { setShowQuizModal(false); setQuizSubmitted(false); }} className="px-6 py-2.5 bg-slate-900 text-white font-bold rounded-xl text-xs">Close Quiz</button>
+                              <button onClick={() => { setShowQuizModal(false); setQuizSubmitted(false); }} className="px-6 py-2.5 bg-slate-900 text-white font-bold rounded-xl text-xs shadow-md">Close Quiz</button>
                             </div>
                           )}
                         </div>
@@ -785,47 +855,47 @@
                   </div>
                 ) : (
                   /* Student Dashboard / Modules List View */
-                  <div className="space-y-6">
-                    <div className="bg-slate-900 text-white p-8 rounded-3xl shadow-xl flex justify-between items-center">
+                  <div className="space-y-4 sm:space-y-6">
+                    <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-2">
                       <div>
-                        <span className="text-xs font-bold text-blue-400 uppercase">{currentUser.admissionNumber}</span>
-                        <h2 className="text-2xl font-extrabold mt-1">Welcome back, {currentUser.name}!</h2>
+                        <span className="text-[10px] sm:text-xs font-bold text-blue-400 uppercase tracking-wider">{currentUser.admissionNumber}</span>
+                        <h2 className="text-xl sm:text-2xl font-extrabold mt-0.5">Welcome back, {currentUser.name}!</h2>
                         <p className="text-xs text-slate-300 mt-1">{currentUser.course}</p>
                       </div>
                     </div>
 
-                    <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 shadow-sm space-y-4">
                       <div className="flex justify-between items-center">
-                        <h3 className="text-base font-extrabold text-slate-900">Purchased Course Modules ({modules.length})</h3>
+                        <h3 className="text-sm sm:text-base font-extrabold text-slate-900">Purchased Course Modules ({modules.length})</h3>
                       </div>
 
                       {modules.length === 0 ? (
-                        <div className="p-12 text-center border-2 border-dashed border-slate-200 rounded-3xl">
+                        <div className="p-8 sm:p-12 text-center border-2 border-dashed border-slate-200 rounded-2xl sm:rounded-3xl">
                           <p className="text-sm font-bold text-slate-700">No Course Modules Published Yet</p>
-                          <p className="text-xs text-slate-400 mt-1">Your language coach is currently preparing your curriculum modules. Please check back soon!</p>
+                          <p className="text-xs text-slate-400 mt-1 max-w-md mx-auto">Your language coach is currently preparing your curriculum modules. Please check back soon!</p>
                         </div>
                       ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                           {modules.map(m => {
                             const prog = userProgress[m.moduleId]?.percentage || 0;
                             return (
-                              <div key={m.moduleId} className="p-5 border border-slate-200 rounded-3xl bg-white hover:border-blue-500 transition shadow-sm space-y-3 flex flex-col justify-between">
+                              <div key={m.moduleId} className="p-4 sm:p-5 border border-slate-200 rounded-2xl sm:rounded-3xl bg-white hover:border-blue-500 transition shadow-sm space-y-3 flex flex-col justify-between">
                                 <div>
-                                  <div className="aspect-video w-full bg-slate-100 rounded-2xl overflow-hidden mb-3 relative">
+                                  <div className="aspect-video w-full bg-slate-100 rounded-xl sm:rounded-2xl overflow-hidden mb-3 relative">
                                     <img src={m.thumbnail} alt={m.title} className="w-full h-full object-cover" />
-                                    <span className="absolute top-2 left-2 bg-slate-900 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">Module {m.moduleNumber}</span>
+                                    <span className="absolute top-2 left-2 bg-slate-900 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-md">Module {m.moduleNumber}</span>
                                   </div>
-                                  <h4 className="font-bold text-base text-slate-900">{m.title}</h4>
+                                  <h4 className="font-bold text-sm sm:text-base text-slate-900">{m.title}</h4>
                                   <p className="text-xs text-slate-500 leading-relaxed mt-1 line-clamp-2">{m.description}</p>
                                 </div>
 
                                 <div className="pt-2 border-t flex items-center justify-between">
-                                  <span className="text-xs font-bold text-slate-500">Completion: <strong className="text-blue-600">{prog}%</strong></span>
+                                  <span className="text-xs font-bold text-slate-500">Progress: <strong className="text-blue-600">{prog}%</strong></span>
                                   <button
                                     onClick={() => setSelectedModuleId(m.moduleId)}
-                                    className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-xs shadow-md"
+                                    className="px-4 py-2 sm:py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-xs shadow-md"
                                   >
-                                    {prog > 0 ? 'Resume Module' : 'Start Module'}
+                                    {prog > 0 ? 'Resume' : 'Start Module'}
                                   </button>
                                 </div>
                               </div>
@@ -842,93 +912,96 @@
               {role === 'admin' && (
                 <>
                   {activeTab === 'admin-dashboard' && (
-                    <div className="space-y-6">
-                      <div className="bg-slate-900 text-white p-8 rounded-3xl shadow-xl flex justify-between items-center">
+                    <div className="space-y-4 sm:space-y-6">
+                      <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-4">
                         <div>
-                          <span className="text-xs font-bold text-blue-400 uppercase">Admin Command Center</span>
-                          <h2 className="text-2xl font-extrabold mt-1">System Dashboard</h2>
-                          <p className="text-xs text-slate-300 mt-1">Logged in as {currentUser.email}</p>
+                          <span className="text-[10px] sm:text-xs font-bold text-blue-400 uppercase tracking-wider">Admin Command Center</span>
+                          <h2 className="text-xl sm:text-2xl font-extrabold mt-0.5">System Dashboard</h2>
+                          <p className="text-xs text-slate-300 mt-1 truncate max-w-xs">{currentUser.email}</p>
                         </div>
-                        <button onClick={() => setActiveTab('admin-requests')} className="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold">
+                        <button onClick={() => setActiveTab('admin-requests')} className="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow-md self-start sm:self-auto">
                           Review Requests ({pendingRequestsList.length})
                         </button>
                       </div>
 
-                      <div className="grid grid-cols-4 gap-4">
-                        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><p className="text-xs text-slate-500 font-bold">Total Students</p><h3 className="text-2xl font-extrabold text-slate-900 mt-1">{students.length}</h3></div>
-                        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><p className="text-xs text-slate-500 font-bold">Pending Requests</p><h3 className="text-2xl font-extrabold text-amber-600 mt-1">{pendingRequestsList.length}</h3></div>
-                        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><p className="text-xs text-slate-500 font-bold">Active Modules</p><h3 className="text-2xl font-extrabold text-slate-900 mt-1">{modules.length}</h3></div>
-                        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><p className="text-xs text-slate-500 font-bold">Created Quizzes</p><h3 className="text-2xl font-extrabold text-purple-600 mt-1">{quizzes.length}</h3></div>
+                      {/* Mobile Adaptive 2x2 Grid */}
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+                        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm"><p className="text-[11px] sm:text-xs text-slate-500 font-bold">Total Students</p><h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">{students.length}</h3></div>
+                        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm"><p className="text-[11px] sm:text-xs text-slate-500 font-bold">Pending Requests</p><h3 className="text-xl sm:text-2xl font-extrabold text-amber-600 mt-1">{pendingRequestsList.length}</h3></div>
+                        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm"><p className="text-[11px] sm:text-xs text-slate-500 font-bold">Active Modules</p><h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">{modules.length}</h3></div>
+                        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm"><p className="text-[11px] sm:text-xs text-slate-500 font-bold">Created Quizzes</p><h3 className="text-xl sm:text-2xl font-extrabold text-purple-600 mt-1">{quizzes.length}</h3></div>
                       </div>
 
-                      <div className="grid grid-cols-3 gap-4">
-                        <div onClick={() => setActiveTab('admin-students')} className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-500 cursor-pointer transition">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                        <div onClick={() => setActiveTab('admin-students')} className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-500 cursor-pointer transition shadow-sm">
                           <h4 className="font-bold text-sm text-slate-900">👥 Student Directory</h4>
-                          <p className="text-xs text-slate-500 mt-1">Manage enrollments and credentials</p>
+                          <p className="text-xs text-slate-500 mt-1">Manage enrollments & credentials</p>
                         </div>
-                        <div onClick={() => setActiveTab('admin-modules')} className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-500 cursor-pointer transition">
+                        <div onClick={() => setActiveTab('admin-modules')} className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-500 cursor-pointer transition shadow-sm">
                           <h4 className="font-bold text-sm text-slate-900">📚 Module Manager</h4>
                           <p className="text-xs text-slate-500 mt-1">Create modules & embed Google Drive media</p>
                         </div>
-                        <div onClick={() => setActiveTab('admin-quizzes')} className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-500 cursor-pointer transition">
+                        <div onClick={() => setActiveTab('admin-quizzes')} className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-500 cursor-pointer transition shadow-sm">
                           <h4 className="font-bold text-sm text-slate-900">❓ Quiz & Question Builder</h4>
-                          <p className="text-xs text-slate-500 mt-1">Build multiple-choice tests & question bank</p>
+                          <p className="text-xs text-slate-500 mt-1">Build multiple-choice tests & questions</p>
                         </div>
                       </div>
                     </div>
                   )}
 
-                  {/* Student Directory Tab */}
+                  {/* Student Directory Tab with Horizontal Scroll */}
                   {activeTab === 'admin-students' && (
-                    <div className="bg-white p-6 rounded-3xl border border-slate-200 space-y-4">
-                      <h3 className="text-lg font-bold text-slate-900">Student Directory ({students.length})</h3>
-                      <table className="w-full text-left text-xs">
-                        <thead className="bg-slate-50 border-b text-slate-500 font-bold uppercase text-[10px]">
-                          <tr>
-                            <th className="p-3">Name</th>
-                            <th className="p-3">Admission No</th>
-                            <th className="p-3">Email</th>
-                            <th className="p-3">Course</th>
-                            <th className="p-3">Status</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y">
-                          {students.map(s => (
-                            <tr key={s.studentId} className="hover:bg-slate-50">
-                              <td className="p-3 font-bold text-slate-900">{s.name}</td>
-                              <td className="p-3 font-mono text-slate-600">{s.admissionNumber}</td>
-                              <td className="p-3 text-slate-500">{s.email}</td>
-                              <td className="p-3">{s.course}</td>
-                              <td className="p-3"><span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">{s.status}</span></td>
+                    <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 space-y-4 shadow-sm">
+                      <h3 className="text-base sm:text-lg font-bold text-slate-900">Student Directory ({students.length})</h3>
+                      <div className="overflow-x-auto w-full">
+                        <table className="w-full text-left text-xs min-w-[600px]">
+                          <thead className="bg-slate-50 border-b text-slate-500 font-bold uppercase text-[10px]">
+                            <tr>
+                              <th className="p-3">Name</th>
+                              <th className="p-3">Admission No</th>
+                              <th className="p-3">Email</th>
+                              <th className="p-3">Course</th>
+                              <th className="p-3">Status</th>
                             </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                          </thead>
+                          <tbody className="divide-y">
+                            {students.map(s => (
+                              <tr key={s.studentId} className="hover:bg-slate-50">
+                                <td className="p-3 font-bold text-slate-900">{s.name}</td>
+                                <td className="p-3 font-mono text-slate-600">{s.admissionNumber}</td>
+                                <td className="p-3 text-slate-500">{s.email}</td>
+                                <td className="p-3">{s.course}</td>
+                                <td className="p-3"><span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">{s.status}</span></td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   )}
 
                   {/* Pending Requests Tab */}
                   {activeTab === 'admin-requests' && (
-                    <div className="space-y-6">
-                      <div className="bg-white p-6 rounded-3xl border border-slate-200 flex justify-between items-center">
+                    <div className="space-y-4 sm:space-y-6">
+                      <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 flex flex-col sm:flex-row justify-between sm:items-center gap-2 shadow-sm">
                         <div>
-                          <h3 className="text-lg font-extrabold text-slate-900">Student Access Applications Queue</h3>
-                          <p className="text-xs text-slate-500 mt-1">Approve pending applications to grant portal access.</p>
+                          <h3 className="text-base sm:text-lg font-extrabold text-slate-900">Student Access Applications Queue</h3>
+                          <p className="text-xs text-slate-500 mt-0.5">Approve pending applications to grant portal access.</p>
                         </div>
-                        <span className="px-3 py-1 bg-amber-100 text-amber-800 font-bold text-xs rounded-full">
+                        <span className="px-3 py-1 bg-amber-100 text-amber-800 font-bold text-xs rounded-full self-start sm:self-auto">
                           {pendingRequestsList.length} Pending
                         </span>
                       </div>
 
                       {pendingRequestsList.length === 0 ? (
-                        <div className="bg-white p-12 text-center rounded-3xl border border-slate-200">
-                          <p className="text-emerald-600 font-bold text-base">✅ All Applications Reviewed!</p>
+                        <div className="bg-white p-8 sm:p-12 text-center rounded-2xl sm:rounded-3xl border border-slate-200">
+                          <p className="text-emerald-600 font-bold text-sm sm:text-base">✅ All Applications Reviewed!</p>
                           <p className="text-xs text-slate-400 mt-1">No pending student requests in queue.</p>
                         </div>
                       ) : (
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           {pendingRequestsList.map(req => (
-                            <div key={req.requestId} className="bg-white p-6 rounded-3xl border border-slate-200 space-y-3 shadow-sm">
+                            <div key={req.requestId} className="bg-white p-5 rounded-2xl sm:rounded-3xl border border-slate-200 space-y-3 shadow-sm">
                               <div className="flex justify-between items-center">
                                 <span className="font-mono font-bold text-xs text-blue-600">{req.admissionNumber}</span>
                                 <span className="text-[10px] text-slate-400">{req.createdDate}</span>
@@ -944,7 +1017,7 @@
                                   onClick={() => handleApproveRequest(req.requestId)}
                                   className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-md transition"
                                 >
-                                  ✓ Approve Student
+                                  ✓ Approve
                                 </button>
                                 <button
                                   onClick={() => handleRejectRequest(req.requestId)}
@@ -962,11 +1035,11 @@
 
                   {/* Module Manager Tab */}
                   {activeTab === 'admin-modules' && (
-                    <div className="space-y-6">
-                      <div className="bg-white p-6 rounded-3xl border border-slate-200 flex justify-between items-center">
+                    <div className="space-y-4 sm:space-y-6">
+                      <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 flex flex-col sm:flex-row justify-between sm:items-center gap-3 shadow-sm">
                         <div>
-                          <h3 className="text-lg font-extrabold text-slate-900">Module & Media Manager</h3>
-                          <p className="text-xs text-slate-500 mt-1">Create modules and embed Google Drive videos, audio, and PDFs.</p>
+                          <h3 className="text-base sm:text-lg font-extrabold text-slate-900">Module & Media Manager</h3>
+                          <p className="text-xs text-slate-500 mt-0.5">Create modules and embed Google Drive videos, audio, and PDFs.</p>
                         </div>
 
                         <button
@@ -987,35 +1060,35 @@
                             });
                             setShowModuleModal(true);
                           }}
-                          className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow-md"
+                          className="px-4 sm:px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow-md self-start sm:self-auto"
                         >
                           + Create New Module
                         </button>
                       </div>
 
                       {modules.length === 0 ? (
-                        <div className="p-12 text-center bg-white rounded-3xl border-2 border-dashed border-slate-200">
-                          <p className="font-bold text-slate-800 text-base">No Modules Created Yet</p>
+                        <div className="p-8 sm:p-12 text-center bg-white rounded-2xl sm:rounded-3xl border-2 border-dashed border-slate-200">
+                          <p className="font-bold text-slate-800 text-sm sm:text-base">No Modules Created Yet</p>
                           <p className="text-xs text-slate-400 mt-1 mb-4">Click "+ Create New Module" above to build your first course module!</p>
                         </div>
                       ) : (
-                        <div className="grid grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                           {modules.map(m => (
-                            <div key={m.moduleId} className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between">
+                            <div key={m.moduleId} className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between">
                               <div>
                                 <div className="aspect-video bg-slate-100 relative">
                                   <img src={m.thumbnail} alt={m.title} className="w-full h-full object-cover" />
-                                  <div className="absolute top-3 left-3 bg-slate-900 text-white px-3 py-1 rounded-full text-xs font-bold">
+                                  <div className="absolute top-2.5 left-2.5 bg-slate-900 text-white px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold">
                                     Module {m.moduleNumber}
                                   </div>
                                 </div>
-                                <div className="p-5 space-y-2">
-                                  <h4 className="font-bold text-base text-slate-900">{m.title}</h4>
+                                <div className="p-4 sm:p-5 space-y-1.5">
+                                  <h4 className="font-bold text-sm sm:text-base text-slate-900">{m.title}</h4>
                                   <p className="text-xs text-slate-500 leading-relaxed">{m.description}</p>
                                 </div>
                               </div>
 
-                              <div className="p-4 bg-slate-50 border-t flex justify-end space-x-2">
+                              <div className="p-3.5 bg-slate-50 border-t flex justify-end space-x-2">
                                 <button
                                   onClick={() => {
                                     setModuleForm(m);
@@ -1023,7 +1096,7 @@
                                   }}
                                   className="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 font-bold text-xs rounded-xl"
                                 >
-                                  Edit Module
+                                  Edit
                                 </button>
                                 <button
                                   onClick={() => handleDeleteModule(m.moduleId)}
@@ -1039,14 +1112,14 @@
 
                       {/* Module Modal Form */}
                       {showModuleModal && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
-                          <div className="bg-white rounded-3xl p-6 max-w-xl w-full border shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-                            <h3 className="text-lg font-extrabold text-slate-900">
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
+                          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 max-w-xl w-full border shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+                            <h3 className="text-base sm:text-lg font-extrabold text-slate-900">
                               {moduleForm.moduleId ? 'Edit Course Module' : 'Create New Course Module'}
                             </h3>
 
                             <form onSubmit={handleSaveModule} className="space-y-3 text-xs">
-                              <div className="grid grid-cols-2 gap-3">
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
                                   <label className="block font-bold mb-1">Module Number</label>
                                   <input type="number" required value={moduleForm.moduleNumber} onChange={e => setModuleForm({ ...moduleForm, moduleNumber: e.target.value })} className="w-full p-2.5 border rounded-xl" />
@@ -1075,7 +1148,7 @@
                                 <input type="url" value={moduleForm.thumbnail} onChange={e => setModuleForm({ ...moduleForm, thumbnail: e.target.value })} className="w-full p-2.5 border rounded-xl" />
                               </div>
 
-                              <div className="grid grid-cols-2 gap-3 pt-2 border-t">
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t">
                                 <div>
                                   <label className="block font-bold mb-1">Video 1 Drive Link</label>
                                   <input type="url" value={moduleForm.video1} onChange={e => setModuleForm({ ...moduleForm, video1: e.target.value })} placeholder="https://drive.google.com/..." className="w-full p-2.5 border rounded-xl" />
@@ -1107,11 +1180,11 @@
 
                   {/* Quiz & Question Builder Tab */}
                   {activeTab === 'admin-quizzes' && (
-                    <div className="space-y-6">
-                      <div className="bg-white p-6 rounded-3xl border border-slate-200 flex justify-between items-center">
+                    <div className="space-y-4 sm:space-y-6">
+                      <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 flex flex-col sm:flex-row justify-between sm:items-center gap-3 shadow-sm">
                         <div>
-                          <h3 className="text-lg font-extrabold text-slate-900">Quiz & Question Bank Builder</h3>
-                          <p className="text-xs text-slate-500 mt-1">Build multiple choice assessments and add questions for student mastery tests.</p>
+                          <h3 className="text-base sm:text-lg font-extrabold text-slate-900">Quiz & Question Bank Builder</h3>
+                          <p className="text-xs text-slate-500 mt-0.5">Build multiple choice assessments and add questions for student mastery tests.</p>
                         </div>
 
                         <button
@@ -1119,26 +1192,26 @@
                             setQuizForm({ quizId: '', moduleId: '', title: '', passPercentage: 80, timeLimit: 10 });
                             setShowQuizModalAdmin(true);
                           }}
-                          className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow-md"
+                          className="px-4 sm:px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow-md self-start sm:self-auto"
                         >
                           + Create New Quiz
                         </button>
                       </div>
 
                       {quizzes.length === 0 ? (
-                        <div className="p-12 text-center bg-white rounded-3xl border-2 border-dashed border-slate-200">
-                          <p className="font-bold text-slate-800 text-base">No Quizzes Created Yet</p>
+                        <div className="p-8 sm:p-12 text-center bg-white rounded-2xl sm:rounded-3xl border-2 border-dashed border-slate-200">
+                          <p className="font-bold text-slate-800 text-sm sm:text-base">No Quizzes Created Yet</p>
                           <p className="text-xs text-slate-400 mt-1">Click "+ Create New Quiz" above to add your first assessment!</p>
                         </div>
                       ) : (
-                        <div className="space-y-6">
+                        <div className="space-y-4 sm:space-y-6">
                           {quizzes.map(quiz => {
                             const quizQsts = questions.filter(q => q.quizId === quiz.quizId);
                             const modObj = modules.find(m => m.moduleId === quiz.moduleId);
 
                             return (
-                              <div key={quiz.quizId} className="bg-white rounded-3xl p-6 border border-slate-200 space-y-4 shadow-sm">
-                                <div className="flex justify-between items-center border-b pb-3">
+                              <div key={quiz.quizId} className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 space-y-4 shadow-sm">
+                                <div className="flex flex-col sm:flex-row justify-between sm:items-center border-b pb-3 gap-2">
                                   <div>
                                     <span className="font-mono text-xs font-bold text-blue-600 uppercase">{quiz.quizId}</span>
                                     <h4 className="text-base font-bold text-slate-900">{quiz.title}</h4>
@@ -1149,7 +1222,7 @@
                                       setQuestionForm({ id: '', quizId: quiz.quizId, question: '', optionA: '', optionB: '', optionC: '', optionD: '', correctAnswer: 'A', explanation: '' });
                                       setShowQuestionModalAdmin(true);
                                     }}
-                                    className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl"
+                                    className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl self-start sm:self-auto"
                                   >
                                     + Add Question ({quizQsts.length})
                                   </button>
@@ -1172,9 +1245,9 @@
 
                       {/* Create Quiz Modal */}
                       {showQuizModalAdmin && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-                          <div className="bg-white rounded-3xl p-6 max-w-md w-full border shadow-2xl space-y-4">
-                            <h3 className="text-lg font-extrabold text-slate-900">Create New Quiz</h3>
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm">
+                          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 max-w-md w-full border shadow-2xl space-y-4">
+                            <h3 className="text-base sm:text-lg font-extrabold text-slate-900">Create New Quiz</h3>
 
                             <form onSubmit={handleSaveQuiz} className="space-y-3 text-xs">
                               <div>
@@ -1212,9 +1285,9 @@
 
                       {/* Add Question Modal */}
                       {showQuestionModalAdmin && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
-                          <div className="bg-white rounded-3xl p-6 max-w-lg w-full border shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-                            <h3 className="text-lg font-extrabold text-slate-900">Add Question to Quiz</h3>
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
+                          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 max-w-lg w-full border shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+                            <h3 className="text-base sm:text-lg font-extrabold text-slate-900">Add Question to Quiz</h3>
 
                             <form onSubmit={handleSaveQuestion} className="space-y-3 text-xs">
                               <div>
@@ -1222,7 +1295,7 @@
                                 <textarea rows={2} required value={questionForm.question} onChange={e => setQuestionForm({ ...questionForm, question: e.target.value })} placeholder="Enter question..." className="w-full p-2.5 border rounded-xl"></textarea>
                               </div>
 
-                              <div className="grid grid-cols-2 gap-3">
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
                                   <label className="block font-bold mb-1">Option A</label>
                                   <input type="text" required value={questionForm.optionA} onChange={e => setQuestionForm({ ...questionForm, optionA: e.target.value })} className="w-full p-2.5 border rounded-xl" />
@@ -1270,6 +1343,40 @@
               )}
             </main>
           </div>
+
+          {/* Sticky Touch-Friendly Bottom Bar for Mobile */}
+          {currentUser && (
+            <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 px-4 py-2 flex items-center justify-around text-slate-400 z-30">
+              {role === 'student' ? (
+                <>
+                  <button onClick={() => { setSelectedModuleId(null); setActiveTab('dashboard'); }} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'dashboard' ? 'text-blue-400' : 'text-slate-400'}`}>
+                    <span>Dashboard</span>
+                  </button>
+                  <button onClick={() => { setSelectedModuleId(null); setActiveTab('modules'); }} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'modules' ? 'text-blue-400' : 'text-slate-400'}`}>
+                    <span>Modules ({modules.length})</span>
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button onClick={() => setActiveTab('admin-dashboard')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-dashboard' ? 'text-blue-400' : 'text-slate-400'}`}>
+                    <span>Metrics</span>
+                  </button>
+                  <button onClick={() => setActiveTab('admin-students')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-students' ? 'text-blue-400' : 'text-slate-400'}`}>
+                    <span>Students ({students.length})</span>
+                  </button>
+                  <button onClick={() => setActiveTab('admin-requests')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-requests' ? 'text-blue-400' : 'text-slate-400'}`}>
+                    <span>Requests ({pendingRequestsList.length})</span>
+                  </button>
+                  <button onClick={() => setActiveTab('admin-modules')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-modules' ? 'text-blue-400' : 'text-slate-400'}`}>
+                    <span>Modules ({modules.length})</span>
+                  </button>
+                  <button onClick={() => setActiveTab('admin-quizzes')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-quizzes' ? 'text-blue-400' : 'text-slate-400'}`}>
+                    <span>Quizzes</span>
+                  </button>
+                </>
+              )}
+            </div>
+          )}
         </div>
       );
     }
