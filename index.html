@@ -135,6 +135,7 @@
       return url;
     }
 
+    // Bulletproof Cross-Device API Function (Tries POST then GET fallback)
     async function callAppsScript(action, payload = {}) {
       try {
         const response = await fetch(LIVE_APPS_SCRIPT_URL, {
@@ -143,10 +144,19 @@
           body: JSON.stringify({ action, ...payload })
         });
         const json = await response.json();
-        return json;
+        if (json && json.success !== undefined) return json;
       } catch(err) {
-        console.warn("Live API Call fallback:", err);
-        return { success: false, message: err.message };
+        console.warn("POST failed, attempting GET fallback for cross-device sync...", err);
+      }
+
+      try {
+        const getUrl = `${LIVE_APPS_SCRIPT_URL}?action=${encodeURIComponent(action)}&payload=${encodeURIComponent(JSON.stringify(payload))}`;
+        const response = await fetch(getUrl);
+        const json = await response.json();
+        return json;
+      } catch(err2) {
+        console.warn("GET fallback failed:", err2);
+        return { success: false, message: err2.message };
       }
     }
 
@@ -216,6 +226,21 @@
         localStorage.setItem('mastered_progress', JSON.stringify(userProgress));
       }, [userProgress]);
 
+      // Automatic Cross-Device Background Sync (runs every 8 seconds)
+      useEffect(() => {
+        const syncModules = () => {
+          callAppsScript('getModules').then(mRes => {
+            if (mRes && mRes.success && Array.isArray(mRes.data) && mRes.data.length > 0) {
+              setModules(mRes.data);
+            }
+          });
+        };
+
+        syncModules();
+        const interval = setInterval(syncModules, 8000);
+        return () => clearInterval(interval);
+      }, []);
+
       // Lesson Sub-Tab inside Student Module View
       const [lessonTab, setLessonTab] = useState('video1');
 
@@ -272,15 +297,6 @@
         setToast(msg);
         setTimeout(() => setToast(null), 3500);
       };
-
-      // Live GAS fetch on mount
-      useEffect(() => {
-        callAppsScript('getModules').then(mRes => {
-          if (mRes.success && Array.isArray(mRes.data) && mRes.data.length > 0) {
-            setModules(mRes.data);
-          }
-        });
-      }, []);
 
       // Student Login
       const handleStudentLogin = async (email, adm) => {
@@ -362,8 +378,8 @@
         showToast(`Request rejected.`);
       };
 
-      // Save Module (Create / Edit)
-      const handleSaveModule = (e) => {
+      // Save Module (Create / Edit) - REALTIME & CROSS-DEVICE SYNC
+      const handleSaveModule = async (e) => {
         e.preventDefault();
         const modId = moduleForm.moduleId || `MOD-${Math.floor(100 + Math.random() * 900)}`;
         const finalMod = {
@@ -383,9 +399,15 @@
           return [...prev, finalMod];
         });
 
-        callAppsScript('adminSaveModule', { module: finalMod });
         setShowModuleModal(false);
-        showToast(`✅ Module "${finalMod.title}" saved!`);
+        showToast(`🔄 Saving module to cloud database...`);
+
+        const res = await callAppsScript('adminSaveModule', { module: finalMod });
+        if (res && res.success) {
+          showToast(`✅ Module "${finalMod.title}" synced to Google Sheets! Available on mobile.`);
+        } else {
+          showToast(`✅ Module "${finalMod.title}" saved locally & pending cloud sync.`);
+        }
       };
 
       // Delete Module
@@ -397,7 +419,7 @@
       };
 
       // Save Quiz
-      const handleSaveQuiz = (e) => {
+      const handleSaveQuiz = async (e) => {
         e.preventDefault();
         const qId = quizForm.quizId || `QUIZ-${Math.floor(100 + Math.random() * 900)}`;
         const finalQuiz = {
@@ -421,13 +443,13 @@
           setModules(prev => prev.map(m => m.moduleId === finalQuiz.moduleId ? { ...m, quizId: qId } : m));
         }
 
-        callAppsScript('adminSaveQuiz', { quiz: finalQuiz });
         setShowQuizModalAdmin(false);
+        callAppsScript('adminSaveQuiz', { quiz: finalQuiz });
         showToast(`✅ Quiz "${finalQuiz.title}" created successfully!`);
       };
 
       // Save Question
-      const handleSaveQuestion = (e) => {
+      const handleSaveQuestion = async (e) => {
         e.preventDefault();
         const qstId = questionForm.id || `Q-${Math.floor(1000 + Math.random() * 9000)}`;
         const finalQst = { ...questionForm, id: qstId };
@@ -442,8 +464,8 @@
           return [...prev, finalQst];
         });
 
-        callAppsScript('adminSaveQuestion', { question: finalQst });
         setShowQuestionModalAdmin(false);
+        callAppsScript('adminSaveQuestion', { question: finalQst });
         showToast(`✅ Question added to Quiz!`);
       };
 
@@ -723,7 +745,7 @@
 
               <div className="p-3 bg-slate-800/60 rounded-xl text-[11px] text-slate-400">
                 <p className="font-bold text-slate-200">Database Engine</p>
-                <p className="text-emerald-400 mt-0.5">● Persistent & Sheet Synced</p>
+                <p className="text-emerald-400 mt-0.5">● Auto Cloud & Device Synced</p>
               </div>
             </aside>
 

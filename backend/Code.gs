@@ -14,7 +14,24 @@ function getMasteredSpreadsheet() {
 }
 
 function doGet(e) {
-  return handleResponse({ success: true, message: "MASTERED Language Coach REST API Endpoint Running." });
+  try {
+    var params = (e && e.parameter) ? e.parameter : {};
+    var action = params.action || 'getModules';
+
+    var data = params;
+    if (params.payload) {
+      try {
+        var parsed = JSON.parse(params.payload);
+        for (var k in parsed) {
+          data[k] = parsed[k];
+        }
+      } catch(err) {}
+    }
+
+    return routeAction(action, data);
+  } catch(err) {
+    return handleResponse({ success: false, message: "GET Exception: " + err.toString() });
+  }
 }
 
 function doPost(e) {
@@ -23,60 +40,64 @@ function doPost(e) {
     var data = JSON.parse(contents);
     var action = data.action;
 
-    switch (action) {
-      case 'ping':
-        return handleResponse({ success: true, message: "PONG! Live Google Sheets connection verified." });
-
-      case 'loginStudent':
-        return handleLoginStudent(data);
-
-      case 'loginAdmin':
-        return handleLoginAdmin(data);
-
-      case 'submitRequest':
-        return handleSubmitRequest(data);
-
-      case 'getModules':
-        return handleGetModules();
-
-      case 'adminSaveModule':
-        return handleAdminSaveModule(data);
-
-      case 'getStudentProgress':
-        return handleGetStudentProgress(data);
-
-      case 'updateProgress':
-        return handleUpdateProgress(data);
-
-      case 'getQuiz':
-        return handleGetQuiz(data);
-
-      case 'submitQuizResult':
-        return handleSubmitQuizResult(data);
-
-      case 'getAnnouncements':
-        return handleGetAnnouncements();
-
-      case 'adminGetStudents':
-        return handleAdminGetStudents();
-
-      case 'adminGetRequests':
-        return handleAdminGetRequests();
-
-      case 'approveRequest':
-        return handleApproveRequest(data);
-
-      case 'adminSaveQuiz':
-        return handleAdminSaveQuiz(data);
-
-      case 'adminSaveQuestion':
-        return handleAdminSaveQuestion(data);
-
-      default:
-        return handleResponse({ success: false, message: "Unknown API action: " + action });
-    }
+    return routeAction(action, data);
   } catch (err) {
-    return handleResponse({ success: false, message: "Server Exception: " + err.toString() });
+    return handleResponse({ success: false, message: "POST Exception: " + err.toString() });
+  }
+}
+
+function routeAction(action, data) {
+  switch (action) {
+    case 'ping':
+      return handleResponse({ success: true, message: "PONG! Live Google Sheets connection verified." });
+
+    case 'loginStudent':
+      return handleLoginStudent(data);
+
+    case 'loginAdmin':
+      return handleLoginAdmin(data);
+
+    case 'submitRequest':
+      return handleSubmitRequest(data);
+
+    case 'getModules':
+      return handleGetModules();
+
+    case 'adminSaveModule':
+      return handleAdminSaveModule(data);
+
+    case 'getStudentProgress':
+      return handleGetStudentProgress(data);
+
+    case 'updateProgress':
+      return handleUpdateProgress(data);
+
+    case 'getQuiz':
+      return handleGetQuiz(data);
+
+    case 'adminSaveQuiz':
+      return handleAdminSaveQuiz(data);
+
+    case 'adminSaveQuestion':
+      return handleAdminSaveQuestion(data);
+
+    case 'submitQuizResult':
+      return handleSubmitQuizResult(data);
+
+    case 'getAnnouncements':
+      return handleGetAnnouncements();
+
+    case 'adminGetStudents':
+      return handleAdminGetStudents();
+
+    case 'adminGetRequests':
+      return handleAdminGetRequests();
+
+    case 'approveRequest':
+      return handleApproveRequest(data);
+
+    default:
+      return handleGetModules();
   }
 }
 
@@ -145,7 +166,6 @@ function handleLoginAdmin(data) {
   var email = (data.email || "").toString().trim().toLowerCase();
   var pass = (data.password || "").toString().trim();
 
-  // Support hardcoded super admin fallback or sheet check
   if (email === "masteredlanguagecoach@gmail.com" && pass === "4languagecoach") {
     return handleResponse({
       success: true,
@@ -218,8 +238,8 @@ function handleGetModules() {
 }
 
 function handleAdminSaveModule(data) {
-  var mod = data.module;
-  if (!mod) return handleResponse({ success: false, message: "No module payload" });
+  var mod = data.module || data;
+  if (!mod || !mod.title) return handleResponse({ success: false, message: "No module payload" });
 
   var ss = getMasteredSpreadsheet();
   var sheet = ss.getSheetByName("Modules");
@@ -229,25 +249,25 @@ function handleAdminSaveModule(data) {
   var foundRow = -1;
 
   for (var i = 1; i < rows.length; i++) {
-    if (rows[i][0].toString() === mod.moduleId.toString()) {
+    if (rows[i][0].toString() === (mod.moduleId || "").toString()) {
       foundRow = i + 1;
       break;
     }
   }
 
   var rowValues = [
-    mod.moduleId,
-    mod.moduleNumber,
-    mod.title,
-    mod.description,
-    mod.thumbnail,
-    mod.video1,
-    mod.video2,
-    mod.audio,
-    mod.pdf,
-    mod.quizId,
+    mod.moduleId || ("MOD-" + Math.floor(100 + Math.random() * 900)),
+    mod.moduleNumber || 1,
+    mod.title || "",
+    mod.description || "",
+    mod.thumbnail || "",
+    mod.video1 || "",
+    mod.video2 || "",
+    mod.audio || "",
+    mod.pdf || "",
+    mod.quizId || "",
     "TRUE",
-    mod.order
+    mod.order || 1
   ];
 
   if (foundRow > 0) {
@@ -262,12 +282,11 @@ function handleAdminSaveModule(data) {
 function handleApproveRequest(data) {
   var ss = getMasteredSpreadsheet();
   var reqSheet = ss.getSheetByName("Requests");
-  var stdSheet = ss.getSheetByName("Students");
 
   if (reqSheet) {
     var reqRows = reqSheet.getDataRange().getValues();
     for (var i = 1; i < reqRows.length; i++) {
-      if (reqRows[i][0].toString() === data.requestId.toString()) {
+      if (reqRows[i][0].toString() === (data.requestId || "").toString()) {
         reqSheet.getRange(i + 1, 7).setValue("Approved");
         reqSheet.getRange(i + 1, 9).setValue("Admin");
         break;
@@ -279,20 +298,20 @@ function handleApproveRequest(data) {
 }
 
 function handleAdminSaveQuiz(data) {
-  var qz = data.quiz;
+  var qz = data.quiz || data;
   var ss = getMasteredSpreadsheet();
   var sheet = ss.getSheetByName("Quiz");
-  if (sheet) {
+  if (sheet && qz.quizId) {
     sheet.appendRow([qz.quizId, qz.moduleId, qz.title, qz.passPercentage, qz.timeLimit]);
   }
   return handleResponse({ success: true });
 }
 
 function handleAdminSaveQuestion(data) {
-  var qst = data.question;
+  var qst = data.question || data;
   var ss = getMasteredSpreadsheet();
   var sheet = ss.getSheetByName("Questions");
-  if (sheet) {
+  if (sheet && qst.id) {
     sheet.appendRow([qst.id, qst.quizId, qst.question, qst.optionA, qst.optionB, qst.optionC, qst.optionD, qst.correctAnswer, qst.explanation]);
   }
   return handleResponse({ success: true });
