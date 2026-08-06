@@ -135,7 +135,7 @@
       return url;
     }
 
-    // Bulletproof Cross-Device API Function (Tries POST then GET fallback)
+    // Bulletproof Cross-Device API Function
     async function callAppsScript(action, payload = {}) {
       try {
         const response = await fetch(LIVE_APPS_SCRIPT_URL, {
@@ -146,7 +146,7 @@
         const json = await response.json();
         if (json && json.success !== undefined) return json;
       } catch(err) {
-        console.warn("POST failed, attempting GET fallback for cross-device sync...", err);
+        console.warn("POST failed, attempting GET fallback...", err);
       }
 
       try {
@@ -167,6 +167,8 @@
       const [activeTab, setActiveTab] = useState('dashboard');
       const [selectedModuleId, setSelectedModuleId] = useState(null);
       const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+      const [showImportModal, setShowImportModal] = useState(false);
+      const [syncCodeText, setSyncCodeText] = useState('');
 
       // LocalStorage-backed state stores
       const [students, setStudents] = useState(() => {
@@ -226,7 +228,7 @@
         localStorage.setItem('mastered_progress', JSON.stringify(userProgress));
       }, [userProgress]);
 
-      // Automatic Cross-Device Background Sync (runs every 8 seconds)
+      // Automatic Cross-Device Background Sync (runs every 6 seconds)
       useEffect(() => {
         const syncModules = () => {
           callAppsScript('getModules').then(mRes => {
@@ -237,9 +239,37 @@
         };
 
         syncModules();
-        const interval = setInterval(syncModules, 8000);
+        const interval = setInterval(syncModules, 6000);
         return () => clearInterval(interval);
       }, []);
+
+      // Force Sync All Local Modules to Cloud
+      const handleForceCloudSync = async () => {
+        showToast("☁️ Uploading all modules to Google Sheets...");
+        let count = 0;
+        for (const mod of modules) {
+          await callAppsScript('adminSaveModule', { module: mod });
+          count++;
+        }
+        showToast(`✅ Synced ${count} modules to Google Sheets! Try refreshing mobile.`);
+      };
+
+      // Import JSON Code
+      const handleImportSyncCode = (e) => {
+        e.preventDefault();
+        try {
+          const parsed = JSON.parse(syncCodeText);
+          if (Array.isArray(parsed)) {
+            setModules(parsed);
+            setShowImportModal(false);
+            showToast(`✅ Imported ${parsed.length} modules successfully!`);
+          } else {
+            alert("Invalid module list JSON format.");
+          }
+        } catch(err) {
+          alert("Error parsing JSON: " + err.message);
+        }
+      };
 
       // Lesson Sub-Tab inside Student Module View
       const [lessonTab, setLessonTab] = useState('video1');
@@ -378,7 +408,7 @@
         showToast(`Request rejected.`);
       };
 
-      // Save Module (Create / Edit) - REALTIME & CROSS-DEVICE SYNC
+      // Save Module (Create / Edit)
       const handleSaveModule = async (e) => {
         e.preventDefault();
         const modId = moduleForm.moduleId || `MOD-${Math.floor(100 + Math.random() * 900)}`;
@@ -400,13 +430,13 @@
         });
 
         setShowModuleModal(false);
-        showToast(`🔄 Saving module to cloud database...`);
+        showToast(`🔄 Syncing module to Google Sheets...`);
 
         const res = await callAppsScript('adminSaveModule', { module: finalMod });
         if (res && res.success) {
           showToast(`✅ Module "${finalMod.title}" synced to Google Sheets! Available on mobile.`);
         } else {
-          showToast(`✅ Module "${finalMod.title}" saved locally & pending cloud sync.`);
+          showToast(`✅ Saved locally. Click "☁️ Sync Cloud" to push to Google Sheet.`);
         }
       };
 
@@ -743,9 +773,11 @@
                 </nav>
               </div>
 
-              <div className="p-3 bg-slate-800/60 rounded-xl text-[11px] text-slate-400">
-                <p className="font-bold text-slate-200">Database Engine</p>
-                <p className="text-emerald-400 mt-0.5">● Auto Cloud & Device Synced</p>
+              <div className="p-3 bg-slate-800/60 rounded-xl text-[11px] text-slate-400 space-y-2">
+                <div>
+                  <p className="font-bold text-slate-200">Database Engine</p>
+                  <p className="text-emerald-400 mt-0.5">● Sheet & Cross-Device Synced</p>
+                </div>
               </div>
             </aside>
 
@@ -1064,34 +1096,51 @@
                           <p className="text-xs text-slate-500 mt-0.5">Create modules and embed Google Drive videos, audio, and PDFs.</p>
                         </div>
 
-                        <button
-                          onClick={() => {
-                            setModuleForm({
-                              moduleId: '',
-                              moduleNumber: modules.length + 1,
-                              title: '',
-                              description: '',
-                              thumbnail: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop&q=80',
-                              video1: '',
-                              video2: '',
-                              audio: '',
-                              pdf: '',
-                              quizId: '',
-                              published: true,
-                              order: modules.length + 1
-                            });
-                            setShowModuleModal(true);
-                          }}
-                          className="px-4 sm:px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow-md self-start sm:self-auto"
-                        >
-                          + Create New Module
-                        </button>
+                        <div className="flex flex-wrap gap-2">
+                          <button
+                            onClick={handleForceCloudSync}
+                            className="px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-md"
+                          >
+                            ☁️ Sync Cloud
+                          </button>
+                          <button
+                            onClick={() => {
+                              setSyncCodeText(JSON.stringify(modules, null, 2));
+                              setShowImportModal(true);
+                            }}
+                            className="px-3.5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-xl shadow-md"
+                          >
+                            📥 Import / Export
+                          </button>
+                          <button
+                            onClick={() => {
+                              setModuleForm({
+                                moduleId: '',
+                                moduleNumber: modules.length + 1,
+                                title: '',
+                                description: '',
+                                thumbnail: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop&q=80',
+                                video1: '',
+                                video2: '',
+                                audio: '',
+                                pdf: '',
+                                quizId: '',
+                                published: true,
+                                order: modules.length + 1
+                              });
+                              setShowModuleModal(true);
+                            }}
+                            className="px-4 sm:px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow-md"
+                          >
+                            + Create Module
+                          </button>
+                        </div>
                       </div>
 
                       {modules.length === 0 ? (
-                        <div className="p-8 sm:p-12 text-center bg-white rounded-2xl sm:rounded-3xl border-2 border-dashed border-slate-200">
-                          <p className="font-bold text-slate-800 text-sm sm:text-base">No Modules Created Yet</p>
-                          <p className="text-xs text-slate-400 mt-1 mb-4">Click "+ Create New Module" above to build your first course module!</p>
+                        <div className="p-8 sm:p-12 text-center bg-white rounded-2xl sm:rounded-3xl border-2 border-dashed border-slate-200 space-y-3">
+                          <p className="font-bold text-slate-800 text-sm sm:text-base">No Modules Found on This Device</p>
+                          <p className="text-xs text-slate-400 max-w-md mx-auto">Click "+ Create Module" or click "📥 Import / Export" to paste your module code!</p>
                         </div>
                       ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
@@ -1129,6 +1178,31 @@
                               </div>
                             </div>
                           ))}
+                        </div>
+                      )}
+
+                      {/* Import/Export Backup Modal */}
+                      {showImportModal && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
+                          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 max-w-lg w-full border shadow-2xl space-y-4">
+                            <h3 className="text-base sm:text-lg font-extrabold text-slate-900">Import / Export Modules JSON Code</h3>
+                            <p className="text-xs text-slate-500">Copy the JSON below from your laptop and paste it here on mobile to instantly transfer your modules!</p>
+
+                            <form onSubmit={handleImportSyncCode} className="space-y-3 text-xs">
+                              <textarea
+                                rows={8}
+                                required
+                                value={syncCodeText}
+                                onChange={e => setSyncCodeText(e.target.value)}
+                                className="w-full p-3 font-mono border rounded-xl bg-slate-950 text-emerald-400 text-[11px]"
+                              ></textarea>
+
+                              <div className="flex justify-end space-x-2">
+                                <button type="button" onClick={() => setShowImportModal(false)} className="px-4 py-2 border rounded-xl font-bold">Cancel</button>
+                                <button type="submit" className="px-5 py-2 bg-blue-600 text-white font-bold rounded-xl shadow-md">Apply & Save Modules</button>
+                              </div>
+                            </form>
+                          </div>
                         </div>
                       )}
 
