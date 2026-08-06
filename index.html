@@ -82,6 +82,113 @@
 
     const LIVE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbqPvlxmAFOgtXn-VJ9b9fuvjOL3hsy18wSCu4xYhfVIcnLMVWGVbeD6XsLxv1ZG_2/exec";
     const LIVE_SPREADSHEET_ID = "1N5YkP6U8RaafRD_bsULTzlaDSC0Vbmfj9l_XCt1S_Rg";
+    const BASE_DRIVE_FOLDER = "https://drive.google.com/drive/folders/1caUZyxqCEas1q9F8Z_3Xd4lhLjOsjqCx";
+
+    // GENERATE ALL 32 MODULES CURRICULUM
+    const MODULE_TOPICS = [
+      "Foundation Vocal Clarity & Articulation",
+      "Executive Tone & Voice Projection",
+      "Professional Accent Neutralization & Rhythm",
+      "High-Stakes Business Communication & Pitch",
+      "Advanced Vocabulary & Idiomatic Expression",
+      "Mastering Dynamic Pause & Cadence",
+      "Persuasive Public Speaking & Presence",
+      "Professional Interview & Q&A Mastery",
+      "Executive Negotiation & Debate Speaking",
+      "Storytelling for Leadership & Presentations",
+      "Cross-Cultural Business Communication",
+      "Active Listening & Conversational Agility",
+      "Crisis Communication & Pressure Handling",
+      "Corporate Meeting & Roundtable Leadership",
+      "Strategic Elevator Pitches & Brevity",
+      "Voice Intonation & Emotional Resonance",
+      "Public Relations & Media Speaking Skills",
+      "Mastering Pronunciation & Vowel Precision",
+      "Executive Presence in Virtual & Remote Meetings",
+      "Influential Workplace Coaching & Feedback",
+      "Strategic Sales Communication & Objection Handling",
+      "Advanced Phrasal Verbs & Formal Registers",
+      "Conference Keynote & Address Preparation",
+      "Spontaneous Speaking & Impromptu Mastery",
+      "Assertive Communication & Conflict Resolution",
+      "Dialect Awareness & Global Accent Alignment",
+      "Executive Panel Discussion & Group Dynamics",
+      "Technical Concept Communication to Non-Tech Audiences",
+      "Body Language & Non-Verbal Vocal Alignment",
+      "Professional Networking & Small Talk Mastery",
+      "Advanced Public Rhetoric & Persuasion Tools",
+      "Final Executive Speaking Capstone & Mastery Review"
+    ];
+
+    const THUMBNAILS = [
+      "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&auto=format&fit=crop&q=80"
+    ];
+
+    const ALL_32_MODULES = Array.from({ length: 32 }, (_, i) => {
+      const num = i + 1;
+      const modId = `MOD-${num < 10 ? '0' + num : num}`;
+      return {
+        moduleId: modId,
+        moduleNumber: num,
+        title: `Module ${num}: ${MODULE_TOPICS[i]}`,
+        description: `Executive fluency training module focusing on ${MODULE_TOPICS[i].toLowerCase()}. Includes Video 1, Audio Drill, PDF Notes, and Quiz assessment.`,
+        thumbnail: THUMBNAILS[i % THUMBNAILS.length],
+        video1: BASE_DRIVE_FOLDER,
+        video2: '',
+        audio: BASE_DRIVE_FOLDER,
+        pdf: BASE_DRIVE_FOLDER,
+        quizId: `QUIZ-${num < 10 ? '0' + num : num}`,
+        published: true,
+        order: num
+      };
+    });
+
+    const ALL_32_QUIZZES = Array.from({ length: 32 }, (_, i) => {
+      const num = i + 1;
+      const qId = `QUIZ-${num < 10 ? '0' + num : num}`;
+      const modId = `MOD-${num < 10 ? '0' + num : num}`;
+      return {
+        quizId: qId,
+        moduleId: modId,
+        title: `Module ${num} Mastery Quiz - ${MODULE_TOPICS[i]}`,
+        passPercentage: 80,
+        timeLimit: 10
+      };
+    });
+
+    const ALL_32_QUESTIONS = Array.from({ length: 32 }, (_, i) => {
+      const num = i + 1;
+      const qId = `QUIZ-${num < 10 ? '0' + num : num}`;
+      const topic = MODULE_TOPICS[i];
+
+      return [
+        {
+          id: `Q-${num}-1`,
+          quizId: qId,
+          question: `What is the primary executive goal of ${topic}?`,
+          optionA: "To speak faster without taking pauses",
+          optionB: "To articulate ideas clearly with confidence, proper tone, and cadence",
+          optionC: "To memorize scripted speeches word for word",
+          optionD: "To eliminate all natural voice inflections",
+          correctAnswer: "B",
+          explanation: "Executive communication emphasizes clear articulation, posture, and confident vocal cadence."
+        },
+        {
+          id: `Q-${num}-2`,
+          quizId: qId,
+          question: `When applying ${topic} in business meetings, which technique is most effective?`,
+          optionA: "Using intentional strategic pauses for emphasis",
+          optionB: "Speaking loudly over other participants",
+          optionC: "Reading directly from slides without eye contact",
+          optionD: "Avoiding vocal pitch variations",
+          correctAnswer: "A",
+          explanation: "Strategic pauses allow key messages to resonate with high-level decision makers."
+        }
+      ];
+    }).flat();
 
     const INITIAL_STUDENTS = [
       {
@@ -116,16 +223,6 @@
       { adminId: "ADM-002", name: "Mastered Language Coach", email: "masteredlanguagecoach@gmail.com", password: "4languagecoach", role: "Super Admin" }
     ];
 
-    const MOCK_ANNOUNCEMENTS = [
-      {
-        announcementId: "ANN-301",
-        title: "🎉 Welcome to MASTERED Language Coach Portal",
-        description: "Your executive speaking curriculum and custom practice drills will appear here as your coach publishes new modules.",
-        visibility: "All Students",
-        createdDate: "2026-08-06"
-      }
-    ];
-
     function getDriveEmbedUrl(url) {
       if (!url) return '';
       const fileIdMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
@@ -135,7 +232,6 @@
       return url;
     }
 
-    // Bulletproof Cross-Device API Function
     async function callAppsScript(action, payload = {}) {
       try {
         const response = await fetch(LIVE_APPS_SCRIPT_URL, {
@@ -146,7 +242,7 @@
         const json = await response.json();
         if (json && json.success !== undefined) return json;
       } catch(err) {
-        console.warn("POST failed, attempting GET fallback...", err);
+        console.warn("POST fallback:", err);
       }
 
       try {
@@ -155,7 +251,6 @@
         const json = await response.json();
         return json;
       } catch(err2) {
-        console.warn("GET fallback failed:", err2);
         return { success: false, message: err2.message };
       }
     }
@@ -167,10 +262,8 @@
       const [activeTab, setActiveTab] = useState('dashboard');
       const [selectedModuleId, setSelectedModuleId] = useState(null);
       const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-      const [showImportModal, setShowImportModal] = useState(false);
-      const [syncCodeText, setSyncCodeText] = useState('');
 
-      // LocalStorage-backed state stores
+      // LocalStorage-backed state stores pre-loaded with all 32 Modules & Quizzes
       const [students, setStudents] = useState(() => {
         const saved = localStorage.getItem('mastered_students');
         return saved ? JSON.parse(saved) : INITIAL_STUDENTS;
@@ -183,25 +276,35 @@
 
       const [modules, setModules] = useState(() => {
         const saved = localStorage.getItem('mastered_modules');
-        return saved ? JSON.parse(saved) : [];
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length >= 32) return parsed;
+        }
+        return ALL_32_MODULES;
       });
 
       const [quizzes, setQuizzes] = useState(() => {
         const saved = localStorage.getItem('mastered_quizzes');
-        return saved ? JSON.parse(saved) : [];
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length >= 32) return parsed;
+        }
+        return ALL_32_QUIZZES;
       });
 
       const [questions, setQuestions] = useState(() => {
         const saved = localStorage.getItem('mastered_questions');
-        return saved ? JSON.parse(saved) : [];
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+        return ALL_32_QUESTIONS;
       });
 
       const [userProgress, setUserProgress] = useState(() => {
         const saved = localStorage.getItem('mastered_progress');
         return saved ? JSON.parse(saved) : {};
       });
-
-      const [announcements, setAnnouncements] = useState(MOCK_ANNOUNCEMENTS);
 
       // Save state to LocalStorage
       useEffect(() => {
@@ -227,49 +330,6 @@
       useEffect(() => {
         localStorage.setItem('mastered_progress', JSON.stringify(userProgress));
       }, [userProgress]);
-
-      // Automatic Cross-Device Background Sync (runs every 6 seconds)
-      useEffect(() => {
-        const syncModules = () => {
-          callAppsScript('getModules').then(mRes => {
-            if (mRes && mRes.success && Array.isArray(mRes.data) && mRes.data.length > 0) {
-              setModules(mRes.data);
-            }
-          });
-        };
-
-        syncModules();
-        const interval = setInterval(syncModules, 6000);
-        return () => clearInterval(interval);
-      }, []);
-
-      // Force Sync All Local Modules to Cloud
-      const handleForceCloudSync = async () => {
-        showToast("☁️ Uploading all modules to Google Sheets...");
-        let count = 0;
-        for (const mod of modules) {
-          await callAppsScript('adminSaveModule', { module: mod });
-          count++;
-        }
-        showToast(`✅ Synced ${count} modules to Google Sheets! Try refreshing mobile.`);
-      };
-
-      // Import JSON Code
-      const handleImportSyncCode = (e) => {
-        e.preventDefault();
-        try {
-          const parsed = JSON.parse(syncCodeText);
-          if (Array.isArray(parsed)) {
-            setModules(parsed);
-            setShowImportModal(false);
-            showToast(`✅ Imported ${parsed.length} modules successfully!`);
-          } else {
-            alert("Invalid module list JSON format.");
-          }
-        } catch(err) {
-          alert("Error parsing JSON: " + err.message);
-        }
-      };
 
       // Lesson Sub-Tab inside Student Module View
       const [lessonTab, setLessonTab] = useState('video1');
@@ -408,10 +468,10 @@
         showToast(`Request rejected.`);
       };
 
-      // Save Module (Create / Edit)
+      // Save Module (Create / Edit) - REALTIME EDIT SUPPORT
       const handleSaveModule = async (e) => {
         e.preventDefault();
-        const modId = moduleForm.moduleId || `MOD-${Math.floor(100 + Math.random() * 900)}`;
+        const modId = moduleForm.moduleId || `MOD-${moduleForm.moduleNumber < 10 ? '0' + moduleForm.moduleNumber : moduleForm.moduleNumber}`;
         const finalMod = {
           ...moduleForm,
           moduleId: modId,
@@ -430,14 +490,8 @@
         });
 
         setShowModuleModal(false);
-        showToast(`🔄 Syncing module to Google Sheets...`);
-
-        const res = await callAppsScript('adminSaveModule', { module: finalMod });
-        if (res && res.success) {
-          showToast(`✅ Module "${finalMod.title}" synced to Google Sheets! Available on mobile.`);
-        } else {
-          showToast(`✅ Saved locally. Click "☁️ Sync Cloud" to push to Google Sheet.`);
-        }
+        showToast(`✅ Module "${finalMod.title}" saved & updated!`);
+        callAppsScript('adminSaveModule', { module: finalMod });
       };
 
       // Delete Module
@@ -448,7 +502,7 @@
         }
       };
 
-      // Save Quiz
+      // Save Quiz (Create / Edit)
       const handleSaveQuiz = async (e) => {
         e.preventDefault();
         const qId = quizForm.quizId || `QUIZ-${Math.floor(100 + Math.random() * 900)}`;
@@ -475,10 +529,10 @@
 
         setShowQuizModalAdmin(false);
         callAppsScript('adminSaveQuiz', { quiz: finalQuiz });
-        showToast(`✅ Quiz "${finalQuiz.title}" created successfully!`);
+        showToast(`✅ Quiz "${finalQuiz.title}" updated successfully!`);
       };
 
-      // Save Question
+      // Save Question (Create / Edit)
       const handleSaveQuestion = async (e) => {
         e.preventDefault();
         const qstId = questionForm.id || `Q-${Math.floor(1000 + Math.random() * 9000)}`;
@@ -496,7 +550,15 @@
 
         setShowQuestionModalAdmin(false);
         callAppsScript('adminSaveQuestion', { question: finalQst });
-        showToast(`✅ Question added to Quiz!`);
+        showToast(`✅ Question saved & updated!`);
+      };
+
+      // Delete Question
+      const handleDeleteQuestion = (qId) => {
+        if (confirm("Delete this question?")) {
+          setQuestions(prev => prev.filter(q => q.id !== qId));
+          showToast("Question deleted.");
+        }
       };
 
       // Update Student Progress
@@ -610,7 +672,7 @@
                   };
                   setRequests(prev => [newReq, ...prev]);
                   callAppsScript('submitRequest', newReq);
-                  alert("Your request has been sent successfully to Google Sheet! Please wait for admin approval.");
+                  alert("Your request has been sent successfully! Please wait for admin approval.");
                   setAuthScreen('login');
                 }} className="space-y-3.5 text-xs">
                   <input name="name" type="text" required placeholder="Full Name" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
@@ -776,7 +838,7 @@
               <div className="p-3 bg-slate-800/60 rounded-xl text-[11px] text-slate-400 space-y-2">
                 <div>
                   <p className="font-bold text-slate-200">Database Engine</p>
-                  <p className="text-emerald-400 mt-0.5">● Sheet & Cross-Device Synced</p>
+                  <p className="text-emerald-400 mt-0.5">● 32 Curriculum Modules Active</p>
                 </div>
               </div>
             </aside>
@@ -807,7 +869,6 @@
                     {/* Touch-Friendly Lesson Tab Selector */}
                     <div className="flex overflow-x-auto no-scrollbar space-x-2 border-b pb-2">
                       <button onClick={() => setLessonTab('video1')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'video1' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>Video Lesson 1</button>
-                      {activeModule.video2 && <button onClick={() => setLessonTab('video2')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'video2' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>Video Lesson 2</button>}
                       {activeModule.audio && <button onClick={() => setLessonTab('audio')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'audio' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>Audio Accent Drill</button>}
                       {activeModule.pdf && <button onClick={() => setLessonTab('pdf')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'pdf' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>PDF Notes</button>}
                       {activeModule.quizId && (
@@ -825,18 +886,6 @@
                           </div>
                           <div className="aspect-video w-full bg-slate-900 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner">
                             <iframe src={getDriveEmbedUrl(activeModule.video1)} className="w-full h-full border-0" allowFullScreen></iframe>
-                          </div>
-                        </div>
-                      )}
-
-                      {lessonTab === 'video2' && activeModule.video2 && (
-                        <div>
-                          <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-3">
-                            <h4 className="font-bold text-sm text-slate-900">Video Lesson 2</h4>
-                            <button onClick={() => handleMarkItemComplete(activeModule.moduleId, 'video2')} className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-xl self-start sm:self-auto">✓ Mark Watched</button>
-                          </div>
-                          <div className="aspect-video w-full bg-slate-900 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner">
-                            <iframe src={getDriveEmbedUrl(activeModule.video2)} className="w-full h-full border-0" allowFullScreen></iframe>
                           </div>
                         </div>
                       )}
@@ -920,43 +969,36 @@
 
                     <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 shadow-sm space-y-4">
                       <div className="flex justify-between items-center">
-                        <h3 className="text-sm sm:text-base font-extrabold text-slate-900">Purchased Course Modules ({modules.length})</h3>
+                        <h3 className="text-sm sm:text-base font-extrabold text-slate-900">32 Executive Modules ({modules.length})</h3>
                       </div>
 
-                      {modules.length === 0 ? (
-                        <div className="p-8 sm:p-12 text-center border-2 border-dashed border-slate-200 rounded-2xl sm:rounded-3xl">
-                          <p className="text-sm font-bold text-slate-700">No Course Modules Published Yet</p>
-                          <p className="text-xs text-slate-400 mt-1 max-w-md mx-auto">Your language coach is currently preparing your curriculum modules. Please check back soon!</p>
-                        </div>
-                      ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                          {modules.map(m => {
-                            const prog = userProgress[m.moduleId]?.percentage || 0;
-                            return (
-                              <div key={m.moduleId} className="p-4 sm:p-5 border border-slate-200 rounded-2xl sm:rounded-3xl bg-white hover:border-blue-500 transition shadow-sm space-y-3 flex flex-col justify-between">
-                                <div>
-                                  <div className="aspect-video w-full bg-slate-100 rounded-xl sm:rounded-2xl overflow-hidden mb-3 relative">
-                                    <img src={m.thumbnail} alt={m.title} className="w-full h-full object-cover" />
-                                    <span className="absolute top-2 left-2 bg-slate-900 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-md">Module {m.moduleNumber}</span>
-                                  </div>
-                                  <h4 className="font-bold text-sm sm:text-base text-slate-900">{m.title}</h4>
-                                  <p className="text-xs text-slate-500 leading-relaxed mt-1 line-clamp-2">{m.description}</p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                        {modules.map(m => {
+                          const prog = userProgress[m.moduleId]?.percentage || 0;
+                          return (
+                            <div key={m.moduleId} className="p-4 sm:p-5 border border-slate-200 rounded-2xl sm:rounded-3xl bg-white hover:border-blue-500 transition shadow-sm space-y-3 flex flex-col justify-between">
+                              <div>
+                                <div className="aspect-video w-full bg-slate-100 rounded-xl sm:rounded-2xl overflow-hidden mb-3 relative">
+                                  <img src={m.thumbnail} alt={m.title} className="w-full h-full object-cover" />
+                                  <span className="absolute top-2 left-2 bg-slate-900 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-md">Module {m.moduleNumber}</span>
                                 </div>
-
-                                <div className="pt-2 border-t flex items-center justify-between">
-                                  <span className="text-xs font-bold text-slate-500">Progress: <strong className="text-blue-600">{prog}%</strong></span>
-                                  <button
-                                    onClick={() => setSelectedModuleId(m.moduleId)}
-                                    className="px-4 py-2 sm:py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-xs shadow-md"
-                                  >
-                                    {prog > 0 ? 'Resume' : 'Start Module'}
-                                  </button>
-                                </div>
+                                <h4 className="font-bold text-sm sm:text-base text-slate-900">{m.title}</h4>
+                                <p className="text-xs text-slate-500 leading-relaxed mt-1 line-clamp-2">{m.description}</p>
                               </div>
-                            );
-                          })}
-                        </div>
-                      )}
+
+                              <div className="pt-2 border-t flex items-center justify-between">
+                                <span className="text-xs font-bold text-slate-500">Progress: <strong className="text-blue-600">{prog}%</strong></span>
+                                <button
+                                  onClick={() => setSelectedModuleId(m.moduleId)}
+                                  className="px-4 py-2 sm:py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-xs shadow-md"
+                                >
+                                  {prog > 0 ? 'Resume' : 'Start Module'}
+                                </button>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
                 )
@@ -993,17 +1035,17 @@
                         </div>
                         <div onClick={() => setActiveTab('admin-modules')} className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-500 cursor-pointer transition shadow-sm">
                           <h4 className="font-bold text-sm text-slate-900">📚 Module Manager</h4>
-                          <p className="text-xs text-slate-500 mt-1">Create modules & embed Google Drive media</p>
+                          <p className="text-xs text-slate-500 mt-1">Create & edit all 32 modules with Drive links</p>
                         </div>
                         <div onClick={() => setActiveTab('admin-quizzes')} className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-500 cursor-pointer transition shadow-sm">
                           <h4 className="font-bold text-sm text-slate-900">❓ Quiz & Question Builder</h4>
-                          <p className="text-xs text-slate-500 mt-1">Build multiple-choice tests & questions</p>
+                          <p className="text-xs text-slate-500 mt-1">Edit quizzes & question bank</p>
                         </div>
                       </div>
                     </div>
                   )}
 
-                  {/* Student Directory Tab with Horizontal Scroll */}
+                  {/* Student Directory Tab */}
                   {activeTab === 'admin-students' && (
                     <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 space-y-4 shadow-sm">
                       <h3 className="text-base sm:text-lg font-bold text-slate-900">Student Directory ({students.length})</h3>
@@ -1087,131 +1129,82 @@
                     </div>
                   )}
 
-                  {/* Module Manager Tab */}
+                  {/* Module Manager Tab - WITH EDIT MODULE & EDIT QUIZ BUTTONS */}
                   {activeTab === 'admin-modules' && (
                     <div className="space-y-4 sm:space-y-6">
                       <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 flex flex-col sm:flex-row justify-between sm:items-center gap-3 shadow-sm">
                         <div>
-                          <h3 className="text-base sm:text-lg font-extrabold text-slate-900">Module & Media Manager</h3>
-                          <p className="text-xs text-slate-500 mt-0.5">Create modules and embed Google Drive videos, audio, and PDFs.</p>
+                          <h3 className="text-base sm:text-lg font-extrabold text-slate-900">32 Curriculum Modules Manager</h3>
+                          <p className="text-xs text-slate-500 mt-0.5">Click <strong>"Edit Module"</strong> on any module to change its links, titles, or attached quizzes.</p>
                         </div>
 
-                        <div className="flex flex-wrap gap-2">
-                          <button
-                            onClick={handleForceCloudSync}
-                            className="px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-md"
-                          >
-                            ☁️ Sync Cloud
-                          </button>
-                          <button
-                            onClick={() => {
-                              setSyncCodeText(JSON.stringify(modules, null, 2));
-                              setShowImportModal(true);
-                            }}
-                            className="px-3.5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-xl shadow-md"
-                          >
-                            📥 Import / Export
-                          </button>
-                          <button
-                            onClick={() => {
-                              setModuleForm({
-                                moduleId: '',
-                                moduleNumber: modules.length + 1,
-                                title: '',
-                                description: '',
-                                thumbnail: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop&q=80',
-                                video1: '',
-                                video2: '',
-                                audio: '',
-                                pdf: '',
-                                quizId: '',
-                                published: true,
-                                order: modules.length + 1
-                              });
-                              setShowModuleModal(true);
-                            }}
-                            className="px-4 sm:px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow-md"
-                          >
-                            + Create Module
-                          </button>
-                        </div>
+                        <button
+                          onClick={() => {
+                            setModuleForm({
+                              moduleId: '',
+                              moduleNumber: modules.length + 1,
+                              title: '',
+                              description: '',
+                              thumbnail: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop&q=80',
+                              video1: '',
+                              video2: '',
+                              audio: '',
+                              pdf: '',
+                              quizId: '',
+                              published: true,
+                              order: modules.length + 1
+                            });
+                            setShowModuleModal(true);
+                          }}
+                          className="px-4 sm:px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow-md self-start sm:self-auto"
+                        >
+                          + Add New Module
+                        </button>
                       </div>
 
-                      {modules.length === 0 ? (
-                        <div className="p-8 sm:p-12 text-center bg-white rounded-2xl sm:rounded-3xl border-2 border-dashed border-slate-200 space-y-3">
-                          <p className="font-bold text-slate-800 text-sm sm:text-base">No Modules Found on This Device</p>
-                          <p className="text-xs text-slate-400 max-w-md mx-auto">Click "+ Create Module" or click "📥 Import / Export" to paste your module code!</p>
-                        </div>
-                      ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                          {modules.map(m => (
-                            <div key={m.moduleId} className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between">
-                              <div>
-                                <div className="aspect-video bg-slate-100 relative">
-                                  <img src={m.thumbnail} alt={m.title} className="w-full h-full object-cover" />
-                                  <div className="absolute top-2.5 left-2.5 bg-slate-900 text-white px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold">
-                                    Module {m.moduleNumber}
-                                  </div>
-                                </div>
-                                <div className="p-4 sm:p-5 space-y-1.5">
-                                  <h4 className="font-bold text-sm sm:text-base text-slate-900">{m.title}</h4>
-                                  <p className="text-xs text-slate-500 leading-relaxed">{m.description}</p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                        {modules.map(m => (
+                          <div key={m.moduleId} className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between">
+                            <div>
+                              <div className="aspect-video bg-slate-100 relative">
+                                <img src={m.thumbnail} alt={m.title} className="w-full h-full object-cover" />
+                                <div className="absolute top-2.5 left-2.5 bg-slate-900 text-white px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold shadow-md">
+                                  Module {m.moduleNumber}
                                 </div>
                               </div>
-
-                              <div className="p-3.5 bg-slate-50 border-t flex justify-end space-x-2">
-                                <button
-                                  onClick={() => {
-                                    setModuleForm(m);
-                                    setShowModuleModal(true);
-                                  }}
-                                  className="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 font-bold text-xs rounded-xl"
-                                >
-                                  Edit
-                                </button>
-                                <button
-                                  onClick={() => handleDeleteModule(m.moduleId)}
-                                  className="px-3 py-1.5 bg-red-100 hover:bg-red-200 text-red-700 font-bold text-xs rounded-xl"
-                                >
-                                  Delete
-                                </button>
+                              <div className="p-4 sm:p-5 space-y-1.5">
+                                <h4 className="font-bold text-sm sm:text-base text-slate-900">{m.title}</h4>
+                                <p className="text-xs text-slate-500 leading-relaxed line-clamp-2">{m.description}</p>
                               </div>
                             </div>
-                          ))}
-                        </div>
-                      )}
 
-                      {/* Import/Export Backup Modal */}
-                      {showImportModal && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
-                          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 max-w-lg w-full border shadow-2xl space-y-4">
-                            <h3 className="text-base sm:text-lg font-extrabold text-slate-900">Import / Export Modules JSON Code</h3>
-                            <p className="text-xs text-slate-500">Copy the JSON below from your laptop and paste it here on mobile to instantly transfer your modules!</p>
-
-                            <form onSubmit={handleImportSyncCode} className="space-y-3 text-xs">
-                              <textarea
-                                rows={8}
-                                required
-                                value={syncCodeText}
-                                onChange={e => setSyncCodeText(e.target.value)}
-                                className="w-full p-3 font-mono border rounded-xl bg-slate-950 text-emerald-400 text-[11px]"
-                              ></textarea>
-
-                              <div className="flex justify-end space-x-2">
-                                <button type="button" onClick={() => setShowImportModal(false)} className="px-4 py-2 border rounded-xl font-bold">Cancel</button>
-                                <button type="submit" className="px-5 py-2 bg-blue-600 text-white font-bold rounded-xl shadow-md">Apply & Save Modules</button>
-                              </div>
-                            </form>
+                            <div className="p-3.5 bg-slate-50 border-t flex justify-end space-x-2">
+                              <button
+                                onClick={() => {
+                                  setModuleForm(m);
+                                  setShowModuleModal(true);
+                                }}
+                                className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow-sm"
+                              >
+                                ✏️ Edit Module
+                              </button>
+                              <button
+                                onClick={() => handleDeleteModule(m.moduleId)}
+                                className="px-3 py-2 bg-red-100 hover:bg-red-200 text-red-700 font-bold text-xs rounded-xl"
+                              >
+                                Delete
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                      )}
+                        ))}
+                      </div>
 
                       {/* Module Modal Form */}
                       {showModuleModal && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
                           <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 max-w-xl w-full border shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
                             <h3 className="text-base sm:text-lg font-extrabold text-slate-900">
-                              {moduleForm.moduleId ? 'Edit Course Module' : 'Create New Course Module'}
+                              {moduleForm.moduleId ? `Edit Module ${moduleForm.moduleNumber}` : 'Create New Course Module'}
                             </h3>
 
                             <form onSubmit={handleSaveModule} className="space-y-3 text-xs">
@@ -1231,7 +1224,7 @@
 
                               <div>
                                 <label className="block font-bold mb-1">Module Title</label>
-                                <input type="text" required value={moduleForm.title} onChange={e => setModuleForm({ ...moduleForm, title: e.target.value })} placeholder="e.g. Executive Vocal Projection" className="w-full p-2.5 border rounded-xl" />
+                                <input type="text" required value={moduleForm.title} onChange={e => setModuleForm({ ...moduleForm, title: e.target.value })} className="w-full p-2.5 border rounded-xl" />
                               </div>
 
                               <div>
@@ -1250,14 +1243,10 @@
                                   <input type="url" value={moduleForm.video1} onChange={e => setModuleForm({ ...moduleForm, video1: e.target.value })} placeholder="https://drive.google.com/..." className="w-full p-2.5 border rounded-xl" />
                                 </div>
                                 <div>
-                                  <label className="block font-bold mb-1">Video 2 Drive Link</label>
-                                  <input type="url" value={moduleForm.video2} onChange={e => setModuleForm({ ...moduleForm, video2: e.target.value })} placeholder="https://drive.google.com/..." className="w-full p-2.5 border rounded-xl" />
-                                </div>
-                                <div>
                                   <label className="block font-bold mb-1">Audio Drive Link</label>
                                   <input type="url" value={moduleForm.audio} onChange={e => setModuleForm({ ...moduleForm, audio: e.target.value })} placeholder="https://drive.google.com/..." className="w-full p-2.5 border rounded-xl" />
                                 </div>
-                                <div>
+                                <div className="sm:col-span-2">
                                   <label className="block font-bold mb-1">PDF Drive Link</label>
                                   <input type="url" value={moduleForm.pdf} onChange={e => setModuleForm({ ...moduleForm, pdf: e.target.value })} placeholder="https://drive.google.com/..." className="w-full p-2.5 border rounded-xl" />
                                 </div>
@@ -1265,7 +1254,7 @@
 
                               <div className="flex justify-end space-x-2 pt-3">
                                 <button type="button" onClick={() => setShowModuleModal(false)} className="px-4 py-2 border rounded-xl font-bold">Cancel</button>
-                                <button type="submit" className="px-6 py-2 bg-blue-600 text-white font-bold rounded-xl shadow-md">Save Module</button>
+                                <button type="submit" className="px-6 py-2 bg-blue-600 text-white font-bold rounded-xl shadow-md">Save & Update Module</button>
                               </div>
                             </form>
                           </div>
@@ -1274,13 +1263,13 @@
                     </div>
                   )}
 
-                  {/* Quiz & Question Builder Tab */}
+                  {/* Quiz & Question Builder Tab - WITH EDIT QUIZ & EDIT QUESTION BUTTONS */}
                   {activeTab === 'admin-quizzes' && (
                     <div className="space-y-4 sm:space-y-6">
                       <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 flex flex-col sm:flex-row justify-between sm:items-center gap-3 shadow-sm">
                         <div>
-                          <h3 className="text-base sm:text-lg font-extrabold text-slate-900">Quiz & Question Bank Builder</h3>
-                          <p className="text-xs text-slate-500 mt-0.5">Build multiple choice assessments and add questions for student mastery tests.</p>
+                          <h3 className="text-base sm:text-lg font-extrabold text-slate-900">32 Quizzes & Question Builder</h3>
+                          <p className="text-xs text-slate-500 mt-0.5">Edit quizzes and add multiple-choice questions for each module.</p>
                         </div>
 
                         <button
@@ -1294,61 +1283,86 @@
                         </button>
                       </div>
 
-                      {quizzes.length === 0 ? (
-                        <div className="p-8 sm:p-12 text-center bg-white rounded-2xl sm:rounded-3xl border-2 border-dashed border-slate-200">
-                          <p className="font-bold text-slate-800 text-sm sm:text-base">No Quizzes Created Yet</p>
-                          <p className="text-xs text-slate-400 mt-1">Click "+ Create New Quiz" above to add your first assessment!</p>
-                        </div>
-                      ) : (
-                        <div className="space-y-4 sm:space-y-6">
-                          {quizzes.map(quiz => {
-                            const quizQsts = questions.filter(q => q.quizId === quiz.quizId);
-                            const modObj = modules.find(m => m.moduleId === quiz.moduleId);
+                      <div className="space-y-4 sm:space-y-6">
+                        {quizzes.map(quiz => {
+                          const quizQsts = questions.filter(q => q.quizId === quiz.quizId);
+                          const modObj = modules.find(m => m.moduleId === quiz.moduleId);
 
-                            return (
-                              <div key={quiz.quizId} className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 space-y-4 shadow-sm">
-                                <div className="flex flex-col sm:flex-row justify-between sm:items-center border-b pb-3 gap-2">
-                                  <div>
-                                    <span className="font-mono text-xs font-bold text-blue-600 uppercase">{quiz.quizId}</span>
-                                    <h4 className="text-base font-bold text-slate-900">{quiz.title}</h4>
-                                    <p className="text-xs text-slate-500">Target Pass: {quiz.passPercentage}% | Time Limit: {quiz.timeLimit} mins | Linked Module: {modObj ? modObj.title : 'None'}</p>
-                                  </div>
+                          return (
+                            <div key={quiz.quizId} className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 space-y-4 shadow-sm">
+                              <div className="flex flex-col sm:flex-row justify-between sm:items-center border-b pb-3 gap-2">
+                                <div>
+                                  <span className="font-mono text-xs font-bold text-blue-600 uppercase">{quiz.quizId}</span>
+                                  <h4 className="text-base font-bold text-slate-900">{quiz.title}</h4>
+                                  <p className="text-xs text-slate-500">Target Pass: {quiz.passPercentage}% | Time Limit: {quiz.timeLimit} mins | Linked Module: {modObj ? modObj.title : 'None'}</p>
+                                </div>
+                                <div className="flex space-x-2">
+                                  <button
+                                    onClick={() => {
+                                      setQuizForm(quiz);
+                                      setShowQuizModalAdmin(true);
+                                    }}
+                                    className="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 font-bold text-xs rounded-xl"
+                                  >
+                                    ✏️ Edit Quiz
+                                  </button>
                                   <button
                                     onClick={() => {
                                       setQuestionForm({ id: '', quizId: quiz.quizId, question: '', optionA: '', optionB: '', optionC: '', optionD: '', correctAnswer: 'A', explanation: '' });
                                       setShowQuestionModalAdmin(true);
                                     }}
-                                    className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl self-start sm:self-auto"
+                                    className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl"
                                   >
                                     + Add Question ({quizQsts.length})
                                   </button>
                                 </div>
+                              </div>
 
-                                <div className="space-y-2">
-                                  {quizQsts.map((q, idx) => (
-                                    <div key={q.id} className="p-3 bg-slate-50 rounded-2xl border text-xs space-y-1">
+                              <div className="space-y-2">
+                                {quizQsts.map((q, idx) => (
+                                  <div key={q.id} className="p-3 bg-slate-50 rounded-2xl border text-xs flex justify-between items-start gap-2">
+                                    <div className="space-y-1">
                                       <p className="font-bold text-slate-900">{idx + 1}. {q.question}</p>
                                       <p className="text-slate-600">A: {q.optionA} | B: {q.optionB} | C: {q.optionC} | D: {q.optionD}</p>
                                       <p className="text-emerald-600 font-bold">Correct: Option {q.correctAnswer}</p>
                                     </div>
-                                  ))}
-                                </div>
+                                    <div className="flex space-x-1 shrink-0">
+                                      <button
+                                        onClick={() => {
+                                          setQuestionForm(q);
+                                          setShowQuestionModalAdmin(true);
+                                        }}
+                                        className="px-2.5 py-1 bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-[10px] rounded-lg"
+                                      >
+                                        Edit
+                                      </button>
+                                      <button
+                                        onClick={() => handleDeleteQuestion(q.id)}
+                                        className="px-2.5 py-1 bg-red-100 hover:bg-red-200 text-red-700 font-bold text-[10px] rounded-lg"
+                                      >
+                                        Del
+                                      </button>
+                                    </div>
+                                  </div>
+                                ))}
                               </div>
-                            );
-                          })}
-                        </div>
-                      )}
+                            </div>
+                          );
+                        })}
+                      </div>
 
-                      {/* Create Quiz Modal */}
+                      {/* Create / Edit Quiz Modal */}
                       {showQuizModalAdmin && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm">
                           <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 max-w-md w-full border shadow-2xl space-y-4">
-                            <h3 className="text-base sm:text-lg font-extrabold text-slate-900">Create New Quiz</h3>
+                            <h3 className="text-base sm:text-lg font-extrabold text-slate-900">
+                              {quizForm.quizId ? 'Edit Quiz Settings' : 'Create New Quiz'}
+                            </h3>
 
                             <form onSubmit={handleSaveQuiz} className="space-y-3 text-xs">
                               <div>
                                 <label className="block font-bold mb-1">Quiz Title</label>
-                                <input type="text" required value={quizForm.title} onChange={e => setQuizForm({ ...quizForm, title: e.target.value })} placeholder="e.g. Module 1 Executive Fluency Mastery" className="w-full p-2.5 border rounded-xl" />
+                                <input type="text" required value={quizForm.title} onChange={e => setQuizForm({ ...quizForm, title: e.target.value })} className="w-full p-2.5 border rounded-xl" />
                               </div>
 
                               <div>
@@ -1372,18 +1386,20 @@
 
                               <div className="flex justify-end space-x-2 pt-3">
                                 <button type="button" onClick={() => setShowQuizModalAdmin(false)} className="px-4 py-2 border rounded-xl font-bold">Cancel</button>
-                                <button type="submit" className="px-5 py-2 bg-blue-600 text-white font-bold rounded-xl shadow-md">Create Quiz</button>
+                                <button type="submit" className="px-5 py-2 bg-blue-600 text-white font-bold rounded-xl shadow-md">Save Quiz Settings</button>
                               </div>
                             </form>
                           </div>
                         </div>
                       )}
 
-                      {/* Add Question Modal */}
+                      {/* Add / Edit Question Modal */}
                       {showQuestionModalAdmin && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
                           <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 max-w-lg w-full border shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-                            <h3 className="text-base sm:text-lg font-extrabold text-slate-900">Add Question to Quiz</h3>
+                            <h3 className="text-base sm:text-lg font-extrabold text-slate-900">
+                              {questionForm.id ? 'Edit Question' : 'Add Question to Quiz'}
+                            </h3>
 
                             <form onSubmit={handleSaveQuestion} className="space-y-3 text-xs">
                               <div>
@@ -1422,12 +1438,12 @@
 
                               <div>
                                 <label className="block font-bold mb-1">Explanation Note</label>
-                                <input type="text" value={questionForm.explanation} onChange={e => setQuestionForm({ ...questionForm, explanation: e.target.value })} placeholder="Explanation shown to student after test..." className="w-full p-2.5 border rounded-xl" />
+                                <input type="text" value={questionForm.explanation} onChange={e => setQuestionForm({ ...questionForm, explanation: e.target.value })} placeholder="Explanation shown after test..." className="w-full p-2.5 border rounded-xl" />
                               </div>
 
                               <div className="flex justify-end space-x-2 pt-3">
                                 <button type="button" onClick={() => setShowQuestionModalAdmin(false)} className="px-4 py-2 border rounded-xl font-bold">Cancel</button>
-                                <button type="submit" className="px-5 py-2 bg-blue-600 text-white font-bold rounded-xl shadow-md">Add Question</button>
+                                <button type="submit" className="px-5 py-2 bg-blue-600 text-white font-bold rounded-xl shadow-md">Save Question</button>
                               </div>
                             </form>
                           </div>
