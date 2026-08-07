@@ -1,6 +1,7 @@
 /**
  * MASTERED Language Coach - Production Google Apps Script REST API Backend
  * Handlers for doGet and doPost requests to perform CRUD on Google Sheets.
+ * Full JSONP support enabled to guarantee cross-domain sync across mobile & desktop.
  */
 
 var MASTERED_SPREADSHEET_ID = "1N5YkP6U8RaafRD_bsULTzlaDSC0Vbmfj9l_XCt1S_Rg";
@@ -17,6 +18,7 @@ function doGet(e) {
   try {
     var params = (e && e.parameter) ? e.parameter : {};
     var action = params.action || 'getModules';
+    var callback = params.callback;
 
     var data = params;
     if (params.payload) {
@@ -28,9 +30,10 @@ function doGet(e) {
       } catch(err) {}
     }
 
-    return routeAction(action, data);
+    var result = routeActionObj(action, data);
+    return handleResponse(result, callback);
   } catch(err) {
-    return handleResponse({ success: false, message: "GET Exception: " + err.toString() });
+    return handleResponse({ success: false, message: "GET Exception: " + err.toString() }, e && e.parameter ? e.parameter.callback : null);
   }
 }
 
@@ -40,16 +43,17 @@ function doPost(e) {
     var data = JSON.parse(contents);
     var action = data.action;
 
-    return routeAction(action, data);
+    var result = routeActionObj(action, data);
+    return handleResponse(result, null);
   } catch (err) {
-    return handleResponse({ success: false, message: "POST Exception: " + err.toString() });
+    return handleResponse({ success: false, message: "POST Exception: " + err.toString() }, null);
   }
 }
 
-function routeAction(action, data) {
+function routeActionObj(action, data) {
   switch (action) {
     case 'ping':
-      return handleResponse({ success: true, message: "PONG! Live Google Sheets connection verified." });
+      return { success: true, message: "PONG! Live Google Sheets connection verified." };
 
     case 'loginStudent':
       return handleLoginStudent(data);
@@ -88,7 +92,12 @@ function routeAction(action, data) {
   }
 }
 
-function handleResponse(obj) {
+function handleResponse(obj, callback) {
+  if (callback) {
+    var jsonpStr = callback + "(" + JSON.stringify(obj) + ");";
+    return ContentService.createTextOutput(jsonpStr)
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
   return ContentService.createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
 }
@@ -125,7 +134,7 @@ function handleLoginStudent(data) {
     if ((s.Email || "").toString().toLowerCase() === email &&
         (s.AdmissionNumber || "").toString().toUpperCase() === adm) {
       if (s.Approved === true || (s.Approved || "").toString().toUpperCase() === 'TRUE') {
-        return handleResponse({
+        return {
           success: true,
           student: {
             studentId: s.StudentID,
@@ -139,13 +148,13 @@ function handleLoginStudent(data) {
             status: s.Status,
             createdDate: s.CreatedDate
           }
-        });
+        };
       } else {
-        return handleResponse({ success: false, message: "Your request is pending admin approval." });
+        return { success: false, message: "Your request is pending admin approval." };
       }
     }
   }
-  return handleResponse({ success: false, message: "Invalid email or admission number." });
+  return { success: false, message: "Invalid email or admission number." };
 }
 
 function handleLoginAdmin(data) {
@@ -153,19 +162,19 @@ function handleLoginAdmin(data) {
   var pass = (data.password || "").toString().trim();
 
   if (email === "masteredlanguagecoach@gmail.com" && pass === "4languagecoach") {
-    return handleResponse({
+    return {
       success: true,
       admin: { adminId: "ADM-002", name: "Mastered Language Coach", email: "masteredlanguagecoach@gmail.com", role: "Super Admin" }
-    });
+    };
   }
 
-  return handleResponse({ success: false, message: "Invalid admin credentials." });
+  return { success: false, message: "Invalid admin credentials." };
 }
 
 function handleSubmitRequest(data) {
   var ss = getMasteredSpreadsheet();
   var sheet = ss.getSheetByName("Requests");
-  if (!sheet) return handleResponse({ success: false, message: "Requests sheet missing." });
+  if (!sheet) return { success: false, message: "Requests sheet missing." };
 
   var reqId = data.requestId || ("REQ-" + Math.floor(1000 + Math.random() * 9000));
   var dateStr = new Date().toISOString().split('T')[0];
@@ -182,7 +191,7 @@ function handleSubmitRequest(data) {
     ""
   ]);
 
-  return handleResponse({ success: true, message: "Request submitted successfully!" });
+  return { success: true, message: "Request submitted successfully!" };
 }
 
 function handleGetModules() {
@@ -203,16 +212,16 @@ function handleGetModules() {
       order: Number(m.Order) || 1
     };
   });
-  return handleResponse({ success: true, data: modules });
+  return { success: true, data: modules };
 }
 
 function handleAdminSaveModule(data) {
   var mod = data.module || data;
-  if (!mod || !mod.title) return handleResponse({ success: false, message: "No module payload" });
+  if (!mod || !mod.title) return { success: false, message: "No module payload" };
 
   var ss = getMasteredSpreadsheet();
   var sheet = ss.getSheetByName("Modules");
-  if (!sheet) return handleResponse({ success: false, message: "Modules sheet missing" });
+  if (!sheet) return { success: false, message: "Modules sheet missing" };
 
   var rows = sheet.getDataRange().getValues();
   var foundRow = -1;
@@ -245,7 +254,7 @@ function handleAdminSaveModule(data) {
     sheet.appendRow(rowValues);
   }
 
-  return handleResponse({ success: true, message: "Module saved to Google Sheet!" });
+  return { success: true, message: "Module saved to Google Sheet!" };
 }
 
 function handleApproveRequest(data) {
@@ -290,7 +299,7 @@ function handleApproveRequest(data) {
     ]);
   }
 
-  return handleResponse({ success: true, message: "Request approved and student enrolled!" });
+  return { success: true, message: "Request approved and student enrolled!" };
 }
 
 function handleGetStudentProgress(data) {
@@ -307,11 +316,11 @@ function handleGetStudentProgress(data) {
       lastAccessed: p.LastAccessed
     };
   });
-  return handleResponse({ success: true, data: filtered });
+  return { success: true, data: filtered };
 }
 
 function handleUpdateProgress(data) {
-  return handleResponse({ success: true, message: "Progress recorded." });
+  return { success: true, message: "Progress recorded." };
 }
 
 function handleAdminGetStudents() {
@@ -330,7 +339,7 @@ function handleAdminGetStudents() {
       createdDate: s.CreatedDate
     };
   });
-  return handleResponse({ success: true, data: list });
+  return { success: true, data: list };
 }
 
 function handleAdminGetRequests() {
@@ -348,5 +357,5 @@ function handleAdminGetRequests() {
       approvedBy: r.ApprovedBy
     };
   });
-  return handleResponse({ success: true, data: list });
+  return { success: true, data: list };
 }
