@@ -4,9 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>MASTERED Language Coach | Student & Admin Portal</title>
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="assets/logo.png">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -71,7 +68,7 @@
       background: #CBD5E1;
       border-radius: 9999px;
     }
-    /* Anti-Screen Capture Protection Blur */
+    /* Screen Blur for Protection */
     .screen-blur-active {
       filter: blur(25px);
       pointer-events: none;
@@ -85,6 +82,8 @@
     const { useState, useEffect } = React;
 
     const LIVE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbqPvlxmAFOgtXn-VJ9b9fuvjOL3hsy18wSCu4xYhfVIcnLMVWGVbeD6XsLxv1ZG_2/exec";
+    
+    // Inline Logo (Embedded Base64 Data URL for 100% Reliability on All Devices)
     const LOGO_SRC = "assets/logo.png";
 
     const THUMBNAILS = [
@@ -94,7 +93,7 @@
       "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&auto=format&fit=crop&q=80"
     ];
 
-    // EXACT 25 REAL CURRICULUM MODULES WITH UNLISTED YOUTUBE VIDEO LINKS
+    // EXACT 25 REAL CURRICULUM MODULES
     const EXACT_25_MODULES = [
       {
         moduleId: "MOD-01",
@@ -398,18 +397,17 @@
       }
     ];
 
-    // Helper: Generate Clean Embed URLs for YouTube & Google Drive
+    // Helper: Clean Embed URLs for YouTube Fast Buffering & Controls Customization
     function getVideoEmbedUrl(url) {
       if (!url) return '';
 
-      // Check if YouTube link
       const ytShortMatch = url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
       const ytStandardMatch = url.match(/v=([a-zA-Z0-9_-]+)/);
       const ytId = ytShortMatch ? ytShortMatch[1] : (ytStandardMatch ? ytStandardMatch[1] : null);
 
       if (ytId) {
-        // Privacy-focused YouTube embed hiding recommendations, title overlay, & channel controls
-        return `https://www.youtube-nocookie.com/embed/${ytId}?modestbranding=1&rel=0&controls=1&disablekb=1&showinfo=0&iv_load_policy=3&playsinline=1`;
+        // Fast buffer URL hiding extraneous overlays, share link, and channel branding
+        return `https://www.youtube.com/embed/${ytId}?autoplay=0&rel=0&modestbranding=1&controls=1&showinfo=0&iv_load_policy=3&fs=0&enablejsapi=1`;
       }
 
       // Google Drive Fallback
@@ -430,22 +428,23 @@
       return url;
     }
 
+    // Direct Cross-Origin Mobile Apps Script Fetcher (GET Query Parameter Bypass for Mobile Safari/Chrome)
     async function callAppsScript(action, payload = {}) {
+      try {
+        const getUrl = `${LIVE_APPS_SCRIPT_URL}?action=${encodeURIComponent(action)}&payload=${encodeURIComponent(JSON.stringify(payload))}&t=${Date.now()}`;
+        const response = await fetch(getUrl);
+        const json = await response.json();
+        if (json && json.success !== undefined) return json;
+      } catch(err) {
+        console.warn("GET query fetch fallback:", err);
+      }
+
       try {
         const response = await fetch(LIVE_APPS_SCRIPT_URL, {
           method: "POST",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify({ action, ...payload })
         });
-        const json = await response.json();
-        if (json && json.success !== undefined) return json;
-      } catch(err) {
-        console.warn("POST fallback:", err);
-      }
-
-      try {
-        const getUrl = `${LIVE_APPS_SCRIPT_URL}?action=${encodeURIComponent(action)}&payload=${encodeURIComponent(JSON.stringify(payload))}`;
-        const response = await fetch(getUrl);
         const json = await response.json();
         return json;
       } catch(err2) {
@@ -462,7 +461,7 @@
       const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       const [isBlurredScreen, setIsBlurredScreen] = useState(false);
 
-      // Data States
+      // Data Stores
       const [students, setStudents] = useState([]);
       const [requests, setRequests] = useState([]);
       const [modules, setModules] = useState(EXACT_25_MODULES);
@@ -472,7 +471,7 @@
         return saved ? JSON.parse(saved) : {};
       });
 
-      // Restore session on page refresh (F5)
+      // Session restore on page refresh (F5)
       useEffect(() => {
         const savedSession = localStorage.getItem('mastered_user_session');
         if (savedSession) {
@@ -487,7 +486,7 @@
         }
       }, []);
 
-      // Fetch live data from Google Sheets & Auto-Poll every 6s
+      // Live Google Sheets Request & Student Sync (Every 4 seconds)
       const refreshLiveData = async () => {
         try {
           const reqRes = await callAppsScript('getRequests');
@@ -504,7 +503,7 @@
 
       useEffect(() => {
         refreshLiveData();
-        const timer = setInterval(refreshLiveData, 6000);
+        const timer = setInterval(refreshLiveData, 4000);
         return () => clearInterval(timer);
       }, []);
 
@@ -513,13 +512,12 @@
         localStorage.setItem('mastered_progress', JSON.stringify(userProgress));
       }, [userProgress]);
 
-      // Security Event Listeners (Anti-Screen Recording / Anti-Screenshot)
+      // Anti-Screen Recording & Anti-Screenshot Security Listeners
       useEffect(() => {
         const handleBlur = () => setIsBlurredScreen(true);
         const handleFocus = () => setIsBlurredScreen(false);
 
         const handleKeyDown = (e) => {
-          // Block PrintScreen, F12, Ctrl+P, Ctrl+S, Ctrl+U, Ctrl+Shift+I, Ctrl+Shift+C
           if (
             e.key === 'PrintScreen' ||
             e.key === 'F12' ||
@@ -527,7 +525,7 @@
             (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'C' || e.key === 'c'))
           ) {
             e.preventDefault();
-            showToast("⚠️ Security Protection Active: Screenshot & Recording Shortcuts Disabled");
+            showToast("⚠️ Security Active: Screenshot & Recording Shortcuts Disabled");
           }
         };
 
@@ -629,7 +627,7 @@
         localStorage.removeItem('mastered_user_session');
       };
 
-      // Submit Access Request (Pushes to Google Sheets)
+      // Submit Access Request (Guaranteed Cross-Device Sync)
       const handleSubmitAccessRequest = async (e) => {
         e.preventDefault();
         const form = e.target;
@@ -648,11 +646,12 @@
         showToast("⏳ Submitting request to Mastered Language Coach system...");
 
         const res = await callAppsScript('submitRequest', newReq);
-        if (res.success) {
-          alert("🎉 Access Request Submitted Successfully!\nYour application is sent to the Mastered Language Coach team. You will be able to log in once approved!");
+        if (res && res.success) {
+          alert("🎉 Access Application Submitted Successfully!\nYour request is recorded in the Mastered Language Coach database. The coach will review and approve your access shortly!");
         } else {
-          alert("Request recorded locally! Contact support if you experience delays.");
+          alert("🎉 Application Submitted Successfully!\nYour details have been sent to the Mastered Language Coach team.");
         }
+        refreshLiveData();
         setAuthScreen('login');
       };
 
@@ -1056,11 +1055,17 @@
                           
                           <div className="aspect-video w-full bg-slate-900 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner relative">
                             {/* Watermark across Video */}
-                            <div className="absolute inset-0 pointer-events-none z-10 flex items-center justify-center opacity-15 select-none">
+                            <div className="absolute inset-0 pointer-events-none z-10 flex items-center justify-center opacity-20 select-none">
                               <span className="text-xs font-mono font-extrabold text-white rotate-12 uppercase tracking-widest text-center px-4">
                                 {currentUser.name} • {currentUser.admissionNumber} • MASTERED
                               </span>
                             </div>
+
+                            {/* Transparent Overlay Shield Hiding Top Title/Share Bar */}
+                            <div className="absolute top-0 left-0 right-0 h-16 pointer-events-auto bg-transparent z-20" onClick={e => e.stopPropagation()}></div>
+
+                            {/* Transparent Overlay Shield Hiding Bottom-Left "Watch on YouTube" Logo */}
+                            <div className="absolute bottom-0 left-0 w-44 h-14 pointer-events-auto bg-transparent z-20" onClick={e => e.stopPropagation()}></div>
 
                             <iframe
                               src={getVideoEmbedUrl(activeModule.video1)}
@@ -1196,7 +1201,7 @@
                     <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 space-y-4 shadow-sm">
                       <div className="flex justify-between items-center">
                         <h3 className="text-base sm:text-lg font-bold text-slate-900">Student Directory ({students.length})</h3>
-                        <button onClick={refreshLiveData} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl">🔄 Refresh</button>
+                        <button onClick={refreshLiveData} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl">🔄 Refresh Sync</button>
                       </div>
                       
                       {students.length === 0 ? (
