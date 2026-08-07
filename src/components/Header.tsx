@@ -17,24 +17,15 @@ export const Header: React.FC<HeaderProps> = ({ user, role, onLogout, onNavigate
         
         {/* Brand identity */}
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-slate-900 via-blue-900 to-blue-600 flex items-center justify-center shadow-md shadow-blue-500/10">
-            <span className="text-white font-extrabold text-lg tracking-wider">M</span>
-          </div>
-          <div>
-            <div className="flex items-center space-x-2">
-              <h1 className="font-extrabold tracking-tight text-slate-900 text-base lg:text-lg">
-                MASTERED <span className="text-blue-600 font-semibold text-xs lg:text-sm uppercase tracking-wider ml-1">Language Coach</span>
-              </h1>
-              {role === 'admin' && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                  <ShieldCheck className="w-3 h-3 mr-1" /> Admin
-                </span>
-              )}
-            </div>
-            <p className="text-[11px] font-medium text-slate-500 hidden sm:block">
-              Speak With Confidence
-            </p>
-          </div>
+          <img 
+            src="assets/logo.png" 
+            alt="MASTERED Language Coach" 
+            className="h-10 sm:h-12 w-auto object-contain"
+            onError={(e) => {
+              (e.target as HTMLImageElement).onerror = null;
+              (e.target as HTMLImageElement).src = "https://raw.githubusercontent.com/masteredlanguagecoach-hub/mastered-module-web/main/assets/logo.png";
+            }}
+          />
         </div>
 
         {/* User profile & Actions */}
