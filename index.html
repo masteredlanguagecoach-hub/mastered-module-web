@@ -423,21 +423,29 @@
       return url;
     }
 
-    // Dynamic JSONP Call to Apps Script - 100% Reliable Cross-Domain Sync for All Mobile & Desktop Browsers
-    function callAppsScript(action, payload = {}) {
+    // Dynamic Direct Fetch & JSONP Hybrid Call to Google Apps Script REST API
+    async function callAppsScript(action, payload = {}) {
+      const getUrl = `${LIVE_APPS_SCRIPT_URL}?action=${encodeURIComponent(action)}&payload=${encodeURIComponent(JSON.stringify(payload))}&t=${Date.now()}`;
+      
+      try {
+        const response = await fetch(getUrl, { method: "GET", redirect: "follow" });
+        const json = await response.json();
+        if (json && json.success !== undefined) return json;
+      } catch(err) {
+        console.warn("Direct fetch fallback, attempting JSONP/no-cors dispatch...", err);
+      }
+
       return new Promise((resolve) => {
-        const callbackName = 'appsScriptCb_' + Math.floor(Math.random() * 10000000);
-        const script = document.createElement('script');
+        const callbackName = "appsScriptCb_" + Math.floor(Math.random() * 10000000);
+        const script = document.createElement("script");
         
         const timeoutId = setTimeout(() => {
           delete window[callbackName];
           if (script.parentNode) script.parentNode.removeChild(script);
-          const getUrl = `${LIVE_APPS_SCRIPT_URL}?action=${encodeURIComponent(action)}&payload=${encodeURIComponent(JSON.stringify(payload))}&t=${Date.now()}`;
-          fetch(getUrl)
-            .then(r => r.json())
-            .then(res => resolve(res))
+          fetch(getUrl, { method: "GET", mode: "no-cors" })
+            .then(() => resolve({ success: true, message: "Dispatched via no-cors" }))
             .catch(err => resolve({ success: false, message: err.message }));
-        }, 8000);
+        }, 4000);
 
         window[callbackName] = function(data) {
           clearTimeout(timeoutId);
@@ -446,13 +454,12 @@
           resolve(data);
         };
 
-        const scriptUrl = `${LIVE_APPS_SCRIPT_URL}?action=${encodeURIComponent(action)}&payload=${encodeURIComponent(JSON.stringify(payload))}&callback=${callbackName}&t=${Date.now()}`;
-        script.src = scriptUrl;
+        script.src = `${getUrl}&callback=${callbackName}`;
         script.onerror = function() {
           clearTimeout(timeoutId);
           delete window[callbackName];
           if (script.parentNode) script.parentNode.removeChild(script);
-          fetch(scriptUrl, { method: "GET", mode: "no-cors" })
+          fetch(getUrl, { method: "GET", mode: "no-cors" })
             .then(() => resolve({ success: true, message: "Dispatched via no-cors" }))
             .catch(err => resolve({ success: false, message: err.message }));
         };
@@ -1454,6 +1461,7 @@
   </script>
 </body>
 </html>
+
 
 
 
