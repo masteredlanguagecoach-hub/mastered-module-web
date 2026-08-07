@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>MASTERED Language Coach | Premium Student Portal & Admin System</title>
+  <title>MASTERED Language Coach | Student & Admin Portal</title>
   
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,7 +40,7 @@
   </script>
 
   <!-- React 18 & Babel Standalone CDNs -->
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin crossorigin></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
@@ -47,12 +50,8 @@
       background-color: #F8FAFC;
       color: #0F172A;
       -webkit-tap-highlight-color: transparent;
-    }
-    .glass-panel {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(226, 232, 240, 0.8);
+      user-select: none;
+      -webkit-user-select: none;
     }
     .no-scrollbar::-webkit-scrollbar {
       display: none;
@@ -72,6 +71,11 @@
       background: #CBD5E1;
       border-radius: 9999px;
     }
+    /* Anti-Screen Capture Protection Blur */
+    .screen-blur-active {
+      filter: blur(25px);
+      pointer-events: none;
+    }
   </style>
 </head>
 <body class="bg-[#F8FAFC] text-[#0F172A] antialiased min-h-screen">
@@ -81,7 +85,7 @@
     const { useState, useEffect } = React;
 
     const LIVE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbqPvlxmAFOgtXn-VJ9b9fuvjOL3hsy18wSCu4xYhfVIcnLMVWGVbeD6XsLxv1ZG_2/exec";
-    const LIVE_SPREADSHEET_ID = "1N5YkP6U8RaafRD_bsULTzlaDSC0Vbmfj9l_XCt1S_Rg";
+    const LOGO_SRC = "assets/logo.png";
 
     const THUMBNAILS = [
       "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop&q=80",
@@ -90,7 +94,7 @@
       "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&auto=format&fit=crop&q=80"
     ];
 
-    // EXACT 25 REAL CURRICULUM MODULES
+    // EXACT 25 REAL CURRICULUM MODULES WITH UNLISTED YOUTUBE VIDEO LINKS
     const EXACT_25_MODULES = [
       {
         moduleId: "MOD-01",
@@ -98,7 +102,7 @@
         title: "Module 1: Introducing Yourself",
         description: "After completing this module, you will be able to:\n✅ Introduce yourself confidently.\n✅ Answer simple personal questions.\n✅ Speak about yourself for 1–2 minutes without reading.",
         thumbnail: THUMBNAILS[0],
-        video1: "https://drive.google.com/file/d/1PlpAAReBks5dvmJ3ECNPBo9xms4hlj95/view?usp=drive_link",
+        video1: "https://youtu.be/qY1dBHaozn8",
         audio: "https://drive.google.com/file/d/1n6SsfzENammsejKtUVOonv2xuwFsyjl7/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/1MC8atyCkDeoHh3hl1c33ye1_yQs-z20K/view?usp=drive_link",
         published: true,
@@ -110,7 +114,7 @@
         title: "Module 2: Talking About Other People",
         description: "After completing this module, you will be able to:\n✅ Talk about other people confidently.\n✅ Introduce your family and friends.\n✅ Use He, She, We, They correctly.\n✅ Use is and are correctly.",
         thumbnail: THUMBNAILS[1],
-        video1: "https://drive.google.com/file/d/1LqElWmN11Eq5KOTYx4supsmQY8ltgVZ4/view?usp=drive_link",
+        video1: "https://youtu.be/ETfmAM0XhQY",
         audio: "https://drive.google.com/file/d/1HKEUPtwx8zpWE74kYaasSBHwL7gNuMmw/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/1U08-bKu6rfOl4djVL9ChYva-UXajlIH1/view?usp=drive_link",
         published: true,
@@ -122,7 +126,7 @@
         title: "Module 3: Family, Possessions & Demonstratives",
         description: "After completing this module, you will be able to:\n✅ Talk about your family confidently.\n✅ Talk about the things you have.\n✅ Identify people and objects near and far.\n✅ Use have, has, this, that, these, those correctly.",
         thumbnail: THUMBNAILS[2],
-        video1: "https://drive.google.com/file/d/1U6cDGr4esX3dLxY9aNkCLW82e5PjBQnT/view?usp=drive_link",
+        video1: "https://youtu.be/Gt5RE3cMMzM",
         audio: "https://drive.google.com/file/d/1EtombvuV3lfKRCTRbTHAlt14CLGI06mo/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/1ODilgHaZjxpe9aq3A7I4ESMpwjNBl_SR/view?usp=drive_link",
         published: true,
@@ -134,7 +138,7 @@
         title: "Module 4: Expressing Abilities & Polite Requests",
         description: "After completing this module, you will be able to:\n✅ Talk about your abilities confidently.\n✅ Say what you can and can’t do.\n✅ Ask for help politely.\n✅ Use can, can’t, and could correctly.",
         thumbnail: THUMBNAILS[3],
-        video1: "https://drive.google.com/file/d/15KXdAtmi5rbW7DZxxKFP1GFTv4B8oFGW/view?usp=drive_link",
+        video1: "https://youtu.be/jGwmAHihh3Q",
         audio: "https://drive.google.com/file/d/1u4F9cY0WLYOHvSE129UfNy3CSlB2jGXA/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/1UeVlzB_c8zH9QqYcZbSH-FuxYUk4l3Uo/view?usp=drive_link",
         published: true,
@@ -146,7 +150,7 @@
         title: "Module 5: Daily Duties & Advice",
         description: "After completing this module, you will be able to:\n✅ Talk about your daily responsibilities.\n✅ Describe duties at home, work, or school.\n✅ Give simple advice confidently.\n✅ Use have to, has to, had to, and should correctly.",
         thumbnail: THUMBNAILS[0],
-        video1: "https://drive.google.com/file/d/1PmeJXjj1_h52A5QutvWKbkeizABcJe_I/view?usp=drive_link",
+        video1: "https://youtu.be/EN1xR1Ls18o",
         audio: "https://drive.google.com/file/d/1tIRct9SAqVvn6wNaCgB8pshuywv2HIrg/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/1WiVma-RG7arjb9jY3GUlfO2Q_PrWXPUu/view?usp=drive_link",
         published: true,
@@ -158,7 +162,7 @@
         title: "Module 6: Polite Requests & Possibilities",
         description: "After completing this module, you will be able to:\n✅ Make polite requests.\n✅ Express your wishes.\n✅ Talk about possibilities.\n✅ Use would, would like to, may, and might confidently.",
         thumbnail: THUMBNAILS[1],
-        video1: "https://drive.google.com/file/d/1NdGNZfgTWH-mER-q2avL84K0d04dZUgY/view?usp=drive_link",
+        video1: "https://youtu.be/CgB90wh1Cd0",
         audio: "https://drive.google.com/file/d/1kPrs0QsehrhXA_xToocMW4z9NjJLIlUu/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/127y_t0WNp7JQCP1t1BhzxG7wN-K2jFkG/view?usp=drive_link",
         published: true,
@@ -170,7 +174,7 @@
         title: "Module 7: Asking Questions & Gathering Information",
         description: "After completing this module, you will be able to:\n✅ Ask questions confidently.\n✅ Start and continue conversations.\n✅ Gather information naturally.\n✅ Use Who, Whom, What, When, Where, Why, Which, Whose, and How correctly.",
         thumbnail: THUMBNAILS[2],
-        video1: "https://drive.google.com/file/d/19bzu0rYWgBvQ9aKsM6SMFUT1rzviKBlU/view?usp=drive_link",
+        video1: "https://youtu.be/8LNvDVDi07c",
         audio: "https://drive.google.com/file/d/1ffTYpvhkBaRxb22G0lsJlcviw1o81iPx/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/1_NOOxcCZ2W8qX9X2Fc4qUXT1_C7IsdeT/view?usp=drive_link",
         published: true,
@@ -182,7 +186,7 @@
         title: "Module 8: Prepositions, Articles & Nouns",
         description: "After completing this module, you will be able to:\n✅ Use common prepositions correctly.\n✅ Use articles naturally.\n✅ Understand singular and plural nouns.\n✅ Describe time, place, and direction confidently.",
         thumbnail: THUMBNAILS[3],
-        video1: "https://drive.google.com/file/d/15KrOIwXQuQnmOGRzdqrLehLldaHkL2lB/view?usp=drive_link",
+        video1: "https://youtu.be/UNlX2illWA4",
         audio: "https://drive.google.com/file/d/1NsZte7_9TnY-9kyopzg_XvTqz1JsWWWE/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/1zFChwG8AdX5iAENWKiyCAGW1qUW1xdAl/view?usp=drive_link",
         published: true,
@@ -194,7 +198,7 @@
         title: "Module 9: Daily Routine & Habits (Simple Present Tense)",
         description: "After completing this module, you will be able to:\n✅ Talk about your daily routine.\n✅ Describe your habits confidently.\n✅ Ask and answer questions about daily activities.\n✅ Use the Simple Present Tense naturally in conversation.",
         thumbnail: THUMBNAILS[0],
-        video1: "https://drive.google.com/file/d/1JkfH0Abx5AzID1UE6BnulbmOfN3yyKsp/view?usp=drive_link",
+        video1: "https://youtu.be/9b85gxkJyC4",
         audio: "https://drive.google.com/file/d/1WLf6XpRb5Ay6Iog_ay4Lj-l7IvMklhtW/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/1Sp0fO5iperm6UcNYDNqgElYty59XgN7z/view?usp=drive_link",
         published: true,
@@ -206,7 +210,7 @@
         title: "Module 10: Action Verbs, Likes & Preferences",
         description: "After completing this module, you will be able to:\n✅ Understand what a verb is.\n✅ Use action verbs correctly.\n✅ Express your likes, dislikes, preferences, and opinions.\n✅ Use the Simple Present Tense naturally.",
         thumbnail: THUMBNAILS[1],
-        video1: "https://drive.google.com/file/d/1h2PAepMwLF5ETnknj9H5fK3F9g8R0Ynb/view?usp=drive_link",
+        video1: "https://youtu.be/hZ7zIa-F80A",
         audio: "https://drive.google.com/file/d/1i8at0jfbokN4PJgQeH7wXt3R0kgYcDMR/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/1pvk6IcCwGCr1A9u54csNrpI6jDten41H/view?usp=drive_link",
         published: true,
@@ -218,7 +222,7 @@
         title: "Module 11: Frequency Adverbs & Complete Present Conversations",
         description: "After completing this module, you will be able to:\n✅ Ask and answer questions confidently.\n✅ Talk about your daily routine and habits.\n✅ Use frequency adverbs naturally.\n✅ Have a complete conversation using the Simple Present Tense.",
         thumbnail: THUMBNAILS[2],
-        video1: "https://drive.google.com/file/d/1hlivfbFwVsdeiETS9wCdXwdGNppAZlIi/view?usp=drive_link",
+        video1: "https://youtu.be/XS8uVg_v_Oc",
         audio: "https://drive.google.com/file/d/1iDqcg2EMutwurymHTESsSaEr_zjgqXiV/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/1ELhCRjIB0GLZI108GBP4YPMTxgaBzBfT/view?usp=drive_link",
         published: true,
@@ -230,7 +234,7 @@
         title: "Module 12: Actions Happening Now (Present Continuous Tense)",
         description: "After completing this module, you will be able to:\n✅ Talk about actions happening now.\n✅ Describe what people are doing.\n✅ Use the Present Continuous Tense confidently.",
         thumbnail: THUMBNAILS[3],
-        video1: "https://drive.google.com/file/d/1mXE9S3B0xSHKKMiVzE3ZQKUdYZ12VPMl/view?usp=drive_link",
+        video1: "https://youtu.be/sQ5Nr8Bn6RM",
         audio: "https://drive.google.com/file/d/1ItzSSMg5_bu7fhk3AApQlW-iDIfG4Nvq/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/1hFa_uFankpX-_xyuIPS4muAr7sjH6vsA/view?usp=drive_link",
         published: true,
@@ -242,7 +246,7 @@
         title: "Module 13: Present Continuous Questions & Planned Future",
         description: "After completing this module, you will be able to:\n✅ Make negative sentences confidently.\n✅ Ask and answer Present Continuous questions.\n✅ Use WH questions naturally.\n✅ Talk about planned future activities.",
         thumbnail: THUMBNAILS[0],
-        video1: "https://drive.google.com/file/d/1ovg0wzDIQJ7K27vJdBKCB7B3H6teKtZM/view?usp=drive_link",
+        video1: "https://youtu.be/vAGZCnyIDK8",
         audio: "https://drive.google.com/file/d/1m5DAjfdPJjyz0SlmBf9Y_nG_UNaB_JHP/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/1YkqjP5qYbUqtEim2QylTfVHjh9G-TBKK/view?usp=drive_link",
         published: true,
@@ -254,7 +258,7 @@
         title: "Module 14: Completed Past Actions (Simple Past Tense)",
         description: "After completing this module, you will be able to:\n✅ Talk about completed past actions.\n✅ Use regular and irregular past verbs correctly.\n✅ Describe yesterday, last week, and past experiences confidently.",
         thumbnail: THUMBNAILS[1],
-        video1: "https://drive.google.com/file/d/1PcXxVZ0Jt0PclCf09hQCaWWkakjPAsN2/view?usp=drive_link",
+        video1: "https://youtu.be/7JbA5yfFsow",
         audio: "https://drive.google.com/file/d/1dsenRRLevrXBi2-99ydG0crxNHtP1paB/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/1Y5L8Dcqah9X8CHjx92oYls94eHLyoLjg/view?usp=drive_link",
         published: true,
@@ -266,7 +270,7 @@
         title: "Module 15: Past Questions & Past Experiences",
         description: "After completing this module, you will be able to:\n✅ Make negative sentences in the Simple Past.\n✅ Ask and answer questions about the past.\n✅ Use WH questions naturally.\n✅ Talk confidently about past experiences.",
         thumbnail: THUMBNAILS[2],
-        video1: "https://drive.google.com/file/d/18mUzPEid8yXDt137mzDEp7KiaXEUowlL/view?usp=drive_link",
+        video1: "https://youtu.be/MNmfhTX0ewE",
         audio: "https://drive.google.com/file/d/11eBiEamRPBXBs7s7ywEPxRCL7SZoGH_l/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/1mCAgesjByIJIxjirWJ24nQl4lPASHxTc/view?usp=drive_link",
         published: true,
@@ -278,7 +282,7 @@
         title: "Module 16: Storytelling & Linking Words in Past Tense",
         description: "After completing this module, you will be able to:\n✅ Tell a simple story confidently.\n✅ Describe events in the correct order.\n✅ Use linking words naturally.\n✅ Use the Simple Past Tense while telling stories.",
         thumbnail: THUMBNAILS[3],
-        video1: "https://drive.google.com/file/d/1TSaihtwPZn2XpHe8K972Pqs15c5XtsP2/view?usp=drive_link",
+        video1: "https://youtu.be/XQ8HONOLkbc",
         audio: "https://drive.google.com/file/d/1HSQCk0bsdyZukk1CvgFpEKvapUmmlBu8/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/1UK7mr1MM40QDKQwYFqOFn6BkWhRbiws6/view?usp=drive_link",
         published: true,
@@ -290,7 +294,7 @@
         title: "Module 17: Past Continuous Tense & Interrupted Actions",
         description: "After completing this module, you will be able to:\n✅ Describe actions that were happening in the past.\n✅ Explain interrupted actions naturally.\n✅ Use was/were + verb + ing correctly.\n✅ Speak confidently about past situations.",
         thumbnail: THUMBNAILS[0],
-        video1: "https://drive.google.com/file/d/1A2F0t_JQ-hFbYRhbo-nIchgTcy55Lxk5/view?usp=drive_link",
+        video1: "https://youtu.be/q2910xQMbkY",
         audio: "https://drive.google.com/file/d/13bpfqAzsEuviZ3I3AUd6h4xuAu6USWJv/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/1PBmK9UXxsEe5pZEJL5sBfllVz8ihlx-X/view?usp=drive_link",
         published: true,
@@ -302,7 +306,7 @@
         title: "Module 18: Life Journey & Present Perfect Tense",
         description: "After completing this module, you will be able to:\n✅ Share your life journey confidently.\n✅ Talk about your education, career, and achievements.\n✅ Describe your skills and experiences.\n✅ Use the Present Perfect Tense naturally.",
         thumbnail: THUMBNAILS[1],
-        video1: "https://drive.google.com/file/d/1i9rZoekQ3y9kNIz-7pUb5iEa4LiLMK6j/view?usp=drive_link",
+        video1: "https://youtu.be/1kLBlmHHPIo",
         audio: "https://drive.google.com/file/d/1hWXMwFG0K9PrwnOQmXWgw-UsXnDRvvVJ/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/1Ztsg0ApRux5QEyfF_62kQ0eROeXBWHp2/view?usp=drive_link",
         published: true,
@@ -314,7 +318,7 @@
         title: "Module 19: Recent Actions & Tasks (Already, Yet, Just)",
         description: "After completing this module, you will be able to:\n✅ Talk about things you have recently completed.\n✅ Ask and answer about unfinished tasks.\n✅ Use already, yet, just, recently, still naturally.\n✅ Communicate confidently using the Present Perfect Tense.",
         thumbnail: THUMBNAILS[2],
-        video1: "https://drive.google.com/file/d/17mOOGVDnv3U-tihXwA3Wss1Ry6Ayh4BH/view?usp=drive_link",
+        video1: "https://youtu.be/x1zBRtcnnAI",
         audio: "https://drive.google.com/file/d/15ysZpuzSqp1PcVlFt4KX9bRozgVUaDWk/view?usp=drive_link",
         pdf: "https://drive.google.com/file/d/1-pFrMUhQzIcxidvkGCrigdHfkbF2ONFk/view?usp=drive_link",
         published: true,
@@ -394,38 +398,28 @@
       }
     ];
 
-    const INITIAL_STUDENTS = [
-      {
-        studentId: "STD-1001",
-        admissionNumber: "MLC-2026-001",
-        name: "Alex Morgan",
-        email: "student@mastered.com",
-        phone: "+1 (555) 234-5678",
-        course: "Executive English Fluency",
-        profileImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80",
-        approved: true,
-        status: "Active",
-        createdDate: "2026-02-01"
-      }
-    ];
+    // Helper: Generate Clean Embed URLs for YouTube & Google Drive
+    function getVideoEmbedUrl(url) {
+      if (!url) return '';
 
-    const INITIAL_REQUESTS = [
-      {
-        requestId: "REQ-501",
-        name: "Marcus Vance",
-        phone: "+1 (555) 998-1122",
-        email: "marcus.v@example.com",
-        admissionNumber: "MLC-2026-044",
-        course: "Executive English Fluency",
-        status: "Pending",
-        createdDate: "2026-08-04"
-      }
-    ];
+      // Check if YouTube link
+      const ytShortMatch = url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
+      const ytStandardMatch = url.match(/v=([a-zA-Z0-9_-]+)/);
+      const ytId = ytShortMatch ? ytShortMatch[1] : (ytStandardMatch ? ytStandardMatch[1] : null);
 
-    const INITIAL_ADMINS = [
-      { adminId: "ADM-001", name: "Head Coach Sarah Jenkins", email: "admin@mastered.com", password: "admin123", role: "Super Admin" },
-      { adminId: "ADM-002", name: "Mastered Language Coach", email: "masteredlanguagecoach@gmail.com", password: "4languagecoach", role: "Super Admin" }
-    ];
+      if (ytId) {
+        // Privacy-focused YouTube embed hiding recommendations, title overlay, & channel controls
+        return `https://www.youtube-nocookie.com/embed/${ytId}?modestbranding=1&rel=0&controls=1&disablekb=1&showinfo=0&iv_load_policy=3&playsinline=1`;
+      }
+
+      // Google Drive Fallback
+      const driveMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+      if (driveMatch && driveMatch[1]) {
+        return `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
+      }
+
+      return url;
+    }
 
     function getDriveEmbedUrl(url) {
       if (!url) return '';
@@ -466,46 +460,91 @@
       const [activeTab, setActiveTab] = useState('dashboard');
       const [selectedModuleId, setSelectedModuleId] = useState(null);
       const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+      const [isBlurredScreen, setIsBlurredScreen] = useState(false);
 
-      // LocalStorage-backed state stores pre-loaded with exact 25 modules
-      const [students, setStudents] = useState(() => {
-        const saved = localStorage.getItem('mastered_students');
-        return saved ? JSON.parse(saved) : INITIAL_STUDENTS;
-      });
-
-      const [requests, setRequests] = useState(() => {
-        const saved = localStorage.getItem('mastered_requests');
-        return saved ? JSON.parse(saved) : INITIAL_REQUESTS;
-      });
-
-      const [modules, setModules] = useState(() => {
-        return EXACT_25_MODULES;
-      });
-
-      const [quizzes, setQuizzes] = useState([]);
-      const [questions, setQuestions] = useState([]);
+      // Data States
+      const [students, setStudents] = useState([]);
+      const [requests, setRequests] = useState([]);
+      const [modules, setModules] = useState(EXACT_25_MODULES);
 
       const [userProgress, setUserProgress] = useState(() => {
         const saved = localStorage.getItem('mastered_progress');
         return saved ? JSON.parse(saved) : {};
       });
 
-      // Save state to LocalStorage
+      // Restore session on page refresh (F5)
       useEffect(() => {
-        localStorage.setItem('mastered_modules', JSON.stringify(modules));
-      }, [modules]);
+        const savedSession = localStorage.getItem('mastered_user_session');
+        if (savedSession) {
+          try {
+            const parsed = JSON.parse(savedSession);
+            if (parsed && parsed.user && parsed.role) {
+              setCurrentUser(parsed.user);
+              setRole(parsed.role);
+              setActiveTab(parsed.tab || (parsed.role === 'admin' ? 'admin-dashboard' : 'dashboard'));
+            }
+          } catch(e) {}
+        }
+      }, []);
+
+      // Fetch live data from Google Sheets & Auto-Poll every 6s
+      const refreshLiveData = async () => {
+        try {
+          const reqRes = await callAppsScript('getRequests');
+          if (reqRes && reqRes.success && Array.isArray(reqRes.data)) {
+            setRequests(reqRes.data);
+          }
+
+          const stdRes = await callAppsScript('getStudents');
+          if (stdRes && stdRes.success && Array.isArray(stdRes.data)) {
+            setStudents(stdRes.data);
+          }
+        } catch(e) {}
+      };
 
       useEffect(() => {
-        localStorage.setItem('mastered_students', JSON.stringify(students));
-      }, [students]);
+        refreshLiveData();
+        const timer = setInterval(refreshLiveData, 6000);
+        return () => clearInterval(timer);
+      }, []);
 
-      useEffect(() => {
-        localStorage.setItem('mastered_requests', JSON.stringify(requests));
-      }, [requests]);
-
+      // Save user progress
       useEffect(() => {
         localStorage.setItem('mastered_progress', JSON.stringify(userProgress));
       }, [userProgress]);
+
+      // Security Event Listeners (Anti-Screen Recording / Anti-Screenshot)
+      useEffect(() => {
+        const handleBlur = () => setIsBlurredScreen(true);
+        const handleFocus = () => setIsBlurredScreen(false);
+
+        const handleKeyDown = (e) => {
+          // Block PrintScreen, F12, Ctrl+P, Ctrl+S, Ctrl+U, Ctrl+Shift+I, Ctrl+Shift+C
+          if (
+            e.key === 'PrintScreen' ||
+            e.key === 'F12' ||
+            (e.ctrlKey && (e.key === 'p' || e.key === 'P' || e.key === 's' || e.key === 'S' || e.key === 'u' || e.key === 'U')) ||
+            (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'C' || e.key === 'c'))
+          ) {
+            e.preventDefault();
+            showToast("⚠️ Security Protection Active: Screenshot & Recording Shortcuts Disabled");
+          }
+        };
+
+        window.addEventListener('blur', handleBlur);
+        window.addEventListener('focus', handleFocus);
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) setIsBlurredScreen(true);
+          else setIsBlurredScreen(false);
+        });
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+          window.removeEventListener('blur', handleBlur);
+          window.removeEventListener('focus', handleFocus);
+          window.removeEventListener('keydown', handleKeyDown);
+        };
+      }, []);
 
       // Lesson Sub-Tab inside Student Module View
       const [lessonTab, setLessonTab] = useState('video1');
@@ -540,37 +579,44 @@
           setCurrentUser(live.student);
           setRole('student');
           setActiveTab('dashboard');
+          localStorage.setItem('mastered_user_session', JSON.stringify({ user: live.student, role: 'student', tab: 'dashboard' }));
           return { success: true };
         }
 
         const found = students.find(s => s.email.toLowerCase() === email.trim().toLowerCase() && s.admissionNumber.toUpperCase() === adm.trim().toUpperCase());
-        if (found) {
+        if (found && found.approved) {
           setCurrentUser(found);
           setRole('student');
           setActiveTab('dashboard');
+          localStorage.setItem('mastered_user_session', JSON.stringify({ user: found, role: 'student', tab: 'dashboard' }));
           return { success: true };
         }
-        return { success: false, message: "Invalid student credentials." };
+        return { success: false, message: live.message || "Invalid credentials or account pending approval." };
       };
 
       // Admin Login
       const handleAdminLogin = async (email, pass) => {
-        const live = await callAppsScript('loginAdmin', { email, password: pass });
+        const cleanEmail = email.trim().toLowerCase();
+        const cleanPass = pass.trim();
+
+        if (cleanEmail === "masteredlanguagecoach@gmail.com" && cleanPass === "4languagecoach") {
+          const adminObj = { adminId: "ADM-002", name: "Mastered Language Coach", email: "masteredlanguagecoach@gmail.com", role: "Super Admin" };
+          setCurrentUser(adminObj);
+          setRole('admin');
+          setActiveTab('admin-dashboard');
+          localStorage.setItem('mastered_user_session', JSON.stringify({ user: adminObj, role: 'admin', tab: 'admin-dashboard' }));
+          return { success: true };
+        }
+
+        const live = await callAppsScript('loginAdmin', { email: cleanEmail, password: cleanPass });
         if (live.success && live.admin) {
           setCurrentUser(live.admin);
           setRole('admin');
           setActiveTab('admin-dashboard');
+          localStorage.setItem('mastered_user_session', JSON.stringify({ user: live.admin, role: 'admin', tab: 'admin-dashboard' }));
           return { success: true };
         }
 
-        const cleanEmail = email.trim().toLowerCase();
-        const found = INITIAL_ADMINS.find(a => a.email.toLowerCase() === cleanEmail && a.password === pass.trim());
-        if (found) {
-          setCurrentUser(found);
-          setRole('admin');
-          setActiveTab('admin-dashboard');
-          return { success: true };
-        }
         return { success: false, message: "Invalid admin email or password." };
       };
 
@@ -580,10 +626,38 @@
         setAuthScreen('login');
         setSelectedModuleId(null);
         setMobileMenuOpen(false);
+        localStorage.removeItem('mastered_user_session');
       };
 
-      // Approve Request
-      const handleApproveRequest = (reqId) => {
+      // Submit Access Request (Pushes to Google Sheets)
+      const handleSubmitAccessRequest = async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const newReq = {
+          requestId: `REQ-${Math.floor(1000 + Math.random() * 9000)}`,
+          name: form.name.value.trim(),
+          email: form.email.value.trim(),
+          phone: form.phone.value.trim(),
+          admissionNumber: form.admissionNumber.value.trim().toUpperCase(),
+          course: form.course.value,
+          status: 'Pending',
+          createdDate: new Date().toISOString().split('T')[0]
+        };
+
+        setRequests(prev => [newReq, ...prev]);
+        showToast("⏳ Submitting request to Mastered Language Coach system...");
+
+        const res = await callAppsScript('submitRequest', newReq);
+        if (res.success) {
+          alert("🎉 Access Request Submitted Successfully!\nYour application is sent to the Mastered Language Coach team. You will be able to log in once approved!");
+        } else {
+          alert("Request recorded locally! Contact support if you experience delays.");
+        }
+        setAuthScreen('login');
+      };
+
+      // Approve Student Access Request
+      const handleApproveRequest = async (reqId) => {
         const req = requests.find(r => r.requestId === reqId);
         if (!req) return;
 
@@ -603,11 +677,12 @@
         };
 
         setStudents(prev => [newStudent, ...prev]);
-        callAppsScript('approveRequest', { requestId: reqId });
-        showToast(`✅ Approved request for ${req.name}! Added to Student Directory.`);
+        showToast(`✅ Approved request for ${req.name}! Enrolled in Student Directory.`);
+        await callAppsScript('approveRequest', { requestId: reqId });
+        refreshLiveData();
       };
 
-      // Save Module (Create / Edit)
+      // Save Module
       const handleSaveModule = async (e) => {
         e.preventDefault();
         const modId = moduleForm.moduleId || `MOD-${moduleForm.moduleNumber < 10 ? '0' + moduleForm.moduleNumber : moduleForm.moduleNumber}`;
@@ -629,7 +704,7 @@
         });
 
         setShowModuleModal(false);
-        showToast(`✅ Module "${finalMod.title}" saved & updated!`);
+        showToast(`✅ Module "${finalMod.title}" saved!`);
         callAppsScript('adminSaveModule', { module: finalMod });
       };
 
@@ -679,13 +754,9 @@
               </button>
             )}
 
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-extrabold text-base sm:text-lg shadow-md shrink-0">
-              M
-            </div>
-            <div>
-              <h1 className="font-extrabold text-slate-900 text-sm sm:text-base leading-tight">
-                MASTERED <span className="text-blue-600 text-[10px] sm:text-xs font-semibold uppercase tracking-wider block sm:inline">Language Coach</span>
-              </h1>
+            {/* Official Brand Logo */}
+            <div className="flex items-center space-x-2">
+              <img src={LOGO_SRC} alt="MASTERED Language Coach" className="h-10 sm:h-12 w-auto object-contain" />
             </div>
           </div>
 
@@ -711,36 +782,43 @@
         if (authScreen === 'request') {
           return (
             <div className="min-h-screen bg-slate-950 text-white flex flex-col justify-center items-center p-4">
-              <div className="bg-slate-900 border border-slate-800 p-5 sm:p-8 rounded-3xl max-w-md w-full shadow-2xl">
-                <button onClick={() => setAuthScreen('login')} className="text-xs text-slate-400 hover:text-white mb-4 block">← Back to Login</button>
-                <h2 className="text-xl font-extrabold mb-1">Request Access</h2>
-                <p className="text-xs text-slate-400 mb-5">Submit details for admin enrollment approval.</p>
-                <form onSubmit={async (e) => {
-                  e.preventDefault();
-                  const newReq = {
-                    requestId: `REQ-${Math.floor(100 + Math.random() * 900)}`,
-                    name: e.target.name.value,
-                    email: e.target.email.value,
-                    phone: e.target.phone.value,
-                    admissionNumber: e.target.admissionNumber.value,
-                    course: e.target.course.value,
-                    status: 'Pending',
-                    createdDate: new Date().toISOString().split('T')[0]
-                  };
-                  setRequests(prev => [newReq, ...prev]);
-                  callAppsScript('submitRequest', newReq);
-                  alert("Your request has been sent successfully! Please wait for admin approval.");
-                  setAuthScreen('login');
-                }} className="space-y-3.5 text-xs">
-                  <input name="name" type="text" required placeholder="Full Name" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
-                  <input name="email" type="email" required placeholder="Email Address" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
-                  <input name="phone" type="tel" required placeholder="Phone Number" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
-                  <input name="admissionNumber" type="text" required placeholder="Admission Number (e.g. MLC-2026-044)" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono uppercase" />
-                  <select name="course" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white">
-                    <option>Executive English Fluency</option>
-                    <option>Business Communication & Speaking</option>
-                  </select>
-                  <button type="submit" className="w-full py-3 bg-blue-600 hover:bg-blue-500 font-bold rounded-xl text-white">Submit Access Request</button>
+              <div className="bg-slate-900 border border-slate-800 p-5 sm:p-8 rounded-3xl max-w-md w-full shadow-2xl space-y-4">
+                <button onClick={() => setAuthScreen('login')} className="text-xs text-slate-400 hover:text-white block">← Back to Login</button>
+                
+                <div className="text-center">
+                  <img src={LOGO_SRC} alt="Mastered Logo" className="h-14 mx-auto mb-2 object-contain" />
+                  <h2 className="text-xl font-extrabold">Student Access Application</h2>
+                  <p className="text-xs text-slate-400 mt-1">Submit your details to receive student portal access.</p>
+                </div>
+
+                <form onSubmit={handleSubmitAccessRequest} className="space-y-3.5 text-xs">
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">Full Name</label>
+                    <input name="name" type="text" required placeholder="John Doe" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
+                  </div>
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">Email Address</label>
+                    <input name="email" type="email" required placeholder="john@example.com" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
+                  </div>
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">Phone Number</label>
+                    <input name="phone" type="tel" required placeholder="+1 (555) 000-0000" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
+                  </div>
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">Admission Number</label>
+                    <input name="admissionNumber" type="text" required placeholder="MLC-2026-001" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono uppercase" />
+                  </div>
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">Select Enrolled Course</label>
+                    <select name="course" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white font-bold">
+                      <option value="30 DAYS AI CONVERSATION CHALLENGE">30 DAYS AI CONVERSATION CHALLENGE</option>
+                      <option value="ONE TO ONE MENTORING">ONE TO ONE MENTORING</option>
+                      <option value="61 DAYS JOURNEY UNDER A COACH">61 DAYS JOURNEY UNDER A COACH</option>
+                    </select>
+                  </div>
+                  <button type="submit" className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 font-extrabold rounded-xl text-white shadow-lg shadow-blue-600/30 text-sm">
+                    Submit Access Application
+                  </button>
                 </form>
               </div>
             </div>
@@ -750,14 +828,13 @@
         if (authScreen === 'admin-login') {
           return (
             <div className="min-h-screen bg-slate-950 text-white flex flex-col justify-center items-center p-4">
-              <div className="bg-slate-900 border border-slate-800 p-5 sm:p-8 rounded-3xl max-w-md w-full shadow-2xl">
-                <button onClick={() => setAuthScreen('login')} className="text-xs text-slate-400 hover:text-white mb-4 block">← Student Login</button>
-                <h2 className="text-xl font-extrabold mb-1">Admin Console Login</h2>
-                <p className="text-xs text-slate-400 mb-4">Master System Console</p>
-
-                <div className="p-3 mb-4 rounded-xl bg-blue-950/60 border border-blue-800 text-[11px] text-blue-300">
-                  <p className="font-bold">Admin Credentials:</p>
-                  <p className="mt-1 break-all"><code>masteredlanguagecoach@gmail.com</code> / <code>4languagecoach</code></p>
+              <div className="bg-slate-900 border border-slate-800 p-5 sm:p-8 rounded-3xl max-w-md w-full shadow-2xl space-y-4">
+                <button onClick={() => setAuthScreen('login')} className="text-xs text-slate-400 hover:text-white block">← Student Login</button>
+                
+                <div className="text-center">
+                  <img src={LOGO_SRC} alt="Mastered Logo" className="h-14 mx-auto mb-2 object-contain" />
+                  <h2 className="text-xl font-extrabold">Admin Console Login</h2>
+                  <p className="text-xs text-slate-400 mt-1">Mastered Language Coach Admin System</p>
                 </div>
 
                 <form onSubmit={async (e) => {
@@ -765,9 +842,17 @@
                   const res = await handleAdminLogin(e.target.email.value, e.target.password.value);
                   if (!res.success) alert(res.message);
                 }} className="space-y-3.5 text-xs">
-                  <input name="email" type="email" defaultValue="masteredlanguagecoach@gmail.com" required placeholder="Admin Email" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
-                  <input name="password" type="password" defaultValue="4languagecoach" required placeholder="Admin Password" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
-                  <button type="submit" className="w-full py-3 bg-blue-600 hover:bg-blue-500 font-bold rounded-xl text-white">Enter Admin Console</button>
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">Admin Email</label>
+                    <input name="email" type="email" required placeholder="admin@example.com" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
+                  </div>
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">Admin Password</label>
+                    <input name="password" type="password" required placeholder="••••••••" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
+                  </div>
+                  <button type="submit" className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 font-extrabold rounded-xl text-white shadow-lg shadow-blue-600/30 text-sm">
+                    Enter Admin Console
+                  </button>
                 </form>
               </div>
             </div>
@@ -776,11 +861,11 @@
 
         return (
           <div className="min-h-screen bg-slate-950 text-white flex flex-col justify-center items-center p-4">
-            <div className="bg-slate-900 border border-slate-800 p-5 sm:p-8 rounded-3xl max-w-md w-full shadow-2xl">
-              <div className="text-center mb-6">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-blue-600 flex items-center justify-center font-extrabold text-2xl mx-auto mb-3">M</div>
-                <h1 className="text-xl sm:text-2xl font-extrabold">MASTERED <span className="text-blue-500 text-xs block font-semibold uppercase tracking-widest mt-1">Language Coach</span></h1>
-                <p className="text-xs text-slate-400 mt-1">Speak With Confidence — Student Portal</p>
+            <div className="bg-slate-900 border border-slate-800 p-5 sm:p-8 rounded-3xl max-w-md w-full shadow-2xl space-y-5">
+              <div className="text-center">
+                <img src={LOGO_SRC} alt="MASTERED Language Coach" className="h-16 sm:h-20 mx-auto mb-3 object-contain" />
+                <h1 className="text-xl sm:text-2xl font-extrabold text-white">Student Portal Sign In</h1>
+                <p className="text-xs text-slate-400 mt-1">Speak With Confidence — Mastered Coaching System</p>
               </div>
 
               <form onSubmit={async (e) => {
@@ -789,19 +874,32 @@
                 if (!res.success) alert(res.message);
               }} className="space-y-4 text-xs">
                 <div>
-                  <label className="block text-slate-300 font-bold mb-1">Email Address</label>
-                  <input name="email" type="email" defaultValue="student@mastered.com" required placeholder="student@mastered.com" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
+                  <label className="block text-slate-300 font-bold mb-1">Registered Email Address</label>
+                  <input name="email" type="email" required placeholder="your.email@example.com" className="w-full p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white" />
                 </div>
                 <div>
                   <label className="block text-slate-300 font-bold mb-1">Admission Number</label>
-                  <input name="admissionNumber" type="text" defaultValue="MLC-2026-001" required placeholder="MLC-2026-001" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono uppercase" />
+                  <input name="admissionNumber" type="text" required placeholder="MLC-2026-001" className="w-full p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono uppercase" />
                 </div>
-                <button type="submit" className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 font-bold rounded-xl text-white shadow-lg shadow-blue-600/30">Sign In to Student Portal</button>
+                <button type="submit" className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 font-extrabold rounded-xl text-white shadow-lg shadow-blue-600/30 text-sm">
+                  Sign In to Student Portal
+                </button>
               </form>
 
-              <div className="mt-6 pt-5 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
-                <button onClick={() => setAuthScreen('request')} className="hover:text-white text-blue-400 font-semibold underline">Request Access</button>
-                <button onClick={() => setAuthScreen('admin-login')} className="hover:text-white text-slate-500">Admin Portal</button>
+              {/* HIGH-VISIBILITY PROMINENT REQUEST ACCESS BUTTON */}
+              <div className="pt-5 border-t border-slate-800/90 text-center space-y-3">
+                <p className="text-xs text-slate-400 font-semibold">New Student? Don't have portal access yet?</p>
+                <button
+                  onClick={() => setAuthScreen('request')}
+                  className="w-full py-3.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-extrabold text-xs rounded-xl shadow-lg transform hover:-translate-y-0.5 transition uppercase tracking-wider"
+                >
+                  ✨ REQUEST ADMISSION ACCESS HERE ✨
+                </button>
+                <div className="text-right pt-2">
+                  <button onClick={() => setAuthScreen('admin-login')} className="text-[11px] text-slate-500 hover:text-slate-300">
+                    Admin Portal Login →
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -811,8 +909,17 @@
       const activeModule = selectedModuleId ? modules.find(m => m.moduleId === selectedModuleId) : null;
 
       return (
-        <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans relative pb-16 lg:pb-0">
+        <div className={`min-h-screen bg-[#F8FAFC] flex flex-col font-sans relative pb-16 lg:pb-0 ${isBlurredScreen ? 'screen-blur-active' : ''}`} onContextMenu={e => e.preventDefault()}>
           <Header />
+
+          {/* Screen Protection Shield Blur Message */}
+          {isBlurredScreen && (
+            <div className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-2xl flex flex-col items-center justify-center p-6 text-center text-white space-y-3">
+              <div className="w-16 h-16 rounded-full bg-red-600/20 text-red-500 flex items-center justify-center text-3xl font-bold">🔒</div>
+              <h2 className="text-xl font-extrabold">Protected Content Hidden</h2>
+              <p className="text-xs text-slate-400 max-w-sm">Return focus to the Mastered Language Coach window to resume viewing your lesson modules.</p>
+            </div>
+          )}
 
           {/* Toast Notification */}
           {toast && (
@@ -892,8 +999,8 @@
 
               <div className="p-3 bg-slate-800/60 rounded-xl text-[11px] text-slate-400 space-y-2">
                 <div>
-                  <p className="font-bold text-slate-200">Curriculum Active</p>
-                  <p className="text-emerald-400 mt-0.5">● 25 Modules Configured</p>
+                  <p className="font-bold text-slate-200">System Connected</p>
+                  <p className="text-emerald-400 mt-0.5">● Google Sheets REST Active</p>
                 </div>
               </div>
             </aside>
@@ -907,13 +1014,23 @@
                   <div className="space-y-4 sm:space-y-6">
                     <button onClick={() => setSelectedModuleId(null)} className="px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50">← Back to All Modules</button>
                     
-                    <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-4">
-                      <div>
+                    <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-4 relative overflow-hidden">
+                      {/* Dynamic Anti-Screen-Recording Security Watermark Overlay */}
+                      <div className="absolute inset-0 pointer-events-none z-10 flex flex-col justify-between p-4 opacity-25 select-none">
+                        <span className="text-[10px] font-mono font-extrabold text-blue-400 uppercase tracking-widest">
+                          🔒 PROTECTED CONTENT • {currentUser.name} ({currentUser.admissionNumber || 'STUDENT'})
+                        </span>
+                        <span className="text-[10px] font-mono font-extrabold text-amber-400 uppercase tracking-widest self-end">
+                          MASTERED LANGUAGE COACH • DO NOT RECORD
+                        </span>
+                      </div>
+
+                      <div className="relative z-20">
                         <span className="text-[10px] sm:text-xs font-bold text-blue-400 uppercase tracking-wide">Module {activeModule.moduleNumber}</span>
                         <h2 className="text-xl sm:text-2xl font-extrabold mt-1">{activeModule.title}</h2>
                         <div className="text-xs text-slate-300 mt-2 max-w-2xl leading-relaxed whitespace-pre-line">{activeModule.description}</div>
                       </div>
-                      <div className="sm:text-right border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-800 flex sm:block justify-between items-center">
+                      <div className="relative z-20 sm:text-right border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-800 flex sm:block justify-between items-center">
                         <span className="text-xs text-slate-400 font-bold">Completion</span>
                         <p className="text-xl sm:text-2xl font-extrabold text-emerald-400">
                           {userProgress[activeModule.moduleId]?.percentage || 0}%
@@ -928,16 +1045,29 @@
                       {activeModule.pdf && <button onClick={() => setLessonTab('pdf')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'pdf' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>PDF Workbook</button>}
                     </div>
 
-                    {/* Responsive Content Viewport */}
-                    <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 shadow-sm space-y-4">
+                    {/* Responsive Content Viewport with Security Protection Overlay */}
+                    <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 shadow-sm space-y-4 relative">
                       {lessonTab === 'video1' && (
                         <div>
                           <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-3">
                             <h4 className="font-bold text-sm text-slate-900">Video Lesson</h4>
                             <button onClick={() => handleMarkItemComplete(activeModule.moduleId, 'video1')} className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-xl self-start sm:self-auto">✓ Mark Watched</button>
                           </div>
-                          <div className="aspect-video w-full bg-slate-900 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner">
-                            <iframe src={getDriveEmbedUrl(activeModule.video1)} className="w-full h-full border-0" allowFullScreen></iframe>
+                          
+                          <div className="aspect-video w-full bg-slate-900 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner relative">
+                            {/* Watermark across Video */}
+                            <div className="absolute inset-0 pointer-events-none z-10 flex items-center justify-center opacity-15 select-none">
+                              <span className="text-xs font-mono font-extrabold text-white rotate-12 uppercase tracking-widest text-center px-4">
+                                {currentUser.name} • {currentUser.admissionNumber} • MASTERED
+                              </span>
+                            </div>
+
+                            <iframe
+                              src={getVideoEmbedUrl(activeModule.video1)}
+                              className="w-full h-full border-0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowFullScreen
+                            ></iframe>
                           </div>
                         </div>
                       )}
@@ -948,19 +1078,18 @@
                             <h4 className="font-bold text-sm text-slate-900">Audio Accent Drill Player</h4>
                             <button onClick={() => handleMarkItemComplete(activeModule.moduleId, 'audio')} className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-xl self-start sm:self-auto">✓ Mark Audio Listened</button>
                           </div>
-                          {/* FULL-HEIGHT UNCLIPPED AUDIO PLAYER CONTAINER */}
-                          <div className="bg-slate-900 p-4 sm:p-6 rounded-2xl shadow-inner space-y-3">
-                            <div className="w-full h-36 sm:h-44 rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
+                          
+                          {/* Sleek Masked Audio Player Container */}
+                          <div className="bg-slate-900 p-4 sm:p-6 rounded-2xl shadow-inner space-y-3 relative overflow-hidden">
+                            {/* Watermark across Audio Container */}
+                            <div className="absolute inset-0 pointer-events-none z-10 flex items-center justify-between p-4 opacity-20 select-none">
+                              <span className="text-[10px] font-mono font-bold text-slate-300">MASTERED AUDIO DRILL</span>
+                              <span className="text-[10px] font-mono font-bold text-slate-300">{currentUser.admissionNumber}</span>
+                            </div>
+
+                            <div className="w-full h-36 sm:h-44 rounded-xl overflow-hidden bg-slate-950 border border-slate-800 relative z-20">
                               <iframe src={getDriveEmbedUrl(activeModule.audio)} className="w-full h-full border-0"></iframe>
                             </div>
-                            <a
-                              href={activeModule.audio}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center space-x-2 text-xs font-bold text-blue-400 hover:text-blue-300 pt-1"
-                            >
-                              <span>▶ Open Audio File in Google Drive</span>
-                            </a>
                           </div>
                         </div>
                       )}
@@ -971,7 +1100,7 @@
                             <h4 className="font-bold text-sm text-slate-900">PDF Reference Workbook</h4>
                             <button onClick={() => handleMarkItemComplete(activeModule.moduleId, 'pdf')} className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-xl self-start sm:self-auto">✓ Mark PDF Read</button>
                           </div>
-                          <div className="h-[420px] sm:h-[550px] bg-slate-100 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner">
+                          <div className="h-[420px] sm:h-[550px] bg-slate-100 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner relative">
                             <iframe src={getDriveEmbedUrl(activeModule.pdf)} className="w-full h-full border-0"></iframe>
                           </div>
                         </div>
@@ -1056,7 +1185,7 @@
                         </div>
                         <div onClick={() => setActiveTab('admin-modules')} className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-500 cursor-pointer transition shadow-sm">
                           <h4 className="font-bold text-sm text-slate-900">📚 Module Manager</h4>
-                          <p className="text-xs text-slate-500 mt-1">Create & edit all 25 modules with Drive links</p>
+                          <p className="text-xs text-slate-500 mt-1">Create & edit all 25 modules with Drive/YouTube links</p>
                         </div>
                       </div>
                     </div>
@@ -1065,31 +1194,39 @@
                   {/* Student Directory Tab */}
                   {activeTab === 'admin-students' && (
                     <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 space-y-4 shadow-sm">
-                      <h3 className="text-base sm:text-lg font-bold text-slate-900">Student Directory ({students.length})</h3>
-                      <div className="overflow-x-auto w-full">
-                        <table className="w-full text-left text-xs min-w-[600px]">
-                          <thead className="bg-slate-50 border-b text-slate-500 font-bold uppercase text-[10px]">
-                            <tr>
-                              <th className="p-3">Name</th>
-                              <th className="p-3">Admission No</th>
-                              <th className="p-3">Email</th>
-                              <th className="p-3">Course</th>
-                              <th className="p-3">Status</th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y">
-                            {students.map(s => (
-                              <tr key={s.studentId} className="hover:bg-slate-50">
-                                <td className="p-3 font-bold text-slate-900">{s.name}</td>
-                                <td className="p-3 font-mono text-slate-600">{s.admissionNumber}</td>
-                                <td className="p-3 text-slate-500">{s.email}</td>
-                                <td className="p-3">{s.course}</td>
-                                <td className="p-3"><span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">{s.status}</span></td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
+                      <div className="flex justify-between items-center">
+                        <h3 className="text-base sm:text-lg font-bold text-slate-900">Student Directory ({students.length})</h3>
+                        <button onClick={refreshLiveData} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl">🔄 Refresh</button>
                       </div>
+                      
+                      {students.length === 0 ? (
+                        <p className="text-xs text-slate-500 text-center py-8">No enrolled students currently. Approve pending applications from the Requests queue to add students!</p>
+                      ) : (
+                        <div className="overflow-x-auto w-full">
+                          <table className="w-full text-left text-xs min-w-[600px]">
+                            <thead className="bg-slate-50 border-b text-slate-500 font-bold uppercase text-[10px]">
+                              <tr>
+                                <th className="p-3">Name</th>
+                                <th className="p-3">Admission No</th>
+                                <th className="p-3">Email</th>
+                                <th className="p-3">Course</th>
+                                <th className="p-3">Status</th>
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y">
+                              {students.map(s => (
+                                <tr key={s.studentId || s.email} className="hover:bg-slate-50">
+                                  <td className="p-3 font-bold text-slate-900">{s.name}</td>
+                                  <td className="p-3 font-mono text-slate-600">{s.admissionNumber}</td>
+                                  <td className="p-3 text-slate-500">{s.email}</td>
+                                  <td className="p-3">{s.course}</td>
+                                  <td className="p-3"><span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">{s.status || 'Active'}</span></td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      )}
                     </div>
                   )}
 
@@ -1099,11 +1236,14 @@
                       <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 flex flex-col sm:flex-row justify-between sm:items-center gap-2 shadow-sm">
                         <div>
                           <h3 className="text-base sm:text-lg font-extrabold text-slate-900">Student Access Applications Queue</h3>
-                          <p className="text-xs text-slate-500 mt-0.5">Approve pending applications to grant portal access.</p>
+                          <p className="text-xs text-slate-500 mt-0.5">Approve pending applications to grant student portal access instantly across all devices.</p>
                         </div>
-                        <span className="px-3 py-1 bg-amber-100 text-amber-800 font-bold text-xs rounded-full self-start sm:self-auto">
-                          {pendingRequestsList.length} Pending
-                        </span>
+                        <div className="flex items-center space-x-2">
+                          <button onClick={refreshLiveData} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl">🔄 Refresh Sync</button>
+                          <span className="px-3 py-1 bg-amber-100 text-amber-800 font-bold text-xs rounded-full">
+                            {pendingRequestsList.length} Pending
+                          </span>
+                        </div>
                       </div>
 
                       {pendingRequestsList.length === 0 ? (
@@ -1130,7 +1270,7 @@
                                   onClick={() => handleApproveRequest(req.requestId)}
                                   className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-md transition"
                                 >
-                                  ✓ Approve
+                                  ✓ Approve & Enroll Student
                                 </button>
                                 <button
                                   onClick={() => setRequests(prev => prev.map(r => r.requestId === req.requestId ? { ...r, status: 'Rejected' } : r))}
@@ -1152,7 +1292,7 @@
                       <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 flex flex-col sm:flex-row justify-between sm:items-center gap-3 shadow-sm">
                         <div>
                           <h3 className="text-base sm:text-lg font-extrabold text-slate-900">25 Curriculum Modules Manager</h3>
-                          <p className="text-xs text-slate-500 mt-0.5">Click <strong>"Edit Module"</strong> to modify titles, Drive links, or descriptions.</p>
+                          <p className="text-xs text-slate-500 mt-0.5">Click <strong>"Edit Module"</strong> to modify titles, Drive links, YouTube links, or descriptions.</p>
                         </div>
 
                         <button
@@ -1248,8 +1388,8 @@
 
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t">
                                 <div>
-                                  <label className="block font-bold mb-1">Video Drive Link</label>
-                                  <input type="url" value={moduleForm.video1} onChange={e => setModuleForm({ ...moduleForm, video1: e.target.value })} placeholder="https://drive.google.com/..." className="w-full p-2.5 border rounded-xl" />
+                                  <label className="block font-bold mb-1">Video (YouTube / Drive Link)</label>
+                                  <input type="url" value={moduleForm.video1} onChange={e => setModuleForm({ ...moduleForm, video1: e.target.value })} placeholder="https://youtu.be/..." className="w-full p-2.5 border rounded-xl" />
                                 </div>
                                 <div>
                                   <label className="block font-bold mb-1">Audio Drive Link</label>

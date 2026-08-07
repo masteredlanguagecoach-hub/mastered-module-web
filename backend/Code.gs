@@ -60,6 +60,14 @@ function routeAction(action, data) {
     case 'submitRequest':
       return handleSubmitRequest(data);
 
+    case 'getRequests':
+    case 'adminGetRequests':
+      return handleAdminGetRequests();
+
+    case 'getStudents':
+    case 'adminGetStudents':
+      return handleAdminGetStudents();
+
     case 'getModules':
       return handleGetModules();
 
@@ -71,27 +79,6 @@ function routeAction(action, data) {
 
     case 'updateProgress':
       return handleUpdateProgress(data);
-
-    case 'getQuiz':
-      return handleGetQuiz(data);
-
-    case 'adminSaveQuiz':
-      return handleAdminSaveQuiz(data);
-
-    case 'adminSaveQuestion':
-      return handleAdminSaveQuestion(data);
-
-    case 'submitQuizResult':
-      return handleSubmitQuizResult(data);
-
-    case 'getAnnouncements':
-      return handleGetAnnouncements();
-
-    case 'adminGetStudents':
-      return handleAdminGetStudents();
-
-    case 'adminGetRequests':
-      return handleAdminGetRequests();
 
     case 'approveRequest':
       return handleApproveRequest(data);
@@ -162,7 +149,6 @@ function handleLoginStudent(data) {
 }
 
 function handleLoginAdmin(data) {
-  var admins = getSheetData("Admins");
   var email = (data.email || "").toString().trim().toLowerCase();
   var pass = (data.password || "").toString().trim();
 
@@ -173,23 +159,6 @@ function handleLoginAdmin(data) {
     });
   }
 
-  for (var i = 0; i < admins.length; i++) {
-    var a = admins[i];
-    if ((a.Email || "").toString().toLowerCase() === email &&
-        (a.Password || "").toString() === pass) {
-      return handleResponse({
-        success: true,
-        admin: {
-          adminId: a.AdminID,
-          name: a.Name,
-          email: a.Email,
-          role: a.Role,
-          status: a.Status,
-          createdDate: a.CreatedDate
-        }
-      });
-    }
-  }
   return handleResponse({ success: false, message: "Invalid admin credentials." });
 }
 
@@ -203,11 +172,11 @@ function handleSubmitRequest(data) {
 
   sheet.appendRow([
     reqId,
-    data.name,
-    data.phone,
-    data.email,
-    data.admissionNumber,
-    data.course,
+    data.name || "",
+    data.phone || "",
+    data.email || "",
+    data.admissionNumber || "",
+    data.course || "",
     "Pending",
     dateStr,
     ""
@@ -282,6 +251,8 @@ function handleAdminSaveModule(data) {
 function handleApproveRequest(data) {
   var ss = getMasteredSpreadsheet();
   var reqSheet = ss.getSheetByName("Requests");
+  var stdSheet = ss.getSheetByName("Students");
+  var approvedReq = null;
 
   if (reqSheet) {
     var reqRows = reqSheet.getDataRange().getValues();
@@ -289,32 +260,37 @@ function handleApproveRequest(data) {
       if (reqRows[i][0].toString() === (data.requestId || "").toString()) {
         reqSheet.getRange(i + 1, 7).setValue("Approved");
         reqSheet.getRange(i + 1, 9).setValue("Admin");
+        approvedReq = {
+          requestId: reqRows[i][0],
+          name: reqRows[i][1],
+          phone: reqRows[i][2],
+          email: reqRows[i][3],
+          admissionNumber: reqRows[i][4],
+          course: reqRows[i][5]
+        };
         break;
       }
     }
   }
 
-  return handleResponse({ success: true, message: "Request approved!" });
-}
-
-function handleAdminSaveQuiz(data) {
-  var qz = data.quiz || data;
-  var ss = getMasteredSpreadsheet();
-  var sheet = ss.getSheetByName("Quiz");
-  if (sheet && qz.quizId) {
-    sheet.appendRow([qz.quizId, qz.moduleId, qz.title, qz.passPercentage, qz.timeLimit]);
+  if (stdSheet && approvedReq) {
+    var stdId = "STD-" + Math.floor(1000 + Math.random() * 9000);
+    var dateStr = new Date().toISOString().split('T')[0];
+    stdSheet.appendRow([
+      stdId,
+      approvedReq.admissionNumber,
+      approvedReq.name,
+      approvedReq.email,
+      approvedReq.phone,
+      approvedReq.course,
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80",
+      "TRUE",
+      "Active",
+      dateStr
+    ]);
   }
-  return handleResponse({ success: true });
-}
 
-function handleAdminSaveQuestion(data) {
-  var qst = data.question || data;
-  var ss = getMasteredSpreadsheet();
-  var sheet = ss.getSheetByName("Questions");
-  if (sheet && qst.id) {
-    sheet.appendRow([qst.id, qst.quizId, qst.question, qst.optionA, qst.optionB, qst.optionC, qst.optionD, qst.correctAnswer, qst.explanation]);
-  }
-  return handleResponse({ success: true });
+  return handleResponse({ success: true, message: "Request approved and student enrolled!" });
 }
 
 function handleGetStudentProgress(data) {
@@ -327,7 +303,6 @@ function handleGetStudentProgress(data) {
       video2Completed: p.Video2Completed === true || (p.Video2Completed || "").toString().toUpperCase() === 'TRUE',
       audioCompleted: p.AudioCompleted === true || (p.AudioCompleted || "").toString().toUpperCase() === 'TRUE',
       pdfViewed: p.PDFViewed === true || (p.PDFViewed || "").toString().toUpperCase() === 'TRUE',
-      quizCompleted: p.QuizCompleted === true || (p.QuizCompleted || "").toString().toUpperCase() === 'TRUE',
       completionPercentage: Number(p.CompletionPercentage) || 0,
       lastAccessed: p.LastAccessed
     };
@@ -337,68 +312,6 @@ function handleGetStudentProgress(data) {
 
 function handleUpdateProgress(data) {
   return handleResponse({ success: true, message: "Progress recorded." });
-}
-
-function handleGetQuiz(data) {
-  var quizzes = getSheetData("Quiz");
-  var questions = getSheetData("Questions");
-
-  var q = quizzes.find(function(item) { return item.QuizID === data.quizId; });
-  var qList = questions.filter(function(item) { return item.QuizID === data.quizId; });
-
-  return handleResponse({
-    success: true,
-    data: {
-      quiz: q ? {
-        quizId: q.QuizID,
-        moduleId: q.ModuleID,
-        title: q.Title,
-        passPercentage: Number(q.PassPercentage) || 80,
-        timeLimit: Number(q.TimeLimit) || 10
-      } : null,
-      questions: qList.map(function(item) {
-        return {
-          questionId: item.QuestionID,
-          quizId: item.QuizID,
-          question: item.Question,
-          optionA: item.OptionA,
-          optionB: item.OptionB,
-          optionC: item.OptionC,
-          optionD: item.OptionD,
-          correctAnswer: item.CorrectAnswer,
-          explanation: item.Explanation
-        };
-      })
-    }
-  });
-}
-
-function handleSubmitQuizResult(data) {
-  var ss = getMasteredSpreadsheet();
-  var sheet = ss.getSheetByName("Quiz Results");
-  var resId = "RES-" + Math.floor(1000 + Math.random() * 9000);
-  var dateStr = new Date().toISOString();
-
-  if (sheet) {
-    sheet.appendRow([resId, data.studentId, data.quizId, data.score, data.passed ? "TRUE" : "FALSE", dateStr]);
-  }
-
-  return handleResponse({ success: true, data: { resultId: resId } });
-}
-
-function handleGetAnnouncements() {
-  var raw = getSheetData("Announcements");
-  var list = raw.map(function(a) {
-    return {
-      announcementId: a.AnnouncementID,
-      title: a.Title,
-      description: a.Description,
-      visibility: a.Visibility,
-      published: a.Published === true || (a.Published || "").toString().toUpperCase() === 'TRUE',
-      createdDate: a.CreatedDate
-    };
-  });
-  return handleResponse({ success: true, data: list });
 }
 
 function handleAdminGetStudents() {
