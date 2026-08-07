@@ -19,8 +19,8 @@
           colors: {
             brand: {
               dark: '#0F172A',
-              primary: '#2563EB',
-              accent: '#06B6D4',
+              primary: '#DC2626', // Rich Crimson Red based on logo
+              accent: '#F59E0B',  // Warm Gold Accent
               bg: '#F8FAFC',
               card: '#FFFFFF',
               success: '#10B981',
@@ -83,8 +83,9 @@
 
     const LIVE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbqPvlxmAFOgtXn-VJ9b9fuvjOL3hsy18wSCu4xYhfVIcnLMVWGVbeD6XsLxv1ZG_2/exec";
     
-    // Inline Logo (Embedded Base64 Data URL for 100% Reliability on All Devices)
-    const LOGO_SRC = "assets/logo.png";
+    // Google Drive Logo Image URL + Local Asset Fallback
+    const LOGO_SRC = "https://lh3.googleusercontent.com/d/18uB_avktu2l-4ZesFslNsN6FjYl2d3BP";
+    const LOGO_FALLBACK = "assets/logo.png";
 
     const THUMBNAILS = [
       "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop&q=80",
@@ -735,12 +736,12 @@
       const pendingRequestsList = requests.filter(r => r.status === 'Pending');
 
       const Header = () => (
-        <header className="bg-white border-b border-slate-200 px-4 sm:px-6 py-3 sticky top-0 z-30 shadow-sm flex items-center justify-between">
+        <header className="bg-slate-900 border-b border-red-900/40 px-4 sm:px-6 py-3 sticky top-0 z-30 shadow-md flex items-center justify-between">
           <div className="flex items-center space-x-3">
             {currentUser && (
               <button 
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 rounded-xl text-slate-700 bg-slate-100 hover:bg-slate-200 focus:outline-none"
+                className="lg:hidden p-2 rounded-xl text-slate-300 bg-slate-800 hover:bg-slate-700 focus:outline-none"
                 aria-label="Toggle Navigation Menu"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -753,21 +754,26 @@
               </button>
             )}
 
-            {/* Official Brand Logo */}
+            {/* Official Brand Logo with Fallback */}
             <div className="flex items-center space-x-2">
-              <img src={LOGO_SRC} alt="MASTERED Language Coach" className="h-10 sm:h-12 w-auto object-contain" />
+              <img 
+                src={LOGO_SRC} 
+                onError={(e) => { e.target.onerror = null; e.target.src = LOGO_FALLBACK; }} 
+                alt="MASTERED Language Coach" 
+                className="h-10 sm:h-12 w-auto object-contain rounded" 
+              />
             </div>
           </div>
 
           {currentUser && (
             <div className="flex items-center space-x-2 sm:space-x-4">
               <div className="text-right text-xs hidden sm:block">
-                <p className="font-bold text-slate-900">{currentUser.name}</p>
-                <p className="text-[10px] text-slate-500 font-mono">{role === 'student' ? currentUser.admissionNumber : currentUser.role}</p>
+                <p className="font-bold text-white">{currentUser.name}</p>
+                <p className="text-[10px] text-red-400 font-mono">{role === 'student' ? currentUser.admissionNumber : currentUser.role}</p>
               </div>
               <button
                 onClick={handleLogout}
-                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-red-50 hover:text-red-600 text-slate-700 font-bold text-xs transition"
+                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-red-600 hover:text-white text-slate-300 font-bold text-xs transition"
               >
                 Sign Out
               </button>
@@ -776,7 +782,7 @@
         </header>
       );
 
-      // AUTH SCREENS
+      // AUTH SCREENS WITH CRIMSON RED LOGO COLOR THEME
       if (!currentUser) {
         if (authScreen === 'request') {
           return (
@@ -785,37 +791,42 @@
                 <button onClick={() => setAuthScreen('login')} className="text-xs text-slate-400 hover:text-white block">← Back to Login</button>
                 
                 <div className="text-center">
-                  <img src={LOGO_SRC} alt="Mastered Logo" className="h-14 mx-auto mb-2 object-contain" />
-                  <h2 className="text-xl font-extrabold">Student Access Application</h2>
+                  <img 
+                    src={LOGO_SRC} 
+                    onError={(e) => { e.target.onerror = null; e.target.src = LOGO_FALLBACK; }} 
+                    alt="Mastered Logo" 
+                    className="h-16 mx-auto mb-2 object-contain rounded" 
+                  />
+                  <h2 className="text-xl font-extrabold text-white">Student Access Application</h2>
                   <p className="text-xs text-slate-400 mt-1">Submit your details to receive student portal access.</p>
                 </div>
 
                 <form onSubmit={handleSubmitAccessRequest} className="space-y-3.5 text-xs">
                   <div>
                     <label className="block text-slate-300 font-bold mb-1">Full Name</label>
-                    <input name="name" type="text" required placeholder="John Doe" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
+                    <input name="name" type="text" required placeholder="John Doe" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-red-500 outline-none" />
                   </div>
                   <div>
                     <label className="block text-slate-300 font-bold mb-1">Email Address</label>
-                    <input name="email" type="email" required placeholder="john@example.com" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
+                    <input name="email" type="email" required placeholder="john@example.com" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-red-500 outline-none" />
                   </div>
                   <div>
                     <label className="block text-slate-300 font-bold mb-1">Phone Number</label>
-                    <input name="phone" type="tel" required placeholder="+1 (555) 000-0000" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
+                    <input name="phone" type="tel" required placeholder="+1 (555) 000-0000" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-red-500 outline-none" />
                   </div>
                   <div>
                     <label className="block text-slate-300 font-bold mb-1">Admission Number</label>
-                    <input name="admissionNumber" type="text" required placeholder="MLC-2026-001" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono uppercase" />
+                    <input name="admissionNumber" type="text" required placeholder="MLC-2026-001" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono uppercase focus:border-red-500 outline-none" />
                   </div>
                   <div>
                     <label className="block text-slate-300 font-bold mb-1">Select Enrolled Course</label>
-                    <select name="course" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white font-bold">
+                    <select name="course" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white font-bold focus:border-red-500 outline-none">
                       <option value="30 DAYS AI CONVERSATION CHALLENGE">30 DAYS AI CONVERSATION CHALLENGE</option>
                       <option value="ONE TO ONE MENTORING">ONE TO ONE MENTORING</option>
                       <option value="61 DAYS JOURNEY UNDER A COACH">61 DAYS JOURNEY UNDER A COACH</option>
                     </select>
                   </div>
-                  <button type="submit" className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 font-extrabold rounded-xl text-white shadow-lg shadow-blue-600/30 text-sm">
+                  <button type="submit" className="w-full py-3.5 bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 font-extrabold rounded-xl text-white shadow-lg shadow-red-600/30 text-sm">
                     Submit Access Application
                   </button>
                 </form>
@@ -831,8 +842,13 @@
                 <button onClick={() => setAuthScreen('login')} className="text-xs text-slate-400 hover:text-white block">← Student Login</button>
                 
                 <div className="text-center">
-                  <img src={LOGO_SRC} alt="Mastered Logo" className="h-14 mx-auto mb-2 object-contain" />
-                  <h2 className="text-xl font-extrabold">Admin Console Login</h2>
+                  <img 
+                    src={LOGO_SRC} 
+                    onError={(e) => { e.target.onerror = null; e.target.src = LOGO_FALLBACK; }} 
+                    alt="Mastered Logo" 
+                    className="h-16 mx-auto mb-2 object-contain rounded" 
+                  />
+                  <h2 className="text-xl font-extrabold text-white">Admin Console Login</h2>
                   <p className="text-xs text-slate-400 mt-1">Mastered Language Coach Admin System</p>
                 </div>
 
@@ -843,13 +859,13 @@
                 }} className="space-y-3.5 text-xs">
                   <div>
                     <label className="block text-slate-300 font-bold mb-1">Admin Email</label>
-                    <input name="email" type="email" required placeholder="admin@example.com" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
+                    <input name="email" type="email" required placeholder="admin@example.com" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-red-500 outline-none" />
                   </div>
                   <div>
                     <label className="block text-slate-300 font-bold mb-1">Admin Password</label>
-                    <input name="password" type="password" required placeholder="••••••••" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white" />
+                    <input name="password" type="password" required placeholder="••••••••" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-red-500 outline-none" />
                   </div>
-                  <button type="submit" className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 font-extrabold rounded-xl text-white shadow-lg shadow-blue-600/30 text-sm">
+                  <button type="submit" className="w-full py-3.5 bg-red-600 hover:bg-red-500 font-extrabold rounded-xl text-white shadow-lg shadow-red-600/30 text-sm">
                     Enter Admin Console
                   </button>
                 </form>
@@ -862,7 +878,12 @@
           <div className="min-h-screen bg-slate-950 text-white flex flex-col justify-center items-center p-4">
             <div className="bg-slate-900 border border-slate-800 p-5 sm:p-8 rounded-3xl max-w-md w-full shadow-2xl space-y-5">
               <div className="text-center">
-                <img src={LOGO_SRC} alt="MASTERED Language Coach" className="h-16 sm:h-20 mx-auto mb-3 object-contain" />
+                <img 
+                  src={LOGO_SRC} 
+                  onError={(e) => { e.target.onerror = null; e.target.src = LOGO_FALLBACK; }} 
+                  alt="MASTERED Language Coach" 
+                  className="h-20 sm:h-24 mx-auto mb-3 object-contain rounded" 
+                />
                 <h1 className="text-xl sm:text-2xl font-extrabold text-white">Student Portal Sign In</h1>
                 <p className="text-xs text-slate-400 mt-1">Speak With Confidence — Mastered Coaching System</p>
               </div>
@@ -874,23 +895,23 @@
               }} className="space-y-4 text-xs">
                 <div>
                   <label className="block text-slate-300 font-bold mb-1">Registered Email Address</label>
-                  <input name="email" type="email" required placeholder="your.email@example.com" className="w-full p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white" />
+                  <input name="email" type="email" required placeholder="your.email@example.com" className="w-full p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-red-500 outline-none" />
                 </div>
                 <div>
                   <label className="block text-slate-300 font-bold mb-1">Admission Number</label>
-                  <input name="admissionNumber" type="text" required placeholder="MLC-2026-001" className="w-full p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono uppercase" />
+                  <input name="admissionNumber" type="text" required placeholder="MLC-2026-001" className="w-full p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono uppercase focus:border-red-500 outline-none" />
                 </div>
-                <button type="submit" className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 font-extrabold rounded-xl text-white shadow-lg shadow-blue-600/30 text-sm">
+                <button type="submit" className="w-full py-3.5 bg-red-600 hover:bg-red-500 font-extrabold rounded-xl text-white shadow-lg shadow-red-600/30 text-sm">
                   Sign In to Student Portal
                 </button>
               </form>
 
-              {/* HIGH-VISIBILITY PROMINENT REQUEST ACCESS BUTTON */}
+              {/* HIGH-VISIBILITY PROMINENT REQUEST ACCESS BUTTON IN LOGO CRIMSON RED THEME */}
               <div className="pt-5 border-t border-slate-800/90 text-center space-y-3">
                 <p className="text-xs text-slate-400 font-semibold">New Student? Don't have portal access yet?</p>
                 <button
                   onClick={() => setAuthScreen('request')}
-                  className="w-full py-3.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-extrabold text-xs rounded-xl shadow-lg transform hover:-translate-y-0.5 transition uppercase tracking-wider"
+                  className="w-full py-3.5 bg-gradient-to-r from-red-600 via-rose-600 to-amber-500 hover:from-red-500 hover:to-amber-400 text-white font-extrabold text-xs rounded-xl shadow-lg transform hover:-translate-y-0.5 transition uppercase tracking-wider"
                 >
                   ✨ REQUEST ADMISSION ACCESS HERE ✨
                 </button>
@@ -935,7 +956,7 @@
                   <div className="flex justify-between items-center pb-4 border-b border-slate-800">
                     <div>
                       <p className="font-extrabold text-sm text-white">{currentUser.name}</p>
-                      <p className="text-[10px] text-blue-400 font-mono">{role === 'student' ? currentUser.admissionNumber : currentUser.role}</p>
+                      <p className="text-[10px] text-red-400 font-mono">{role === 'student' ? currentUser.admissionNumber : currentUser.role}</p>
                     </div>
                     <button onClick={() => setMobileMenuOpen(false)} className="text-slate-400 font-bold p-1">✕</button>
                   </div>
@@ -947,17 +968,17 @@
                   <nav className="space-y-1.5 text-xs font-semibold">
                     {role === 'student' ? (
                       <>
-                        <button onClick={() => { setSelectedModuleId(null); setActiveTab('dashboard'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'dashboard' ? 'bg-blue-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Dashboard</button>
-                        <button onClick={() => { setSelectedModuleId(null); setActiveTab('modules'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'modules' ? 'bg-blue-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Modules Explorer ({modules.length})</button>
+                        <button onClick={() => { setSelectedModuleId(null); setActiveTab('dashboard'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'dashboard' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Dashboard</button>
+                        <button onClick={() => { setSelectedModuleId(null); setActiveTab('modules'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'modules' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Modules Explorer ({modules.length})</button>
                       </>
                     ) : (
                       <>
-                        <button onClick={() => { setActiveTab('admin-dashboard'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-dashboard' ? 'bg-blue-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Dashboard Metrics</button>
-                        <button onClick={() => { setActiveTab('admin-students'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-students' ? 'bg-blue-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Student Directory ({students.length})</button>
-                        <button onClick={() => { setActiveTab('admin-requests'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-requests' ? 'bg-blue-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>
+                        <button onClick={() => { setActiveTab('admin-dashboard'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-dashboard' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Dashboard Metrics</button>
+                        <button onClick={() => { setActiveTab('admin-students'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-students' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Student Directory ({students.length})</button>
+                        <button onClick={() => { setActiveTab('admin-requests'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-requests' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>
                           Pending Requests ({pendingRequestsList.length})
                         </button>
-                        <button onClick={() => { setActiveTab('admin-modules'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-modules' ? 'bg-blue-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Module Manager ({modules.length})</button>
+                        <button onClick={() => { setActiveTab('admin-modules'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-modules' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Module Manager ({modules.length})</button>
                       </>
                     )}
                   </nav>
@@ -980,17 +1001,17 @@
                 <nav className="space-y-1 text-xs font-semibold">
                   {role === 'student' ? (
                     <>
-                      <button onClick={() => { setSelectedModuleId(null); setActiveTab('dashboard'); }} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'dashboard' ? 'bg-blue-600 text-white' : 'hover:bg-slate-800'}`}>Dashboard</button>
-                      <button onClick={() => { setSelectedModuleId(null); setActiveTab('modules'); }} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'modules' ? 'bg-blue-600 text-white' : 'hover:bg-slate-800'}`}>Modules Explorer ({modules.length})</button>
+                      <button onClick={() => { setSelectedModuleId(null); setActiveTab('dashboard'); }} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'dashboard' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Dashboard</button>
+                      <button onClick={() => { setSelectedModuleId(null); setActiveTab('modules'); }} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'modules' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Modules Explorer ({modules.length})</button>
                     </>
                   ) : (
                     <>
-                      <button onClick={() => setActiveTab('admin-dashboard')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-dashboard' ? 'bg-blue-600 text-white' : 'hover:bg-slate-800'}`}>Dashboard Metrics</button>
-                      <button onClick={() => setActiveTab('admin-students')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-students' ? 'bg-blue-600 text-white' : 'hover:bg-slate-800'}`}>Student Directory ({students.length})</button>
-                      <button onClick={() => setActiveTab('admin-requests')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-requests' ? 'bg-blue-600 text-white' : 'hover:bg-slate-800'}`}>
+                      <button onClick={() => setActiveTab('admin-dashboard')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-dashboard' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Dashboard Metrics</button>
+                      <button onClick={() => setActiveTab('admin-students')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-students' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Student Directory ({students.length})</button>
+                      <button onClick={() => setActiveTab('admin-requests')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-requests' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>
                         Pending Requests ({pendingRequestsList.length})
                       </button>
-                      <button onClick={() => setActiveTab('admin-modules')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-modules' ? 'bg-blue-600 text-white' : 'hover:bg-slate-800'}`}>Module Manager ({modules.length})</button>
+                      <button onClick={() => setActiveTab('admin-modules')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-modules' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Module Manager ({modules.length})</button>
                     </>
                   )}
                 </nav>
@@ -1013,10 +1034,10 @@
                   <div className="space-y-4 sm:space-y-6">
                     <button onClick={() => setSelectedModuleId(null)} className="px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50">← Back to All Modules</button>
                     
-                    <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-4 relative overflow-hidden">
+                    <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-4 relative overflow-hidden border-l-4 border-red-600">
                       {/* Dynamic Anti-Screen-Recording Security Watermark Overlay */}
                       <div className="absolute inset-0 pointer-events-none z-10 flex flex-col justify-between p-4 opacity-25 select-none">
-                        <span className="text-[10px] font-mono font-extrabold text-blue-400 uppercase tracking-widest">
+                        <span className="text-[10px] font-mono font-extrabold text-red-400 uppercase tracking-widest">
                           🔒 PROTECTED CONTENT • {currentUser.name} ({currentUser.admissionNumber || 'STUDENT'})
                         </span>
                         <span className="text-[10px] font-mono font-extrabold text-amber-400 uppercase tracking-widest self-end">
@@ -1025,7 +1046,7 @@
                       </div>
 
                       <div className="relative z-20">
-                        <span className="text-[10px] sm:text-xs font-bold text-blue-400 uppercase tracking-wide">Module {activeModule.moduleNumber}</span>
+                        <span className="text-[10px] sm:text-xs font-bold text-red-400 uppercase tracking-wide">Module {activeModule.moduleNumber}</span>
                         <h2 className="text-xl sm:text-2xl font-extrabold mt-1">{activeModule.title}</h2>
                         <div className="text-xs text-slate-300 mt-2 max-w-2xl leading-relaxed whitespace-pre-line">{activeModule.description}</div>
                       </div>
@@ -1039,9 +1060,9 @@
 
                     {/* Touch-Friendly Lesson Tab Selector */}
                     <div className="flex overflow-x-auto no-scrollbar space-x-2 border-b pb-2">
-                      <button onClick={() => setLessonTab('video1')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'video1' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>Video Lesson</button>
-                      {activeModule.audio && <button onClick={() => setLessonTab('audio')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'audio' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>Audio Accent Drill</button>}
-                      {activeModule.pdf && <button onClick={() => setLessonTab('pdf')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'pdf' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>PDF Workbook</button>}
+                      <button onClick={() => setLessonTab('video1')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'video1' ? 'bg-red-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>Video Lesson</button>
+                      {activeModule.audio && <button onClick={() => setLessonTab('audio')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'audio' ? 'bg-red-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>Audio Accent Drill</button>}
+                      {activeModule.pdf && <button onClick={() => setLessonTab('pdf')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'pdf' ? 'bg-red-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>PDF Workbook</button>}
                     </div>
 
                     {/* Responsive Content Viewport with Security Protection Overlay */}
@@ -1115,9 +1136,9 @@
                 ) : (
                   /* Student Dashboard / Modules List View */
                   <div className="space-y-4 sm:space-y-6">
-                    <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                    <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-l-4 border-red-600">
                       <div>
-                        <span className="text-[10px] sm:text-xs font-bold text-blue-400 uppercase tracking-wider">{currentUser.admissionNumber}</span>
+                        <span className="text-[10px] sm:text-xs font-bold text-red-400 uppercase tracking-wider">{currentUser.admissionNumber}</span>
                         <h2 className="text-xl sm:text-2xl font-extrabold mt-0.5">Welcome back, {currentUser.name}!</h2>
                         <p className="text-xs text-slate-300 mt-1">{currentUser.course}</p>
                       </div>
@@ -1132,21 +1153,21 @@
                         {modules.map(m => {
                           const prog = userProgress[m.moduleId]?.percentage || 0;
                           return (
-                            <div key={m.moduleId} className="p-4 sm:p-5 border border-slate-200 rounded-2xl sm:rounded-3xl bg-white hover:border-blue-500 transition shadow-sm space-y-3 flex flex-col justify-between">
+                            <div key={m.moduleId} className="p-4 sm:p-5 border border-slate-200 rounded-2xl sm:rounded-3xl bg-white hover:border-red-500 transition shadow-sm space-y-3 flex flex-col justify-between">
                               <div>
                                 <div className="aspect-video w-full bg-slate-100 rounded-xl sm:rounded-2xl overflow-hidden mb-3 relative">
                                   <img src={m.thumbnail} alt={m.title} className="w-full h-full object-cover" />
-                                  <span className="absolute top-2 left-2 bg-slate-900 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-md">Module {m.moduleNumber}</span>
+                                  <span className="absolute top-2 left-2 bg-slate-900 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-md border border-red-600/40">Module {m.moduleNumber}</span>
                                 </div>
                                 <h4 className="font-bold text-sm sm:text-base text-slate-900">{m.title}</h4>
                                 <div className="text-xs text-slate-500 leading-relaxed mt-1 line-clamp-2 whitespace-pre-line">{m.description}</div>
                               </div>
 
                               <div className="pt-2 border-t flex items-center justify-between">
-                                <span className="text-xs font-bold text-slate-500">Progress: <strong className="text-blue-600">{prog}%</strong></span>
+                                <span className="text-xs font-bold text-slate-500">Progress: <strong className="text-red-600">{prog}%</strong></span>
                                 <button
                                   onClick={() => setSelectedModuleId(m.moduleId)}
-                                  className="px-4 py-2 sm:py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-xs shadow-md"
+                                  className="px-4 py-2 sm:py-2.5 bg-red-600 hover:bg-red-500 text-white rounded-xl font-bold text-xs shadow-md"
                                 >
                                   {prog > 0 ? 'Resume' : 'Start Module'}
                                 </button>
@@ -1165,13 +1186,13 @@
                 <>
                   {activeTab === 'admin-dashboard' && (
                     <div className="space-y-4 sm:space-y-6">
-                      <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+                      <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-4 border-l-4 border-red-600">
                         <div>
-                          <span className="text-[10px] sm:text-xs font-bold text-blue-400 uppercase tracking-wider">Admin Command Center</span>
+                          <span className="text-[10px] sm:text-xs font-bold text-red-400 uppercase tracking-wider">Admin Command Center</span>
                           <h2 className="text-xl sm:text-2xl font-extrabold mt-0.5">System Dashboard</h2>
                           <p className="text-xs text-slate-300 mt-1 truncate max-w-xs">{currentUser.email}</p>
                         </div>
-                        <button onClick={() => setActiveTab('admin-requests')} className="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow-md self-start sm:self-auto">
+                        <button onClick={() => setActiveTab('admin-requests')} className="px-4 py-2.5 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-bold shadow-md self-start sm:self-auto">
                           Review Requests ({pendingRequestsList.length})
                         </button>
                       </div>
@@ -1184,11 +1205,11 @@
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                        <div onClick={() => setActiveTab('admin-students')} className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-500 cursor-pointer transition shadow-sm">
+                        <div onClick={() => setActiveTab('admin-students')} className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 hover:border-red-500 cursor-pointer transition shadow-sm">
                           <h4 className="font-bold text-sm text-slate-900">👥 Student Directory</h4>
                           <p className="text-xs text-slate-500 mt-1">Manage enrollments & credentials</p>
                         </div>
-                        <div onClick={() => setActiveTab('admin-modules')} className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-500 cursor-pointer transition shadow-sm">
+                        <div onClick={() => setActiveTab('admin-modules')} className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 hover:border-red-500 cursor-pointer transition shadow-sm">
                           <h4 className="font-bold text-sm text-slate-900">📚 Module Manager</h4>
                           <p className="text-xs text-slate-500 mt-1">Create & edit all 25 modules with Drive/YouTube links</p>
                         </div>
@@ -1261,13 +1282,13 @@
                           {pendingRequestsList.map(req => (
                             <div key={req.requestId} className="bg-white p-5 rounded-2xl sm:rounded-3xl border border-slate-200 space-y-3 shadow-sm">
                               <div className="flex justify-between items-center">
-                                <span className="font-mono font-bold text-xs text-blue-600">{req.admissionNumber}</span>
+                                <span className="font-mono font-bold text-xs text-red-600">{req.admissionNumber}</span>
                                 <span className="text-[10px] text-slate-400">{req.createdDate}</span>
                               </div>
                               <div>
                                 <h4 className="font-bold text-base text-slate-900">{req.name}</h4>
                                 <p className="text-xs text-slate-500">{req.email} • {req.phone}</p>
-                                <p className="text-xs font-semibold text-blue-900 mt-1">{req.course}</p>
+                                <p className="text-xs font-semibold text-red-900 mt-1">{req.course}</p>
                               </div>
 
                               <div className="flex space-x-2 pt-2 border-t border-slate-100">
@@ -1317,7 +1338,7 @@
                             });
                             setShowModuleModal(true);
                           }}
-                          className="px-4 sm:px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow-md self-start sm:self-auto"
+                          className="px-4 sm:px-5 py-2.5 bg-red-600 hover:bg-red-500 text-white font-bold text-xs rounded-xl shadow-md self-start sm:self-auto"
                         >
                           + Add New Module
                         </button>
@@ -1329,7 +1350,7 @@
                             <div>
                               <div className="aspect-video bg-slate-100 relative">
                                 <img src={m.thumbnail} alt={m.title} className="w-full h-full object-cover" />
-                                <div className="absolute top-2.5 left-2.5 bg-slate-900 text-white px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold shadow-md">
+                                <div className="absolute top-2.5 left-2.5 bg-slate-900 text-white px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold shadow-md border border-red-600/40">
                                   Module {m.moduleNumber}
                                 </div>
                               </div>
@@ -1345,7 +1366,7 @@
                                   setModuleForm(m);
                                   setShowModuleModal(true);
                                 }}
-                                className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow-sm"
+                                className="px-4 py-2 bg-red-600 hover:bg-red-500 text-white font-bold text-xs rounded-xl shadow-sm"
                               >
                                 ✏️ Edit Module
                               </button>
@@ -1408,7 +1429,7 @@
 
                               <div className="flex justify-end space-x-2 pt-3">
                                 <button type="button" onClick={() => setShowModuleModal(false)} className="px-4 py-2 border rounded-xl font-bold">Cancel</button>
-                                <button type="submit" className="px-6 py-2 bg-blue-600 text-white font-bold rounded-xl shadow-md">Save & Update Module</button>
+                                <button type="submit" className="px-6 py-2 bg-red-600 text-white font-bold rounded-xl shadow-md">Save & Update Module</button>
                               </div>
                             </form>
                           </div>
@@ -1423,28 +1444,28 @@
 
           {/* Sticky Touch-Friendly Bottom Bar for Mobile */}
           {currentUser && (
-            <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 px-4 py-2 flex items-center justify-around text-slate-400 z-30">
+            <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-red-900/40 px-4 py-2 flex items-center justify-around text-slate-400 z-30">
               {role === 'student' ? (
                 <>
-                  <button onClick={() => { setSelectedModuleId(null); setActiveTab('dashboard'); }} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'dashboard' ? 'text-blue-400' : 'text-slate-400'}`}>
+                  <button onClick={() => { setSelectedModuleId(null); setActiveTab('dashboard'); }} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'dashboard' ? 'text-red-500' : 'text-slate-400'}`}>
                     <span>Dashboard</span>
                   </button>
-                  <button onClick={() => { setSelectedModuleId(null); setActiveTab('modules'); }} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'modules' ? 'text-blue-400' : 'text-slate-400'}`}>
+                  <button onClick={() => { setSelectedModuleId(null); setActiveTab('modules'); }} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'modules' ? 'text-red-500' : 'text-slate-400'}`}>
                     <span>Modules ({modules.length})</span>
                   </button>
                 </>
               ) : (
                 <>
-                  <button onClick={() => setActiveTab('admin-dashboard')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-dashboard' ? 'text-blue-400' : 'text-slate-400'}`}>
+                  <button onClick={() => setActiveTab('admin-dashboard')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-dashboard' ? 'text-red-500' : 'text-slate-400'}`}>
                     <span>Metrics</span>
                   </button>
-                  <button onClick={() => setActiveTab('admin-students')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-students' ? 'text-blue-400' : 'text-slate-400'}`}>
+                  <button onClick={() => setActiveTab('admin-students')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-students' ? 'text-red-500' : 'text-slate-400'}`}>
                     <span>Students ({students.length})</span>
                   </button>
-                  <button onClick={() => setActiveTab('admin-requests')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-requests' ? 'text-blue-400' : 'text-slate-400'}`}>
+                  <button onClick={() => setActiveTab('admin-requests')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-requests' ? 'text-red-500' : 'text-slate-400'}`}>
                     <span>Requests ({pendingRequestsList.length})</span>
                   </button>
-                  <button onClick={() => setActiveTab('admin-modules')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-modules' ? 'text-blue-400' : 'text-slate-400'}`}>
+                  <button onClick={() => setActiveTab('admin-modules')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-modules' ? 'text-red-500' : 'text-slate-400'}`}>
                     <span>Modules ({modules.length})</span>
                   </button>
                 </>
