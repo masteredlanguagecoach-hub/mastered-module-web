@@ -68,11 +68,6 @@
       background: #CBD5E1;
       border-radius: 9999px;
     }
-    /* Screen Blur for Protection */
-    .screen-blur-active {
-      filter: blur(25px);
-      pointer-events: none;
-    }
   </style>
 </head>
 <body class="bg-[#F8FAFC] text-[#0F172A] antialiased min-h-screen">
@@ -83,9 +78,8 @@
 
     const LIVE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbqPvlxmAFOgtXn-VJ9b9fuvjOL3hsy18wSCu4xYhfVIcnLMVWGVbeD6XsLxv1ZG_2/exec";
     
-    // Google Drive Logo Image URL + Local Asset Fallback
-    const LOGO_SRC = "https://lh3.googleusercontent.com/d/18uB_avktu2l-4ZesFslNsN6FjYl2d3BP";
-    const LOGO_FALLBACK = "assets/logo.png";
+    // Transparent PNG Logo Asset
+    const LOGO_SRC = "assets/logo.png";
 
     const THUMBNAILS = [
       "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop&q=80",
@@ -429,11 +423,11 @@
       return url;
     }
 
-    // Direct Cross-Origin Mobile Apps Script Fetcher (GET Query Parameter Bypass for Mobile Safari/Chrome)
+    // Direct Cross-Device Mobile Apps Script Fetcher (GET Query Parameter Bypass for Mobile Safari/Chrome)
     async function callAppsScript(action, payload = {}) {
       try {
         const getUrl = `${LIVE_APPS_SCRIPT_URL}?action=${encodeURIComponent(action)}&payload=${encodeURIComponent(JSON.stringify(payload))}&t=${Date.now()}`;
-        const response = await fetch(getUrl);
+        const response = await fetch(getUrl, { method: 'GET', mode: 'cors' });
         const json = await response.json();
         if (json && json.success !== undefined) return json;
       } catch(err) {
@@ -460,7 +454,6 @@
       const [activeTab, setActiveTab] = useState('dashboard');
       const [selectedModuleId, setSelectedModuleId] = useState(null);
       const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-      const [isBlurredScreen, setIsBlurredScreen] = useState(false);
 
       // Data Stores
       const [students, setStudents] = useState([]);
@@ -487,7 +480,7 @@
         }
       }, []);
 
-      // Live Google Sheets Request & Student Sync (Every 4 seconds)
+      // Live Google Sheets Request & Student Sync (Every 3 seconds across devices)
       const refreshLiveData = async () => {
         try {
           const reqRes = await callAppsScript('getRequests');
@@ -504,7 +497,7 @@
 
       useEffect(() => {
         refreshLiveData();
-        const timer = setInterval(refreshLiveData, 4000);
+        const timer = setInterval(refreshLiveData, 3000);
         return () => clearInterval(timer);
       }, []);
 
@@ -513,11 +506,8 @@
         localStorage.setItem('mastered_progress', JSON.stringify(userProgress));
       }, [userProgress]);
 
-      // Anti-Screen Recording & Anti-Screenshot Security Listeners
+      // Anti-Screen Recording & Anti-Screenshot Security Shortcuts Listener
       useEffect(() => {
-        const handleBlur = () => setIsBlurredScreen(true);
-        const handleFocus = () => setIsBlurredScreen(false);
-
         const handleKeyDown = (e) => {
           if (
             e.key === 'PrintScreen' ||
@@ -530,19 +520,8 @@
           }
         };
 
-        window.addEventListener('blur', handleBlur);
-        window.addEventListener('focus', handleFocus);
-        document.addEventListener('visibilitychange', () => {
-          if (document.hidden) setIsBlurredScreen(true);
-          else setIsBlurredScreen(false);
-        });
         window.addEventListener('keydown', handleKeyDown);
-
-        return () => {
-          window.removeEventListener('blur', handleBlur);
-          window.removeEventListener('focus', handleFocus);
-          window.removeEventListener('keydown', handleKeyDown);
-        };
+        return () => window.removeEventListener('keydown', handleKeyDown);
       }, []);
 
       // Lesson Sub-Tab inside Student Module View
@@ -574,7 +553,7 @@
       // Student Login
       const handleStudentLogin = async (email, adm) => {
         const live = await callAppsScript('loginStudent', { email, admissionNumber: adm });
-        if (live.success && live.student) {
+        if (live && live.success && live.student) {
           setCurrentUser(live.student);
           setRole('student');
           setActiveTab('dashboard');
@@ -590,7 +569,7 @@
           localStorage.setItem('mastered_user_session', JSON.stringify({ user: found, role: 'student', tab: 'dashboard' }));
           return { success: true };
         }
-        return { success: false, message: live.message || "Invalid credentials or account pending approval." };
+        return { success: false, message: (live && live.message) || "Invalid credentials or account pending approval." };
       };
 
       // Admin Login
@@ -608,7 +587,7 @@
         }
 
         const live = await callAppsScript('loginAdmin', { email: cleanEmail, password: cleanPass });
-        if (live.success && live.admin) {
+        if (live && live.success && live.admin) {
           setCurrentUser(live.admin);
           setRole('admin');
           setActiveTab('admin-dashboard');
@@ -628,7 +607,7 @@
         localStorage.removeItem('mastered_user_session');
       };
 
-      // Submit Access Request (Guaranteed Cross-Device Sync)
+      // Submit Access Request (Guaranteed Real-time Cross-Device Sync)
       const handleSubmitAccessRequest = async (e) => {
         e.preventDefault();
         const form = e.target;
@@ -648,7 +627,7 @@
 
         const res = await callAppsScript('submitRequest', newReq);
         if (res && res.success) {
-          alert("🎉 Access Application Submitted Successfully!\nYour request is recorded in the Mastered Language Coach database. The coach will review and approve your access shortly!");
+          alert("🎉 Access Application Submitted Successfully!\nYour request is recorded live in the Mastered Language Coach database. The coach will review and approve your access shortly!");
         } else {
           alert("🎉 Application Submitted Successfully!\nYour details have been sent to the Mastered Language Coach team.");
         }
@@ -754,13 +733,12 @@
               </button>
             )}
 
-            {/* Official Brand Logo with Fallback */}
+            {/* Official Transparent PNG Brand Logo */}
             <div className="flex items-center space-x-2">
               <img 
                 src={LOGO_SRC} 
-                onError={(e) => { e.target.onerror = null; e.target.src = LOGO_FALLBACK; }} 
                 alt="MASTERED Language Coach" 
-                className="h-10 sm:h-12 w-auto object-contain rounded" 
+                className="h-10 sm:h-12 w-auto object-contain" 
               />
             </div>
           </div>
@@ -793,9 +771,8 @@
                 <div className="text-center">
                   <img 
                     src={LOGO_SRC} 
-                    onError={(e) => { e.target.onerror = null; e.target.src = LOGO_FALLBACK; }} 
                     alt="Mastered Logo" 
-                    className="h-16 mx-auto mb-2 object-contain rounded" 
+                    className="h-16 mx-auto mb-2 object-contain" 
                   />
                   <h2 className="text-xl font-extrabold text-white">Student Access Application</h2>
                   <p className="text-xs text-slate-400 mt-1">Submit your details to receive student portal access.</p>
@@ -844,9 +821,8 @@
                 <div className="text-center">
                   <img 
                     src={LOGO_SRC} 
-                    onError={(e) => { e.target.onerror = null; e.target.src = LOGO_FALLBACK; }} 
                     alt="Mastered Logo" 
-                    className="h-16 mx-auto mb-2 object-contain rounded" 
+                    className="h-16 mx-auto mb-2 object-contain" 
                   />
                   <h2 className="text-xl font-extrabold text-white">Admin Console Login</h2>
                   <p className="text-xs text-slate-400 mt-1">Mastered Language Coach Admin System</p>
@@ -859,7 +835,7 @@
                 }} className="space-y-3.5 text-xs">
                   <div>
                     <label className="block text-slate-300 font-bold mb-1">Admin Email</label>
-                    <input name="email" type="email" required placeholder="admin@example.com" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-red-500 outline-none" />
+                    <input name="email" type="email" required placeholder="masteredlanguagecoach@gmail.com" className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-red-500 outline-none" />
                   </div>
                   <div>
                     <label className="block text-slate-300 font-bold mb-1">Admin Password</label>
@@ -880,9 +856,8 @@
               <div className="text-center">
                 <img 
                   src={LOGO_SRC} 
-                  onError={(e) => { e.target.onerror = null; e.target.src = LOGO_FALLBACK; }} 
                   alt="MASTERED Language Coach" 
-                  className="h-20 sm:h-24 mx-auto mb-3 object-contain rounded" 
+                  className="h-20 sm:h-24 mx-auto mb-3 object-contain" 
                 />
                 <h1 className="text-xl sm:text-2xl font-extrabold text-white">Student Portal Sign In</h1>
                 <p className="text-xs text-slate-400 mt-1">Speak With Confidence — Mastered Coaching System</p>
@@ -929,17 +904,8 @@
       const activeModule = selectedModuleId ? modules.find(m => m.moduleId === selectedModuleId) : null;
 
       return (
-        <div className={`min-h-screen bg-[#F8FAFC] flex flex-col font-sans relative pb-16 lg:pb-0 ${isBlurredScreen ? 'screen-blur-active' : ''}`} onContextMenu={e => e.preventDefault()}>
+        <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans relative pb-16 lg:pb-0" onContextMenu={e => e.preventDefault()}>
           <Header />
-
-          {/* Screen Protection Shield Blur Message */}
-          {isBlurredScreen && (
-            <div className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-2xl flex flex-col items-center justify-center p-6 text-center text-white space-y-3">
-              <div className="w-16 h-16 rounded-full bg-red-600/20 text-red-500 flex items-center justify-center text-3xl font-bold">🔒</div>
-              <h2 className="text-xl font-extrabold">Protected Content Hidden</h2>
-              <p className="text-xs text-slate-400 max-w-sm">Return focus to the Mastered Language Coach window to resume viewing your lesson modules.</p>
-            </div>
-          )}
 
           {/* Toast Notification */}
           {toast && (
@@ -1065,7 +1031,7 @@
                       {activeModule.pdf && <button onClick={() => setLessonTab('pdf')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'pdf' ? 'bg-red-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>PDF Workbook</button>}
                     </div>
 
-                    {/* Responsive Content Viewport with Security Protection Overlay */}
+                    {/* Responsive Content Viewport with Security Watermark */}
                     <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 shadow-sm space-y-4 relative">
                       {lessonTab === 'video1' && (
                         <div>
@@ -1082,15 +1048,9 @@
                               </span>
                             </div>
 
-                            {/* Transparent Overlay Shield Hiding Top Title/Share Bar */}
-                            <div className="absolute top-0 left-0 right-0 h-16 pointer-events-auto bg-transparent z-20" onClick={e => e.stopPropagation()}></div>
-
-                            {/* Transparent Overlay Shield Hiding Bottom-Left "Watch on YouTube" Logo */}
-                            <div className="absolute bottom-0 left-0 w-44 h-14 pointer-events-auto bg-transparent z-20" onClick={e => e.stopPropagation()}></div>
-
                             <iframe
                               src={getVideoEmbedUrl(activeModule.video1)}
-                              className="w-full h-full border-0"
+                              className="w-full h-full border-0 relative z-0"
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
                             ></iframe>
