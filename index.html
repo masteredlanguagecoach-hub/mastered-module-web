@@ -2063,15 +2063,17 @@
                             </form>
                           </div>
                         </div>
-                      {/* Quiz Manager Tab */}
-                      {activeTab === 'admin-quizzes' && (
-                        <AdminQuizManager
-                          modules={modules}
-                          quizBank={customQuizBank}
-                          onSaveModuleQuiz={handleSaveModuleQuiz}
-                        />
                       )}
                     </div>
+                  )}
+
+                  {/* Quiz Manager Tab */}
+                  {activeTab === 'admin-quizzes' && (
+                    <AdminQuizManager
+                      modules={modules}
+                      quizBank={customQuizBank}
+                      onSaveModuleQuiz={handleSaveModuleQuiz}
+                    />
                   )}
                 </>
               )}
