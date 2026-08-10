@@ -1118,7 +1118,7 @@
     }
 
     // Comprehensive Student History & Analytics Modal Component
-    function StudentHistoryModal({ student, userProgress, modules, onClose }) {
+    function StudentHistoryModal({ student, userProgress, modules, isAdmin, onDismiss, onClose }) {
       if (!student) return null;
 
       // Extract progress data for this student
@@ -1171,12 +1171,22 @@
                 <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">{student.name}</h3>
                 <p className="text-xs text-slate-500 mt-0.5">{student.email} • {student.phone || 'No Phone Registered'} • {student.course || 'Spoken English Course'}</p>
               </div>
-              <button
-                onClick={onClose}
-                className="self-end sm:self-auto px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition"
-              >
-                ✕ Close History
-              </button>
+              <div className="flex items-center space-x-2 self-end sm:self-auto">
+                {isAdmin && (
+                  <button
+                    onClick={() => onDismiss(student)}
+                    className="px-3.5 py-2 bg-rose-100 hover:bg-rose-200 text-rose-700 font-extrabold rounded-xl text-xs transition flex items-center space-x-1"
+                  >
+                    <span>🚫 Dismiss Student</span>
+                  </button>
+                )}
+                <button
+                  onClick={onClose}
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition"
+                >
+                  ✕ Close
+                </button>
+              </div>
             </div>
 
             {/* Analytics Score Cards */}
@@ -1531,6 +1541,25 @@
         showToast(`✅ Approved request for ${req.name}! Enrolled in Student Directory.`);
         await callAppsScript('approveRequest', { requestId: reqId });
         refreshLiveData();
+      };
+
+      // Dismiss / Remove Student (After Approval)
+      const handleDismissStudent = async (studentToDismiss) => {
+        if (!studentToDismiss) return;
+        const adm = studentToDismiss.admissionNumber || studentToDismiss.studentId;
+        if (confirm(`⚠️ Are you sure you want to dismiss ${studentToDismiss.name} (${adm})?\nThis student will be removed from active enrollment.`)) {
+          setStudents(prev => prev.filter(s => (s.admissionNumber || s.studentId) !== adm));
+          if (selectedStudentForHistory && (selectedStudentForHistory.admissionNumber || selectedStudentForHistory.studentId) === adm) {
+            setSelectedStudentForHistory(null);
+          }
+          showToast(`🚫 Student ${studentToDismiss.name} has been dismissed.`);
+          await callAppsScript('dismissStudent', {
+            admissionNumber: studentToDismiss.admissionNumber,
+            studentId: studentToDismiss.studentId,
+            email: studentToDismiss.email
+          });
+          refreshLiveData();
+        }
       };
 
       // Save Module
@@ -2120,12 +2149,20 @@
                                   <td className="p-3">{s.course}</td>
                                   <td className="p-3"><span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">{s.status || 'Active'}</span></td>
                                   <td className="p-3 text-right">
-                                    <button
-                                      onClick={() => setSelectedStudentForHistory(s)}
-                                      className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-[11px] rounded-xl shadow-sm transition"
-                                    >
-                                      📊 View History
-                                    </button>
+                                    <div className="flex justify-end space-x-1.5">
+                                      <button
+                                        onClick={() => setSelectedStudentForHistory(s)}
+                                        className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-[11px] rounded-xl shadow-sm transition"
+                                      >
+                                        📊 View History
+                                      </button>
+                                      <button
+                                        onClick={() => handleDismissStudent(s)}
+                                        className="px-3 py-1.5 bg-rose-100 hover:bg-rose-200 text-rose-700 font-extrabold text-[11px] rounded-xl transition"
+                                      >
+                                        🚫 Dismiss
+                                      </button>
+                                    </div>
                                   </td>
                                 </tr>
                               ))}
@@ -2328,6 +2365,8 @@
                   student={selectedStudentForHistory}
                   userProgress={userProgress}
                   modules={modules}
+                  isAdmin={role === 'admin'}
+                  onDismiss={handleDismissStudent}
                   onClose={() => setSelectedStudentForHistory(null)}
                 />
               )}
