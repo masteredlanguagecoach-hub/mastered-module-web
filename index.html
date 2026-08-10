@@ -794,15 +794,24 @@
       );
     }
 
-    // Student Quizzes Hub
+    // Student Quizzes Hub with Level Unlocking System
     function StudentQuizzesHub({ modules, userProgress, onStartQuiz }) {
+      const isLevelUnlocked = (modNum) => {
+        if (modNum === 1) return true;
+        const prevModNum = modNum - 1;
+        const prevModKey = `MOD-${prevModNum < 10 ? '0' + prevModNum : prevModNum}`;
+        const prevQuizObj = userProgress[prevModKey]?.quizScores && userProgress[prevModKey]?.quizScores[prevModNum];
+        const prevScore = (prevQuizObj && prevQuizObj.percentage) || 0;
+        return prevScore >= 85;
+      };
+
       return (
         <div className="space-y-4 sm:space-y-6">
           <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-l-4 border-red-600">
             <div>
-              <span className="text-[10px] sm:text-xs font-bold text-red-400 uppercase tracking-wider">Module Quiz Bank</span>
-              <h2 className="text-xl sm:text-2xl font-extrabold mt-0.5">30-Question Module Quizzes</h2>
-              <p className="text-xs text-slate-300 mt-1">Test your mastery of all modules with immediate answer feedback and explanations!</p>
+              <span className="text-[10px] sm:text-xs font-bold text-red-400 uppercase tracking-wider">Sequential Level System</span>
+              <h2 className="text-xl sm:text-2xl font-extrabold mt-0.5">30-Question Level Quizzes</h2>
+              <p className="text-xs text-slate-300 mt-1">Unlock each level sequentially by earning 85%+ (26/30) on the previous level's quiz!</p>
             </div>
           </div>
 
@@ -812,20 +821,38 @@
               const quizQuestions = (typeof QUIZ_BANK !== 'undefined' && QUIZ_BANK[modNum]) || [];
               const qCount = quizQuestions.length;
               const scoreData = (userProgress[m.moduleId]?.quizScores && userProgress[m.moduleId]?.quizScores[modNum]) || null;
+              const unlocked = isLevelUnlocked(modNum);
 
               return (
-                <div key={m.moduleId} className="bg-white p-5 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-4 hover:border-red-500 transition">
+                <div key={m.moduleId} className={`p-5 rounded-2xl sm:rounded-3xl border shadow-sm flex flex-col justify-between space-y-4 transition ${
+                  unlocked ? 'bg-white border-slate-200 hover:border-red-500' : 'bg-slate-100/70 border-slate-200 opacity-80'
+                }`}>
                   <div className="space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="px-2.5 py-1 bg-red-50 text-red-600 font-bold text-[10px] rounded-full border border-red-200">
-                        Module {modNum}
+                      <span className={`px-2.5 py-1 font-bold text-[10px] rounded-full border ${
+                        unlocked ? 'bg-red-50 text-red-600 border-red-200' : 'bg-slate-200 text-slate-600 border-slate-300'
+                      }`}>
+                        Level {modNum}
                       </span>
-                      <span className="text-[10px] font-bold text-slate-400 font-mono">
-                        {qCount} Questions
+                      <span className="text-[10px] font-bold text-slate-500 font-mono flex items-center space-x-1">
+                        {unlocked ? (
+                          scoreData && scoreData.percentage >= 85 ? (
+                            <span className="text-emerald-700 font-extrabold bg-emerald-100 px-2 py-0.5 rounded-full">✓ Level Mastered</span>
+                          ) : (
+                            <span className="text-blue-700 font-bold bg-blue-50 px-2 py-0.5 rounded-full">🔓 Level Unlocked</span>
+                          )
+                        ) : (
+                          <span className="text-amber-800 font-bold bg-amber-100 px-2 py-0.5 rounded-full">🔒 Locked Level</span>
+                        )}
                       </span>
                     </div>
                     <h4 className="font-extrabold text-slate-900 text-sm sm:text-base leading-snug">{m.title}</h4>
-                    {scoreData ? (
+                    
+                    {!unlocked ? (
+                      <p className="text-xs text-amber-800 font-medium bg-amber-50 p-2.5 rounded-xl border border-amber-200">
+                        🔒 Achieve 85%+ on Module {modNum - 1} Quiz to unlock this level.
+                      </p>
+                    ) : scoreData ? (
                       <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-2xl space-y-1">
                         <div className="flex justify-between items-center text-xs font-extrabold text-emerald-900">
                           <span>Highest Score:</span>
@@ -840,12 +867,21 @@
                     )}
                   </div>
 
-                  <button
-                    onClick={() => onStartQuiz(modNum, m.title)}
-                    className="w-full py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center justify-center space-x-1.5"
-                  >
-                    <span>📝 {scoreData ? 'Retake Module Quiz' : 'Take 30-Question Quiz'}</span>
-                  </button>
+                  {unlocked ? (
+                    <button
+                      onClick={() => onStartQuiz(modNum, m.title)}
+                      className="w-full py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center justify-center space-x-1.5"
+                    >
+                      <span>📝 {scoreData ? 'Retake Level Quiz' : 'Start 30-Question Quiz'}</span>
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => alert(`🔒 Level ${modNum} is Locked!\n\nYou must score 85% or higher (at least 26/30) on the Module ${modNum - 1} Quiz to unlock Level ${modNum}.`)}
+                      className="w-full py-2.5 bg-slate-300 text-slate-600 font-extrabold text-xs rounded-xl transition flex items-center justify-center space-x-1 cursor-not-allowed"
+                    >
+                      <span>🔒 Locked (Requires 85% on Mod {modNum - 1})</span>
+                    </button>
+                  )}
                 </div>
               );
             })}
@@ -1117,6 +1153,317 @@
       );
     }
 
+    // Final Graduation Video Challenge Component (2-Minute Face Introduction Video)
+    function GraduationVideoChallenge({ currentUser, userProgress, onSaveGraduationVideo, onClose }) {
+      const [mediaStream, setMediaStream] = useState(null);
+      const [mediaRecorder, setMediaRecorder] = useState(null);
+      const [recording, setRecording] = useState(false);
+      const [recordedBlob, setRecordedBlob] = useState(null);
+      const [recordedUrl, setRecordedUrl] = useState('');
+      const [timerSec, setTimerSec] = useState(0);
+      const [driveUrlInput, setDriveUrlInput] = useState('');
+      const [submitting, setSubmitting] = useState(false);
+      const videoRef = React.useRef(null);
+      const timerRef = React.useRef(null);
+
+      const gradData = (userProgress && userProgress.graduationVideo) || null;
+
+      useEffect(() => {
+        return () => {
+          if (mediaStream) {
+            mediaStream.getTracks().forEach(track => track.stop());
+          }
+          if (timerRef.current) clearInterval(timerRef.current);
+        };
+      }, [mediaStream]);
+
+      const startCamera = async () => {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+          setMediaStream(stream);
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+          }
+        } catch (err) {
+          alert("⚠️ Camera Access Note: Could not open webcam automatically. You can also upload a recorded video file or paste a Google Drive video link below!");
+        }
+      };
+
+      const startRecording = () => {
+        if (!mediaStream) return;
+        const chunks = [];
+        const recorder = new MediaRecorder(mediaStream);
+        
+        recorder.ondataavailable = (e) => {
+          if (e.data.size > 0) chunks.push(e.data);
+        };
+
+        recorder.onstop = () => {
+          const blob = new Blob(chunks, { type: 'video/webm' });
+          setRecordedBlob(blob);
+          setRecordedUrl(URL.createObjectURL(blob));
+        };
+
+        recorder.start();
+        setMediaRecorder(recorder);
+        setRecording(true);
+        setTimerSec(0);
+
+        timerRef.current = setInterval(() => {
+          setTimerSec(prev => {
+            if (prev >= 120) {
+              stopRecording(recorder);
+              return 120;
+            }
+            return prev + 1;
+          });
+        }, 1000);
+      };
+
+      const stopRecording = (recToStop) => {
+        const targetRec = recToStop || mediaRecorder;
+        if (targetRec && targetRec.state !== 'inactive') {
+          targetRec.stop();
+        }
+        if (timerRef.current) clearInterval(timerRef.current);
+        setRecording(false);
+        if (mediaStream) {
+          mediaStream.getTracks().forEach(track => track.stop());
+          setMediaStream(null);
+        }
+      };
+
+      const handleFileUpload = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          setRecordedBlob(file);
+          setRecordedUrl(URL.createObjectURL(file));
+        }
+      };
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!recordedBlob && !driveUrlInput.trim()) {
+          alert("Please record a video, choose a video file, or enter a Google Drive video link!");
+          return;
+        }
+
+        setSubmitting(true);
+
+        let base64Video = '';
+        if (recordedBlob) {
+          base64Video = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.readAsDataURL(recordedBlob);
+          });
+        }
+
+        const payload = {
+          studentName: currentUser.name,
+          admissionNumber: currentUser.admissionNumber,
+          videoUrl: driveUrlInput.trim() || recordedUrl,
+          videoBase64: base64Video ? base64Video.substring(0, 100000) : '',
+          submittedDate: new Date().toLocaleDateString(),
+          status: 'Submitted for Coach Approval'
+        };
+
+        await onSaveGraduationVideo(payload);
+        setSubmitting(false);
+      };
+
+      return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto" onClick={onClose}>
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 max-w-2xl w-full border shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+            <div className="flex justify-between items-start pb-3 border-b border-slate-200">
+              <div>
+                <span className="px-2.5 py-0.5 bg-amber-100 text-amber-900 text-[11px] font-extrabold rounded-full uppercase">
+                  🎓 100% Graduation Final Task
+                </span>
+                <h3 className="text-xl font-extrabold text-slate-900 mt-1">2-Minute Face Introduction Video</h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Record a 2-minute video with a clear face introducing yourself in English to complete your Mastered Spoken English Certification!
+                </p>
+              </div>
+              <button onClick={onClose} className="p-2 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold rounded-xl text-xs">✕</button>
+            </div>
+
+            {gradData ? (
+              <div className="p-6 bg-emerald-50 border border-emerald-300 rounded-2xl space-y-3 text-center">
+                <span className="text-4xl">🎓</span>
+                <h4 className="text-lg font-extrabold text-emerald-900">Graduation Video Submitted Successfully!</h4>
+                <p className="text-xs text-emerald-800 leading-relaxed">
+                  Your 2-minute self-introduction video has been recorded and submitted to Mastered Language Coach. Your coach will review your video and issue your official Certificate shortly!
+                </p>
+                <div className="pt-2">
+                  <span className="px-3 py-1.5 bg-emerald-600 text-white font-extrabold text-xs rounded-full shadow-sm">
+                    Status: {gradData.status || 'Under Coach Review'}
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Recording Viewport Box */}
+                <div className="bg-slate-900 rounded-2xl overflow-hidden aspect-video relative flex items-center justify-center text-white shadow-inner">
+                  {recordedUrl ? (
+                    <video src={recordedUrl} controls className="w-full h-full object-cover" />
+                  ) : mediaStream ? (
+                    <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="text-center p-6 space-y-3">
+                      <p className="text-xs text-slate-400 font-semibold">Webcam Not Started</p>
+                      <button
+                        type="button"
+                        onClick={startCamera}
+                        className="px-5 py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-md transition"
+                      >
+                        📷 Turn On Camera to Record
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Live Recording Timer */}
+                  {recording && (
+                    <div className="absolute top-3 left-3 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-mono font-bold animate-pulse shadow-md">
+                      ● Recording: {Math.floor(timerSec / 60)}:{(timerSec % 60).toString().padStart(2, '0')} / 02:00
+                    </div>
+                  )}
+                </div>
+
+                {/* Recorder Control Strip */}
+                <div className="flex flex-wrap items-center justify-between gap-2 bg-slate-50 p-3 rounded-2xl border border-slate-200">
+                  {mediaStream && !recording && (
+                    <button
+                      type="button"
+                      onClick={startRecording}
+                      className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-md transition"
+                    >
+                      ⏺ Start 2-Min Recording
+                    </button>
+                  )}
+
+                  {recording && (
+                    <button
+                      type="button"
+                      onClick={() => stopRecording()}
+                      className="px-4 py-2 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-md transition"
+                    >
+                      ⏹ Stop Recording
+                    </button>
+                  )}
+
+                  {recordedUrl && (
+                    <button
+                      type="button"
+                      onClick={() => { setRecordedUrl(''); setRecordedBlob(null); startCamera(); }}
+                      className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-xl transition"
+                    >
+                      🔄 Re-record Video
+                    </button>
+                  )}
+
+                  {/* Video File Input Fallback */}
+                  <div className="text-xs text-slate-600">
+                    <label className="font-bold block mb-0.5 text-[11px]">Or Select Recorded Video File:</label>
+                    <input type="file" accept="video/*" onChange={handleFileUpload} className="text-[10px]" />
+                  </div>
+                </div>
+
+                {/* Drive Link Fallback Input */}
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Or Provide Google Drive Video Link (Optional):</label>
+                  <input
+                    type="url"
+                    value={driveUrlInput}
+                    onChange={e => setDriveUrlInput(e.target.value)}
+                    placeholder="https://drive.google.com/file/d/..."
+                    className="w-full p-3 border rounded-xl text-xs text-slate-900 outline-none focus:border-red-500"
+                  />
+                </div>
+
+                <div className="flex justify-end space-x-2 pt-3 border-t">
+                  <button type="button" onClick={onClose} className="px-4 py-2.5 border rounded-xl font-bold text-xs text-slate-700">Cancel</button>
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="px-6 py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-md disabled:opacity-50 transition"
+                  >
+                    {submitting ? 'Submitting Video...' : '🎓 Submit Graduation Video'}
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    // Admin Graduation Manager Component
+    function AdminGraduationManager({ students, userProgress, onApproveGraduation }) {
+      const submissions = students.map(s => {
+        const prog = (userProgress && userProgress[s.admissionNumber]) || {};
+        const grad = prog.graduationVideo || null;
+        return { student: s, graduation: grad };
+      }).filter(item => item.graduation);
+
+      return (
+        <div className="space-y-4 sm:space-y-6">
+          <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-3 border-l-4 border-red-600">
+            <div>
+              <span className="text-[10px] sm:text-xs font-bold text-red-400 uppercase tracking-wider">Admin Certification Hub</span>
+              <h2 className="text-xl sm:text-2xl font-extrabold mt-0.5">100% Graduation 2-Min Intro Videos</h2>
+              <p className="text-xs text-slate-300 mt-1">Review student self-introduction face videos and issue official Graduation Certifications.</p>
+            </div>
+          </div>
+
+          {submissions.length === 0 ? (
+            <div className="bg-white p-8 rounded-3xl border border-slate-200 text-center space-y-2">
+              <p className="text-sm font-bold text-slate-600">No graduation videos submitted yet.</p>
+              <p className="text-xs text-slate-400">Students unlock the 100% Graduation Video Challenge after scoring 85%+ on all 32 module quizzes!</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {submissions.map(({ student, graduation }, idx) => (
+                <div key={idx} className="bg-white p-5 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm space-y-3">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <span className="px-2 py-0.5 bg-red-100 text-red-700 font-mono font-bold text-[10px] rounded uppercase">{student.admissionNumber}</span>
+                      <h4 className="font-extrabold text-slate-900 text-base mt-1">{student.name}</h4>
+                      <p className="text-xs text-slate-500">{student.email} • {student.course}</p>
+                    </div>
+                    <span className="px-2.5 py-1 bg-emerald-100 text-emerald-800 font-bold text-xs rounded-full">
+                      Video Submitted
+                    </span>
+                  </div>
+
+                  <div className="space-y-2 pt-2 border-t text-xs">
+                    {graduation.videoUrl && (
+                      <div className="aspect-video bg-slate-900 rounded-xl overflow-hidden shadow-inner">
+                        {graduation.videoUrl.startsWith('data:video') || graduation.videoUrl.startsWith('blob:') ? (
+                          <video src={graduation.videoUrl} controls className="w-full h-full object-cover" />
+                        ) : (
+                          <iframe src={graduation.videoUrl} className="w-full h-full border-0"></iframe>
+                        )}
+                      </div>
+                    )}
+                    <div className="flex justify-between items-center pt-2">
+                      <span className="text-slate-500 font-bold">Submitted: {graduation.submittedDate || 'Recent'}</span>
+                      <button
+                        onClick={() => onApproveGraduation(student)}
+                        className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-md transition"
+                      >
+                        🎓 Approve & Issue Certificate
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      );
+    }
+
     // Comprehensive Student History & Analytics Modal Component
     function StudentHistoryModal({ student, userProgress, modules, isAdmin, onDismiss, onClose }) {
       if (!student) return null;
@@ -1284,6 +1631,7 @@
       const [activeQuizModTitle, setActiveQuizModTitle] = useState('');
       const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       const [selectedStudentForHistory, setSelectedStudentForHistory] = useState(null);
+      const [showGraduationModal, setShowGraduationModal] = useState(false);
 
       // Data Stores
       const [students, setStudents] = useState([]);
@@ -1345,6 +1693,59 @@
           total: scoreObj.total,
           percentage: scoreObj.percentage
         });
+      };
+
+      // Sequential Level Unlocking Logic (Earn 85%+ on previous level quiz to unlock)
+      const isLevelUnlocked = (modNum) => {
+        if (modNum === 1) return true; // Level 1 is always unlocked
+        const prevModNum = modNum - 1;
+        const prevModKey = `MOD-${prevModNum < 10 ? '0' + prevModNum : prevModNum}`;
+        const prevQuizObj = userProgress[prevModKey]?.quizScores && userProgress[prevModKey]?.quizScores[prevModNum];
+        const prevScore = (prevQuizObj && prevQuizObj.percentage) || 0;
+        return prevScore >= 85;
+      };
+
+      // 100% Course Graduation Video Status
+      const is100PercentGraduated = (() => {
+        const mod32Quiz = userProgress['MOD-32']?.quizScores && userProgress['MOD-32']?.quizScores[32];
+        return (mod32Quiz && mod32Quiz.percentage >= 85) || false;
+      })();
+
+      // Save 2-Minute Graduation Video
+      const handleSaveGraduationVideo = async (payload) => {
+        setUserProgress(prev => {
+          const updated = {
+            ...prev,
+            graduationVideo: payload
+          };
+          localStorage.setItem('mastered_progress', JSON.stringify(updated));
+          return updated;
+        });
+        showToast("🎓 2-Minute Graduation Video Submitted Successfully!");
+        setShowGraduationModal(false);
+        await callAppsScript('submitGraduationVideo', payload);
+        refreshLiveData();
+      };
+
+      // Approve Student Graduation (Admin)
+      const handleApproveGraduation = async (studentToApprove) => {
+        const adm = studentToApprove.admissionNumber;
+        setUserProgress(prev => {
+          const studentProg = prev[adm] || {};
+          const updatedStudentProg = {
+            ...studentProg,
+            graduationVideo: {
+              ...(studentProg.graduationVideo || {}),
+              status: '🎓 Approved & Certified'
+            }
+          };
+          const updatedAll = { ...prev, [adm]: updatedStudentProg };
+          localStorage.setItem('mastered_progress', JSON.stringify(updatedAll));
+          return updatedAll;
+        });
+        showToast(`🎓 Approved Graduation Certificate for ${studentToApprove.name}!`);
+        await callAppsScript('approveGraduation', { admissionNumber: adm });
+        refreshLiveData();
       };
 
       // Session restore on page refresh (F5)
@@ -1848,6 +2249,7 @@
                         </button>
                         <button onClick={() => { setActiveTab('admin-modules'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-modules' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Module Manager ({modules.length})</button>
                         <button onClick={() => { setActiveTab('admin-quizzes'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-quizzes' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Quiz Manager 📝</button>
+                        <button onClick={() => { setActiveTab('admin-graduation'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-graduation' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Graduation Videos 🎓</button>
                       </>
                     )}
                   </nav>
@@ -1883,6 +2285,7 @@
                       </button>
                       <button onClick={() => setActiveTab('admin-modules')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-modules' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Module Manager ({modules.length})</button>
                       <button onClick={() => setActiveTab('admin-quizzes')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-quizzes' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Quiz Manager 📝</button>
+                      <button onClick={() => setActiveTab('admin-graduation')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-graduation' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Graduation Videos 🎓</button>
                     </>
                   )}
                 </nav>
@@ -2032,20 +2435,57 @@
                       </button>
                     </div>
 
+                    {/* 100% Course Completion Graduation Video Banner */}
+                    {is100PercentGraduated && (
+                      <div className="bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 text-white p-5 sm:p-7 rounded-2xl sm:rounded-3xl shadow-xl space-y-3 border-2 border-amber-300">
+                        <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+                          <div>
+                            <span className="px-3 py-1 bg-white/20 text-white text-[11px] font-extrabold rounded-full uppercase tracking-wider backdrop-blur-sm">
+                              🎓 100% Course Mastery Unlocked!
+                            </span>
+                            <h3 className="text-xl font-extrabold mt-2">Final Certification Task: 2-Minute Face Introduction Video</h3>
+                            <p className="text-xs text-amber-100 mt-1 max-w-xl">
+                              Congratulations on passing all 32 module quizzes with 85%+! Record a 2-minute video introducing yourself with a clear face to receive your official Mastered Language Coach Certificate!
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => setShowGraduationModal(true)}
+                            className="px-5 py-3 bg-white text-amber-900 hover:bg-amber-50 font-extrabold text-xs rounded-xl shadow-lg transition self-start sm:self-auto flex items-center space-x-1.5"
+                          >
+                            <span>🎥 Record 2-Min Face Video</span>
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
                     <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 shadow-sm space-y-4">
                       <div className="flex justify-between items-center">
-                        <h3 className="text-sm sm:text-base font-extrabold text-slate-900">32 Curriculum Modules ({modules.length})</h3>
+                        <h3 className="text-sm sm:text-base font-extrabold text-slate-900">32 Curriculum Level System ({modules.length} Levels)</h3>
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                         {modules.map(m => {
+                          const modNum = m.moduleNumber;
                           const prog = userProgress[m.moduleId]?.percentage || 0;
+                          const unlocked = isLevelUnlocked(modNum);
+
                           return (
-                            <div key={m.moduleId} className="p-4 sm:p-5 border border-slate-200 rounded-2xl sm:rounded-3xl bg-white hover:border-red-500 transition shadow-sm space-y-3 flex flex-col justify-between">
+                            <div key={m.moduleId} className={`p-4 sm:p-5 border rounded-2xl sm:rounded-3xl shadow-sm space-y-3 flex flex-col justify-between transition ${
+                              unlocked ? 'bg-white border-slate-200 hover:border-red-500' : 'bg-slate-100/80 border-slate-200 opacity-80'
+                            }`}>
                               <div>
                                 <div className="aspect-video w-full bg-slate-100 rounded-xl sm:rounded-2xl overflow-hidden mb-3 relative">
                                   <img src={m.thumbnail} alt={m.title} className="w-full h-full object-cover" />
-                                  <span className="absolute top-2 left-2 bg-slate-900 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-md border border-red-600/40">Module {m.moduleNumber}</span>
+                                  <span className="absolute top-2 left-2 bg-slate-900 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-md border border-red-600/40">Level {modNum}</span>
+                                  {!unlocked && (
+                                    <div className="absolute inset-0 bg-slate-950/70 backdrop-blur-[2px] flex items-center justify-center p-3 text-center">
+                                      <div className="bg-slate-900/90 text-white p-3 rounded-2xl border border-amber-500/40 shadow-xl space-y-1">
+                                        <span className="text-xl">🔒</span>
+                                        <p className="font-extrabold text-xs text-amber-400">Level {modNum} Locked</p>
+                                        <p className="text-[10px] text-slate-300">Earn 85%+ on Module {modNum - 1} Quiz</p>
+                                      </div>
+                                    </div>
+                                  )}
                                 </div>
                                 <h4 className="font-bold text-sm sm:text-base text-slate-900">{m.title}</h4>
                                 <div className="text-xs text-slate-500 leading-relaxed mt-1 line-clamp-2 whitespace-pre-line">{m.description}</div>
@@ -2053,20 +2493,29 @@
 
                               <div className="pt-2 border-t flex items-center justify-between gap-2">
                                 <span className="text-xs font-bold text-slate-500">Progress: <strong className="text-red-600">{prog}%</strong></span>
-                                <div className="flex space-x-2">
+                                {unlocked ? (
+                                  <div className="flex space-x-2">
+                                    <button
+                                      onClick={() => { setActiveQuizModNumber(modNum); setActiveQuizModTitle(m.title); }}
+                                      className="px-3 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-xs shadow-sm flex items-center space-x-1"
+                                    >
+                                      <span>📝 Quiz</span>
+                                    </button>
+                                    <button
+                                      onClick={() => setSelectedModuleId(m.moduleId)}
+                                      className="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-xl font-bold text-xs shadow-md"
+                                    >
+                                      {prog > 0 ? 'Resume' : 'Start'}
+                                    </button>
+                                  </div>
+                                ) : (
                                   <button
-                                    onClick={() => { setActiveQuizModNumber(m.moduleNumber); setActiveQuizModTitle(m.title); }}
-                                    className="px-3 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-xs shadow-sm flex items-center space-x-1"
+                                    onClick={() => alert(`🔒 Level ${modNum} is Locked!\n\nYou must score 85% or higher (at least 26/30) on the Module ${modNum - 1} Quiz to unlock Level ${modNum}.`)}
+                                    className="px-3 py-2 bg-slate-300 text-slate-600 rounded-xl font-bold text-xs flex items-center space-x-1 cursor-not-allowed"
                                   >
-                                    <span>📝 Quiz</span>
+                                    <span>🔒 Locked (85%+ Required)</span>
                                   </button>
-                                  <button
-                                    onClick={() => setSelectedModuleId(m.moduleId)}
-                                    className="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-xl font-bold text-xs shadow-md"
-                                  >
-                                    {prog > 0 ? 'Resume' : 'Start'}
-                                  </button>
-                                </div>
+                                )}
                               </div>
                             </div>
                           );
@@ -2359,6 +2808,15 @@
                       onSaveModuleQuiz={handleSaveModuleQuiz}
                     />
                   )}
+
+                  {/* Graduation Videos Manager Tab */}
+                  {activeTab === 'admin-graduation' && (
+                    <AdminGraduationManager
+                      students={students}
+                      userProgress={userProgress}
+                      onApproveGraduation={handleApproveGraduation}
+                    />
+                  )}
                 </>
               )}
 
@@ -2371,6 +2829,16 @@
                   isAdmin={role === 'admin'}
                   onDismiss={handleDismissStudent}
                   onClose={() => setSelectedStudentForHistory(null)}
+                />
+              )}
+
+              {/* 100% Graduation Video Challenge Modal */}
+              {showGraduationModal && (
+                <GraduationVideoChallenge
+                  currentUser={currentUser}
+                  userProgress={userProgress}
+                  onSaveGraduationVideo={handleSaveGraduationVideo}
+                  onClose={() => setShowGraduationModal(false)}
                 />
               )}
             </main>
@@ -2407,6 +2875,9 @@
                   </button>
                   <button onClick={() => setActiveTab('admin-quizzes')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-quizzes' ? 'text-red-500' : 'text-slate-400'}`}>
                     <span>Quizzes 📝</span>
+                  </button>
+                  <button onClick={() => setActiveTab('admin-graduation')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-graduation' ? 'text-red-500' : 'text-slate-400'}`}>
+                    <span>Graduation 🎓</span>
                   </button>
                 </>
               )}
