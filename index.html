@@ -2301,6 +2301,11 @@
         await callAppsScript('adminSaveQuiz', { moduleNumber: modNum, questions });
       };
 
+      const [userProgress, setUserProgress] = useState(() => {
+        const saved = localStorage.getItem('mastered_progress');
+        return saved ? JSON.parse(saved) : {};
+      });
+
       // Cross-Device Student Progress Sync (Google Apps Script API)
       const syncStudentProgressToCloud = async (updatedProgress) => {
         if (!currentUser) return;
