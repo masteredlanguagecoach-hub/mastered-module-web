@@ -1084,9 +1084,30 @@
 
       const recognitionRef = React.useRef(null);
       const callActiveRef = React.useRef(false);
-      callActiveRef.current = callActive;
+      const speechTimeoutRef = React.useRef(null);
+
+      const stopAudioAndRecognition = () => {
+        callActiveRef.current = false;
+        setCallActive(false);
+        setListening(false);
+        setCoachSpeaking(false);
+        if (speechTimeoutRef.current) clearTimeout(speechTimeoutRef.current);
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+        }
+        if (recognitionRef.current) {
+          try { recognitionRef.current.abort(); } catch(e){}
+        }
+      };
+
+      const handleCloseRoom = () => {
+        stopAudioAndRecognition();
+        onClose();
+      };
 
       const speakText = (text, onEndCallback) => {
+        if (!callActiveRef.current && text !== messages[0].text) return;
+
         if ('speechSynthesis' in window) {
           window.speechSynthesis.cancel();
           const u = new SpeechSynthesisUtterance(text);
@@ -1112,7 +1133,7 @@
       };
 
       const handleStudentSpeech = (text) => {
-        if (status === 'PASSED') return;
+        if (status === 'PASSED' || !callActiveRef.current) return;
 
         const userMsg = {
           sender: 'student',
@@ -1122,7 +1143,11 @@
 
         setMessages(prev => [...prev, userMsg]);
 
-        setTimeout(() => {
+        if (speechTimeoutRef.current) clearTimeout(speechTimeoutRef.current);
+
+        speechTimeoutRef.current = setTimeout(() => {
+          if (!callActiveRef.current) return;
+
           let coachReply = "";
           let correctionMade = null;
 
@@ -1188,6 +1213,7 @@
           rec.lang = 'en-US';
 
           rec.onresult = (e) => {
+            if (!callActiveRef.current) return;
             const lastIdx = e.results.length - 1;
             const transcript = e.results[lastIdx][0].transcript;
             if (transcript.trim()) {
@@ -1213,10 +1239,7 @@
         }
 
         return () => {
-          if (window.speechSynthesis) window.speechSynthesis.cancel();
-          if (recognitionRef.current) {
-            try { recognitionRef.current.stop(); } catch(e){}
-          }
+          stopAudioAndRecognition();
         };
       }, [correctCount, status]);
 
@@ -1228,13 +1251,9 @@
         }
 
         if (callActive) {
-          setCallActive(false);
-          setListening(false);
-          if (window.speechSynthesis) window.speechSynthesis.cancel();
-          if (recognitionRef.current) {
-            try { recognitionRef.current.stop(); } catch(e){}
-          }
+          stopAudioAndRecognition();
         } else {
+          callActiveRef.current = true;
           setCallActive(true);
           try {
             recognitionRef.current.start();
@@ -1245,7 +1264,7 @@
       };
 
       return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto" onClick={onClose}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto" onClick={handleCloseRoom}>
           <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 max-w-3xl w-full border shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
             
             {/* Header */}
@@ -1257,7 +1276,7 @@
                 <h3 className="text-xl font-extrabold text-slate-900 mt-1">{missionData.title}</h3>
                 <p className="text-xs text-slate-500 mt-0.5">{missionData.objective}</p>
               </div>
-              <button onClick={onClose} className="p-2 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold rounded-xl text-xs">✕</button>
+              <button onClick={handleCloseRoom} className="p-2 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold rounded-xl text-xs">✕</button>
             </div>
 
             {/* Live Progress Bar & Sentence Counter */}
@@ -3595,7 +3614,50 @@
       );
     }
 
-    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    // Error Boundary Component to Permanently Prevent Blank Screen Issues
+    class ErrorBoundary extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { hasError: false, error: null };
+      }
+
+      static getDerivedStateFromError(error) {
+        return { hasError: true, error };
+      }
+
+      componentDidCatch(error, errorInfo) {
+        console.error("Mastered Portal Application Error:", error, errorInfo);
+      }
+
+      render() {
+        if (this.state.hasError) {
+          return (
+            <div className="min-h-screen bg-slate-900 text-white flex flex-col items-center justify-center p-6 text-center space-y-4">
+              <div className="w-16 h-16 rounded-full bg-red-600/20 border-2 border-red-500 flex items-center justify-center text-3xl shadow-lg">
+                ⚠️
+              </div>
+              <h2 className="text-xl font-extrabold">Mastered Language Coach Portal Reconnecting...</h2>
+              <p className="text-xs text-slate-400 max-w-md leading-relaxed">
+                Your portal session is being re-established. Click below to refresh and load your up-to-date dashboard.
+              </p>
+              <button
+                onClick={() => window.location.reload()}
+                className="px-6 py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition"
+              >
+                🔄 Refresh Portal Session
+              </button>
+            </div>
+          );
+        }
+        return this.props.children;
+      }
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
+    );
   </script>
 </body>
 </html>
