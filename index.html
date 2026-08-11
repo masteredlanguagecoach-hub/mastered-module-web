@@ -1053,7 +1053,6 @@
         topics: ["Business", "Leadership", "Technology", "Education", "Career", "Travel", "Social Media", "Current Affairs", "Personal Growth", "Free Speaking"]
       }
     };
-
     // AI Mission Room Component (Hands-Free Mastered AI Voice Coach Call Engine)
     function AIMissionRoom({ moduleNumber, moduleTitle, userProgress, onClose, onSaveMissionScore }) {
       const missionData = AI_MISSIONS_BANK[moduleNumber] || {
@@ -1065,6 +1064,7 @@
         topics: ["General Practice"]
       };
 
+      const requiredSentences = moduleNumber <= 8 ? 30 : (moduleNumber <= 23 ? 40 : 50);
       const shortWelcome = `Welcome to Mission ${moduleNumber}! Let's start. Please introduce yourself or tell me about ${missionData.topics[0] || 'your goal'}!`;
 
       const [callActive, setCallActive] = useState(false);
