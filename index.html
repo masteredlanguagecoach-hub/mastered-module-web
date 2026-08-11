@@ -1411,21 +1411,54 @@
                       <p className="text-xs text-amber-800 font-medium bg-amber-50 p-2.5 rounded-xl border border-amber-200">
                         🔒 Requires Lessons + 85% Quiz + 85% AI Mission on Module {modNum - 1}.
                       </p>
-                  {unlocked ? (
-                    <button
-                      onClick={() => onStartQuiz(modNum, m.title)}
-                      className="w-full py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center justify-center space-x-1.5"
-                    >
-                      <span>📝 {scoreData ? 'Retake Level Quiz' : 'Start 30-Question Quiz'}</span>
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => alert(`🔒 Level ${modNum} is Locked!\n\nYou must score 85% or higher (at least 26/30) on the Module ${modNum - 1} Quiz to unlock Level ${modNum}.`)}
-                      className="w-full py-2.5 bg-slate-300 text-slate-600 font-extrabold text-xs rounded-xl transition flex items-center justify-center space-x-1 cursor-not-allowed"
-                    >
-                      <span>🔒 Locked (Requires 85% on Mod {modNum - 1})</span>
-                    </button>
-                  )}
+                    ) : (
+                      <div className="space-y-1.5">
+                        {scoreData ? (
+                          <div className="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl flex justify-between items-center text-xs font-bold text-emerald-900">
+                            <span>📝 Quiz Score:</span>
+                            <span>{scoreData.score}/30 ({scoreData.percentage}%)</span>
+                          </div>
+                        ) : (
+                          <p className="text-[11px] text-slate-500 italic">Quiz Pending (85%+ required)</p>
+                        )}
+
+                        {missionData ? (
+                          <div className="p-2.5 bg-rose-50 border border-rose-200 rounded-xl flex justify-between items-center text-xs font-bold text-rose-900">
+                            <span>🎙️ AI Mission:</span>
+                            <span>{missionData.score}% Score</span>
+                          </div>
+                        ) : (
+                          <p className="text-[11px] text-slate-500 italic">AI Mission Pending (85%+ required)</p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  <div>
+                    {unlocked ? (
+                      <div className="flex space-x-2 pt-2 border-t border-slate-100">
+                        <button
+                          onClick={() => onStartQuiz(modNum, m.title)}
+                          className="flex-1 py-2 bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs rounded-xl shadow-sm transition"
+                        >
+                          📝 Take Quiz
+                        </button>
+                        <button
+                          onClick={() => onStartAIMission(modNum)}
+                          className="flex-1 py-2 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-extrabold text-xs rounded-xl shadow-md transition"
+                        >
+                          🎙️ AI Mission
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => alert(`🔒 Level ${modNum} is Locked!\n\nYou must complete Lessons, earn 85%+ on Quiz, and earn 85%+ on AI Mission for Module ${modNum - 1} to unlock Level ${modNum}.`)}
+                        className="w-full py-2 bg-slate-200 text-slate-500 font-bold text-xs rounded-xl cursor-not-allowed"
+                      >
+                        🔒 Level Locked
+                      </button>
+                    )}
+                  </div>
                 </div>
               );
             })}
