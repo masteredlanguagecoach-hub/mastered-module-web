@@ -1160,6 +1160,10 @@
         if (!callActiveRef.current && text !== messages[0].text) return;
 
         if ('speechSynthesis' in window) {
+          coachSpeakingRef.current = true;
+          setCoachSpeaking(true);
+          setListening(false);
+
           if (recognitionRef.current) {
             try { recognitionRef.current.stop(); } catch(e){}
           }
@@ -1175,23 +1179,33 @@
             const femaleVoice = getBestFemaleVoice();
             if (femaleVoice) u.voice = femaleVoice;
 
-            coachSpeakingRef.current = true;
-            setCoachSpeaking(true);
-            setListening(false);
-
             u.onend = () => {
               coachSpeakingRef.current = false;
               setCoachSpeaking(false);
               if (onEndCallback) onEndCallback();
               if (callActiveRef.current) {
-                setTimeout(safeRestartRecognition, 300);
+                setTimeout(() => {
+                  if (callActiveRef.current && !coachSpeakingRef.current) {
+                    try {
+                      recognitionRef.current.start();
+                      setListening(true);
+                    } catch(e){}
+                  }
+                }, 400);
               }
             };
             u.onerror = () => {
               coachSpeakingRef.current = false;
               setCoachSpeaking(false);
               if (callActiveRef.current) {
-                setTimeout(safeRestartRecognition, 300);
+                setTimeout(() => {
+                  if (callActiveRef.current && !coachSpeakingRef.current) {
+                    try {
+                      recognitionRef.current.start();
+                      setListening(true);
+                    } catch(e){}
+                  }
+                }, 400);
               }
             };
             window.speechSynthesis.speak(u);
@@ -1337,6 +1351,14 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
 
         const text = rawText.trim();
         if (!text || text === lastProcessedTextRef.current) return;
+
+        const words = text.toLowerCase().split(/\s+/).filter(w => w.length > 0);
+        const fillers = ["uh", "um", "ah", "hmm", "oh", "er", "mhm"];
+        const realWords = words.filter(w => !fillers.includes(w));
+
+        // Ignore background noise or short filler murmur
+        if (realWords.length < 3) return;
+
         lastProcessedTextRef.current = text;
 
         const userMsg = {
