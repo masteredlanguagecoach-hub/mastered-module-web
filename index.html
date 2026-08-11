@@ -1054,87 +1054,66 @@
       }
     };
 
-    // AI Mission Room Component (Gemini Live Spoken Coach & Realtime Evaluation)
+    // AI Mission Room Component (Hands-Free Mastered AI Voice Coach Call Engine)
     function AIMissionRoom({ moduleNumber, moduleTitle, userProgress, onClose, onSaveMissionScore }) {
       const missionData = AI_MISSIONS_BANK[moduleNumber] || {
         missionNumber: moduleNumber,
         title: `Mission ${moduleNumber}: Spoken English Mastery`,
         objective: "Communicate fluently using target module grammar and vocabulary.",
         situation: "Real-life spoken conversation.",
-        grammar: ["Target Tense", "Sentence Formations"],
-        topics: ["General Conversation", "Module Practice"]
+        grammar: ["Target Tense"],
+        topics: ["General Practice"]
       };
 
+      const requiredSentences = moduleNumber <= 8 ? 30 : (moduleNumber <= 23 ? 40 : 50);
+
+      const [callActive, setCallActive] = useState(false);
       const [listening, setListening] = useState(false);
+      const [coachSpeaking, setCoachSpeaking] = useState(false);
       const [messages, setMessages] = useState([
         {
           sender: 'coach',
-          text: `Hello! Welcome to ${missionData.title}! ${missionData.situation} Let's begin. ${missionData.objective}`,
+          text: `Hello! I am your MASTERED AI Voice Coach. Welcome to Mission ${moduleNumber}: ${missionData.title}. Situation: ${missionData.situation}. You need ${requiredSentences} correct spoken sentences to pass this mission. Let's start! Please introduce yourself or answer: ${missionData.objective}`,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }
       ]);
-      const [studentInput, setStudentInput] = useState('');
-      const [evaluating, setEvaluating] = useState(false);
-      const [evalResult, setEvalResult] = useState(null);
+      const [correctCount, setCorrectCount] = useState(0);
+      const [correctionsLog, setCorrectionsLog] = useState([]);
+      const [status, setStatus] = useState('IN PROGRESS');
+      const [finalReport, setFinalReport] = useState(null);
 
       const recognitionRef = React.useRef(null);
+      const callActiveRef = React.useRef(false);
+      callActiveRef.current = callActive;
 
-      useEffect(() => {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (SpeechRecognition) {
-          const rec = new SpeechRecognition();
-          rec.continuous = false;
-          rec.interimResults = false;
-          rec.lang = 'en-US';
-
-          rec.onresult = (e) => {
-            const transcript = e.results[0][0].transcript;
-            if (transcript.trim()) {
-              handleSendStudentSpeech(transcript);
-            }
-          };
-
-          rec.onend = () => {
-            setListening(false);
-          };
-
-          rec.onerror = () => {
-            setListening(false);
-          };
-
-          recognitionRef.current = rec;
-        }
-      }, [messages]);
-
-      const toggleMic = () => {
-        if (!recognitionRef.current) {
-          alert("⚠️ Microphone Note: Web Speech mic is available in Chrome, Edge, Safari, and Android browsers! You can also type your spoken response in the text box below.");
-          return;
-        }
-        if (listening) {
-          recognitionRef.current.stop();
-          setListening(false);
-        } else {
-          try {
-            recognitionRef.current.start();
-            setListening(true);
-          } catch(e) {
-            setListening(false);
-          }
-        }
-      };
-
-      const speakText = (text) => {
+      const speakText = (text, onEndCallback) => {
         if ('speechSynthesis' in window) {
           window.speechSynthesis.cancel();
           const u = new SpeechSynthesisUtterance(text);
           u.lang = 'en-US';
           u.rate = 0.95;
+          
+          setCoachSpeaking(true);
+          u.onend = () => {
+            setCoachSpeaking(false);
+            if (onEndCallback) onEndCallback();
+            if (callActiveRef.current && recognitionRef.current) {
+              try { recognitionRef.current.start(); setListening(true); } catch(e){}
+            }
+          };
+          u.onerror = () => {
+            setCoachSpeaking(false);
+            if (callActiveRef.current && recognitionRef.current) {
+              try { recognitionRef.current.start(); setListening(true); } catch(e){}
+            }
+          };
           window.speechSynthesis.speak(u);
         }
       };
 
-      const handleSendStudentSpeech = (text) => {
+      const handleStudentSpeech = (text) => {
+        if (status === 'PASSED') return;
+
         const userMsg = {
           sender: 'student',
           text,
@@ -1145,14 +1124,48 @@
 
         setTimeout(() => {
           let coachReply = "";
+          let correctionMade = null;
+
+          const words = text.trim().split(/\s+/).length;
           const lower = text.toLowerCase();
-          
-          if (lower.includes("hello") || lower.includes("hi") || lower.includes("my name")) {
-            coachReply = `Excellent! Great clear pronunciation. Tell me more about your ${missionData.topics[0] || 'background'}!`;
-          } else if (text.length > 20) {
-            coachReply = `Very good effort! You used correct grammar. Let me ask you: can you give me one more sentence using "${missionData.grammar[0] || 'target structure'}"?`;
+
+          if (lower.includes("i am go") || lower.includes("he go") || lower.includes("she go")) {
+            const fixed = text.replace(/i am go/gi, "I went").replace(/he go/gi, "he goes").replace(/she go/gi, "she goes");
+            coachReply = `Good attempt! Say: "${fixed}". Please repeat that sentence now.`;
+            correctionMade = { original: text, corrected: fixed };
+            setCorrectionsLog(prev => [...prev, correctionMade]);
+          } else if (words >= 3) {
+            const newCount = correctCount + 1;
+            setCorrectCount(newCount);
+
+            if (newCount >= requiredSentences) {
+              setStatus('PASSED');
+              coachReply = `Excellent! You have completed the required ${requiredSentences} correct spoken sentences for this mission. Mission completed!`;
+              
+              const report = {
+                studentName: userProgress.studentName || 'Student',
+                admissionNumber: userProgress.admissionNumber || '',
+                missionNumber: moduleNumber,
+                date: new Date().toLocaleDateString(),
+                requiredSentences: requiredSentences,
+                correctSentences: newCount,
+                importantMistakes: correctionsLog.length,
+                correctionsPracticed: correctionsLog.map(c => c.corrected).join(', ') || 'None',
+                finalStatus: 'PASSED'
+              };
+
+              setFinalReport(report);
+              onSaveMissionScore(moduleNumber, { score: 100, passed: true, report });
+            } else {
+              const remaining = requiredSentences - newCount;
+              if (lower.includes("hello") || lower.includes("hi") || lower.includes("my name")) {
+                coachReply = `Great start! That is 1 correct sentence. Tell me about your ${missionData.topics[0] || 'work or daily routine'}! (${remaining} more needed)`;
+              } else {
+                coachReply = `Very good! Sentence recorded (${newCount}/${requiredSentences}). Next, can you speak about ${missionData.topics[newCount % missionData.topics.length] || 'your goal'}?`;
+              }
+            }
           } else {
-            coachReply = `Good start! Try expanding your spoken response. For example: "I am focusing on..." What do you think?`;
+            coachReply = `Please speak a complete sentence using at least 4-5 words. Give it another try!`;
           }
 
           const coachMsg = {
@@ -1166,47 +1179,80 @@
         }, 800);
       };
 
-      const handleEvaluateMission = () => {
-        setEvaluating(true);
-        setTimeout(() => {
-          const studentMsgs = messages.filter(m => m.sender === 'student');
-          const turns = studentMsgs.length;
-          
-          let score = 88;
-          if (turns >= 3) score = 92;
-          else if (turns === 2) score = 86;
-          else if (turns === 1) score = 78;
-          else score = 65;
+      useEffect(() => {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRecognition) {
+          const rec = new SpeechRecognition();
+          rec.continuous = true;
+          rec.interimResults = false;
+          rec.lang = 'en-US';
 
-          const res = {
-            score,
-            passed: score >= 85,
-            turns,
-            pronunciation: Math.min(100, score + 3),
-            grammar: Math.min(100, score - 2),
-            fluency: score,
-            feedback: score >= 85 ? 
-              "🎉 Outstanding! AI Mission Passed with 85%+! Excellent grammar usage and spoken fluency!" : 
-              "💪 Good effort! Speak at least 3-4 detailed sentences with the AI Coach to reach the 85% passing score."
+          rec.onresult = (e) => {
+            const lastIdx = e.results.length - 1;
+            const transcript = e.results[lastIdx][0].transcript;
+            if (transcript.trim()) {
+              handleStudentSpeech(transcript.trim());
+            }
           };
 
-          setEvalResult(res);
-          setEvaluating(false);
+          rec.onend = () => {
+            setListening(false);
+            if (callActiveRef.current && !coachSpeaking) {
+              try {
+                rec.start();
+                setListening(true);
+              } catch(e) {}
+            }
+          };
 
-          if (res.passed) {
-            onSaveMissionScore(moduleNumber, res);
+          rec.onerror = () => {
+            setListening(false);
+          };
+
+          recognitionRef.current = rec;
+        }
+
+        return () => {
+          if (window.speechSynthesis) window.speechSynthesis.cancel();
+          if (recognitionRef.current) {
+            try { recognitionRef.current.stop(); } catch(e){}
           }
-        }, 1200);
+        };
+      }, [correctCount, status]);
+
+      const toggleCall = () => {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+          alert("⚠️ Voice Call Note: Automatic voice input is supported in Chrome, Edge, Safari, and Android browsers! Please open in Chrome or Edge.");
+          return;
+        }
+
+        if (callActive) {
+          setCallActive(false);
+          setListening(false);
+          if (window.speechSynthesis) window.speechSynthesis.cancel();
+          if (recognitionRef.current) {
+            try { recognitionRef.current.stop(); } catch(e){}
+          }
+        } else {
+          setCallActive(true);
+          try {
+            recognitionRef.current.start();
+            setListening(true);
+          } catch(e) {}
+          speakText(messages[0].text);
+        }
       };
 
       return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto" onClick={onClose}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto" onClick={onClose}>
           <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 max-w-3xl w-full border shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+            
             {/* Header */}
             <div className="flex justify-between items-start pb-3 border-b border-slate-200">
               <div>
                 <span className="px-2.5 py-0.5 bg-red-100 text-red-700 text-[11px] font-extrabold rounded-full uppercase">
-                  🎙️ Level {moduleNumber} AI Spoken Mission
+                  🎙️ Level {moduleNumber} Mastered AI Voice Coach
                 </span>
                 <h3 className="text-xl font-extrabold text-slate-900 mt-1">{missionData.title}</h3>
                 <p className="text-xs text-slate-500 mt-0.5">{missionData.objective}</p>
@@ -1214,78 +1260,85 @@
               <button onClick={onClose} className="p-2 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold rounded-xl text-xs">✕</button>
             </div>
 
-            {/* Mission Info Strip */}
-            <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-2xl space-y-2 text-xs">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="font-bold text-slate-700">📍 Situation: <strong className="text-slate-900">{missionData.situation}</strong></span>
-                <span className="px-2.5 py-0.5 bg-amber-100 text-amber-900 font-extrabold text-[10px] rounded-full">Score &ge; 85% Required for Level Unlocking</span>
+            {/* Live Progress Bar & Sentence Counter */}
+            <div className="p-4 bg-slate-900 text-white rounded-2xl space-y-2 border border-slate-800 shadow-md">
+              <div className="flex justify-between items-center text-xs">
+                <span className="font-bold text-slate-300">Verified Correct Spoken Sentences</span>
+                <span className="font-mono font-extrabold text-emerald-400 text-sm">
+                  {correctCount} / {requiredSentences}
+                </span>
               </div>
-              <div className="flex flex-wrap gap-1.5 pt-1">
-                <span className="text-[10px] font-bold text-slate-400 self-center">Target Grammar:</span>
-                {missionData.grammar.map((g, idx) => (
-                  <span key={idx} className="px-2 py-0.5 bg-red-50 text-red-600 font-mono text-[10px] font-bold rounded border border-red-200">{g}</span>
-                ))}
+
+              <div className="w-full bg-slate-800 h-3 rounded-full overflow-hidden border border-slate-700">
+                <div 
+                  className="bg-gradient-to-r from-red-600 via-rose-500 to-emerald-500 h-full rounded-full transition-all duration-500" 
+                  style={{ width: `${Math.min(100, Math.round((correctCount / requiredSentences) * 100))}%` }}
+                ></div>
+              </div>
+
+              <div className="flex justify-between items-center text-[11px] pt-1">
+                <span className="text-slate-400">Target Grammar: <strong className="text-red-400">{missionData.grammar.join(', ')}</strong></span>
+                <span className={`px-2.5 py-0.5 rounded-full font-extrabold text-[10px] ${
+                  status === 'PASSED' ? 'bg-emerald-500 text-white' : 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
+                }`}>
+                  STATUS: {status}
+                </span>
               </div>
             </div>
 
-            {evalResult ? (
-              /* Evaluation Score Card */
-              <div className="p-6 bg-slate-900 text-white rounded-2xl space-y-5 text-center shadow-xl">
-                <div className="w-20 h-20 mx-auto rounded-full bg-slate-800 border-4 border-red-500 flex items-center justify-center text-2xl font-black text-red-400 shadow-inner">
-                  {evalResult.score}%
+            {status === 'PASSED' && finalReport ? (
+              /* Final Mission Report Card */
+              <div className="p-6 bg-emerald-950 text-white rounded-2xl border-2 border-emerald-500 shadow-2xl space-y-4 text-center">
+                <div className="w-16 h-16 mx-auto rounded-full bg-emerald-800 border-4 border-emerald-400 flex items-center justify-center text-3xl shadow-lg">
+                  🏆
+                </div>
+                <h4 className="text-xl font-black text-emerald-300">MISSION COMPLETED & PASSED!</h4>
+                <p className="text-xs text-emerald-100 max-w-md mx-auto">
+                  Congratulations! You have completed all {requiredSentences} required correct spoken sentences for Level {moduleNumber}!
+                </p>
+
+                <div className="bg-slate-900/90 text-left p-4 rounded-xl text-xs space-y-1.5 font-mono border border-slate-700">
+                  <p className="text-emerald-400 font-bold border-b border-slate-800 pb-1">📄 OFFICIAL MASTERED AI MISSION REPORT</p>
+                  <p><span className="text-slate-400">Mission:</span> Level {moduleNumber} - {missionData.title}</p>
+                  <p><span className="text-slate-400">Required Sentences:</span> {requiredSentences}</p>
+                  <p><span className="text-slate-400">Correct Sentences:</span> {correctCount} / {requiredSentences}</p>
+                  <p><span className="text-slate-400">Corrections Practiced:</span> {finalReport.correctionsPracticed}</p>
+                  <p><span className="text-slate-400">Final Status:</span> <strong className="text-emerald-400">PASSED (100%)</strong></p>
                 </div>
 
-                <div className="space-y-1">
-                  <h4 className="text-lg font-extrabold text-white">
-                    {evalResult.passed ? '🎉 AI Mission Mastered!' : '💪 Additional Practice Required'}
-                  </h4>
-                  <p className="text-xs text-slate-300 max-w-md mx-auto">{evalResult.feedback}</p>
-                </div>
-
-                <div className="grid grid-cols-3 gap-2 max-w-md mx-auto text-xs">
-                  <div className="p-2.5 bg-slate-800 rounded-xl border border-slate-700">
-                    <span className="block text-[10px] text-slate-400 uppercase font-bold">Pronunciation</span>
-                    <strong className="text-emerald-400 font-extrabold">{evalResult.pronunciation}%</strong>
-                  </div>
-                  <div className="p-2.5 bg-slate-800 rounded-xl border border-slate-700">
-                    <span className="block text-[10px] text-slate-400 uppercase font-bold">Grammar</span>
-                    <strong className="text-amber-400 font-extrabold">{evalResult.grammar}%</strong>
-                  </div>
-                  <div className="p-2.5 bg-slate-800 rounded-xl border border-slate-700">
-                    <span className="block text-[10px] text-slate-400 uppercase font-bold">Fluency</span>
-                    <strong className="text-blue-400 font-extrabold">{evalResult.fluency}%</strong>
-                  </div>
-                </div>
-
-                <div className="flex justify-center space-x-2 pt-2">
-                  <button onClick={() => setEvalResult(null)} className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs rounded-xl">🔄 Retry Mission</button>
-                  <button onClick={onClose} className="px-6 py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-md">✓ Continue</button>
-                </div>
+                <button onClick={onClose} className="px-8 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition">
+                  ✓ Continue to Level System
+                </button>
               </div>
             ) : (
-              /* Live Voice Chat Area */
+              /* Live Voice Call View */
               <div className="space-y-4">
-                {/* Voice Orb Display */}
+                
+                {/* Dynamic Call Voice Orb Container */}
                 <div className="bg-slate-950 p-6 rounded-2xl text-center space-y-3 relative overflow-hidden shadow-inner flex flex-col items-center justify-center">
-                  <div className={`w-20 h-20 rounded-full transition-all duration-300 flex items-center justify-center text-3xl shadow-2xl ${
-                    listening ? 'bg-red-600 animate-ping ring-4 ring-red-400' : 'bg-gradient-to-r from-red-600 to-rose-600 shadow-red-600/50'
+                  <div className={`w-24 h-24 rounded-full transition-all duration-300 flex items-center justify-center text-4xl shadow-2xl ${
+                    coachSpeaking ? 'bg-amber-500 animate-bounce ring-4 ring-amber-300' :
+                    listening ? 'bg-red-600 animate-ping ring-4 ring-red-400' : 'bg-slate-800 border-2 border-slate-700'
                   }`}>
-                    🎙️
+                    {coachSpeaking ? '🗣️' : listening ? '🎙️' : '📞'}
                   </div>
-                  <p className="text-xs font-extrabold text-slate-300">
-                    {listening ? '● Listening to your voice... Speak now!' : 'Click Mic below to speak with AI Coach'}
+
+                  <p className="text-xs font-extrabold text-slate-200">
+                    {coachSpeaking ? '🤖 Mastered AI Coach is speaking...' :
+                     listening ? '● Call Active & Listening... Speak your answer freely!' :
+                     'Click "Start Hands-Free Voice Call" below to begin!'}
                   </p>
                 </div>
 
-                {/* Conversation Transcript Stream */}
-                <div className="max-h-52 overflow-y-auto space-y-2 p-3 bg-slate-50 rounded-2xl border border-slate-200 text-xs">
+                {/* Live Conversation Transcript Stream (Voice-Only) */}
+                <div className="max-h-56 overflow-y-auto space-y-2 p-3.5 bg-slate-50 rounded-2xl border border-slate-200 text-xs">
                   {messages.map((m, idx) => (
                     <div key={idx} className={`flex ${m.sender === 'student' ? 'justify-end' : 'justify-start'}`}>
                       <div className={`max-w-[85%] p-3 rounded-2xl space-y-1 shadow-sm ${
                         m.sender === 'student' ? 'bg-slate-900 text-white rounded-br-none' : 'bg-white border border-slate-200 text-slate-900 rounded-bl-none'
                       }`}>
                         <div className="flex justify-between items-center space-x-2 text-[10px] font-bold text-slate-400">
-                          <span>{m.sender === 'student' ? ' You (Student)' : '🤖 Mastered AI Coach'}</span>
+                          <span>{m.sender === 'student' ? ' You (Student)' : '🤖 MASTERED AI Coach'}</span>
                           <span>{m.timestamp}</span>
                         </div>
                         <p className="leading-relaxed">{m.text}</p>
@@ -1294,52 +1347,24 @@
                   ))}
                 </div>
 
-                {/* Controls Strip */}
-                <div className="flex items-center space-x-2">
-                  <input
-                    type="text"
-                    placeholder="Type or click microphone to speak..."
-                    value={studentInput}
-                    onChange={e => setStudentInput(e.target.value)}
-                    onKeyDown={e => {
-                      if (e.key === 'Enter' && studentInput.trim()) {
-                        handleSendStudentSpeech(studentInput.trim());
-                        setStudentInput('');
-                      }
-                    }}
-                    className="flex-1 p-3 border rounded-xl text-xs text-slate-900 outline-none focus:border-red-500"
-                  />
+                {/* Primary Voice Call Control Button */}
+                <div className="pt-2 border-t flex flex-col sm:flex-row justify-between items-center gap-3">
+                  <div className="text-xs text-slate-500 font-bold">
+                    <span>Voice-Only Call Mode • No Typing Required</span>
+                  </div>
 
                   <button
-                    onClick={toggleMic}
-                    className={`p-3 rounded-xl font-bold text-xs shadow-md transition ${
-                      listening ? 'bg-red-600 text-white animate-pulse' : 'bg-slate-900 text-white hover:bg-slate-800'
+                    onClick={toggleCall}
+                    className={`w-full sm:w-auto px-8 py-3.5 rounded-2xl font-extrabold text-xs shadow-xl transition flex items-center justify-center space-x-2 ${
+                      callActive 
+                        ? 'bg-rose-600 hover:bg-rose-500 text-white animate-pulse' 
+                        : 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white'
                     }`}
                   >
-                    🎙️ {listening ? 'Listening...' : 'Mic'}
-                  </button>
-
-                  {studentInput.trim() && (
-                    <button
-                      onClick={() => { handleSendStudentSpeech(studentInput.trim()); setStudentInput(''); }}
-                      className="px-4 py-3 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-md"
-                    >
-                      Send
-                    </button>
-                  )}
-                </div>
-
-                {/* Complete Mission & Evaluate Button */}
-                <div className="pt-2 border-t flex justify-between items-center">
-                  <span className="text-[11px] text-slate-500">Spoken Turns: <strong>{messages.filter(m => m.sender === 'student').length}</strong></span>
-                  <button
-                    onClick={handleEvaluateMission}
-                    disabled={evaluating}
-                    className="px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-xs rounded-xl shadow-md flex items-center space-x-1.5 disabled:opacity-50 transition"
-                  >
-                    <span>{evaluating ? 'Evaluating Voice...' : '🏁 Complete AI Mission & Evaluate'}</span>
+                    <span>{callActive ? '🔴 End Voice Call' : '📞 Start Hands-Free Voice Call'}</span>
                   </button>
                 </div>
+
               </div>
             )}
           </div>
