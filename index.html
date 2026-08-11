@@ -1073,7 +1073,7 @@
       const [messages, setMessages] = useState([
         {
           sender: 'coach',
-          text: `Hello! I am your MASTERED AI Voice Coach. Welcome to Mission ${moduleNumber}: ${missionData.title}. Situation: ${missionData.situation}. You need ${requiredSentences} correct spoken sentences to pass this mission. Let's start! Please introduce yourself or answer: ${missionData.objective}`,
+          text: `Hello! I am your MASTERED AI Voice Coach. Welcome to Mission ${moduleNumber}: ${missionData.title}. Situation: ${missionData.situation}. You need ${requiredSentences} separate, unique spoken sentences to pass this mission. Let's start! Please introduce yourself or tell me about: ${missionData.topics[0] || 'your name and goal'}.`,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }
       ]);
@@ -1085,6 +1085,7 @@
       const recognitionRef = React.useRef(null);
       const callActiveRef = React.useRef(false);
       const speechTimeoutRef = React.useRef(null);
+      const uniqueSentencesRef = React.useRef(new Set());
 
       const stopAudioAndRecognition = () => {
         callActiveRef.current = false;
@@ -1105,6 +1106,26 @@
         onClose();
       };
 
+      // Select Best Human Voice for Natural Spoken Experience
+      const getBestHumanVoice = () => {
+        if (!('speechSynthesis' in window)) return null;
+        const voices = window.speechSynthesis.getVoices();
+        if (!voices || voices.length === 0) return null;
+
+        // Prioritize natural English voices
+        const preferred = voices.find(v => 
+          (v.name.includes("Google") && v.lang.startsWith("en")) ||
+          (v.name.includes("Natural") && v.lang.startsWith("en")) ||
+          v.name.includes("Samantha") ||
+          v.name.includes("Daniel") ||
+          v.name.includes("Karen") ||
+          v.name.includes("Alex")
+        );
+
+        if (preferred) return preferred;
+        return voices.find(v => v.lang.startsWith("en")) || voices[0];
+      };
+
       const speakText = (text, onEndCallback) => {
         if (!callActiveRef.current && text !== messages[0].text) return;
 
@@ -1112,8 +1133,12 @@
           window.speechSynthesis.cancel();
           const u = new SpeechSynthesisUtterance(text);
           u.lang = 'en-US';
-          u.rate = 0.95;
-          
+          u.rate = 0.93; // Human conversational speed
+          u.pitch = 1.02; // Warm tone
+
+          const humanVoice = getBestHumanVoice();
+          if (humanVoice) u.voice = humanVoice;
+
           setCoachSpeaking(true);
           u.onend = () => {
             setCoachSpeaking(false);
@@ -1132,8 +1157,11 @@
         }
       };
 
-      const handleStudentSpeech = (text) => {
+      const handleStudentSpeech = (rawText) => {
         if (status === 'PASSED' || !callActiveRef.current) return;
+
+        const text = rawText.trim();
+        if (!text) return;
 
         const userMsg = {
           sender: 'student',
@@ -1149,23 +1177,55 @@
           if (!callActiveRef.current) return;
 
           let coachReply = "";
-          let correctionMade = null;
+          let isQuestionToCoach = false;
+          let isDuplicate = false;
+          let isTooShort = false;
 
-          const words = text.trim().split(/\s+/).length;
           const lower = text.toLowerCase();
+          const words = lower.split(/\s+/).length;
+          const cleanNorm = lower.replace(/[^a-z0-9\s]/g, '').trim();
 
-          if (lower.includes("i am go") || lower.includes("he go") || lower.includes("she go")) {
-            const fixed = text.replace(/i am go/gi, "I went").replace(/he go/gi, "he goes").replace(/she go/gi, "she goes");
-            coachReply = `Good attempt! Say: "${fixed}". Please repeat that sentence now.`;
-            correctionMade = { original: text, corrected: fixed };
-            setCorrectionsLog(prev => [...prev, correctionMade]);
-          } else if (words >= 3) {
+          // 1. Detect Question to Coach
+          const questionStarters = ["what", "why", "how", "where", "who", "when", "can you", "could you", "do you", "would you", "is it", "are you", "what is", "who is", "tell me", "help me"];
+          if (questionStarters.some(starter => lower.startsWith(starter)) || lower.endsWith("?") || lower.includes("don't understand") || lower.includes("dont understand")) {
+            isQuestionToCoach = true;
+            if (lower.includes("who are you") || lower.includes("what is your name")) {
+              coachReply = `I am your MASTERED AI Voice Coach! I am here to help you practice Mission ${moduleNumber}: ${missionData.title}. Now, tell me about ${missionData.topics[0] || 'yourself'}!`;
+            } else if (lower.includes("what should i say") || lower.includes("help") || lower.includes("what do you mean")) {
+              coachReply = `In this mission, we are practicing ${missionData.situation}. You can speak about ${missionData.topics[correctCount % missionData.topics.length] || 'your daily routine'}. Go ahead!`;
+            } else {
+              coachReply = `Good question! As your coach, I encourage you to share more about ${missionData.topics[correctCount % missionData.topics.length] || 'this topic'}. Tell me a complete sentence about it!`;
+            }
+          }
+          // 2. Check for Grammar Corrections
+          else if (lower.includes("i am go") || lower.includes("he go") || lower.includes("she go") || lower.includes("i am agree")) {
+            const fixed = text
+              .replace(/i am go/gi, "I went")
+              .replace(/he go/gi, "he goes")
+              .replace(/she go/gi, "she goes")
+              .replace(/i am agree/gi, "I agree");
+            coachReply = `Good effort! Remember to say: "${fixed}". Please repeat that sentence now.`;
+            setCorrectionsLog(prev => [...prev, { original: text, corrected: fixed }]);
+          }
+          // 3. Check for Duplicate Sentences
+          else if (uniqueSentencesRef.current.has(cleanNorm)) {
+            isDuplicate = true;
+            coachReply = `You already shared that exact thought! Please tell me something new about ${missionData.topics[(correctCount + 1) % missionData.topics.length] || 'your goal'} so we can count it toward your 30 unique sentences.`;
+          }
+          // 4. Check length requirement (must be at least 4 words)
+          else if (words < 4) {
+            isTooShort = true;
+            coachReply = `That is a nice start! Please expand into a complete sentence with at least 4 to 5 words so it can be counted.`;
+          }
+          // 5. Valid New Unique Sentence!
+          else {
+            uniqueSentencesRef.current.add(cleanNorm);
             const newCount = correctCount + 1;
             setCorrectCount(newCount);
 
             if (newCount >= requiredSentences) {
               setStatus('PASSED');
-              coachReply = `Excellent! You have completed the required ${requiredSentences} correct spoken sentences for this mission. Mission completed!`;
+              coachReply = `Fantastic work! You have successfully completed all ${requiredSentences} separate, unique spoken sentences for Mission ${moduleNumber}. Mission Passed!`;
               
               const report = {
                 studentName: userProgress.studentName || 'Student',
@@ -1183,25 +1243,28 @@
               onSaveMissionScore(moduleNumber, { score: 100, passed: true, report });
             } else {
               const remaining = requiredSentences - newCount;
-              if (lower.includes("hello") || lower.includes("hi") || lower.includes("my name")) {
-                coachReply = `Great start! That is 1 correct sentence. Tell me about your ${missionData.topics[0] || 'work or daily routine'}! (${remaining} more needed)`;
+              const nextTopic = missionData.topics[newCount % missionData.topics.length] || 'your routine';
+
+              if (newCount === 1) {
+                coachReply = `Nice to hear that! That is 1 unique sentence recorded (${remaining} remaining). Now, tell me about ${nextTopic}!`;
+              } else if (newCount % 5 === 0) {
+                coachReply = `Awesome progress! That is ${newCount} unique sentences completed! (${remaining} left). Next, can you speak about ${nextTopic}?`;
               } else {
-                coachReply = `Very good! Sentence recorded (${newCount}/${requiredSentences}). Next, can you speak about ${missionData.topics[newCount % missionData.topics.length] || 'your goal'}?`;
+                coachReply = `Very clear! Sentence ${newCount} recorded. Tell me more about ${nextTopic}!`;
               }
             }
-          } else {
-            coachReply = `Please speak a complete sentence using at least 4-5 words. Give it another try!`;
           }
 
           const coachMsg = {
             sender: 'coach',
             text: coachReply,
+            isNote: isQuestionToCoach || isDuplicate || isTooShort,
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
           };
 
           setMessages(prev => [...prev, coachMsg]);
           speakText(coachReply);
-        }, 800);
+        }, 850);
       };
 
       useEffect(() => {
