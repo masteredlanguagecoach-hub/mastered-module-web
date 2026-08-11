@@ -1330,7 +1330,7 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
         return null;
       };
 
-      const lastProcessedTextRef = useRef('');
+      const lastProcessedTextRef = React.useRef('');
 
       const handleStudentSpeech = (rawText) => {
         if (status === 'PASSED' || !callActiveRef.current) return;
