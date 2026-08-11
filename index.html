@@ -1213,35 +1213,49 @@
         }
       };
 
-      // Advanced Real-Time Spoken English Grammar & Syntax Evaluator
-      const detectSpokenGrammarMistake = (text) => {
+      // Validate Spoken English Quality, Meaningful Structure & Tense Rules
+      const validateSpokenEnglishSentence = (text) => {
         const lower = text.toLowerCase().trim();
+        const words = lower.split(/\s+/).filter(w => w.length > 0);
 
-        if (/\bi am go\b/i.test(lower)) return { fix: text.replace(/i am go/gi, "I went"), hint: "Use 'I went' for past actions instead of 'I am go'." };
-        if (/\bhe go\b/i.test(lower)) return { fix: text.replace(/he go/gi, "he goes"), hint: "Say 'he goes' instead of 'he go'." };
-        if (/\bshe go\b/i.test(lower)) return { fix: text.replace(/she go/gi, "she goes"), hint: "Say 'she goes' instead of 'she go'." };
-        if (/\bi am agree\b/i.test(lower)) return { fix: text.replace(/i am agree/gi, "I agree"), hint: "Say 'I agree' instead of 'I am agree'." };
-        if (/\bi am disagree\b/i.test(lower)) return { fix: text.replace(/i am disagree/gi, "I disagree"), hint: "Say 'I disagree' instead of 'I am disagree'." };
-        if (/\bi go yesterday\b/i.test(lower)) return { fix: text.replace(/i go yesterday/gi, "I went yesterday"), hint: "Use past tense 'I went yesterday'." };
-        if (/\bhe don't\b/i.test(lower)) return { fix: text.replace(/he don't/gi, "he doesn't").replace(/he dont/gi, "he doesn't"), hint: "Use 'he doesn't' instead of 'he don't'." };
-        if (/\bshe don't\b/i.test(lower)) return { fix: text.replace(/she don't/gi, "she doesn't").replace(/she dont/gi, "she doesn't"), hint: "Use 'she doesn't' instead of 'she don't'." };
-        if (/\bthey is\b/i.test(lower)) return { fix: text.replace(/they is/gi, "they are"), hint: "Use 'they are' instead of 'they is'." };
-        if (/\bwe is\b/i.test(lower)) return { fix: text.replace(/we is/gi, "we are"), hint: "Use 'we are' instead of 'we is'." };
-        if (/\byesterday i am\b/i.test(lower)) return { fix: text.replace(/yesterday i am/gi, "yesterday I was"), hint: "Use 'yesterday I was' for past tense." };
+        if (words.length < 4) {
+          return { valid: false, reason: 'too_short', reply: "Nice start! Please expand into a complete sentence with at least 4 to 5 words so I can count it for you." };
+        }
+
+        const nonEnglishPatterns = [
+          /\b(njan|enikku|alla|aanu|und|ille|varum|pokum|cheyyam|parayam|poda|kure|valiya|nalla)\b/i,
+          /\b(main|tum|aap|kaise|hai|nahi|kyun|karne|raha|huye|hoga)\b/i,
+          /\b(que|como|para|esta|hacer|bien|gracias|amigo|por|favor)\b/i
+        ];
+        if (nonEnglishPatterns.some(pat => pat.test(lower))) {
+          return { valid: false, reason: 'non_english', reply: "I noticed you used non-English words! Please speak your response fully in English so I can evaluate and count it for you." };
+        }
+
+        if (/\bi am go\b/i.test(lower)) return { valid: false, reason: 'grammar_error', fix: text.replace(/i am go/gi, "I went"), hint: "Use 'I went' for past actions instead of 'I am go'." };
+        if (/\bhe go\b/i.test(lower)) return { valid: false, reason: 'grammar_error', fix: text.replace(/he go/gi, "he goes"), hint: "Say 'he goes' instead of 'he go'." };
+        if (/\bshe go\b/i.test(lower)) return { valid: false, reason: 'grammar_error', fix: text.replace(/she go/gi, "she goes"), hint: "Say 'she goes' instead of 'she go'." };
+        if (/\bi am agree\b/i.test(lower)) return { valid: false, reason: 'grammar_error', fix: text.replace(/i am agree/gi, "I agree"), hint: "Say 'I agree' instead of 'I am agree'." };
+        if (/\bi am disagree\b/i.test(lower)) return { valid: false, reason: 'grammar_error', fix: text.replace(/i am disagree/gi, "I disagree"), hint: "Say 'I disagree' instead of 'I am disagree'." };
+        if (/\bi go yesterday\b/i.test(lower)) return { valid: false, reason: 'grammar_error', fix: text.replace(/i go yesterday/gi, "I went yesterday"), hint: "Use past tense 'I went yesterday'." };
+        if (/\bhe don't\b/i.test(lower)) return { valid: false, reason: 'grammar_error', fix: text.replace(/he don't/gi, "he doesn't").replace(/he dont/gi, "he doesn't"), hint: "Use 'he doesn't' instead of 'he don't'." };
+        if (/\bshe don't\b/i.test(lower)) return { valid: false, reason: 'grammar_error', fix: text.replace(/she don't/gi, "she doesn't").replace(/she dont/gi, "she doesn't"), hint: "Use 'she doesn't' instead of 'she don't'." };
+        if (/\bthey is\b/i.test(lower)) return { valid: false, reason: 'grammar_error', fix: text.replace(/they is/gi, "they are"), hint: "Use 'they are' instead of 'they is'." };
+        if (/\bwe is\b/i.test(lower)) return { valid: false, reason: 'grammar_error', fix: text.replace(/we is/gi, "we are"), hint: "Use 'we are' instead of 'we is'." };
+        if (/\byesterday i am\b/i.test(lower)) return { valid: false, reason: 'grammar_error', fix: text.replace(/yesterday i am/gi, "yesterday I was"), hint: "Use 'yesterday I was' for past tense." };
 
         if (/\bi am (doctor|teacher|student|engineer|nurse|driver|manager)\b/i.test(lower)) {
           const match = lower.match(/\bi am (doctor|teacher|student|engineer|nurse|driver|manager)\b/i);
           if (match) {
             const article = match[1].startsWith('e') ? 'an' : 'a';
             const fixed = text.replace(new RegExp(`i am ${match[1]}`, 'gi'), `I am ${article} ${match[1]}`);
-            return { fix: fixed, hint: `Remember article '${article}': 'I am ${article} ${match[1]}'.` };
+            return { valid: false, reason: 'grammar_error', fix: fixed, hint: `Remember article '${article}': 'I am ${article} ${match[1]}'.` };
           }
         }
 
-        if (/\bdiscuss about\b/i.test(lower)) return { fix: text.replace(/discuss about/gi, "discuss"), hint: "Say 'discuss' without 'about'." };
-        if (/\blisten music\b/i.test(lower)) return { fix: text.replace(/listen music/gi, "listen to music"), hint: "Say 'listen to music'." };
+        if (/\bdiscuss about\b/i.test(lower)) return { valid: false, reason: 'grammar_error', fix: text.replace(/discuss about/gi, "discuss"), hint: "Say 'discuss' without 'about'." };
+        if (/\blisten music\b/i.test(lower)) return { valid: false, reason: 'grammar_error', fix: text.replace(/listen music/gi, "listen to music"), hint: "Say 'listen to music'." };
 
-        return null;
+        return { valid: true };
       };
 
       // Google Gemini 2.0 Spoken English Evaluation & Dialogue Engine
@@ -1268,7 +1282,7 @@ Target Grammar: ${missionData.grammar.join(', ')}.
 Student spoke: "${studentText}".
 
 Evaluate:
-1. Is there ANY grammar error, tense mistake, missing article (a/an/the), or preposition issue?
+1. Is there ANY grammar error, tense mistake, non-English word, missing article (a/an/the), or preposition issue?
 2. If YES:
    - "isGrammarError": true, "correctedSentence": "exact fix", "grammarHint": "short rule hint", "coachReply": "Good effort! [hint]. Say: '[correctedSentence]'. Please repeat that sentence!"
 3. If NO (Grammar is correct):
@@ -1381,8 +1395,10 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
           let isGrammarError = false;
 
           const lower = text.toLowerCase();
-          const words = lower.split(/\s+/).length;
           const cleanNorm = lower.replace(/[^a-z0-9\s]/g, '').trim();
+
+          const topics = missionData.topics && missionData.topics.length > 0 ? missionData.topics : ["your daily goals", "your routine", "your workplace", "your learning objectives"];
+          const nextTopic = topics[(correctCount + 1) % topics.length];
 
           // Try Gemini 2.0 Flash AI Evaluation (100% Free) first, then OpenAI!
           let aiResult = await callGeminiCoachAPI(text);
@@ -1391,16 +1407,13 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
           }
 
           if (aiResult && aiResult.coachReply) {
-            coachReply = aiResult.coachReply;
             if (aiResult.isGrammarError) {
               isGrammarError = true;
+              coachReply = aiResult.coachReply;
               setCorrectionsLog(prev => [...prev, { original: text, corrected: aiResult.correctedSentence || text }]);
             } else if (uniqueSentencesRef.current.has(cleanNorm)) {
               isDuplicate = true;
-              coachReply = `You already shared that exact thought! Please tell me something new so I can count it.`;
-            } else if (words < 4) {
-              isTooShort = true;
-              coachReply = `Nice start! Please expand into a complete sentence with at least 4 to 5 words so I can count it.`;
+              coachReply = `You already shared that exact thought! Please tell me something new about ${nextTopic} so I can count it.`;
             } else {
               uniqueSentencesRef.current.add(cleanNorm);
               const newCount = correctCount + 1;
@@ -1424,49 +1437,34 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
 
                 setFinalReport(report);
                 onSaveMissionScore(moduleNumber, { score: 100, passed: true, report });
+              } else {
+                const remaining = requiredSentences - newCount;
+                coachReply = `${aiResult.coachReply} (Progress: ${newCount}/${requiredSentences} sentences, ${remaining} remaining).`;
               }
             }
           } else {
-            // Local Rule Engine Fallback when no Gemini API Key is configured
-            const grammarErr = detectSpokenGrammarMistake(text);
+            // Comprehensive Local Evaluator Fallback
+            const evalRes = validateSpokenEnglishSentence(text);
 
-            // 1. Detect Question to Coach (DO NOT COUNT!)
-            const questionStarters = ["what", "why", "how", "where", "who", "when", "can you", "could you", "do you", "would you", "is it", "are you", "what is", "who is", "tell me", "help me"];
-            if (questionStarters.some(starter => lower.startsWith(starter)) || lower.endsWith("?") || lower.includes("don't understand") || lower.includes("dont understand")) {
-              isQuestionToCoach = true;
-              if (lower.includes("who are you") || lower.includes("what is your name")) {
-                coachReply = `I'm your MASTERED AI Voice Coach! I'm here to practice Mission ${moduleNumber}: ${missionData.title} with you. Tell me about ${missionData.topics[0] || 'yourself'}!`;
-              } else if (lower.includes("what should i say") || lower.includes("help") || lower.includes("what do you mean")) {
-                coachReply = `In this mission, we are practicing ${missionData.situation}. You can talk about ${missionData.topics[correctCount % missionData.topics.length] || 'your daily routine'}. Go ahead!`;
+            if (!evalRes.valid) {
+              if (evalRes.reason === 'grammar_error') {
+                isGrammarError = true;
+                coachReply = `Good effort! ${evalRes.hint} Say: "${evalRes.fix}". Please repeat that sentence for me!`;
+                setCorrectionsLog(prev => [...prev, { original: text, corrected: evalRes.fix }]);
               } else {
-                coachReply = `That's a great question! As your speaking buddy, I'd love to hear more about ${missionData.topics[correctCount % missionData.topics.length] || 'this topic'}. Give me a complete sentence!`;
+                coachReply = evalRes.reply;
               }
-            }
-            // 2. Check for Grammar Errors (DO NOT COUNT!)
-            else if (grammarErr) {
-              isGrammarError = true;
-              coachReply = `Good effort! ${grammarErr.hint} Say: "${grammarErr.fix}". Please repeat that sentence for me!`;
-              setCorrectionsLog(prev => [...prev, { original: text, corrected: grammarErr.fix }]);
-            }
-            // 3. Check for Duplicate Sentences (DO NOT COUNT!)
-            else if (uniqueSentencesRef.current.has(cleanNorm)) {
+            } else if (uniqueSentencesRef.current.has(cleanNorm)) {
               isDuplicate = true;
-              coachReply = `You already shared that exact thought! Please tell me something new about ${missionData.topics[(correctCount + 1) % missionData.topics.length] || 'your goal'} so I can count it.`;
-            }
-            // 4. Check length requirement (must be at least 4 words)
-            else if (words < 4) {
-              isTooShort = true;
-              coachReply = `Nice start! Please expand into a complete sentence with at least 4 to 5 words so I can count it for you.`;
-            }
-            // 5. Valid New Unique Sentence! (ONLY THIS INCREMENTS COUNT!)
-            else {
+              coachReply = `You already shared that exact thought! Please tell me something new about ${nextTopic} so I can count it for you.`;
+            } else {
               uniqueSentencesRef.current.add(cleanNorm);
               const newCount = correctCount + 1;
               setCorrectCount(newCount);
 
               if (newCount >= requiredSentences) {
                 setStatus('PASSED');
-                coachReply = `Fantastic work! You have successfully completed all ${requiredSentences} separate, unique spoken sentences for Mission ${moduleNumber}. Mission Passed!`;
+                coachReply = `Fantastic work! You completed all ${requiredSentences} separate, unique spoken sentences for Mission ${moduleNumber}. Mission Passed!`;
                 
                 const report = {
                   studentName: userProgress.studentName || 'Student',
@@ -1484,15 +1482,7 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
                 onSaveMissionScore(moduleNumber, { score: 100, passed: true, report });
               } else {
                 const remaining = requiredSentences - newCount;
-                const nextTopic = missionData.topics[newCount % missionData.topics.length] || 'your routine';
-
-                if (newCount === 1) {
-                  coachReply = `Nice to hear that! That is 1 unique sentence recorded (${remaining} remaining). Now, tell me about ${nextTopic}!`;
-                } else if (newCount % 5 === 0) {
-                  coachReply = `Awesome progress! That is ${newCount} unique sentences completed! (${remaining} left). Next, can you speak about ${nextTopic}?`;
-                } else {
-                  coachReply = `Very clear! Sentence ${newCount} recorded. Tell me more about ${nextTopic}!`;
-                }
+                coachReply = `Very clear! Sentence ${newCount} recorded (${remaining} remaining). Now, can you speak about ${nextTopic}?`;
               }
             }
           }
