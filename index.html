@@ -1233,6 +1233,58 @@
         return null;
       };
 
+      // Google Gemini 2.0 Spoken English Evaluation & Dialogue Engine
+      const callGeminiCoachAPI = async (studentText) => {
+        const savedConfig = localStorage.getItem('mastered_ai_config');
+        let apiKey = "";
+        if (savedConfig) {
+          try {
+            const parsed = JSON.parse(savedConfig);
+            apiKey = parsed.geminiApiKey || "";
+          } catch(e) {}
+        }
+
+        if (!apiKey) return null;
+
+        try {
+          const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+          
+          const systemPrompt = `You are MASTERED AI Coach, a warm native English speaking coach for MASTERED Language Coach.
+Mission ${moduleNumber}: ${missionData.title}.
+Objective: ${missionData.objective}.
+Target Grammar: ${missionData.grammar.join(', ')}.
+
+Student spoke: "${studentText}".
+
+Evaluate:
+1. Is there ANY grammar error, tense mistake, missing article (a/an/the), or preposition issue?
+2. If YES:
+   - "isGrammarError": true, "correctedSentence": "exact fix", "grammarHint": "short rule hint", "coachReply": "Good effort! [hint]. Say: '[correctedSentence]'. Please repeat that sentence!"
+3. If NO (Grammar is correct):
+   - "isGrammarError": false, "coachReply": "Warm 1-sentence praise + 1 natural follow-up question about ${missionData.topics[(correctCount + 1) % missionData.topics.length] || 'the topic'}."
+
+Return ONLY raw JSON with keys: "coachReply" (string), "isGrammarError" (boolean), "correctedSentence" (string), "grammarHint" (string)`;
+
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents: [{ role: "user", parts: [{ text: systemPrompt }] }]
+            })
+          });
+
+          const data = await response.json();
+          if (data && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+            const rawText = data.candidates[0].content.parts[0].text;
+            const cleanJson = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
+            return JSON.parse(cleanJson);
+          }
+        } catch(err) {
+          console.error("Gemini API Error:", err);
+        }
+        return null;
+      };
+
       const handleStudentSpeech = (rawText) => {
         if (status === 'PASSED' || !callActiveRef.current) return;
 
@@ -1249,7 +1301,7 @@
 
         if (speechTimeoutRef.current) clearTimeout(speechTimeoutRef.current);
 
-        speechTimeoutRef.current = setTimeout(() => {
+        speechTimeoutRef.current = setTimeout(async () => {
           if (!callActiveRef.current) return;
 
           let coachReply = "";
@@ -1262,70 +1314,112 @@
           const words = lower.split(/\s+/).length;
           const cleanNorm = lower.replace(/[^a-z0-9\s]/g, '').trim();
 
-          const grammarErr = detectSpokenGrammarMistake(text);
+          // Try Gemini 2.0 Flash AI Evaluation first if API Key is set!
+          const geminiResult = await callGeminiCoachAPI(text);
 
-          // 1. Detect Question to Coach (DO NOT COUNT!)
-          const questionStarters = ["what", "why", "how", "where", "who", "when", "can you", "could you", "do you", "would you", "is it", "are you", "what is", "who is", "tell me", "help me"];
-          if (questionStarters.some(starter => lower.startsWith(starter)) || lower.endsWith("?") || lower.includes("don't understand") || lower.includes("dont understand")) {
-            isQuestionToCoach = true;
-            if (lower.includes("who are you") || lower.includes("what is your name")) {
-              coachReply = `I'm your MASTERED AI Voice Coach! I'm here to practice Mission ${moduleNumber}: ${missionData.title} with you. Tell me about ${missionData.topics[0] || 'yourself'}!`;
-            } else if (lower.includes("what should i say") || lower.includes("help") || lower.includes("what do you mean")) {
-              coachReply = `In this mission, we are practicing ${missionData.situation}. You can talk about ${missionData.topics[correctCount % missionData.topics.length] || 'your daily routine'}. Go ahead!`;
+          if (geminiResult && geminiResult.coachReply) {
+            coachReply = geminiResult.coachReply;
+            if (geminiResult.isGrammarError) {
+              isGrammarError = true;
+              setCorrectionsLog(prev => [...prev, { original: text, corrected: geminiResult.correctedSentence || text }]);
+            } else if (uniqueSentencesRef.current.has(cleanNorm)) {
+              isDuplicate = true;
+              coachReply = `You already shared that exact thought! Please tell me something new so I can count it.`;
+            } else if (words < 4) {
+              isTooShort = true;
+              coachReply = `Nice start! Please expand into a complete sentence with at least 4 to 5 words so I can count it.`;
             } else {
-              coachReply = `That's a great question! As your speaking buddy, I'd love to hear more about ${missionData.topics[correctCount % missionData.topics.length] || 'this topic'}. Give me a complete sentence!`;
+              uniqueSentencesRef.current.add(cleanNorm);
+              const newCount = correctCount + 1;
+              setCorrectCount(newCount);
+
+              if (newCount >= requiredSentences) {
+                setStatus('PASSED');
+                coachReply = `Fantastic work! You completed all ${requiredSentences} separate, unique spoken sentences for Mission ${moduleNumber}. Mission Passed!`;
+                
+                const report = {
+                  studentName: userProgress.studentName || 'Student',
+                  admissionNumber: userProgress.admissionNumber || '',
+                  missionNumber: moduleNumber,
+                  date: new Date().toLocaleDateString(),
+                  requiredSentences: requiredSentences,
+                  correctSentences: newCount,
+                  importantMistakes: correctionsLog.length,
+                  correctionsPracticed: correctionsLog.map(c => c.corrected).join(', ') || 'None',
+                  finalStatus: 'PASSED'
+                };
+
+                setFinalReport(report);
+                onSaveMissionScore(moduleNumber, { score: 100, passed: true, report });
+              }
             }
-          }
-          // 2. Check for Grammar Errors (DO NOT COUNT!)
-          else if (grammarErr) {
-            isGrammarError = true;
-            coachReply = `Good effort! ${grammarErr.hint} Say: "${grammarErr.fix}". Please repeat that sentence for me!`;
-            setCorrectionsLog(prev => [...prev, { original: text, corrected: grammarErr.fix }]);
-          }
-          // 3. Check for Duplicate Sentences (DO NOT COUNT!)
-          else if (uniqueSentencesRef.current.has(cleanNorm)) {
-            isDuplicate = true;
-            coachReply = `You already shared that exact thought! Please tell me something new about ${missionData.topics[(correctCount + 1) % missionData.topics.length] || 'your goal'} so I can count it.`;
-          }
-          // 4. Check length requirement (must be at least 4 words)
-          else if (words < 4) {
-            isTooShort = true;
-            coachReply = `Nice start! Please expand into a complete sentence with at least 4 to 5 words so I can count it for you.`;
-          }
-          // 5. Valid New Unique Sentence! (ONLY THIS INCREMENTS COUNT!)
-          else {
-            uniqueSentencesRef.current.add(cleanNorm);
-            const newCount = correctCount + 1;
-            setCorrectCount(newCount);
+          } else {
+            // Local Rule Engine Fallback when no Gemini API Key is configured
+            const grammarErr = detectSpokenGrammarMistake(text);
 
-            if (newCount >= requiredSentences) {
-              setStatus('PASSED');
-              coachReply = `Fantastic work! You have successfully completed all ${requiredSentences} separate, unique spoken sentences for Mission ${moduleNumber}. Mission Passed!`;
-              
-              const report = {
-                studentName: userProgress.studentName || 'Student',
-                admissionNumber: userProgress.admissionNumber || '',
-                missionNumber: moduleNumber,
-                date: new Date().toLocaleDateString(),
-                requiredSentences: requiredSentences,
-                correctSentences: newCount,
-                importantMistakes: correctionsLog.length,
-                correctionsPracticed: correctionsLog.map(c => c.corrected).join(', ') || 'None',
-                finalStatus: 'PASSED'
-              };
-
-              setFinalReport(report);
-              onSaveMissionScore(moduleNumber, { score: 100, passed: true, report });
-            } else {
-              const remaining = requiredSentences - newCount;
-              const nextTopic = missionData.topics[newCount % missionData.topics.length] || 'your routine';
-
-              if (newCount === 1) {
-                coachReply = `Nice to hear that! That is 1 unique sentence recorded (${remaining} remaining). Now, tell me about ${nextTopic}!`;
-              } else if (newCount % 5 === 0) {
-                coachReply = `Awesome progress! That is ${newCount} unique sentences completed! (${remaining} left). Next, can you speak about ${nextTopic}?`;
+            // 1. Detect Question to Coach (DO NOT COUNT!)
+            const questionStarters = ["what", "why", "how", "where", "who", "when", "can you", "could you", "do you", "would you", "is it", "are you", "what is", "who is", "tell me", "help me"];
+            if (questionStarters.some(starter => lower.startsWith(starter)) || lower.endsWith("?") || lower.includes("don't understand") || lower.includes("dont understand")) {
+              isQuestionToCoach = true;
+              if (lower.includes("who are you") || lower.includes("what is your name")) {
+                coachReply = `I'm your MASTERED AI Voice Coach! I'm here to practice Mission ${moduleNumber}: ${missionData.title} with you. Tell me about ${missionData.topics[0] || 'yourself'}!`;
+              } else if (lower.includes("what should i say") || lower.includes("help") || lower.includes("what do you mean")) {
+                coachReply = `In this mission, we are practicing ${missionData.situation}. You can talk about ${missionData.topics[correctCount % missionData.topics.length] || 'your daily routine'}. Go ahead!`;
               } else {
-                coachReply = `Very clear! Sentence ${newCount} recorded. Tell me more about ${nextTopic}!`;
+                coachReply = `That's a great question! As your speaking buddy, I'd love to hear more about ${missionData.topics[correctCount % missionData.topics.length] || 'this topic'}. Give me a complete sentence!`;
+              }
+            }
+            // 2. Check for Grammar Errors (DO NOT COUNT!)
+            else if (grammarErr) {
+              isGrammarError = true;
+              coachReply = `Good effort! ${grammarErr.hint} Say: "${grammarErr.fix}". Please repeat that sentence for me!`;
+              setCorrectionsLog(prev => [...prev, { original: text, corrected: grammarErr.fix }]);
+            }
+            // 3. Check for Duplicate Sentences (DO NOT COUNT!)
+            else if (uniqueSentencesRef.current.has(cleanNorm)) {
+              isDuplicate = true;
+              coachReply = `You already shared that exact thought! Please tell me something new about ${missionData.topics[(correctCount + 1) % missionData.topics.length] || 'your goal'} so I can count it.`;
+            }
+            // 4. Check length requirement (must be at least 4 words)
+            else if (words < 4) {
+              isTooShort = true;
+              coachReply = `Nice start! Please expand into a complete sentence with at least 4 to 5 words so I can count it for you.`;
+            }
+            // 5. Valid New Unique Sentence! (ONLY THIS INCREMENTS COUNT!)
+            else {
+              uniqueSentencesRef.current.add(cleanNorm);
+              const newCount = correctCount + 1;
+              setCorrectCount(newCount);
+
+              if (newCount >= requiredSentences) {
+                setStatus('PASSED');
+                coachReply = `Fantastic work! You have successfully completed all ${requiredSentences} separate, unique spoken sentences for Mission ${moduleNumber}. Mission Passed!`;
+                
+                const report = {
+                  studentName: userProgress.studentName || 'Student',
+                  admissionNumber: userProgress.admissionNumber || '',
+                  missionNumber: moduleNumber,
+                  date: new Date().toLocaleDateString(),
+                  requiredSentences: requiredSentences,
+                  correctSentences: newCount,
+                  importantMistakes: correctionsLog.length,
+                  correctionsPracticed: correctionsLog.map(c => c.corrected).join(', ') || 'None',
+                  finalStatus: 'PASSED'
+                };
+
+                setFinalReport(report);
+                onSaveMissionScore(moduleNumber, { score: 100, passed: true, report });
+              } else {
+                const remaining = requiredSentences - newCount;
+                const nextTopic = missionData.topics[newCount % missionData.topics.length] || 'your routine';
+
+                if (newCount === 1) {
+                  coachReply = `Nice to hear that! That is 1 unique sentence recorded (${remaining} remaining). Now, tell me about ${nextTopic}!`;
+                } else if (newCount % 5 === 0) {
+                  coachReply = `Awesome progress! That is ${newCount} unique sentences completed! (${remaining} left). Next, can you speak about ${nextTopic}?`;
+                } else {
+                  coachReply = `Very clear! Sentence ${newCount} recorded. Tell me more about ${nextTopic}!`;
+                }
               }
             }
           }
@@ -2259,6 +2353,106 @@
       );
     }
 
+    // Admin AI Settings Manager Component
+    function AdminAISettingsManager({ aiConfig, onSaveAIConfig }) {
+      const [geminiKey, setGeminiKey] = useState(aiConfig.geminiApiKey || '');
+      const [elevenKey, setElevenKey] = useState(aiConfig.elevenLabsApiKey || '');
+      const [voiceType, setVoiceType] = useState(aiConfig.preferredVoice || 'female');
+      const [customInstruction, setCustomInstruction] = useState(aiConfig.customPrompt || '');
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        onSaveAIConfig({
+          geminiApiKey: geminiKey.trim(),
+          elevenLabsApiKey: elevenKey.trim(),
+          preferredVoice: voiceType,
+          customPrompt: customInstruction.trim()
+        });
+      };
+
+      return (
+        <div className="space-y-4 sm:space-y-6 max-w-3xl mx-auto">
+          <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-3 border-l-4 border-red-600">
+            <div>
+              <span className="text-[10px] sm:text-xs font-bold text-red-400 uppercase tracking-wider">Super Admin Controls</span>
+              <h2 className="text-xl sm:text-2xl font-extrabold mt-0.5">Mastered AI Voice Coach Settings ⚙️</h2>
+              <p className="text-xs text-slate-300 mt-1">Configure Google Gemini 2.0 API & ElevenLabs Human Voice keys for all student missions.</p>
+            </div>
+          </div>
+
+          <form onSubmit={handleSubmit} className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-md space-y-5">
+            <div>
+              <label className="block text-xs font-extrabold text-slate-900 mb-1">
+                Google Gemini 2.0 API Key (Free Tier Supported) 🔑
+              </label>
+              <p className="text-[11px] text-slate-500 mb-2">
+                Provides human-level spoken English understanding, instant grammar pointing, and natural AI thinking. (Get free key at <a href="https://aistudio.google.com/" target="_blank" rel="noreferrer" className="text-red-600 underline font-bold">aistudio.google.com</a>).
+              </p>
+              <input
+                type="password"
+                value={geminiKey}
+                onChange={e => setGeminiKey(e.target.value)}
+                placeholder="AIzaSy..."
+                className="w-full p-3.5 border rounded-2xl text-xs font-mono text-slate-900 outline-none focus:border-red-500 bg-slate-50"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-extrabold text-slate-900 mb-1">
+                ElevenLabs Voice API Key (Optional - Ultra-Realistic Human Voice) 🎙️
+              </label>
+              <p className="text-[11px] text-slate-500 mb-2">
+                Replaces browser voices with 100% real female human spoken English voice audio. Leave blank to use warm browser voices.
+              </p>
+              <input
+                type="password"
+                value={elevenKey}
+                onChange={e => setElevenKey(e.target.value)}
+                placeholder="sk_..."
+                className="w-full p-3.5 border rounded-2xl text-xs font-mono text-slate-900 outline-none focus:border-red-500 bg-slate-50"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-extrabold text-slate-900 mb-1">
+                Preferred AI Coach Persona & Voice Gender
+              </label>
+              <select
+                value={voiceType}
+                onChange={e => setVoiceType(e.target.value)}
+                className="w-full p-3.5 border rounded-2xl text-xs font-bold text-slate-900 outline-none focus:border-red-500 bg-slate-50"
+              >
+                <option value="female">👧 Warm Native English Female Language Buddy (Recommended)</option>
+                <option value="male">👨 Professional Male English Coach</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-extrabold text-slate-900 mb-1">
+                Custom Coach System Instruction (Optional)
+              </label>
+              <textarea
+                value={customInstruction}
+                onChange={e => setCustomInstruction(e.target.value)}
+                placeholder="e.g. You are a friendly, encouraging native English speaking coach..."
+                rows="3"
+                className="w-full p-3.5 border rounded-2xl text-xs text-slate-900 outline-none focus:border-red-500 bg-slate-50"
+              ></textarea>
+            </div>
+
+            <div className="pt-3 border-t flex justify-end">
+              <button
+                type="submit"
+                className="px-8 py-3.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-extrabold text-xs rounded-2xl shadow-xl transition"
+              >
+                💾 Save AI Coach Settings
+              </button>
+            </div>
+          </form>
+        </div>
+      );
+    }
+
     // Comprehensive Student History & Analytics Modal Component
     function StudentHistoryModal({ student, userProgress, modules, isAdmin, onDismiss, onClose }) {
       if (!student) return null;
@@ -2473,6 +2667,20 @@
         });
         showToast(`✅ Saved ${questions.length} questions for Module ${modNum}!`);
         await callAppsScript('adminSaveQuiz', { moduleNumber: modNum, questions });
+      };
+
+      const [aiConfig, setAiConfig] = useState(() => {
+        const saved = localStorage.getItem('mastered_ai_config');
+        if (saved) {
+          try { return JSON.parse(saved); } catch(e){}
+        }
+        return { geminiApiKey: '', elevenLabsApiKey: '', preferredVoice: 'female', customPrompt: '' };
+      });
+
+      const handleSaveAIConfig = (newConfig) => {
+        setAiConfig(newConfig);
+        localStorage.setItem('mastered_ai_config', JSON.stringify(newConfig));
+        showToast("⚙️ AI Coach Settings Saved Successfully!");
       };
 
       const [userProgress, setUserProgress] = useState(() => {
@@ -3165,6 +3373,7 @@
                         <button onClick={() => { setActiveTab('admin-modules'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-modules' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Module Manager ({modules.length})</button>
                         <button onClick={() => { setActiveTab('admin-quizzes'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-quizzes' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Quiz Manager 📝</button>
                         <button onClick={() => { setActiveTab('admin-graduation'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-graduation' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Graduation Videos 🎓</button>
+                        <button onClick={() => { setActiveTab('admin-ai-settings'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-ai-settings' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>AI Coach Settings ⚙️</button>
                       </>
                     )}
                   </nav>
@@ -3201,6 +3410,7 @@
                       <button onClick={() => setActiveTab('admin-modules')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-modules' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Module Manager ({modules.length})</button>
                       <button onClick={() => setActiveTab('admin-quizzes')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-quizzes' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Quiz Manager 📝</button>
                       <button onClick={() => setActiveTab('admin-graduation')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-graduation' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Graduation Videos 🎓</button>
+                      <button onClick={() => setActiveTab('admin-ai-settings')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-ai-settings' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>AI Coach Settings ⚙️</button>
                     </>
                   )}
                 </nav>
@@ -3743,6 +3953,14 @@
                       students={students}
                       userProgress={userProgress}
                       onApproveGraduation={handleApproveGraduation}
+                    />
+                  )}
+
+                  {/* AI Coach Settings Tab */}
+                  {activeTab === 'admin-ai-settings' && (
+                    <AdminAISettingsManager
+                      aiConfig={aiConfig}
+                      onSaveAIConfig={handleSaveAIConfig}
                     />
                   )}
                 </>
