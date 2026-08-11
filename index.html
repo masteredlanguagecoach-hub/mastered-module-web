@@ -1084,11 +1084,13 @@
 
       const recognitionRef = React.useRef(null);
       const callActiveRef = React.useRef(false);
+      const coachSpeakingRef = React.useRef(false);
       const speechTimeoutRef = React.useRef(null);
       const uniqueSentencesRef = React.useRef(new Set());
 
       const stopAudioAndRecognition = () => {
         callActiveRef.current = false;
+        coachSpeakingRef.current = false;
         setCallActive(false);
         setListening(false);
         setCoachSpeaking(false);
@@ -1112,7 +1114,6 @@
         const voices = window.speechSynthesis.getVoices();
         if (!voices || voices.length === 0) return null;
 
-        // Prioritize natural English voices
         const preferred = voices.find(v => 
           (v.name.includes("Google") && v.lang.startsWith("en")) ||
           (v.name.includes("Natural") && v.lang.startsWith("en")) ||
@@ -1126,6 +1127,29 @@
         return voices.find(v => v.lang.startsWith("en")) || voices[0];
       };
 
+      // Automatic Continuous Mic Listener Loop (Zero Clicks Needed!)
+      const safeRestartRecognition = () => {
+        if (!callActiveRef.current || coachSpeakingRef.current) return;
+        if (!recognitionRef.current) return;
+
+        try { recognitionRef.current.stop(); } catch(e){}
+
+        setTimeout(() => {
+          if (callActiveRef.current && !coachSpeakingRef.current && recognitionRef.current) {
+            try {
+              recognitionRef.current.start();
+              setListening(true);
+            } catch(e) {
+              setTimeout(() => {
+                if (callActiveRef.current && !coachSpeakingRef.current && recognitionRef.current) {
+                  try { recognitionRef.current.start(); setListening(true); } catch(err){}
+                }
+              }, 250);
+            }
+          }
+        }, 120);
+      };
+
       const speakText = (text, onEndCallback) => {
         if (!callActiveRef.current && text !== messages[0].text) return;
 
@@ -1133,24 +1157,29 @@
           window.speechSynthesis.cancel();
           const u = new SpeechSynthesisUtterance(text);
           u.lang = 'en-US';
-          u.rate = 0.93; // Human conversational speed
+          u.rate = 0.92; // Natural conversational rate
           u.pitch = 1.02; // Warm tone
 
           const humanVoice = getBestHumanVoice();
           if (humanVoice) u.voice = humanVoice;
 
+          coachSpeakingRef.current = true;
           setCoachSpeaking(true);
+          setListening(false);
+
           u.onend = () => {
+            coachSpeakingRef.current = false;
             setCoachSpeaking(false);
             if (onEndCallback) onEndCallback();
-            if (callActiveRef.current && recognitionRef.current) {
-              try { recognitionRef.current.start(); setListening(true); } catch(e){}
+            if (callActiveRef.current) {
+              safeRestartRecognition();
             }
           };
           u.onerror = () => {
+            coachSpeakingRef.current = false;
             setCoachSpeaking(false);
-            if (callActiveRef.current && recognitionRef.current) {
-              try { recognitionRef.current.start(); setListening(true); } catch(e){}
+            if (callActiveRef.current) {
+              safeRestartRecognition();
             }
           };
           window.speechSynthesis.speak(u);
@@ -1190,11 +1219,11 @@
           if (questionStarters.some(starter => lower.startsWith(starter)) || lower.endsWith("?") || lower.includes("don't understand") || lower.includes("dont understand")) {
             isQuestionToCoach = true;
             if (lower.includes("who are you") || lower.includes("what is your name")) {
-              coachReply = `I am your MASTERED AI Voice Coach! I am here to help you practice Mission ${moduleNumber}: ${missionData.title}. Now, tell me about ${missionData.topics[0] || 'yourself'}!`;
+              coachReply = `I am your MASTERED AI Voice Coach! I'm here to practice Mission ${moduleNumber}: ${missionData.title} with you. Tell me about ${missionData.topics[0] || 'yourself'}!`;
             } else if (lower.includes("what should i say") || lower.includes("help") || lower.includes("what do you mean")) {
-              coachReply = `In this mission, we are practicing ${missionData.situation}. You can speak about ${missionData.topics[correctCount % missionData.topics.length] || 'your daily routine'}. Go ahead!`;
+              coachReply = `In this mission, we are practicing ${missionData.situation}. You can talk about ${missionData.topics[correctCount % missionData.topics.length] || 'your daily routine'}. Go ahead!`;
             } else {
-              coachReply = `Good question! As your coach, I encourage you to share more about ${missionData.topics[correctCount % missionData.topics.length] || 'this topic'}. Tell me a complete sentence about it!`;
+              coachReply = `That's a good question! As your speaking coach, I'd love to hear more about ${missionData.topics[correctCount % missionData.topics.length] || 'this topic'}. Give me a complete sentence!`;
             }
           }
           // 2. Check for Grammar Corrections
@@ -1204,18 +1233,18 @@
               .replace(/he go/gi, "he goes")
               .replace(/she go/gi, "she goes")
               .replace(/i am agree/gi, "I agree");
-            coachReply = `Good effort! Remember to say: "${fixed}". Please repeat that sentence now.`;
+            coachReply = `Good effort! Say: "${fixed}". Please repeat that sentence now.`;
             setCorrectionsLog(prev => [...prev, { original: text, corrected: fixed }]);
           }
           // 3. Check for Duplicate Sentences
           else if (uniqueSentencesRef.current.has(cleanNorm)) {
             isDuplicate = true;
-            coachReply = `You already shared that exact thought! Please tell me something new about ${missionData.topics[(correctCount + 1) % missionData.topics.length] || 'your goal'} so we can count it toward your 30 unique sentences.`;
+            coachReply = `You already shared that exact thought! Please tell me something new about ${missionData.topics[(correctCount + 1) % missionData.topics.length] || 'your goal'} so we can count it.`;
           }
           // 4. Check length requirement (must be at least 4 words)
           else if (words < 4) {
             isTooShort = true;
-            coachReply = `That is a nice start! Please expand into a complete sentence with at least 4 to 5 words so it can be counted.`;
+            coachReply = `Nice start! Please expand into a complete sentence with at least 4 to 5 words so I can count it for you.`;
           }
           // 5. Valid New Unique Sentence!
           else {
@@ -1264,7 +1293,7 @@
 
           setMessages(prev => [...prev, coachMsg]);
           speakText(coachReply);
-        }, 850);
+        }, 800);
       };
 
       useEffect(() => {
@@ -1276,7 +1305,7 @@
           rec.lang = 'en-US';
 
           rec.onresult = (e) => {
-            if (!callActiveRef.current) return;
+            if (!callActiveRef.current || coachSpeakingRef.current) return;
             const lastIdx = e.results.length - 1;
             const transcript = e.results[lastIdx][0].transcript;
             if (transcript.trim()) {
@@ -1286,16 +1315,16 @@
 
           rec.onend = () => {
             setListening(false);
-            if (callActiveRef.current && !coachSpeaking) {
-              try {
-                rec.start();
-                setListening(true);
-              } catch(e) {}
+            if (callActiveRef.current && !coachSpeakingRef.current) {
+              safeRestartRecognition();
             }
           };
 
           rec.onerror = () => {
             setListening(false);
+            if (callActiveRef.current && !coachSpeakingRef.current) {
+              safeRestartRecognition();
+            }
           };
 
           recognitionRef.current = rec;
@@ -1317,6 +1346,7 @@
           stopAudioAndRecognition();
         } else {
           callActiveRef.current = true;
+          coachSpeakingRef.current = false;
           setCallActive(true);
           try {
             recognitionRef.current.start();
@@ -2365,14 +2395,37 @@
       };
 
       const [userProgress, setUserProgress] = useState(() => {
-        const saved = localStorage.getItem('mastered_progress');
-        return saved ? JSON.parse(saved) : {};
+        let initial = {};
+        try {
+          const session = localStorage.getItem('mastered_user_session');
+          if (session) {
+            const parsed = JSON.parse(session);
+            const adm = parsed?.user?.admissionNumber || parsed?.user?.studentId;
+            if (adm) {
+              const studentSaved = localStorage.getItem(`mastered_progress_${adm}`);
+              if (studentSaved) initial = JSON.parse(studentSaved);
+            }
+          }
+        } catch(e) {}
+
+        if (Object.keys(initial).length === 0) {
+          const globalSaved = localStorage.getItem('mastered_progress');
+          if (globalSaved) {
+            try { initial = JSON.parse(globalSaved); } catch(e) {}
+          }
+        }
+        return initial;
       });
 
       // Cross-Device Student Progress Sync (Google Apps Script API)
       const syncStudentProgressToCloud = async (updatedProgress) => {
         if (!currentUser) return;
         const adm = currentUser.admissionNumber || currentUser.studentId || '';
+        if (!adm) return;
+
+        localStorage.setItem('mastered_progress', JSON.stringify(updatedProgress));
+        localStorage.setItem(`mastered_progress_${adm}`, JSON.stringify(updatedProgress));
+
         await callAppsScript('saveStudentProgress', {
           admissionNumber: adm,
           email: currentUser.email || '',
@@ -2383,15 +2436,18 @@
       const fetchStudentProgressFromCloud = async (userObj) => {
         if (!userObj) return;
         const adm = userObj.admissionNumber || userObj.studentId || '';
+        if (!adm) return;
+
         const res = await callAppsScript('getStudentProgress', {
           admissionNumber: adm,
           email: userObj.email || ''
         });
 
-        if (res && res.success && res.userProgress) {
+        if (res && res.success && res.userProgress && Object.keys(res.userProgress).length > 0) {
           setUserProgress(prev => {
             const merged = { ...prev, ...res.userProgress };
             localStorage.setItem('mastered_progress', JSON.stringify(merged));
+            localStorage.setItem(`mastered_progress_${adm}`, JSON.stringify(merged));
             return merged;
           });
         }
@@ -2553,10 +2609,16 @@
         return () => clearInterval(timer);
       }, []);
 
-      // Save user progress
+      // Save user progress safely
       useEffect(() => {
-        localStorage.setItem('mastered_progress', JSON.stringify(userProgress));
-      }, [userProgress]);
+        if (userProgress && Object.keys(userProgress).length > 0) {
+          localStorage.setItem('mastered_progress', JSON.stringify(userProgress));
+          if (currentUser && (currentUser.admissionNumber || currentUser.studentId)) {
+            const adm = currentUser.admissionNumber || currentUser.studentId;
+            localStorage.setItem(`mastered_progress_${adm}`, JSON.stringify(userProgress));
+          }
+        }
+      }, [userProgress, currentUser]);
 
       // Anti-Screen Recording & Anti-Screenshot Security Shortcuts Listener
       useEffect(() => {
