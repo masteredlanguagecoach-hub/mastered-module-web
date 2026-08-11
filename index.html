@@ -1285,6 +1285,54 @@ Return ONLY raw JSON with keys: "coachReply" (string), "isGrammarError" (boolean
         return null;
       };
 
+      // OpenAI GPT-4o Mini Spoken English Evaluation Engine
+      const callOpenAICoachAPI = async (studentText) => {
+        const savedConfig = localStorage.getItem('mastered_ai_config');
+        let apiKey = "";
+        if (savedConfig) {
+          try {
+            const parsed = JSON.parse(savedConfig);
+            apiKey = parsed.openaiApiKey || "";
+          } catch(e) {}
+        }
+
+        if (!apiKey) return null;
+
+        try {
+          const endpoint = `https://api.openai.com/v1/chat/completions`;
+          const systemPrompt = `You are MASTERED AI Coach, a warm native English speaking coach.
+Mission ${moduleNumber}: ${missionData.title}. Objective: ${missionData.objective}. Target Grammar: ${missionData.grammar.join(', ')}.
+
+Evaluate student's spoken input: "${studentText}".
+1. Is there ANY grammar error, tense mistake, missing article (a/an/the), or preposition issue?
+2. If YES: "isGrammarError": true, "correctedSentence": "exact fix", "grammarHint": "short rule hint", "coachReply": "Good effort! [hint]. Say: '[correctedSentence]'. Please repeat that sentence!"
+3. If NO: "isGrammarError": false, "coachReply": "Warm 1-sentence praise + 1 natural follow-up question about ${missionData.topics[(correctCount + 1) % missionData.topics.length] || 'the topic'}."
+
+Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSentence", "grammarHint".`;
+
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+              model: "gpt-4o-mini",
+              messages: [{ role: "system", content: systemPrompt }],
+              response_format: { type: "json_object" }
+            })
+          });
+
+          const data = await response.json();
+          if (data && data.choices && data.choices[0]?.message?.content) {
+            return JSON.parse(data.choices[0].message.content);
+          }
+        } catch(err) {
+          console.error("OpenAI API Error:", err);
+        }
+        return null;
+      };
+
       const handleStudentSpeech = (rawText) => {
         if (status === 'PASSED' || !callActiveRef.current) return;
 
@@ -1314,14 +1362,17 @@ Return ONLY raw JSON with keys: "coachReply" (string), "isGrammarError" (boolean
           const words = lower.split(/\s+/).length;
           const cleanNorm = lower.replace(/[^a-z0-9\s]/g, '').trim();
 
-          // Try Gemini 2.0 Flash AI Evaluation first if API Key is set!
-          const geminiResult = await callGeminiCoachAPI(text);
+          // Try Gemini 2.0 Flash AI Evaluation (100% Free) first, then OpenAI!
+          let aiResult = await callGeminiCoachAPI(text);
+          if (!aiResult) {
+            aiResult = await callOpenAICoachAPI(text);
+          }
 
-          if (geminiResult && geminiResult.coachReply) {
-            coachReply = geminiResult.coachReply;
-            if (geminiResult.isGrammarError) {
+          if (aiResult && aiResult.coachReply) {
+            coachReply = aiResult.coachReply;
+            if (aiResult.isGrammarError) {
               isGrammarError = true;
-              setCorrectionsLog(prev => [...prev, { original: text, corrected: geminiResult.correctedSentence || text }]);
+              setCorrectionsLog(prev => [...prev, { original: text, corrected: aiResult.correctedSentence || text }]);
             } else if (uniqueSentencesRef.current.has(cleanNorm)) {
               isDuplicate = true;
               coachReply = `You already shared that exact thought! Please tell me something new so I can count it.`;
@@ -2356,6 +2407,7 @@ Return ONLY raw JSON with keys: "coachReply" (string), "isGrammarError" (boolean
     // Admin AI Settings Manager Component
     function AdminAISettingsManager({ aiConfig, onSaveAIConfig }) {
       const [geminiKey, setGeminiKey] = useState(aiConfig.geminiApiKey || '');
+      const [openaiKey, setOpenaiKey] = useState(aiConfig.openaiApiKey || '');
       const [elevenKey, setElevenKey] = useState(aiConfig.elevenLabsApiKey || '');
       const [voiceType, setVoiceType] = useState(aiConfig.preferredVoice || 'female');
       const [customInstruction, setCustomInstruction] = useState(aiConfig.customPrompt || '');
@@ -2364,6 +2416,7 @@ Return ONLY raw JSON with keys: "coachReply" (string), "isGrammarError" (boolean
         e.preventDefault();
         onSaveAIConfig({
           geminiApiKey: geminiKey.trim(),
+          openaiApiKey: openaiKey.trim(),
           elevenLabsApiKey: elevenKey.trim(),
           preferredVoice: voiceType,
           customPrompt: customInstruction.trim()
@@ -2376,40 +2429,42 @@ Return ONLY raw JSON with keys: "coachReply" (string), "isGrammarError" (boolean
             <div>
               <span className="text-[10px] sm:text-xs font-bold text-red-400 uppercase tracking-wider">Super Admin Controls</span>
               <h2 className="text-xl sm:text-2xl font-extrabold mt-0.5">Mastered AI Voice Coach Settings ⚙️</h2>
-              <p className="text-xs text-slate-300 mt-1">Configure Google Gemini 2.0 API & ElevenLabs Human Voice keys for all student missions.</p>
+              <p className="text-xs text-slate-300 mt-1">Configure Free Google Gemini 2.0 or OpenAI keys for all student missions.</p>
             </div>
           </div>
 
           <form onSubmit={handleSubmit} className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-md space-y-5">
-            <div>
-              <label className="block text-xs font-extrabold text-slate-900 mb-1">
-                Google Gemini 2.0 API Key (Free Tier Supported) 🔑
+            <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl space-y-1">
+              <span className="px-2.5 py-0.5 bg-emerald-600 text-white text-[10px] font-extrabold rounded-full uppercase">RECOMMENDED #1 (100% FREE)</span>
+              <label className="block text-xs font-extrabold text-slate-900 pt-1">
+                Google Gemini 2.0 API Key (100% Free - No Payment Required) 🔑
               </label>
-              <p className="text-[11px] text-slate-500 mb-2">
-                Provides human-level spoken English understanding, instant grammar pointing, and natural AI thinking. (Get free key at <a href="https://aistudio.google.com/" target="_blank" rel="noreferrer" className="text-red-600 underline font-bold">aistudio.google.com</a>).
+              <p className="text-[11px] text-slate-600">
+                Provides human-level spoken English understanding, instant grammar pointing, and natural AI thinking completely FREE! (Get free key at <a href="https://aistudio.google.com/" target="_blank" rel="noreferrer" className="text-red-600 underline font-bold">aistudio.google.com</a>).
               </p>
               <input
                 type="password"
                 value={geminiKey}
                 onChange={e => setGeminiKey(e.target.value)}
                 placeholder="AIzaSy..."
-                className="w-full p-3.5 border rounded-2xl text-xs font-mono text-slate-900 outline-none focus:border-red-500 bg-slate-50"
+                className="w-full p-3.5 border rounded-2xl text-xs font-mono text-slate-900 outline-none focus:border-red-500 bg-white mt-1"
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-extrabold text-slate-900 mb-1">
-                ElevenLabs Voice API Key (Optional - Ultra-Realistic Human Voice) 🎙️
+            <div className="p-4 bg-blue-50 border border-blue-200 rounded-2xl space-y-1">
+              <span className="px-2.5 py-0.5 bg-blue-600 text-white text-[10px] font-extrabold rounded-full uppercase">OPTION 2 (ULTRA-CHEAP HIGH QUALITY)</span>
+              <label className="block text-xs font-extrabold text-slate-900 pt-1">
+                OpenAI API Key (GPT-4o Mini + Ultra-Cheap Female Voice) 🔑
               </label>
-              <p className="text-[11px] text-slate-500 mb-2">
-                Replaces browser voices with 100% real female human spoken English voice audio. Leave blank to use warm browser voices.
+              <p className="text-[11px] text-slate-600">
+                Use OpenAI GPT-4o Mini + TTS Audio (Voice: Shimmer/Nova) for high-quality human female voices at ~$0.001 per mission. (Get key at <a href="https://platform.openai.com/" target="_blank" rel="noreferrer" className="text-blue-600 underline font-bold">platform.openai.com</a>).
               </p>
               <input
                 type="password"
-                value={elevenKey}
-                onChange={e => setElevenKey(e.target.value)}
-                placeholder="sk_..."
-                className="w-full p-3.5 border rounded-2xl text-xs font-mono text-slate-900 outline-none focus:border-red-500 bg-slate-50"
+                value={openaiKey}
+                onChange={e => setOpenaiKey(e.target.value)}
+                placeholder="sk-proj-..."
+                className="w-full p-3.5 border rounded-2xl text-xs font-mono text-slate-900 outline-none focus:border-blue-500 bg-white mt-1"
               />
             </div>
 
