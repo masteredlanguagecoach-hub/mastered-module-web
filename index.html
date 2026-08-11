@@ -2282,10 +2282,39 @@
         await callAppsScript('adminSaveQuiz', { moduleNumber: modNum, questions });
       };
 
-      const [userProgress, setUserProgress] = useState(() => {
-        const saved = localStorage.getItem('mastered_progress');
-        return saved ? JSON.parse(saved) : {};
-      });
+      // Cross-Device Student Progress Sync (Google Apps Script API)
+      const syncStudentProgressToCloud = async (updatedProgress) => {
+        if (!currentUser) return;
+        const adm = currentUser.admissionNumber || currentUser.studentId || '';
+        await callAppsScript('saveStudentProgress', {
+          admissionNumber: adm,
+          email: currentUser.email || '',
+          userProgress: updatedProgress
+        });
+      };
+
+      const fetchStudentProgressFromCloud = async (userObj) => {
+        if (!userObj) return;
+        const adm = userObj.admissionNumber || userObj.studentId || '';
+        const res = await callAppsScript('getStudentProgress', {
+          admissionNumber: adm,
+          email: userObj.email || ''
+        });
+
+        if (res && res.success && res.userProgress) {
+          setUserProgress(prev => {
+            const merged = { ...prev, ...res.userProgress };
+            localStorage.setItem('mastered_progress', JSON.stringify(merged));
+            return merged;
+          });
+        }
+      };
+
+      useEffect(() => {
+        if (currentUser && role === 'student') {
+          fetchStudentProgressFromCloud(currentUser);
+        }
+      }, [currentUser, role]);
 
       const handleSaveQuizScore = (modNum, scoreObj) => {
         const modKey = `MOD-${modNum < 10 ? '0' + modNum : modNum}`;
@@ -2293,13 +2322,16 @@
           const existing = prev[modKey] || { video1: false, audio: false, pdf: false, percentage: 0 };
           const quizScores = existing.quizScores || {};
           quizScores[modNum] = scoreObj;
-          return {
+          const updatedAll = {
             ...prev,
             [modKey]: {
               ...existing,
               quizScores
             }
           };
+          localStorage.setItem('mastered_progress', JSON.stringify(updatedAll));
+          syncStudentProgressToCloud(updatedAll);
+          return updatedAll;
         });
         showToast(`🎉 Quiz score saved: ${scoreObj.score}/${scoreObj.total} (${scoreObj.percentage}%)!`);
         callAppsScript('submitQuizScore', {
@@ -2326,6 +2358,7 @@
             [modKey]: updatedMod
           };
           localStorage.setItem('mastered_progress', JSON.stringify(updatedAll));
+          syncStudentProgressToCloud(updatedAll);
           return updatedAll;
         });
         showToast(`🎉 Level ${modNum} AI Spoken Mission Passed with ${evalObj.score}%!`);
@@ -2658,7 +2691,10 @@
           if (updated.pdf) count++;
           updated.percentage = Math.round((count / 3) * 100);
 
-          return { ...prev, [modId]: updated };
+          const updatedAll = { ...prev, [modId]: updated };
+          localStorage.setItem('mastered_progress', JSON.stringify(updatedAll));
+          syncStudentProgressToCloud(updatedAll);
+          return updatedAll;
         });
         showToast("✨ Progress updated!");
       };
