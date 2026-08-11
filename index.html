@@ -1065,7 +1065,7 @@
         topics: ["General Practice"]
       };
 
-      const requiredSentences = moduleNumber <= 8 ? 30 : (moduleNumber <= 23 ? 40 : 50);
+      const shortWelcome = `Welcome to Mission ${moduleNumber}! Let's start. Please introduce yourself or tell me about ${missionData.topics[0] || 'your goal'}!`;
 
       const [callActive, setCallActive] = useState(false);
       const [listening, setListening] = useState(false);
@@ -1073,7 +1073,7 @@
       const [messages, setMessages] = useState([
         {
           sender: 'coach',
-          text: `Hello! I am your MASTERED AI Voice Coach. Welcome to Mission ${moduleNumber}: ${missionData.title}. Situation: ${missionData.situation}. You need ${requiredSentences} separate, unique spoken sentences to pass this mission. Let's start! Please introduce yourself or tell me about: ${missionData.topics[0] || 'your name and goal'}.`,
+          text: shortWelcome,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }
       ]);
@@ -1087,6 +1087,7 @@
       const coachSpeakingRef = React.useRef(false);
       const speechTimeoutRef = React.useRef(null);
       const uniqueSentencesRef = React.useRef(new Set());
+      const hasSpokenInitialGreetingRef = React.useRef(false);
 
       const stopAudioAndRecognition = () => {
         callActiveRef.current = false;
@@ -1352,7 +1353,11 @@
             recognitionRef.current.start();
             setListening(true);
           } catch(e) {}
-          speakText(messages[0].text);
+
+          if (!hasSpokenInitialGreetingRef.current) {
+            hasSpokenInitialGreetingRef.current = true;
+            speakText(messages[0].text);
+          }
         }
       };
 
