@@ -1109,46 +1109,61 @@
         onClose();
       };
 
-      // Select Best Human Voice for Natural Spoken Experience
-      const getBestHumanVoice = () => {
+      // Select Warm, Expressive Female Native English Voice
+      const getBestFemaleVoice = () => {
         if (!('speechSynthesis' in window)) return null;
         const voices = window.speechSynthesis.getVoices();
         if (!voices || voices.length === 0) return null;
 
-        const preferred = voices.find(v => 
-          (v.name.includes("Google") && v.lang.startsWith("en")) ||
-          (v.name.includes("Natural") && v.lang.startsWith("en")) ||
-          v.name.includes("Samantha") ||
-          v.name.includes("Daniel") ||
-          v.name.includes("Karen") ||
-          v.name.includes("Alex")
-        );
+        const femaleVoiceList = [
+          "Google US English",
+          "Google UK English Female",
+          "Microsoft Jenny",
+          "Microsoft Aria",
+          "Microsoft Zira",
+          "Samantha",
+          "Victoria",
+          "Karen",
+          "Fiona",
+          "Serena",
+          "Moira"
+        ];
 
-        if (preferred) return preferred;
+        for (const name of femaleVoiceList) {
+          const found = voices.find(v => v.name.includes(name) && v.lang.startsWith("en"));
+          if (found) return found;
+        }
+
+        const anyFemale = voices.find(v => 
+          v.lang.startsWith("en") && 
+          (v.name.toLowerCase().includes("female") || v.name.toLowerCase().includes("zira") || v.name.toLowerCase().includes("samantha") || v.name.toLowerCase().includes("jenny") || v.name.toLowerCase().includes("aria"))
+        );
+        if (anyFemale) return anyFemale;
+
         return voices.find(v => v.lang.startsWith("en")) || voices[0];
       };
 
-      // Automatic Continuous Mic Listener Loop (Zero Clicks Needed!)
+      // Automatic Continuous Hands-Free Listener Loop (Never stops after 1 sentence!)
       const safeRestartRecognition = () => {
         if (!callActiveRef.current || coachSpeakingRef.current) return;
         if (!recognitionRef.current) return;
 
         try { recognitionRef.current.stop(); } catch(e){}
 
-        setTimeout(() => {
-          if (callActiveRef.current && !coachSpeakingRef.current && recognitionRef.current) {
-            try {
-              recognitionRef.current.start();
-              setListening(true);
-            } catch(e) {
-              setTimeout(() => {
-                if (callActiveRef.current && !coachSpeakingRef.current && recognitionRef.current) {
-                  try { recognitionRef.current.start(); setListening(true); } catch(err){}
-                }
-              }, 250);
+        const attemptStart = (delay) => {
+          setTimeout(() => {
+            if (callActiveRef.current && !coachSpeakingRef.current && recognitionRef.current) {
+              try {
+                recognitionRef.current.start();
+                setListening(true);
+              } catch(err) {
+                if (delay < 800) attemptStart(delay + 200);
+              }
             }
-          }
-        }, 120);
+          }, delay);
+        };
+
+        attemptStart(100);
       };
 
       const speakText = (text, onEndCallback) => {
@@ -1158,11 +1173,11 @@
           window.speechSynthesis.cancel();
           const u = new SpeechSynthesisUtterance(text);
           u.lang = 'en-US';
-          u.rate = 0.92; // Natural conversational rate
-          u.pitch = 1.02; // Warm tone
+          u.rate = 0.94; // Expressive conversational speed
+          u.pitch = 1.15; // Warm female pitch modulation
 
-          const humanVoice = getBestHumanVoice();
-          if (humanVoice) u.voice = humanVoice;
+          const femaleVoice = getBestFemaleVoice();
+          if (femaleVoice) u.voice = femaleVoice;
 
           coachSpeakingRef.current = true;
           setCoachSpeaking(true);
@@ -1210,44 +1225,47 @@
           let isQuestionToCoach = false;
           let isDuplicate = false;
           let isTooShort = false;
+          let isGrammarError = false;
 
           const lower = text.toLowerCase();
           const words = lower.split(/\s+/).length;
           const cleanNorm = lower.replace(/[^a-z0-9\s]/g, '').trim();
 
-          // 1. Detect Question to Coach
+          // 1. Detect Question to Coach (DO NOT COUNT!)
           const questionStarters = ["what", "why", "how", "where", "who", "when", "can you", "could you", "do you", "would you", "is it", "are you", "what is", "who is", "tell me", "help me"];
           if (questionStarters.some(starter => lower.startsWith(starter)) || lower.endsWith("?") || lower.includes("don't understand") || lower.includes("dont understand")) {
             isQuestionToCoach = true;
             if (lower.includes("who are you") || lower.includes("what is your name")) {
-              coachReply = `I am your MASTERED AI Voice Coach! I'm here to practice Mission ${moduleNumber}: ${missionData.title} with you. Tell me about ${missionData.topics[0] || 'yourself'}!`;
+              coachReply = `I'm your MASTERED AI Voice Coach! I'm here to practice Mission ${moduleNumber}: ${missionData.title} with you. Tell me about ${missionData.topics[0] || 'yourself'}!`;
             } else if (lower.includes("what should i say") || lower.includes("help") || lower.includes("what do you mean")) {
               coachReply = `In this mission, we are practicing ${missionData.situation}. You can talk about ${missionData.topics[correctCount % missionData.topics.length] || 'your daily routine'}. Go ahead!`;
             } else {
-              coachReply = `That's a good question! As your speaking coach, I'd love to hear more about ${missionData.topics[correctCount % missionData.topics.length] || 'this topic'}. Give me a complete sentence!`;
+              coachReply = `That's a great question! As your speaking buddy, I'd love to hear more about ${missionData.topics[correctCount % missionData.topics.length] || 'this topic'}. Give me a complete sentence!`;
             }
           }
-          // 2. Check for Grammar Corrections
-          else if (lower.includes("i am go") || lower.includes("he go") || lower.includes("she go") || lower.includes("i am agree")) {
+          // 2. Check for Grammar Errors (DO NOT COUNT!)
+          else if (lower.includes("i am go") || lower.includes("he go") || lower.includes("she go") || lower.includes("i am agree") || lower.includes("i go yesterday")) {
+            isGrammarError = true;
             const fixed = text
               .replace(/i am go/gi, "I went")
               .replace(/he go/gi, "he goes")
               .replace(/she go/gi, "she goes")
-              .replace(/i am agree/gi, "I agree");
-            coachReply = `Good effort! Say: "${fixed}". Please repeat that sentence now.`;
+              .replace(/i am agree/gi, "I agree")
+              .replace(/i go yesterday/gi, "I went yesterday");
+            coachReply = `Good effort! Remember to say: "${fixed}". Please repeat that sentence for me!`;
             setCorrectionsLog(prev => [...prev, { original: text, corrected: fixed }]);
           }
-          // 3. Check for Duplicate Sentences
+          // 3. Check for Duplicate Sentences (DO NOT COUNT!)
           else if (uniqueSentencesRef.current.has(cleanNorm)) {
             isDuplicate = true;
-            coachReply = `You already shared that exact thought! Please tell me something new about ${missionData.topics[(correctCount + 1) % missionData.topics.length] || 'your goal'} so we can count it.`;
+            coachReply = `You already shared that exact thought! Please tell me something new about ${missionData.topics[(correctCount + 1) % missionData.topics.length] || 'your goal'} so I can count it.`;
           }
           // 4. Check length requirement (must be at least 4 words)
           else if (words < 4) {
             isTooShort = true;
             coachReply = `Nice start! Please expand into a complete sentence with at least 4 to 5 words so I can count it for you.`;
           }
-          // 5. Valid New Unique Sentence!
+          // 5. Valid New Unique Sentence! (ONLY THIS INCREMENTS COUNT!)
           else {
             uniqueSentencesRef.current.add(cleanNorm);
             const newCount = correctCount + 1;
@@ -1288,13 +1306,13 @@
           const coachMsg = {
             sender: 'coach',
             text: coachReply,
-            isNote: isQuestionToCoach || isDuplicate || isTooShort,
+            isNote: isQuestionToCoach || isDuplicate || isTooShort || isGrammarError,
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
           };
 
           setMessages(prev => [...prev, coachMsg]);
           speakText(coachReply);
-        }, 800);
+        }, 750);
       };
 
       useEffect(() => {
