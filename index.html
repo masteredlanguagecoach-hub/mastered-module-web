@@ -1148,57 +1148,54 @@
         if (!callActiveRef.current || coachSpeakingRef.current) return;
         if (!recognitionRef.current) return;
 
-        try { recognitionRef.current.stop(); } catch(e){}
-
-        const attemptStart = (delay) => {
-          setTimeout(() => {
-            if (callActiveRef.current && !coachSpeakingRef.current && recognitionRef.current) {
-              try {
-                recognitionRef.current.start();
-                setListening(true);
-              } catch(err) {
-                if (delay < 800) attemptStart(delay + 200);
-              }
-            }
-          }, delay);
-        };
-
-        attemptStart(100);
+        try {
+          recognitionRef.current.start();
+          setListening(true);
+        } catch(err) {
+          // Ignore error if recognition is already running
+        }
       };
 
       const speakText = (text, onEndCallback) => {
         if (!callActiveRef.current && text !== messages[0].text) return;
 
         if ('speechSynthesis' in window) {
+          if (recognitionRef.current) {
+            try { recognitionRef.current.stop(); } catch(e){}
+          }
+
           window.speechSynthesis.cancel();
-          const u = new SpeechSynthesisUtterance(text);
-          u.lang = 'en-US';
-          u.rate = 0.94; // Expressive conversational speed
-          u.pitch = 1.15; // Warm female pitch modulation
 
-          const femaleVoice = getBestFemaleVoice();
-          if (femaleVoice) u.voice = femaleVoice;
+          setTimeout(() => {
+            const u = new SpeechSynthesisUtterance(text);
+            u.lang = 'en-US';
+            u.rate = 0.94; // Expressive conversational speed
+            u.pitch = 1.15; // Warm female pitch modulation
 
-          coachSpeakingRef.current = true;
-          setCoachSpeaking(true);
-          setListening(false);
+            const femaleVoice = getBestFemaleVoice();
+            if (femaleVoice) u.voice = femaleVoice;
 
-          u.onend = () => {
-            coachSpeakingRef.current = false;
-            setCoachSpeaking(false);
-            if (onEndCallback) onEndCallback();
-            if (callActiveRef.current) {
-              safeRestartRecognition();
-            }
-          };
-          u.onerror = () => {
-            coachSpeakingRef.current = false;
-            setCoachSpeaking(false);
-            if (callActiveRef.current) {
-              safeRestartRecognition();
-            }
-          };
-          window.speechSynthesis.speak(u);
+            coachSpeakingRef.current = true;
+            setCoachSpeaking(true);
+            setListening(false);
+
+            u.onend = () => {
+              coachSpeakingRef.current = false;
+              setCoachSpeaking(false);
+              if (onEndCallback) onEndCallback();
+              if (callActiveRef.current) {
+                setTimeout(safeRestartRecognition, 300);
+              }
+            };
+            u.onerror = () => {
+              coachSpeakingRef.current = false;
+              setCoachSpeaking(false);
+              if (callActiveRef.current) {
+                setTimeout(safeRestartRecognition, 300);
+              }
+            };
+            window.speechSynthesis.speak(u);
+          }, 80);
         }
       };
 
@@ -1333,11 +1330,14 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
         return null;
       };
 
+      const lastProcessedTextRef = useRef('');
+
       const handleStudentSpeech = (rawText) => {
         if (status === 'PASSED' || !callActiveRef.current) return;
 
         const text = rawText.trim();
-        if (!text) return;
+        if (!text || text === lastProcessedTextRef.current) return;
+        lastProcessedTextRef.current = text;
 
         const userMsg = {
           sender: 'student',
