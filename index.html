@@ -36,15 +36,10 @@
     }
   </script>
 
-  <!-- React 18 & High-Availability Babel 7 Standalone Multi-CDN -->
+  <!-- React 18 & Fast High-Uptime Babel Standalone CDNs -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js" crossorigin></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.4/babel.min.js" crossorigin></script>
-  <script>
-    if (typeof Babel === 'undefined') {
-      document.write('<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7/babel.min.js"><\/script>');
-    }
-  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js" crossorigin></script>
 
   <style>
     body {
@@ -76,21 +71,11 @@
   </style>
 </head>
 <body class="bg-[#F8FAFC] text-[#0F172A] antialiased min-h-screen">
-  <div id="root">
-    <div style="min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: system-ui, -apple-system, sans-serif; padding: 24px; text-align: center; background: #0F172A; color: white;">
-      <div style="width: 52px; height: 52px; border: 4px solid #DC2626; border-top-color: transparent; border-radius: 50%; animation: portalSpin 0.9s linear infinite; margin-bottom: 20px;"></div>
-      <h2 style="font-size: 22px; font-weight: 800; margin: 0 0 8px 0; color: #FFFFFF;">MASTERED Language Coach</h2>
-      <p style="font-size: 13px; color: #94A3B8; max-width: 360px; margin: 0 0 16px 0; line-height: 1.5;">Student & Admin Web Portal • Initializing portal...</p>
-      <button onclick="window.location.reload(true)" style="padding: 10px 20px; background: #DC2626; color: white; font-weight: 700; font-size: 12px; border: none; border-radius: 12px; cursor: pointer;">
-        Refresh Portal
-      </button>
-      <style>@keyframes portalSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
-    </div>
-  </div>
+  <div id="root"></div>
 
   <script src="assets/quizData.js"></script>
   <script src="assets/modulesData.js"></script>
-  <script type="text/babel" data-presets="react,env">
+  <script type="text/babel">
     const { useState, useEffect, useRef, useMemo, useCallback } = React;
 
     // Transparent PNG Logo Asset
