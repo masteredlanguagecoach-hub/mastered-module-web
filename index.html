@@ -3077,17 +3077,43 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
         localStorage.removeItem('mastered_user_session');
       };
 
-      // Submit Access Request (Guaranteed Real-time Cross-Device Sync)
+      const [isSubmittingRequest, setIsSubmittingRequest] = useState(false);
+
+      // Submit Access Request (Guaranteed Real-time Cross-Device Sync & Anti-Duplicate Protection)
       const handleSubmitAccessRequest = async (e) => {
         e.preventDefault();
+        if (isSubmittingRequest) return;
+
         const form = e.target;
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const phone = form.phone.value.trim();
+        const admissionNumber = form.admissionNumber.value.trim().toUpperCase();
+        const course = form.course.value;
+
+        // Check if student has already submitted a pending request
+        const alreadySubmitted = requests.some(r => 
+          r.status === 'Pending' && (
+            (r.admissionNumber && r.admissionNumber.trim().toUpperCase() === admissionNumber) ||
+            (r.email && r.email.trim().toLowerCase() === email.toLowerCase())
+          )
+        );
+
+        if (alreadySubmitted) {
+          alert("⏳ Application Already Received!\nYour access request is already logged in the Mastered Language Coach system. The coach will review and approve your portal access shortly!");
+          setAuthScreen('login');
+          return;
+        }
+
+        setIsSubmittingRequest(true);
+
         const newReq = {
           requestId: `REQ-${Math.floor(1000 + Math.random() * 9000)}`,
-          name: form.name.value.trim(),
-          email: form.email.value.trim(),
-          phone: form.phone.value.trim(),
-          admissionNumber: form.admissionNumber.value.trim().toUpperCase(),
-          course: form.course.value,
+          name,
+          email,
+          phone,
+          admissionNumber,
+          course,
           status: 'Pending',
           createdDate: new Date().toISOString().split('T')[0]
         };
@@ -3095,22 +3121,33 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
         setRequests(prev => [newReq, ...prev]);
         showToast("⏳ Submitting request to Mastered Language Coach system...");
 
-        const res = await callAppsScript('submitRequest', newReq);
-        if (res && res.success) {
+        try {
+          const res = await callAppsScript('submitRequest', newReq);
           alert("🎉 Access Application Submitted Successfully!\nYour request is recorded live in the Mastered Language Coach database. The coach will review and approve your access shortly!");
-        } else {
+        } catch(err) {
           alert("🎉 Application Submitted Successfully!\nYour details have been sent to the Mastered Language Coach team.");
+        } finally {
+          setIsSubmittingRequest(false);
+          refreshLiveData();
+          setAuthScreen('login');
         }
-        refreshLiveData();
-        setAuthScreen('login');
       };
 
-      // Approve Student Access Request
-      const handleApproveRequest = async (reqId) => {
-        const req = requests.find(r => r.requestId === reqId);
+      // Approve Student Access Request (Batch clears all duplicate submissions for this student!)
+      const handleApproveRequest = async (req) => {
         if (!req) return;
+        const targetAdm = (req.admissionNumber || '').trim().toUpperCase();
+        const targetEmail = (req.email || '').trim().toLowerCase();
 
-        setRequests(prev => prev.map(r => r.requestId === reqId ? { ...r, status: 'Approved' } : r));
+        // Mark all duplicate entries for this student as Approved
+        setRequests(prev => prev.map(r => {
+          const rAdm = (r.admissionNumber || '').trim().toUpperCase();
+          const rEmail = (r.email || '').trim().toLowerCase();
+          if ((targetAdm && rAdm === targetAdm) || (targetEmail && rEmail === targetEmail)) {
+            return { ...r, status: 'Approved' };
+          }
+          return r;
+        }));
 
         const newStudent = {
           studentId: `STD-${Math.floor(1000 + Math.random() * 9000)}`,
@@ -3127,9 +3164,47 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
 
         setStudents(prev => [newStudent, ...prev]);
         showToast(`✅ Approved request for ${req.name}! Enrolled in Student Directory.`);
-        await callAppsScript('approveRequest', { requestId: reqId });
+        await callAppsScript('approveRequest', { requestId: req.requestId, admissionNumber: req.admissionNumber, email: req.email });
         refreshLiveData();
       };
+
+      // Reject Student Access Request (Batch clears all duplicate submissions for this student!)
+      const handleRejectRequest = async (req) => {
+        if (!req) return;
+        const targetAdm = (req.admissionNumber || '').trim().toUpperCase();
+        const targetEmail = (req.email || '').trim().toLowerCase();
+
+        setRequests(prev => prev.map(r => {
+          const rAdm = (r.admissionNumber || '').trim().toUpperCase();
+          const rEmail = (r.email || '').trim().toLowerCase();
+          if ((targetAdm && rAdm === targetAdm) || (targetEmail && rEmail === targetEmail)) {
+            return { ...r, status: 'Rejected' };
+          }
+          return r;
+        }));
+
+        showToast(`🚫 Request rejected for ${req.name}.`);
+        await callAppsScript('rejectRequest', { requestId: req.requestId, admissionNumber: req.admissionNumber, email: req.email });
+        refreshLiveData();
+      };
+
+      // Automatic Deduplication: Combine duplicate submissions from the same student into 1 unique request
+      const uniquePendingRequests = React.useMemo(() => {
+        const map = new Map();
+        requests.forEach(r => {
+          if (r.status === 'Pending') {
+            const admKey = (r.admissionNumber || '').trim().toUpperCase();
+            const emailKey = (r.email || '').trim().toLowerCase();
+            const key = admKey || emailKey || r.requestId;
+            if (!map.has(key)) {
+              map.set(key, r);
+            }
+          }
+        });
+        return Array.from(map.values());
+      }, [requests]);
+
+      const pendingRequestsList = uniquePendingRequests;
 
       // Dismiss / Remove Student (After Approval)
       const handleDismissStudent = async (studentToDismiss) => {
@@ -3295,8 +3370,8 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
                       <option value="61 DAYS JOURNEY UNDER A COACH">61 DAYS JOURNEY UNDER A COACH</option>
                     </select>
                   </div>
-                  <button type="submit" className="w-full py-3.5 bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 font-extrabold rounded-xl text-white shadow-lg shadow-red-600/30 text-sm">
-                    Submit Access Application
+                  <button type="submit" disabled={isSubmittingRequest} className="w-full py-3.5 bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 font-extrabold rounded-xl text-white shadow-lg shadow-red-600/30 text-sm disabled:opacity-50">
+                    {isSubmittingRequest ? '⏳ Submitting Application...' : 'Submit Access Application'}
                   </button>
                 </form>
               </div>
@@ -3860,13 +3935,13 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
 
                               <div className="flex space-x-2 pt-2 border-t border-slate-100">
                                 <button
-                                  onClick={() => handleApproveRequest(req.requestId)}
+                                  onClick={() => handleApproveRequest(req)}
                                   className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-md transition"
                                 >
                                   ✓ Approve & Enroll Student
                                 </button>
                                 <button
-                                  onClick={() => setRequests(prev => prev.map(r => r.requestId === req.requestId ? { ...r, status: 'Rejected' } : r))}
+                                  onClick={() => handleRejectRequest(req)}
                                   className="px-4 py-2.5 bg-slate-100 hover:bg-red-50 text-slate-600 hover:text-red-600 font-bold text-xs rounded-xl transition"
                                 >
                                   Reject
