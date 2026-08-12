@@ -36,6 +36,20 @@
     }
   </script>
 
+  <script>
+    window.onerror = function(msg, url, lineNo, columnNo, error) {
+      console.error("Diagnostic Caught:", msg, url, lineNo, error);
+      var div = document.getElementById('debug-log');
+      if (!div) {
+        div = document.createElement('div');
+        div.id = 'debug-log';
+        div.style = 'position:fixed;top:0;left:0;right:0;z-index:999999;background:#990000;color:#ffffff;padding:16px;font-family:monospace;font-size:12px;white-space:pre-wrap;word-break:break-all;max-height:50vh;overflow:auto;box-shadow:0 10px 30px rgba(0,0,0,0.5);';
+        document.body.appendChild(div);
+      }
+      div.innerHTML = '🚨 PORTAL DIAGNOSTIC ERROR:\n' + msg + '\nLine: ' + lineNo + ':' + columnNo + (error && error.stack ? '\nStack: ' + error.stack : '');
+    };
+  </script>
+
   <!-- React 18 & Fast High-Uptime Babel Standalone CDNs -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js" crossorigin></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" crossorigin></script>
@@ -84,6 +98,21 @@
   <script src="assets/quizData.js?v=2.0" defer></script>
   <script type="text/babel">
     const { useState, useEffect, useRef, useMemo, useCallback } = React;
+
+    const safeStorage = {
+      getItem: (key) => {
+        try { return localStorage.getItem(key); } catch(e) { return null; }
+      },
+      setItem: (key, val) => {
+        try { localStorage.setItem(key, val); } catch(e) {}
+      },
+      removeItem: (key) => {
+        try { localStorage.removeItem(key); } catch(e) {}
+      },
+      clear: () => {
+        try { localStorage.clear(); } catch(e) {}
+      }
+    };
 
     // Transparent PNG Logo Asset
     const LOGO_SRC = "assets/logo.png";
@@ -1285,7 +1314,7 @@
       const [modules, setModules] = useState(() => (typeof window !== 'undefined' && window.EXACT_32_MODULES) || (typeof EXACT_32_MODULES !== 'undefined' ? EXACT_32_MODULES : []));
 
       const [customQuizBank, setCustomQuizBank] = useState(() => {
-        const saved = localStorage.getItem('mastered_custom_quiz_bank');
+        const saved = safeStorage.getItem('mastered_custom_quiz_bank');
         if (saved) {
           try {
             return JSON.parse(saved);
@@ -1297,7 +1326,7 @@
       useEffect(() => {
         if (customQuizBank && Object.keys(customQuizBank).length > 0) {
           window.QUIZ_BANK = customQuizBank;
-          localStorage.setItem('mastered_custom_quiz_bank', JSON.stringify(customQuizBank));
+          safeStorage.setItem('mastered_custom_quiz_bank', JSON.stringify(customQuizBank));
         }
       }, [customQuizBank]);
 
@@ -1315,12 +1344,12 @@
       const [userProgress, setUserProgress] = useState(() => {
         let initial = {};
         try {
-          const session = localStorage.getItem('mastered_user_session');
+          const session = safeStorage.getItem('mastered_user_session');
           if (session) {
             const parsed = JSON.parse(session);
             const adm = (parsed && parsed.user) ? (parsed.user.admissionNumber || parsed.user.studentId) : null;
             if (adm) {
-              const studentSaved = localStorage.getItem(`mastered_progress_${adm}`);
+              const studentSaved = safeStorage.getItem(`mastered_progress_${adm}`);
               if (studentSaved) {
                 const p = JSON.parse(studentSaved);
                 if (p && typeof p === 'object') initial = p;
@@ -1330,7 +1359,7 @@
         } catch(e) {}
 
         if (!initial || typeof initial !== 'object' || Object.keys(initial).length === 0) {
-          const globalSaved = localStorage.getItem('mastered_progress');
+          const globalSaved = safeStorage.getItem('mastered_progress');
           if (globalSaved) {
             try {
               const g = JSON.parse(globalSaved);
@@ -1514,17 +1543,17 @@
 
       // Session restore on page refresh (F5)
       useEffect(() => {
-        const savedSession = localStorage.getItem('mastered_user_session');
-        if (savedSession) {
-          try {
+        try {
+          const savedSession = safeStorage.getItem('mastered_user_session');
+          if (savedSession) {
             const parsed = JSON.parse(savedSession);
             if (parsed && parsed.user && parsed.role) {
               setCurrentUser(parsed.user);
               setRole(parsed.role);
               setActiveTab(parsed.tab || (parsed.role === 'admin' ? 'admin-dashboard' : 'dashboard'));
             }
-          } catch(e) {}
-        }
+          }
+        } catch(e) {}
       }, []);
 
       // Live Google Sheets Request & Student Sync (Every 3 seconds across devices)
