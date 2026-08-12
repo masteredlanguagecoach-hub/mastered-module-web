@@ -1381,8 +1381,8 @@
           const currentStudentMap = prev[adm] || {};
           const mergedStudentProg = { ...currentStudentMap, ...updatedStudentProgress };
           const allStudentsProg = { ...prev, [adm]: mergedStudentProg };
-          localStorage.setItem('mastered_all_students_progress', JSON.stringify(allStudentsProg));
-          localStorage.setItem(`mastered_progress_${adm}`, JSON.stringify(mergedStudentProg));
+          safeStorage.setItem('mastered_all_students_progress', JSON.stringify(allStudentsProg));
+          safeStorage.setItem(`mastered_progress_${adm}`, JSON.stringify(mergedStudentProg));
           return allStudentsProg;
         });
 
@@ -1409,8 +1409,8 @@
               const currentStudentMap = prev[adm] || {};
               const mergedStudentProg = { ...currentStudentMap, ...res.userProgress };
               const allStudentsProg = { ...prev, [adm]: mergedStudentProg };
-              localStorage.setItem('mastered_all_students_progress', JSON.stringify(allStudentsProg));
-              localStorage.setItem(`mastered_progress_${adm}`, JSON.stringify(mergedStudentProg));
+              safeStorage.setItem('mastered_all_students_progress', JSON.stringify(allStudentsProg));
+              safeStorage.setItem(`mastered_progress_${adm}`, JSON.stringify(mergedStudentProg));
               return allStudentsProg;
             });
           }
@@ -1512,7 +1512,7 @@
             ...prev,
             graduationVideo: payload
           };
-          localStorage.setItem('mastered_progress', JSON.stringify(updated));
+          safeStorage.setItem('mastered_progress', JSON.stringify(updated));
           return updated;
         });
         showToast("🎓 2-Minute Graduation Video Submitted Successfully!");
@@ -1534,7 +1534,7 @@
             }
           };
           const updatedAll = { ...prev, [adm]: updatedStudentProg };
-          localStorage.setItem('mastered_progress', JSON.stringify(updatedAll));
+          safeStorage.setItem('mastered_progress', JSON.stringify(updatedAll));
           return updatedAll;
         });
         showToast(`🎓 Approved Graduation Certificate for ${studentToApprove.name}!`);
@@ -1577,6 +1577,11 @@
           if (stdRes && stdRes.success && Array.isArray(stdRes.data)) {
             setStudents(stdRes.data);
           }
+
+          // Real-time Cloud Progress Sync across all student devices
+          if (currentUser && role === 'student') {
+            await fetchStudentProgressFromCloud(currentUser);
+          }
         } catch(e) {}
       };
 
@@ -1589,10 +1594,10 @@
       // Save user progress safely
       useEffect(() => {
         if (userProgress && Object.keys(userProgress).length > 0) {
-          localStorage.setItem('mastered_progress', JSON.stringify(userProgress));
+          safeStorage.setItem('mastered_progress', JSON.stringify(userProgress));
           if (currentUser && (currentUser.admissionNumber || currentUser.studentId)) {
             const adm = currentUser.admissionNumber || currentUser.studentId;
-            localStorage.setItem(`mastered_progress_${adm}`, JSON.stringify(userProgress));
+            safeStorage.setItem(`mastered_progress_${adm}`, JSON.stringify(userProgress));
           }
         }
       }, [userProgress, currentUser]);
@@ -1648,7 +1653,8 @@
           setCurrentUser(live.student);
           setRole('student');
           setActiveTab('dashboard');
-          localStorage.setItem('mastered_user_session', JSON.stringify({ user: live.student, role: 'student', tab: 'dashboard' }));
+          safeStorage.setItem('mastered_user_session', JSON.stringify({ user: live.student, role: 'student', tab: 'dashboard' }));
+          fetchStudentProgressFromCloud(live.student);
           return { success: true };
         }
 
@@ -1657,7 +1663,8 @@
           setCurrentUser(found);
           setRole('student');
           setActiveTab('dashboard');
-          localStorage.setItem('mastered_user_session', JSON.stringify({ user: found, role: 'student', tab: 'dashboard' }));
+          safeStorage.setItem('mastered_user_session', JSON.stringify({ user: found, role: 'student', tab: 'dashboard' }));
+          fetchStudentProgressFromCloud(found);
           return { success: true };
         }
         return { success: false, message: (live && live.message) || "Invalid credentials or account pending approval." };
@@ -1673,7 +1680,7 @@
           setCurrentUser(adminObj);
           setRole('admin');
           setActiveTab('admin-dashboard');
-          localStorage.setItem('mastered_user_session', JSON.stringify({ user: adminObj, role: 'admin', tab: 'admin-dashboard' }));
+          safeStorage.setItem('mastered_user_session', JSON.stringify({ user: adminObj, role: 'admin', tab: 'admin-dashboard' }));
           return { success: true };
         }
 
@@ -1682,7 +1689,7 @@
           setCurrentUser(live.admin);
           setRole('admin');
           setActiveTab('admin-dashboard');
-          localStorage.setItem('mastered_user_session', JSON.stringify({ user: live.admin, role: 'admin', tab: 'admin-dashboard' }));
+          safeStorage.setItem('mastered_user_session', JSON.stringify({ user: live.admin, role: 'admin', tab: 'admin-dashboard' }));
           return { success: true };
         }
 
@@ -1695,7 +1702,7 @@
         setAuthScreen('login');
         setSelectedModuleId(null);
         setMobileMenuOpen(false);
-        localStorage.removeItem('mastered_user_session');
+        safeStorage.removeItem('mastered_user_session');
       };
 
       const [isSubmittingRequest, setIsSubmittingRequest] = useState(false);
@@ -1729,8 +1736,8 @@
         );
 
         // 3. Check local submission memory lock
-        const localSubmittedAdm = localStorage.getItem(`mastered_req_adm_${admissionNumber}`);
-        const localSubmittedEmail = localStorage.getItem(`mastered_req_email_${email.toLowerCase()}`);
+        const localSubmittedAdm = safeStorage.getItem(`mastered_req_adm_${admissionNumber}`);
+        const localSubmittedEmail = safeStorage.getItem(`mastered_req_email_${email.toLowerCase()}`);
 
         if (existsInRequests || existsInStudents || localSubmittedAdm || localSubmittedEmail) {
           alert(`⛔ Access Application Already Exists!\nAdmission Number "${admissionNumber}" or Email "${email}" has ALREADY submitted an application or is enrolled in Mastered Language Coach.\n\nDuplicate entries are strictly blocked. Please proceed to login or wait for coach approval!`);
@@ -1753,8 +1760,8 @@
         };
 
         // Set local submission lock
-        localStorage.setItem(`mastered_req_adm_${admissionNumber}`, 'true');
-        localStorage.setItem(`mastered_req_email_${email.toLowerCase()}`, 'true');
+        safeStorage.setItem(`mastered_req_adm_${admissionNumber}`, 'true');
+        safeStorage.setItem(`mastered_req_email_${email.toLowerCase()}`, 'true');
 
         setRequests(prev => [newReq, ...(prev || [])]);
         showToast("⏳ Submitting request to Mastered Language Coach system...");
