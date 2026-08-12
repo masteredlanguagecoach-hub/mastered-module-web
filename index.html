@@ -1553,6 +1553,9 @@
               setActiveTab(parsed.tab || (parsed.role === 'admin' ? 'admin-dashboard' : 'dashboard'));
             }
           }
+        } catch(e) {}
+      }, []);
+
       // Navigation Tab Handler
       const handleNavigateTab = (tabName, closeMobile = false) => {
         setSelectedModuleId(null);
