@@ -50,14 +50,15 @@
     };
   </script>
 
-  <!-- React 18 & Modern Babel 7 Standalone CDNs -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js" crossorigin></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone@7.24.0/babel.min.js"></script>
+  <!-- React 18 & High-Availability Babel 7 Standalone CDNs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.6/babel.min.js" crossorigin="anonymous"></script>
   <script>
     if (typeof Babel === 'undefined') {
       var bScript = document.createElement('script');
-      bScript.src = "https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.6/babel.min.js";
+      bScript.src = "https://unpkg.com/@babel/standalone@7.24.0/babel.min.js";
+      bScript.crossOrigin = "anonymous";
       document.head.appendChild(bScript);
     }
   </script>
