@@ -1553,8 +1553,13 @@
               setActiveTab(parsed.tab || (parsed.role === 'admin' ? 'admin-dashboard' : 'dashboard'));
             }
           }
-        } catch(e) {}
-      }, []);
+      // Navigation Tab Handler
+      const handleNavigateTab = (tabName, closeMobile = false) => {
+        setSelectedModuleId(null);
+        setActiveQuizModNumber(null);
+        setActiveTab(tabName);
+        if (closeMobile) setMobileMenuOpen(false);
+      };
 
       // Live Google Sheets Request & Student Sync (Every 3 seconds across devices)
       const refreshLiveData = async () => {
@@ -2190,21 +2195,20 @@
                   <nav className="space-y-1.5 text-xs font-semibold">
                     {role === 'student' ? (
                       <>
-                        <button onClick={() => { setSelectedModuleId(null); setActiveQuizModNumber(null); setActiveTab('dashboard'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'dashboard' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Dashboard</button>
-                        <button onClick={() => { setSelectedModuleId(null); setActiveQuizModNumber(null); setActiveTab('modules'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'modules' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Modules Explorer ({modules.length})</button>
-                        <button onClick={() => { setSelectedModuleId(null); setActiveQuizModNumber(null); setActiveTab('quizzes'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'quizzes' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>30-Question Quizzes 📝</button>
+                        <button onClick={() => handleNavigateTab('dashboard', true)} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'dashboard' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Dashboard</button>
+                        <button onClick={() => handleNavigateTab('modules', true)} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'modules' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Modules Explorer ({modules.length})</button>
+                        <button onClick={() => handleNavigateTab('quizzes', true)} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'quizzes' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>30-Question Quizzes 📝</button>
                       </>
                     ) : (
                       <>
-                        <button onClick={() => { setActiveTab('admin-dashboard'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-dashboard' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Dashboard Metrics</button>
-                        <button onClick={() => { setActiveTab('admin-students'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-students' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Student Directory ({students.length})</button>
-                        <button onClick={() => { setActiveTab('admin-requests'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-requests' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>
+                        <button onClick={() => handleNavigateTab('admin-dashboard', true)} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-dashboard' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Dashboard Metrics</button>
+                        <button onClick={() => handleNavigateTab('admin-students', true)} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-students' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Student Directory ({students.length})</button>
+                        <button onClick={() => handleNavigateTab('admin-requests', true)} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-requests' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>
                           Pending Requests ({pendingRequestsList.length})
                         </button>
-                        <button onClick={() => { setActiveTab('admin-modules'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-modules' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Module Manager ({modules.length})</button>
-                        <button onClick={() => { setActiveTab('admin-quizzes'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-quizzes' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Quiz Manager 📝</button>
-                        <button onClick={() => { setActiveTab('admin-graduation'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-graduation' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Graduation Videos 🎓</button>
-                        <button onClick={() => { setActiveTab('admin-ai-settings'); setMobileMenuOpen(false); }} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-ai-settings' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>AI Coach Settings ⚙️</button>
+                        <button onClick={() => handleNavigateTab('admin-modules', true)} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-modules' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Module Manager ({modules.length})</button>
+                        <button onClick={() => handleNavigateTab('admin-quizzes', true)} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-quizzes' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Quiz Manager 📝</button>
+                        <button onClick={() => handleNavigateTab('admin-graduation', true)} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'admin-graduation' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Graduation Videos 🎓</button>
                       </>
                     )}
                   </nav>
@@ -2227,21 +2231,20 @@
                 <nav className="space-y-1 text-xs font-semibold">
                   {role === 'student' ? (
                     <>
-                      <button onClick={() => { setSelectedModuleId(null); setActiveQuizModNumber(null); setActiveTab('dashboard'); }} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'dashboard' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Dashboard</button>
-                      <button onClick={() => { setSelectedModuleId(null); setActiveQuizModNumber(null); setActiveTab('modules'); }} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'modules' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Modules Explorer ({modules.length})</button>
-                      <button onClick={() => { setSelectedModuleId(null); setActiveQuizModNumber(null); setActiveTab('quizzes'); }} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'quizzes' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Module Quizzes 📝</button>
+                      <button onClick={() => handleNavigateTab('dashboard')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'dashboard' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Dashboard</button>
+                      <button onClick={() => handleNavigateTab('modules')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'modules' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Modules Explorer ({modules.length})</button>
+                      <button onClick={() => handleNavigateTab('quizzes')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'quizzes' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Module Quizzes 📝</button>
                     </>
                   ) : (
                     <>
-                      <button onClick={() => setActiveTab('admin-dashboard')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-dashboard' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Dashboard Metrics</button>
-                      <button onClick={() => setActiveTab('admin-students')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-students' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Student Directory ({students.length})</button>
-                      <button onClick={() => setActiveTab('admin-requests')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-requests' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>
+                      <button onClick={() => handleNavigateTab('admin-dashboard')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-dashboard' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Dashboard Metrics</button>
+                      <button onClick={() => handleNavigateTab('admin-students')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-students' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Student Directory ({students.length})</button>
+                      <button onClick={() => handleNavigateTab('admin-requests')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-requests' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>
                         Pending Requests ({pendingRequestsList.length})
                       </button>
-                      <button onClick={() => setActiveTab('admin-modules')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-modules' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Module Manager ({modules.length})</button>
-                      <button onClick={() => setActiveTab('admin-quizzes')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-quizzes' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Quiz Manager 📝</button>
-                      <button onClick={() => setActiveTab('admin-graduation')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-graduation' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Graduation Videos 🎓</button>
-                      <button onClick={() => setActiveTab('admin-ai-settings')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-ai-settings' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>AI Coach Settings ⚙️</button>
+                      <button onClick={() => handleNavigateTab('admin-modules')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-modules' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Module Manager ({modules.length})</button>
+                      <button onClick={() => handleNavigateTab('admin-quizzes')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-quizzes' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Quiz Manager 📝</button>
+                      <button onClick={() => handleNavigateTab('admin-graduation')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'admin-graduation' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Graduation Videos 🎓</button>
                     </>
                   )}
                 </nav>
@@ -2841,34 +2844,34 @@
             <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-red-900/40 px-4 py-2 flex items-center justify-around text-slate-400 z-30">
               {role === 'student' ? (
                 <>
-                  <button onClick={() => { setSelectedModuleId(null); setActiveQuizModNumber(null); setActiveTab('dashboard'); }} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'dashboard' ? 'text-red-500' : 'text-slate-400'}`}>
+                  <button onClick={() => handleNavigateTab('dashboard')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'dashboard' ? 'text-red-500' : 'text-slate-400'}`}>
                     <span>Dashboard</span>
                   </button>
-                  <button onClick={() => { setSelectedModuleId(null); setActiveQuizModNumber(null); setActiveTab('modules'); }} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'modules' ? 'text-red-500' : 'text-slate-400'}`}>
+                  <button onClick={() => handleNavigateTab('modules')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'modules' ? 'text-red-500' : 'text-slate-400'}`}>
                     <span>Modules ({modules.length})</span>
                   </button>
-                  <button onClick={() => { setSelectedModuleId(null); setActiveQuizModNumber(null); setActiveTab('quizzes'); }} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'quizzes' ? 'text-red-500' : 'text-slate-400'}`}>
+                  <button onClick={() => handleNavigateTab('quizzes')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'quizzes' ? 'text-red-500' : 'text-slate-400'}`}>
                     <span>Quizzes 📝</span>
                   </button>
                 </>
               ) : (
                 <>
-                  <button onClick={() => setActiveTab('admin-dashboard')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-dashboard' ? 'text-red-500' : 'text-slate-400'}`}>
+                  <button onClick={() => handleNavigateTab('admin-dashboard')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-dashboard' ? 'text-red-500' : 'text-slate-400'}`}>
                     <span>Metrics</span>
                   </button>
-                  <button onClick={() => setActiveTab('admin-students')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-students' ? 'text-red-500' : 'text-slate-400'}`}>
+                  <button onClick={() => handleNavigateTab('admin-students')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-students' ? 'text-red-500' : 'text-slate-400'}`}>
                     <span>Students ({students.length})</span>
                   </button>
-                  <button onClick={() => setActiveTab('admin-requests')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-requests' ? 'text-red-500' : 'text-slate-400'}`}>
+                  <button onClick={() => handleNavigateTab('admin-requests')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-requests' ? 'text-red-500' : 'text-slate-400'}`}>
                     <span>Requests ({pendingRequestsList.length})</span>
                   </button>
-                  <button onClick={() => setActiveTab('admin-modules')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-modules' ? 'text-red-500' : 'text-slate-400'}`}>
+                  <button onClick={() => handleNavigateTab('admin-modules')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-modules' ? 'text-red-500' : 'text-slate-400'}`}>
                     <span>Modules ({modules.length})</span>
                   </button>
-                  <button onClick={() => setActiveTab('admin-quizzes')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-quizzes' ? 'text-red-500' : 'text-slate-400'}`}>
+                  <button onClick={() => handleNavigateTab('admin-quizzes')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-quizzes' ? 'text-red-500' : 'text-slate-400'}`}>
                     <span>Quizzes 📝</span>
                   </button>
-                  <button onClick={() => setActiveTab('admin-graduation')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-graduation' ? 'text-red-500' : 'text-slate-400'}`}>
+                  <button onClick={() => handleNavigateTab('admin-graduation')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'admin-graduation' ? 'text-red-500' : 'text-slate-400'}`}>
                     <span>Graduation 🎓</span>
                   </button>
                 </>
