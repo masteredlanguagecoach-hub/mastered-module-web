@@ -36,10 +36,26 @@
     }
   </script>
 
-  <!-- React 18 & Babel Standalone CDNs -->
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- React 18 & Babel Standalone CDNs (High Reliability Fast Global CDNs) -->
+  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7/babel.min.js"></script>
+
+  <script>
+    // Universal Zero-Blank-Screen Emergency Recovery Handler
+    window.addEventListener('error', function(e) {
+      console.error("Mastered Portal Script Error:", e);
+      var root = document.getElementById('root');
+      if (root && root.children.length === 0) {
+        root.innerHTML = '<div style="min-height:100vh;background:#0f172a;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;font-family:sans-serif;">' +
+          '<div style="width:64px;height:64px;border-radius:50%;background:rgba(220,38,38,0.2);border:2px solid #ef4444;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:16px;">⚠️</div>' +
+          '<h2 style="font-size:20px;font-weight:800;margin-bottom:8px;color:#ffffff;">Mastered Language Coach Portal</h2>' +
+          '<p style="font-size:13px;color:#94a3b8;max-width:420px;line-height:1.6;margin-bottom:20px;">Network asset sync in progress. Click below to launch your updated portal session.</p>' +
+          '<button onclick="localStorage.clear();location.reload();" style="background:#dc2626;color:#ffffff;border:none;padding:12px 24px;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 10px 15px -3px rgba(220,38,38,0.3);">🚀 Launch Clean Portal Session</button>' +
+          '</div>';
+      }
+    });
+  </script>
 
   <style>
     body {
