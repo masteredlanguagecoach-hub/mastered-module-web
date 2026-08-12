@@ -1,4 +1,4 @@
-﻿const QUIZ_BANK = {
+const QUIZ_BANK = {
     "1":  [
               {
                   "id":  1,
