@@ -3079,7 +3079,7 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
 
       const [isSubmittingRequest, setIsSubmittingRequest] = useState(false);
 
-      // Submit Access Request (Guaranteed Real-time Cross-Device Sync & Anti-Duplicate Protection)
+      // Submit Access Request (Strict 3-Layer Anti-Duplicate Engine)
       const handleSubmitAccessRequest = async (e) => {
         e.preventDefault();
         if (isSubmittingRequest) return;
@@ -3091,16 +3091,28 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
         const admissionNumber = form.admissionNumber.value.trim().toUpperCase();
         const course = form.course.value;
 
-        // Check if student has already submitted a pending request
-        const alreadySubmitted = (requests || []).some(r => 
-          r && typeof r === 'object' && r.status === 'Pending' && (
+        // 1. Check if admission number or email exists in Requests (ANY status: Pending, Approved, Rejected)
+        const existsInRequests = (requests || []).some(r => 
+          r && typeof r === 'object' && (
             (r.admissionNumber && r.admissionNumber.toString().trim().toUpperCase() === admissionNumber) ||
             (r.email && r.email.toString().trim().toLowerCase() === email.toLowerCase())
           )
         );
 
-        if (alreadySubmitted) {
-          alert("⏳ Application Already Received!\nYour access request is already logged in the Mastered Language Coach system. The coach will review and approve your portal access shortly!");
+        // 2. Check if student is already enrolled in Student Directory
+        const existsInStudents = (students || []).some(s => 
+          s && typeof s === 'object' && (
+            (s.admissionNumber && s.admissionNumber.toString().trim().toUpperCase() === admissionNumber) ||
+            (s.email && s.email.toString().trim().toLowerCase() === email.toLowerCase())
+          )
+        );
+
+        // 3. Check local submission memory lock
+        const localSubmittedAdm = localStorage.getItem(`mastered_req_adm_${admissionNumber}`);
+        const localSubmittedEmail = localStorage.getItem(`mastered_req_email_${email.toLowerCase()}`);
+
+        if (existsInRequests || existsInStudents || localSubmittedAdm || localSubmittedEmail) {
+          alert(`⛔ Access Application Already Exists!\nAdmission Number "${admissionNumber}" or Email "${email}" has ALREADY submitted an application or is enrolled in Mastered Language Coach.\n\nDuplicate entries are strictly blocked. Please proceed to login or wait for coach approval!`);
           setAuthScreen('login');
           return;
         }
@@ -3115,15 +3127,24 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
           admissionNumber,
           course,
           status: 'Pending',
+          preventDuplicate: true,
           createdDate: new Date().toISOString().split('T')[0]
         };
+
+        // Set local submission lock
+        localStorage.setItem(`mastered_req_adm_${admissionNumber}`, 'true');
+        localStorage.setItem(`mastered_req_email_${email.toLowerCase()}`, 'true');
 
         setRequests(prev => [newReq, ...(prev || [])]);
         showToast("⏳ Submitting request to Mastered Language Coach system...");
 
         try {
           const res = await callAppsScript('submitRequest', newReq);
-          alert("🎉 Access Application Submitted Successfully!\nYour request is recorded live in the Mastered Language Coach database. The coach will review and approve your access shortly!");
+          if (res && res.duplicate) {
+            alert(`⛔ Access Application Already Exists!\nGoogle Sheets recorded an existing request for "${admissionNumber}". Duplicate entry was blocked.`);
+          } else {
+            alert("🎉 Access Application Submitted Successfully!\nYour request is recorded live in the Mastered Language Coach database. The coach will review and approve your access shortly!");
+          }
         } catch(err) {
           alert("🎉 Application Submitted Successfully!\nYour details have been sent to the Mastered Language Coach team.");
         } finally {
