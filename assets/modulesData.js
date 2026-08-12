@@ -1,4 +1,5 @@
 // EXACT 32 REAL CURRICULUM MODULES & HELPER UTILITIES
+const LIVE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbqPvlxmAFOgtXn-VJ9b9fuvjOL3hsy18wSCu4xYhfVIcnLMVWGVbeD6XsLxv1ZG_2/exec";
 const THUMBNAILS = [
   "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop&q=80",
   "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=80",
@@ -469,6 +470,7 @@ async function callAppsScript(action, payload = {}) {
 }
 
 // Global Window Exports for Browser High-Availability
+window.LIVE_APPS_SCRIPT_URL = LIVE_APPS_SCRIPT_URL;
 window.THUMBNAILS = THUMBNAILS;
 window.EXACT_32_MODULES = EXACT_32_MODULES;
 window.getVideoEmbedUrl = getVideoEmbedUrl;
