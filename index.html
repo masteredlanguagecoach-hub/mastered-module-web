@@ -2765,21 +2765,27 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
           const session = localStorage.getItem('mastered_user_session');
           if (session) {
             const parsed = JSON.parse(session);
-            const adm = parsed?.user?.admissionNumber || parsed?.user?.studentId;
+            const adm = (parsed && parsed.user) ? (parsed.user.admissionNumber || parsed.user.studentId) : null;
             if (adm) {
               const studentSaved = localStorage.getItem(`mastered_progress_${adm}`);
-              if (studentSaved) initial = JSON.parse(studentSaved);
+              if (studentSaved) {
+                const p = JSON.parse(studentSaved);
+                if (p && typeof p === 'object') initial = p;
+              }
             }
           }
         } catch(e) {}
 
-        if (Object.keys(initial).length === 0) {
+        if (!initial || typeof initial !== 'object' || Object.keys(initial).length === 0) {
           const globalSaved = localStorage.getItem('mastered_progress');
           if (globalSaved) {
-            try { initial = JSON.parse(globalSaved); } catch(e) {}
+            try {
+              const g = JSON.parse(globalSaved);
+              if (g && typeof g === 'object') initial = g;
+            } catch(e) {}
           }
         }
-        return initial;
+        return (initial && typeof initial === 'object') ? initial : {};
       });
 
       // Cross-Device Student Progress Sync (Google Apps Script API & Permanent Cloud Database)
@@ -2937,8 +2943,10 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
 
       // 100% Course Graduation Video Status
       const is100PercentGraduated = (() => {
-        const mod32Quiz = userProgress['MOD-32']?.quizScores && userProgress['MOD-32']?.quizScores[32];
-        return (mod32Quiz && mod32Quiz.percentage >= 85) || false;
+        const activeProg = getCurrentStudentProgressMap();
+        if (!activeProg || typeof activeProg !== 'object') return false;
+        const mod32Quiz = activeProg['MOD-32'] && activeProg['MOD-32'].quizScores && activeProg['MOD-32'].quizScores[32];
+        return Boolean(mod32Quiz && mod32Quiz.percentage >= 85);
       })();
 
       // Save 2-Minute Graduation Video
@@ -4339,7 +4347,7 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
       );
     }
 
-    // Error Boundary Component to Permanently Prevent Blank Screen Issues
+    // Error Boundary Component to Permanently Prevent Blank Screen & Silent Crashes
     class ErrorBoundary extends React.Component {
       constructor(props) {
         super(props);
@@ -4354,23 +4362,40 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
         console.error("Mastered Portal Application Error:", error, errorInfo);
       }
 
+      handleResetCache = () => {
+        try {
+          localStorage.clear();
+          sessionStorage.clear();
+        } catch(e) {}
+        window.location.reload();
+      };
+
       render() {
         if (this.state.hasError) {
+          const errText = (this.state.error && this.state.error.message) ? this.state.error.message : 'Unknown Session Error';
           return (
-            <div className="min-h-screen bg-slate-900 text-white flex flex-col items-center justify-center p-6 text-center space-y-4">
+            <div className="min-h-screen bg-slate-900 text-white flex flex-col items-center justify-center p-6 text-center space-y-5">
               <div className="w-16 h-16 rounded-full bg-red-600/20 border-2 border-red-500 flex items-center justify-center text-3xl shadow-lg">
                 ⚠️
               </div>
-              <h2 className="text-xl font-extrabold">Mastered Language Coach Portal Reconnecting...</h2>
-              <p className="text-xs text-slate-400 max-w-md leading-relaxed">
-                Your portal session is being re-established. Click below to refresh and load your up-to-date dashboard.
+              <h2 className="text-xl font-extrabold">Mastered Language Coach Portal Session Restored</h2>
+              <p className="text-xs text-slate-300 max-w-md leading-relaxed bg-slate-800/80 p-3 rounded-xl border border-slate-700 font-mono">
+                {errText}
               </p>
-              <button
-                onClick={() => window.location.reload()}
-                className="px-6 py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition"
-              >
-                🔄 Refresh Portal Session
-              </button>
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                <button
+                  onClick={() => window.location.reload()}
+                  className="px-6 py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition"
+                >
+                  🔄 Refresh Session
+                </button>
+                <button
+                  onClick={this.handleResetCache}
+                  className="px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-extrabold text-xs rounded-xl border border-slate-700 transition"
+                >
+                  🧹 Clear Local Cache & Launch Clean Portal
+                </button>
+              </div>
             </div>
           );
         }
