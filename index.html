@@ -75,7 +75,7 @@
 
   <script src="assets/quizData.js"></script>
   <script type="text/babel">
-    const { useState, useEffect } = React;
+    const { useState, useEffect, useRef, useMemo, useCallback } = React;
 
     const LIVE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbqPvlxmAFOgtXn-VJ9b9fuvjOL3hsy18wSCu4xYhfVIcnLMVWGVbeD6XsLxv1ZG_2/exec";
     
@@ -3310,19 +3310,19 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
         return Array.from(map.values());
       }, [students]);
 
-      const [studentSearchQuery, setStudentSearchQuery] = useState('');
+      const [studentSearchQuery, setStudentSearchQuery] = React.useState('');
 
       // Dynamic Real-time Student Search Filter (Name, Phone, Admission Number, Email, Course)
       const filteredStudentsList = React.useMemo(() => {
-        if (!studentSearchQuery.trim()) return uniqueStudentsList;
-        const q = studentSearchQuery.toLowerCase().trim();
-        return uniqueStudentsList.filter(s => {
+        if (!studentSearchQuery || !studentSearchQuery.trim()) return uniqueStudentsList || [];
+        const q = String(studentSearchQuery).toLowerCase().trim();
+        return (uniqueStudentsList || []).filter(s => {
           if (!s || typeof s !== 'object') return false;
-          const name = (s.name || '').toLowerCase();
-          const email = (s.email || '').toLowerCase();
-          const phone = (s.phone || '').toLowerCase();
-          const adm = (s.admissionNumber || '').toLowerCase();
-          const course = (s.course || '').toLowerCase();
+          const name = String(s.name || '').toLowerCase();
+          const email = String(s.email || '').toLowerCase();
+          const phone = String(s.phone || '').toLowerCase();
+          const adm = String(s.admissionNumber || s.studentId || '').toLowerCase();
+          const course = String(s.course || '').toLowerCase();
           return name.includes(q) || email.includes(q) || phone.includes(q) || adm.includes(q) || course.includes(q);
         });
       }, [uniqueStudentsList, studentSearchQuery]);
