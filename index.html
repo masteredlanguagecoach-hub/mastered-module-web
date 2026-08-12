@@ -2524,9 +2524,18 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
     function StudentHistoryModal({ student, userProgress, modules, isAdmin, onDismiss, onClose }) {
       if (!student) return null;
 
-      // Extract progress data for this student
-      const studentAdm = student.admissionNumber || '';
-      const progData = (userProgress && userProgress[studentAdm]) ? userProgress[studentAdm] : (userProgress || {});
+      // Extract progress data ONLY for this specific student (no fallback to other students)
+      const studentAdm = (student.admissionNumber || '').toString().trim().toUpperCase();
+      const studentEmail = (student.email || '').toString().trim().toLowerCase();
+      
+      let progData = {};
+      if (userProgress && typeof userProgress === 'object') {
+        if (studentAdm && userProgress[studentAdm]) {
+          progData = userProgress[studentAdm];
+        } else if (studentEmail && userProgress[studentEmail]) {
+          progData = userProgress[studentEmail];
+        }
+      }
 
       let totalVideo = 0;
       let totalAudio = 0;
@@ -3261,6 +3270,23 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
         return Array.from(map.values());
       }, [students]);
 
+      const [studentSearchQuery, setStudentSearchQuery] = useState('');
+
+      // Dynamic Real-time Student Search Filter (Name, Phone, Admission Number, Email, Course)
+      const filteredStudentsList = React.useMemo(() => {
+        if (!studentSearchQuery.trim()) return uniqueStudentsList;
+        const q = studentSearchQuery.toLowerCase().trim();
+        return uniqueStudentsList.filter(s => {
+          if (!s || typeof s !== 'object') return false;
+          const name = (s.name || '').toLowerCase();
+          const email = (s.email || '').toLowerCase();
+          const phone = (s.phone || '').toLowerCase();
+          const adm = (s.admissionNumber || '').toLowerCase();
+          const course = (s.course || '').toLowerCase();
+          return name.includes(q) || email.includes(q) || phone.includes(q) || adm.includes(q) || course.includes(q);
+        });
+      }, [uniqueStudentsList, studentSearchQuery]);
+
       const totalRawPendingCount = React.useMemo(() => {
         if (!Array.isArray(requests)) return 0;
         return requests.filter(r => r && typeof r === 'object' && r.status === 'Pending').length;
@@ -3914,13 +3940,36 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
                   {/* Student Directory Tab */}
                   {activeTab === 'admin-students' && (
                     <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 space-y-4 shadow-sm">
-                      <div className="flex justify-between items-center">
-                        <h3 className="text-base sm:text-lg font-bold text-slate-900">Student Directory ({uniqueStudentsList.length})</h3>
-                        <button onClick={refreshLiveData} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl">🔄 Refresh Sync</button>
+                      <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+                        <h3 className="text-base sm:text-lg font-bold text-slate-900">
+                          Student Directory ({filteredStudentsList.length} of {uniqueStudentsList.length})
+                        </h3>
+                        <div className="flex items-center space-x-2 w-full sm:w-auto">
+                          <div className="relative flex-1 sm:w-72">
+                            <input
+                              type="text"
+                              value={studentSearchQuery}
+                              onChange={e => setStudentSearchQuery(e.target.value)}
+                              placeholder="🔍 Search Name, Phone, or Admission No..."
+                              className="w-full pl-9 pr-8 py-2 border rounded-xl text-xs font-bold text-slate-900 bg-slate-50 focus:bg-white focus:border-red-500 outline-none transition"
+                            />
+                            <span className="absolute left-3 top-2 text-slate-400 text-xs pointer-events-none">🔍</span>
+                            {studentSearchQuery && (
+                              <button onClick={() => setStudentSearchQuery('')} className="absolute right-2.5 top-2 text-slate-400 hover:text-slate-600 font-bold text-xs">✖</button>
+                            )}
+                          </div>
+                          <button onClick={refreshLiveData} className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl shrink-0">🔄 Refresh</button>
+                        </div>
                       </div>
                       
-                      {uniqueStudentsList.length === 0 ? (
-                        <p className="text-xs text-slate-500 text-center py-8">No enrolled students currently. Approve pending applications from the Requests queue to add students!</p>
+                      {filteredStudentsList.length === 0 ? (
+                        <div className="text-center py-10 space-y-2">
+                          <p className="text-sm font-bold text-slate-700">No matching students found</p>
+                          <p className="text-xs text-slate-400">Try searching for a different name, phone number, or admission number.</p>
+                          {studentSearchQuery && (
+                            <button onClick={() => setStudentSearchQuery('')} className="px-4 py-1.5 bg-red-100 text-red-700 font-bold text-xs rounded-xl">Clear Search</button>
+                          )}
+                        </div>
                       ) : (
                         <div className="overflow-x-auto w-full">
                           <table className="w-full text-left text-xs min-w-[600px]">
@@ -3928,18 +3977,18 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
                               <tr>
                                 <th className="p-3">Name</th>
                                 <th className="p-3">Admission No</th>
-                                <th className="p-3">Email</th>
+                                <th className="p-3">Email & Phone</th>
                                 <th className="p-3">Course</th>
                                 <th className="p-3">Status</th>
                                 <th className="p-3 text-right">Student Record</th>
                               </tr>
                             </thead>
                             <tbody className="divide-y">
-                              {uniqueStudentsList.map(s => (
+                              {filteredStudentsList.map(s => (
                                 <tr key={s.studentId || s.email} className="hover:bg-slate-50">
                                   <td className="p-3 font-bold text-slate-900">{s.name}</td>
                                   <td className="p-3 font-mono text-slate-600">{s.admissionNumber}</td>
-                                  <td className="p-3 text-slate-500">{s.email}</td>
+                                  <td className="p-3 text-slate-500">{s.email} {s.phone ? `• ${s.phone}` : ''}</td>
                                   <td className="p-3">{s.course}</td>
                                   <td className="p-3"><span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">{s.status || 'Active'}</span></td>
                                   <td className="p-3 text-right">
