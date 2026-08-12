@@ -39,7 +39,7 @@
   <!-- React 18 & Babel Standalone CDNs (Cloudflare High Uptime Pinned CDNs) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js" crossorigin></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js" crossorigin></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.4/babel.min.js" crossorigin></script>
 
   <style>
     body {
@@ -74,7 +74,7 @@
   <div id="root"></div>
 
   <script src="assets/quizData.js"></script>
-  <script type="text/babel">
+  <script type="text/babel" data-presets="env,react">
     const { useState, useEffect, useRef, useMemo, useCallback } = React;
 
     const LIVE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbqPvlxmAFOgtXn-VJ9b9fuvjOL3hsy18wSCu4xYhfVIcnLMVWGVbeD6XsLxv1ZG_2/exec";
@@ -1299,7 +1299,7 @@ Return ONLY raw JSON with keys: "coachReply" (string), "isGrammarError" (boolean
           });
 
           const data = await response.json();
-          if (data && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+          if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text) {
             const rawText = data.candidates[0].content.parts[0].text;
             const cleanJson = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
             return JSON.parse(cleanJson);
@@ -1349,7 +1349,7 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
           });
 
           const data = await response.json();
-          if (data && data.choices && data.choices[0]?.message?.content) {
+          if (data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
             return JSON.parse(data.choices[0].message.content);
           }
         } catch(err) {
@@ -1753,8 +1753,8 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
             {modules.map(m => {
               const modNum = m.moduleNumber;
               const quizQuestions = (typeof QUIZ_BANK !== 'undefined' && QUIZ_BANK[modNum]) || [];
-              const scoreData = (userProgress[m.moduleId]?.quizScores && userProgress[m.moduleId]?.quizScores[modNum]) || null;
-              const missionData = userProgress[m.moduleId]?.aiMissionScore || null;
+              const scoreData = (userProgress[m.moduleId] && userProgress[m.moduleId].quizScores && userProgress[m.moduleId].quizScores[modNum]) || null;
+              const missionData = (userProgress[m.moduleId] && userProgress[m.moduleId].aiMissionScore) || null;
               const unlocked = isLevelUnlocked(modNum);
 
               return (
@@ -3735,7 +3735,7 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
                       <div className="relative z-20 sm:text-right border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-800 flex sm:block justify-between items-center">
                         <span className="text-xs text-slate-400 font-bold">Completion</span>
                         <p className="text-xl sm:text-2xl font-extrabold text-emerald-400">
-                          {userProgress[activeModule.moduleId]?.percentage || 0}%
+                          {(userProgress[activeModule.moduleId] && userProgress[activeModule.moduleId].percentage) || 0}%
                         </p>
                       </div>
                     </div>
@@ -3748,7 +3748,7 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
                       <button onClick={() => { setActiveQuizModNumber(activeModule.moduleNumber); setActiveQuizModTitle(activeModule.title); }} className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold shrink-0 transition shadow-sm">📝 Take 30-Q Quiz</button>
                       <button onClick={() => setActiveAIMissionModNumber(activeModule.moduleNumber)} className="px-3.5 py-2 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white rounded-xl text-xs font-bold shrink-0 transition shadow-md flex items-center space-x-1">
                         <span>🎙️ Complete AI Mission</span>
-                        {userProgress[activeModule.moduleId]?.aiMissionScore?.score >= 85 && <span className="text-[10px] bg-emerald-500 text-white px-1.5 py-0.2 rounded-full font-extrabold">✓ 85%+</span>}
+                        {Boolean(userProgress[activeModule.moduleId] && userProgress[activeModule.moduleId].aiMissionScore && userProgress[activeModule.moduleId].aiMissionScore.score >= 85) && <span className="text-[10px] bg-emerald-500 text-white px-1.5 py-0.2 rounded-full font-extrabold">✓ 85%+</span>}
                       </button>
                     </div>
 
@@ -3874,7 +3874,7 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                         {modules.map(m => {
                           const modNum = m.moduleNumber;
-                          const prog = userProgress[m.moduleId]?.percentage || 0;
+                          const prog = (userProgress[m.moduleId] && userProgress[m.moduleId].percentage) || 0;
                           const unlocked = isLevelUnlocked(modNum);
 
                           return (
@@ -4337,7 +4337,7 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
           {activeAIMissionModNumber && (
             <AIMissionRoom
               moduleNumber={activeAIMissionModNumber}
-              moduleTitle={modules.find(m => m.moduleNumber === activeAIMissionModNumber)?.title || ''}
+              moduleTitle={(modules.find(m => m.moduleNumber === activeAIMissionModNumber) && modules.find(m => m.moduleNumber === activeAIMissionModNumber).title) || ''}
               userProgress={userProgress}
               onClose={() => setActiveAIMissionModNumber(null)}
               onSaveMissionScore={handleSaveMissionScore}
