@@ -467,3 +467,11 @@ async function callAppsScript(action, payload = {}) {
     }, 4000);
   });
 }
+
+// Global Window Exports for Browser High-Availability
+window.THUMBNAILS = THUMBNAILS;
+window.EXACT_32_MODULES = EXACT_32_MODULES;
+window.getVideoEmbedUrl = getVideoEmbedUrl;
+window.getDriveEmbedUrl = getDriveEmbedUrl;
+window.callAppsScript = callAppsScript;
+

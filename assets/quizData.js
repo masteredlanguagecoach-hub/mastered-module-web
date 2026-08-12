@@ -10901,3 +10901,4 @@ const QUIZ_BANK = {
                }
            ]
 };
+if (typeof window !== 'undefined') { window.QUIZ_BANK = QUIZ_BANK; }
