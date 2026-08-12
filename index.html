@@ -41,21 +41,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js" crossorigin></script>
 
-  <script>
-    window.addEventListener('error', function(e) {
-      console.error("Global Error Caught:", e);
-      var root = document.getElementById('root');
-      if (root && root.children.length === 0) {
-        root.innerHTML = '<div style="min-height:100vh;background:#0f172a;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;font-family:sans-serif;">' +
-          '<div style="width:64px;height:64px;border-radius:50%;background:rgba(220,38,38,0.2);border:2px solid #ef4444;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:16px;">⚠️</div>' +
-          '<h2 style="font-size:20px;font-weight:800;margin-bottom:8px;color:#ffffff;">Mastered Language Coach Portal</h2>' +
-          '<p style="font-size:12px;color:#f87171;max-width:500px;line-height:1.6;margin-bottom:20px;word-break:break-word;font-family:monospace;">' + (e.message || e.error || 'Initialization Error') + '</p>' +
-          '<button onclick="localStorage.clear();location.reload();" style="background:#dc2626;color:#ffffff;border:none;padding:12px 24px;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;">🚀 Launch Clean Portal</button>' +
-          '</div>';
-      }
-    });
-  </script>
-
   <style>
     body {
       font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
