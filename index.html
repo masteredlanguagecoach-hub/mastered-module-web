@@ -3092,10 +3092,10 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
         const course = form.course.value;
 
         // Check if student has already submitted a pending request
-        const alreadySubmitted = requests.some(r => 
-          r.status === 'Pending' && (
-            (r.admissionNumber && r.admissionNumber.trim().toUpperCase() === admissionNumber) ||
-            (r.email && r.email.trim().toLowerCase() === email.toLowerCase())
+        const alreadySubmitted = (requests || []).some(r => 
+          r && typeof r === 'object' && r.status === 'Pending' && (
+            (r.admissionNumber && r.admissionNumber.toString().trim().toUpperCase() === admissionNumber) ||
+            (r.email && r.email.toString().trim().toLowerCase() === email.toLowerCase())
           )
         );
 
@@ -3118,7 +3118,7 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
           createdDate: new Date().toISOString().split('T')[0]
         };
 
-        setRequests(prev => [newReq, ...prev]);
+        setRequests(prev => [newReq, ...(prev || [])]);
         showToast("⏳ Submitting request to Mastered Language Coach system...");
 
         try {
@@ -3136,13 +3136,14 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
       // Approve Student Access Request (Batch clears all duplicate submissions for this student!)
       const handleApproveRequest = async (req) => {
         if (!req) return;
-        const targetAdm = (req.admissionNumber || '').trim().toUpperCase();
-        const targetEmail = (req.email || '').trim().toLowerCase();
+        const targetAdm = (req.admissionNumber || '').toString().trim().toUpperCase();
+        const targetEmail = (req.email || '').toString().trim().toLowerCase();
 
         // Mark all duplicate entries for this student as Approved
-        setRequests(prev => prev.map(r => {
-          const rAdm = (r.admissionNumber || '').trim().toUpperCase();
-          const rEmail = (r.email || '').trim().toLowerCase();
+        setRequests(prev => (prev || []).map(r => {
+          if (!r || typeof r !== 'object') return r;
+          const rAdm = (r.admissionNumber || '').toString().trim().toUpperCase();
+          const rEmail = (r.email || '').toString().trim().toLowerCase();
           if ((targetAdm && rAdm === targetAdm) || (targetEmail && rEmail === targetEmail)) {
             return { ...r, status: 'Approved' };
           }
@@ -3162,7 +3163,7 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
           createdDate: new Date().toISOString().split('T')[0]
         };
 
-        setStudents(prev => [newStudent, ...prev]);
+        setStudents(prev => [newStudent, ...(prev || [])]);
         showToast(`✅ Approved request for ${req.name}! Enrolled in Student Directory.`);
         await callAppsScript('approveRequest', { requestId: req.requestId, admissionNumber: req.admissionNumber, email: req.email });
         refreshLiveData();
@@ -3171,12 +3172,13 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
       // Reject Student Access Request (Batch clears all duplicate submissions for this student!)
       const handleRejectRequest = async (req) => {
         if (!req) return;
-        const targetAdm = (req.admissionNumber || '').trim().toUpperCase();
-        const targetEmail = (req.email || '').trim().toLowerCase();
+        const targetAdm = (req.admissionNumber || '').toString().trim().toUpperCase();
+        const targetEmail = (req.email || '').toString().trim().toLowerCase();
 
-        setRequests(prev => prev.map(r => {
-          const rAdm = (r.admissionNumber || '').trim().toUpperCase();
-          const rEmail = (r.email || '').trim().toLowerCase();
+        setRequests(prev => (prev || []).map(r => {
+          if (!r || typeof r !== 'object') return r;
+          const rAdm = (r.admissionNumber || '').toString().trim().toUpperCase();
+          const rEmail = (r.email || '').toString().trim().toLowerCase();
           if ((targetAdm && rAdm === targetAdm) || (targetEmail && rEmail === targetEmail)) {
             return { ...r, status: 'Rejected' };
           }
@@ -3191,11 +3193,12 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
       // Automatic Deduplication: Combine duplicate submissions from the same student into 1 unique request
       const uniquePendingRequests = React.useMemo(() => {
         const map = new Map();
+        if (!Array.isArray(requests)) return [];
         requests.forEach(r => {
-          if (r.status === 'Pending') {
-            const admKey = (r.admissionNumber || '').trim().toUpperCase();
-            const emailKey = (r.email || '').trim().toLowerCase();
-            const key = admKey || emailKey || r.requestId;
+          if (r && typeof r === 'object' && r.status === 'Pending') {
+            const admKey = (r.admissionNumber || '').toString().trim().toUpperCase();
+            const emailKey = (r.email || '').toString().trim().toLowerCase();
+            const key = admKey || emailKey || r.requestId || Math.random();
             if (!map.has(key)) {
               map.set(key, r);
             }
