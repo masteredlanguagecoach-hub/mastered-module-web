@@ -1959,26 +1959,6 @@
         }
       };
 
-      // Update Student Progress
-      const handleMarkItemComplete = (modId, itemKey) => {
-        setUserProgress(prev => {
-          const existing = prev[modId] || { video1: false, audio: false, pdf: false, percentage: 0 };
-          const updated = { ...existing, [itemKey]: true };
-          
-          let count = 0;
-          if (updated.video1) count++;
-          if (updated.audio) count++;
-          if (updated.pdf) count++;
-          updated.percentage = Math.round((count / 3) * 100);
-
-          const updatedAll = { ...prev, [modId]: updated };
-          localStorage.setItem('mastered_progress', JSON.stringify(updatedAll));
-          syncStudentProgressToCloud(updatedAll);
-          return updatedAll;
-        });
-        showToast("✨ Progress updated!");
-      };
-
       const Header = () => (
         <header className="bg-slate-900 border-b border-red-900/40 px-4 sm:px-6 py-3 sticky top-0 z-30 shadow-md flex items-center justify-between">
           <div className="flex items-center space-x-3">
