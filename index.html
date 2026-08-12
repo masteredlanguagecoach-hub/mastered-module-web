@@ -3154,13 +3154,13 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
         }
       };
 
-      // Approve Student Access Request (Batch clears all duplicate submissions for this student!)
+      // Approve Student Access Request (Guaranteed Unique Student Enrollment)
       const handleApproveRequest = async (req) => {
         if (!req) return;
         const targetAdm = (req.admissionNumber || '').toString().trim().toUpperCase();
         const targetEmail = (req.email || '').toString().trim().toLowerCase();
 
-        // Mark all duplicate entries for this student as Approved
+        // 1. Mark all duplicate request entries for this student as Approved
         setRequests(prev => (prev || []).map(r => {
           if (!r || typeof r !== 'object') return r;
           const rAdm = (r.admissionNumber || '').toString().trim().toUpperCase();
@@ -3171,6 +3171,22 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
           return r;
         }));
 
+        // 2. Check if student is ALREADY enrolled in Student Directory
+        const alreadyEnrolled = (students || []).some(s => {
+          if (!s || typeof s !== 'object') return false;
+          const sAdm = (s.admissionNumber || '').toString().trim().toUpperCase();
+          const sEmail = (s.email || '').toString().trim().toLowerCase();
+          return (targetAdm && sAdm === targetAdm) || (targetEmail && sEmail === targetEmail);
+        });
+
+        if (alreadyEnrolled) {
+          showToast(`ℹ️ ${req.name} is already enrolled in the Student Directory.`);
+          await callAppsScript('approveRequest', { requestId: req.requestId, admissionNumber: req.admissionNumber, email: req.email });
+          refreshLiveData();
+          return;
+        }
+
+        // 3. Enroll New Unique Student
         const newStudent = {
           studentId: `STD-${Math.floor(1000 + Math.random() * 9000)}`,
           admissionNumber: req.admissionNumber,
@@ -3227,6 +3243,23 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
         });
         return Array.from(map.values());
       }, [requests]);
+
+      // Automatic Student Deduplication: Guarantee exactly 1 unique student record per admission number
+      const uniqueStudentsList = React.useMemo(() => {
+        const map = new Map();
+        if (!Array.isArray(students)) return [];
+        students.forEach(s => {
+          if (s && typeof s === 'object') {
+            const admKey = (s.admissionNumber || '').toString().trim().toUpperCase();
+            const emailKey = (s.email || '').toString().trim().toLowerCase();
+            const key = admKey || emailKey || s.studentId || Math.random();
+            if (!map.has(key)) {
+              map.set(key, s);
+            }
+          }
+        });
+        return Array.from(map.values());
+      }, [students]);
 
       const totalRawPendingCount = React.useMemo(() => {
         if (!Array.isArray(requests)) return 0;
@@ -3851,7 +3884,7 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
 
                       {/* Mobile Adaptive Metrics Grid */}
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-                        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm"><p className="text-[11px] sm:text-xs text-slate-500 font-bold">Total Students</p><h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">{students.length}</h3></div>
+                        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm"><p className="text-[11px] sm:text-xs text-slate-500 font-bold">Total Students</p><h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">{uniqueStudentsList.length}</h3></div>
                         <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm">
                           <p className="text-[11px] sm:text-xs text-slate-500 font-bold">Pending Requests</p>
                           <h3 className="text-xl sm:text-2xl font-extrabold text-amber-600 mt-1">
@@ -3882,11 +3915,11 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
                   {activeTab === 'admin-students' && (
                     <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 space-y-4 shadow-sm">
                       <div className="flex justify-between items-center">
-                        <h3 className="text-base sm:text-lg font-bold text-slate-900">Student Directory ({students.length})</h3>
+                        <h3 className="text-base sm:text-lg font-bold text-slate-900">Student Directory ({uniqueStudentsList.length})</h3>
                         <button onClick={refreshLiveData} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl">🔄 Refresh Sync</button>
                       </div>
                       
-                      {students.length === 0 ? (
+                      {uniqueStudentsList.length === 0 ? (
                         <p className="text-xs text-slate-500 text-center py-8">No enrolled students currently. Approve pending applications from the Requests queue to add students!</p>
                       ) : (
                         <div className="overflow-x-auto w-full">
@@ -3902,7 +3935,7 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
                               </tr>
                             </thead>
                             <tbody className="divide-y">
-                              {students.map(s => (
+                              {uniqueStudentsList.map(s => (
                                 <tr key={s.studentId || s.email} className="hover:bg-slate-50">
                                   <td className="p-3 font-bold text-slate-900">{s.name}</td>
                                   <td className="p-3 font-mono text-slate-600">{s.admissionNumber}</td>
