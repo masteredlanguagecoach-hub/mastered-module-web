@@ -399,292 +399,6 @@
           )}
         </div>
       );
-    }
-
-    // COMPLETE 32 AI MISSIONS CURRICULUM BANK
-    const AI_MISSIONS_BANK = {
-      1: {
-        missionNumber: 1,
-        title: "Mission 01: Introduce Yourself",
-        objective: "Introduce yourself confidently and answer basic personal questions.",
-        situation: "Meeting someone for the first time.",
-        grammar: ["I", "am", "my", "a / an"],
-        topics: ["Name", "Place", "Profession", "Hobby", "Goal"]
-      },
-      2: {
-        missionNumber: 2,
-        title: "Mission 02: Talk About Others",
-        objective: "Talk confidently about other people and answer simple questions about family and friends.",
-        situation: "Introducing your family, friends, classmates, or colleagues to someone.",
-        grammar: ["He", "She", "We", "They", "is", "are"],
-        topics: ["Father", "Mother", "Brother", "Sister", "Friend", "Teacher", "Classmate", "Colleague"]
-      },
-      3: {
-        missionNumber: 3,
-        title: "Mission 03: Describe Your Family",
-        objective: "Describe your family members and talk about the things you have confidently.",
-        situation: "Talking about your family, friends, home, and personal belongings.",
-        grammar: ["have", "has", "this", "that", "these", "those"],
-        topics: ["Family", "Friends", "Home", "Personal Belongings", "Favourite Things"]
-      },
-      4: {
-        missionNumber: 4,
-        title: "Mission 04: Talk About What You Can Do",
-        objective: "Talk confidently about your abilities, ask for help politely, and answer simple questions using can, can't, and could.",
-        situation: "Talking about your skills, abilities, and asking or giving help in daily life.",
-        grammar: ["can", "can't", "could"],
-        topics: ["Personal Skills", "Hobbies", "Daily Activities", "Asking for Help", "Giving Help"]
-      },
-      5: {
-        missionNumber: 5,
-        title: "Mission 05: Talk About Responsibilities",
-        objective: "Talk confidently about your daily responsibilities, past responsibilities, and give simple advice.",
-        situation: "Talking about your daily routine, work, studies, family responsibilities, and giving advice.",
-        grammar: ["have to", "has to", "had to", "should"],
-        topics: ["Daily Responsibilities", "Work", "Studies", "Family Duties", "Advice", "Yesterday's Activities"]
-      },
-      6: {
-        missionNumber: 6,
-        title: "Mission 06: Express Yourself Politely",
-        objective: "Express your wishes, make polite requests, ask for permission, and talk about possibilities confidently.",
-        situation: "Making polite conversations in daily life, asking permission, inviting someone, and expressing future possibilities.",
-        grammar: ["would", "would like to", "may", "might"],
-        topics: ["Personal Wishes", "Future Plans", "Invitations", "Asking Permission", "Daily Conversations", "Possibilities"]
-      },
-      7: {
-        missionNumber: 7,
-        title: "Mission 07: Ask Like a Pro",
-        objective: "Ask and answer questions confidently to start and continue everyday conversations.",
-        situation: "Meeting new people, gathering information, and having daily conversations.",
-        grammar: ["Who", "Whom", "What", "When", "Where", "Why", "Which", "Whose", "How"],
-        topics: ["Personal Information", "Family", "Work / Study", "Daily Routine", "Hobbies", "Future Plans", "Preferences", "General Conversation"]
-      },
-      8: {
-        missionNumber: 8,
-        title: "Mission 08: Handle Everyday English",
-        objective: "Use common prepositions, articles, and singular/plural forms correctly in everyday conversations.",
-        situation: "Talking about places, time, travel, daily routines, and directions.",
-        grammar: ["in", "on", "at", "to", "for", "from", "with", "of", "a / an / the", "singular & plural"],
-        topics: ["Home", "Hometown", "Daily Routine", "Travel", "Work or School", "Directions", "Time", "Favourite Places"]
-      },
-      9: {
-        missionNumber: 9,
-        title: "Mission 09: Talk About Your Daily Life",
-        objective: "Talk confidently about your daily routine, habits, and regular activities using the Simple Present Tense.",
-        situation: "Talking about your daily routine, work, studies, home life, and weekend activities.",
-        grammar: ["Simple Present Tense", "Subject + Verb (V1)", "He / She / It + Verb + s / es", "Do / Does", "Don't / Doesn't"],
-        topics: ["Morning Routine", "Daily Routine", "Work", "Studies", "Hobbies", "Weekend Activities", "Daily Habits", "Time Management"]
-      },
-      10: {
-        missionNumber: 10,
-        title: "Mission 10: Express Your Likes & Opinions",
-        objective: "Use action verbs confidently to express likes, dislikes, preferences, and opinions in the Simple Present Tense.",
-        situation: "Talking about hobbies, interests, favourite things, opinions, and daily activities.",
-        grammar: ["Verb (V1)", "He/She/It + Verb + s/es", "like / don't like", "prefer", "think", "believe"],
-        topics: ["Hobbies", "Favourite Food", "Favourite Movie", "Books", "Personal Opinions", "Interests", "Daily Activities"]
-      },
-      11: {
-        missionNumber: 11,
-        title: "Mission 11: Ask, Answer & Communicate",
-        objective: "Ask and answer questions confidently while discussing daily routines and habits using the Simple Present Tense.",
-        situation: "Meeting people, introducing yourself, discussing work, studies, hobbies, family, and daily life.",
-        grammar: ["Do / Does", "Yes / No Questions", "WH Questions", "always", "usually", "often", "sometimes", "rarely", "never"],
-        topics: ["Daily Routine", "Work", "Studies", "Family", "Hobbies", "Healthy Habits", "Weekend Activities", "Personal Goals"]
-      },
-      12: {
-        missionNumber: 12,
-        title: "Mission 12: Talk About What's Happening Now",
-        objective: "Talk confidently about actions happening right now using the Present Continuous Tense.",
-        situation: "Talking about current activities at home, work, school, or in everyday life.",
-        grammar: ["Present Continuous Tense", "am + verb + ing", "is + verb + ing", "are + verb + ing"],
-        topics: ["Current Activities", "Home", "Work", "Studies", "Family Activities", "Today's Plan"]
-      },
-      13: {
-        missionNumber: 13,
-        title: "Mission 13: Communicate About Current & Future Activities",
-        objective: "Use negative sentences, questions, and future arrangements confidently in the Present Continuous Tense.",
-        situation: "Talking about current activities, meetings, appointments, travel plans, and future arrangements.",
-        grammar: ["Present Continuous Negative", "Yes / No Questions", "Short Answers", "WH Questions", "Present Continuous for Future Arrangements"],
-        topics: ["Current Activities", "Daily Life", "Meetings", "Appointments", "Travel Plans", "Tomorrow's Plans", "Next Week's Plans"]
-      },
-      14: {
-        missionNumber: 14,
-        title: "Mission 14: Talk About Yesterday",
-        objective: "Talk confidently about completed actions and past experiences using the Simple Past Tense.",
-        situation: "Talking about yesterday, last week, holidays, travel, childhood memories, and past events.",
-        grammar: ["Simple Past Tense", "Verb (V2)", "Regular Verbs", "Irregular Verbs"],
-        topics: ["Yesterday", "Last Weekend", "Holiday", "Travel", "Childhood", "Memorable Experiences"]
-      },
-      15: {
-        missionNumber: 15,
-        title: "Mission 15: Talk About Past Experiences",
-        objective: "Use negative sentences, Yes/No questions, WH questions, and short answers confidently in the Simple Past Tense.",
-        situation: "Talking about yesterday, holidays, travel, childhood memories, work, studies, and past events.",
-        grammar: ["Simple Past (Negative)", "Simple Past Questions", "Short Answers", "WH Questions"],
-        topics: ["Yesterday", "Last Weekend", "Holiday", "Childhood", "Travel", "Past Experiences", "Memorable Events"]
-      },
-      16: {
-        missionNumber: 16,
-        title: "Mission 16: Tell a Short Story",
-        objective: "Tell a simple, interesting story confidently using the Simple Past Tense and story sequence words.",
-        situation: "Sharing a childhood memory, travel story, funny incident, family event, school experience, or unexpected situation.",
-        grammar: ["Simple Past Tense", "Story sequence words (First, Then, After that, Suddenly, Luckily, Finally)"],
-        topics: ["Funny Incident", "Childhood Memory", "Holiday Trip", "School Story", "Family Function", "Unexpected Event", "Adventure", "Memorable Day"]
-      },
-      17: {
-        missionNumber: 17,
-        title: "Mission 17: Describe What Was Happening",
-        objective: "Describe actions that were happening in the past and explain interruptions confidently using the Past Continuous Tense.",
-        situation: "Talking about accidents, travel, classroom situations, work, family events, and unexpected incidents.",
-        grammar: ["Past Continuous Tense", "was / were + verb + ing", "while", "when"],
-        topics: ["Yesterday Evening", "Classroom Incident", "Funny Incident", "Journey", "Family Event", "Office Situation", "Unexpected Moments"]
-      },
-      18: {
-        missionNumber: 18,
-        title: "Mission 18: Share Your Life Journey",
-        objective: "Share your life journey, education, career, achievements, and personal growth confidently using the Present Perfect Tense.",
-        situation: "Job interview, networking event, self-introduction, motivational speech, meeting new people.",
-        grammar: ["Present Perfect Tense", "Have + V3", "Has + V3", "Ever / Never", "Already / Recently / So far"],
-        topics: ["Education", "Career", "Skills", "Achievements", "Certificates", "Life Experiences", "Personal Growth", "Future Dreams"]
-      },
-      19: {
-        missionNumber: 19,
-        title: "Mission 19: Talk About Recent Actions",
-        objective: "Talk confidently about recently completed and pending activities using the Present Perfect Tense.",
-        situation: "Office updates, daily tasks, school assignments, family activities, project progress, and recent personal activities.",
-        grammar: ["Present Perfect Tense", "already", "yet", "just", "recently", "still"],
-        topics: ["Today's Tasks", "Office Updates", "Study Progress", "Family Activities", "Project Status", "Messages & Calls", "Recent Achievements"]
-      },
-      20: {
-        missionNumber: 20,
-        title: "Mission 20: Talk About Your Future Plans",
-        objective: "Talk confidently about your future plans, goals, and intentions using be going to.",
-        situation: "Career planning, education, travel, business goals, family plans, and personal ambitions.",
-        grammar: ["Be Going To", "am/is/are going to + V1"],
-        topics: ["Career Goals", "Business Plans", "Education", "Travel Plans", "Family Plans", "Personal Goals", "Dreams & Ambitions"]
-      },
-      21: {
-        missionNumber: 21,
-        title: "Mission 21: Make Promises and Predictions",
-        objective: "Use will confidently to make promises, predictions, offers, and instant decisions.",
-        situation: "Encouraging a friend, making commitments, discussing the future, offering help, and giving predictions.",
-        grammar: ["Future Tense (Will)", "will + V1", "won't + V1"],
-        topics: ["Personal Promises", "Family Commitments", "Career Predictions", "Future Technology", "Weather Predictions", "Helping Others", "Goals & Dreams"]
-      },
-      22: {
-        missionNumber: 22,
-        title: "Mission 22: Describe Future Ongoing Actions",
-        objective: "Describe future ongoing activities and schedules confidently using the Future Continuous Tense.",
-        situation: "Talking about tomorrow's schedule, future meetings, travel plans, work, studies, and weekend activities.",
-        grammar: ["Future Continuous Tense", "will be + Verb + ing"],
-        topics: ["Tomorrow's Schedule", "Future Meetings", "Study Plans", "Work Plans", "Travel", "Family Activities", "Weekend Plans"]
-      },
-      23: {
-        missionNumber: 23,
-        title: "Mission 23: Talk About Ongoing Activities",
-        objective: "Talk confidently about ongoing activities and long-term actions using the Present Perfect Continuous Tense.",
-        situation: "Learning English, work experience, study routine, fitness, business, hobbies, and personal development.",
-        grammar: ["Present Perfect Continuous Tense", "have/has been + verb + ing", "for", "since"],
-        topics: ["English Learning Journey", "Work Experience", "Study Routine", "Daily Habits", "Fitness", "Business", "Personal Growth", "Long-Term Goals"]
-      },
-      24: {
-        missionNumber: 24,
-        title: "Mission 24: Shopping Conversation",
-        objective: "Handle shopping conversations confidently using natural English and mixed tenses.",
-        situation: "Shopping for clothes, groceries, electronics, medicines, books, and other daily needs.",
-        grammar: ["Mixed Tense Communication", "Polite Requests", "Question Forms", "Modal Verbs (Could/Can/Would)"],
-        topics: ["Clothing Store", "Supermarket", "Electronics Shop", "Pharmacy", "Bookstore", "Shoe Store", "Mobile Shop", "Billing & Payment"]
-      },
-      25: {
-        missionNumber: 25,
-        title: "Mission 25: Order Food Confidently",
-        objective: "Handle restaurant conversations confidently using natural English and mixed tenses.",
-        situation: "Ordering food in restaurants, cafés, bakeries, tea shops, hotels, and food courts.",
-        grammar: ["Mixed Tense Communication", "Polite Requests", "WH Questions", "Modal Verbs (Can, Could, Would)"],
-        topics: ["Restaurant", "Café", "Bakery", "Tea Shop", "Food Court", "Hotel Dining", "Ordering Food", "Billing & Payment"]
-      },
-      26: {
-        missionNumber: 26,
-        title: "Mission 26: Handle Travel Conversations Confidently",
-        objective: "Communicate confidently in common travel situations using natural English and mixed tenses.",
-        situation: "Airports, railway stations, bus stations, hotels, taxis, tourist places, and travel enquiries.",
-        grammar: ["Mixed Tense Communication", "WH Questions", "Polite Requests", "Modal Verbs (Can, Could, Would)"],
-        topics: ["Asking for Directions", "Airport Check-in", "Hotel Check-in", "Booking Tickets", "Taxi Conversations", "Tourist Enquiries", "Lost Luggage", "Travel Emergencies"]
-      },
-      27: {
-        missionNumber: 27,
-        title: "Mission 27: Handle Telephone Conversations Confidently",
-        objective: "Communicate confidently over the phone in personal and professional situations using natural English and mixed tenses.",
-        situation: "Personal calls, office calls, customer support, appointment booking, callback requests, and telephone enquiries.",
-        grammar: ["Mixed Tense Communication", "WH Questions", "Polite Requests", "Modal Verbs (Can, Could, Would)"],
-        topics: ["Calling a Friend", "Office Call", "Customer Care", "Appointment Booking", "Leaving a Message", "Callback Request", "Wrong Number", "Telephone Etiquette"]
-      },
-      28: {
-        missionNumber: 28,
-        title: "Mission 28: Handle a Job Interview Confidently",
-        objective: "Participate confidently in a job interview by answering common interview questions using natural English and mixed tenses.",
-        situation: "Job interviews, campus interviews, HR interviews, walk-in interviews, and online interviews.",
-        grammar: ["Mixed Tense Communication", "WH Questions", "Self-Introduction", "Professional Communication", "Modal Verbs"],
-        topics: ["Self-Introduction", "Education", "Work Experience", "Skills", "Strengths & Weaknesses", "Career Goals", "Salary Discussion", "Closing an Interview"]
-      },
-      29: {
-        missionNumber: 29,
-        title: "Mission 29: Communicate Professionally at Work",
-        objective: "Communicate confidently in workplace situations using professional English and mixed tenses.",
-        situation: "Office meetings, project discussions, client conversations, emails, presentations, deadlines, and teamwork.",
-        grammar: ["Mixed Tense Communication", "Professional English", "WH Questions", "Polite Requests", "Modal Verbs"],
-        topics: ["Team Meeting", "Project Update", "Client Communication", "Office Discussion", "Deadline Management", "Email Conversation", "Presentation", "Workplace Collaboration"]
-      },
-      30: {
-        missionNumber: 30,
-        title: "Mission 30: Complete a Real-Life Conversation Confidently",
-        objective: "Complete natural, real-life conversations by combining all the grammar, vocabulary, and communication skills learned throughout the course.",
-        situation: "Mixed real-life situations including introductions, travel, shopping, restaurants, phone calls, interviews, workplace discussions, and social conversations.",
-        grammar: ["Mixed Tense Communication", "All Grammar Covered in Modules 1–29"],
-        topics: ["Self Introduction", "Daily Life", "Past Experiences", "Current Activities", "Future Plans", "Shopping", "Restaurant", "Travel", "Phone Conversation", "Job Interview", "Office Communication", "Opinions & Discussions", "Storytelling", "Personal Goals"]
-      },
-      31: {
-        missionNumber: 31,
-        title: "Mission 31: Sound More Natural in Everyday English",
-        objective: "Help the student replace basic textbook English with natural, fluent spoken English by using conversation fillers, everyday expressions, natural reactions, and professional phrases.",
-        situation: "Friends, office, college, interviews, travel, shopping, restaurants, phone calls, networking, and everyday conversations.",
-        grammar: ["Conversation Fillers", "Natural Reactions", "Everyday Expressions", "Professional Expressions", "Conversation Flow", "Fluent Speaking"],
-        topics: ["Free Talk", "Opinions", "Weekend Plans", "Daily Life", "Work", "Friends", "Hobbies", "Travel", "Social Conversations", "Networking"]
-      },
-      32: {
-        missionNumber: 32,
-        title: "Mission 32: Speak Like a Confident English Speaker",
-        objective: "Develop advanced conversational fluency by using natural connectors, opinion phrases, professional expressions, and confident speaking techniques.",
-        situation: "Presentations, meetings, interviews, networking events, business discussions, public speaking, debates, and everyday conversations.",
-        grammar: ["Advanced Conversation Connectors", "Opinion Expressions", "Professional English", "Agreement & Disagreement", "Confidence Builders", "Public Speaking"],
-        topics: ["Business", "Leadership", "Technology", "Education", "Career", "Travel", "Social Media", "Current Affairs", "Personal Growth", "Free Speaking"]
-      }
-    };
-    // AI Mission Room Component (Hands-Free Mastered AI Voice Coach Call Engine)
-    function AIMissionRoom({ moduleNumber, moduleTitle, userProgress, onClose, onSaveMissionScore }) {
-      const missionData = AI_MISSIONS_BANK[moduleNumber] || {
-        missionNumber: moduleNumber,
-        title: `Mission ${moduleNumber}: Spoken English Mastery`,
-        objective: "Communicate fluently using target module grammar and vocabulary.",
-        situation: "Real-life spoken conversation.",
-        grammar: ["Target Tense"],
-        topics: ["General Practice"]
-      };
-
-      const requiredSentences = moduleNumber <= 8 ? 30 : (moduleNumber <= 23 ? 40 : 50);
-      const shortWelcome = `Welcome to Mission ${moduleNumber}! Let's start. Please introduce yourself or tell me about ${missionData.topics[0] || 'your goal'}!`;
-
-      const [callActive, setCallActive] = useState(false);
-      const [listening, setListening] = useState(false);
-      const [coachSpeaking, setCoachSpeaking] = useState(false);
-      const [messages, setMessages] = useState([
-        {
-          sender: 'coach',
-          text: shortWelcome,
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        }
-      ]);
-      const [correctCount, setCorrectCount] = useState(0);
       const [correctionsLog, setCorrectionsLog] = useState([]);
       const [status, setStatus] = useState('IN PROGRESS');
       const [finalReport, setFinalReport] = useState(null);
@@ -865,472 +579,10 @@
         return { valid: true };
       };
 
-      // Google Gemini 2.0 Spoken English Evaluation & Dialogue Engine
-      const callGeminiCoachAPI = async (studentText) => {
-        const savedConfig = localStorage.getItem('mastered_ai_config');
-        let apiKey = "";
-        if (savedConfig) {
-          try {
-            const parsed = JSON.parse(savedConfig);
-            apiKey = parsed.geminiApiKey || "";
-          } catch(e) {}
-        }
-
-        if (!apiKey) return null;
-
-        try {
-          const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-          
-          const systemPrompt = `You are MASTERED AI Coach, a warm native English speaking coach for MASTERED Language Coach.
-Mission ${moduleNumber}: ${missionData.title}.
-Objective: ${missionData.objective}.
-Target Grammar: ${missionData.grammar.join(', ')}.
-
-Student spoke: "${studentText}".
-
-Evaluate:
-1. Is there ANY grammar error, tense mistake, non-English word, missing article (a/an/the), or preposition issue?
-2. If YES:
-   - "isGrammarError": true, "correctedSentence": "exact fix", "grammarHint": "short rule hint", "coachReply": "Good effort! [hint]. Say: '[correctedSentence]'. Please repeat that sentence!"
-3. If NO (Grammar is correct):
-   - "isGrammarError": false, "coachReply": "Warm 1-sentence praise + 1 natural follow-up question about ${missionData.topics[(correctCount + 1) % missionData.topics.length] || 'the topic'}."
-
-Return ONLY raw JSON with keys: "coachReply" (string), "isGrammarError" (boolean), "correctedSentence" (string), "grammarHint" (string)`;
-
-          const response = await fetch(endpoint, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              contents: [{ role: "user", parts: [{ text: systemPrompt }] }]
-            })
-          });
-
-          const data = await response.json();
-          if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text) {
-            const rawText = data.candidates[0].content.parts[0].text;
-            const cleanJson = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
-            return JSON.parse(cleanJson);
-          }
-        } catch(err) {
-          console.error("Gemini API Error:", err);
-        }
-        return null;
-      };
-
-      // OpenAI GPT-4o Mini Spoken English Evaluation Engine
-      const callOpenAICoachAPI = async (studentText) => {
-        const savedConfig = localStorage.getItem('mastered_ai_config');
-        let apiKey = "";
-        if (savedConfig) {
-          try {
-            const parsed = JSON.parse(savedConfig);
-            apiKey = parsed.openaiApiKey || "";
-          } catch(e) {}
-        }
-
-        if (!apiKey) return null;
-
-        try {
-          const endpoint = `https://api.openai.com/v1/chat/completions`;
-          const systemPrompt = `You are MASTERED AI Coach, a warm native English speaking coach.
-Mission ${moduleNumber}: ${missionData.title}. Objective: ${missionData.objective}. Target Grammar: ${missionData.grammar.join(', ')}.
-
-Evaluate student's spoken input: "${studentText}".
-1. Is there ANY grammar error, tense mistake, missing article (a/an/the), or preposition issue?
-2. If YES: "isGrammarError": true, "correctedSentence": "exact fix", "grammarHint": "short rule hint", "coachReply": "Good effort! [hint]. Say: '[correctedSentence]'. Please repeat that sentence!"
-3. If NO: "isGrammarError": false, "coachReply": "Warm 1-sentence praise + 1 natural follow-up question about ${missionData.topics[(correctCount + 1) % missionData.topics.length] || 'the topic'}."
-
-Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSentence", "grammarHint".`;
-
-          const response = await fetch(endpoint, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${apiKey}`
-            },
-            body: JSON.stringify({
-              model: "gpt-4o-mini",
-              messages: [{ role: "system", content: systemPrompt }],
-              response_format: { type: "json_object" }
-            })
-          });
-
-          const data = await response.json();
-          if (data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
-            return JSON.parse(data.choices[0].message.content);
-          }
-        } catch(err) {
-          console.error("OpenAI API Error:", err);
-        }
-        return null;
-      };
-
-      const lastProcessedTextRef = React.useRef('');
-
-      const handleStudentSpeech = (rawText) => {
-        if (status === 'PASSED' || !callActiveRef.current) return;
-
-        const text = rawText.trim();
-        if (!text || text === lastProcessedTextRef.current) return;
-
-        const words = text.toLowerCase().split(/\s+/).filter(w => w.length > 0);
-        const fillers = ["uh", "um", "ah", "hmm", "oh", "er", "mhm"];
-        const realWords = words.filter(w => !fillers.includes(w));
-
-        // Ignore background noise or short filler murmur
-        if (realWords.length < 3) return;
-
-        lastProcessedTextRef.current = text;
-
-        const userMsg = {
-          sender: 'student',
-          text,
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        };
-
-        setMessages(prev => [...prev, userMsg]);
-
-        if (speechTimeoutRef.current) clearTimeout(speechTimeoutRef.current);
-
-        speechTimeoutRef.current = setTimeout(async () => {
-          if (!callActiveRef.current) return;
-
-          let coachReply = "";
-          let isQuestionToCoach = false;
-          let isDuplicate = false;
-          let isTooShort = false;
-          let isGrammarError = false;
-
-          const lower = text.toLowerCase();
-          const cleanNorm = lower.replace(/[^a-z0-9\s]/g, '').trim();
-
-          const topics = missionData.topics && missionData.topics.length > 0 ? missionData.topics : ["your daily goals", "your routine", "your workplace", "your learning objectives"];
-          const nextTopic = topics[(correctCount + 1) % topics.length];
-
-          // Try Gemini 2.0 Flash AI Evaluation (100% Free) first, then OpenAI!
-          let aiResult = await callGeminiCoachAPI(text);
-          if (!aiResult) {
-            aiResult = await callOpenAICoachAPI(text);
-          }
-
-          if (aiResult && aiResult.coachReply) {
-            if (aiResult.isGrammarError) {
-              isGrammarError = true;
-              coachReply = aiResult.coachReply;
-              setCorrectionsLog(prev => [...prev, { original: text, corrected: aiResult.correctedSentence || text }]);
-            } else if (uniqueSentencesRef.current.has(cleanNorm)) {
-              isDuplicate = true;
-              coachReply = `You already shared that exact thought! Please tell me something new about ${nextTopic} so I can count it.`;
-            } else {
-              uniqueSentencesRef.current.add(cleanNorm);
-              const newCount = correctCount + 1;
-              setCorrectCount(newCount);
-
-              if (newCount >= requiredSentences) {
-                setStatus('PASSED');
-                coachReply = `Fantastic work! You completed all ${requiredSentences} separate, unique spoken sentences for Mission ${moduleNumber}. Mission Passed!`;
-                
-                const report = {
-                  studentName: userProgress.studentName || 'Student',
-                  admissionNumber: userProgress.admissionNumber || '',
-                  missionNumber: moduleNumber,
-                  date: new Date().toLocaleDateString(),
-                  requiredSentences: requiredSentences,
-                  correctSentences: newCount,
-                  importantMistakes: correctionsLog.length,
-                  correctionsPracticed: correctionsLog.map(c => c.corrected).join(', ') || 'None',
-                  finalStatus: 'PASSED'
-                };
-
-                setFinalReport(report);
-                onSaveMissionScore(moduleNumber, { score: 100, passed: true, report });
-              } else {
-                const remaining = requiredSentences - newCount;
-                coachReply = `${aiResult.coachReply} (Progress: ${newCount}/${requiredSentences} sentences, ${remaining} remaining).`;
-              }
-            }
-          } else {
-            // Comprehensive Local Evaluator Fallback
-            const evalRes = validateSpokenEnglishSentence(text);
-
-            if (!evalRes.valid) {
-              if (evalRes.reason === 'grammar_error') {
-                isGrammarError = true;
-                coachReply = `Good effort! ${evalRes.hint} Say: "${evalRes.fix}". Please repeat that sentence for me!`;
-                setCorrectionsLog(prev => [...prev, { original: text, corrected: evalRes.fix }]);
-              } else {
-                coachReply = evalRes.reply;
-              }
-            } else if (uniqueSentencesRef.current.has(cleanNorm)) {
-              isDuplicate = true;
-              coachReply = `You already shared that exact thought! Please tell me something new about ${nextTopic} so I can count it for you.`;
-            } else {
-              uniqueSentencesRef.current.add(cleanNorm);
-              const newCount = correctCount + 1;
-              setCorrectCount(newCount);
-
-              if (newCount >= requiredSentences) {
-                setStatus('PASSED');
-                coachReply = `Fantastic work! You completed all ${requiredSentences} separate, unique spoken sentences for Mission ${moduleNumber}. Mission Passed!`;
-                
-                const report = {
-                  studentName: userProgress.studentName || 'Student',
-                  admissionNumber: userProgress.admissionNumber || '',
-                  missionNumber: moduleNumber,
-                  date: new Date().toLocaleDateString(),
-                  requiredSentences: requiredSentences,
-                  correctSentences: newCount,
-                  importantMistakes: correctionsLog.length,
-                  correctionsPracticed: correctionsLog.map(c => c.corrected).join(', ') || 'None',
-                  finalStatus: 'PASSED'
-                };
-
-                setFinalReport(report);
-                onSaveMissionScore(moduleNumber, { score: 100, passed: true, report });
-              } else {
-                const remaining = requiredSentences - newCount;
-                coachReply = `Very clear! Sentence ${newCount} recorded (${remaining} remaining). Now, can you speak about ${nextTopic}?`;
-              }
-            }
-          }
-
-          const coachMsg = {
-            sender: 'coach',
-            text: coachReply,
-            isNote: isQuestionToCoach || isDuplicate || isTooShort || isGrammarError,
-            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-          };
-
-          setMessages(prev => [...prev, coachMsg]);
-          speakText(coachReply);
-        }, 750);
-      };
-
-      // Permanent Mic Heartbeat Listener (Guarantees mic stays active and continuous!)
-      useEffect(() => {
-        const heartbeat = setInterval(() => {
-          if (callActiveRef.current && !coachSpeakingRef.current) {
-            if (recognitionRef.current) {
-              try {
-                recognitionRef.current.start();
-                setListening(true);
-              } catch(e) {}
-            }
-          }
-        }, 1200);
-
-        return () => clearInterval(heartbeat);
-      }, []);
-
-      useEffect(() => {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (SpeechRecognition) {
-          const rec = new SpeechRecognition();
-          rec.continuous = true;
-          rec.interimResults = false;
-          rec.lang = 'en-US';
-
-          rec.onresult = (e) => {
-            if (!callActiveRef.current || coachSpeakingRef.current) return;
-            const lastIdx = e.results.length - 1;
-            const transcript = e.results[lastIdx][0].transcript;
-            if (transcript.trim()) {
-              handleStudentSpeech(transcript.trim());
-            }
-          };
-
-          rec.onend = () => {
-            setListening(false);
-            if (callActiveRef.current && !coachSpeakingRef.current) {
-              safeRestartRecognition();
-            }
-          };
-
-          rec.onerror = () => {
-            setListening(false);
-            if (callActiveRef.current && !coachSpeakingRef.current) {
-              safeRestartRecognition();
-            }
-          };
-
-          recognitionRef.current = rec;
-        }
-
-        return () => {
-          stopAudioAndRecognition();
-        };
-      }, [correctCount, status]);
-
-      const toggleCall = () => {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (!SpeechRecognition) {
-          alert("⚠️ Voice Call Note: Automatic voice input is supported in Chrome, Edge, Safari, and Android browsers! Please open in Chrome or Edge.");
-          return;
-        }
-
-        if (callActive) {
-          stopAudioAndRecognition();
-        } else {
-          callActiveRef.current = true;
-          coachSpeakingRef.current = false;
-          setCallActive(true);
-          try {
-            recognitionRef.current.start();
-            setListening(true);
-          } catch(e) {}
-
-          if (!hasSpokenInitialGreetingRef.current) {
-            hasSpokenInitialGreetingRef.current = true;
-            speakText(messages[0].text);
-          }
-        }
-      };
-
-      return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto" onClick={handleCloseRoom}>
-          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 max-w-3xl w-full border shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-            
-            {/* Header */}
-            <div className="flex justify-between items-start pb-3 border-b border-slate-200">
-              <div>
-                <span className="px-2.5 py-0.5 bg-red-100 text-red-700 text-[11px] font-extrabold rounded-full uppercase">
-                  🎙️ Level {moduleNumber} Mastered AI Voice Coach
-                </span>
-                <h3 className="text-xl font-extrabold text-slate-900 mt-1">{missionData.title}</h3>
-                <p className="text-xs text-slate-500 mt-0.5">{missionData.objective}</p>
-              </div>
-              <button onClick={handleCloseRoom} className="p-2 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold rounded-xl text-xs">✕</button>
-            </div>
-
-            {/* Live Progress Bar & Sentence Counter */}
-            <div className="p-4 bg-slate-900 text-white rounded-2xl space-y-2 border border-slate-800 shadow-md">
-              <div className="flex justify-between items-center text-xs">
-                <span className="font-bold text-slate-300">Verified Correct Spoken Sentences</span>
-                <span className="font-mono font-extrabold text-emerald-400 text-sm">
-                  {correctCount} / {requiredSentences}
-                </span>
-              </div>
-
-              <div className="w-full bg-slate-800 h-3 rounded-full overflow-hidden border border-slate-700">
-                <div 
-                  className="bg-gradient-to-r from-red-600 via-rose-500 to-emerald-500 h-full rounded-full transition-all duration-500" 
-                  style={{ width: `${Math.min(100, Math.round((correctCount / requiredSentences) * 100))}%` }}
-                ></div>
-              </div>
-
-              <div className="flex justify-between items-center text-[11px] pt-1">
-                <span className="text-slate-400">Target Grammar: <strong className="text-red-400">{missionData.grammar.join(', ')}</strong></span>
-                <span className={`px-2.5 py-0.5 rounded-full font-extrabold text-[10px] ${
-                  status === 'PASSED' ? 'bg-emerald-500 text-white' : 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
-                }`}>
-                  STATUS: {status}
-                </span>
-              </div>
-            </div>
-
-            {status === 'PASSED' && finalReport ? (
-              /* Final Mission Report Card */
-              <div className="p-6 bg-emerald-950 text-white rounded-2xl border-2 border-emerald-500 shadow-2xl space-y-4 text-center">
-                <div className="w-16 h-16 mx-auto rounded-full bg-emerald-800 border-4 border-emerald-400 flex items-center justify-center text-3xl shadow-lg">
-                  🏆
-                </div>
-                <h4 className="text-xl font-black text-emerald-300">MISSION COMPLETED & PASSED!</h4>
-                <p className="text-xs text-emerald-100 max-w-md mx-auto">
-                  Congratulations! You have completed all {requiredSentences} required correct spoken sentences for Level {moduleNumber}!
-                </p>
-
-                <div className="bg-slate-900/90 text-left p-4 rounded-xl text-xs space-y-1.5 font-mono border border-slate-700">
-                  <p className="text-emerald-400 font-bold border-b border-slate-800 pb-1">📄 OFFICIAL MASTERED AI MISSION REPORT</p>
-                  <p><span className="text-slate-400">Mission:</span> Level {moduleNumber} - {missionData.title}</p>
-                  <p><span className="text-slate-400">Required Sentences:</span> {requiredSentences}</p>
-                  <p><span className="text-slate-400">Correct Sentences:</span> {correctCount} / {requiredSentences}</p>
-                  <p><span className="text-slate-400">Corrections Practiced:</span> {finalReport.correctionsPracticed}</p>
-                  <p><span className="text-slate-400">Final Status:</span> <strong className="text-emerald-400">PASSED (100%)</strong></p>
-                </div>
-
-                <button onClick={onClose} className="px-8 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition">
-                  ✓ Continue to Level System
-                </button>
-              </div>
-            ) : (
-              /* Live Voice Call View */
-              <div className="space-y-4">
-                
-                {/* Dynamic Call Voice Orb Container */}
-                <div className="bg-slate-950 p-6 rounded-2xl text-center space-y-3 relative overflow-hidden shadow-inner flex flex-col items-center justify-center">
-                  <div className={`w-24 h-24 rounded-full transition-all duration-300 flex items-center justify-center text-4xl shadow-2xl ${
-                    coachSpeaking ? 'bg-amber-500 animate-bounce ring-4 ring-amber-300' :
-                    listening ? 'bg-red-600 animate-ping ring-4 ring-red-400' : 'bg-slate-800 border-2 border-slate-700'
-                  }`}>
-                    {coachSpeaking ? '🗣️' : listening ? '🎙️' : '📞'}
-                  </div>
-
-                  <p className="text-xs font-extrabold text-slate-200">
-                    {coachSpeaking ? '🤖 Mastered AI Coach is speaking...' :
-                     listening ? '● Call Active & Listening... Speak your answer freely!' :
-                     'Click "Start Hands-Free Voice Call" below to begin!'}
-                  </p>
-                </div>
-
-                {/* Live Conversation Transcript Stream (Voice-Only) */}
-                <div className="max-h-56 overflow-y-auto space-y-2 p-3.5 bg-slate-50 rounded-2xl border border-slate-200 text-xs">
-                  {messages.map((m, idx) => (
-                    <div key={idx} className={`flex ${m.sender === 'student' ? 'justify-end' : 'justify-start'}`}>
-                      <div className={`max-w-[85%] p-3 rounded-2xl space-y-1 shadow-sm ${
-                        m.sender === 'student' ? 'bg-slate-900 text-white rounded-br-none' : 'bg-white border border-slate-200 text-slate-900 rounded-bl-none'
-                      }`}>
-                        <div className="flex justify-between items-center space-x-2 text-[10px] font-bold text-slate-400">
-                          <span>{m.sender === 'student' ? ' You (Student)' : '🤖 MASTERED AI Coach'}</span>
-                          <span>{m.timestamp}</span>
-                        </div>
-                        <p className="leading-relaxed">{m.text}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Diagnostic Live Mic Status Banner */}
-                <div className="p-3 bg-slate-100 rounded-xl flex items-center justify-between text-[11px] font-semibold text-slate-700 border border-slate-200">
-                  <div className="flex items-center space-x-2">
-                    <span className={`w-2.5 h-2.5 rounded-full ${callActive ? (listening ? 'bg-emerald-500 animate-ping' : coachSpeaking ? 'bg-amber-500 animate-pulse' : 'bg-blue-500') : 'bg-slate-400'}`}></span>
-                    <span>
-                      {callActive 
-                        ? (listening ? "🎙️ Mic Active: Listening to your speech..." : coachSpeaking ? "🔊 AI Coach Speaking..." : "⏳ Waiting for response...") 
-                        : "📞 Ready to start continuous voice call"}
-                    </span>
-                  </div>
-                  <span className="text-[10px] text-slate-500">
-                    {('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) ? '✅ Chrome/Edge/Safari Ready' : '⚠️ Use Chrome or Edge'}
-                  </span>
-                </div>
-
-                {/* Primary Voice Call Control Button */}
-                <div className="pt-2 border-t flex flex-col sm:flex-row justify-between items-center gap-3">
-                  <div className="text-xs text-slate-500 font-bold">
-                    <span>Voice-Only Call Mode • No Typing Required</span>
-                  </div>
-
-                  <button
-                    onClick={toggleCall}
-                    className={`w-full sm:w-auto px-8 py-3.5 rounded-2xl font-extrabold text-xs shadow-xl transition flex items-center justify-center space-x-2 ${
-                      callActive 
-                        ? 'bg-rose-600 hover:bg-rose-500 text-white animate-pulse' 
-                        : 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white'
-                    }`}
-                  >
-                    <span>{callActive ? '🔴 End Voice Call' : '📞 Start Hands-Free Voice Call'}</span>
-                  </button>
-                </div>
-
-              </div>
-            )}
-          </div>
-        </div>
-      );
-    }
 
     // Student Quizzes Hub with Level Unlocking System
-    function StudentQuizzesHub({ modules, userProgress, onStartQuiz, onStartAIMission }) {
+    // Student Quizzes Hub with Level Unlocking System
+    function StudentQuizzesHub({ modules, userProgress, onStartQuiz }) {
       const isLevelUnlocked = (modNum) => {
         if (modNum === 1) return true;
         const prevModNum = modNum - 1;
@@ -1340,10 +592,8 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
         const lessonsDone = Boolean(prevProg.video1 && prevProg.audio && prevProg.pdf);
         const quizObj = prevProg.quizScores && prevProg.quizScores[prevModNum];
         const quizPassed = Boolean(quizObj && quizObj.percentage >= 85);
-        const missionObj = prevProg.aiMissionScore;
-        const missionPassed = Boolean(missionObj && missionObj.score >= 85);
 
-        return lessonsDone && quizPassed && missionPassed;
+        return lessonsDone && quizPassed;
       };
 
       return (
@@ -1351,8 +601,8 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
           <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-l-4 border-red-600">
             <div>
               <span className="text-[10px] sm:text-xs font-bold text-red-400 uppercase tracking-wider">Sequential Level System</span>
-              <h2 className="text-xl sm:text-2xl font-extrabold mt-0.5">30-Question Quizzes & AI Missions</h2>
-              <p className="text-xs text-slate-300 mt-1">Unlock each level sequentially by completing lessons, earning 85%+ on Quiz, and 85%+ on AI Voice Mission!</p>
+              <h2 className="text-xl sm:text-2xl font-extrabold mt-0.5">30-Question Module Quizzes</h2>
+              <p className="text-xs text-slate-300 mt-1">Unlock each level sequentially by completing module lessons and earning 85%+ on the 30-question Quiz!</p>
             </div>
           </div>
 
@@ -1361,7 +611,6 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
               const modNum = m.moduleNumber;
               const quizQuestions = (typeof QUIZ_BANK !== 'undefined' && QUIZ_BANK[modNum]) || [];
               const scoreData = (userProgress[m.moduleId] && userProgress[m.moduleId].quizScores && userProgress[m.moduleId].quizScores[modNum]) || null;
-              const missionData = (userProgress[m.moduleId] && userProgress[m.moduleId].aiMissionScore) || null;
               const unlocked = isLevelUnlocked(modNum);
 
               return (
@@ -1377,7 +626,7 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
                       </span>
                       <span className="text-[10px] font-bold text-slate-500 font-mono flex items-center space-x-1">
                         {unlocked ? (
-                          (scoreData && scoreData.percentage >= 85 && missionData && missionData.score >= 85) ? (
+                          (scoreData && scoreData.percentage >= 85) ? (
                             <span className="text-emerald-700 font-extrabold bg-emerald-100 px-2 py-0.5 rounded-full">✓ Level Mastered</span>
                           ) : (
                             <span className="text-blue-700 font-bold bg-blue-50 px-2 py-0.5 rounded-full">🔓 Level Unlocked</span>
@@ -1391,7 +640,7 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
                     
                     {!unlocked ? (
                       <p className="text-xs text-amber-800 font-medium bg-amber-50 p-2.5 rounded-xl border border-amber-200">
-                        🔒 Requires Lessons + 85% Quiz + 85% AI Mission on Module {modNum - 1}.
+                        🔒 Requires Lessons + 85% Quiz on Module {modNum - 1}.
                       </p>
                     ) : (
                       <div className="space-y-1.5">
@@ -1403,15 +652,6 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
                         ) : (
                           <p className="text-[11px] text-slate-500 italic">Quiz Pending (85%+ required)</p>
                         )}
-
-                        {missionData ? (
-                          <div className="p-2.5 bg-rose-50 border border-rose-200 rounded-xl flex justify-between items-center text-xs font-bold text-rose-900">
-                            <span>🎙️ AI Mission:</span>
-                            <span>{missionData.score}% Score</span>
-                          </div>
-                        ) : (
-                          <p className="text-[11px] text-slate-500 italic">AI Mission Pending (85%+ required)</p>
-                        )}
                       </div>
                     )}
                   </div>
@@ -1421,21 +661,15 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
                       <div className="flex space-x-2 pt-2 border-t border-slate-100">
                         <button
                           onClick={() => onStartQuiz(modNum, m.title)}
-                          className="flex-1 py-2 bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs rounded-xl shadow-sm transition"
+                          className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs rounded-xl shadow-sm transition"
                         >
-                          📝 Take Quiz
-                        </button>
-                        <button
-                          onClick={() => onStartAIMission(modNum)}
-                          className="flex-1 py-2 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-extrabold text-xs rounded-xl shadow-md transition"
-                        >
-                          🎙️ AI Mission
+                          📝 Take 30-Question Quiz
                         </button>
                       </div>
                     ) : (
                       <button
-                        onClick={() => alert(`🔒 Level ${modNum} is Locked!\n\nYou must complete Lessons, earn 85%+ on Quiz, and earn 85%+ on AI Mission for Module ${modNum - 1} to unlock Level ${modNum}.`)}
-                        className="w-full py-2 bg-slate-200 text-slate-500 font-bold text-xs rounded-xl cursor-not-allowed"
+                        onClick={() => alert(`🔒 Level ${modNum} is Locked!\n\nYou must complete Lessons and earn 85%+ on Quiz for Module ${modNum - 1} to unlock Level ${modNum}.`)}
+                        className="w-full py-2.5 bg-slate-200 text-slate-500 font-bold text-xs rounded-xl cursor-not-allowed"
                       >
                         🔒 Level Locked
                       </button>
@@ -2023,109 +1257,7 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
       );
     }
 
-    // Admin AI Settings Manager Component
-    function AdminAISettingsManager({ aiConfig, onSaveAIConfig }) {
-      const [geminiKey, setGeminiKey] = useState(aiConfig.geminiApiKey || '');
-      const [openaiKey, setOpenaiKey] = useState(aiConfig.openaiApiKey || '');
-      const [elevenKey, setElevenKey] = useState(aiConfig.elevenLabsApiKey || '');
-      const [voiceType, setVoiceType] = useState(aiConfig.preferredVoice || 'female');
-      const [customInstruction, setCustomInstruction] = useState(aiConfig.customPrompt || '');
 
-      const handleSubmit = (e) => {
-        e.preventDefault();
-        onSaveAIConfig({
-          geminiApiKey: geminiKey.trim(),
-          openaiApiKey: openaiKey.trim(),
-          elevenLabsApiKey: elevenKey.trim(),
-          preferredVoice: voiceType,
-          customPrompt: customInstruction.trim()
-        });
-      };
-
-      return (
-        <div className="space-y-4 sm:space-y-6 max-w-3xl mx-auto">
-          <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-3 border-l-4 border-red-600">
-            <div>
-              <span className="text-[10px] sm:text-xs font-bold text-red-400 uppercase tracking-wider">Super Admin Controls</span>
-              <h2 className="text-xl sm:text-2xl font-extrabold mt-0.5">Mastered AI Voice Coach Settings ⚙️</h2>
-              <p className="text-xs text-slate-300 mt-1">Configure Free Google Gemini 2.0 or OpenAI keys for all student missions.</p>
-            </div>
-          </div>
-
-          <form onSubmit={handleSubmit} className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-md space-y-5">
-            <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl space-y-1">
-              <span className="px-2.5 py-0.5 bg-emerald-600 text-white text-[10px] font-extrabold rounded-full uppercase">RECOMMENDED #1 (100% FREE)</span>
-              <label className="block text-xs font-extrabold text-slate-900 pt-1">
-                Google Gemini 2.0 API Key (100% Free - No Payment Required) 🔑
-              </label>
-              <p className="text-[11px] text-slate-600">
-                Provides human-level spoken English understanding, instant grammar pointing, and natural AI thinking completely FREE! (Get free key at <a href="https://aistudio.google.com/" target="_blank" rel="noreferrer" className="text-red-600 underline font-bold">aistudio.google.com</a>).
-              </p>
-              <input
-                type="password"
-                value={geminiKey}
-                onChange={e => setGeminiKey(e.target.value)}
-                placeholder="AIzaSy..."
-                className="w-full p-3.5 border rounded-2xl text-xs font-mono text-slate-900 outline-none focus:border-red-500 bg-white mt-1"
-              />
-            </div>
-
-            <div className="p-4 bg-blue-50 border border-blue-200 rounded-2xl space-y-1">
-              <span className="px-2.5 py-0.5 bg-blue-600 text-white text-[10px] font-extrabold rounded-full uppercase">OPTION 2 (ULTRA-CHEAP HIGH QUALITY)</span>
-              <label className="block text-xs font-extrabold text-slate-900 pt-1">
-                OpenAI API Key (GPT-4o Mini + Ultra-Cheap Female Voice) 🔑
-              </label>
-              <p className="text-[11px] text-slate-600">
-                Use OpenAI GPT-4o Mini + TTS Audio (Voice: Shimmer/Nova) for high-quality human female voices at ~$0.001 per mission. (Get key at <a href="https://platform.openai.com/" target="_blank" rel="noreferrer" className="text-blue-600 underline font-bold">platform.openai.com</a>).
-              </p>
-              <input
-                type="password"
-                value={openaiKey}
-                onChange={e => setOpenaiKey(e.target.value)}
-                placeholder="sk-proj-..."
-                className="w-full p-3.5 border rounded-2xl text-xs font-mono text-slate-900 outline-none focus:border-blue-500 bg-white mt-1"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-extrabold text-slate-900 mb-1">
-                Preferred AI Coach Persona & Voice Gender
-              </label>
-              <select
-                value={voiceType}
-                onChange={e => setVoiceType(e.target.value)}
-                className="w-full p-3.5 border rounded-2xl text-xs font-bold text-slate-900 outline-none focus:border-red-500 bg-slate-50"
-              >
-                <option value="female">👧 Warm Native English Female Language Buddy (Recommended)</option>
-                <option value="male">👨 Professional Male English Coach</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-xs font-extrabold text-slate-900 mb-1">
-                Custom Coach System Instruction (Optional)
-              </label>
-              <textarea
-                value={customInstruction}
-                onChange={e => setCustomInstruction(e.target.value)}
-                placeholder="e.g. You are a friendly, encouraging native English speaking coach..."
-                rows="3"
-                className="w-full p-3.5 border rounded-2xl text-xs text-slate-900 outline-none focus:border-red-500 bg-slate-50"
-              ></textarea>
-            </div>
-
-            <div className="pt-3 border-t flex justify-end">
-              <button
-                type="submit"
-                className="px-8 py-3.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-extrabold text-xs rounded-2xl shadow-xl transition"
-              >
-                💾 Save AI Coach Settings
-              </button>
-            </div>
-          </form>
-        </div>
-      );
-    }
 
     // Comprehensive Student History & Analytics Modal Component
     function StudentHistoryModal({ student, userProgress, modules, isAdmin, onDismiss, onClose }) {
@@ -2282,19 +1414,6 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
                             </span>
                           )}
 
-                          {mData.aiMissionScore ? (
-                            <div className="text-right">
-                              <span className={`px-2.5 py-1 rounded-xl text-xs font-extrabold ${
-                                mData.aiMissionScore.score >= 85 ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-amber-100 text-amber-800 border border-amber-300'
-                              }`}>
-                                🎙️ AI Mission: {mData.aiMissionScore.score}%
-                              </span>
-                            </div>
-                          ) : (
-                            <span className="px-2.5 py-1 bg-slate-100 text-slate-400 text-xs font-semibold rounded-xl">
-                              🎙️ Mission Pending
-                            </span>
-                          )}
                         </div>
                       </div>
                     );
@@ -2318,8 +1437,6 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
       const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       const [selectedStudentForHistory, setSelectedStudentForHistory] = useState(null);
       const [showGraduationModal, setShowGraduationModal] = useState(false);
-      const [activeAIMissionModNumber, setActiveAIMissionModNumber] = useState(null);
-
       // Data Stores
       const [students, setStudents] = useState([]);
       const [requests, setRequests] = useState([]);
@@ -2352,19 +1469,6 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
         await callAppsScript('adminSaveQuiz', { moduleNumber: modNum, questions });
       };
 
-      const [aiConfig, setAiConfig] = useState(() => {
-        const saved = localStorage.getItem('mastered_ai_config');
-        if (saved) {
-          try { return JSON.parse(saved); } catch(e){}
-        }
-        return { geminiApiKey: '', elevenLabsApiKey: '', preferredVoice: 'female', customPrompt: '' };
-      });
-
-      const handleSaveAIConfig = (newConfig) => {
-        setAiConfig(newConfig);
-        localStorage.setItem('mastered_ai_config', JSON.stringify(newConfig));
-        showToast("⚙️ AI Coach Settings Saved Successfully!");
-      };
 
       const [userProgress, setUserProgress] = useState(() => {
         let initial = {};
@@ -2483,32 +1587,7 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
         });
       };
 
-      // Save AI Spoken Mission Score
-      const handleSaveMissionScore = (modNum, evalObj) => {
-        const modKey = `MOD-${modNum < 10 ? '0' + modNum : modNum}`;
-        const activeProg = getCurrentStudentProgressMap();
-        const existing = activeProg[modKey] || { video1: false, audio: false, pdf: false, percentage: 0 };
-        
-        const updatedStudentProg = {
-          ...activeProg,
-          [modKey]: {
-            ...existing,
-            aiMissionScore: evalObj
-          }
-        };
-
-        syncStudentProgressToCloud(updatedStudentProg);
-        showToast(`🎉 Level ${modNum} AI Spoken Mission Passed with ${evalObj.score}%!`);
-        callAppsScript('submitAIMissionScore', {
-          admissionNumber: currentUser ? currentUser.admissionNumber : '',
-          studentName: currentUser ? currentUser.name : '',
-          moduleNumber: modNum,
-          score: evalObj.score,
-          feedback: evalObj.feedback
-        });
-      };
-
-      // Sequential Level Unlocking Logic (Requires 3 Rules: Lessons Complete + Quiz >= 85% + AI Mission >= 85%)
+      // Sequential Level Unlocking Logic (Requires 2 Rules: Lessons Complete + Quiz >= 85%)
       const isLevelUnlocked = (modNum) => {
         if (modNum === 1) return true;
         const prevModNum = modNum - 1;
@@ -2519,10 +1598,8 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
         const lessonsDone = Boolean(prevProg.video1 && prevProg.audio && prevProg.pdf);
         const quizObj = prevProg.quizScores && prevProg.quizScores[prevModNum];
         const quizPassed = Boolean(quizObj && quizObj.percentage >= 85);
-        const missionObj = prevProg.aiMissionScore;
-        const missionPassed = Boolean(missionObj && missionObj.score >= 85);
 
-        return lessonsDone && quizPassed && missionPassed;
+        return lessonsDone && quizPassed;
       };
 
       // Mark Lesson Complete
@@ -3353,10 +2430,6 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
                       {activeModule.audio && <button onClick={() => setLessonTab('audio')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'audio' ? 'bg-red-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>Audio Accent Drill</button>}
                       {activeModule.pdf && <button onClick={() => setLessonTab('pdf')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'pdf' ? 'bg-red-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>PDF Workbook</button>}
                       <button onClick={() => { setActiveQuizModNumber(activeModule.moduleNumber); setActiveQuizModTitle(activeModule.title); }} className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold shrink-0 transition shadow-sm">📝 Take 30-Q Quiz</button>
-                      <button onClick={() => setActiveAIMissionModNumber(activeModule.moduleNumber)} className="px-3.5 py-2 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white rounded-xl text-xs font-bold shrink-0 transition shadow-md flex items-center space-x-1">
-                        <span>🎙️ Complete AI Mission</span>
-                        {Boolean(userProgress[activeModule.moduleId] && userProgress[activeModule.moduleId].aiMissionScore && userProgress[activeModule.moduleId].aiMissionScore.score >= 85) && <span className="text-[10px] bg-emerald-500 text-white px-1.5 py-0.2 rounded-full font-extrabold">✓ 85%+</span>}
-                      </button>
                     </div>
 
                     {/* Responsive Content Viewport with Security Watermark */}
@@ -3428,9 +2501,6 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
                     onStartQuiz={(modNum, title) => {
                       setActiveQuizModNumber(modNum);
                       setActiveQuizModTitle(title);
-                    }}
-                    onStartAIMission={(modNum) => {
-                      setActiveAIMissionModNumber(modNum);
                     }}
                   />
                 ) : (
@@ -3512,19 +2582,13 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
                                   <div className="flex space-x-1.5">
                                     <button
                                       onClick={() => { setActiveQuizModNumber(modNum); setActiveQuizModTitle(m.title); }}
-                                      className="px-2.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-[11px] shadow-sm flex items-center space-x-1"
+                                      className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-[11px] shadow-sm flex items-center space-x-1"
                                     >
-                                      <span>📝 Quiz</span>
-                                    </button>
-                                    <button
-                                      onClick={() => setActiveAIMissionModNumber(modNum)}
-                                      className="px-2.5 py-1.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 text-white rounded-xl font-bold text-[11px] shadow-sm flex items-center space-x-1"
-                                    >
-                                      <span>🎙️ Mission</span>
+                                      <span>📝 30-Q Quiz</span>
                                     </button>
                                     <button
                                       onClick={() => setSelectedModuleId(m.moduleId)}
-                                      className="px-3 py-1.5 bg-red-600 hover:bg-red-500 text-white rounded-xl font-bold text-[11px] shadow-md"
+                                      className="px-3.5 py-1.5 bg-red-600 hover:bg-red-500 text-white rounded-xl font-bold text-[11px] shadow-md"
                                     >
                                       {prog > 0 ? 'Resume' : 'Start'}
                                     </button>
@@ -3940,16 +3004,7 @@ Return ONLY valid JSON with keys: "coachReply", "isGrammarError", "correctedSent
               )}
             </div>
           )}
-          {/* Active AI Spoken Mission Room Modal */}
-          {activeAIMissionModNumber && (
-            <AIMissionRoom
-              moduleNumber={activeAIMissionModNumber}
-              moduleTitle={(modules.find(m => m.moduleNumber === activeAIMissionModNumber) && modules.find(m => m.moduleNumber === activeAIMissionModNumber).title) || ''}
-              userProgress={userProgress}
-              onClose={() => setActiveAIMissionModNumber(null)}
-              onSaveMissionScore={handleSaveMissionScore}
-            />
-          )}
+
         </div>
       );
     }
