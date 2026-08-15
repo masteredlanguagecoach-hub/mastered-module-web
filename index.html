@@ -1157,9 +1157,26 @@
         }
       });
 
-      const overallLessonsComp = totalVideo + totalAudio + totalPdf + totalAiMissions;
-      const overallLessonsTotal = modules.length * 4;
-      const overallPercentage = Math.round((overallLessonsComp / overallLessonsTotal) * 100);
+      let totalAiMissions = 0;
+      let totalQuizzesTaken = 0;
+      let totalQuizScoreSum = 0;
+      let totalQuizzesPassed = 0;
+
+      modules.forEach(m => {
+        const modKey = `MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
+        const mData = progData[modKey] || {};
+        if (mData.aiMissionCompleted || mData.aiMissionProof) totalAiMissions++;
+
+        const qScores = mData.quizScores || {};
+        const qObj = qScores[m.moduleNumber];
+        if (qObj) {
+          totalQuizzesTaken++;
+          totalQuizScoreSum += (qObj.percentage || 0);
+          if (qObj.percentage >= 70) totalQuizzesPassed++;
+        }
+      });
+
+      const overallPercentage = Math.round(((totalAiMissions + totalQuizzesPassed) / (modules.length * 2)) * 100);
       const avgQuizScore = totalQuizzesTaken > 0 ? Math.round(totalQuizScoreSum / totalQuizzesTaken) : 0;
 
       return (
@@ -1203,7 +1220,13 @@
               <div className="bg-slate-900 text-white p-4 rounded-2xl space-y-1">
                 <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Overall Progress</span>
                 <h4 className="text-2xl font-extrabold text-red-500">{overallPercentage}%</h4>
-                <p className="text-[10px] text-slate-300">{overallLessonsComp} of {overallLessonsTotal} items</p>
+                <p className="text-[10px] text-slate-300">{totalAiMissions + totalQuizzesPassed} of {modules.length * 2} milestones</p>
+              </div>
+
+              <div className="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-1">
+                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">AI Missions Passed</span>
+                <h4 className="text-2xl font-extrabold text-purple-700">{totalAiMissions} <span className="text-xs font-semibold text-slate-400">/ {modules.length}</span></h4>
+                <p className="text-[10px] text-slate-500">Reports Uploaded</p>
               </div>
 
               <div className="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-1">
@@ -1217,18 +1240,12 @@
                 <h4 className="text-2xl font-extrabold text-amber-600">{avgQuizScore}%</h4>
                 <p className="text-[10px] text-slate-500">{totalQuizzesTaken} modules completed</p>
               </div>
-
-              <div className="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-1">
-                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Completed Content</span>
-                <h4 className="text-2xl font-extrabold text-slate-900">{totalVideo + totalAudio + totalPdf}</h4>
-                <p className="text-[10px] text-slate-500">🎬 {totalVideo}v | 🎧 {totalAudio}a | 📄 {totalPdf}p | 🤖 {totalAiMissions} AI</p>
-              </div>
             </div>
 
             {/* Complete 32 Modules Progress Breakdown */}
             <div className="space-y-3">
               <h4 className="font-extrabold text-sm sm:text-base text-slate-900 flex items-center justify-between">
-                <span>All 32 Curriculum Modules History & Quiz Log</span>
+                <span>All 32 Curriculum Modules History & Performance Log</span>
                 <span className="text-xs text-slate-500 font-normal">Real-Time Database Records</span>
               </h4>
 
@@ -1251,9 +1268,6 @@
                             <h5 className="font-bold text-slate-900">{m.title.replace(/^Module \d+:\s*/, '')}</h5>
                           </div>
                           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-500">
-                            <span>Video: {mData.video1 ? '✅ Watched' : '⚪ Pending'}</span>
-                            <span>Audio: {mData.audio ? '✅ Listened' : '⚪ Pending'}</span>
-                            <span>PDF: {mData.pdf ? '✅ Studied' : '⚪ Pending'}</span>
                             <span>AI Mission: {(mData.aiMissionCompleted || aiProof) ? '✅ Uploaded' : '⚪ Pending'}</span>
                           </div>
                         </div>
@@ -1462,22 +1476,23 @@
       // All 32 Curriculum Modules Unlocked for Direct Access
       const isLevelUnlocked = (modNum) => true;
 
-      // Mark Lesson or AI Mission Screenshot Complete
+      // Mark AI Mission Screenshot Complete & Save Progress
       const handleMarkItemComplete = (modId, itemKey, customVal = true) => {
         const activeProg = getCurrentStudentProgressMap();
-        const existing = activeProg[modId] || { video1: false, audio: false, pdf: false, percentage: 0 };
+        const existing = activeProg[modId] || { percentage: 0 };
         const updated = { ...existing, [itemKey]: customVal };
         
         let count = 0;
-        if (updated.video1) count++;
-        if (updated.audio) count++;
-        if (updated.pdf) count++;
         if (updated.aiMissionCompleted || updated.aiMissionProof) count++;
-        updated.percentage = Math.round((count / 4) * 100);
+        const qScores = updated.quizScores || {};
+        const modNum = parseInt(modId.replace('MOD-', ''), 10);
+        if (qScores[modNum] && qScores[modNum].percentage >= 70) count++;
+        
+        updated.percentage = Math.round((count / 2) * 100);
 
         const updatedStudentProg = { ...activeProg, [modId]: updated };
         syncStudentProgressToCloud(updatedStudentProg);
-        showToast("✨ Progress & AI Mission Proof saved to Cloud Database!");
+        showToast("✨ AI Mission Proof & Performance saved to Cloud Database!");
       };
 
       // Handle opening student history modal with live cloud sync
@@ -2294,7 +2309,6 @@
                         <div>
                           <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-3">
                             <h4 className="font-bold text-sm text-slate-900">Video Lesson</h4>
-                            <button onClick={() => handleMarkItemComplete(activeModule.moduleId, 'video1')} className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-xl self-start sm:self-auto">✓ Mark Watched</button>
                           </div>
                           
                           <div className="aspect-video w-full bg-slate-900 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner relative">
@@ -2319,7 +2333,6 @@
                         <div className="space-y-4">
                           <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
                             <h4 className="font-bold text-sm text-slate-900">Audio Accent Drill Player</h4>
-                            <button onClick={() => handleMarkItemComplete(activeModule.moduleId, 'audio')} className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-xl self-start sm:self-auto">✓ Mark Audio Listened</button>
                           </div>
                           
                           {/* Sleek Masked Audio Player Container */}
@@ -2341,7 +2354,6 @@
                         <div className="space-y-4">
                           <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
                             <h4 className="font-bold text-sm text-slate-900">PDF Reference Workbook</h4>
-                            <button onClick={() => handleMarkItemComplete(activeModule.moduleId, 'pdf')} className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-xl self-start sm:self-auto">✓ Mark PDF Read</button>
                           </div>
                           <div className="h-[420px] sm:h-[550px] bg-slate-100 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner relative">
                             <iframe src={getDriveEmbedUrl(activeModule.pdf)} className="w-full h-full border-0"></iframe>
