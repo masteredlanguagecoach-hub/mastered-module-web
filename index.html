@@ -1141,8 +1141,6 @@
           progData = userProgress[studentAdm];
         } else if (studentEmail && userProgress[studentEmail]) {
           progData = userProgress[studentEmail];
-        } else if (userProgress['MOD-01'] || userProgress['MOD-1'] || userProgress['MOD-02']) {
-          progData = userProgress;
         }
       }
 
@@ -1362,16 +1360,6 @@
             }
           }
         } catch(e) {}
-
-        if (!initial || typeof initial !== 'object' || Object.keys(initial).length === 0) {
-          const globalSaved = safeStorage.getItem('mastered_progress');
-          if (globalSaved) {
-            try {
-              const g = JSON.parse(globalSaved);
-              if (g && typeof g === 'object') initial = g;
-            } catch(e) {}
-          }
-        }
         return (initial && typeof initial === 'object') ? initial : {};
       });
 
@@ -1612,10 +1600,9 @@
         return () => clearInterval(timer);
       }, []);
 
-      // Save user progress safely
+      // Save user progress safely strictly under admission key
       useEffect(() => {
         if (userProgress && Object.keys(userProgress).length > 0) {
-          safeStorage.setItem('mastered_progress', JSON.stringify(userProgress));
           if (currentUser && (currentUser.admissionNumber || currentUser.studentId)) {
             const adm = currentUser.admissionNumber || currentUser.studentId;
             safeStorage.setItem(`mastered_progress_${adm}`, JSON.stringify(userProgress));
@@ -1957,7 +1944,9 @@
       const handleResetAllStudentProgress = async () => {
         if (confirm("⚠️ ARE YOU SURE YOU WANT TO RESET ALL STUDENT PROGRESS TO 0%?\n\nThis will reset quiz scores and AI mission completion to 0% for all enrolled students across all devices.")) {
           setUserProgress({});
-          safeStorage.setItem('mastered_all_students_progress', JSON.stringify({}));
+          safeStorage.removeItem('mastered_progress');
+          safeStorage.removeItem('mastered_all_students_progress');
+          try { localStorage.clear(); } catch(e) {}
           showToast("🔄 Resetting all student progress in Google Sheets DB...");
 
           try {
