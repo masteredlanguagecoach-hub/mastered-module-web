@@ -1132,31 +1132,6 @@
         }
       }
 
-      let totalVideo = 0;
-      let totalAudio = 0;
-      let totalPdf = 0;
-      let totalAiMissions = 0;
-      let totalQuizzesTaken = 0;
-      let totalQuizScoreSum = 0;
-      let totalQuizzesPassed = 0;
-
-      modules.forEach(m => {
-        const modKey = `MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
-        const mData = progData[modKey] || {};
-        if (mData.video1) totalVideo++;
-        if (mData.audio) totalAudio++;
-        if (mData.pdf) totalPdf++;
-        if (mData.aiMissionCompleted || mData.aiMissionProof) totalAiMissions++;
-
-        const qScores = mData.quizScores || {};
-        const qObj = qScores[m.moduleNumber];
-        if (qObj) {
-          totalQuizzesTaken++;
-          totalQuizScoreSum += (qObj.percentage || 0);
-          if (qObj.percentage >= 70) totalQuizzesPassed++;
-        }
-      });
-
       let totalAiMissions = 0;
       let totalQuizzesTaken = 0;
       let totalQuizScoreSum = 0;
