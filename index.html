@@ -1409,16 +1409,34 @@
             email: email
           });
 
-          if (res && res.success && res.userProgress && Object.keys(res.userProgress).length > 0) {
-            setUserProgress(prev => {
-              const currentStudentMap = (adm && prev[adm]) || (email && prev[email]) || {};
-              const mergedStudentProg = { ...currentStudentMap, ...res.userProgress };
-              const key = adm || email;
-              const allStudentsProg = { ...prev, [key]: mergedStudentProg };
-              safeStorage.setItem('mastered_all_students_progress', JSON.stringify(allStudentsProg));
-              if (key) safeStorage.setItem(`mastered_progress_${key}`, JSON.stringify(mergedStudentProg));
-              return allStudentsProg;
-            });
+          if (res && res.success) {
+            const rawData = res.userProgress || res.data || res.progress || res.studentProgress;
+            let parsedProgMap = {};
+
+            if (Array.isArray(rawData)) {
+              rawData.forEach(item => {
+                if (item && item.moduleId) {
+                  parsedProgMap[item.moduleId] = item;
+                } else if (item && item.moduleNumber) {
+                  const modKey = `MOD-${item.moduleNumber < 10 ? '0' + item.moduleNumber : item.moduleNumber}`;
+                  parsedProgMap[modKey] = item;
+                }
+              });
+            } else if (rawData && typeof rawData === 'object') {
+              parsedProgMap = rawData;
+            }
+
+            if (Object.keys(parsedProgMap).length > 0) {
+              setUserProgress(prev => {
+                const currentStudentMap = (adm && prev[adm]) || (email && prev[email]) || {};
+                const mergedStudentProg = { ...currentStudentMap, ...parsedProgMap };
+                const key = adm || email;
+                const allStudentsProg = { ...prev, [key]: mergedStudentProg };
+                safeStorage.setItem('mastered_all_students_progress', JSON.stringify(allStudentsProg));
+                if (key) safeStorage.setItem(`mastered_progress_${key}`, JSON.stringify(mergedStudentProg));
+                return allStudentsProg;
+              });
+            }
           }
         } catch(e) {}
       };
