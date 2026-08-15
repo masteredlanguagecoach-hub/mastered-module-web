@@ -151,19 +151,34 @@
       return url;
     }
 
-    // Dynamic Direct Fetch & JSONP Hybrid Call to Google Apps Script REST API
+    // Dynamic Direct Fetch & POST/GET Hybrid Call to Google Apps Script REST API
     async function callAppsScript(action, payload = {}) {
       const scriptUrl = (typeof LIVE_APPS_SCRIPT_URL !== 'undefined' && LIVE_APPS_SCRIPT_URL) || "https://script.google.com/macros/s/AKfycbxbqPvlxmAFOgtXn-VJ9b9fuvjOL3hsy18wSCu4xYhfVIcnLMVWGVbeD6XsLxv1ZG_2/exec";
       if (!scriptUrl || scriptUrl.includes('undefined')) return { success: false, message: "AppsScript URL not configured" };
+
+      const postBody = JSON.stringify({ action, payload });
+
+      // Primary POST fetch to send untruncated payload (Base64 AI proofs, full progress maps)
+      try {
+        const response = await fetch(scriptUrl, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: postBody,
+          redirect: "follow"
+        });
+        const json = await response.json();
+        if (json && json.success !== undefined) return json;
+      } catch(err) {
+        console.warn("Direct POST fetch failed, attempting GET fallback...", err);
+      }
+
+      // Fallback GET request for smaller payloads
       const getUrl = `${scriptUrl}?action=${encodeURIComponent(action)}&payload=${encodeURIComponent(JSON.stringify(payload))}&t=${Date.now()}`;
-      
       try {
         const response = await fetch(getUrl, { method: "GET", redirect: "follow" });
         const json = await response.json();
         if (json && json.success !== undefined) return json;
-      } catch(err) {
-        console.warn("Direct fetch fallback, attempting JSONP/no-cors dispatch...", err);
-      }
+      } catch(err) {}
 
       return new Promise((resolve) => {
         const callbackName = "appsScriptCb_" + Math.floor(Math.random() * 10000000);
@@ -193,8 +208,7 @@
             .then(() => resolve({ success: true, message: "Dispatched via no-cors" }))
             .catch(err => resolve({ success: false, message: err.message }));
         };
-
-        document.head.appendChild(script);
+        document.body.appendChild(script);
       });
     }
 
@@ -2517,11 +2531,10 @@
                           const qObj = qScores[modNum];
                           const aiDone = Boolean(mProg.aiMissionCompleted || mProg.aiMissionProof);
                           
-                          // Calculate Module Growth Progress (AI Mission + Quiz score + Lessons)
-                          let growthPercentage = (mProg.percentage || 0);
-                          if (qObj) {
-                            growthPercentage = Math.round((growthPercentage + qObj.percentage) / 2);
-                          }
+                          // Dynamic 100% accurate growth calculation from live data (50% AI Mission + 50% Quiz Score)
+                          const aiPart = aiDone ? 50 : 0;
+                          const quizPart = qObj ? Math.round((qObj.percentage || 0) / 2) : 0;
+                          const growthPercentage = aiPart + quizPart;
 
                           return (
                             <div key={m.moduleId} className="p-4 sm:p-5 bg-white border border-slate-200 hover:border-red-500 rounded-2xl sm:rounded-3xl shadow-sm space-y-3 flex flex-col justify-between transition">
