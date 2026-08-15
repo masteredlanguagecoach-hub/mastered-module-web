@@ -1386,21 +1386,23 @@
       const fetchStudentProgressFromCloud = async (userObj) => {
         if (!userObj) return;
         const adm = (userObj.admissionNumber || userObj.studentId || '').toString().trim().toUpperCase();
-        if (!adm) return;
+        const email = (userObj.email || '').toString().trim().toLowerCase();
+        if (!adm && !email) return;
 
         try {
           const res = await callAppsScript('getStudentProgress', {
             admissionNumber: adm,
-            email: userObj.email || ''
+            email: email
           });
 
           if (res && res.success && res.userProgress && Object.keys(res.userProgress).length > 0) {
             setUserProgress(prev => {
-              const currentStudentMap = prev[adm] || {};
+              const currentStudentMap = (adm && prev[adm]) || (email && prev[email]) || {};
               const mergedStudentProg = { ...currentStudentMap, ...res.userProgress };
-              const allStudentsProg = { ...prev, [adm]: mergedStudentProg };
+              const key = adm || email;
+              const allStudentsProg = { ...prev, [key]: mergedStudentProg };
               safeStorage.setItem('mastered_all_students_progress', JSON.stringify(allStudentsProg));
-              safeStorage.setItem(`mastered_progress_${adm}`, JSON.stringify(mergedStudentProg));
+              if (key) safeStorage.setItem(`mastered_progress_${key}`, JSON.stringify(mergedStudentProg));
               return allStudentsProg;
             });
           }
@@ -1410,14 +1412,21 @@
       useEffect(() => {
         if (currentUser && role === 'student') {
           fetchStudentProgressFromCloud(currentUser);
+          const syncInterval = setInterval(() => {
+            fetchStudentProgressFromCloud(currentUser);
+          }, 20000); // Cross-device real-time sync every 20s
+          return () => clearInterval(syncInterval);
         }
       }, [currentUser, role]);
 
-      // Helper to get active student progress map
+      // Helper to get active student progress map across all devices
       const getCurrentStudentProgressMap = () => {
         if (!currentUser) return userProgress || {};
         const adm = (currentUser.admissionNumber || currentUser.studentId || '').toString().trim().toUpperCase();
-        return (userProgress && userProgress[adm]) ? userProgress[adm] : userProgress;
+        const email = (currentUser.email || '').toString().trim().toLowerCase();
+        if (adm && userProgress && userProgress[adm]) return userProgress[adm];
+        if (email && userProgress && userProgress[email]) return userProgress[email];
+        return userProgress || {};
       };
 
       const currentStudentProg = getCurrentStudentProgressMap();
@@ -2306,7 +2315,7 @@
                       <div className="relative z-20 sm:text-right border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-800 flex sm:block justify-between items-center">
                         <span className="text-xs text-slate-400 font-bold">Completion</span>
                         <p className="text-xl sm:text-2xl font-extrabold text-emerald-400">
-                          {(userProgress[activeModule.moduleId] && userProgress[activeModule.moduleId].percentage) || 0}%
+                          {(currentStudentProg[activeModule.moduleId] && currentStudentProg[activeModule.moduleId].percentage) || 0}%
                         </p>
                       </div>
                     </div>
@@ -2391,7 +2400,7 @@
                             </a>
                           </div>
 
-                          {(userProgress[activeModule.moduleId] && userProgress[activeModule.moduleId].aiMissionProof) ? (
+                          {(currentStudentProg[activeModule.moduleId] && currentStudentProg[activeModule.moduleId].aiMissionProof) ? (
                             <div className="p-4 bg-emerald-50 border-2 border-emerald-300 rounded-2xl space-y-3">
                               <div className="flex items-center justify-between">
                                 <span className="text-xs font-extrabold text-emerald-900 flex items-center space-x-1">
@@ -2408,7 +2417,7 @@
                                 </button>
                               </div>
                               <div className="rounded-xl overflow-hidden border border-emerald-200 shadow-sm max-h-80 bg-slate-900 flex items-center justify-center">
-                                <img src={userProgress[activeModule.moduleId].aiMissionProof} alt="ChatGPT Proof" className="max-h-80 object-contain" />
+                                <img src={currentStudentProg[activeModule.moduleId].aiMissionProof} alt="ChatGPT Proof" className="max-h-80 object-contain" />
                               </div>
                             </div>
                           ) : (
@@ -2449,7 +2458,7 @@
                 ) : activeTab === 'quizzes' ? (
                   <StudentQuizzesHub
                     modules={modules}
-                    userProgress={userProgress}
+                    userProgress={currentStudentProg}
                     onStartQuiz={(modNum, title) => {
                       setActiveQuizModNumber(modNum);
                       setActiveQuizModTitle(title);
@@ -2503,7 +2512,7 @@
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                         {modules.map(m => {
                           const modNum = m.moduleNumber;
-                          const mProg = userProgress[m.moduleId] || {};
+                          const mProg = currentStudentProg[m.moduleId] || {};
                           const qScores = mProg.quizScores || {};
                           const qObj = qScores[modNum];
                           const aiDone = Boolean(mProg.aiMissionCompleted || mProg.aiMissionProof);
