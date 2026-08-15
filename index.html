@@ -1153,12 +1153,15 @@
           progData = userProgress[studentAdm];
         } else if (studentEmail && userProgress[studentEmail]) {
           progData = userProgress[studentEmail];
+        } else if (userProgress['MOD-01'] || userProgress['MOD-1'] || userProgress['MOD-02']) {
+          progData = userProgress;
         }
       }
 
       let totalVideo = 0;
       let totalAudio = 0;
       let totalPdf = 0;
+      let totalAiMissions = 0;
       let totalQuizzesTaken = 0;
       let totalQuizScoreSum = 0;
       let totalQuizzesPassed = 0;
@@ -1169,6 +1172,7 @@
         if (mData.video1) totalVideo++;
         if (mData.audio) totalAudio++;
         if (mData.pdf) totalPdf++;
+        if (mData.aiMissionCompleted || mData.aiMissionProof) totalAiMissions++;
 
         const qScores = mData.quizScores || {};
         const qObj = qScores[m.moduleNumber];
@@ -1179,8 +1183,8 @@
         }
       });
 
-      const overallLessonsComp = totalVideo + totalAudio + totalPdf;
-      const overallLessonsTotal = modules.length * 3;
+      const overallLessonsComp = totalVideo + totalAudio + totalPdf + totalAiMissions;
+      const overallLessonsTotal = modules.length * 4;
       const overallPercentage = Math.round((overallLessonsComp / overallLessonsTotal) * 100);
       const avgQuizScore = totalQuizzesTaken > 0 ? Math.round(totalQuizScoreSum / totalQuizzesTaken) : 0;
 
@@ -1243,7 +1247,7 @@
               <div className="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-1">
                 <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Completed Content</span>
                 <h4 className="text-2xl font-extrabold text-slate-900">{totalVideo + totalAudio + totalPdf}</h4>
-                <p className="text-[10px] text-slate-500">🎬 {totalVideo}v | 🎧 {totalAudio}a | 📄 {totalPdf}p</p>
+                <p className="text-[10px] text-slate-500">🎬 {totalVideo}v | 🎧 {totalAudio}a | 📄 {totalPdf}p | 🤖 {totalAiMissions} AI</p>
               </div>
             </div>
 
@@ -1261,6 +1265,7 @@
                     const mData = progData[modKey] || {};
                     const qScores = mData.quizScores || {};
                     const qObj = qScores[m.moduleNumber];
+                    const aiProof = mData.aiMissionProof;
 
                     return (
                       <div key={m.moduleNumber} className="p-3 bg-white hover:bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
@@ -1271,14 +1276,27 @@
                             </span>
                             <h5 className="font-bold text-slate-900">{m.title.replace(/^Module \d+:\s*/, '')}</h5>
                           </div>
-                          <div className="flex items-center space-x-3 text-[11px] text-slate-500">
+                          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-500">
                             <span>Video: {mData.video1 ? '✅ Watched' : '⚪ Pending'}</span>
                             <span>Audio: {mData.audio ? '✅ Listened' : '⚪ Pending'}</span>
                             <span>PDF: {mData.pdf ? '✅ Studied' : '⚪ Pending'}</span>
+                            <span>AI Mission: {(mData.aiMissionCompleted || aiProof) ? '✅ Uploaded' : '⚪ Pending'}</span>
                           </div>
                         </div>
 
                         <div className="flex items-center space-x-2 shrink-0">
+                          {aiProof && (
+                            <button
+                              onClick={() => {
+                                const w = window.open();
+                                if (w) { w.document.write(`<title>ChatGPT Proof - Module ${m.moduleNumber}</title><img src="${aiProof}" style="max-width:100%;height:auto;margin:auto;display:block;" />`); }
+                              }}
+                              className="px-2.5 py-1 bg-purple-100 text-purple-800 text-[10px] font-bold rounded-xl border border-purple-300 hover:bg-purple-200 transition"
+                            >
+                              🖼️ View AI Proof
+                            </button>
+                          )}
+
                           {qObj ? (
                             <div className="text-right">
                               <span className={`px-2.5 py-1 rounded-xl text-xs font-extrabold ${
@@ -1293,11 +1311,13 @@
                               Quiz Pending
                             </span>
                           )}
-
                         </div>
                       </div>
                     );
                   })}
+                </div>
+              </div>
+            </div>
                 </div>
               </div>
             </div>
@@ -1317,6 +1337,7 @@
       const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       const [selectedStudentForHistory, setSelectedStudentForHistory] = useState(null);
       const [showGraduationModal, setShowGraduationModal] = useState(false);
+      const [showTrainerModal, setShowTrainerModal] = useState(false);
       // Data Stores
       const [students, setStudents] = useState([]);
       const [requests, setRequests] = useState([]);
@@ -1467,7 +1488,7 @@
         });
       };
 
-      // Sequential Level Unlocking Logic (Requires 2 Rules: Lessons Complete + Quiz >= 85%)
+      // Sequential Level Unlocking Logic (Requires 3 Rules: Lessons Complete + AI Mission Proof Uploaded + Quiz >= 85%)
       const isLevelUnlocked = (modNum) => {
         if (modNum === 1) return true;
         const prevModNum = modNum - 1;
@@ -1476,27 +1497,29 @@
         const prevProg = activeProg[prevModKey] || {};
         
         const lessonsDone = Boolean(prevProg.video1 && prevProg.audio && prevProg.pdf);
+        const aiDone = Boolean(prevProg.aiMissionCompleted || prevProg.aiMissionProof);
         const quizObj = prevProg.quizScores && prevProg.quizScores[prevModNum];
         const quizPassed = Boolean(quizObj && quizObj.percentage >= 85);
 
-        return lessonsDone && quizPassed;
+        return lessonsDone && aiDone && quizPassed;
       };
 
-      // Mark Lesson Complete
-      const handleMarkItemComplete = (modId, itemKey) => {
+      // Mark Lesson or AI Mission Screenshot Complete
+      const handleMarkItemComplete = (modId, itemKey, customVal = true) => {
         const activeProg = getCurrentStudentProgressMap();
         const existing = activeProg[modId] || { video1: false, audio: false, pdf: false, percentage: 0 };
-        const updated = { ...existing, [itemKey]: true };
+        const updated = { ...existing, [itemKey]: customVal };
         
         let count = 0;
         if (updated.video1) count++;
         if (updated.audio) count++;
         if (updated.pdf) count++;
-        updated.percentage = Math.round((count / 3) * 100);
+        if (updated.aiMissionCompleted || updated.aiMissionProof) count++;
+        updated.percentage = Math.round((count / 4) * 100);
 
         const updatedStudentProg = { ...activeProg, [modId]: updated };
         syncStudentProgressToCloud(updatedStudentProg);
-        showToast("✨ Progress updated!");
+        showToast("✨ Progress & AI Mission Proof saved to Cloud Database!");
       };
 
       // Handle opening student history modal with live cloud sync
@@ -2302,8 +2325,9 @@
                       <button onClick={() => setLessonTab('video1')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'video1' ? 'bg-red-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>Video Lesson</button>
                       {activeModule.audio && <button onClick={() => setLessonTab('audio')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'audio' ? 'bg-red-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>Audio Accent Drill</button>}
                       {activeModule.pdf && <button onClick={() => setLessonTab('pdf')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'pdf' ? 'bg-red-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>PDF Workbook</button>}
+                      <button onClick={() => setLessonTab('aiProof')} className={`px-3.5 py-2 rounded-xl text-xs font-extrabold shrink-0 transition ${lessonTab === 'aiProof' ? 'bg-purple-700 text-white shadow-sm' : 'bg-purple-50 text-purple-900 border border-purple-200'}`}>📸 Upload AI Proof</button>
                       <button onClick={() => { setActiveQuizModNumber(activeModule.moduleNumber); setActiveQuizModTitle(activeModule.title); }} className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold shrink-0 transition shadow-sm">📝 Take 30-Q Quiz</button>
-                      <a href="https://chatgpt.com/g/g-6a7cdbc46df48191b1fa9d3e754c3bfc-mastered-ai-coach" target="_blank" rel="noopener noreferrer" className="px-3.5 py-2 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white rounded-xl text-xs font-extrabold shrink-0 transition shadow-sm flex items-center space-x-1"><span>🤖 Mission AI</span></a>
+                      <a href="https://chatgpt.com/g/g-6a7cdbc46df48191b1fa9d3e754c3bfc-mastered-ai-coach" target="_blank" rel="noopener noreferrer" className="px-3.5 py-2 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white rounded-xl text-xs font-extrabold shrink-0 transition shadow-sm flex items-center space-x-1"><span>🤖 Open ChatGPT AI Coach</span></a>
                     </div>
 
                     {/* Responsive Content Viewport with Security Watermark */}
@@ -2364,6 +2388,72 @@
                           <div className="h-[420px] sm:h-[550px] bg-slate-100 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner relative">
                             <iframe src={getDriveEmbedUrl(activeModule.pdf)} className="w-full h-full border-0"></iframe>
                           </div>
+                        </div>
+                      )}
+
+                      {lessonTab === 'aiProof' && (
+                        <div className="space-y-4">
+                          <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                            <div>
+                              <h4 className="font-bold text-sm text-slate-900">AI Mission ChatGPT Report Screenshot Proof</h4>
+                              <p className="text-xs text-slate-500">Upload a clear screenshot of your report score from ChatGPT to complete Level {activeModule.moduleNumber} AI Mission!</p>
+                            </div>
+                            <a href="https://chatgpt.com/g/g-6a7cdbc46df48191b1fa9d3e754c3bfc-mastered-ai-coach" target="_blank" rel="noopener noreferrer" className="px-3.5 py-2 bg-purple-700 hover:bg-purple-600 text-white text-xs font-extrabold rounded-xl shadow-md transition self-start sm:self-auto flex items-center space-x-1">
+                              <span>🤖 Open Mastered AI Coach</span>
+                            </a>
+                          </div>
+
+                          {(userProgress[activeModule.moduleId] && userProgress[activeModule.moduleId].aiMissionProof) ? (
+                            <div className="p-4 bg-emerald-50 border-2 border-emerald-300 rounded-2xl space-y-3">
+                              <div className="flex items-center justify-between">
+                                <span className="text-xs font-extrabold text-emerald-900 flex items-center space-x-1">
+                                  <span>✅ AI Mission ChatGPT Screenshot Report Verified & Saved!</span>
+                                </span>
+                                <button
+                                  onClick={() => {
+                                    handleMarkItemComplete(activeModule.moduleId, 'aiMissionProof', null);
+                                    handleMarkItemComplete(activeModule.moduleId, 'aiMissionCompleted', false);
+                                  }}
+                                  className="px-2.5 py-1 bg-red-100 text-red-700 font-bold text-[10px] rounded-lg hover:bg-red-200"
+                                >
+                                  Remove / Replace
+                                </button>
+                              </div>
+                              <div className="rounded-xl overflow-hidden border border-emerald-200 shadow-sm max-h-80 bg-slate-900 flex items-center justify-center">
+                                <img src={userProgress[activeModule.moduleId].aiMissionProof} alt="ChatGPT Proof" className="max-h-80 object-contain" />
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="p-6 bg-slate-50 border-2 border-dashed border-purple-300 rounded-2xl text-center space-y-3">
+                              <div className="w-12 h-12 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-xl mx-auto font-bold">
+                                📸
+                              </div>
+                              <div>
+                                <h5 className="font-extrabold text-sm text-slate-900">Upload ChatGPT Mission Report Screenshot</h5>
+                                <p className="text-xs text-slate-500 mt-1">Select your screenshot file from your phone or computer to verify and complete this mission.</p>
+                              </div>
+                              <label className="inline-flex items-center space-x-2 px-5 py-2.5 bg-purple-700 hover:bg-purple-600 text-white font-extrabold text-xs rounded-xl shadow-md cursor-pointer transition">
+                                <span>📁 Choose Screenshot File</span>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className="hidden"
+                                  onChange={(e) => {
+                                    const file = e.target.files && e.target.files[0];
+                                    if (file) {
+                                      const reader = new FileReader();
+                                      reader.onload = (evt) => {
+                                        const base64 = evt.target.result;
+                                        handleMarkItemComplete(activeModule.moduleId, 'aiMissionProof', base64);
+                                        handleMarkItemComplete(activeModule.moduleId, 'aiMissionCompleted', true);
+                                      };
+                                      reader.readAsDataURL(file);
+                                    }
+                                  }}
+                                />
+                              </label>
+                            </div>
+                          )}
                         </div>
                       )}
                     </div>
@@ -2892,6 +2982,47 @@
                   </button>
                 </>
               )}
+            </div>
+          {/* Floating 'I Need Trainer' WhatsApp Support Widget on Student Views */}
+          {role === 'student' && (
+            <button
+              onClick={() => setShowTrainerModal(true)}
+              className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-40 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-4 py-3 rounded-full shadow-2xl flex items-center space-x-2 border-2 border-white transition transform hover:scale-105 active:scale-95"
+            >
+              <span className="text-xl">💬</span>
+              <span className="text-xs">I Need Trainer</span>
+            </button>
+          )}
+
+          {/* Trainer WhatsApp Confirmation Modal */}
+          {showTrainerModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm" onClick={() => setShowTrainerModal(false)}>
+              <div className="bg-white rounded-3xl p-6 max-w-sm w-full border shadow-2xl text-center space-y-4 relative" onClick={e => e.stopPropagation()}>
+                <div className="w-16 h-16 rounded-full bg-emerald-100 border-2 border-emerald-500 flex items-center justify-center text-3xl mx-auto shadow-md">
+                  💬
+                </div>
+                <h3 className="text-lg font-extrabold text-slate-900">Are you sure you need a trainer?</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Click below to connect directly with your Mastered Language Coach Trainer via WhatsApp!
+                </p>
+                <div className="pt-2 flex flex-col space-y-2">
+                  <a
+                    href="https://wa.me/916282548226?text=I%20need%20a%20trainer%20my%20number%20is%206282548226"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setShowTrainerModal(false)}
+                    className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition flex items-center justify-center space-x-2"
+                  >
+                    <span>💬 Send WhatsApp Message (+91 6282548226)</span>
+                  </a>
+                  <button
+                    onClick={() => setShowTrainerModal(false)}
+                    className="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
             </div>
           )}
 
