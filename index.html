@@ -153,7 +153,7 @@
 
     // Dynamic Direct Fetch & POST/GET Hybrid Call to Google Apps Script REST API
     async function callAppsScript(action, payload = {}) {
-      const scriptUrl = (typeof LIVE_APPS_SCRIPT_URL !== 'undefined' && LIVE_APPS_SCRIPT_URL) || "https://script.google.com/macros/s/AKfycbxbqPvlxmAFOgtXn-VJ9b9fuvjOL3hsy18wSCu4xYhfVIcnLMVWGVbeD6XsLxv1ZG_2/exec";
+      const scriptUrl = (typeof LIVE_APPS_SCRIPT_URL !== 'undefined' && LIVE_APPS_SCRIPT_URL) || "https://script.google.com/macros/s/AKfycbzOKO05chNfJPD65-gHSLQ8y-Mv1GOTalpsTwGfUqmWy-jpI9rx01nibRSppYy22UwL/exec";
       if (!scriptUrl || scriptUrl.includes('undefined')) return { success: false, message: "AppsScript URL not configured" };
 
       const postBody = JSON.stringify({ action, payload });
