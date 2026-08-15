@@ -1953,6 +1953,33 @@
         }
       };
 
+      // Reset All Students Progress to 0% (Admin Control)
+      const handleResetAllStudentProgress = async () => {
+        if (confirm("⚠️ ARE YOU SURE YOU WANT TO RESET ALL STUDENT PROGRESS TO 0%?\n\nThis will reset quiz scores and AI mission completion to 0% for all enrolled students across all devices.")) {
+          setUserProgress({});
+          safeStorage.setItem('mastered_all_students_progress', JSON.stringify({}));
+          showToast("🔄 Resetting all student progress in Google Sheets DB...");
+
+          try {
+            const allStds = uniqueStudentsList || [];
+            for (const s of allStds) {
+              const adm = s.admissionNumber || s.studentId;
+              if (adm) {
+                await callAppsScript('saveStudentProgress', {
+                  admissionNumber: adm,
+                  email: s.email || '',
+                  userProgress: {}
+                });
+              }
+            }
+            showToast("✅ All student progress reset to 0% across all devices!");
+            refreshLiveData();
+          } catch(err) {
+            showToast("✅ Progress reset request dispatched.");
+          }
+        }
+      };
+
       // Save Module
       const handleSaveModule = async (e) => {
         e.preventDefault();
@@ -2681,7 +2708,10 @@
                               <button onClick={() => setStudentSearchQuery('')} className="absolute right-2.5 top-2 text-slate-400 hover:text-slate-600 font-bold text-xs">✖</button>
                             )}
                           </div>
-                          <button onClick={refreshLiveData} className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl shrink-0">🔄 Refresh</button>
+                          <div className="flex items-center space-x-2">
+                            <button onClick={refreshLiveData} className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl shrink-0">🔄 Refresh</button>
+                            <button onClick={handleResetAllStudentProgress} className="px-3.5 py-2 bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold text-xs rounded-xl shrink-0 transition">⚡ Reset All Progress (0%)</button>
+                          </div>
                         </div>
                       </div>
                       
