@@ -1298,6 +1298,7 @@
       const [selectedStudentForHistory, setSelectedStudentForHistory] = useState(null);
       const [showGraduationModal, setShowGraduationModal] = useState(false);
       const [showTrainerModal, setShowTrainerModal] = useState(false);
+      const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
       // Data Stores
       const [students, setStudents] = useState([]);
       const [requests, setRequests] = useState([]);
@@ -2110,6 +2111,16 @@
                 <button type="submit" className="w-full py-3.5 bg-red-600 hover:bg-red-500 font-extrabold rounded-xl text-white shadow-lg shadow-red-600/30 text-sm">
                   Sign In to Student Portal
                 </button>
+
+                <div className="text-center pt-1">
+                  <button
+                    type="button"
+                    onClick={() => setShowForgotPasswordModal(true)}
+                    className="text-xs text-red-400 hover:text-red-300 font-bold transition flex items-center justify-center space-x-1 mx-auto"
+                  >
+                    <span>🔑 Can't Sign In / Forgot Password?</span>
+                  </button>
+                </div>
               </form>
 
               {/* HIGH-VISIBILITY PROMINENT REQUEST ACCESS BUTTON IN LOGO CRIMSON RED THEME */}
@@ -2127,6 +2138,38 @@
                   </button>
                 </div>
               </div>
+
+              {/* Can't Sign In / Forgot Password Confirmation Modal */}
+              {showForgotPasswordModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm" onClick={() => setShowForgotPasswordModal(false)}>
+                  <div className="bg-slate-900 border border-slate-800 p-6 rounded-3xl max-w-sm w-full text-center space-y-4 shadow-2xl" onClick={e => e.stopPropagation()}>
+                    <div className="w-14 h-14 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center text-2xl mx-auto shadow-md">
+                      🔑
+                    </div>
+                    <h3 className="text-lg font-extrabold text-white">Can't Sign In / Forgot Password?</h3>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      Are you sure you want to contact support on WhatsApp to recover your student account access?
+                    </p>
+                    <div className="pt-2 flex flex-col space-y-2">
+                      <a
+                        href="https://wa.me/916282548226?text=I%20can't%20sign%20in%20/%20Forgot%20my%20password"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setShowForgotPasswordModal(false)}
+                        className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition flex items-center justify-center space-x-2"
+                      >
+                        <span>💬 Send WhatsApp Support Message</span>
+                      </a>
+                      <button
+                        onClick={() => setShowForgotPasswordModal(false)}
+                        className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs rounded-xl transition"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         );
