@@ -156,11 +156,24 @@
       const scriptUrl = (typeof LIVE_APPS_SCRIPT_URL !== 'undefined' && LIVE_APPS_SCRIPT_URL) || "https://script.google.com/macros/s/AKfycbzOKO05chNfJPD65-gHSLQ8y-Mv1GOTalpsTwGfUqmWy-jpI9rx01nibRSppYy22UwL/exec";
       if (!scriptUrl || scriptUrl.includes('undefined')) return { success: false, message: "AppsScript URL not configured" };
 
-      const postBody = JSON.stringify({ action, payload });
+      // Build hybrid payload containing both top-level and nested properties
+      const bodyObj = { action, payload, ...payload };
+      const postBody = JSON.stringify(bodyObj);
 
-      // Primary POST fetch to send untruncated payload (Base64 AI proofs, full progress maps)
+      // Build query string with action + top-level parameters for scripts expecting e.parameter
+      let queryParams = `action=${encodeURIComponent(action)}&t=${Date.now()}`;
+      if (payload && typeof payload === 'object') {
+        Object.keys(payload).forEach(k => {
+          if (typeof payload[k] === 'string' || typeof payload[k] === 'number' || typeof payload[k] === 'boolean') {
+            queryParams += `&${encodeURIComponent(k)}=${encodeURIComponent(payload[k])}`;
+          }
+        });
+      }
+      const fullPostUrl = `${scriptUrl}?${queryParams}`;
+
+      // Primary POST fetch to send untruncated payload
       try {
-        const response = await fetch(scriptUrl, {
+        const response = await fetch(fullPostUrl, {
           method: "POST",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: postBody,
@@ -173,7 +186,7 @@
       }
 
       // Fallback GET request for smaller payloads
-      const getUrl = `${scriptUrl}?action=${encodeURIComponent(action)}&payload=${encodeURIComponent(JSON.stringify(payload))}&t=${Date.now()}`;
+      const getUrl = `${scriptUrl}?${queryParams}&payload=${encodeURIComponent(JSON.stringify(payload))}`;
       try {
         const response = await fetch(getUrl, { method: "GET", redirect: "follow" });
         const json = await response.json();
