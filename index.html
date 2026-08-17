@@ -1688,7 +1688,21 @@
           fetchStudentProgressFromCloud(found);
           return { success: true };
         }
-        return { success: false, message: (live && live.message) || "Invalid credentials or account pending approval." };
+        // Check if student has a pending request in database
+        const cleanEmail = email.trim().toLowerCase();
+        const cleanAdm = adm.trim().toUpperCase();
+        const pendingReq = (requests || []).find(r => 
+          r && typeof r === 'object' && r.status === 'Pending' && (
+            (r.admissionNumber && r.admissionNumber.toString().trim().toUpperCase() === cleanAdm) ||
+            (r.email && r.email.toString().trim().toLowerCase() === cleanEmail)
+          )
+        );
+
+        if (pendingReq) {
+          return { success: false, message: "⏳ Your access application is currently pending coach approval! Once the coach approves your application, you can log in immediately." };
+        }
+
+        return { success: false, message: (live && live.message) || "Invalid email or admission number. If you haven't applied yet, please click 'Request Access Application' below!" };
       };
 
       // Admin Login
@@ -1740,28 +1754,30 @@
         const admissionNumber = form.admissionNumber.value.trim().toUpperCase();
         const course = form.course.value;
 
-        // 1. Check if admission number or email exists in Requests (ANY status: Pending, Approved, Rejected)
-        const existsInRequests = (requests || []).some(r => 
-          r && typeof r === 'object' && (
+        // 1. Check if student has an active PENDING application in Requests sheet
+        const isPendingInRequests = (requests || []).some(r => 
+          r && typeof r === 'object' && r.status === 'Pending' && (
             (r.admissionNumber && r.admissionNumber.toString().trim().toUpperCase() === admissionNumber) ||
             (r.email && r.email.toString().trim().toLowerCase() === email.toLowerCase())
           )
         );
 
-        // 2. Check if student is already enrolled in Student Directory
-        const existsInStudents = (students || []).some(s => 
+        // 2. Check if student is ALREADY enrolled in Student Directory
+        const isAlreadyEnrolled = (students || []).some(s => 
           s && typeof s === 'object' && (
             (s.admissionNumber && s.admissionNumber.toString().trim().toUpperCase() === admissionNumber) ||
             (s.email && s.email.toString().trim().toLowerCase() === email.toLowerCase())
           )
         );
 
-        // 3. Check local submission memory lock
-        const localSubmittedAdm = safeStorage.getItem(`mastered_req_adm_${admissionNumber}`);
-        const localSubmittedEmail = safeStorage.getItem(`mastered_req_email_${email.toLowerCase()}`);
+        if (isAlreadyEnrolled) {
+          alert(`⛔ Student Already Enrolled!\nAdmission Number "${admissionNumber}" or Email "${email}" is ALREADY active in the Mastered Language Coach Student Directory.\n\nPlease proceed to Sign In!`);
+          setAuthScreen('login');
+          return;
+        }
 
-        if (existsInRequests || existsInStudents || localSubmittedAdm || localSubmittedEmail) {
-          alert(`⛔ Access Application Already Exists!\nAdmission Number "${admissionNumber}" or Email "${email}" has ALREADY submitted an application or is enrolled in Mastered Language Coach.\n\nDuplicate entries are strictly blocked. Please proceed to login or wait for coach approval!`);
+        if (isPendingInRequests) {
+          alert(`⏳ Application Currently Pending!\nAn access application for "${admissionNumber}" / "${email}" is currently pending coach approval.\n\nYour application is recorded in the database. The coach will review and approve your access shortly!`);
           setAuthScreen('login');
           return;
         }
