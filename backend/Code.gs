@@ -1,7 +1,7 @@
 /**
  * MASTERED Language Coach - Production Google Apps Script REST API Backend
  * Handlers for doGet and doPost requests to perform CRUD on Google Sheets.
- * Full JSONP support enabled to guarantee cross-domain sync across mobile & desktop.
+ * Full JSONP & CORS support enabled to guarantee cross-domain sync across mobile & desktop.
  */
 
 var MASTERED_SPREADSHEET_ID = "1N5YkP6U8RaafRD_bsULTzlaDSC0Vbmfj9l_XCt1S_Rg";
@@ -40,8 +40,17 @@ function doGet(e) {
 function doPost(e) {
   try {
     var contents = e.postData.contents;
-    var data = JSON.parse(contents);
-    var action = data.action;
+    var data = JSON.parse(contents || "{}");
+    var action = data.action || (e && e.parameter ? e.parameter.action : "");
+
+    // Merge nested payload if passed
+    if (data.payload && typeof data.payload === 'object') {
+      for (var key in data.payload) {
+        if (data[key] === undefined) {
+          data[key] = data.payload[key];
+        }
+      }
+    }
 
     var result = routeActionObj(action, data);
     return handleResponse(result, null);
@@ -77,6 +86,9 @@ function routeActionObj(action, data) {
 
     case 'adminSaveModule':
       return handleAdminSaveModule(data);
+
+    case 'saveStudentProgress':
+      return handleSaveStudentProgress(data);
 
     case 'getStudentProgress':
       return handleGetStudentProgress(data);
@@ -179,13 +191,19 @@ function handleSubmitRequest(data) {
   var reqId = data.requestId || ("REQ-" + Math.floor(1000 + Math.random() * 9000));
   var dateStr = new Date().toISOString().split('T')[0];
 
+  var name = data.name || data.Name || "";
+  var phone = data.phone || data.Phone || "";
+  var email = data.email || data.Email || "";
+  var adm = data.admissionNumber || data.AdmissionNumber || "";
+  var course = data.course || data.Course || "";
+
   sheet.appendRow([
     reqId,
-    data.name || "",
-    data.phone || "",
-    data.email || "",
-    data.admissionNumber || "",
-    data.course || "",
+    name,
+    phone,
+    email,
+    adm,
+    course,
     "Pending",
     dateStr,
     ""
@@ -263,60 +281,133 @@ function handleApproveRequest(data) {
   var stdSheet = ss.getSheetByName("Students");
   var approvedReq = null;
 
+  var targetReqId = (data.requestId || "").toString().trim();
+  var targetAdm = (data.admissionNumber || "").toString().trim().toUpperCase();
+  var targetEmail = (data.email || "").toString().trim().toLowerCase();
+
   if (reqSheet) {
     var reqRows = reqSheet.getDataRange().getValues();
     for (var i = 1; i < reqRows.length; i++) {
-      if (reqRows[i][0].toString() === (data.requestId || "").toString()) {
+      var rId = (reqRows[i][0] || "").toString().trim();
+      var rAdm = (reqRows[i][4] || "").toString().trim().toUpperCase();
+      var rEmail = (reqRows[i][3] || "").toString().trim().toLowerCase();
+
+      if ((targetReqId && rId === targetReqId) || (targetAdm && rAdm === targetAdm) || (targetEmail && rEmail === targetEmail)) {
         reqSheet.getRange(i + 1, 7).setValue("Approved");
         reqSheet.getRange(i + 1, 9).setValue("Admin");
         approvedReq = {
-          requestId: reqRows[i][0],
-          name: reqRows[i][1],
-          phone: reqRows[i][2],
-          email: reqRows[i][3],
-          admissionNumber: reqRows[i][4],
-          course: reqRows[i][5]
+          requestId: reqRows[i][0] || targetReqId,
+          name: reqRows[i][1] || data.name || "",
+          phone: reqRows[i][2] || data.phone || "",
+          email: reqRows[i][3] || data.email || "",
+          admissionNumber: reqRows[i][4] || data.admissionNumber || "",
+          course: reqRows[i][5] || data.course || ""
         };
         break;
       }
     }
   }
 
+  if (!approvedReq && (data.name || data.admissionNumber || data.email)) {
+    approvedReq = {
+      requestId: targetReqId,
+      name: data.name || "",
+      phone: data.phone || "",
+      email: data.email || "",
+      admissionNumber: data.admissionNumber || "",
+      course: data.course || ""
+    };
+  }
+
   if (stdSheet && approvedReq) {
     var stdId = "STD-" + Math.floor(1000 + Math.random() * 9000);
     var dateStr = new Date().toISOString().split('T')[0];
-    stdSheet.appendRow([
-      stdId,
-      approvedReq.admissionNumber,
-      approvedReq.name,
-      approvedReq.email,
-      approvedReq.phone,
-      approvedReq.course,
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80",
-      "TRUE",
-      "Active",
-      dateStr
-    ]);
+
+    var stdRows = stdSheet.getDataRange().getValues();
+    var alreadyExists = false;
+
+    for (var j = 1; j < stdRows.length; j++) {
+      var sAdm = (stdRows[j][1] || "").toString().trim().toUpperCase();
+      var sEmail = (stdRows[j][3] || "").toString().trim().toLowerCase();
+      if ((approvedReq.admissionNumber && sAdm === approvedReq.admissionNumber.toString().toUpperCase()) ||
+          (approvedReq.email && sEmail === approvedReq.email.toString().toLowerCase())) {
+        stdSheet.getRange(j + 1, 8).setValue("TRUE");
+        stdSheet.getRange(j + 1, 9).setValue("Active");
+        alreadyExists = true;
+        break;
+      }
+    }
+
+    if (!alreadyExists) {
+      stdSheet.appendRow([
+        stdId,
+        approvedReq.admissionNumber,
+        approvedReq.name,
+        approvedReq.email,
+        approvedReq.phone,
+        approvedReq.course,
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80",
+        "TRUE",
+        "Active",
+        dateStr
+      ]);
+    }
   }
 
   return { success: true, message: "Request approved and student enrolled!" };
 }
 
+function handleSaveStudentProgress(data) {
+  var ss = getMasteredSpreadsheet();
+  var sheet = ss.getSheetByName("StudentProgress");
+  if (!sheet) {
+    sheet = ss.insertSheet("StudentProgress");
+    sheet.appendRow(["AdmissionNumber", "Email", "ProgressJSON", "LastUpdated"]);
+  }
+
+  var adm = (data.admissionNumber || "").toString().trim().toUpperCase();
+  var email = (data.email || "").toString().trim().toLowerCase();
+  var progressStr = JSON.stringify(data.userProgress || {});
+  var now = new Date();
+
+  var rows = sheet.getDataRange().getValues();
+  var found = false;
+
+  for (var i = 1; i < rows.length; i++) {
+    var rowAdm = (rows[i][0] || "").toString().trim().toUpperCase();
+    var rowEmail = (rows[i][1] || "").toString().trim().toLowerCase();
+    if ((adm && rowAdm === adm) || (email && rowEmail === email)) {
+      sheet.getRange(i + 1, 3).setValue(progressStr);
+      sheet.getRange(i + 1, 4).setValue(now);
+      found = true;
+      break;
+    }
+  }
+
+  if (!found) sheet.appendRow([adm, email, progressStr, now]);
+  return { success: true, userProgress: data.userProgress };
+}
+
 function handleGetStudentProgress(data) {
-  var raw = getSheetData("Progress");
-  var filtered = raw.filter(function(p) { return p.StudentID === data.studentId; }).map(function(p) {
-    return {
-      studentId: p.StudentID,
-      moduleId: p.ModuleID,
-      video1Completed: p.Video1Completed === true || (p.Video1Completed || "").toString().toUpperCase() === 'TRUE',
-      video2Completed: p.Video2Completed === true || (p.Video2Completed || "").toString().toUpperCase() === 'TRUE',
-      audioCompleted: p.AudioCompleted === true || (p.AudioCompleted || "").toString().toUpperCase() === 'TRUE',
-      pdfViewed: p.PDFViewed === true || (p.PDFViewed || "").toString().toUpperCase() === 'TRUE',
-      completionPercentage: Number(p.CompletionPercentage) || 0,
-      lastAccessed: p.LastAccessed
-    };
-  });
-  return { success: true, data: filtered };
+  var ss = getMasteredSpreadsheet();
+  var sheet = ss.getSheetByName("StudentProgress");
+  if (!sheet) return { success: true, userProgress: {} };
+
+  var adm = (data.admissionNumber || "").toString().trim().toUpperCase();
+  var email = (data.email || "").toString().trim().toLowerCase();
+  var rows = sheet.getDataRange().getValues();
+
+  var progObj = {};
+  for (var i = 1; i < rows.length; i++) {
+    var rowAdm = (rows[i][0] || "").toString().trim().toUpperCase();
+    var rowEmail = (rows[i][1] || "").toString().trim().toLowerCase();
+    if ((adm && rowAdm === adm) || (email && rowEmail === email)) {
+      try { progObj = JSON.parse(rows[i][2]); } catch(e) {}
+      break;
+    }
+  }
+
+  return { success: true, userProgress: progObj };
 }
 
 function handleUpdateProgress(data) {
