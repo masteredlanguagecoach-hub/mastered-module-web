@@ -1828,9 +1828,19 @@
           return (targetAdm && sAdm === targetAdm) || (targetEmail && sEmail === targetEmail);
         });
 
+        const approvePayload = {
+          requestId: req.requestId,
+          admissionNumber: req.admissionNumber || '',
+          email: req.email || '',
+          name: req.name || '',
+          phone: req.phone || '',
+          course: req.course || '',
+          ...req
+        };
+
         if (alreadyEnrolled) {
-          showToast(`ℹ️ ${req.name} is already enrolled in the Student Directory.`);
-          await callAppsScript('approveRequest', { requestId: req.requestId, admissionNumber: req.admissionNumber, email: req.email });
+          showToast(`ℹ️ ${req.name || 'Student'} is already enrolled in the Student Directory.`);
+          await callAppsScript('approveRequest', approvePayload);
           refreshLiveData();
           return;
         }
@@ -1850,8 +1860,8 @@
         };
 
         setStudents(prev => [newStudent, ...(prev || [])]);
-        showToast(`✅ Approved request for ${req.name}! Enrolled in Student Directory.`);
-        await callAppsScript('approveRequest', { requestId: req.requestId, admissionNumber: req.admissionNumber, email: req.email });
+        showToast(`✅ Approved request for ${req.name || 'Student'}! Enrolled in Student Directory.`);
+        await callAppsScript('approveRequest', approvePayload);
         refreshLiveData();
       };
 
