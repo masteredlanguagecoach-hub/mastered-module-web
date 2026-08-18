@@ -480,7 +480,7 @@
         </div>
       );
     }
-    function StudentQuizzesHub({ modules, userProgress, onStartQuiz }) {
+    function StudentQuizzesHub({ modules, userProgress, onStartQuiz, onOpenAiPrompt }) {
       const isLevelUnlocked = (modNum) => true;
 
       return (
@@ -540,14 +540,13 @@
 
                   <div>
                     <div className="flex space-x-2 pt-2 border-t border-slate-100">
-                      <a
-                        href="https://chatgpt.com/g/g-6a7cdbc46df48191b1fa9d3e754c3bfc-mastered-ai-coach"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <button
+                        type="button"
+                        onClick={() => onOpenAiPrompt && onOpenAiPrompt()}
                         className="px-3 py-2.5 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white font-extrabold text-xs rounded-xl shadow-sm transition flex items-center justify-center space-x-1 shrink-0"
                       >
                         <span>🤖 Mission AI</span>
-                      </a>
+                      </button>
                       <button
                         onClick={() => onStartQuiz(modNum, m.title)}
                         className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs rounded-xl shadow-sm transition"
@@ -1311,6 +1310,162 @@
       );
     }
 
+    // AI Mission Prompts & Guided Practice Modal Component
+    function AiMissionPromptModal({ onClose, showToast }) {
+      const [copiedPrompt, setCopiedPrompt] = useState(null);
+
+      const prompts = [
+        {
+          command: "NEW STUDENT",
+          title: "Register New Student",
+          desc: "Register as a new student with your AI Coach.",
+          text: "NEW STUDENT — Register as a new student."
+        },
+        {
+          command: "START",
+          title: "Start / Resume Course",
+          desc: "Start your course or resume your current mission.",
+          text: "START — Start your course or resume your current mission."
+        },
+        {
+          command: "CONTINUE",
+          title: "Continue Speaking Practice",
+          desc: "Continue your current mission and speaking practice.",
+          text: "CONTINUE — Continue your current mission and speaking practice."
+        },
+        {
+          command: "HOMEWORK",
+          title: "Get Homework Assignment",
+          desc: "Get homework based on your current mission.",
+          text: "HOMEWORK — Get homework based on your current mission."
+        },
+        {
+          command: "VOCABULARY",
+          title: "Vocabulary Practice",
+          desc: "Practice vocabulary related to your current mission.",
+          text: "VOCABULARY — Practice vocabulary related to your current mission."
+        },
+        {
+          command: "FREE TALK",
+          title: "Guided Free Conversation",
+          desc: "Have a guided conversation connected to your current mission.",
+          text: "FREE TALK — Have a guided conversation connected to your current mission."
+        },
+        {
+          command: "END SESSION",
+          title: "Finish & Receive Report",
+          desc: "End today's practice and receive your Daily Session Report.",
+          text: "END SESSION — End today's practice and receive your Daily Session Report."
+        }
+      ];
+
+      const handleCopy = (text, command) => {
+        try {
+          if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text);
+          } else {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+          }
+          setCopiedPrompt(command);
+          if (showToast) showToast(`📋 Copied prompt "${command}" to clipboard!`);
+          setTimeout(() => setCopiedPrompt(null), 2500);
+        } catch(e) {
+          if (showToast) showToast(`Copied prompt: ${command}`);
+        }
+      };
+
+      return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto" onClick={onClose}>
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 max-w-2xl w-full border border-slate-200 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+            
+            {/* Modal Header */}
+            <div className="flex justify-between items-start border-b pb-4">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-purple-700 to-indigo-600 flex items-center justify-center text-white text-xl font-black shadow-md">
+                  🤖
+                </div>
+                <div>
+                  <h3 className="font-extrabold text-slate-900 text-base sm:text-lg">Mastered AI Coach — Practice Prompts</h3>
+                  <p className="text-xs text-slate-500 font-medium">Select or copy a practice command below to begin your mission!</p>
+                </div>
+              </div>
+              <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
+            </div>
+
+            {/* Quick Instructions Notice */}
+            <div className="p-4 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200/60 rounded-2xl space-y-2 text-xs text-purple-950 font-medium">
+              <p className="font-extrabold text-purple-900 flex items-center space-x-1">
+                <span>💡 How to Practice with Mastered AI Coach:</span>
+              </p>
+              <ol className="list-decimal list-inside space-y-1 text-slate-700 text-[11px]">
+                <li>Click <strong>"📋 Copy Prompt"</strong> on any practice command below.</li>
+                <li>Click <strong>"🚀 Go to Practice (Launch ChatGPT)"</strong> to open your AI Coach.</li>
+                <li>Paste your command in ChatGPT to start interactive voice speaking practice.</li>
+                <li>When finished, take a screenshot of your <strong>Daily Session Report</strong> and upload proof to complete your mission!</li>
+              </ol>
+            </div>
+
+            {/* 7 Prompts Grid */}
+            <div className="space-y-3">
+              <h4 className="text-xs font-black uppercase tracking-wider text-slate-500">Official Mission Practice Commands</h4>
+              <div className="grid grid-cols-1 gap-2.5">
+                {prompts.map((p, idx) => (
+                  <div key={idx} className="p-3.5 bg-slate-50 hover:bg-slate-100/80 border border-slate-200 hover:border-purple-300 rounded-2xl transition flex items-center justify-between gap-3">
+                    <div className="space-y-0.5 min-w-0">
+                      <div className="flex items-center space-x-2">
+                        <span className="px-2.5 py-0.5 bg-purple-900 text-purple-100 font-mono font-black text-[11px] rounded-lg shadow-sm">
+                          {p.command}
+                        </span>
+                        <span className="text-xs font-extrabold text-slate-900 truncate">{p.title}</span>
+                      </div>
+                      <p className="text-xs text-slate-600 font-medium pl-0.5">{p.desc}</p>
+                    </div>
+                    
+                    <button
+                      onClick={() => handleCopy(p.text, p.command)}
+                      className={`px-3 py-2 rounded-xl text-xs font-extrabold transition shrink-0 flex items-center space-x-1 shadow-sm ${
+                        copiedPrompt === p.command
+                          ? 'bg-emerald-600 text-white'
+                          : 'bg-white text-slate-800 border border-slate-300 hover:bg-purple-50 hover:text-purple-700 hover:border-purple-300'
+                      }`}
+                    >
+                      <span>{copiedPrompt === p.command ? '✓ Copied!' : '📋 Copy Prompt'}</span>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Modal Action Buttons */}
+            <div className="pt-3 border-t flex flex-col sm:flex-row justify-between items-center gap-3">
+              <button
+                onClick={onClose}
+                className="w-full sm:w-auto px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-xs rounded-xl transition"
+              >
+                Close
+              </button>
+              
+              <a
+                href="https://chatgpt.com/g/g-6a7cdbc46df48191b1fa9d3e754c3bfc-mastered-ai-coach"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white font-extrabold text-xs rounded-xl shadow-lg transition flex items-center justify-center space-x-2"
+              >
+                <span>🚀 Go to Practice (Launch Mastered AI Coach)</span>
+                <span>➔</span>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      );
+    }
+
     function App() {
       const [currentUser, setCurrentUser] = useState(null);
       const [role, setRole] = useState(null);
@@ -1324,6 +1479,7 @@
       const [showGraduationModal, setShowGraduationModal] = useState(false);
       const [showTrainerModal, setShowTrainerModal] = useState(false);
       const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+      const [showAiPromptModal, setShowAiPromptModal] = useState(false);
       // Data Stores
       const [students, setStudents] = useState([]);
       const [requests, setRequests] = useState([]);
@@ -2414,7 +2570,7 @@
                       {activeModule.pdf && <button onClick={() => setLessonTab('pdf')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'pdf' ? 'bg-red-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>PDF Workbook</button>}
                       <button onClick={() => setLessonTab('aiProof')} className={`px-3.5 py-2 rounded-xl text-xs font-extrabold shrink-0 transition ${lessonTab === 'aiProof' ? 'bg-purple-700 text-white shadow-sm' : 'bg-purple-50 text-purple-900 border border-purple-200'}`}>📸 Upload AI Proof</button>
                       <button onClick={() => { setActiveQuizModNumber(activeModule.moduleNumber); setActiveQuizModTitle(activeModule.title); }} className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold shrink-0 transition shadow-sm">📝 Take 30-Q Quiz</button>
-                      <a href="https://chatgpt.com/g/g-6a7cdbc46df48191b1fa9d3e754c3bfc-mastered-ai-coach" target="_blank" rel="noopener noreferrer" className="px-3.5 py-2 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white rounded-xl text-xs font-extrabold shrink-0 transition shadow-sm flex items-center space-x-1"><span>🤖 Open ChatGPT AI Coach</span></a>
+                      <button onClick={() => setShowAiPromptModal(true)} className="px-3.5 py-2 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white rounded-xl text-xs font-extrabold shrink-0 transition shadow-sm flex items-center space-x-1"><span>🤖 Open ChatGPT AI Coach</span></button>
                     </div>
 
                     {/* Responsive Content Viewport with Security Watermark */}
@@ -2482,9 +2638,9 @@
                               <h4 className="font-bold text-sm text-slate-900">AI Mission ChatGPT Report Screenshot Proof</h4>
                               <p className="text-xs text-slate-500">Upload a clear screenshot of your report score from ChatGPT to complete Level {activeModule.moduleNumber} AI Mission!</p>
                             </div>
-                            <a href="https://chatgpt.com/g/g-6a7cdbc46df48191b1fa9d3e754c3bfc-mastered-ai-coach" target="_blank" rel="noopener noreferrer" className="px-3.5 py-2 bg-purple-700 hover:bg-purple-600 text-white text-xs font-extrabold rounded-xl shadow-md transition self-start sm:self-auto flex items-center space-x-1">
+                            <button onClick={() => setShowAiPromptModal(true)} className="px-3.5 py-2 bg-purple-700 hover:bg-purple-600 text-white text-xs font-extrabold rounded-xl shadow-md transition self-start sm:self-auto flex items-center space-x-1">
                               <span>🤖 Open Mastered AI Coach</span>
-                            </a>
+                            </button>
                           </div>
 
                           {(currentStudentProg[activeModule.moduleId] && currentStudentProg[activeModule.moduleId].aiMissionProof) ? (
@@ -2550,6 +2706,7 @@
                       setActiveQuizModNumber(modNum);
                       setActiveQuizModTitle(title);
                     }}
+                    onOpenAiPrompt={() => setShowAiPromptModal(true)}
                   />
                 ) : (
                   /* Student Dashboard / Modules List View */
@@ -2640,14 +2797,13 @@
                               </div>
 
                               <div className="pt-2 border-t flex items-center justify-between gap-2 flex-wrap">
-                                <a
-                                  href="https://chatgpt.com/g/g-6a7cdbc46df48191b1fa9d3e754c3bfc-mastered-ai-coach"
-                                  target="_blank"
-                                  rel="noopener noreferrer"
+                                <button
+                                  type="button"
+                                  onClick={() => setShowAiPromptModal(true)}
                                   className="px-3 py-1.5 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white rounded-xl font-extrabold text-[11px] shadow-sm flex items-center space-x-1"
                                 >
                                   <span>🤖 Mission AI</span>
-                                </a>
+                                </button>
                                 <button
                                   onClick={() => { setActiveQuizModNumber(modNum); setActiveQuizModTitle(m.title); }}
                                   className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-[11px] shadow-sm flex items-center space-x-1"
@@ -3030,6 +3186,14 @@
                   userProgress={userProgress}
                   onSaveGraduationVideo={handleSaveGraduationVideo}
                   onClose={() => setShowGraduationModal(false)}
+                />
+              )}
+
+              {/* AI Mission Prompts Popup Modal */}
+              {showAiPromptModal && (
+                <AiMissionPromptModal
+                  onClose={() => setShowAiPromptModal(false)}
+                  showToast={showToast}
                 />
               )}
             </main>
