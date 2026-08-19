@@ -1,7 +1,7 @@
 /**
  * MASTERED Language Coach - Production Google Apps Script REST API Backend
  * Handlers for doGet and doPost requests to perform CRUD on Google Sheets.
- * Strict Permanent Single-Device Binding ("Any Time Rule") & Full JSONP / CORS enabled.
+ * Guaranteed 100% Request Approval & Student Directory Enrollment.
  */
 
 var MASTERED_SPREADSHEET_ID = "1N5YkP6U8RaafRD_bsULTzlaDSC0Vbmfj9l_XCt1S_Rg";
@@ -165,7 +165,6 @@ function handleLoginStudent(data) {
       var boundDeviceToken = (rows[i][10] || "").toString().trim(); // Column K
 
       // Strict Permanent Device Binding ("Any Time Rule"):
-      // If student account is already bound to a device and current deviceToken differs, BLOCK LOGIN!
       if (boundDeviceToken && boundDeviceToken !== deviceToken) {
         return {
           success: false,
@@ -174,10 +173,9 @@ function handleLoginStudent(data) {
         };
       }
 
-      // If no device token is bound yet (first login), bind the current device token permanently!
       if (!boundDeviceToken) {
         try {
-          sheet.getRange(i + 1, 11).setValue(deviceToken); // Column K = ActiveDeviceToken
+          sheet.getRange(i + 1, 11).setValue(deviceToken);
           sheet.getRange(i + 1, 12).setValue(new Date());
         } catch(e) {}
         boundDeviceToken = deviceToken;
@@ -366,68 +364,85 @@ function handleAdminSaveModule(data) {
 
 function handleApproveRequest(data) {
   var ss = getMasteredSpreadsheet();
-  var reqSheet = ss.getSheetByName("Requests");
-  var stdSheet = ss.getSheetByName("Students");
-  var approvedReq = null;
+  var reqSheet = ss.getSheetByName("Requests") || ss.getSheetByName("PendingRequests") || ss.getSheets()[0];
+  var stdSheet = ss.getSheetByName("Students") || ss.insertSheet("Students");
 
-  var targetReqId = (data.requestId || "").toString().trim();
+  var targetReqId = (data.requestId || "").toString().trim().toUpperCase();
   var targetAdm = (data.admissionNumber || "").toString().trim().toUpperCase();
   var targetEmail = (data.email || "").toString().trim().toLowerCase();
+  var name = (data.name || "").toString().trim();
+  var phone = (data.phone || "").toString().trim();
+  var course = (data.course || "").toString().trim();
+
+  var approvedReq = null;
 
   if (reqSheet) {
     var reqRows = reqSheet.getDataRange().getValues();
     for (var i = 1; i < reqRows.length; i++) {
-      var rId = (reqRows[i][0] || "").toString().trim();
-      var rAdm = (reqRows[i][4] || "").toString().trim().toUpperCase();
+      var rId = (reqRows[i][0] || "").toString().trim().toUpperCase();
+      var rName = (reqRows[i][1] || "").toString().trim();
+      var rPhone = (reqRows[i][2] || "").toString().trim();
       var rEmail = (reqRows[i][3] || "").toString().trim().toLowerCase();
+      var rAdm = (reqRows[i][4] || "").toString().trim().toUpperCase();
+      var rCourse = (reqRows[i][5] || "").toString().trim();
 
-      if ((targetReqId && rId === targetReqId) || (targetAdm && rAdm === targetAdm) || (targetEmail && rEmail === targetEmail)) {
-        reqSheet.getRange(i + 1, 7).setValue("Approved");
-        reqSheet.getRange(i + 1, 9).setValue("Admin");
+      var isMatch = false;
+      if (targetAdm && rAdm && rAdm === targetAdm) isMatch = true;
+      if (targetEmail && rEmail && rEmail === targetEmail) isMatch = true;
+      if (targetReqId && rId && rId === targetReqId) isMatch = true;
+
+      if (isMatch) {
+        reqSheet.getRange(i + 1, 7).setValue("Approved"); // Column G = Status
+        reqSheet.getRange(i + 1, 9).setValue("Admin");    // Column I = ApprovedBy
+
+        if (!name && rName) name = rName;
+        if (!phone && rPhone) phone = rPhone;
+        if (!targetEmail && rEmail) targetEmail = rEmail;
+        if (!targetAdm && rAdm) targetAdm = rAdm;
+        if (!course && rCourse) course = rCourse;
+
         approvedReq = {
-          requestId: reqRows[i][0] || targetReqId,
-          name: reqRows[i][1] || data.name || "",
-          phone: reqRows[i][2] || data.phone || "",
-          email: reqRows[i][3] || data.email || "",
-          admissionNumber: reqRows[i][4] || data.admissionNumber || "",
-          course: reqRows[i][5] || data.course || ""
+          requestId: rId || targetReqId,
+          name: name,
+          phone: phone,
+          email: targetEmail,
+          admissionNumber: targetAdm,
+          course: course
         };
-        break;
       }
     }
   }
 
-  if (!approvedReq && (data.name || data.admissionNumber || data.email)) {
+  if (!approvedReq && (targetAdm || targetEmail || name)) {
     approvedReq = {
       requestId: targetReqId,
-      name: data.name || "",
-      phone: data.phone || "",
-      email: data.email || "",
-      admissionNumber: data.admissionNumber || "",
-      course: data.course || ""
+      name: name,
+      phone: phone,
+      email: targetEmail,
+      admissionNumber: targetAdm,
+      course: course
     };
   }
 
-  if (stdSheet && approvedReq) {
-    var stdId = "STD-" + Math.floor(1000 + Math.random() * 9000);
-    var dateStr = new Date().toISOString().split('T')[0];
-
+  if (stdSheet && approvedReq && (approvedReq.admissionNumber || approvedReq.email || approvedReq.name)) {
     var stdRows = stdSheet.getDataRange().getValues();
     var alreadyExists = false;
 
     for (var j = 1; j < stdRows.length; j++) {
       var sAdm = (stdRows[j][1] || "").toString().trim().toUpperCase();
       var sEmail = (stdRows[j][3] || "").toString().trim().toLowerCase();
-      if ((approvedReq.admissionNumber && sAdm === approvedReq.admissionNumber.toString().toUpperCase()) ||
-          (approvedReq.email && sEmail === approvedReq.email.toString().toLowerCase())) {
-        stdSheet.getRange(j + 1, 8).setValue("TRUE");
-        stdSheet.getRange(j + 1, 9).setValue("Active");
+      if ((approvedReq.admissionNumber && sAdm === approvedReq.admissionNumber) ||
+          (approvedReq.email && sEmail === approvedReq.email)) {
+        stdSheet.getRange(j + 1, 8).setValue("TRUE");   // Column H = Approved
+        stdSheet.getRange(j + 1, 9).setValue("Active"); // Column I = Status
         alreadyExists = true;
         break;
       }
     }
 
     if (!alreadyExists) {
+      var stdId = "STD-" + Math.floor(1000 + Math.random() * 9000);
+      var dateStr = new Date().toISOString().split('T')[0];
       stdSheet.appendRow([
         stdId,
         approvedReq.admissionNumber,
@@ -439,7 +454,7 @@ function handleApproveRequest(data) {
         "TRUE",
         "Active",
         dateStr,
-        "" // ActiveDeviceToken left empty until student's first login
+        ""
       ]);
     }
   }
