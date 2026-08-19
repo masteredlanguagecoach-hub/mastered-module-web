@@ -1,7 +1,7 @@
 /**
  * MASTERED Language Coach - Production Google Apps Script REST API Backend
  * Handlers for doGet and doPost requests to perform CRUD on Google Sheets.
- * Full JSONP & CORS support enabled to guarantee cross-domain sync across mobile & desktop.
+ * Single Active Device Rule & Full JSONP / CORS cross-domain sync enabled.
  */
 
 var MASTERED_SPREADSHEET_ID = "1N5YkP6U8RaafRD_bsULTzlaDSC0Vbmfj9l_XCt1S_Rg";
@@ -66,6 +66,12 @@ function routeActionObj(action, data) {
 
     case 'loginStudent':
       return handleLoginStudent(data);
+
+    case 'verifyDeviceSession':
+      return handleVerifyDeviceSession(data);
+
+    case 'resetStudentDevice':
+      return handleAdminResetStudentDevice(data);
 
     case 'loginAdmin':
       return handleLoginAdmin(data);
@@ -137,36 +143,104 @@ function getSheetData(sheetName) {
 }
 
 function handleLoginStudent(data) {
-  var students = getSheetData("Students");
+  var ss = getMasteredSpreadsheet();
+  var sheet = ss.getSheetByName("Students");
+  if (!sheet) return { success: false, message: "Students database sheet missing." };
+
+  var rows = sheet.getDataRange().getValues();
   var email = (data.email || "").toString().trim().toLowerCase();
   var adm = (data.admissionNumber || "").toString().trim().toUpperCase();
+  var deviceToken = data.deviceToken || ("DEV-" + Math.floor(100000 + Math.random() * 900000));
 
-  for (var i = 0; i < students.length; i++) {
-    var s = students[i];
-    if ((s.Email || "").toString().toLowerCase() === email &&
-        (s.AdmissionNumber || "").toString().toUpperCase() === adm) {
-      if (s.Approved === true || (s.Approved || "").toString().toUpperCase() === 'TRUE') {
-        return {
-          success: true,
-          student: {
-            studentId: s.StudentID,
-            admissionNumber: s.AdmissionNumber,
-            name: s.Name,
-            email: s.Email,
-            phone: s.Phone,
-            course: s.Course,
-            profileImage: s.ProfileImage,
-            approved: true,
-            status: s.Status,
-            createdDate: s.CreatedDate
-          }
-        };
-      } else {
-        return { success: false, message: "Your request is pending admin approval." };
+  for (var i = 1; i < rows.length; i++) {
+    var rAdm = (rows[i][1] || "").toString().trim().toUpperCase();
+    var rEmail = (rows[i][3] || "").toString().trim().toLowerCase();
+
+    if ((email && rEmail === email) || (adm && rAdm === adm)) {
+      var isApproved = rows[i][7] === true || (rows[i][7] || "").toString().toUpperCase() === 'TRUE';
+      if (!isApproved) {
+        return { success: false, message: "Your access application is pending admin approval." };
       }
+
+      // Record / Update Column K (ActiveDeviceToken) for Single Device Enforcement
+      try {
+        sheet.getRange(i + 1, 11).setValue(deviceToken);
+        sheet.getRange(i + 1, 12).setValue(new Date());
+      } catch(e) {}
+
+      return {
+        success: true,
+        deviceToken: deviceToken,
+        student: {
+          studentId: rows[i][0],
+          admissionNumber: rows[i][1],
+          name: rows[i][2],
+          email: rows[i][3],
+          phone: rows[i][4],
+          course: rows[i][5],
+          profileImage: rows[i][6],
+          approved: true,
+          status: rows[i][8],
+          createdDate: rows[i][9],
+          activeDeviceToken: deviceToken
+        }
+      };
     }
   }
   return { success: false, message: "Invalid email or admission number." };
+}
+
+function handleVerifyDeviceSession(data) {
+  var ss = getMasteredSpreadsheet();
+  var sheet = ss.getSheetByName("Students");
+  if (!sheet) return { valid: true };
+
+  var adm = (data.admissionNumber || "").toString().trim().toUpperCase();
+  var email = (data.email || "").toString().trim().toLowerCase();
+  var deviceToken = data.deviceToken || "";
+
+  if (!deviceToken) return { valid: true };
+
+  var rows = sheet.getDataRange().getValues();
+  for (var i = 1; i < rows.length; i++) {
+    var rAdm = (rows[i][1] || "").toString().trim().toUpperCase();
+    var rEmail = (rows[i][3] || "").toString().trim().toLowerCase();
+
+    if ((adm && rAdm === adm) || (email && rEmail === email)) {
+      var activeToken = (rows[i][10] || "").toString().trim(); // Column K
+      if (activeToken && activeToken !== deviceToken) {
+        return {
+          valid: false,
+          message: "⚠️ Session Expired! Your account was logged in from another device. Only 1 active device is allowed per student account."
+        };
+      }
+      return { valid: true };
+    }
+  }
+
+  return { valid: true };
+}
+
+function handleAdminResetStudentDevice(data) {
+  var ss = getMasteredSpreadsheet();
+  var sheet = ss.getSheetByName("Students");
+  if (!sheet) return { success: false, message: "Students sheet missing." };
+
+  var targetAdm = (data.admissionNumber || "").toString().trim().toUpperCase();
+  var targetEmail = (data.email || "").toString().trim().toLowerCase();
+
+  var rows = sheet.getDataRange().getValues();
+  for (var i = 1; i < rows.length; i++) {
+    var rAdm = (rows[i][1] || "").toString().trim().toUpperCase();
+    var rEmail = (rows[i][3] || "").toString().trim().toLowerCase();
+
+    if ((targetAdm && rAdm === targetAdm) || (targetEmail && rEmail === targetEmail)) {
+      sheet.getRange(i + 1, 11).setValue(""); // Clear Column K
+      return { success: true, message: "Student device lock reset successfully!" };
+    }
+  }
+
+  return { success: false, message: "Student record not found." };
 }
 
 function handleLoginAdmin(data) {
@@ -339,6 +413,7 @@ function handleApproveRequest(data) {
     }
 
     if (!alreadyExists) {
+      var initialDeviceToken = "DEV-" + Math.floor(100000 + Math.random() * 900000);
       stdSheet.appendRow([
         stdId,
         approvedReq.admissionNumber,
@@ -349,7 +424,8 @@ function handleApproveRequest(data) {
         "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80",
         "TRUE",
         "Active",
-        dateStr
+        dateStr,
+        initialDeviceToken
       ]);
     }
   }
@@ -427,7 +503,8 @@ function handleAdminGetStudents() {
       profileImage: s.ProfileImage,
       approved: s.Approved === true || (s.Approved || "").toString().toUpperCase() === 'TRUE',
       status: s.Status,
-      createdDate: s.CreatedDate
+      createdDate: s.CreatedDate,
+      activeDeviceToken: s.ActiveDeviceToken || ""
     };
   });
   return { success: true, data: list };
