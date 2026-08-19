@@ -1860,6 +1860,10 @@
       const handleStudentLogin = async (email, adm) => {
         const deviceToken = getDeviceToken();
         const live = await callAppsScript('loginStudent', { email, admissionNumber: adm, deviceToken });
+        if (live && live.deviceLocked) {
+          return { success: false, message: live.message };
+        }
+
         if (live && live.success && live.student) {
           const std = { ...live.student, activeDeviceToken: deviceToken };
           setCurrentUser(std);

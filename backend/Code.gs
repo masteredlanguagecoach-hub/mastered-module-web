@@ -1,7 +1,7 @@
 /**
  * MASTERED Language Coach - Production Google Apps Script REST API Backend
  * Handlers for doGet and doPost requests to perform CRUD on Google Sheets.
- * Single Active Device Rule & Full JSONP / CORS cross-domain sync enabled.
+ * Strict Permanent Single-Device Binding ("Any Time Rule") & Full JSONP / CORS enabled.
  */
 
 var MASTERED_SPREADSHEET_ID = "1N5YkP6U8RaafRD_bsULTzlaDSC0Vbmfj9l_XCt1S_Rg";
@@ -162,15 +162,30 @@ function handleLoginStudent(data) {
         return { success: false, message: "Your access application is pending admin approval." };
       }
 
-      // Record / Update Column K (ActiveDeviceToken) for Single Device Enforcement
-      try {
-        sheet.getRange(i + 1, 11).setValue(deviceToken);
-        sheet.getRange(i + 1, 12).setValue(new Date());
-      } catch(e) {}
+      var boundDeviceToken = (rows[i][10] || "").toString().trim(); // Column K
+
+      // Strict Permanent Device Binding ("Any Time Rule"):
+      // If student account is already bound to a device and current deviceToken differs, BLOCK LOGIN!
+      if (boundDeviceToken && boundDeviceToken !== deviceToken) {
+        return {
+          success: false,
+          deviceLocked: true,
+          message: "⛔ Account Locked to your registered device!\n\nThis account is bound to another phone/laptop. Logging in from secondary devices is strictly prohibited at any time.\n\nPlease use your original registered device, or ask your coach to reset your device lock!"
+        };
+      }
+
+      // If no device token is bound yet (first login), bind the current device token permanently!
+      if (!boundDeviceToken) {
+        try {
+          sheet.getRange(i + 1, 11).setValue(deviceToken); // Column K = ActiveDeviceToken
+          sheet.getRange(i + 1, 12).setValue(new Date());
+        } catch(e) {}
+        boundDeviceToken = deviceToken;
+      }
 
       return {
         success: true,
-        deviceToken: deviceToken,
+        deviceToken: boundDeviceToken,
         student: {
           studentId: rows[i][0],
           admissionNumber: rows[i][1],
@@ -182,7 +197,7 @@ function handleLoginStudent(data) {
           approved: true,
           status: rows[i][8],
           createdDate: rows[i][9],
-          activeDeviceToken: deviceToken
+          activeDeviceToken: boundDeviceToken
         }
       };
     }
@@ -211,7 +226,7 @@ function handleVerifyDeviceSession(data) {
       if (activeToken && activeToken !== deviceToken) {
         return {
           valid: false,
-          message: "⚠️ Session Expired! Your account was logged in from another device. Only 1 active device is allowed per student account."
+          message: "⛔ Account Locked to registered device! Access from secondary devices is blocked at any time. Contact your coach to unlock a new device."
         };
       }
       return { valid: true };
@@ -413,7 +428,6 @@ function handleApproveRequest(data) {
     }
 
     if (!alreadyExists) {
-      var initialDeviceToken = "DEV-" + Math.floor(100000 + Math.random() * 900000);
       stdSheet.appendRow([
         stdId,
         approvedReq.admissionNumber,
@@ -425,7 +439,7 @@ function handleApproveRequest(data) {
         "TRUE",
         "Active",
         dateStr,
-        initialDeviceToken
+        "" // ActiveDeviceToken left empty until student's first login
       ]);
     }
   }
