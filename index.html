@@ -1314,7 +1314,7 @@
     const MCL_REV_PROG = Object.fromEntries(Object.entries(MCL_PROG_MAP).map(([k,v]) => [v,k]));
 
     const MCL_LEN_MAP = {3:"QA", 4:"RB", 5:"SC", 6:"TD", 7:"UE", 8:"VF", 9:"WG", 10:"XH", 11:"YJ", 12:"ZK"};
-    const MCL_REV_LEN = Object.fromEntries(Object.entries(MCL_LEN_MAP).map(([k,v]) => [Number(k),v]));
+    const MCL_REV_LEN = Object.fromEntries(Object.entries(MCL_LEN_MAP).map(([k,v]) => [v, Number(k)]));
 
     function encodeMcl1(admInput, missionInput, progressInput) {
       const adm = String(admInput || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
