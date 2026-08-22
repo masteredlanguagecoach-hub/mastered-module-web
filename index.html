@@ -1397,11 +1397,111 @@
       return { success: true, admissionNumber: admStr, mission, progress };
     }
 
+    // Decoded Progress Report Modal Component
+    function DecodedProgressReportModal({ decodedData, currentUser, currentPct, onConfirmSave, onClose }) {
+      if (!decodedData) return null;
+
+      const userAdm = (currentUser?.admissionNumber || '').toUpperCase().trim();
+      const codeAdm = (decodedData.admissionNumber || '').toUpperCase().trim();
+      const isMatched = userAdm ? (codeAdm === userAdm) : true;
+      const isGain = decodedData.progress > currentPct;
+
+      return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md" onClick={onClose}>
+          <div className="bg-white rounded-3xl p-6 max-w-md w-full border border-slate-200 shadow-2xl space-y-5 text-center" onClick={e => e.stopPropagation()}>
+            
+            <div className={`w-16 h-16 rounded-full mx-auto flex items-center justify-center text-3xl shadow-md ${
+              !isMatched ? 'bg-rose-100 text-rose-600 border border-rose-300' :
+              !isGain ? 'bg-amber-100 text-amber-600 border border-amber-300' :
+              'bg-emerald-100 text-emerald-600 border border-emerald-300'
+            }`}>
+              {!isMatched ? '⛔' : !isGain ? 'ℹ️' : '🎉'}
+            </div>
+
+            <div>
+              <h3 className="text-xl font-extrabold text-slate-900">MCL-1 Decoded Progress Report</h3>
+              <p className="text-xs text-slate-500 mt-1">Mastered Code Language Verification Result</p>
+            </div>
+
+            <div className="bg-slate-900 text-white p-4 rounded-2xl space-y-3 text-left border border-slate-800 text-xs">
+              <div className="flex justify-between items-center pb-2 border-b border-slate-800">
+                <span className="text-slate-400">Student Admission:</span>
+                <span className="font-mono font-extrabold text-amber-400 text-sm">{decodedData.admissionNumber}</span>
+              </div>
+
+              <div className="flex justify-between items-center pb-2 border-b border-slate-800">
+                <span className="text-slate-400">Mission Level:</span>
+                <span className="font-extrabold text-white">Level {decodedData.mission}</span>
+              </div>
+
+              <div className="flex justify-between items-center pb-2 border-b border-slate-800">
+                <span className="text-slate-400">Session Progress:</span>
+                <span className="font-black text-emerald-400 text-base">{decodedData.progress}%</span>
+              </div>
+
+              <div className="flex justify-between items-center">
+                <span className="text-slate-400">Account Security:</span>
+                <span className={`font-bold px-2 py-0.5 rounded text-[11px] ${
+                  isMatched ? 'bg-emerald-950 text-emerald-300 border border-emerald-700' : 'bg-rose-950 text-rose-300 border border-rose-700'
+                }`}>
+                  {isMatched ? '✅ Matched Account' : '⛔ Mismatched Account'}
+                </span>
+              </div>
+            </div>
+
+            {!isMatched ? (
+              <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-800 font-bold">
+                ⛔ This code was generated for admission number "{decodedData.admissionNumber}". You cannot update progress using another student's code.
+              </div>
+            ) : !isGain ? (
+              <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800 font-bold">
+                ℹ️ Current recorded progress for Level {decodedData.mission} is ALREADY {currentPct}%. Progress cannot be reduced.
+              </div>
+            ) : (
+              <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 font-bold">
+                🚀 New Progress Verified! Confirming will update your Level {decodedData.mission} progress to {decodedData.progress}% in Google Sheets database.
+              </div>
+            )}
+
+            <div className="flex space-x-2 pt-2">
+              <button
+                type="button"
+                onClick={onClose}
+                className="w-1/2 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition"
+              >
+                Cancel
+              </button>
+              
+              {isMatched && isGain ? (
+                <button
+                  type="button"
+                  onClick={() => { onConfirmSave(); onClose(); }}
+                  className="w-1/2 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition"
+                >
+                  ✅ Save & Sync Progress
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="w-1/2 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-xl transition"
+                >
+                  Close
+                </button>
+              )}
+            </div>
+
+          </div>
+        </div>
+      );
+    }
+
     // AI Mission Prompts & Guided Practice Modal Component
     function AiMissionPromptModal({ onClose, showToast, currentUser, userProgress, activeModule, onVerifyMclCode }) {
       const [copiedPrompt, setCopiedPrompt] = useState(null);
       const [inputMclCode, setInputMclCode] = useState('');
       const [isVerifyingCode, setIsVerifyingCode] = useState(false);
+      const [decodedReport, setDecodedReport] = useState(null);
 
       const admNum = currentUser?.admissionNumber || 'MTR777';
       const activeMissionNumber = activeModule?.moduleNumber || 1;
@@ -1476,18 +1576,30 @@
         }
       };
 
-      const handleVerifySubmittedCode = async (e) => {
+      const handleVerifySubmittedCode = (e) => {
         e.preventDefault();
         if (!inputMclCode || !inputMclCode.trim()) {
           alert("Please enter or paste your MCL-1 progress code from ChatGPT.");
           return;
         }
 
+        const decoded = decodeMcl1(inputMclCode.trim());
+        if (!decoded.success) {
+          alert("⛔ " + decoded.message);
+          return;
+        }
+
+        setDecodedReport(decoded);
+      };
+
+      const handleConfirmSaveReport = async () => {
+        if (!inputMclCode) return;
         setIsVerifyingCode(true);
         try {
           if (onVerifyMclCode) {
             await onVerifyMclCode(inputMclCode.trim());
             setInputMclCode('');
+            setDecodedReport(null);
           }
         } catch(err) {
           alert("Verification error: " + err.toString());
@@ -1498,6 +1610,17 @@
 
       return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto" onClick={onClose}>
+          {/* Decoded Report Modal Popup */}
+          {decodedReport && (
+            <DecodedProgressReportModal
+              decodedData={decodedReport}
+              currentUser={currentUser}
+              currentPct={currentPct}
+              onConfirmSave={handleConfirmSaveReport}
+              onClose={() => setDecodedReport(null)}
+            />
+          )}
+
           <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 max-w-2xl w-full border border-slate-200 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
             
             {/* Modal Header */}
@@ -1556,7 +1679,7 @@
                     disabled={isVerifyingCode}
                     className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-md transition shrink-0 disabled:opacity-50"
                   >
-                    {isVerifyingCode ? '⏳ Syncing...' : '⚡ Sync Progress'}
+                    {isVerifyingCode ? '⏳ Syncing...' : '⚡ Update Progress & View Report'}
                   </button>
                 </form>
               </div>
