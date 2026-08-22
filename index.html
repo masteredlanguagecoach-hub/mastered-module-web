@@ -539,14 +539,7 @@
                   </div>
 
                   <div>
-                    <div className="flex space-x-2 pt-2 border-t border-slate-100">
-                      <button
-                        type="button"
-                        onClick={() => onOpenAiPrompt && onOpenAiPrompt()}
-                        className="px-3 py-2.5 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white font-extrabold text-xs rounded-xl shadow-sm transition flex items-center justify-center space-x-1 shrink-0"
-                      >
-                        <span>🤖 Mission AI</span>
-                      </button>
+                    <div className="pt-2 border-t border-slate-100">
                       <button
                         onClick={() => onStartQuiz(modNum, m.title)}
                         className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs rounded-xl shadow-sm transition"
@@ -2267,7 +2260,18 @@
           </div>
 
           {currentUser && (
-            <div className="flex items-center space-x-2 sm:space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              {role === 'student' && (
+                <button
+                  onClick={() => setShowAiPromptModal(true)}
+                  className="px-3 py-1.5 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center space-x-1.5 border border-purple-400/40"
+                  title="Mastered AI Coach & Prompts"
+                >
+                  <span className="text-sm">🤖</span>
+                  <span className="hidden sm:inline">AI Coach</span>
+                </button>
+              )}
+
               <div className="text-right text-xs hidden sm:block">
                 <p className="font-bold text-white">{currentUser.name}</p>
                 <p className="text-[10px] text-red-400 font-mono">{role === 'student' ? currentUser.admissionNumber : currentUser.role}</p>
@@ -2502,6 +2506,9 @@
                         <button onClick={() => handleNavigateTab('dashboard', true)} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'dashboard' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Dashboard</button>
                         <button onClick={() => handleNavigateTab('modules', true)} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'modules' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Modules Explorer ({modules.length})</button>
                         <button onClick={() => handleNavigateTab('quizzes', true)} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'quizzes' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>30-Question Quizzes 📝</button>
+                        <button onClick={() => { setMobileMenuOpen(false); setShowAiPromptModal(true); }} className="w-full text-left px-3.5 py-3 rounded-xl transition bg-gradient-to-r from-purple-800 to-indigo-800 hover:from-purple-700 hover:to-indigo-700 text-white font-extrabold flex items-center space-x-2">
+                          <span>🤖 AI Mission Practice</span>
+                        </button>
                       </>
                     ) : (
                       <>
@@ -2532,12 +2539,15 @@
                 <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider px-3">
                   {role === 'student' ? 'Student Menu' : 'Admin Control Hub'}
                 </p>
-                <nav className="space-y-1 text-xs font-semibold">
+                <nav className="space-y-1.5 text-xs font-semibold">
                   {role === 'student' ? (
                     <>
                       <button onClick={() => handleNavigateTab('dashboard')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'dashboard' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Dashboard</button>
                       <button onClick={() => handleNavigateTab('modules')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'modules' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Modules Explorer ({modules.length})</button>
                       <button onClick={() => handleNavigateTab('quizzes')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'quizzes' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Module Quizzes 📝</button>
+                      <button onClick={() => setShowAiPromptModal(true)} className="w-full text-left px-3 py-2.5 rounded-xl transition bg-gradient-to-r from-purple-800 to-indigo-800 hover:from-purple-700 hover:to-indigo-700 text-white font-extrabold flex items-center space-x-2 mt-2 shadow-sm">
+                        <span>🤖 AI Mission Practice</span>
+                      </button>
                     </>
                   ) : (
                     <>
@@ -2609,7 +2619,6 @@
                       {activeModule.pdf && <button onClick={() => setLessonTab('pdf')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'pdf' ? 'bg-red-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>PDF Workbook</button>}
                       <button onClick={() => setLessonTab('aiProof')} className={`px-3.5 py-2 rounded-xl text-xs font-extrabold shrink-0 transition ${lessonTab === 'aiProof' ? 'bg-purple-700 text-white shadow-sm' : 'bg-purple-50 text-purple-900 border border-purple-200'}`}>📸 Upload AI Proof</button>
                       <button onClick={() => { setActiveQuizModNumber(activeModule.moduleNumber); setActiveQuizModTitle(activeModule.title); }} className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold shrink-0 transition shadow-sm">📝 Take 30-Q Quiz</button>
-                      <button onClick={() => setShowAiPromptModal(true)} className="px-3.5 py-2 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white rounded-xl text-xs font-extrabold shrink-0 transition shadow-sm flex items-center space-x-1"><span>🤖 Open ChatGPT AI Coach</span></button>
                     </div>
 
                     {/* Responsive Content Viewport with Security Watermark */}
@@ -2837,23 +2846,16 @@
 
                               <div className="pt-2 border-t flex items-center justify-between gap-2 flex-wrap">
                                 <button
-                                  type="button"
-                                  onClick={() => setShowAiPromptModal(true)}
-                                  className="px-3 py-1.5 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white rounded-xl font-extrabold text-[11px] shadow-sm flex items-center space-x-1"
-                                >
-                                  <span>🤖 Mission AI</span>
-                                </button>
-                                <button
                                   onClick={() => { setActiveQuizModNumber(modNum); setActiveQuizModTitle(m.title); }}
-                                  className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-[11px] shadow-sm flex items-center space-x-1"
+                                  className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-[11px] shadow-sm flex items-center space-x-1"
                                 >
                                   <span>📝 30-Q Quiz</span>
                                 </button>
                                 <button
                                   onClick={() => setSelectedModuleId(m.moduleId)}
-                                  className="px-3.5 py-1.5 bg-red-600 hover:bg-red-500 text-white rounded-xl font-bold text-[11px] shadow-md"
+                                  className="px-4 py-1.5 bg-red-600 hover:bg-red-500 text-white font-extrabold text-[11px] rounded-xl shadow-md"
                                 >
-                                  {mProg.percentage > 0 ? 'Resume' : 'Start'}
+                                  {mProg.percentage > 0 ? 'Resume Lesson' : 'Start Lesson'}
                                 </button>
                               </div>
                             </div>
@@ -3285,14 +3287,26 @@
             </div>
           )}
 
+          {/* Floating Global AI Coach Toggle Button on Student Views (Hidden on Quiz Page) */}
+          {role === 'student' && activeTab !== 'quizzes' && (
+            <button
+              onClick={() => setShowAiPromptModal(true)}
+              className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-40 bg-gradient-to-r from-purple-700 via-indigo-700 to-purple-800 hover:from-purple-600 hover:to-indigo-600 text-white font-black px-4 py-3 rounded-full shadow-2xl flex items-center space-x-2 border-2 border-purple-300 transition transform hover:scale-105 active:scale-95"
+              title="Mastered AI Coach & Prompts"
+            >
+              <span className="text-lg">🤖</span>
+              <span className="text-xs sm:text-sm font-extrabold">AI Mission Practice</span>
+            </button>
+          )}
+
           {/* Floating 'I Need Trainer' WhatsApp Support Widget on Student Views */}
           {role === 'student' && (
             <button
               onClick={() => setShowTrainerModal(true)}
-              className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-40 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-4 py-3 rounded-full shadow-2xl flex items-center space-x-2 border-2 border-white transition transform hover:scale-105 active:scale-95"
+              className="fixed bottom-36 right-4 sm:bottom-20 sm:right-6 z-40 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full shadow-xl flex items-center space-x-2 border-2 border-white transition transform hover:scale-105 active:scale-95 text-xs opacity-90 hover:opacity-100"
             >
-              <span className="text-xl">💬</span>
-              <span className="text-xs">I Need Trainer</span>
+              <span className="text-base sm:text-lg">💬</span>
+              <span className="text-xs">Contact Coach</span>
             </button>
           )}
 
