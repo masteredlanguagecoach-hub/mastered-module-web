@@ -1768,6 +1768,12 @@
       const [showTrainerModal, setShowTrainerModal] = useState(false);
       const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
       const [showAiPromptModal, setShowAiPromptModal] = useState(false);
+      const [toast, setToast] = useState(null);
+
+      const showToast = (msg) => {
+        setToast(msg);
+        setTimeout(() => setToast(null), 3500);
+      };
       // Data Stores
       const [students, setStudents] = useState([]);
       const [requests, setRequests] = useState([]);
