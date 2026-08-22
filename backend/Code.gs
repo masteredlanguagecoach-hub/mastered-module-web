@@ -1,7 +1,7 @@
 /**
  * MASTERED Language Coach - Production Google Apps Script REST API Backend
  * Handlers for doGet and doPost requests to perform CRUD on Google Sheets.
- * Guaranteed 100% Request Approval & Student Directory Enrollment.
+ * Full Support for MCL-1 Progress Verification Engine.
  */
 
 var MASTERED_SPREADSHEET_ID = "1N5YkP6U8RaafRD_bsULTzlaDSC0Vbmfj9l_XCt1S_Rg";
@@ -99,6 +99,9 @@ function routeActionObj(action, data) {
     case 'getStudentProgress':
       return handleGetStudentProgress(data);
 
+    case 'verifyMclCode':
+      return handleVerifyMclCode(data);
+
     case 'updateProgress':
       return handleUpdateProgress(data);
 
@@ -140,6 +143,206 @@ function getSheetData(sheetName) {
     rows.push(obj);
   }
   return rows;
+}
+
+// Mastered Code Language - Version 1 (MCL-1) Codebooks
+var MCL_ADM_MAP = {"A":"XK","B":"QF","C":"NV","D":"HT","E":"RM","F":"ZC","G":"PJ","H":"WD","I":"KY","J":"FV","K":"BG","L":"TR","M":"LX","N":"SQ","O":"CP","P":"JN","Q":"VM","R":"DK","S":"YR","T":"GH","U":"MW","V":"KB","W":"RX","X":"TZ","Y":"PF","Z":"HC","0":"VQ","1":"XT","2":"NR","3":"KD","4":"ZM","5":"FW","6":"PB","7":"CJ","8":"HS","9":"YN"};
+var MCL_REV_ADM = {};
+for (var k1 in MCL_ADM_MAP) { MCL_REV_ADM[MCL_ADM_MAP[k1]] = k1; }
+
+var MCL_MIS_MAP = {"0":"AQ","1":"BR","2":"CT","3":"DV","4":"EX","5":"FZ","6":"GK","7":"HM","8":"JP","9":"LS"};
+var MCL_REV_MIS = {};
+for (var k2 in MCL_MIS_MAP) { MCL_REV_MIS[MCL_MIS_MAP[k2]] = k2; }
+
+var MCL_PROG_MAP = {"0":"UC","1":"VE","2":"WG","3":"XJ","4":"YL","5":"ZN","6":"AP","7":"BS","8":"DU","9":"EW"};
+var MCL_REV_PROG = {};
+for (var k3 in MCL_PROG_MAP) { MCL_REV_PROG[MCL_PROG_MAP[k3]] = k3; }
+
+var MCL_LEN_MAP = {3:"QA", 4:"RB", 5:"SC", 6:"TD", 7:"UE", 8:"VF", 9:"WG", 10:"XH", 11:"YJ", 12:"ZK"};
+var MCL_REV_LEN = {};
+for (var k4 in MCL_LEN_MAP) { MCL_REV_LEN[MCL_LEN_MAP[k4]] = Number(k4); }
+
+function encodeMcl1(admInput, missionInput, progressInput) {
+  var adm = (admInput || "").toString().toUpperCase().replace(/[^A-Z0-9]/g, "");
+  if (!adm || !MCL_LEN_MAP[adm.length]) return "";
+
+  var misNum = parseInt(missionInput) || 1;
+  var misStr = (misNum < 10 ? "0" + misNum : "" + misNum);
+
+  var progNum = Math.min(100, Math.max(0, parseInt(progressInput) || 0));
+  var progStr = (progNum < 10 ? "00" + progNum : (progNum < 100 ? "0" + progNum : "" + progNum));
+
+  var L = MCL_LEN_MAP[adm.length];
+
+  var encAdm = "";
+  for (var i = 0; i < adm.length; i++) {
+    encAdm += (MCL_ADM_MAP[adm[i]] || "");
+  }
+
+  var n = adm.length;
+  var n1 = n % 2 !== 0 ? Math.floor((n + 1) / 2) : n / 2;
+  var encHalf1 = encAdm.substring(0, n1 * 2);
+  var encHalf2 = encAdm.substring(n1 * 2);
+
+  var encMis = "";
+  for (var j = 0; j < misStr.length; j++) {
+    encMis += (MCL_MIS_MAP[misStr[j]] || "");
+  }
+
+  var encProg = "";
+  for (var k = 0; k < progStr.length; k++) {
+    encProg += (MCL_PROG_MAP[progStr[k]] || "");
+  }
+
+  var raw = encProg + encHalf1 + encMis + encHalf2 + L;
+  var groups = [];
+  for (var g = 0; g < raw.length; g += 4) {
+    groups.push(raw.substring(g, g + 4));
+  }
+  return groups.join("-");
+}
+
+function decodeMcl1(codeStr) {
+  var clean = (codeStr || "").toString().replace(/[^A-Z]/gi, "").toUpperCase();
+  if (clean.length < 12) return { success: false, message: "INVALID PROGRESS CODE" };
+
+  var L_code = clean.slice(-2);
+  if (!MCL_REV_LEN[L_code]) return { success: false, message: "INVALID PROGRESS CODE" };
+
+  var n = MCL_REV_LEN[L_code];
+  var expectedLen = 6 + (2 * n) + 4 + 2;
+  if (clean.length !== expectedLen) return { success: false, message: "INVALID PROGRESS CODE" };
+
+  var n1 = n % 2 !== 0 ? Math.floor((n + 1) / 2) : n / 2;
+  var n2 = n - n1;
+
+  var encProg = clean.substring(0, 6);
+  var encHalf1 = clean.substring(6, 6 + 2 * n1);
+  var encMis = clean.substring(6 + 2 * n1, 6 + 2 * n1 + 4);
+  var encHalf2 = clean.substring(6 + 2 * n1 + 4, 6 + 2 * n1 + 4 + 2 * n2);
+
+  var progDigits = "";
+  for (var p = 0; p < 6; p += 2) {
+    var pPair = encProg.substring(p, p + 2);
+    if (!MCL_REV_PROG[pPair]) return { success: false, message: "INVALID PROGRESS CODE" };
+    progDigits += MCL_REV_PROG[pPair];
+  }
+  var progress = parseInt(progDigits, 10);
+
+  var misDigits = "";
+  for (var m = 0; m < 4; m += 2) {
+    var mPair = encMis.substring(m, m + 2);
+    if (!MCL_REV_MIS[mPair]) return { success: false, message: "INVALID PROGRESS CODE" };
+    misDigits += MCL_REV_MIS[mPair];
+  }
+  var mission = parseInt(misDigits, 10);
+
+  var fullEncAdm = encHalf1 + encHalf2;
+  var admStr = "";
+  for (var a = 0; a < fullEncAdm.length; a += 2) {
+    var aPair = fullEncAdm.substring(a, a + 2);
+    if (!MCL_REV_ADM[aPair]) return { success: false, message: "INVALID PROGRESS CODE" };
+    admStr += MCL_REV_ADM[aPair];
+  }
+
+  if (mission < 1 || mission > 33 || progress < 0 || progress > 100) {
+    return { success: false, message: "INVALID PROGRESS CODE" };
+  }
+
+  return { success: true, admissionNumber: admStr, mission: mission, progress: progress };
+}
+
+function handleVerifyMclCode(data) {
+  var rawCode = data.code || data.mclCode || "";
+  var userAdm = (data.admissionNumber || "").toString().trim().toUpperCase();
+  var userEmail = (data.email || "").toString().trim().toLowerCase();
+
+  if (!rawCode) return { success: false, message: "Please enter your MCL-1 progress code." };
+
+  var decoded = decodeMcl1(rawCode);
+  if (!decoded.success) {
+    return { success: false, message: decoded.message };
+  }
+
+  // Check 18: Student Matching Rule
+  if (userAdm && decoded.admissionNumber !== userAdm) {
+    return { success: false, message: "THIS CODE DOES NOT BELONG TO YOUR ACCOUNT" };
+  }
+
+  // Load existing progress from database
+  var ss = getMasteredSpreadsheet();
+  var sheet = ss.getSheetByName("StudentProgress");
+  if (!sheet) {
+    sheet = ss.insertSheet("StudentProgress");
+    sheet.appendRow(["AdmissionNumber", "Email", "ProgressJSON", "LastUpdated"]);
+  }
+
+  var rows = sheet.getDataRange().getValues();
+  var rowIndex = -1;
+  var userProgObj = {};
+
+  for (var i = 1; i < rows.length; i++) {
+    var rowAdm = (rows[i][0] || "").toString().trim().toUpperCase();
+    var rowEmail = (rows[i][1] || "").toString().trim().toLowerCase();
+    if ((userAdm && rowAdm === userAdm) || (userEmail && rowEmail === userEmail)) {
+      rowIndex = i + 1;
+      try { userProgObj = JSON.parse(rows[i][2]); } catch(e) {}
+      break;
+    }
+  }
+
+  var modKey = "MOD-" + (decoded.mission < 10 ? "0" + decoded.mission : decoded.mission);
+  var currentModObj = userProgObj[modKey] || {};
+  var currentPct = Number(currentModObj.percentage) || 0;
+
+  // Check 15: Never Reduce Progress Rule
+  if (decoded.progress <= currentPct) {
+    return { success: false, message: "NO NEW PROGRESS (Current progress: " + currentPct + "%)" };
+  }
+
+  // Update Progress
+  currentModObj.percentage = decoded.progress;
+  currentModObj.lastUpdated = new Date().toISOString();
+
+  // Check 16: 100% Rule
+  if (decoded.progress === 100) {
+    currentModObj.status = "COMPLETED";
+    currentModObj.aiMissionCompleted = true;
+
+    // Unlock next mission
+    var nextModNum = decoded.mission + 1;
+    if (nextModNum <= 33) {
+      var nextModKey = "MOD-" + (nextModNum < 10 ? "0" + nextModNum : nextModNum);
+      if (!userProgObj[nextModKey]) userProgObj[nextModKey] = {};
+      userProgObj[nextModKey].unlocked = true;
+    }
+  }
+
+  // Check 14: History Update Rule
+  if (!currentModObj.history) currentModObj.history = [];
+  currentModObj.history.push({
+    mission: decoded.mission,
+    progress: decoded.progress,
+    timestamp: new Date().toISOString()
+  });
+
+  userProgObj[modKey] = currentModObj;
+  var updatedProgressStr = JSON.stringify(userProgObj);
+  var now = new Date();
+
+  if (rowIndex > 0) {
+    sheet.getRange(rowIndex, 3).setValue(updatedProgressStr);
+    sheet.getRange(rowIndex, 4).setValue(now);
+  } else {
+    sheet.appendRow([userAdm, userEmail, updatedProgressStr, now]);
+  }
+
+  return {
+    success: true,
+    message: "🎉 Progress Verified! Level " + decoded.mission + " updated to " + decoded.progress + "%!",
+    userProgress: userProgObj,
+    decoded: decoded
+  };
 }
 
 function handleLoginStudent(data) {
