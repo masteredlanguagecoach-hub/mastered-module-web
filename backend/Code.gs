@@ -345,31 +345,59 @@ function handleVerifyMclCode(data) {
   };
 }
 
-// Auto-Approve Paid Students from "Paid Students" Sheet Tab
+// Auto-Approve Paid Students from "PAID_STUDENTS" Sheet Tab
 function checkAndAutoApprovePaidStudent(targetAdm, targetEmail) {
   try {
     var ss = getMasteredSpreadsheet();
-    var paidSheet = ss.getSheetByName("Paid Students") || ss.getSheetByName("PaidStudents") || ss.getSheetByName("Paid") || ss.getSheetByName("Payments");
+    var paidSheet = ss.getSheetByName("PAID_STUDENTS") ||
+                    ss.getSheetByName("Paid Students") ||
+                    ss.getSheetByName("PaidStudents") ||
+                    ss.getSheetByName("Paid") ||
+                    ss.getSheetByName("Payments");
+
     if (!paidSheet) {
-      paidSheet = ss.insertSheet("Paid Students");
-      paidSheet.appendRow(["AdmissionNumber", "Name", "Email", "Phone", "Course", "PaymentDate"]);
-      return null;
+      // Look for any sheet tab with "PAID" in its name
+      var allSheets = ss.getSheets();
+      for (var s = 0; s < allSheets.length; s++) {
+        var sName = allSheets[s].getName().toUpperCase();
+        if (sName.indexOf("PAID") >= 0) {
+          paidSheet = allSheets[s];
+          break;
+        }
+      }
     }
+
+    if (!paidSheet) return null;
 
     var paidData = paidSheet.getDataRange().getValues();
     if (paidData.length <= 1) return null;
 
     var headers = paidData[0].map(function(h) { return h.toString().trim().toLowerCase(); });
-    var admIdx = -1, emailIdx = -1, nameIdx = -1, phoneIdx = -1, courseIdx = -1;
+    var admIdx = -1, emailIdx = -1, nameIdx = -1, phoneIdx = -1, courseIdx = -1, statusIdx = -1;
 
     for (var k = 0; k < headers.length; k++) {
       var h = headers[k];
-      if (h.indexOf("admission") >= 0 || h.indexOf("adm") >= 0 || h.indexOf("id") >= 0) admIdx = k;
-      if (h.indexOf("email") >= 0) emailIdx = k;
-      if (h.indexOf("name") >= 0) nameIdx = k;
-      if (h.indexOf("phone") >= 0 || h.indexOf("mobile") >= 0) phoneIdx = k;
-      if (h.indexOf("course") >= 0) courseIdx = k;
+      if (h.indexOf("admission") >= 0 || h.indexOf("adm") >= 0) admIdx = k;
+      if (h === "full name" || h.indexOf("full name") >= 0 || (h.indexOf("name") >= 0 && h.indexOf("course") < 0)) nameIdx = k;
+      if (h.indexOf("email") >= 0 && h.indexOf("verified") < 0) emailIdx = k;
+      if (h.indexOf("whatsapp") >= 0 || h.indexOf("phone") >= 0 || h.indexOf("mobile") >= 0) phoneIdx = k;
+      if (h.indexOf("course name") >= 0 || h.indexOf("course code") >= 0 || h.indexOf("course") >= 0) courseIdx = k;
+      if (h.indexOf("payment status") >= 0 || h.indexOf("status") >= 0) statusIdx = k;
     }
+
+    // Fallbacks based on exact PAID_STUDENTS sheet layout:
+    // Col B (idx 1): Admission Number
+    // Col C (idx 2): Full Name
+    // Col D (idx 3): Email
+    // Col F (idx 5): WhatsApp Number
+    // Col H (idx 7): Course Name / Col G (idx 6): Course Code
+    // Col K (idx 10): Payment Status
+    if (admIdx < 0 && headers.length > 1) admIdx = 1;
+    if (nameIdx < 0 && headers.length > 2) nameIdx = 2;
+    if (emailIdx < 0 && headers.length > 3) emailIdx = 3;
+    if (phoneIdx < 0 && headers.length > 5) phoneIdx = 5;
+    if (courseIdx < 0 && headers.length > 7) courseIdx = 7;
+    if (statusIdx < 0 && headers.length > 10) statusIdx = 10;
 
     var cleanAdm = (targetAdm || "").toString().trim().toUpperCase();
     var cleanEmail = (targetEmail || "").toString().trim().toLowerCase();
@@ -379,14 +407,29 @@ function checkAndAutoApprovePaidStudent(targetAdm, targetEmail) {
       var row = paidData[i];
       var pAdm = admIdx >= 0 ? (row[admIdx] || "").toString().trim().toUpperCase() : "";
       var pEmail = emailIdx >= 0 ? (row[emailIdx] || "").toString().trim().toLowerCase() : "";
+      var pStatus = statusIdx >= 0 ? (row[statusIdx] || "").toString().trim().toUpperCase() : "";
+
+      // Optional status check: If status column exists, verify it is SUCCESS / PAID / COMPLETED or TRUE
+      if (statusIdx >= 0 && pStatus && pStatus !== "SUCCESS" && pStatus !== "PAID" && pStatus !== "COMPLETED" && pStatus !== "TRUE" && pStatus !== "YES") {
+        continue;
+      }
 
       if ((cleanAdm && pAdm && pAdm === cleanAdm) || (cleanEmail && pEmail && pEmail === cleanEmail)) {
+        var rawCourse = courseIdx >= 0 ? (row[courseIdx] || "").toString().trim() : "MAL TO ENG";
+        var normCourse = "MAL TO ENG";
+        var cUpper = rawCourse.toUpperCase();
+        if (cUpper.indexOf("ML") >= 0 || cUpper.indexOf("MALAYALAM") >= 0) normCourse = "MAL TO ENG";
+        else if (cUpper.indexOf("HI") >= 0 || cUpper.indexOf("HINDI") >= 0) normCourse = "HIND TO ENG";
+        else if (cUpper.indexOf("TA") >= 0 || cUpper.indexOf("TAMIL") >= 0) normCourse = "TAMIL TO ENG";
+        else if (cUpper.indexOf("KA") >= 0 || cUpper.indexOf("KANNADA") >= 0) normCourse = "KANNADA TO ENG";
+        else if (cUpper.indexOf("BA") >= 0 || cUpper.indexOf("BENGALI") >= 0 || cUpper.indexOf("BANGALI") >= 0) normCourse = "BANGALI TO ENG";
+
         foundPaid = {
           admissionNumber: pAdm || cleanAdm,
           name: nameIdx >= 0 ? (row[nameIdx] || "").toString().trim() : "Paid Student",
           email: pEmail || cleanEmail,
           phone: phoneIdx >= 0 ? (row[phoneIdx] || "").toString().trim() : "",
-          course: courseIdx >= 0 ? (row[courseIdx] || "").toString().trim() : "MAL TO ENG"
+          course: normCourse
         };
         break;
       }
