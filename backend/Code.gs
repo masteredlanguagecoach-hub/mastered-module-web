@@ -962,12 +962,17 @@ function syncAllPaidStudentsToStudentsSheet() {
     if (!paidSheet) return { success: false, message: "PAID_STUDENTS sheet missing." };
 
     var stdSheet = ss.getSheetByName("Students");
-    if (!stdSheet) stdSheet = ss.insertSheet("Students");
-
-    var paidData = paidSheet.getDataRange().getValues();
-    if (paidData.length <= 1) return { success: true, count: 0 };
+    if (!stdSheet) {
+      stdSheet = ss.insertSheet("Students");
+      stdSheet.appendRow(["StudentID", "AdmissionNumber", "Name", "Email", "Phone", "Course", "ProfileImage", "Approved", "Status", "CreatedDate", "ActiveDeviceToken"]);
+    }
 
     var stdData = stdSheet.getDataRange().getValues();
+    if (stdData.length === 0 || (stdData.length === 1 && !stdData[0][0])) {
+      stdSheet.clear();
+      stdSheet.appendRow(["StudentID", "AdmissionNumber", "Name", "Email", "Phone", "Course", "ProfileImage", "Approved", "Status", "CreatedDate", "ActiveDeviceToken"]);
+      stdData = stdSheet.getDataRange().getValues();
+    }
     var stdAdmMap = {};
     var stdEmailMap = {};
 
