@@ -137,16 +137,29 @@ function getSheetData(sheetName) {
   if (!sheet) return [];
 
   var data = sheet.getDataRange().getValues();
-  if (data.length <= 1) return [];
+  if (!data || data.length === 0) return [];
 
-  var headers = data[0];
+  var headerIdx = 0;
+  for (var r = 0; r < data.length; r++) {
+    var rowStr = data[r].join(" ").trim();
+    if (rowStr.length > 0) {
+      headerIdx = r;
+      break;
+    }
+  }
+
+  if (data.length <= headerIdx + 1) return [];
+
+  var headers = data[headerIdx].map(function(h) { return h.toString().trim(); });
   var rows = [];
 
-  for (var i = 1; i < data.length; i++) {
+  for (var i = headerIdx + 1; i < data.length; i++) {
     var row = data[i];
     var obj = {};
     for (var j = 0; j < headers.length; j++) {
-      obj[headers[j]] = row[j];
+      if (headers[j]) {
+        obj[headers[j]] = row[j];
+      }
     }
     rows.push(obj);
   }
