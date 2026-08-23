@@ -1047,12 +1047,13 @@ function syncAllPaidStudentsToStudentsSheet() {
       } else {
         var stdId = "STD-" + Math.floor(1000 + Math.random() * 9000);
         var dateStr = new Date().toISOString().split('T')[0];
+        var safePhone = pPhone ? "'" + pPhone.toString().replace(/[^0-9]/g, "") : "";
         stdSheet.appendRow([
           stdId,
           pAdmRaw || pAdm,
           pName,
           pEmail,
-          pPhone,
+          safePhone,
           normCourse,
           "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80",
           "TRUE",
