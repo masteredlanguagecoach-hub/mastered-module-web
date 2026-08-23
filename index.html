@@ -1769,6 +1769,8 @@
       const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
       const [showAiPromptModal, setShowAiPromptModal] = useState(false);
       const [toast, setToast] = useState(null);
+      const [isLoggingIn, setIsLoggingIn] = useState(false);
+      const [loginError, setLoginError] = useState(null);
 
       const showToast = (msg) => {
         setToast(msg);
@@ -2207,60 +2209,82 @@
       };
 
       // Student Login with Single Device Token Registration & Paid Auto-Approval
-      const handleStudentLogin = async (email, adm) => {
-        const cleanEmail = (email || '').trim().toLowerCase();
-        const cleanAdm = (adm || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+      const handleStudentLogin = async (emailInput, admInput) => {
+        setLoginError(null);
+        setIsLoggingIn(true);
+        try {
+          const rawEmail = (emailInput || '').trim().toLowerCase();
+          const rawAdm = (admInput || '').trim().toUpperCase();
 
-        if (!cleanEmail && !cleanAdm) {
-          return { success: false, message: "Please enter your Registered Email Address or Admission Number." };
+          // Flexible parsing: If user typed Admission Number into Email input field
+          let cleanEmail = rawEmail.includes('@') ? rawEmail : '';
+          let cleanAdm = rawAdm.replace(/[^A-Z0-9]/g, '');
+
+          if (!cleanEmail && rawEmail && !rawEmail.includes('@')) {
+            cleanAdm = rawEmail.toUpperCase().replace(/[^A-Z0-9]/g, '');
+          }
+
+          if (!cleanEmail && !cleanAdm) {
+            setLoginError("Please enter your Registered Email Address or Admission Number.");
+            return { success: false };
+          }
+
+          const deviceToken = getDeviceToken();
+          const live = await callAppsScript('loginStudent', { email: cleanEmail, admissionNumber: cleanAdm, deviceToken });
+          
+          if (live && live.deviceLocked) {
+            setLoginError(live.message);
+            return { success: false };
+          }
+
+          if (live && live.success && live.student) {
+            const std = { ...live.student, activeDeviceToken: deviceToken };
+            setCurrentUser(std);
+            setRole('student');
+            setActiveTab('dashboard');
+            safeStorage.setItem('mastered_user_session', JSON.stringify({ user: std, role: 'student', tab: 'dashboard', deviceToken }));
+            fetchStudentProgressFromCloud(std);
+            return { success: true };
+          }
+
+          // Client-side fallback search
+          const found = students.find(s => {
+            const sEmail = (s.email || '').toLowerCase().trim();
+            const sAdm = (s.admissionNumber || '').toUpperCase().trim().replace(/[^A-Z0-9]/g, '');
+            return (cleanEmail && sEmail === cleanEmail) || (cleanAdm && sAdm === cleanAdm);
+          });
+
+          if (found && found.approved) {
+            setCurrentUser(found);
+            setRole('student');
+            setActiveTab('dashboard');
+            safeStorage.setItem('mastered_user_session', JSON.stringify({ user: found, role: 'student', tab: 'dashboard' }));
+            fetchStudentProgressFromCloud(found);
+            return { success: true };
+          }
+
+          // Check if student has a pending request in database
+          const pendingReq = (requests || []).find(r => 
+            r && typeof r === 'object' && r.status === 'Pending' && (
+              (r.admissionNumber && r.admissionNumber.toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, '') === cleanAdm) ||
+              (r.email && r.email.toString().trim().toLowerCase() === cleanEmail)
+            )
+          );
+
+          if (pendingReq) {
+            setLoginError("⏳ Your access application is currently pending coach approval! Once approved, you can log in immediately.");
+            return { success: false };
+          }
+
+          const errMsg = (live && live.message) || "Invalid email or admission number. Please check your credentials or click 'Request Access Application' below!";
+          setLoginError(errMsg);
+          return { success: false, message: errMsg };
+        } catch(err) {
+          setLoginError("Login Exception: " + err.toString());
+          return { success: false };
+        } finally {
+          setIsLoggingIn(false);
         }
-
-        const deviceToken = getDeviceToken();
-        const live = await callAppsScript('loginStudent', { email: cleanEmail, admissionNumber: cleanAdm, deviceToken });
-        
-        if (live && live.deviceLocked) {
-          return { success: false, message: live.message };
-        }
-
-        if (live && live.success && live.student) {
-          const std = { ...live.student, activeDeviceToken: deviceToken };
-          setCurrentUser(std);
-          setRole('student');
-          setActiveTab('dashboard');
-          safeStorage.setItem('mastered_user_session', JSON.stringify({ user: std, role: 'student', tab: 'dashboard', deviceToken }));
-          fetchStudentProgressFromCloud(std);
-          return { success: true };
-        }
-
-        // Client-side fallback search
-        const found = students.find(s => {
-          const sEmail = (s.email || '').toLowerCase().trim();
-          const sAdm = (s.admissionNumber || '').toUpperCase().trim().replace(/[^A-Z0-9]/g, '');
-          return (cleanEmail && sEmail === cleanEmail) || (cleanAdm && sAdm === cleanAdm);
-        });
-
-        if (found && found.approved) {
-          setCurrentUser(found);
-          setRole('student');
-          setActiveTab('dashboard');
-          safeStorage.setItem('mastered_user_session', JSON.stringify({ user: found, role: 'student', tab: 'dashboard' }));
-          fetchStudentProgressFromCloud(found);
-          return { success: true };
-        }
-
-        // Check if student has a pending request in database
-        const pendingReq = (requests || []).find(r => 
-          r && typeof r === 'object' && r.status === 'Pending' && (
-            (r.admissionNumber && r.admissionNumber.toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, '') === cleanAdm) ||
-            (r.email && r.email.toString().trim().toLowerCase() === cleanEmail)
-          )
-        );
-
-        if (pendingReq) {
-          return { success: false, message: "⏳ Your access application is currently pending coach approval! Once the coach approves your application, you can log in immediately." };
-        }
-
-        return { success: false, message: (live && live.message) || "Invalid email or admission number. Please check your credentials or click 'Request Access Application' below!" };
       };
 
       // Admin Login
@@ -2762,21 +2786,29 @@
                 <p className="text-xs text-slate-400 mt-1">Speak With Confidence — Mastered Coaching System</p>
               </div>
 
+              {loginError && (
+                <div className="p-3.5 bg-rose-950/80 border border-rose-800 text-rose-200 text-xs font-bold rounded-2xl text-center space-y-1">
+                  <p className="font-extrabold flex items-center justify-center space-x-1">
+                    <span>⚠️ Sign In Error</span>
+                  </p>
+                  <p className="text-[11px] font-medium leading-relaxed">{loginError}</p>
+                </div>
+              )}
+
               <form onSubmit={async (e) => {
                 e.preventDefault();
-                const res = await handleStudentLogin(e.target.email.value, e.target.admissionNumber.value);
-                if (!res.success) alert(res.message);
+                await handleStudentLogin(e.target.email.value, e.target.admissionNumber.value);
               }} className="space-y-4 text-xs">
                 <div>
                   <label className="block text-slate-300 font-bold mb-1">Registered Email Address</label>
-                  <input name="email" type="email" required placeholder="your.email@example.com" className="w-full p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-red-500 outline-none" />
+                  <input name="email" type="text" placeholder="your.email@example.com (or leave blank if using admission #)" className="w-full p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-red-500 outline-none" />
                 </div>
                 <div>
                   <label className="block text-slate-300 font-bold mb-1">Admission Number</label>
-                  <input name="admissionNumber" type="text" required placeholder="MLC-2026-001" className="w-full p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono uppercase focus:border-red-500 outline-none" />
+                  <input name="admissionNumber" type="text" placeholder="MLC786 (or leave blank if using email)" className="w-full p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono uppercase focus:border-red-500 outline-none" />
                 </div>
-                <button type="submit" className="w-full py-3.5 bg-red-600 hover:bg-red-500 font-extrabold rounded-xl text-white shadow-lg shadow-red-600/30 text-sm">
-                  Sign In to Student Portal
+                <button type="submit" disabled={isLoggingIn} className="w-full py-3.5 bg-red-600 hover:bg-red-500 font-extrabold rounded-xl text-white shadow-lg shadow-red-600/30 text-sm disabled:opacity-50 transition">
+                  {isLoggingIn ? '⏳ Verifying & Signing In...' : 'Sign In to Student Portal'}
                 </button>
 
                 <div className="text-center pt-1">
