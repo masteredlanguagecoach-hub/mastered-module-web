@@ -380,7 +380,16 @@ function checkAndAutoApprovePaidStudent(targetAdm, targetEmail) {
     var paidData = paidSheet.getDataRange().getValues();
     if (paidData.length <= 1) return null;
 
-    var headers = paidData[0].map(function(h) { return h.toString().trim().toLowerCase(); });
+    var headerRowIndex = 0;
+    for (var r = 0; r < paidData.length; r++) {
+      var rStr = paidData[r].join(" ").toLowerCase();
+      if (rStr.indexOf("admission") >= 0 || rStr.indexOf("email") >= 0 || rStr.indexOf("full name") >= 0 || rStr.indexOf("status") >= 0) {
+        headerRowIndex = r;
+        break;
+      }
+    }
+
+    var headers = paidData[headerRowIndex].map(function(h) { return h.toString().trim().toLowerCase(); });
     var admIdx = -1, emailIdx = -1, nameIdx = -1, phoneIdx = -1, courseIdx = -1, statusIdx = -1;
 
     for (var k = 0; k < headers.length; k++) {
@@ -411,7 +420,7 @@ function checkAndAutoApprovePaidStudent(targetAdm, targetEmail) {
     var cleanEmail = (targetEmail || "").toString().trim().toLowerCase();
 
     var foundPaid = null;
-    for (var i = 1; i < paidData.length; i++) {
+    for (var i = headerRowIndex + 1; i < paidData.length; i++) {
       var row = paidData[i];
       var pAdm = admIdx >= 0 ? (row[admIdx] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "") : "";
       var pEmail = emailIdx >= 0 ? (row[emailIdx] || "").toString().trim().toLowerCase() : "";
@@ -956,7 +965,16 @@ function syncAllPaidStudentsToStudentsSheet() {
       if (sEmail) stdEmailMap[sEmail] = j + 1;
     }
 
-    var headers = paidData[0].map(function(h) { return h.toString().trim().toLowerCase(); });
+    var headerRowIndex = 0;
+    for (var r = 0; r < paidData.length; r++) {
+      var rStr = paidData[r].join(" ").toLowerCase();
+      if (rStr.indexOf("admission") >= 0 || rStr.indexOf("email") >= 0 || rStr.indexOf("full name") >= 0 || rStr.indexOf("status") >= 0) {
+        headerRowIndex = r;
+        break;
+      }
+    }
+
+    var headers = paidData[headerRowIndex].map(function(h) { return h.toString().trim().toLowerCase(); });
     var admIdx = -1, emailIdx = -1, nameIdx = -1, phoneIdx = -1, courseIdx = -1, statusIdx = -1;
 
     for (var k = 0; k < headers.length; k++) {
@@ -979,7 +997,7 @@ function syncAllPaidStudentsToStudentsSheet() {
     var addedCount = 0;
     var updatedCount = 0;
 
-    for (var i = 1; i < paidData.length; i++) {
+    for (var i = headerRowIndex + 1; i < paidData.length; i++) {
       var row = paidData[i];
       var pAdmRaw = (row[admIdx] || "").toString().trim();
       var pAdm = pAdmRaw.toUpperCase().replace(/[^A-Z0-9]/g, "");
