@@ -399,13 +399,13 @@ function checkAndAutoApprovePaidStudent(targetAdm, targetEmail) {
     if (courseIdx < 0 && headers.length > 7) courseIdx = 7;
     if (statusIdx < 0 && headers.length > 10) statusIdx = 10;
 
-    var cleanAdm = (targetAdm || "").toString().trim().toUpperCase();
+    var cleanAdm = (targetAdm || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
     var cleanEmail = (targetEmail || "").toString().trim().toLowerCase();
 
     var foundPaid = null;
     for (var i = 1; i < paidData.length; i++) {
       var row = paidData[i];
-      var pAdm = admIdx >= 0 ? (row[admIdx] || "").toString().trim().toUpperCase() : "";
+      var pAdm = admIdx >= 0 ? (row[admIdx] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "") : "";
       var pEmail = emailIdx >= 0 ? (row[emailIdx] || "").toString().trim().toLowerCase() : "";
       var pStatus = statusIdx >= 0 ? (row[statusIdx] || "").toString().trim().toUpperCase() : "";
 
@@ -486,7 +486,7 @@ function handleLoginStudent(data) {
   if (!sheet) return { success: false, message: "Students database sheet missing." };
 
   var email = (data.email || "").toString().trim().toLowerCase();
-  var adm = (data.admissionNumber || "").toString().trim().toUpperCase();
+  var adm = (data.admissionNumber || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
   var deviceToken = data.deviceToken || ("DEV-" + Math.floor(100000 + Math.random() * 900000));
 
   // Check Paid Students sheet tab for instant auto-approval
@@ -496,7 +496,7 @@ function handleLoginStudent(data) {
   var rows = sheet.getDataRange().getValues();
 
   for (var i = 1; i < rows.length; i++) {
-    var rAdm = (rows[i][1] || "").toString().trim().toUpperCase();
+    var rAdm = (rows[i][1] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
     var rEmail = (rows[i][3] || "").toString().trim().toLowerCase();
 
     if ((email && rEmail === email) || (adm && rAdm === adm)) {

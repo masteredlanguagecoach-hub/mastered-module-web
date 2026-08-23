@@ -2206,10 +2206,18 @@
         }
       };
 
-      // Student Login with Single Device Token Registration
+      // Student Login with Single Device Token Registration & Paid Auto-Approval
       const handleStudentLogin = async (email, adm) => {
+        const cleanEmail = (email || '').trim().toLowerCase();
+        const cleanAdm = (adm || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+
+        if (!cleanEmail && !cleanAdm) {
+          return { success: false, message: "Please enter your Registered Email Address or Admission Number." };
+        }
+
         const deviceToken = getDeviceToken();
-        const live = await callAppsScript('loginStudent', { email, admissionNumber: adm, deviceToken });
+        const live = await callAppsScript('loginStudent', { email: cleanEmail, admissionNumber: cleanAdm, deviceToken });
+        
         if (live && live.deviceLocked) {
           return { success: false, message: live.message };
         }
@@ -2224,7 +2232,13 @@
           return { success: true };
         }
 
-        const found = students.find(s => s.email.toLowerCase() === email.trim().toLowerCase() && s.admissionNumber.toUpperCase() === adm.trim().toUpperCase());
+        // Client-side fallback search
+        const found = students.find(s => {
+          const sEmail = (s.email || '').toLowerCase().trim();
+          const sAdm = (s.admissionNumber || '').toUpperCase().trim().replace(/[^A-Z0-9]/g, '');
+          return (cleanEmail && sEmail === cleanEmail) || (cleanAdm && sAdm === cleanAdm);
+        });
+
         if (found && found.approved) {
           setCurrentUser(found);
           setRole('student');
@@ -2233,12 +2247,11 @@
           fetchStudentProgressFromCloud(found);
           return { success: true };
         }
+
         // Check if student has a pending request in database
-        const cleanEmail = email.trim().toLowerCase();
-        const cleanAdm = adm.trim().toUpperCase();
         const pendingReq = (requests || []).find(r => 
           r && typeof r === 'object' && r.status === 'Pending' && (
-            (r.admissionNumber && r.admissionNumber.toString().trim().toUpperCase() === cleanAdm) ||
+            (r.admissionNumber && r.admissionNumber.toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, '') === cleanAdm) ||
             (r.email && r.email.toString().trim().toLowerCase() === cleanEmail)
           )
         );
@@ -2247,7 +2260,7 @@
           return { success: false, message: "⏳ Your access application is currently pending coach approval! Once the coach approves your application, you can log in immediately." };
         }
 
-        return { success: false, message: (live && live.message) || "Invalid email or admission number. If you haven't applied yet, please click 'Request Access Application' below!" };
+        return { success: false, message: (live && live.message) || "Invalid email or admission number. Please check your credentials or click 'Request Access Application' below!" };
       };
 
       // Admin Login
