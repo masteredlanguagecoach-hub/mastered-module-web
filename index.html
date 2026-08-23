@@ -2590,6 +2590,22 @@
         }
       };
 
+      const handleSyncAllPaidStudents = async () => {
+        showToast("⏳ Syncing all paid students from PAID_STUDENTS tab to Students sheet...");
+        try {
+          const res = await callAppsScript('syncPaidStudents');
+          if (res && res.success) {
+            showToast(`✅ Sync Complete! ${res.addedCount !== undefined ? res.addedCount : ''} paid students synced to Students sheet.`);
+            refreshLiveData();
+          } else {
+            showToast(`⚠️ Sync notice: ${(res && res.message) || 'Sync finished.'}`);
+            refreshLiveData();
+          }
+        } catch(err) {
+          showToast(`❌ Sync Error: ${err.toString()}`);
+        }
+      };
+
       // Save Module
       const handleSaveModule = async (e) => {
         e.preventDefault();
@@ -3338,6 +3354,9 @@
                             )}
                           </div>
                           <div className="flex items-center space-x-2">
+                            <button onClick={handleSyncAllPaidStudents} className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shrink-0 shadow-md transition flex items-center space-x-1">
+                              <span>✨ Sync Paid Students Sheet Now</span>
+                            </button>
                             <button onClick={refreshLiveData} className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl shrink-0">🔄 Refresh</button>
                             <button onClick={handleResetAllStudentProgress} className="px-3.5 py-2 bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold text-xs rounded-xl shrink-0 transition">⚡ Reset All Progress (0%)</button>
                           </div>
