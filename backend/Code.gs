@@ -511,6 +511,9 @@ function checkAndAutoApprovePaidStudent(targetAdm, targetEmail) {
 }
 
 function handleLoginStudent(data) {
+  // Automatic background sync on every student login request
+  syncAllPaidStudentsToStudentsSheet();
+
   var ss = getMasteredSpreadsheet();
   var sheet = ss.getSheetByName("Students");
   if (!sheet) return { success: false, message: "Students database sheet missing." };
