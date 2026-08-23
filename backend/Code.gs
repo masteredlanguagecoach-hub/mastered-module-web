@@ -350,7 +350,11 @@ function checkAndAutoApprovePaidStudent(targetAdm, targetEmail) {
   try {
     var ss = getMasteredSpreadsheet();
     var paidSheet = ss.getSheetByName("Paid Students") || ss.getSheetByName("PaidStudents") || ss.getSheetByName("Paid") || ss.getSheetByName("Payments");
-    if (!paidSheet) return null;
+    if (!paidSheet) {
+      paidSheet = ss.insertSheet("Paid Students");
+      paidSheet.appendRow(["AdmissionNumber", "Name", "Email", "Phone", "Course", "PaymentDate"]);
+      return null;
+    }
 
     var paidData = paidSheet.getDataRange().getValues();
     if (paidData.length <= 1) return null;
