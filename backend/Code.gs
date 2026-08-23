@@ -345,15 +345,108 @@ function handleVerifyMclCode(data) {
   };
 }
 
+// Auto-Approve Paid Students from "Paid Students" Sheet Tab
+function checkAndAutoApprovePaidStudent(targetAdm, targetEmail) {
+  try {
+    var ss = getMasteredSpreadsheet();
+    var paidSheet = ss.getSheetByName("Paid Students") || ss.getSheetByName("PaidStudents") || ss.getSheetByName("Paid") || ss.getSheetByName("Payments");
+    if (!paidSheet) return null;
+
+    var paidData = paidSheet.getDataRange().getValues();
+    if (paidData.length <= 1) return null;
+
+    var headers = paidData[0].map(function(h) { return h.toString().trim().toLowerCase(); });
+    var admIdx = -1, emailIdx = -1, nameIdx = -1, phoneIdx = -1, courseIdx = -1;
+
+    for (var k = 0; k < headers.length; k++) {
+      var h = headers[k];
+      if (h.indexOf("admission") >= 0 || h.indexOf("adm") >= 0 || h.indexOf("id") >= 0) admIdx = k;
+      if (h.indexOf("email") >= 0) emailIdx = k;
+      if (h.indexOf("name") >= 0) nameIdx = k;
+      if (h.indexOf("phone") >= 0 || h.indexOf("mobile") >= 0) phoneIdx = k;
+      if (h.indexOf("course") >= 0) courseIdx = k;
+    }
+
+    var cleanAdm = (targetAdm || "").toString().trim().toUpperCase();
+    var cleanEmail = (targetEmail || "").toString().trim().toLowerCase();
+
+    var foundPaid = null;
+    for (var i = 1; i < paidData.length; i++) {
+      var row = paidData[i];
+      var pAdm = admIdx >= 0 ? (row[admIdx] || "").toString().trim().toUpperCase() : "";
+      var pEmail = emailIdx >= 0 ? (row[emailIdx] || "").toString().trim().toLowerCase() : "";
+
+      if ((cleanAdm && pAdm && pAdm === cleanAdm) || (cleanEmail && pEmail && pEmail === cleanEmail)) {
+        foundPaid = {
+          admissionNumber: pAdm || cleanAdm,
+          name: nameIdx >= 0 ? (row[nameIdx] || "").toString().trim() : "Paid Student",
+          email: pEmail || cleanEmail,
+          phone: phoneIdx >= 0 ? (row[phoneIdx] || "").toString().trim() : "",
+          course: courseIdx >= 0 ? (row[courseIdx] || "").toString().trim() : "MAL TO ENG"
+        };
+        break;
+      }
+    }
+
+    if (!foundPaid) return null;
+
+    // Auto-Enroll Paid Student into Students Sheet Tab with Approved = TRUE
+    var stdSheet = ss.getSheetByName("Students");
+    if (!stdSheet) stdSheet = ss.insertSheet("Students");
+
+    var stdRows = stdSheet.getDataRange().getValues();
+    var existingRowIndex = -1;
+
+    for (var j = 1; j < stdRows.length; j++) {
+      var sAdm = (stdRows[j][1] || "").toString().trim().toUpperCase();
+      var sEmail = (stdRows[j][3] || "").toString().trim().toLowerCase();
+      if ((foundPaid.admissionNumber && sAdm === foundPaid.admissionNumber) ||
+          (foundPaid.email && sEmail === foundPaid.email)) {
+        existingRowIndex = j + 1;
+        stdSheet.getRange(j + 1, 8).setValue("TRUE");   // Column H = Approved
+        stdSheet.getRange(j + 1, 9).setValue("Active"); // Column I = Status
+        break;
+      }
+    }
+
+    if (existingRowIndex < 0) {
+      var stdId = "STD-" + Math.floor(1000 + Math.random() * 9000);
+      var dateStr = new Date().toISOString().split('T')[0];
+      stdSheet.appendRow([
+        stdId,
+        foundPaid.admissionNumber,
+        foundPaid.name,
+        foundPaid.email,
+        foundPaid.phone,
+        foundPaid.course,
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80",
+        "TRUE",
+        "Active",
+        dateStr,
+        "" // ActiveDeviceToken left blank for initial login binding
+      ]);
+    }
+
+    return foundPaid;
+  } catch(err) {
+    return null;
+  }
+}
+
 function handleLoginStudent(data) {
   var ss = getMasteredSpreadsheet();
   var sheet = ss.getSheetByName("Students");
   if (!sheet) return { success: false, message: "Students database sheet missing." };
 
-  var rows = sheet.getDataRange().getValues();
   var email = (data.email || "").toString().trim().toLowerCase();
   var adm = (data.admissionNumber || "").toString().trim().toUpperCase();
   var deviceToken = data.deviceToken || ("DEV-" + Math.floor(100000 + Math.random() * 900000));
+
+  // Check Paid Students sheet tab for instant auto-approval
+  checkAndAutoApprovePaidStudent(adm, email);
+
+  // Reload Students rows
+  var rows = sheet.getDataRange().getValues();
 
   for (var i = 1; i < rows.length; i++) {
     var rAdm = (rows[i][1] || "").toString().trim().toUpperCase();
@@ -451,22 +544,28 @@ function handleAdminResetStudentDevice(data) {
     var rEmail = (rows[i][3] || "").toString().trim().toLowerCase();
 
     if ((targetAdm && rAdm === targetAdm) || (targetEmail && rEmail === targetEmail)) {
-      sheet.getRange(i + 1, 11).setValue(""); // Clear Column K
-      return { success: true, message: "Student device lock reset successfully!" };
+      sheet.getRange(i + 1, 11).setValue(""); // Clear Column K ActiveDeviceToken
+      sheet.getRange(i + 1, 12).setValue(new Date());
+      return { success: true, message: "Reset device lock successfully!" };
     }
   }
 
-  return { success: false, message: "Student record not found." };
+  return { success: false, message: "Student not found." };
 }
 
-function handleLoginAdmin(data) {
+function handleAdminLogin(data) {
   var email = (data.email || "").toString().trim().toLowerCase();
   var pass = (data.password || "").toString().trim();
 
   if (email === "masteredlanguagecoach@gmail.com" && pass === "4languagecoach") {
     return {
       success: true,
-      admin: { adminId: "ADM-002", name: "Mastered Language Coach", email: "masteredlanguagecoach@gmail.com", role: "Super Admin" }
+      admin: {
+        adminId: "ADM-002",
+        name: "Mastered Language Coach",
+        email: "masteredlanguagecoach@gmail.com",
+        role: "Super Admin"
+      }
     };
   }
 
@@ -475,31 +574,43 @@ function handleLoginAdmin(data) {
 
 function handleSubmitRequest(data) {
   var ss = getMasteredSpreadsheet();
-  var sheet = ss.getSheetByName("Requests");
-  if (!sheet) return { success: false, message: "Requests sheet missing." };
-
-  var reqId = data.requestId || ("REQ-" + Math.floor(1000 + Math.random() * 9000));
-  var dateStr = new Date().toISOString().split('T')[0];
-
-  var name = data.name || data.Name || "";
-  var phone = data.phone || data.Phone || "";
   var email = data.email || data.Email || "";
   var adm = data.admissionNumber || data.AdmissionNumber || "";
-  var course = data.course || data.Course || "";
 
-  sheet.appendRow([
-    reqId,
-    name,
-    phone,
-    email,
-    adm,
-    course,
-    "Pending",
-    dateStr,
-    ""
-  ]);
+  // Check if student is in Paid Students sheet tab -> Auto approve immediately!
+  var autoApprovedStudent = checkAndAutoApprovePaidStudent(adm, email);
 
-  return { success: true, message: "Request submitted successfully!" };
+  var sheet = ss.getSheetByName("Requests");
+  if (sheet) {
+    var reqId = data.requestId || ("REQ-" + Math.floor(1000 + Math.random() * 9000));
+    var dateStr = new Date().toISOString().split('T')[0];
+    var name = data.name || data.Name || "";
+    var phone = data.phone || data.Phone || "";
+    var course = data.course || data.Course || "MAL TO ENG";
+    var statusStr = autoApprovedStudent ? "Approved" : "Pending";
+
+    sheet.appendRow([
+      reqId,
+      name,
+      phone,
+      email,
+      adm,
+      course,
+      statusStr,
+      dateStr,
+      ""
+    ]);
+  }
+
+  if (autoApprovedStudent) {
+    return {
+      success: true,
+      autoApproved: true,
+      message: "🎉 Payment Verified! Your student account has been automatically approved. You can log in immediately with your Email & Admission Number!"
+    };
+  }
+
+  return { success: true, message: "Application submitted successfully! Your coach will approve your account shortly." };
 }
 
 function handleGetModules() {
