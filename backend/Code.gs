@@ -8,10 +8,15 @@ var MASTERED_SPREADSHEET_ID = "1N5YkP6U8RaafRD_bsULTzlaDSC0Vbmfj9l_XCt1S_Rg";
 
 function getMasteredSpreadsheet() {
   try {
-    return SpreadsheetApp.openById(MASTERED_SPREADSHEET_ID);
-  } catch(e) {
-    return SpreadsheetApp.getActiveSpreadsheet();
-  }
+    var active = SpreadsheetApp.getActiveSpreadsheet();
+    if (active) return active;
+  } catch(e) {}
+  try {
+    if (MASTERED_SPREADSHEET_ID) {
+      return SpreadsheetApp.openById(MASTERED_SPREADSHEET_ID);
+    }
+  } catch(e2) {}
+  return null;
 }
 
 function doGet(e) {
