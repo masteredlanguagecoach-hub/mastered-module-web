@@ -2388,7 +2388,7 @@
         try {
           const res = await callAppsScript('submitRequest', newReq);
           if (res && res.autoApproved) {
-            alert("🎉 Payment Verified & Auto-Approved!\n\nYour Admission Number / Email was matched in the PAID_STUDENTS database!\nYour student account is AUTOMATICALLY APPROVED and ready. You can log in immediately!");
+            alert("Payment Verified & Auto-Approved!");
           } else if (res && res.duplicate) {
             alert(`⛔ Access Application Already Exists!\nGoogle Sheets recorded an existing request for "${admissionNumber}".`);
           } else {

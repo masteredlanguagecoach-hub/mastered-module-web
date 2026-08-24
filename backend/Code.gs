@@ -686,7 +686,7 @@ function handleSubmitRequest(data) {
     return {
       success: true,
       autoApproved: true,
-      message: "🎉 Payment Verified! Your student account has been automatically approved. You can log in immediately with your Email & Admission Number!"
+      message: "Payment Verified & Auto-Approved!"
     };
   }
 
