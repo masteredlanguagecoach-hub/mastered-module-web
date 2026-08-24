@@ -140,8 +140,11 @@ function getSheetData(sheetName) {
   if (!data || data.length === 0) return [];
 
   var headerIdx = 0;
-  for (var r = 0; r < data.length; r++) {
-    var rowStr = data[r].join(" ").trim();
+  for (var r = 0; r < Math.min(data.length, 10); r++) {
+    var rowStr = "";
+    try {
+      rowStr = data[r].map(function(c) { return (c || "").toString(); }).join(" ").trim();
+    } catch(eStr) {}
     if (rowStr.length > 0) {
       headerIdx = r;
       break;
@@ -156,12 +159,15 @@ function getSheetData(sheetName) {
   for (var i = headerIdx + 1; i < data.length; i++) {
     var row = data[i];
     var obj = {};
+    var emptyRow = true;
     for (var j = 0; j < headers.length; j++) {
       if (headers[j]) {
-        obj[headers[j]] = row[j];
+        var val = row[j];
+        if (val !== "" && val !== null && val !== undefined) emptyRow = false;
+        obj[headers[j]] = val;
       }
     }
-    rows.push(obj);
+    if (!emptyRow) rows.push(obj);
   }
   return rows;
 }
