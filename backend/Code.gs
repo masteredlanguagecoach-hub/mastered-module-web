@@ -131,9 +131,25 @@ function handleResponse(obj, callback) {
     .setMimeType(ContentService.MimeType.JSON);
 }
 
+function getFlexibleSheet(ss, sheetName) {
+  if (!ss) return null;
+  var sheet = ss.getSheetByName(sheetName);
+  if (sheet) return sheet;
+
+  var targetClean = sheetName.toString().trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+  var allSheets = ss.getSheets();
+  for (var s = 0; s < allSheets.length; s++) {
+    var sNameClean = allSheets[s].getName().toString().trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+    if (sNameClean === targetClean) {
+      return allSheets[s];
+    }
+  }
+  return null;
+}
+
 function getSheetData(sheetName) {
   var ss = getMasteredSpreadsheet();
-  var sheet = ss.getSheetByName(sheetName);
+  var sheet = getFlexibleSheet(ss, sheetName);
   if (!sheet) return [];
 
   var data = sheet.getDataRange().getValues();
@@ -376,14 +392,10 @@ function handleVerifyMclCode(data) {
 function checkAndAutoApprovePaidStudent(targetAdm, targetEmail) {
   try {
     var ss = getMasteredSpreadsheet();
-    var paidSheet = ss.getSheetByName("PAID_STUDENTS") ||
-                    ss.getSheetByName("Paid Students") ||
-                    ss.getSheetByName("PaidStudents") ||
-                    ss.getSheetByName("Paid") ||
-                    ss.getSheetByName("Payments");
-
+    var paidSheet = getFlexibleSheet(ss, "PAID_STUDENTS");
+    if (!paidSheet) paidSheet = getFlexibleSheet(ss, "Paid Students");
+    if (!paidSheet) paidSheet = getFlexibleSheet(ss, "Paid");
     if (!paidSheet) {
-      // Look for any sheet tab with "PAID" in its name
       var allSheets = ss.getSheets();
       for (var s = 0; s < allSheets.length; s++) {
         var sName = allSheets[s].getName().toUpperCase();
@@ -1020,13 +1032,12 @@ function handleAdminGetRequests() {
 function syncAllPaidStudentsToStudentsSheet() {
   try {
     var ss = getMasteredSpreadsheet();
-    var paidSheet = ss.getSheetByName("PAID_STUDENTS") ||
-                    ss.getSheetByName("Paid Students") ||
-                    ss.getSheetByName("PaidStudents") ||
-                    ss.getSheetByName("Paid");
+    var paidSheet = getFlexibleSheet(ss, "PAID_STUDENTS");
+    if (!paidSheet) paidSheet = getFlexibleSheet(ss, "Paid Students");
+    if (!paidSheet) paidSheet = getFlexibleSheet(ss, "Paid");
     if (!paidSheet) return { success: false, message: "PAID_STUDENTS sheet missing." };
 
-    var stdSheet = ss.getSheetByName("Students");
+    var stdSheet = getFlexibleSheet(ss, "Students");
     if (!stdSheet) {
       stdSheet = ss.insertSheet("Students");
       stdSheet.appendRow(["StudentID", "AdmissionNumber", "Name", "Email", "Phone", "Course", "ProfileImage", "Approved", "Status", "CreatedDate", "ActiveDeviceToken"]);
@@ -1136,7 +1147,7 @@ function syncAllPaidStudentsToStudentsSheet() {
     }
 
     // Also update any matching pending rows in Requests sheet tab to Approved
-    var reqSheet = ss.getSheetByName("Requests");
+    var reqSheet = getFlexibleSheet(ss, "Requests");
     if (reqSheet) {
       var reqRows = reqSheet.getDataRange().getValues();
       for (var r = 1; r < reqRows.length; r++) {
