@@ -458,20 +458,20 @@ function checkAndAutoApprovePaidStudent(targetAdm, targetEmail) {
 
     var cleanAdm = (targetAdm || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
     var cleanEmail = (targetEmail || "").toString().trim().toLowerCase();
+    var admDigits = cleanAdm.replace(/[^0-9]/g, "");
 
     var foundPaid = null;
     for (var i = headerRowIndex + 1; i < paidData.length; i++) {
       var row = paidData[i];
       var pAdm = admIdx >= 0 ? (row[admIdx] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "") : "";
       var pEmail = emailIdx >= 0 ? (row[emailIdx] || "").toString().trim().toLowerCase() : "";
-      var pStatus = statusIdx >= 0 ? (row[statusIdx] || "").toString().trim().toUpperCase() : "";
+      var pAdmDigits = pAdm.replace(/[^0-9]/g, "");
 
-      // Optional status check: If status column exists, verify it is SUCCESS / PAID / COMPLETED or TRUE
-      if (statusIdx >= 0 && pStatus && pStatus !== "SUCCESS" && pStatus !== "PAID" && pStatus !== "COMPLETED" && pStatus !== "TRUE" && pStatus !== "YES") {
-        continue;
-      }
+      var isExactAdm = cleanAdm && pAdm && (cleanAdm === pAdm);
+      var isExactEmail = cleanEmail && pEmail && (cleanEmail === pEmail);
+      var isDigitMatch = admDigits && pAdmDigits && (admDigits.length >= 2) && (admDigits === pAdmDigits);
 
-      if ((cleanAdm && pAdm && pAdm === cleanAdm) || (cleanEmail && pEmail && pEmail === cleanEmail)) {
+      if (isExactAdm || isExactEmail || isDigitMatch) {
         var rawCourse = courseIdx >= 0 ? (row[courseIdx] || "").toString().trim() : "MAL TO ENG";
         var normCourse = "MAL TO ENG";
         var cUpper = rawCourse.toUpperCase();
@@ -1079,6 +1079,7 @@ function forceApproveAllPaidRequests() {
     for (var reqIdx = 1; reqIdx < reqData.length; reqIdx++) {
       var rEmail = (reqData[reqIdx][3] || "").toString().trim().toLowerCase();
       var rAdm = (reqData[reqIdx][4] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+      var rAdmDigits = rAdm.replace(/[^0-9]/g, "");
 
       if (!rEmail && !rAdm) continue;
 
@@ -1086,8 +1087,13 @@ function forceApproveAllPaidRequests() {
         var pRow = paidData[p];
         var pAdm = pAdmIdx >= 0 ? (pRow[pAdmIdx] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "") : "";
         var pEmail = pEmailIdx >= 0 ? (pRow[pEmailIdx] || "").toString().trim().toLowerCase() : "";
+        var pAdmDigits = pAdm.replace(/[^0-9]/g, "");
 
-        if ((rAdm && pAdm && rAdm === pAdm) || (rEmail && pEmail && rEmail === pEmail)) {
+        var isExactAdm = rAdm && pAdm && (rAdm === pAdm);
+        var isExactEmail = rEmail && pEmail && (rEmail === pEmail);
+        var isDigitMatch = rAdmDigits && pAdmDigits && (rAdmDigits.length >= 2) && (rAdmDigits === pAdmDigits);
+
+        if (isExactAdm || isExactEmail || isDigitMatch) {
           reqSheet.getRange(reqIdx + 1, 7).setValue("Approved"); // Column G = Status
           approvedCount++;
           break;
