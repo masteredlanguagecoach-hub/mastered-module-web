@@ -507,6 +507,20 @@ function checkAndAutoApprovePaidStudent(targetAdm, targetEmail) {
       ]);
     }
 
+    // Also update any existing pending rows in Requests sheet tab to Approved
+    var reqSheet = ss.getSheetByName("Requests");
+    if (reqSheet) {
+      var reqRows = reqSheet.getDataRange().getValues();
+      for (var r = 1; r < reqRows.length; r++) {
+        var rEmail = (reqRows[r][3] || "").toString().trim().toLowerCase();
+        var rAdm = (reqRows[r][4] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+        if ((foundPaid.admissionNumber && rAdm === foundPaid.admissionNumber) ||
+            (foundPaid.email && rEmail === foundPaid.email)) {
+          reqSheet.getRange(r + 1, 7).setValue("Approved"); // Column G = Status
+        }
+      }
+    }
+
     return foundPaid;
   } catch(err) {
     return null;
@@ -1073,6 +1087,25 @@ function syncAllPaidStudentsToStudentsSheet() {
         if (pAdm) stdAdmMap[pAdm] = stdData.length + addedCount + 1;
         if (pEmail) stdEmailMap[pEmail] = stdData.length + addedCount + 1;
         addedCount++;
+      }
+    }
+
+    // Also update any matching pending rows in Requests sheet tab to Approved
+    var reqSheet = ss.getSheetByName("Requests");
+    if (reqSheet) {
+      var reqRows = reqSheet.getDataRange().getValues();
+      for (var r = 1; r < reqRows.length; r++) {
+        var rEmail = (reqRows[r][3] || "").toString().trim().toLowerCase();
+        var rAdm = (reqRows[r][4] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+        for (var i = headerRowIndex + 1; i < paidData.length; i++) {
+          var pRow = paidData[i];
+          var pAdm = admIdx >= 0 ? (pRow[admIdx] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "") : "";
+          var pEmail = emailIdx >= 0 ? (pRow[emailIdx] || "").toString().trim().toLowerCase() : "";
+          if ((pAdm && rAdm === pAdm) || (pEmail && rEmail === pEmail)) {
+            reqSheet.getRange(r + 1, 7).setValue("Approved"); // Column G = Status
+            break;
+          }
+        }
       }
     }
 
