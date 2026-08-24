@@ -705,25 +705,25 @@ function handleSubmitRequest(data) {
     sheet = ss.insertSheet("Requests");
     sheet.appendRow(["RequestID", "Name", "Phone", "Email", "AdmissionNumber", "Course", "Status", "CreatedDate", "ApprovedBy"]);
   }
-    var reqId = data.requestId || ("REQ-" + Math.floor(1000 + Math.random() * 9000));
-    var dateStr = new Date().toISOString().split('T')[0];
-    var name = data.name || data.Name || "";
-    var phone = data.phone || data.Phone || "";
-    var course = data.course || data.Course || "MAL TO ENG";
-    var statusStr = autoApprovedStudent ? "Approved" : "Pending";
 
-    sheet.appendRow([
-      reqId,
-      name,
-      phone,
-      email,
-      adm,
-      course,
-      statusStr,
-      dateStr,
-      ""
-    ]);
-  }
+  var reqId = data.requestId || ("REQ-" + Math.floor(1000 + Math.random() * 9000));
+  var dateStr = new Date().toISOString().split('T')[0];
+  var name = data.name || data.Name || "";
+  var phone = data.phone || data.Phone || "";
+  var course = data.course || data.Course || "MAL TO ENG";
+  var statusStr = autoApprovedStudent ? "Approved" : "Pending";
+
+  sheet.appendRow([
+    reqId,
+    name,
+    phone,
+    email,
+    adm,
+    course,
+    statusStr,
+    dateStr,
+    ""
+  ]);
 
   if (autoApprovedStudent) {
     return {
