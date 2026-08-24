@@ -1401,8 +1401,8 @@
     function DecodedProgressReportModal({ decodedData, currentUser, currentPct, onConfirmSave, onClose }) {
       if (!decodedData) return null;
 
-      const userAdm = (currentUser?.admissionNumber || '').toUpperCase().trim();
-      const codeAdm = (decodedData.admissionNumber || '').toUpperCase().trim();
+      const userAdm = (currentUser?.admissionNumber || '').toString().toUpperCase().trim();
+      const codeAdm = (decodedData.admissionNumber || '').toString().toUpperCase().trim();
       const isMatched = userAdm ? (codeAdm === userAdm) : true;
       const isGain = decodedData.progress > currentPct;
 
@@ -2249,8 +2249,8 @@
 
           // Client-side fallback search
           const found = students.find(s => {
-            const sEmail = (s.email || '').toLowerCase().trim();
-            const sAdm = (s.admissionNumber || '').toUpperCase().trim().replace(/[^A-Z0-9]/g, '');
+            const sEmail = (s.email || '').toString().toLowerCase().trim();
+            const sAdm = (s.admissionNumber || '').toString().toUpperCase().trim().replace(/[^A-Z0-9]/g, '');
             return (cleanEmail && sEmail === cleanEmail) || (cleanAdm && sAdm === cleanAdm);
           });
 
@@ -2353,13 +2353,7 @@
         );
 
         if (isAlreadyEnrolled) {
-          alert(`⛔ Student Already Enrolled!\nAdmission Number "${admissionNumber}" or Email "${email}" is ALREADY active in the Mastered Language Coach Student Directory.\n\nPlease proceed to Sign In!`);
-          setAuthScreen('login');
-          return;
-        }
-
-        if (isPendingInRequests) {
-          alert(`⏳ Application Currently Pending!\nAn access application for "${admissionNumber}" / "${email}" is currently pending coach approval.\n\nYour application is recorded in the database. The coach will review and approve your access shortly!`);
+          alert(`🎉 Student Account Active!\nAdmission Number "${admissionNumber}" / Email "${email}" is ALREADY approved and active.\n\nPlease proceed to Sign In!`);
           setAuthScreen('login');
           return;
         }
