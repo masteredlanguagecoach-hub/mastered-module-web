@@ -1752,6 +1752,46 @@
       );
     }
 
+    // How to Complete Challenge Portrait Video Modal Component
+    function ChallengeVideoModal({ onClose }) {
+      return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md" onClick={onClose}>
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 sm:p-5 max-w-xs sm:max-w-sm w-full shadow-2xl space-y-4 relative overflow-hidden text-white" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <div className="flex items-center space-x-2">
+                <span className="text-lg">🎥</span>
+                <h3 className="font-extrabold text-sm text-white">How to Complete Challenge</h3>
+              </div>
+              <button
+                onClick={onClose}
+                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center text-sm font-bold transition"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Portrait 9:16 Video Container */}
+            <div className="relative w-full aspect-[9/16] bg-black rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
+              <iframe
+                src="https://www.youtube.com/embed/pcypQY-ZYg4?autoplay=1&rel=0&modestbranding=1"
+                title="How to Complete Challenge"
+                className="w-full h-full border-0 rounded-2xl"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+            </div>
+
+            <button
+              onClick={onClose}
+              className="w-full py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition"
+            >
+              Close Video
+            </button>
+          </div>
+        </div>
+      );
+    }
+
     function App() {
       const [currentUser, setCurrentUser] = useState(null);
       const [role, setRole] = useState(null);
@@ -1766,6 +1806,7 @@
       const [showTrainerModal, setShowTrainerModal] = useState(false);
       const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
       const [showAiPromptModal, setShowAiPromptModal] = useState(false);
+      const [showChallengeVideoModal, setShowChallengeVideoModal] = useState(false);
       const [toast, setToast] = useState(null);
       const [isLoggingIn, setIsLoggingIn] = useState(false);
       const [loginError, setLoginError] = useState(null);
@@ -3204,8 +3245,15 @@
                     )}
 
                     <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 shadow-sm space-y-4">
-                      <div className="flex justify-between items-center">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
                         <h3 className="text-sm sm:text-base font-extrabold text-slate-900">32 Curriculum Level System ({modules.length} Levels)</h3>
+                        <button
+                          onClick={() => setShowChallengeVideoModal(true)}
+                          className="px-4 py-2.5 bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white font-extrabold text-xs rounded-xl shadow-md hover:shadow-lg transition flex items-center justify-center space-x-2 shrink-0 border border-red-400/30"
+                        >
+                          <span className="text-sm">🎥</span>
+                          <span>How to Complete Challenge</span>
+                        </button>
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
@@ -3653,6 +3701,13 @@
                   userProgress={userProgress}
                   activeModule={activeModule}
                   onVerifyMclCode={handleVerifyMclCode}
+                />
+              )}
+
+              {/* How to Complete Challenge Portrait Video Modal */}
+              {showChallengeVideoModal && (
+                <ChallengeVideoModal
+                  onClose={() => setShowChallengeVideoModal(false)}
                 />
               )}
             </main>
