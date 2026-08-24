@@ -98,7 +98,8 @@ function routeActionObj(action, data) {
       return handleAdminGetStudents();
 
     case 'syncPaidStudents':
-      return syncAllPaidStudentsToStudentsSheet();
+    case 'forceApproveAll':
+      return forceApproveAllPaidRequests();
 
     case 'getModules':
       return handleGetModules();
@@ -1036,6 +1037,69 @@ function handleAdminGetRequests() {
     };
   });
   return { success: true, data: list };
+}
+
+function forceApproveAllPaidRequests() {
+  try {
+    var ss = getMasteredSpreadsheet();
+    var paidSheet = getFlexibleSheet(ss, "PAID_STUDENTS");
+    if (!paidSheet) paidSheet = getFlexibleSheet(ss, "Paid Students");
+    if (!paidSheet) paidSheet = getFlexibleSheet(ss, "Paid");
+
+    var reqSheet = getFlexibleSheet(ss, "Requests");
+    if (!paidSheet || !reqSheet) return { success: false, message: "Sheets missing" };
+
+    var paidData = paidSheet.getDataRange().getValues();
+    var reqData = reqSheet.getDataRange().getValues();
+
+    var headerRowIndex = 0;
+    for (var r = 0; r < Math.min(paidData.length, 10); r++) {
+      var rStr = "";
+      try {
+        rStr = paidData[r].map(function(c) { return (c || "").toString(); }).join(" ").toLowerCase();
+      } catch(eStr) {}
+      if (rStr.indexOf("admission") >= 0 || rStr.indexOf("email") >= 0 || rStr.indexOf("full name") >= 0 || rStr.indexOf("status") >= 0) {
+        headerRowIndex = r;
+        break;
+      }
+    }
+
+    var headers = paidData[headerRowIndex].map(function(h) { return h.toString().trim().toLowerCase(); });
+    var pAdmIdx = -1, pEmailIdx = -1;
+    for (var k = 0; k < headers.length; k++) {
+      var h = headers[k];
+      if (h.indexOf("admission") >= 0 || h.indexOf("adm") >= 0) pAdmIdx = k;
+      if (h.indexOf("email") >= 0 && h.indexOf("verified") < 0) pEmailIdx = k;
+    }
+    if (pAdmIdx < 0 && headers.length > 1) pAdmIdx = 1;
+    if (pEmailIdx < 0 && headers.length > 3) pEmailIdx = 3;
+
+    var approvedCount = 0;
+
+    for (var reqIdx = 1; reqIdx < reqData.length; reqIdx++) {
+      var rEmail = (reqData[reqIdx][3] || "").toString().trim().toLowerCase();
+      var rAdm = (reqData[reqIdx][4] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+
+      if (!rEmail && !rAdm) continue;
+
+      for (var p = headerRowIndex + 1; p < paidData.length; p++) {
+        var pRow = paidData[p];
+        var pAdm = pAdmIdx >= 0 ? (pRow[pAdmIdx] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "") : "";
+        var pEmail = pEmailIdx >= 0 ? (pRow[pEmailIdx] || "").toString().trim().toLowerCase() : "";
+
+        if ((rAdm && pAdm && rAdm === pAdm) || (rEmail && pEmail && rEmail === pEmail)) {
+          reqSheet.getRange(reqIdx + 1, 7).setValue("Approved"); // Column G = Status
+          approvedCount++;
+          break;
+        }
+      }
+    }
+
+    syncAllPaidStudentsToStudentsSheet();
+    return { success: true, approvedCount: approvedCount };
+  } catch(err) {
+    return { success: false, message: err.toString() };
+  }
 }
 
 // Bulk Sync Function: Copies all successful rows from PAID_STUDENTS tab into Students tab
