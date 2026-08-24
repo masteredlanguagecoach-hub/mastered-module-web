@@ -1168,8 +1168,9 @@
         }
       });
 
-      const overallPercentage = Math.round(((totalAiMissions + totalQuizzesPassed) / (modules.length * 2)) * 100);
-      const avgQuizScore = totalQuizzesTaken > 0 ? Math.round(totalQuizScoreSum / totalQuizzesTaken) : 0;
+      const aiMissionPct = Math.round((totalAiMissions / (modules.length || 1)) * 100);
+      const quizPct = totalQuizzesTaken > 0 ? Math.round(totalQuizScoreSum / totalQuizzesTaken) : Math.round((totalQuizzesPassed / (modules.length || 1)) * 100);
+      const overallPercentage = Math.round((aiMissionPct + quizPct) / 2);
 
       return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto" onClick={onClose}>
@@ -1207,30 +1208,27 @@
               </div>
             </div>
 
-            {/* Analytics Score Cards */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="bg-slate-900 text-white p-4 rounded-2xl space-y-1">
-                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Overall Progress</span>
-                <h4 className="text-2xl font-extrabold text-red-500">{overallPercentage}%</h4>
-                <p className="text-[10px] text-slate-300">{totalAiMissions + totalQuizzesPassed} of {modules.length * 2} milestones</p>
+            {/* 3 Clean Analytics Progress Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {/* Card 1: AI Mission Progress */}
+              <div className="bg-gradient-to-br from-purple-900 to-indigo-950 text-white p-4.5 rounded-2xl border border-purple-800/50 space-y-1">
+                <span className="text-[10px] text-purple-300 font-extrabold uppercase tracking-wider">🤖 AI Mission Progress</span>
+                <h4 className="text-2xl font-black text-purple-200">{aiMissionPct}%</h4>
+                <p className="text-[10px] text-purple-300 font-medium">Driven by MCL-1 Code ({totalAiMissions}/{modules.length} Missions)</p>
               </div>
 
-              <div className="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-1">
-                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">AI Missions Passed</span>
-                <h4 className="text-2xl font-extrabold text-purple-700">{totalAiMissions} <span className="text-xs font-semibold text-slate-400">/ {modules.length}</span></h4>
-                <p className="text-[10px] text-slate-500">Reports Uploaded</p>
+              {/* Card 2: Quiz Progress */}
+              <div className="bg-gradient-to-br from-emerald-900 to-teal-950 text-white p-4.5 rounded-2xl border border-emerald-800/50 space-y-1">
+                <span className="text-[10px] text-emerald-300 font-extrabold uppercase tracking-wider">📝 Quiz Progress</span>
+                <h4 className="text-2xl font-black text-emerald-200">{quizPct}%</h4>
+                <p className="text-[10px] text-emerald-300 font-medium">{totalQuizzesPassed}/{modules.length} Quizzes Passed (&ge;70%)</p>
               </div>
 
-              <div className="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-1">
-                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Quizzes Passed</span>
-                <h4 className="text-2xl font-extrabold text-emerald-600">{totalQuizzesPassed} <span className="text-xs font-semibold text-slate-400">/ {modules.length}</span></h4>
-                <p className="text-[10px] text-slate-500">Score &gt;= 70% threshold</p>
-              </div>
-
-              <div className="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-1">
-                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Avg Quiz Score</span>
-                <h4 className="text-2xl font-extrabold text-amber-600">{avgQuizScore}%</h4>
-                <p className="text-[10px] text-slate-500">{totalQuizzesTaken} modules completed</p>
+              {/* Card 3: Combined Overall Progress */}
+              <div className="bg-slate-900 text-white p-4.5 rounded-2xl border border-slate-800 space-y-1">
+                <span className="text-[10px] text-red-400 font-extrabold uppercase tracking-wider">⭐ Overall Progress</span>
+                <h4 className="text-2xl font-black text-red-500">{overallPercentage}%</h4>
+                <p className="text-[10px] text-slate-400 font-medium">Combined Average (AI % + Quiz %)</p>
               </div>
             </div>
 
