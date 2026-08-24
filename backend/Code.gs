@@ -394,8 +394,11 @@ function checkAndAutoApprovePaidStudent(targetAdm, targetEmail) {
     if (paidData.length <= 1) return null;
 
     var headerRowIndex = 0;
-    for (var r = 0; r < paidData.length; r++) {
-      var rStr = paidData[r].join(" ").toLowerCase();
+    for (var r = 0; r < Math.min(paidData.length, 10); r++) {
+      var rStr = "";
+      try {
+        rStr = paidData[r].map(function(c) { return (c || "").toString(); }).join(" ").toLowerCase();
+      } catch(eStr) {}
       if (rStr.indexOf("admission") >= 0 || rStr.indexOf("email") >= 0 || rStr.indexOf("full name") >= 0 || rStr.indexOf("status") >= 0) {
         headerRowIndex = r;
         break;
@@ -987,8 +990,11 @@ function syncAllPaidStudentsToStudentsSheet() {
     }
 
     var headerRowIndex = 0;
-    for (var r = 0; r < paidData.length; r++) {
-      var rStr = paidData[r].join(" ").toLowerCase();
+    for (var r = 0; r < Math.min(paidData.length, 10); r++) {
+      var rStr = "";
+      try {
+        rStr = paidData[r].map(function(c) { return (c || "").toString(); }).join(" ").toLowerCase();
+      } catch(eStr) {}
       if (rStr.indexOf("admission") >= 0 || rStr.indexOf("email") >= 0 || rStr.indexOf("full name") >= 0 || rStr.indexOf("status") >= 0) {
         headerRowIndex = r;
         break;
