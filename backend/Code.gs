@@ -971,7 +971,9 @@ function getItemVal(obj, keys) {
 
 function handleAdminGetStudents() {
   // Sync all paid students from PAID_STUDENTS tab to Students tab automatically
-  syncAllPaidStudentsToStudentsSheet();
+  try {
+    syncAllPaidStudentsToStudentsSheet();
+  } catch(eSync) {}
 
   var raw = getSheetData("Students");
   var list = raw.map(function(s) {
@@ -1041,6 +1043,9 @@ function syncAllPaidStudentsToStudentsSheet() {
     if (!paidSheet) paidSheet = getFlexibleSheet(ss, "Paid Students");
     if (!paidSheet) paidSheet = getFlexibleSheet(ss, "Paid");
     if (!paidSheet) return { success: false, message: "PAID_STUDENTS sheet missing." };
+
+    var paidData = paidSheet.getDataRange().getValues();
+    if (!paidData || paidData.length === 0) return { success: false, message: "PAID_STUDENTS tab empty." };
 
     var stdSheet = getFlexibleSheet(ss, "Students");
     if (!stdSheet) {
