@@ -319,7 +319,7 @@ function handleVerifyMclCode(data) {
 
   // Load existing progress from database
   var ss = getMasteredSpreadsheet();
-  var sheet = ss.getSheetByName("StudentProgress");
+  var sheet = getFlexibleSheet(ss, "StudentProgress");
   if (!sheet) {
     sheet = ss.insertSheet("StudentProgress");
     sheet.appendRow(["AdmissionNumber", "Email", "ProgressJSON", "LastUpdated"]);
@@ -494,7 +494,7 @@ function checkAndAutoApprovePaidStudent(targetAdm, targetEmail) {
     if (!foundPaid) return null;
 
     // Auto-Enroll Paid Student into Students Sheet Tab with Approved = TRUE
-    var stdSheet = ss.getSheetByName("Students");
+    var stdSheet = getFlexibleSheet(ss, "Students");
     if (!stdSheet) stdSheet = ss.insertSheet("Students");
 
     var stdRows = stdSheet.getDataRange().getValues();
@@ -531,7 +531,7 @@ function checkAndAutoApprovePaidStudent(targetAdm, targetEmail) {
     }
 
     // Also update any existing pending rows in Requests sheet tab to Approved
-    var reqSheet = ss.getSheetByName("Requests");
+    var reqSheet = getFlexibleSheet(ss, "Requests");
     if (reqSheet) {
       var reqRows = reqSheet.getDataRange().getValues();
       for (var r = 1; r < reqRows.length; r++) {
@@ -555,7 +555,7 @@ function handleLoginStudent(data) {
   syncAllPaidStudentsToStudentsSheet();
 
   var ss = getMasteredSpreadsheet();
-  var sheet = ss.getSheetByName("Students");
+  var sheet = getFlexibleSheet(ss, "Students");
   if (!sheet) return { success: false, message: "Students database sheet missing." };
 
   var email = (data.email || "").toString().trim().toLowerCase();
@@ -621,7 +621,7 @@ function handleLoginStudent(data) {
 
 function handleVerifyDeviceSession(data) {
   var ss = getMasteredSpreadsheet();
-  var sheet = ss.getSheetByName("Students");
+  var sheet = getFlexibleSheet(ss, "Students");
   if (!sheet) return { valid: true };
 
   var adm = (data.admissionNumber || "").toString().trim().toUpperCase();
@@ -652,7 +652,7 @@ function handleVerifyDeviceSession(data) {
 
 function handleAdminResetStudentDevice(data) {
   var ss = getMasteredSpreadsheet();
-  var sheet = ss.getSheetByName("Students");
+  var sheet = getFlexibleSheet(ss, "Students");
   if (!sheet) return { success: false, message: "Students sheet missing." };
 
   var targetAdm = (data.admissionNumber || "").toString().trim().toUpperCase();
@@ -700,8 +700,11 @@ function handleSubmitRequest(data) {
   // Check if student is in Paid Students sheet tab -> Auto approve immediately!
   var autoApprovedStudent = checkAndAutoApprovePaidStudent(adm, email);
 
-  var sheet = ss.getSheetByName("Requests");
-  if (sheet) {
+  var sheet = getFlexibleSheet(ss, "Requests");
+  if (!sheet) {
+    sheet = ss.insertSheet("Requests");
+    sheet.appendRow(["RequestID", "Name", "Phone", "Email", "AdmissionNumber", "Course", "Status", "CreatedDate", "ApprovedBy"]);
+  }
     var reqId = data.requestId || ("REQ-" + Math.floor(1000 + Math.random() * 9000));
     var dateStr = new Date().toISOString().split('T')[0];
     var name = data.name || data.Name || "";
@@ -759,7 +762,7 @@ function handleAdminSaveModule(data) {
   if (!mod || !mod.title) return { success: false, message: "No module payload" };
 
   var ss = getMasteredSpreadsheet();
-  var sheet = ss.getSheetByName("Modules");
+  var sheet = getFlexibleSheet(ss, "Modules");
   if (!sheet) return { success: false, message: "Modules sheet missing" };
 
   var rows = sheet.getDataRange().getValues();
@@ -798,8 +801,8 @@ function handleAdminSaveModule(data) {
 
 function handleApproveRequest(data) {
   var ss = getMasteredSpreadsheet();
-  var reqSheet = ss.getSheetByName("Requests") || ss.getSheetByName("PendingRequests") || ss.getSheets()[0];
-  var stdSheet = ss.getSheetByName("Students") || ss.insertSheet("Students");
+  var reqSheet = getFlexibleSheet(ss, "Requests") || ss.getSheets()[0];
+  var stdSheet = getFlexibleSheet(ss, "Students") || ss.insertSheet("Students");
 
   var targetReqId = (data.requestId || "").toString().trim().toUpperCase();
   var targetAdm = (data.admissionNumber || "").toString().trim().toUpperCase();
@@ -898,7 +901,7 @@ function handleApproveRequest(data) {
 
 function handleSaveStudentProgress(data) {
   var ss = getMasteredSpreadsheet();
-  var sheet = ss.getSheetByName("StudentProgress");
+  var sheet = getFlexibleSheet(ss, "StudentProgress");
   if (!sheet) {
     sheet = ss.insertSheet("StudentProgress");
     sheet.appendRow(["AdmissionNumber", "Email", "ProgressJSON", "LastUpdated"]);
@@ -929,7 +932,7 @@ function handleSaveStudentProgress(data) {
 
 function handleGetStudentProgress(data) {
   var ss = getMasteredSpreadsheet();
-  var sheet = ss.getSheetByName("StudentProgress");
+  var sheet = getFlexibleSheet(ss, "StudentProgress");
   if (!sheet) return { success: true, userProgress: {} };
 
   var adm = (data.admissionNumber || "").toString().trim().toUpperCase();
