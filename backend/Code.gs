@@ -110,6 +110,9 @@ function routeActionObj(action, data) {
     case 'saveStudentProgress':
       return handleSaveStudentProgress(data);
 
+    case 'submitQuizScore':
+      return handleSubmitQuizScore(data);
+
     case 'getStudentProgress':
       return handleGetStudentProgress(data);
 
@@ -973,11 +976,90 @@ function getItemVal(obj, keys) {
   return "";
 }
 
+function handleSubmitQuizScore(data) {
+  var ss = getMasteredSpreadsheet();
+  var sheet = getFlexibleSheet(ss, "QuizResults");
+  if (!sheet) {
+    sheet = ss.insertSheet("QuizResults");
+    sheet.appendRow(["Timestamp", "AdmissionNumber", "StudentName", "ModuleNumber", "Score", "Total", "Percentage", "Passed"]);
+  }
+
+  var adm = (data.admissionNumber || "").toString().trim().toUpperCase();
+  var name = (data.studentName || data.name || "").toString().trim();
+  var modNum = parseInt(data.moduleNumber) || 1;
+  var score = parseInt(data.score) || 0;
+  var total = parseInt(data.total) || 0;
+  var pct = parseInt(data.percentage) || Math.round((score / (total || 1)) * 100);
+  var passed = pct >= 70 ? "YES" : "NO";
+  var now = new Date();
+
+  sheet.appendRow([now, adm, name, modNum, score, total, pct, passed]);
+
+  // Update StudentProgress map as well
+  var progSheet = getFlexibleSheet(ss, "StudentProgress");
+  if (!progSheet) {
+    progSheet = ss.insertSheet("StudentProgress");
+    progSheet.appendRow(["AdmissionNumber", "Email", "ProgressJSON", "LastUpdated"]);
+  }
+
+  if (adm) {
+    var rows = progSheet.getDataRange().getValues();
+    var foundIdx = -1;
+    var currentProgObj = {};
+
+    for (var i = 1; i < rows.length; i++) {
+      var rAdm = (rows[i][0] || "").toString().trim().toUpperCase();
+      if (rAdm === adm) {
+        foundIdx = i + 1;
+        try { currentProgObj = JSON.parse(rows[i][2]); } catch(e) {}
+        break;
+      }
+    }
+
+    var modKey = "MOD-" + (modNum < 10 ? "0" + modNum : "" + modNum);
+    if (!currentProgObj[modKey]) currentProgObj[modKey] = { percentage: 0 };
+    if (!currentProgObj[modKey].quizScores) currentProgObj[modKey].quizScores = {};
+
+    currentProgObj[modKey].quizScores[modNum] = {
+      score: score,
+      total: total,
+      percentage: pct,
+      passed: passed === "YES"
+    };
+
+    var progJson = JSON.stringify(currentProgObj);
+
+    if (foundIdx > 0) {
+      progSheet.getRange(foundIdx, 3).setValue(progJson);
+      progSheet.getRange(foundIdx, 4).setValue(now);
+    } else {
+      progSheet.appendRow([adm, "", progJson, now]);
+    }
+  }
+
+  return { success: true, message: "Quiz score recorded live in database!" };
+}
+
 function handleAdminGetStudents() {
   // Sync all paid students from PAID_STUDENTS tab to Students tab automatically
   try {
     syncAllPaidStudentsToStudentsSheet();
   } catch(eSync) {}
+
+  var ss = getMasteredSpreadsheet();
+  var progSheet = getFlexibleSheet(ss, "StudentProgress");
+  var progMap = {};
+  if (progSheet) {
+    var pRows = progSheet.getDataRange().getValues();
+    for (var p = 1; p < pRows.length; p++) {
+      var pAdm = (pRows[p][0] || "").toString().trim().toUpperCase();
+      var pEmail = (pRows[p][1] || "").toString().trim().toLowerCase();
+      var pObj = {};
+      try { pObj = JSON.parse(pRows[p][2]); } catch(e) {}
+      if (pAdm) progMap[pAdm] = pObj;
+      if (pEmail) progMap[pEmail] = pObj;
+    }
+  }
 
   var raw = getSheetData("Students");
   var list = raw.map(function(s) {
@@ -994,6 +1076,10 @@ function handleAdminGetStudents() {
     var sDate = getItemVal(s, ["createddate", "date"]);
     var sToken = getItemVal(s, ["activedevicetoken", "devicetoken"]);
 
+    var cleanAdmKey = (adm || "").toString().trim().toUpperCase();
+    var cleanEmailKey = (sEmail || "").toString().trim().toLowerCase();
+    var stdProg = progMap[cleanAdmKey] || progMap[cleanEmailKey] || {};
+
     return {
       studentId: stdId,
       admissionNumber: adm,
@@ -1005,7 +1091,8 @@ function handleAdminGetStudents() {
       approved: isApp,
       status: sStatus,
       createdDate: sDate,
-      activeDeviceToken: sToken
+      activeDeviceToken: sToken,
+      userProgress: stdProg
     };
   });
   return { success: true, data: list };
