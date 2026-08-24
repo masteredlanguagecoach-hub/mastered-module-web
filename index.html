@@ -2380,17 +2380,10 @@
         showToast("⏳ Submitting request to Mastered Language Coach system...");
 
         try {
-          const res = await callAppsScript('submitRequest', newReq);
-          if (res && res.autoApproved) {
-            alert("Payment Verified & Auto-Approved!");
-          } else if (res && res.duplicate) {
-            alert(`⛔ Access Application Already Exists!\nGoogle Sheets recorded an existing request for "${admissionNumber}".`);
-          } else {
-            alert("⏳ Access Application Submitted!\n\nYour Admission Number was not found in the Paid Students sheet tab.\nYour request has been added to Pending Requests for your coach to review and approve manually!");
-          }
+          await callAppsScript('submitRequest', newReq);
         } catch(err) {
-          alert("🎉 Application Submitted Successfully!\nYour details have been sent to the Mastered Language Coach team.");
         } finally {
+          alert("Your request submitted and will approve within one hour");
           setIsSubmittingRequest(false);
           refreshLiveData();
           setAuthScreen('login');
@@ -3350,9 +3343,6 @@
                             )}
                           </div>
                           <div className="flex items-center space-x-2">
-                            <button onClick={handleSyncAllPaidStudents} className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shrink-0 shadow-md transition flex items-center space-x-1">
-                              <span>✨ Sync Paid Students Sheet Now</span>
-                            </button>
                             <button onClick={refreshLiveData} className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl shrink-0">🔄 Refresh</button>
                             <button onClick={handleResetAllStudentProgress} className="px-3.5 py-2 bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold text-xs rounded-xl shrink-0 transition">⚡ Reset All Progress (0%)</button>
                           </div>
