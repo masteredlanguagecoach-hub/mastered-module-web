@@ -3765,29 +3765,50 @@
             </button>
           )}
 
-          {/* Floating 'I Need Trainer' WhatsApp Support Widget on Student Views */}
+          {/* Floating 'I NEED A TRAINER' Support Widget on Student Views */}
           {role === 'student' && (
             <button
               onClick={() => setShowTrainerModal(true)}
-              className="fixed bottom-36 right-4 sm:bottom-20 sm:right-6 z-40 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full shadow-xl flex items-center space-x-2 border-2 border-white transition transform hover:scale-105 active:scale-95 text-xs opacity-90 hover:opacity-100"
+              className="fixed bottom-36 right-4 sm:bottom-20 sm:right-6 z-40 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full shadow-xl flex items-center space-x-2 border-2 border-white transition transform hover:scale-105 active:scale-95 text-xs opacity-95 hover:opacity-100"
             >
               <span className="text-base sm:text-lg">💬</span>
-              <span className="text-xs">Contact Coach</span>
+              <span className="text-xs tracking-wide">I NEED A TRAINER</span>
             </button>
           )}
 
-          {/* Trainer WhatsApp Confirmation Modal */}
+          {/* Trainer Video & WhatsApp Confirmation Modal */}
           {showTrainerModal && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm" onClick={() => setShowTrainerModal(false)}>
-              <div className="bg-white rounded-3xl p-6 max-w-sm w-full border shadow-2xl text-center space-y-4 relative" onClick={e => e.stopPropagation()}>
-                <div className="w-16 h-16 rounded-full bg-emerald-100 border-2 border-emerald-500 flex items-center justify-center text-3xl mx-auto shadow-md">
-                  💬
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md" onClick={() => setShowTrainerModal(false)}>
+              <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 sm:p-6 max-w-md w-full shadow-2xl space-y-4 relative text-white text-center" onClick={e => e.stopPropagation()}>
+                <div className="flex items-center justify-between pb-3 border-b border-slate-800 text-left">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg">💬</span>
+                    <h3 className="font-extrabold text-sm text-white">I NEED A TRAINER</h3>
+                  </div>
+                  <button
+                    onClick={() => setShowTrainerModal(false)}
+                    className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center text-sm font-bold transition"
+                  >
+                    ✕
+                  </button>
                 </div>
-                <h3 className="text-lg font-extrabold text-slate-900">Are you sure you need a trainer?</h3>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  Click below to connect directly with your Mastered Language Coach Trainer via WhatsApp!
+
+                {/* Embedded YouTube Video with Autoplay */}
+                <div className="relative w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-xl border border-slate-800">
+                  <iframe
+                    src="https://www.youtube.com/embed/JM8nWZ1oA4M?autoplay=1&rel=0&modestbranding=1"
+                    title="I Need A Trainer Guidance Video"
+                    className="w-full h-full border-0 rounded-2xl"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+
+                <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                  Watch the guidance video above or click below to connect directly with your Mastered Trainer via WhatsApp!
                 </p>
-                <div className="pt-2 flex flex-col space-y-2">
+
+                <div className="pt-1 flex flex-col space-y-2">
                   <a
                     href="https://wa.me/916282548226?text=I%20need%20a%20trainer"
                     target="_blank"
@@ -3799,9 +3820,9 @@
                   </a>
                   <button
                     onClick={() => setShowTrainerModal(false)}
-                    className="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition"
+                    className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs rounded-xl transition"
                   >
-                    Cancel
+                    Close
                   </button>
                 </div>
               </div>
