@@ -936,24 +936,53 @@ function handleUpdateProgress(data) {
   return { success: true, message: "Progress recorded." };
 }
 
+function getItemVal(obj, keys) {
+  if (!obj) return "";
+  for (var i = 0; i < keys.length; i++) {
+    var k = keys[i];
+    if (obj[k] !== undefined && obj[k] !== null && obj[k] !== "") return obj[k];
+    for (var prop in obj) {
+      var pClean = prop.toString().trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+      var kClean = k.toString().trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+      if (pClean === kClean) {
+        if (obj[prop] !== undefined && obj[prop] !== null && obj[prop] !== "") return obj[prop];
+      }
+    }
+  }
+  return "";
+}
+
 function handleAdminGetStudents() {
   // Sync all paid students from PAID_STUDENTS tab to Students tab automatically
   syncAllPaidStudentsToStudentsSheet();
 
   var raw = getSheetData("Students");
   var list = raw.map(function(s) {
+    var stdId = getItemVal(s, ["studentid", "id"]);
+    var adm = getItemVal(s, ["admissionnumber", "admission", "adm"]);
+    var sName = getItemVal(s, ["name", "fullname"]);
+    var sEmail = getItemVal(s, ["email"]);
+    var sPhone = getItemVal(s, ["phone", "whatsappnumber", "whatsapp"]);
+    var sCourse = getItemVal(s, ["course", "coursename", "coursecode"]);
+    var sImg = getItemVal(s, ["profileimage", "image"]) || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80";
+    var sApprovedRaw = getItemVal(s, ["approved"]);
+    var isApp = sApprovedRaw === true || sApprovedRaw.toString().toUpperCase() === 'TRUE';
+    var sStatus = getItemVal(s, ["status"]) || "Active";
+    var sDate = getItemVal(s, ["createddate", "date"]);
+    var sToken = getItemVal(s, ["activedevicetoken", "devicetoken"]);
+
     return {
-      studentId: s.StudentID,
-      admissionNumber: s.AdmissionNumber,
-      name: s.Name,
-      email: s.Email,
-      phone: s.Phone,
-      course: s.Course,
-      profileImage: s.ProfileImage,
-      approved: s.Approved === true || (s.Approved || "").toString().toUpperCase() === 'TRUE',
-      status: s.Status,
-      createdDate: s.CreatedDate,
-      activeDeviceToken: s.ActiveDeviceToken || ""
+      studentId: stdId,
+      admissionNumber: adm,
+      name: sName,
+      email: sEmail,
+      phone: sPhone,
+      course: sCourse,
+      profileImage: sImg,
+      approved: isApp,
+      status: sStatus,
+      createdDate: sDate,
+      activeDeviceToken: sToken
     };
   });
   return { success: true, data: list };
@@ -962,16 +991,26 @@ function handleAdminGetStudents() {
 function handleAdminGetRequests() {
   var raw = getSheetData("Requests");
   var list = raw.map(function(r) {
+    var reqId = getItemVal(r, ["requestid", "id"]);
+    var rName = getItemVal(r, ["name", "fullname"]);
+    var rPhone = getItemVal(r, ["phone", "whatsappnumber", "whatsapp"]);
+    var rEmail = getItemVal(r, ["email"]);
+    var rAdm = getItemVal(r, ["admissionnumber", "admission", "adm"]);
+    var rCourse = getItemVal(r, ["course", "coursename"]);
+    var rStatus = getItemVal(r, ["status"]) || "Pending";
+    var rDate = getItemVal(r, ["createddate", "date"]);
+    var rBy = getItemVal(r, ["approvedby"]);
+
     return {
-      requestId: r.RequestID,
-      name: r.Name,
-      phone: r.Phone,
-      email: r.Email,
-      admissionNumber: r.AdmissionNumber,
-      course: r.Course,
-      status: r.Status,
-      createdDate: r.CreatedDate,
-      approvedBy: r.ApprovedBy
+      requestId: reqId,
+      name: rName,
+      phone: rPhone,
+      email: rEmail,
+      admissionNumber: rAdm,
+      course: rCourse,
+      status: rStatus,
+      createdDate: rDate,
+      approvedBy: rBy
     };
   });
   return { success: true, data: list };
