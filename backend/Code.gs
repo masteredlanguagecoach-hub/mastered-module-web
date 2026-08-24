@@ -69,6 +69,11 @@ function routeActionObj(action, data) {
     case 'ping':
       return { success: true, message: "PONG! Live Google Sheets connection verified." };
 
+    case 'debugSheets':
+      var debugSs = getMasteredSpreadsheet();
+      var debugList = debugSs ? debugSs.getSheets().map(function(s) { return { name: s.getName(), lastRow: s.getLastRow() }; }) : [];
+      return { success: true, spreadsheetId: debugSs ? debugSs.getId() : null, sheets: debugList };
+
     case 'loginStudent':
       return handleLoginStudent(data);
 
