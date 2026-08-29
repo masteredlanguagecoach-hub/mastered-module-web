@@ -1880,12 +1880,26 @@
 
       useEffect(() => {
         if (selectedCourse === 'HIND TO ENG') {
-          const hindMods = (typeof window !== 'undefined' && window.HINDI_30_MODULES) || (typeof HINDI_30_MODULES !== 'undefined' ? HINDI_30_MODULES : []);
+          const savedHind = safeStorage.getItem('mastered_custom_modules_hind');
+          let hindMods = null;
+          if (savedHind) {
+            try { hindMods = JSON.parse(savedHind); } catch(e) {}
+          }
+          if (!hindMods || hindMods.length === 0) {
+            hindMods = (typeof window !== 'undefined' && window.HINDI_30_MODULES) || (typeof HINDI_30_MODULES !== 'undefined' ? HINDI_30_MODULES : []);
+          }
           setModules(hindMods);
           const hindQuizzes = (typeof window !== 'undefined' && window.HINDI_QUIZ_BANK) || (typeof HINDI_QUIZ_BANK !== 'undefined' ? HINDI_QUIZ_BANK : {});
           window.ACTIVE_QUIZ_BANK = hindQuizzes;
         } else {
-          const malMods = (typeof window !== 'undefined' && window.EXACT_32_MODULES) || (typeof EXACT_32_MODULES !== 'undefined' ? EXACT_32_MODULES : []);
+          const savedMal = safeStorage.getItem('mastered_custom_modules_mal');
+          let malMods = null;
+          if (savedMal) {
+            try { malMods = JSON.parse(savedMal); } catch(e) {}
+          }
+          if (!malMods || malMods.length === 0) {
+            malMods = (typeof window !== 'undefined' && window.EXACT_32_MODULES) || (typeof EXACT_32_MODULES !== 'undefined' ? EXACT_32_MODULES : []);
+          }
           setModules(malMods);
           const malQuizzes = (customQuizBank && Object.keys(customQuizBank).length > 0) ? customQuizBank : ((typeof window !== 'undefined' && window.QUIZ_BANK) || (typeof QUIZ_BANK !== 'undefined' ? QUIZ_BANK : {}));
           window.ACTIVE_QUIZ_BANK = malQuizzes;
@@ -2709,12 +2723,23 @@
 
         setModules(prev => {
           const idx = prev.findIndex(m => m.moduleId === modId);
+          let updated;
           if (idx >= 0) {
-            const updated = [...prev];
+            updated = [...prev];
             updated[idx] = finalMod;
-            return updated;
+          } else {
+            updated = [...prev, finalMod];
           }
-          return [...prev, finalMod];
+
+          if (selectedCourse === 'HIND TO ENG') {
+            if (typeof window !== 'undefined') window.HINDI_30_MODULES = updated;
+            safeStorage.setItem('mastered_custom_modules_hind', JSON.stringify(updated));
+          } else {
+            if (typeof window !== 'undefined') window.EXACT_32_MODULES = updated;
+            safeStorage.setItem('mastered_custom_modules_mal', JSON.stringify(updated));
+          }
+
+          return updated;
         });
 
         setShowModuleModal(false);
