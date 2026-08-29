@@ -96,7 +96,9 @@
   <div id="root"></div>
 
   <script src="assets/modulesData.js?v=2.0"></script>
+  <script src="assets/hindiModulesData.js?v=2.0"></script>
   <script src="assets/quizData.js?v=2.0" defer></script>
+  <script src="assets/hindiQuizData.js?v=2.0" defer></script>
   <script type="text/babel">
     const { useState, useEffect, useRef, useMemo, useCallback } = React;
 
@@ -227,20 +229,28 @@
 
     // Interactive Student Quiz Component
     function StudentQuizView({ moduleNumber, moduleTitle, onClose, onSaveScore }) {
-      const [quizBank, setQuizBank] = useState(() => (typeof window !== 'undefined' && window.QUIZ_BANK) || (typeof QUIZ_BANK !== 'undefined' ? QUIZ_BANK : {}));
+      const getActiveBank = () => {
+        if (typeof window === 'undefined') return typeof QUIZ_BANK !== 'undefined' ? QUIZ_BANK : {};
+        return window.ACTIVE_QUIZ_BANK || window.HINDI_QUIZ_BANK || window.QUIZ_BANK || (typeof QUIZ_BANK !== 'undefined' ? QUIZ_BANK : {});
+      };
+
+      const [quizBank, setQuizBank] = useState(() => getActiveBank());
 
       useEffect(() => {
-        if (!quizBank[moduleNumber] || quizBank[moduleNumber].length === 0) {
+        const currentBank = getActiveBank();
+        if (currentBank && currentBank[moduleNumber] && currentBank[moduleNumber].length > 0) {
+          setQuizBank(currentBank);
+        } else {
           const checkTimer = setInterval(() => {
-            const currentBank = (typeof window !== 'undefined' && window.QUIZ_BANK) || (typeof QUIZ_BANK !== 'undefined' ? QUIZ_BANK : {});
-            if (currentBank && currentBank[moduleNumber] && currentBank[moduleNumber].length > 0) {
-              setQuizBank(currentBank);
+            const cb = getActiveBank();
+            if (cb && cb[moduleNumber] && cb[moduleNumber].length > 0) {
+              setQuizBank(cb);
               clearInterval(checkTimer);
             }
           }, 150);
           return () => clearInterval(checkTimer);
         }
-      }, [moduleNumber, quizBank]);
+      }, [moduleNumber]);
 
       const quizQuestions = quizBank[moduleNumber] || [];
       const [currentIdx, setCurrentIdx] = useState(0);
@@ -496,7 +506,7 @@
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {modules.map(m => {
               const modNum = m.moduleNumber;
-              const bank = (typeof window !== 'undefined' && window.QUIZ_BANK) || (typeof QUIZ_BANK !== 'undefined' ? QUIZ_BANK : {});
+              const bank = (typeof window !== 'undefined' && (window.ACTIVE_QUIZ_BANK || window.HINDI_QUIZ_BANK || window.QUIZ_BANK)) || (typeof QUIZ_BANK !== 'undefined' ? QUIZ_BANK : {});
               const quizQuestions = bank[modNum] || [];
               const scoreData = (userProgress[m.moduleId] && userProgress[m.moduleId].quizScores && userProgress[m.moduleId].quizScores[modNum]) || null;
               const unlocked = isLevelUnlocked(modNum);
@@ -1818,7 +1828,36 @@
       // Data Stores
       const [students, setStudents] = useState([]);
       const [requests, setRequests] = useState([]);
-      const [modules, setModules] = useState(() => (typeof window !== 'undefined' && window.EXACT_32_MODULES) || (typeof EXACT_32_MODULES !== 'undefined' ? EXACT_32_MODULES : []));
+
+      // Course Selection State (MAL TO ENG vs HIND TO ENG)
+      const [selectedCourse, setSelectedCourse] = useState(() => {
+        const saved = safeStorage.getItem('mastered_selected_course');
+        if (saved) return saved;
+        try {
+          const session = safeStorage.getItem('mastered_user_session');
+          if (session) {
+            const parsed = JSON.parse(session);
+            if (parsed && parsed.user && parsed.user.course) {
+              const c = String(parsed.user.course).toUpperCase();
+              if (c.indexOf('HIND') >= 0 || c.indexOf('HINDI') >= 0) return 'HIND TO ENG';
+            }
+          }
+        } catch(e) {}
+        return 'MAL TO ENG';
+      });
+
+      const handleSwitchCourse = (newCourse) => {
+        setSelectedCourse(newCourse);
+        safeStorage.setItem('mastered_selected_course', newCourse);
+        showToast(`📚 Switched course to ${newCourse === 'HIND TO ENG' ? 'Hindi to English (30 Modules)' : 'Malayalam to English (32 Modules)'}`);
+      };
+
+      const [modules, setModules] = useState(() => {
+        if (selectedCourse === 'HIND TO ENG') {
+          return (typeof window !== 'undefined' && window.HINDI_30_MODULES) || (typeof HINDI_30_MODULES !== 'undefined' ? HINDI_30_MODULES : []);
+        }
+        return (typeof window !== 'undefined' && window.EXACT_32_MODULES) || (typeof EXACT_32_MODULES !== 'undefined' ? EXACT_32_MODULES : []);
+      });
 
       const [customQuizBank, setCustomQuizBank] = useState(() => {
         const saved = safeStorage.getItem('mastered_custom_quiz_bank');
@@ -1829,6 +1868,29 @@
         }
         return (typeof window !== 'undefined' && window.QUIZ_BANK) || (typeof QUIZ_BANK !== 'undefined' ? QUIZ_BANK : {});
       });
+
+      useEffect(() => {
+        if (currentUser && currentUser.course) {
+          const c = String(currentUser.course).toUpperCase();
+          if (c.indexOf('HIND') >= 0 || c.indexOf('HINDI') >= 0) {
+            setSelectedCourse('HIND TO ENG');
+          }
+        }
+      }, [currentUser]);
+
+      useEffect(() => {
+        if (selectedCourse === 'HIND TO ENG') {
+          const hindMods = (typeof window !== 'undefined' && window.HINDI_30_MODULES) || (typeof HINDI_30_MODULES !== 'undefined' ? HINDI_30_MODULES : []);
+          setModules(hindMods);
+          const hindQuizzes = (typeof window !== 'undefined' && window.HINDI_QUIZ_BANK) || (typeof HINDI_QUIZ_BANK !== 'undefined' ? HINDI_QUIZ_BANK : {});
+          window.ACTIVE_QUIZ_BANK = hindQuizzes;
+        } else {
+          const malMods = (typeof window !== 'undefined' && window.EXACT_32_MODULES) || (typeof EXACT_32_MODULES !== 'undefined' ? EXACT_32_MODULES : []);
+          setModules(malMods);
+          const malQuizzes = (customQuizBank && Object.keys(customQuizBank).length > 0) ? customQuizBank : ((typeof window !== 'undefined' && window.QUIZ_BANK) || (typeof QUIZ_BANK !== 'undefined' ? QUIZ_BANK : {}));
+          window.ACTIVE_QUIZ_BANK = malQuizzes;
+        }
+      }, [selectedCourse, customQuizBank]);
 
       useEffect(() => {
         if (customQuizBank && Object.keys(customQuizBank).length > 0) {
@@ -2699,6 +2761,34 @@
 
           {currentUser && (
             <div className="flex items-center space-x-2 sm:space-x-3">
+              {/* Course Switcher Control */}
+              <div className="flex items-center p-1 bg-slate-950/80 border border-slate-800 rounded-xl">
+                <button
+                  type="button"
+                  onClick={() => handleSwitchCourse('MAL TO ENG')}
+                  className={`px-2 sm:px-2.5 py-1 text-[10px] sm:text-xs font-extrabold rounded-lg transition ${
+                    selectedCourse === 'MAL TO ENG'
+                      ? 'bg-red-600 text-white shadow-sm'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                  title="Switch to Malayalam to English Course (32 Modules)"
+                >
+                  🇲🇱 MAL
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleSwitchCourse('HIND TO ENG')}
+                  className={`px-2 sm:px-2.5 py-1 text-[10px] sm:text-xs font-extrabold rounded-lg transition ${
+                    selectedCourse === 'HIND TO ENG'
+                      ? 'bg-amber-600 text-white shadow-sm'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                  title="Switch to Hindi to English Course (30 Modules)"
+                >
+                  🇮🇳 HIND
+                </button>
+              </div>
+
               {role === 'student' && (
                 <button
                   onClick={() => setShowAiPromptModal(true)}
@@ -3211,7 +3301,35 @@
                       <div>
                         <span className="text-[10px] sm:text-xs font-bold text-red-400 uppercase tracking-wider">{currentUser ? (currentUser.admissionNumber || 'STUDENT') : 'STUDENT'}</span>
                         <h2 className="text-xl sm:text-2xl font-extrabold mt-0.5">Welcome back, {currentUser ? currentUser.name : 'Student'}!</h2>
-                        <p className="text-xs text-slate-300 mt-1">{currentUser ? currentUser.course : ''}</p>
+                        
+                        {/* Course Switcher Banner on Student Dashboard */}
+                        <div className="mt-2.5 flex flex-wrap items-center gap-2">
+                          <span className="text-[11px] text-slate-300 font-bold">Active Learning Course:</span>
+                          <div className="inline-flex items-center p-1 bg-slate-950/80 rounded-xl border border-slate-700/80">
+                            <button
+                              type="button"
+                              onClick={() => handleSwitchCourse('MAL TO ENG')}
+                              className={`px-3 py-1 text-[11px] font-extrabold rounded-lg transition ${
+                                selectedCourse === 'MAL TO ENG' 
+                                  ? 'bg-red-600 text-white shadow-md' 
+                                  : 'text-slate-400 hover:text-white'
+                              }`}
+                            >
+                              🇲🇱 MAL TO ENG (32 Modules)
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleSwitchCourse('HIND TO ENG')}
+                              className={`px-3 py-1 text-[11px] font-extrabold rounded-lg transition ${
+                                selectedCourse === 'HIND TO ENG' 
+                                  ? 'bg-amber-600 text-white shadow-md' 
+                                  : 'text-slate-400 hover:text-white'
+                              }`}
+                            >
+                              🇮🇳 HIND TO ENG (30 Modules)
+                            </button>
+                          </div>
+                        </div>
                       </div>
                       <button
                         onClick={() => handleOpenStudentHistory(currentUser)}
@@ -3231,7 +3349,7 @@
                             </span>
                             <h3 className="text-xl font-extrabold mt-2">Final Certification Task: 2-Minute Face Introduction Video</h3>
                             <p className="text-xs text-amber-100 mt-1 max-w-xl">
-                              Congratulations on passing all 32 module quizzes with 85%+! Record a 2-minute video introducing yourself with a clear face to receive your official Mastered Language Coach Certificate!
+                              Congratulations on passing all module quizzes with 85%+! Record a 2-minute video introducing yourself with a clear face to receive your official Mastered Language Coach Certificate!
                             </p>
                           </div>
                           <button
@@ -3246,7 +3364,9 @@
 
                     <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 shadow-sm space-y-4">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
-                        <h3 className="text-sm sm:text-base font-extrabold text-slate-900">32 Curriculum Level System ({modules.length} Levels)</h3>
+                        <h3 className="text-sm sm:text-base font-extrabold text-slate-900">
+                          {selectedCourse === 'HIND TO ENG' ? '🇮🇳 Hindi to English Course' : '🇲🇱 Malayalam to English Course'} ({modules.length} Levels)
+                        </h3>
                         <button
                           onClick={() => setShowChallengeVideoModal(true)}
                           className="px-4 py-2.5 bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white font-extrabold text-xs rounded-xl shadow-md hover:shadow-lg transition flex items-center justify-center space-x-2 shrink-0 border border-red-400/30"
