@@ -555,9 +555,6 @@ function checkAndAutoApprovePaidStudent(targetAdm, targetEmail) {
 }
 
 function handleLoginStudent(data) {
-  // Automatic background sync on every student login request
-  syncAllPaidStudentsToStudentsSheet();
-
   var ss = getMasteredSpreadsheet();
   var sheet = getFlexibleSheet(ss, "Students");
   if (!sheet) return { success: false, message: "Students database sheet missing." };
@@ -566,10 +563,6 @@ function handleLoginStudent(data) {
   var adm = (data.admissionNumber || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
   var deviceToken = data.deviceToken || ("DEV-" + Math.floor(100000 + Math.random() * 900000));
 
-  // Check Paid Students sheet tab for instant auto-approval
-  checkAndAutoApprovePaidStudent(adm, email);
-
-  // Reload Students rows
   var rows = sheet.getDataRange().getValues();
 
   for (var i = 1; i < rows.length; i++) {
@@ -698,24 +691,19 @@ function handleAdminLogin(data) {
 
 function handleSubmitRequest(data) {
   var ss = getMasteredSpreadsheet();
-  var email = data.email || data.Email || "";
-  var adm = data.admissionNumber || data.AdmissionNumber || "";
-
-  // Check if student is in Paid Students sheet tab -> Auto approve immediately!
-  var autoApprovedStudent = checkAndAutoApprovePaidStudent(adm, email);
-
   var sheet = getFlexibleSheet(ss, "Requests");
   if (!sheet) {
     sheet = ss.insertSheet("Requests");
     sheet.appendRow(["RequestID", "Name", "Phone", "Email", "AdmissionNumber", "Course", "Status", "CreatedDate", "ApprovedBy"]);
   }
 
-  var reqId = data.requestId || ("REQ-" + Math.floor(1000 + Math.random() * 9000));
-  var dateStr = new Date().toISOString().split('T')[0];
+  var email = data.email || data.Email || "";
+  var adm = data.admissionNumber || data.AdmissionNumber || "";
   var name = data.name || data.Name || "";
   var phone = data.phone || data.Phone || "";
   var course = data.course || data.Course || "MAL TO ENG";
-  var statusStr = autoApprovedStudent ? "Approved" : "Pending";
+  var reqId = data.requestId || ("REQ-" + Math.floor(1000 + Math.random() * 9000));
+  var dateStr = new Date().toISOString().split('T')[0];
 
   sheet.appendRow([
     reqId,
@@ -724,20 +712,15 @@ function handleSubmitRequest(data) {
     email,
     adm,
     course,
-    statusStr,
+    "Pending",
     dateStr,
     ""
   ]);
 
-  if (autoApprovedStudent) {
-    return {
-      success: true,
-      autoApproved: true,
-      message: "Payment Verified & Auto-Approved!"
-    };
-  }
-
-  return { success: true, message: "Application submitted successfully! Your coach will approve your account shortly." };
+  return {
+    success: true,
+    message: "Your request submitted and will approve within one hour"
+  };
 }
 
 function handleGetModules() {
