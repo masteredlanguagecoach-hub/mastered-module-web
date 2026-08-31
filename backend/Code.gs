@@ -478,11 +478,11 @@ function checkAndAutoApprovePaidStudent(targetAdm, targetEmail) {
         var rawCourse = courseIdx >= 0 ? (row[courseIdx] || "").toString().trim() : "MAL TO ENG";
         var normCourse = "MAL TO ENG";
         var cUpper = rawCourse.toUpperCase();
-        if (cUpper.indexOf("ML") >= 0 || cUpper.indexOf("MALAYALAM") >= 0) normCourse = "MAL TO ENG";
-        else if (cUpper.indexOf("HI") >= 0 || cUpper.indexOf("HINDI") >= 0) normCourse = "HIND TO ENG";
+        if (cUpper.indexOf("HI") >= 0 || cUpper.indexOf("HINDI") >= 0) normCourse = "HIND TO ENG";
         else if (cUpper.indexOf("TA") >= 0 || cUpper.indexOf("TAMIL") >= 0) normCourse = "TAMIL TO ENG";
         else if (cUpper.indexOf("KA") >= 0 || cUpper.indexOf("KANNADA") >= 0) normCourse = "KANNADA TO ENG";
         else if (cUpper.indexOf("BA") >= 0 || cUpper.indexOf("BENGALI") >= 0 || cUpper.indexOf("BANGALI") >= 0) normCourse = "BANGALI TO ENG";
+        else normCourse = "MAL TO ENG";
 
         foundPaid = {
           admissionNumber: pAdm || cleanAdm,
@@ -1095,10 +1095,46 @@ function handleAdminGetStudents() {
       userProgress: stdProg
     };
   });
+
+  // Fallback: If Students sheet tab has no data, read directly from PAID_STUDENTS tab!
+  if (!list || list.length === 0) {
+    var paidSheet = getFlexibleSheet(ss, "PAID_STUDENTS") || getFlexibleSheet(ss, "Paid Students") || getFlexibleSheet(ss, "Paid");
+    if (paidSheet) {
+      var pData = paidSheet.getDataRange().getValues();
+      if (pData && pData.length > 1) {
+        for (var p = 1; p < pData.length; p++) {
+          var pRow = pData[p];
+          var pAdm = (pRow[1] || pRow[0] || "").toString().trim();
+          var pName = (pRow[2] || pRow[1] || "Paid Student").toString().trim();
+          var pEmail = (pRow[3] || pRow[2] || "").toString().trim();
+          var pPhone = (pRow[5] || pRow[4] || "").toString().trim();
+          var pCourse = (pRow[7] || pRow[6] || "MAL TO ENG").toString().trim();
+          if (pAdm || pEmail) {
+            list.push({
+              studentId: "STD-" + Math.floor(1000 + Math.random() * 9000),
+              admissionNumber: pAdm,
+              name: pName,
+              email: pEmail,
+              phone: pPhone,
+              course: pCourse,
+              profileImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80",
+              approved: true,
+              status: "Active",
+              createdDate: new Date().toISOString().split('T')[0],
+              activeDeviceToken: "",
+              userProgress: progMap[pAdm.toUpperCase()] || progMap[pEmail.toLowerCase()] || {}
+            });
+          }
+        }
+      }
+    }
+  }
+
   return { success: true, data: list };
 }
 
 function handleAdminGetRequests() {
+  var ss = getMasteredSpreadsheet();
   var raw = getSheetData("Requests");
   var list = raw.map(function(r) {
     var reqId = getItemVal(r, ["requestid", "id"]);
@@ -1123,6 +1159,38 @@ function handleAdminGetRequests() {
       approvedBy: rBy
     };
   });
+
+  // Fallback: If Requests tab has no data, read directly from PAID_STUDENTS tab
+  if (!list || list.length === 0) {
+    var paidSheet = getFlexibleSheet(ss, "PAID_STUDENTS") || getFlexibleSheet(ss, "Paid Students") || getFlexibleSheet(ss, "Paid");
+    if (paidSheet) {
+      var pData = paidSheet.getDataRange().getValues();
+      if (pData && pData.length > 1) {
+        for (var p = 1; p < pData.length; p++) {
+          var pRow = pData[p];
+          var pAdm = (pRow[1] || pRow[0] || "").toString().trim();
+          var pName = (pRow[2] || pRow[1] || "Student").toString().trim();
+          var pEmail = (pRow[3] || pRow[2] || "").toString().trim();
+          var pPhone = (pRow[5] || pRow[4] || "").toString().trim();
+          var pCourse = (pRow[7] || pRow[6] || "MAL TO ENG").toString().trim();
+          if (pAdm || pEmail) {
+            list.push({
+              requestId: "REQ-" + Math.floor(1000 + Math.random() * 9000),
+              name: pName,
+              phone: pPhone,
+              email: pEmail,
+              admissionNumber: pAdm,
+              course: pCourse,
+              status: "Approved",
+              createdDate: new Date().toISOString().split('T')[0],
+              approvedBy: "System"
+            });
+          }
+        }
+      }
+    }
+  }
+
   return { success: true, data: list };
 }
 
@@ -1275,17 +1343,20 @@ function syncAllPaidStudentsToStudentsSheet() {
       var rawCourse = courseIdx >= 0 ? (row[courseIdx] || "").toString().trim() : "MAL TO ENG";
 
       if (!pAdm && !pEmail) continue;
-      if (statusIdx >= 0 && pStatus && pStatus !== "SUCCESS" && pStatus !== "PAID" && pStatus !== "COMPLETED" && pStatus !== "TRUE" && pStatus !== "YES") {
-        continue;
+      
+      // Allow any valid payment status (SUCCESS, PAID, COMPLETED, TRUE, YES, CAPTURED, AUTHORIZED, APPROVED, ACTIVE, ENROLLED, or empty)
+      if (statusIdx >= 0 && pStatus) {
+        var isInvalidStatus = pStatus === "FAILED" || pStatus === "REFUNDED" || pStatus === "CANCELLED" || pStatus === "REJECTED" || pStatus === "FALSE" || pStatus === "NO";
+        if (isInvalidStatus) continue;
       }
 
       var normCourse = "MAL TO ENG";
       var cUpper = rawCourse.toUpperCase();
-      if (cUpper.indexOf("ML") >= 0 || cUpper.indexOf("MALAYALAM") >= 0) normCourse = "MAL TO ENG";
-      else if (cUpper.indexOf("HI") >= 0 || cUpper.indexOf("HINDI") >= 0) normCourse = "HIND TO ENG";
+      if (cUpper.indexOf("HI") >= 0 || cUpper.indexOf("HINDI") >= 0) normCourse = "HIND TO ENG";
       else if (cUpper.indexOf("TA") >= 0 || cUpper.indexOf("TAMIL") >= 0) normCourse = "TAMIL TO ENG";
       else if (cUpper.indexOf("KA") >= 0 || cUpper.indexOf("KANNADA") >= 0) normCourse = "KANNADA TO ENG";
       else if (cUpper.indexOf("BA") >= 0 || cUpper.indexOf("BENGALI") >= 0 || cUpper.indexOf("BANGALI") >= 0) normCourse = "BANGALI TO ENG";
+      else normCourse = "MAL TO ENG";
 
       var targetRow = (pAdm && stdAdmMap[pAdm]) || (pEmail && stdEmailMap[pEmail]);
 
