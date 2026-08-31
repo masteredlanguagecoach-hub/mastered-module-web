@@ -1825,9 +1825,34 @@
         setToast(msg);
         setTimeout(() => setToast(null), 3500);
       };
-      // Data Stores
-      const [students, setStudents] = useState([]);
-      const [requests, setRequests] = useState([]);
+      // Data Stores with Fail-safe Local Storage Persistence
+      const [students, setStudents] = useState(() => {
+        const saved = safeStorage.getItem('mastered_approved_students');
+        if (saved) {
+          try { return JSON.parse(saved); } catch(e) {}
+        }
+        return [];
+      });
+
+      const [requests, setRequests] = useState(() => {
+        const saved = safeStorage.getItem('mastered_pending_requests');
+        if (saved) {
+          try { return JSON.parse(saved); } catch(e) {}
+        }
+        return [];
+      });
+
+      useEffect(() => {
+        if (students && students.length > 0) {
+          safeStorage.setItem('mastered_approved_students', JSON.stringify(students));
+        }
+      }, [students]);
+
+      useEffect(() => {
+        if (requests && requests.length > 0) {
+          safeStorage.setItem('mastered_pending_requests', JSON.stringify(requests));
+        }
+      }, [requests]);
 
       // Course Selection State (MAL TO ENG vs HIND TO ENG)
       const [selectedCourse, setSelectedCourse] = useState(() => {
