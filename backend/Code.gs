@@ -9,21 +9,13 @@ var MASTERED_SPREADSHEET_ID = "1N5YkP6U8RaafRD_bsULTzlaDSC0Vbmfj9l_XCt1S_Rg";
 function getMasteredSpreadsheet() {
   try {
     var active = SpreadsheetApp.getActiveSpreadsheet();
-    if (active && active.getSheets && active.getSheets().length > 0) return active;
+    if (active) return active;
   } catch(e) {}
   try {
     if (MASTERED_SPREADSHEET_ID) {
-      var ss = SpreadsheetApp.openById(MASTERED_SPREADSHEET_ID);
-      if (ss && ss.getSheets && ss.getSheets().length > 0) return ss;
+      return SpreadsheetApp.openById(MASTERED_SPREADSHEET_ID);
     }
   } catch(e2) {}
-  try {
-    var files = DriveApp.getFilesByName("Mastered Language Coach");
-    if (files.hasNext()) {
-      var file = files.next();
-      return SpreadsheetApp.openById(file.getId());
-    }
-  } catch(e3) {}
   return null;
 }
 

@@ -119,7 +119,7 @@
 
     // Transparent PNG Logo Asset
     const LOGO_SRC = "assets/logo.png";
-    var LIVE_APPS_SCRIPT_URL = (typeof window !== 'undefined' && window.LIVE_APPS_SCRIPT_URL) || "https://script.google.com/macros/s/AKfycbzOKO05chNfJPD65-gHSLQ8y-Mv1GOTalpsTwGfUqmWy-jpI9rx01nibRSppYy22UwL/exec";
+    var LIVE_APPS_SCRIPT_URL = (typeof window !== 'undefined' && window.LIVE_APPS_SCRIPT_URL) || "https://script.google.com/macros/s/AKfycbyTe-hZJIaev4qvK_aDR7ipOidSpJetZhwGC195ECn5lwVRiP4K-IL4sLXtopjAj8Ox/exec";
     const modules = (typeof window !== 'undefined' && window.EXACT_32_MODULES) || (typeof EXACT_32_MODULES !== 'undefined' ? EXACT_32_MODULES : []);
 
     // Helper: Clean Embed URLs for YouTube Fast Buffering & Controls Customization
@@ -155,7 +155,7 @@
 
     // Dynamic Direct Fetch & POST/GET Hybrid Call to Google Apps Script REST API
     async function callAppsScript(action, payload = {}) {
-      const scriptUrl = (typeof LIVE_APPS_SCRIPT_URL !== 'undefined' && LIVE_APPS_SCRIPT_URL) || "https://script.google.com/macros/s/AKfycbzOKO05chNfJPD65-gHSLQ8y-Mv1GOTalpsTwGfUqmWy-jpI9rx01nibRSppYy22UwL/exec";
+      const scriptUrl = (typeof LIVE_APPS_SCRIPT_URL !== 'undefined' && LIVE_APPS_SCRIPT_URL) || "https://script.google.com/macros/s/AKfycbyTe-hZJIaev4qvK_aDR7ipOidSpJetZhwGC195ECn5lwVRiP4K-IL4sLXtopjAj8Ox/exec";
       if (!scriptUrl || scriptUrl.includes('undefined')) return { success: false, message: "AppsScript URL not configured" };
 
       // Build hybrid payload containing both top-level and nested properties

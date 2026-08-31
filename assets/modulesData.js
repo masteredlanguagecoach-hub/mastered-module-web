@@ -1,5 +1,5 @@
 // EXACT 32 REAL CURRICULUM MODULES & HELPER UTILITIES
-window.LIVE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzOKO05chNfJPD65-gHSLQ8y-Mv1GOTalpsTwGfUqmWy-jpI9rx01nibRSppYy22UwL/exec";
+window.LIVE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyTe-hZJIaev4qvK_aDR7ipOidSpJetZhwGC195ECn5lwVRiP4K-IL4sLXtopjAj8Ox/exec";
 var LIVE_APPS_SCRIPT_URL = window.LIVE_APPS_SCRIPT_URL;
 const THUMBNAILS = [
   "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop&q=80",
