@@ -2203,19 +2203,35 @@
       const refreshLiveData = async () => {
         try {
           const reqRes = await callAppsScript('getRequests');
-          if (reqRes && reqRes.success && Array.isArray(reqRes.data)) {
-            setRequests(reqRes.data.map(r => ({
-              ...r,
-              course: normalizeCourseName(r.course)
-            })));
+          if (reqRes && reqRes.success && Array.isArray(reqRes.data) && reqRes.data.length > 0) {
+            setRequests(prev => {
+              const map = new Map();
+              (prev || []).forEach(r => {
+                const k = (r.requestId || r.admissionNumber || r.email || '').toString().trim().toUpperCase();
+                if (k) map.set(k, r);
+              });
+              reqRes.data.forEach(r => {
+                const k = (r.requestId || r.admissionNumber || r.email || '').toString().trim().toUpperCase();
+                if (k) map.set(k, { ...r, course: normalizeCourseName(r.course) });
+              });
+              return Array.from(map.values());
+            });
           }
 
           const stdRes = await callAppsScript('getStudents');
-          if (stdRes && stdRes.success && Array.isArray(stdRes.data)) {
-            setStudents(stdRes.data.map(s => ({
-              ...s,
-              course: normalizeCourseName(s.course)
-            })));
+          if (stdRes && stdRes.success && Array.isArray(stdRes.data) && stdRes.data.length > 0) {
+            setStudents(prev => {
+              const map = new Map();
+              (prev || []).forEach(s => {
+                const k = (s.studentId || s.admissionNumber || s.email || '').toString().trim().toUpperCase();
+                if (k) map.set(k, s);
+              });
+              stdRes.data.forEach(s => {
+                const k = (s.studentId || s.admissionNumber || s.email || '').toString().trim().toUpperCase();
+                if (k) map.set(k, { ...s, course: normalizeCourseName(s.course) });
+              });
+              return Array.from(map.values());
+            });
           }
 
           // Single Active Device Rule Verification

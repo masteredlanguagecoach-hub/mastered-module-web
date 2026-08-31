@@ -1087,38 +1087,91 @@ function handleAdminGetStudents() {
     };
   });
 
-  // Fallback: If Students sheet tab has no data, read directly from PAID_STUDENTS tab!
+  // Fallback: If Students sheet tab has no data, scan ALL sheet tabs in the spreadsheet!
   if (!list || list.length === 0) {
-    var paidSheet = getFlexibleSheet(ss, "PAID_STUDENTS") || getFlexibleSheet(ss, "Paid Students") || getFlexibleSheet(ss, "Paid");
-    if (paidSheet) {
-      var pData = paidSheet.getDataRange().getValues();
-      if (pData && pData.length > 1) {
-        for (var p = 1; p < pData.length; p++) {
-          var pRow = pData[p];
-          var pAdm = (pRow[1] || pRow[0] || "").toString().trim();
-          var pName = (pRow[2] || pRow[1] || "Paid Student").toString().trim();
-          var pEmail = (pRow[3] || pRow[2] || "").toString().trim();
-          var pPhone = (pRow[5] || pRow[4] || "").toString().trim();
-          var pCourse = (pRow[7] || pRow[6] || "MAL TO ENG").toString().trim();
-          if (pAdm || pEmail) {
-            list.push({
-              studentId: "STD-" + Math.floor(1000 + Math.random() * 9000),
-              admissionNumber: pAdm,
-              name: pName,
-              email: pEmail,
-              phone: pPhone,
-              course: pCourse,
-              profileImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80",
-              approved: true,
-              status: "Active",
-              createdDate: new Date().toISOString().split('T')[0],
-              activeDeviceToken: "",
-              userProgress: progMap[pAdm.toUpperCase()] || progMap[pEmail.toLowerCase()] || {}
-            });
+    try {
+      var allSheets = ss.getSheets();
+      var seenKeys = {};
+
+      for (var s = 0; s < allSheets.length; s++) {
+        var sh = allSheets[s];
+        var sName = sh.getName().toUpperCase();
+        if (sName.indexOf("MODULE") >= 0 || sName.indexOf("QUIZ") >= 0) continue;
+
+        var data = sh.getDataRange().getValues();
+        if (!data || data.length <= 1) continue;
+
+        var headerIdx = 0;
+        for (var r = 0; r < Math.min(data.length, 10); r++) {
+          var rStr = "";
+          try {
+            rStr = data[r].map(function(c) { return (c || "").toString(); }).join(" ").toLowerCase();
+          } catch(eStr) {}
+          if (rStr.indexOf("admission") >= 0 || rStr.indexOf("email") >= 0 || rStr.indexOf("name") >= 0 || rStr.indexOf("course") >= 0) {
+            headerIdx = r;
+            break;
           }
         }
+
+        var headers = data[headerIdx].map(function(h) { return h.toString().trim().toLowerCase(); });
+        var admIdx = -1, emailIdx = -1, nameIdx = -1, phoneIdx = -1, courseIdx = -1, statusIdx = -1;
+
+        for (var k = 0; k < headers.length; k++) {
+          var h = headers[k];
+          if (h.indexOf("admission") >= 0 || h.indexOf("adm") >= 0) admIdx = k;
+          if (h === "full name" || h.indexOf("full name") >= 0 || (h.indexOf("name") >= 0 && h.indexOf("course") < 0)) nameIdx = k;
+          if (h.indexOf("email") >= 0 && h.indexOf("verified") < 0) emailIdx = k;
+          if (h.indexOf("whatsapp") >= 0 || h.indexOf("phone") >= 0 || h.indexOf("mobile") >= 0) phoneIdx = k;
+          if (h.indexOf("course name") >= 0 || h.indexOf("course code") >= 0 || h.indexOf("course") >= 0) courseIdx = k;
+          if (h.indexOf("status") >= 0) statusIdx = k;
+        }
+
+        if (admIdx < 0 && headers.length > 1) admIdx = 1;
+        if (nameIdx < 0 && headers.length > 2) nameIdx = 2;
+        if (emailIdx < 0 && headers.length > 3) emailIdx = 3;
+        if (phoneIdx < 0 && headers.length > 5) phoneIdx = 5;
+        if (courseIdx < 0 && headers.length > 7) courseIdx = 7;
+
+        for (var i = headerIdx + 1; i < data.length; i++) {
+          var row = data[i];
+          var pAdm = admIdx >= 0 ? (row[admIdx] || "").toString().trim() : "";
+          var pEmail = emailIdx >= 0 ? (row[emailIdx] || "").toString().trim() : "";
+          var pName = nameIdx >= 0 ? (row[nameIdx] || "").toString().trim() : "Student";
+          var pPhone = phoneIdx >= 0 ? (row[phoneIdx] || "").toString().trim() : "";
+          var rawCourse = courseIdx >= 0 ? (row[courseIdx] || "").toString().trim() : "MAL TO ENG";
+          var pStatus = statusIdx >= 0 ? (row[statusIdx] || "").toString().trim() : "Active";
+
+          if (!pAdm && !pEmail) continue;
+
+          var key = (pAdm || pEmail).toUpperCase();
+          if (seenKeys[key]) continue;
+          seenKeys[key] = true;
+
+          var normCourse = "MAL TO ENG";
+          var cUpper = rawCourse.toUpperCase();
+          if (cUpper.indexOf("HI") >= 0 || cUpper.indexOf("HINDI") >= 0) normCourse = "HIND TO ENG";
+          else if (cUpper.indexOf("TA") >= 0 || cUpper.indexOf("TAMIL") >= 0) normCourse = "TAMIL TO ENG";
+          else if (cUpper.indexOf("KA") >= 0 || cUpper.indexOf("KANNADA") >= 0) normCourse = "KANNADA TO ENG";
+          else if (cUpper.indexOf("BA") >= 0 || cUpper.indexOf("BENGALI") >= 0 || cUpper.indexOf("BANGALI") >= 0) normCourse = "BANGALI TO ENG";
+          else normCourse = "MAL TO ENG";
+
+          list.push({
+            studentId: "STD-" + Math.floor(1000 + Math.random() * 9000),
+            admissionNumber: pAdm,
+            name: pName,
+            email: pEmail,
+            phone: pPhone,
+            course: normCourse,
+            profileImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80",
+            approved: true,
+            status: pStatus || "Active",
+            createdDate: new Date().toISOString().split('T')[0],
+            activeDeviceToken: "",
+            userProgress: progMap[pAdm.toUpperCase()] || progMap[pEmail.toLowerCase()] || {}
+          });
+        }
       }
-    }
+    } catch(eScan) {}
   }
 
   return { success: true, data: list };
