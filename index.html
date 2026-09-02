@@ -2234,24 +2234,7 @@
             });
           }
 
-          // Single Active Device Rule Verification
           if (currentUser && role === 'student') {
-            const deviceToken = getDeviceToken();
-            const deviceCheck = await callAppsScript('verifyDeviceSession', {
-              admissionNumber: currentUser.admissionNumber,
-              email: currentUser.email,
-              deviceToken
-            });
-
-            if (deviceCheck && deviceCheck.valid === false) {
-              alert(deviceCheck.message || "⚠️ Session Expired! Your account was logged in from another device. Only 1 active device is allowed per student account.");
-              setCurrentUser(null);
-              setRole(null);
-              setAuthScreen('login');
-              safeStorage.removeItem('mastered_user_session');
-              return;
-            }
-
             await fetchStudentProgressFromCloud(currentUser);
           }
         } catch(e) {}
@@ -2404,11 +2387,6 @@
           const deviceToken = getDeviceToken();
           const live = await callAppsScript('loginStudent', { email: cleanEmail, admissionNumber: cleanAdm, deviceToken });
           
-          if (live && live.deviceLocked) {
-            setLoginError(live.message);
-            return { success: false };
-          }
-
           if (live && live.success && live.student) {
             const std = { ...live.student, activeDeviceToken: deviceToken };
             setCurrentUser(std);

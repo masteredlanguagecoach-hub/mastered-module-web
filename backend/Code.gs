@@ -575,28 +575,9 @@ function handleLoginStudent(data) {
         return { success: false, message: "Your access application is pending admin approval." };
       }
 
-      var boundDeviceToken = (rows[i][10] || "").toString().trim(); // Column K
-
-      // Strict Permanent Device Binding ("Any Time Rule"):
-      if (boundDeviceToken && boundDeviceToken !== deviceToken) {
-        return {
-          success: false,
-          deviceLocked: true,
-          message: "⛔ Account Locked to your registered device!\n\nThis account is bound to another phone/laptop. Logging in from secondary devices is strictly prohibited at any time.\n\nPlease use your original registered device, or ask your coach to reset your device lock!"
-        };
-      }
-
-      if (!boundDeviceToken) {
-        try {
-          sheet.getRange(i + 1, 11).setValue(deviceToken);
-          sheet.getRange(i + 1, 12).setValue(new Date());
-        } catch(e) {}
-        boundDeviceToken = deviceToken;
-      }
-
       return {
         success: true,
-        deviceToken: boundDeviceToken,
+        deviceToken: deviceToken,
         student: {
           studentId: rows[i][0],
           admissionNumber: rows[i][1],
@@ -608,7 +589,7 @@ function handleLoginStudent(data) {
           approved: true,
           status: rows[i][8],
           createdDate: rows[i][9],
-          activeDeviceToken: boundDeviceToken
+          activeDeviceToken: deviceToken
         }
       };
     }
@@ -617,33 +598,6 @@ function handleLoginStudent(data) {
 }
 
 function handleVerifyDeviceSession(data) {
-  var ss = getMasteredSpreadsheet();
-  var sheet = getFlexibleSheet(ss, "Students");
-  if (!sheet) return { valid: true };
-
-  var adm = (data.admissionNumber || "").toString().trim().toUpperCase();
-  var email = (data.email || "").toString().trim().toLowerCase();
-  var deviceToken = data.deviceToken || "";
-
-  if (!deviceToken) return { valid: true };
-
-  var rows = sheet.getDataRange().getValues();
-  for (var i = 1; i < rows.length; i++) {
-    var rAdm = (rows[i][1] || "").toString().trim().toUpperCase();
-    var rEmail = (rows[i][3] || "").toString().trim().toLowerCase();
-
-    if ((adm && rAdm === adm) || (email && rEmail === email)) {
-      var activeToken = (rows[i][10] || "").toString().trim(); // Column K
-      if (activeToken && activeToken !== deviceToken) {
-        return {
-          valid: false,
-          message: "⛔ Account Locked to registered device! Access from secondary devices is blocked at any time. Contact your coach to unlock a new device."
-        };
-      }
-      return { valid: true };
-    }
-  }
-
   return { valid: true };
 }
 
