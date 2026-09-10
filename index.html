@@ -1663,52 +1663,73 @@
               <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
             </div>
 
-            {/* MCL-1 Progress Code Card */}
-            <div className="p-4 bg-slate-900 text-white rounded-2xl space-y-3 border border-slate-800 shadow-inner">
-              <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+            {/* Prominent Full-Width MCL-1 Progress Code Card */}
+            <div className="p-5 bg-slate-900 text-white rounded-2xl sm:rounded-3xl space-y-4 border border-slate-800 shadow-xl">
+              <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3 pb-3 border-b border-slate-800">
                 <div>
                   <div className="flex items-center space-x-2">
-                    <span className="px-2.5 py-0.5 bg-red-600 text-white text-[10px] font-mono font-black uppercase rounded">
+                    <span className="px-2.5 py-0.5 bg-red-600 text-white text-[10px] font-mono font-black uppercase rounded-md shadow-sm">
                       MCL-1 Progress Code
                     </span>
-                    <span className="text-xs text-slate-400 font-bold">Level {activeMissionNumber} ({currentPct}% Progress)</span>
+                    <span className="text-xs text-slate-400 font-extrabold">Level {activeMissionNumber} • {currentPct}% Current Progress</span>
                   </div>
-                  <h4 className="font-extrabold text-sm text-white mt-1">Active AI Mission Progress Code</h4>
-                  <p className="text-[11px] text-slate-400">Copy this code to ChatGPT at session start, or paste the code returned by ChatGPT below to sync your progress.</p>
+                  <h4 className="font-extrabold text-base text-white mt-1">Active AI Mission Progress Code</h4>
+                  <p className="text-xs text-slate-400">Copy your starting code to ChatGPT, or paste the updated progress code from ChatGPT below.</p>
                 </div>
 
-                <div className="bg-slate-950 px-3 py-2 rounded-xl border border-slate-800 text-center font-mono font-black text-amber-400 text-sm tracking-widest shadow-sm select-all">
-                  {mclCode || 'UCAP-UCLX-GHDK-AQJP-CJCJ-CJTD'}
+                <div className="flex items-center space-x-2 shrink-0">
+                  <div className="bg-slate-950 px-3.5 py-2.5 rounded-xl border border-slate-800 font-mono font-black text-amber-400 text-sm tracking-widest shadow-sm select-all">
+                    {mclCode || 'UCAP-UCLX-GHDK-AQJP-CJCJ-CJTD'}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(mclCode, 'MCL-1 Progress Code')}
+                    className="px-3.5 py-2.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-extrabold text-xs rounded-xl transition flex items-center space-x-1 border border-amber-400/40 shrink-0"
+                  >
+                    <span>{copiedPrompt === 'MCL-1 Progress Code' ? '✓ Copied!' : '📋 Copy'}</span>
+                  </button>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-2.5 pt-2 border-t border-slate-800">
-                <button
-                  type="button"
-                  onClick={() => handleCopy(mclCode, 'MCL-1 Progress Code')}
-                  className="w-full sm:w-auto px-4 py-2 bg-slate-800 hover:bg-slate-700 text-amber-300 font-extrabold text-xs rounded-xl transition flex items-center justify-center space-x-1.5 border border-amber-400/30 shrink-0"
-                >
-                  <span>{copiedPrompt === 'MCL-1 Progress Code' ? '✓ Copied Code!' : '📋 Copy Progress Code'}</span>
-                </button>
+              {/* Dedicated Large Full-Width Paste & Update Form */}
+              <form onSubmit={handleVerifySubmittedCode} className="space-y-3 bg-slate-950 p-4 rounded-2xl border border-slate-800">
+                <div className="flex justify-between items-center">
+                  <label className="text-xs font-extrabold text-emerald-400 uppercase tracking-wider flex items-center space-x-1.5">
+                    <span>📥 Paste Progress Code from ChatGPT Below:</span>
+                  </label>
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      try {
+                        if (navigator && navigator.clipboard && navigator.clipboard.readText) {
+                          const text = await navigator.clipboard.readText();
+                          if (text) setInputMclCode(text.trim());
+                        }
+                      } catch(e) {}
+                    }}
+                    className="text-[11px] font-extrabold text-amber-400 hover:text-amber-300 underline flex items-center space-x-1"
+                  >
+                    <span>📋 Paste from Clipboard</span>
+                  </button>
+                </div>
 
-                {/* Input Form to Paste Code from ChatGPT */}
-                <form onSubmit={handleVerifySubmittedCode} className="w-full sm:w-auto flex items-center space-x-2">
+                <div className="flex flex-col sm:flex-row gap-2">
                   <input
                     type="text"
-                    placeholder="Paste code from ChatGPT..."
+                    placeholder="Paste ChatGPT code (e.g. UCAP-UCLX-GHDK-AQJP-CJCJ-CJTD)..."
                     value={inputMclCode}
                     onChange={e => setInputMclCode(e.target.value)}
-                    className="w-full sm:w-52 px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white font-mono uppercase focus:border-red-500 outline-none"
+                    className="w-full px-4 py-3 bg-slate-900 border border-slate-700 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 rounded-xl text-sm sm:text-base text-white font-mono uppercase tracking-wider outline-none transition shadow-inner placeholder:text-slate-600"
                   />
                   <button
                     type="submit"
                     disabled={isVerifyingCode}
-                    className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-md transition shrink-0 disabled:opacity-50"
+                    className="w-full sm:w-auto px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs sm:text-sm rounded-xl shadow-lg transition shrink-0 disabled:opacity-50 flex items-center justify-center space-x-1.5"
                   >
-                    {isVerifyingCode ? '⏳ Syncing...' : '⚡ Update Progress & View Report'}
+                    <span>{isVerifyingCode ? '⏳ Verifying & Saving...' : '⚡ Update Progress & Save'}</span>
                   </button>
-                </form>
-              </div>
+                </div>
+              </form>
             </div>
 
             {/* Quick Instructions Notice */}
@@ -2039,10 +2060,10 @@
 
             if (Object.keys(parsedProgMap).length > 0) {
               setUserProgress(prev => {
-                const currentStudentMap = (adm && prev[adm]) || (email && prev[email]) || {};
-                const mergedStudentProg = { ...currentStudentMap, ...parsedProgMap };
                 const key = adm || email;
-                const allStudentsProg = { ...prev, [key]: mergedStudentProg };
+                const currentStudentMap = (key && prev[key]) || {};
+                const mergedStudentProg = { ...currentStudentMap, ...parsedProgMap };
+                const allStudentsProg = { ...prev, [key]: mergedStudentProg, ...mergedStudentProg };
                 safeStorage.setItem('mastered_all_students_progress', JSON.stringify(allStudentsProg));
                 if (key) safeStorage.setItem(`mastered_progress_${key}`, JSON.stringify(mergedStudentProg));
                 return allStudentsProg;
@@ -2336,8 +2357,9 @@
           return;
         }
 
+        const activeProg = getCurrentStudentProgressMap();
         const modKey = `MOD-${decoded.mission < 10 ? '0' + decoded.mission : decoded.mission}`;
-        const currentModObj = userProgress?.[modKey] || {};
+        const currentModObj = activeProg[modKey] || {};
         const currentPct = Number(currentModObj.percentage) || 0;
 
         if (decoded.progress <= currentPct) {
@@ -2345,7 +2367,7 @@
           return;
         }
 
-        // Optimistically update local React state
+        // Optimistically update local React state and safeStorage
         const updatedModObj = {
           ...currentModObj,
           percentage: decoded.progress,
@@ -2354,12 +2376,16 @@
           lastUpdated: new Date().toISOString()
         };
 
-        const newProgState = {
-          ...userProgress,
-          [modKey]: updatedModObj
-        };
+        const key = (currentUser?.admissionNumber || currentUser?.studentId || currentUser?.email || '').toString().trim().toUpperCase();
+        const updatedStudentMap = { ...activeProg, [modKey]: updatedModObj };
 
-        setUserProgress(newProgState);
+        setUserProgress(prev => {
+          const newState = { ...prev, [key]: updatedStudentMap, ...updatedStudentMap };
+          safeStorage.setItem('mastered_all_students_progress', JSON.stringify(newState));
+          if (key) safeStorage.setItem(`mastered_progress_${key}`, JSON.stringify(updatedStudentMap));
+          return newState;
+        });
+
         showToast(`🎉 Level ${decoded.mission} progress updated to ${decoded.progress}%!`);
 
         // Send to backend for permanent Google Sheets record and unlocking
@@ -2370,14 +2396,24 @@
             email: currentUser?.email
           });
 
-          if (res && res.success && res.userProgress) {
-            setUserProgress(res.userProgress);
-            showToast(`✅ Progress verified and synced to Google Sheets database!`);
+          if (res && res.success) {
+            const returnedProg = res.userProgress || res.data || {};
+            if (returnedProg && typeof returnedProg === 'object' && Object.keys(returnedProg).length > 0) {
+              setUserProgress(prev => {
+                const existingMap = (key && prev[key]) || {};
+                const mergedMap = { ...existingMap, ...returnedProg };
+                const newState = { ...prev, [key]: mergedMap, ...mergedMap };
+                safeStorage.setItem('mastered_all_students_progress', JSON.stringify(newState));
+                if (key) safeStorage.setItem(`mastered_progress_${key}`, JSON.stringify(mergedMap));
+                return newState;
+              });
+            }
+            showToast(`✅ Progress verified and saved permanently in Google Sheets database!`);
           } else if (res && !res.success) {
             alert(res.message);
           }
         } catch(err) {
-          showToast(`✅ Progress updated locally.`);
+          showToast(`✅ Progress saved locally.`);
         }
       };
 
@@ -3409,12 +3445,20 @@
                           </div>
                         </div>
                       </div>
-                      <button
-                        onClick={() => handleOpenStudentHistory(currentUser)}
-                        className="px-4 py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-md transition self-start sm:self-auto flex items-center space-x-1.5"
-                      >
-                        <span>📊 View My Progress & History</span>
-                      </button>
+                      <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
+                        <button
+                          onClick={() => setShowAiPromptModal(true)}
+                          className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center space-x-1.5"
+                        >
+                          <span>⚡ Paste AI Progress Code</span>
+                        </button>
+                        <button
+                          onClick={() => handleOpenStudentHistory(currentUser)}
+                          className="px-4 py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center space-x-1.5"
+                        >
+                          <span>📊 View My History</span>
+                        </button>
+                      </div>
                     </div>
 
                     {/* 100% Course Completion Graduation Video Banner */}
