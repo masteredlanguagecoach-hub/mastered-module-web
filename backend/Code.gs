@@ -316,8 +316,14 @@ function handleVerifyMclCode(data) {
     return { success: false, message: decoded.message };
   }
 
-  // Check 18: Student Matching Rule
-  if (userAdm && decoded.admissionNumber !== userAdm) {
+  if (!userAdm) {
+    userAdm = (decoded.admissionNumber || "").toString().trim().toUpperCase();
+  }
+
+  // Student Matching Rule (flexible clean alphanumeric match)
+  var cleanDecodedAdm = (decoded.admissionNumber || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+  var cleanUserAdm = userAdm.replace(/[^A-Z0-9]/g, "");
+  if (cleanUserAdm && cleanDecodedAdm && cleanUserAdm !== cleanDecodedAdm && cleanUserAdm.indexOf(cleanDecodedAdm) < 0 && cleanDecodedAdm.indexOf(cleanUserAdm) < 0) {
     return { success: false, message: "THIS CODE DOES NOT BELONG TO YOUR ACCOUNT" };
   }
 
@@ -336,7 +342,7 @@ function handleVerifyMclCode(data) {
   for (var i = 1; i < rows.length; i++) {
     var rowAdm = (rows[i][0] || "").toString().trim().toUpperCase();
     var rowEmail = (rows[i][1] || "").toString().trim().toLowerCase();
-    if ((userAdm && rowAdm === userAdm) || (userEmail && rowEmail === userEmail)) {
+    if ((userAdm && rowAdm === userAdm) || (userEmail && rowEmail === userEmail) || (decoded.admissionNumber && rowAdm === decoded.admissionNumber)) {
       rowIndex = i + 1;
       try { userProgObj = JSON.parse(rows[i][2]); } catch(e) {}
       break;
@@ -355,12 +361,11 @@ function handleVerifyMclCode(data) {
   // Update Progress
   currentModObj.percentage = decoded.progress;
   currentModObj.lastUpdated = new Date().toISOString();
-
-  // Check 16: 100% Rule
+  if (decoded.progress > 0) {
+    currentModObj.aiMissionCompleted = true;
+  }
   if (decoded.progress === 100) {
     currentModObj.status = "COMPLETED";
-    currentModObj.aiMissionCompleted = true;
-
     // Unlock next mission
     var nextModNum = decoded.mission + 1;
     if (nextModNum <= 33) {
@@ -370,7 +375,6 @@ function handleVerifyMclCode(data) {
     }
   }
 
-  // Check 14: History Update Rule
   if (!currentModObj.history) currentModObj.history = [];
   currentModObj.history.push({
     mission: decoded.mission,
@@ -382,11 +386,13 @@ function handleVerifyMclCode(data) {
   var updatedProgressStr = JSON.stringify(userProgObj);
   var now = new Date();
 
+  var targetAdm = userAdm || decoded.admissionNumber;
+
   if (rowIndex > 0) {
     sheet.getRange(rowIndex, 3).setValue(updatedProgressStr);
     sheet.getRange(rowIndex, 4).setValue(now);
   } else {
-    sheet.appendRow([userAdm, userEmail, updatedProgressStr, now]);
+    sheet.appendRow([targetAdm, userEmail, updatedProgressStr, now]);
   }
 
   return {

@@ -2372,11 +2372,11 @@
           ...currentModObj,
           percentage: decoded.progress,
           status: decoded.progress === 100 ? 'COMPLETED' : (currentModObj.status || 'IN_PROGRESS'),
-          aiMissionCompleted: decoded.progress === 100 ? true : currentModObj.aiMissionCompleted,
+          aiMissionCompleted: decoded.progress > 0 ? true : currentModObj.aiMissionCompleted,
           lastUpdated: new Date().toISOString()
         };
 
-        const key = (currentUser?.admissionNumber || currentUser?.studentId || currentUser?.email || '').toString().trim().toUpperCase();
+        const key = (currentUser?.admissionNumber || currentUser?.studentId || currentUser?.email || decoded.admissionNumber || '').toString().trim().toUpperCase();
         const updatedStudentMap = { ...activeProg, [modKey]: updatedModObj };
 
         setUserProgress(prev => {
@@ -2392,7 +2392,7 @@
         try {
           const res = await callAppsScript('verifyMclCode', {
             code: codeStr,
-            admissionNumber: currentUser?.admissionNumber,
+            admissionNumber: currentUser?.admissionNumber || decoded.admissionNumber,
             email: currentUser?.email
           });
 
@@ -3410,56 +3410,105 @@
                   />
                 ) : (
                   /* Student Dashboard / Modules List View */
-                  <div className="space-y-4 sm:space-y-6">
-                    <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-3 border-l-4 border-red-600">
-                      <div>
-                        <span className="text-[10px] sm:text-xs font-bold text-red-400 uppercase tracking-wider">{currentUser ? (currentUser.admissionNumber || 'STUDENT') : 'STUDENT'}</span>
-                        <h2 className="text-xl sm:text-2xl font-extrabold mt-0.5">Welcome back, {currentUser ? currentUser.name : 'Student'}!</h2>
-                        
-                        {/* Course Switcher Banner on Student Dashboard */}
-                        <div className="mt-2.5 flex flex-wrap items-center gap-2">
-                          <span className="text-[11px] text-slate-300 font-bold">Active Learning Course:</span>
-                          <div className="inline-flex items-center p-1 bg-slate-950/80 rounded-xl border border-slate-700/80">
+                  (() => {
+                    let dashAiSum = 0;
+                    let dashQuizTaken = 0;
+                    let dashQuizScoreSum = 0;
+                    let dashQuizzesPassed = 0;
+
+                    modules.forEach(m => {
+                      const mProg = currentStudentProg[m.moduleId] || {};
+                      const aiPct = Number(mProg.percentage) || (mProg.aiMissionCompleted || mProg.aiMissionProof ? 100 : 0);
+                      dashAiSum += aiPct;
+
+                      const qScores = mProg.quizScores || {};
+                      const qObj = qScores[m.moduleNumber];
+                      if (qObj) {
+                        dashQuizTaken++;
+                        dashQuizScoreSum += (qObj.percentage || 0);
+                        if (qObj.percentage >= 70) dashQuizzesPassed++;
+                      }
+                    });
+
+                    const dashAiPct = Math.round(dashAiSum / (modules.length || 1));
+                    const dashQuizPct = dashQuizTaken > 0 ? Math.round(dashQuizScoreSum / dashQuizTaken) : Math.round((dashQuizzesPassed / (modules.length || 1)) * 100);
+                    const dashTotalGrowth = Math.round((dashAiPct + dashQuizPct) / 2);
+
+                    return (
+                      <div className="space-y-4 sm:space-y-6">
+                        <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-3 border-l-4 border-red-600">
+                          <div>
+                            <span className="text-[10px] sm:text-xs font-bold text-red-400 uppercase tracking-wider">{currentUser ? (currentUser.admissionNumber || 'STUDENT') : 'STUDENT'}</span>
+                            <h2 className="text-xl sm:text-2xl font-extrabold mt-0.5">Welcome back, {currentUser ? currentUser.name : 'Student'}!</h2>
+                            
+                            {/* Course Switcher Banner on Student Dashboard */}
+                            <div className="mt-2.5 flex flex-wrap items-center gap-2">
+                              <span className="text-[11px] text-slate-300 font-bold">Active Learning Course:</span>
+                              <div className="inline-flex items-center p-1 bg-slate-950/80 rounded-xl border border-slate-700/80">
+                                <button
+                                  type="button"
+                                  onClick={() => handleSwitchCourse('MAL TO ENG')}
+                                  className={`px-3 py-1 text-[11px] font-extrabold rounded-lg transition ${
+                                    selectedCourse === 'MAL TO ENG' 
+                                      ? 'bg-red-600 text-white shadow-md' 
+                                      : 'text-slate-400 hover:text-white'
+                                  }`}
+                                >
+                                  🇲🇱 MAL TO ENG (32 Modules)
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => handleSwitchCourse('HIND TO ENG')}
+                                  className={`px-3 py-1 text-[11px] font-extrabold rounded-lg transition ${
+                                    selectedCourse === 'HIND TO ENG' 
+                                      ? 'bg-amber-600 text-white shadow-md' 
+                                      : 'text-slate-400 hover:text-white'
+                                  }`}
+                                >
+                                  🇮🇳 HIND TO ENG (30 Modules)
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
                             <button
-                              type="button"
-                              onClick={() => handleSwitchCourse('MAL TO ENG')}
-                              className={`px-3 py-1 text-[11px] font-extrabold rounded-lg transition ${
-                                selectedCourse === 'MAL TO ENG' 
-                                  ? 'bg-red-600 text-white shadow-md' 
-                                  : 'text-slate-400 hover:text-white'
-                              }`}
+                              onClick={() => setShowAiPromptModal(true)}
+                              className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center space-x-1.5"
                             >
-                              🇲🇱 MAL TO ENG (32 Modules)
+                              <span>⚡ Paste AI Progress Code</span>
                             </button>
                             <button
-                              type="button"
-                              onClick={() => handleSwitchCourse('HIND TO ENG')}
-                              className={`px-3 py-1 text-[11px] font-extrabold rounded-lg transition ${
-                                selectedCourse === 'HIND TO ENG' 
-                                  ? 'bg-amber-600 text-white shadow-md' 
-                                  : 'text-slate-400 hover:text-white'
-                              }`}
+                              onClick={() => handleOpenStudentHistory(currentUser)}
+                              className="px-4 py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center space-x-1.5"
                             >
-                              🇮🇳 HIND TO ENG (30 Modules)
+                              <span>📊 View My History</span>
                             </button>
                           </div>
                         </div>
-                      </div>
-                      <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
-                        <button
-                          onClick={() => setShowAiPromptModal(true)}
-                          className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center space-x-1.5"
-                        >
-                          <span>⚡ Paste AI Progress Code</span>
-                        </button>
-                        <button
-                          onClick={() => handleOpenStudentHistory(currentUser)}
-                          className="px-4 py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center space-x-1.5"
-                        >
-                          <span>📊 View My History</span>
-                        </button>
-                      </div>
-                    </div>
+
+                        {/* 3 Live Analytics Progress Cards on Student Dashboard */}
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                          {/* Card 1: Total AI Mission Growth */}
+                          <div className="bg-gradient-to-br from-purple-900 to-indigo-950 text-white p-4.5 rounded-2xl border border-purple-800/50 space-y-1 shadow-md">
+                            <span className="text-[10px] text-purple-300 font-extrabold uppercase tracking-wider">🤖 AI Mission Growth</span>
+                            <h4 className="text-2xl font-black text-purple-200">{dashAiPct}%</h4>
+                            <p className="text-[10px] text-purple-300 font-medium">MCL Code & AI Practice Synced</p>
+                          </div>
+
+                          {/* Card 2: Quiz Performance */}
+                          <div className="bg-gradient-to-br from-emerald-900 to-teal-950 text-white p-4.5 rounded-2xl border border-emerald-800/50 space-y-1 shadow-md">
+                            <span className="text-[10px] text-emerald-300 font-extrabold uppercase tracking-wider">📝 Quiz Performance</span>
+                            <h4 className="text-2xl font-black text-emerald-200">{dashQuizPct}%</h4>
+                            <p className="text-[10px] text-emerald-300 font-medium">Module Quiz Scores</p>
+                          </div>
+
+                          {/* Card 3: Total Module Growth */}
+                          <div className="bg-slate-900 text-white p-4.5 rounded-2xl border border-slate-800 space-y-1 shadow-md">
+                            <span className="text-[10px] text-red-400 font-extrabold uppercase tracking-wider">⭐ Total Module Growth</span>
+                            <h4 className="text-2xl font-black text-red-500">{dashTotalGrowth}%</h4>
+                            <p className="text-[10px] text-slate-400 font-medium">Combined AI & Quiz Growth</p>
+                          </div>
+                        </div>
 
                     {/* 100% Course Completion Graduation Video Banner */}
                     {is100PercentGraduated && (
@@ -3504,12 +3553,10 @@
                           const mProg = currentStudentProg[m.moduleId] || {};
                           const qScores = mProg.quizScores || {};
                           const qObj = qScores[modNum];
-                          const aiDone = Boolean(mProg.aiMissionCompleted || mProg.aiMissionProof);
-                          
-                          // Dynamic 100% accurate growth calculation from live data (50% AI Mission + 50% Quiz Score)
-                          const aiPart = aiDone ? 50 : 0;
+                          const aiPct = Number(mProg.percentage) || (mProg.aiMissionCompleted || mProg.aiMissionProof ? 100 : 0);
+                          const aiPart = Math.round(aiPct / 2);
                           const quizPart = qObj ? Math.round((qObj.percentage || 0) / 2) : 0;
-                          const growthPercentage = aiPart + quizPart;
+                          const growthPercentage = Math.min(100, aiPart + quizPart);
 
                           return (
                             <div key={m.moduleId} className="p-4 sm:p-5 bg-white border border-slate-200 hover:border-red-500 rounded-2xl sm:rounded-3xl shadow-sm space-y-3 flex flex-col justify-between transition">
@@ -3560,8 +3607,8 @@
                         })}
                       </div>
                     </div>
-                  </div>
-                )
+                  );
+                })()
               )}
 
               {/* ADMIN VIEWS */}
