@@ -332,7 +332,7 @@ function handleVerifyMclCode(data) {
   var sheet = getFlexibleSheet(ss, "StudentProgress");
   if (!sheet) {
     sheet = ss.insertSheet("StudentProgress");
-    sheet.appendRow(["AdmissionNumber", "Email", "ProgressJSON", "LastUpdated"]);
+    sheet.appendRow(["AdmissionNumber", "Email", "LatestMclCode", "LatestMissionLevel", "LatestCodeProgress", "ProgressJSON", "LastUpdated"]);
   }
 
   var rows = sheet.getDataRange().getValues();
@@ -344,7 +344,13 @@ function handleVerifyMclCode(data) {
     var rowEmail = (rows[i][1] || "").toString().trim().toLowerCase();
     if ((userAdm && rowAdm === userAdm) || (userEmail && rowEmail === userEmail) || (decoded.admissionNumber && rowAdm === decoded.admissionNumber)) {
       rowIndex = i + 1;
-      try { userProgObj = JSON.parse(rows[i][2]); } catch(e) {}
+      var col2 = (rows[i][2] || "").toString().trim();
+      var col5 = (rows[i][5] || "").toString().trim();
+      if (col5 && col5.indexOf("{") >= 0) {
+        try { userProgObj = JSON.parse(col5); } catch(e) {}
+      } else if (col2 && col2.indexOf("{") >= 0) {
+        try { userProgObj = JSON.parse(col2); } catch(e) {}
+      }
       break;
     }
   }
@@ -385,19 +391,26 @@ function handleVerifyMclCode(data) {
   userProgObj[modKey] = currentModObj;
   var updatedProgressStr = JSON.stringify(userProgObj);
   var now = new Date();
-
   var targetAdm = userAdm || decoded.admissionNumber;
 
   if (rowIndex > 0) {
-    sheet.getRange(rowIndex, 3).setValue(updatedProgressStr);
-    sheet.getRange(rowIndex, 4).setValue(now);
+    var numCols = sheet.getLastColumn();
+    if (numCols >= 6) {
+      sheet.getRange(rowIndex, 1, 1, 7).setValues([[targetAdm, userEmail, rawCode, decoded.mission, decoded.progress, updatedProgressStr, now]]);
+    } else {
+      sheet.getRange(rowIndex, 3).setValue(updatedProgressStr);
+      sheet.getRange(rowIndex, 4).setValue(now);
+    }
   } else {
-    sheet.appendRow([targetAdm, userEmail, updatedProgressStr, now]);
+    sheet.appendRow([targetAdm, userEmail, rawCode, decoded.mission, decoded.progress, updatedProgressStr, now]);
   }
 
   return {
     success: true,
     message: "🎉 Progress Verified! Level " + decoded.mission + " updated to " + decoded.progress + "%!",
+    latestCode: rawCode,
+    latestLevel: decoded.mission,
+    latestProgress: decoded.progress,
     userProgress: userProgObj,
     decoded: decoded
   };
@@ -887,16 +900,36 @@ function handleGetStudentProgress(data) {
   var rows = sheet.getDataRange().getValues();
 
   var progObj = {};
+  var latestCode = "";
+  var latestLevel = 0;
+  var latestProgress = 0;
+
   for (var i = 1; i < rows.length; i++) {
     var rowAdm = (rows[i][0] || "").toString().trim().toUpperCase();
     var rowEmail = (rows[i][1] || "").toString().trim().toLowerCase();
     if ((adm && rowAdm === adm) || (email && rowEmail === email)) {
-      try { progObj = JSON.parse(rows[i][2]); } catch(e) {}
+      var col2 = (rows[i][2] || "").toString().trim();
+      var col5 = (rows[i][5] || "").toString().trim();
+
+      if (col5 && col5.indexOf("{") >= 0) {
+        try { progObj = JSON.parse(col5); } catch(e) {}
+        latestCode = (rows[i][2] || "").toString().trim();
+        latestLevel = Number(rows[i][3]) || 0;
+        latestProgress = Number(rows[i][4]) || 0;
+      } else if (col2 && col2.indexOf("{") >= 0) {
+        try { progObj = JSON.parse(col2); } catch(e) {}
+      }
       break;
     }
   }
 
-  return { success: true, userProgress: progObj };
+  return {
+    success: true,
+    latestCode: latestCode,
+    latestLevel: latestLevel,
+    latestProgress: latestProgress,
+    userProgress: progObj
+  };
 }
 
 function handleUpdateProgress(data) {
