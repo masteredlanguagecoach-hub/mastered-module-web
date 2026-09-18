@@ -56,6 +56,7 @@
 
   <script>
     window.onerror = function(msg, url, lineNo, columnNo, error) {
+      if (!msg || msg === "Script error." || msg === "Script error" || lineNo === 0) return true;
       console.error("Diagnostic Caught:", msg, url, lineNo, error);
       var div = document.getElementById('debug-log');
       if (!div) {
