@@ -40,7 +40,7 @@ export function setAppsScriptUrl(url: string) {
 }
 
 export function getAppsScriptUrl(): string {
-  return memorySettings.appsScriptUrl || "https://script.google.com/macros/s/AKfycbxbqPvlxmAFOgtXn-VJ9b9fuvjOL3hsy18wSCu4xYhfVIcnLMVWGVbeD6XsLxv1ZG_2/exec";
+  return memorySettings.appsScriptUrl || "https://script.google.com/macros/s/AKfycbyTe-hZJIaev4qvK_aDR7ipOidSpJetZhwGC195ECn5lwVRiP4K-IL4sLXtopjAj8Ox/exec";
 }
 
 /**

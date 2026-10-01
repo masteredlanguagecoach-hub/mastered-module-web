@@ -611,8 +611,30 @@ function handleLoginStudent(data) {
           activeDeviceToken: deviceToken
         }
       };
-    }
   }
+
+  // Auto-approve paid student fallback check on login attempt
+  var paidStudent = checkAndAutoApprovePaidStudent(adm, email);
+  if (paidStudent) {
+    return {
+      success: true,
+      deviceToken: deviceToken,
+      student: {
+        studentId: "STD-" + Math.floor(1000 + Math.random() * 9000),
+        admissionNumber: paidStudent.admissionNumber,
+        name: paidStudent.name,
+        email: paidStudent.email,
+        phone: paidStudent.phone,
+        course: paidStudent.course,
+        profileImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80",
+        approved: true,
+        status: "Active",
+        createdDate: new Date().toISOString().split('T')[0],
+        activeDeviceToken: deviceToken
+      }
+    };
+  }
+
   return { success: false, message: "Invalid email or admission number." };
 }
 

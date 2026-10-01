@@ -2282,9 +2282,12 @@
 
       useEffect(() => {
         refreshLiveData();
-        const timer = setInterval(refreshLiveData, 3000);
+        // Smart interval polling: 30s for Admin, 60s for Student/Logged-out
+        // Prevents background HTTP request spamming (which caused 3-second request queuing lag)
+        const pollInterval = (role === 'admin') ? 30000 : 60000;
+        const timer = setInterval(refreshLiveData, pollInterval);
         return () => clearInterval(timer);
-      }, []);
+      }, [role, currentUser]);
 
       // Save user progress safely strictly under admission key
       useEffect(() => {
@@ -2440,6 +2443,27 @@
           }
 
           const deviceToken = getDeviceToken();
+
+          // 1. FAST LOCAL MATCH: If student already exists in local loaded memory, log in INSTANTLY (0ms lag)
+          const foundLocal = (students || []).find(s => {
+            const sEmail = (s.email || '').toString().toLowerCase().trim();
+            const sAdm = (s.admissionNumber || '').toString().toUpperCase().trim().replace(/[^A-Z0-9]/g, '');
+            return (cleanEmail && sEmail === cleanEmail) || (cleanAdm && sAdm === cleanAdm);
+          });
+
+          if (foundLocal && (foundLocal.approved === true || String(foundLocal.approved).toUpperCase() === 'TRUE')) {
+            const std = { ...foundLocal, activeDeviceToken: deviceToken };
+            setCurrentUser(std);
+            setRole('student');
+            setActiveTab('dashboard');
+            safeStorage.setItem('mastered_user_session', JSON.stringify({ user: std, role: 'student', tab: 'dashboard', deviceToken }));
+            fetchStudentProgressFromCloud(std);
+            // Async non-blocking background verification with Apps Script
+            callAppsScript('loginStudent', { email: cleanEmail, admissionNumber: cleanAdm, deviceToken }).catch(() => {});
+            return { success: true };
+          }
+
+          // 2. Direct fast AppsScript login fetch if student not pre-loaded in memory
           const live = await callAppsScript('loginStudent', { email: cleanEmail, admissionNumber: cleanAdm, deviceToken });
           
           if (live && live.success && live.student) {
@@ -2453,13 +2477,13 @@
           }
 
           // Client-side fallback search
-          const found = students.find(s => {
+          const found = (students || []).find(s => {
             const sEmail = (s.email || '').toString().toLowerCase().trim();
             const sAdm = (s.admissionNumber || '').toString().toUpperCase().trim().replace(/[^A-Z0-9]/g, '');
             return (cleanEmail && sEmail === cleanEmail) || (cleanAdm && sAdm === cleanAdm);
           });
 
-          if (found && found.approved) {
+          if (found && (found.approved === true || String(found.approved).toUpperCase() === 'TRUE')) {
             setCurrentUser(found);
             setRole('student');
             setActiveTab('dashboard');
@@ -2581,16 +2605,17 @@
         safeStorage.setItem(`mastered_req_adm_${admissionNumber}`, 'true');
         safeStorage.setItem(`mastered_req_email_${email.toLowerCase()}`, 'true');
 
+        // Optimistically add to UI state
         setRequests(prev => [newReq, ...(prev || [])]);
         showToast("⏳ Submitting request to Mastered Language Coach system...");
 
         try {
-          await callAppsScript('submitRequest', newReq);
+          // Send request in background to Apps Script
+          callAppsScript('submitRequest', newReq).catch(() => {});
         } catch(err) {
         } finally {
           alert("Your request submitted and will approve within one hour");
           setIsSubmittingRequest(false);
-          refreshLiveData();
           setAuthScreen('login');
         }
       };
