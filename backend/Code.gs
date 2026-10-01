@@ -611,6 +611,7 @@ function handleLoginStudent(data) {
           activeDeviceToken: deviceToken
         }
       };
+    }
   }
 
   // Auto-approve paid student fallback check on login attempt
