@@ -919,6 +919,8 @@ function handleGetStudentProgress(data) {
 
   var adm = (data.admissionNumber || "").toString().trim().toUpperCase();
   var email = (data.email || "").toString().trim().toLowerCase();
+  var admClean = adm.replace(/[^A-Z0-9]/g, "");
+
   var rows = sheet.getDataRange().getValues();
 
   var progObj = {};
@@ -929,17 +931,35 @@ function handleGetStudentProgress(data) {
   for (var i = 1; i < rows.length; i++) {
     var rowAdm = (rows[i][0] || "").toString().trim().toUpperCase();
     var rowEmail = (rows[i][1] || "").toString().trim().toLowerCase();
-    if ((adm && rowAdm === adm) || (email && rowEmail === email)) {
-      var col2 = (rows[i][2] || "").toString().trim();
+    var rowAdmClean = rowAdm.replace(/[^A-Z0-9]/g, "");
+
+    var isAdmMatch = admClean && rowAdmClean && (admClean === rowAdmClean || admClean.indexOf(rowAdmClean) >= 0 || rowAdmClean.indexOf(admClean) >= 0);
+    var isEmailMatch = email && rowEmail && (email === rowEmail);
+
+    if (isAdmMatch || isEmailMatch) {
+      latestCode = (rows[i][2] || "").toString().trim();
+      latestLevel = Number(rows[i][3]) || 0;
+      latestProgress = Number(rows[i][4]) || 0;
       var col5 = (rows[i][5] || "").toString().trim();
+      var col2 = (rows[i][2] || "").toString().trim();
 
       if (col5 && col5.indexOf("{") >= 0) {
         try { progObj = JSON.parse(col5); } catch(e) {}
-        latestCode = (rows[i][2] || "").toString().trim();
-        latestLevel = Number(rows[i][3]) || 0;
-        latestProgress = Number(rows[i][4]) || 0;
       } else if (col2 && col2.indexOf("{") >= 0) {
         try { progObj = JSON.parse(col2); } catch(e) {}
+      }
+
+      // Synthesize level & progress into progObj if latestLevel > 0
+      if (latestLevel > 0) {
+        for (var lvl = 1; lvl <= latestLevel; lvl++) {
+          var modKey = "MOD-" + (lvl < 10 ? "0" + lvl : lvl);
+          if (!progObj[modKey]) progObj[modKey] = {};
+          var targetPct = (lvl === latestLevel) ? (latestProgress || 100) : 100;
+          if (!progObj[modKey].percentage || Number(progObj[modKey].percentage) < targetPct) {
+            progObj[modKey].percentage = targetPct;
+            progObj[modKey].aiMissionCompleted = true;
+          }
+        }
       }
       break;
     }
