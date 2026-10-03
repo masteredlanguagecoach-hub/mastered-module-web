@@ -2400,9 +2400,12 @@
           return;
         }
 
-        // Check student match on client side
+        // Check student match on client side with cleaned alphanumeric check
         const currentAdm = (currentUser?.admissionNumber || '').toString().trim().toUpperCase();
-        if (currentAdm && decoded.admissionNumber !== currentAdm) {
+        const cleanCurrentAdm = currentAdm.replace(/[^A-Z0-9]/g, '');
+        const cleanDecodedAdm = (decoded.admissionNumber || '').toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+
+        if (cleanCurrentAdm && cleanDecodedAdm && cleanCurrentAdm !== cleanDecodedAdm && cleanCurrentAdm.indexOf(cleanDecodedAdm) < 0 && cleanDecodedAdm.indexOf(cleanCurrentAdm) < 0) {
           alert("⛔ THIS CODE DOES NOT BELONG TO YOUR ACCOUNT\n\nThis progress code was generated for student admission number \"" + decoded.admissionNumber + "\", but your account is \"" + currentAdm + "\". You cannot use another student's progress code.");
           return;
         }
@@ -2426,13 +2429,35 @@
           lastUpdated: new Date().toISOString()
         };
 
-        const key = (currentUser?.admissionNumber || currentUser?.studentId || currentUser?.email || decoded.admissionNumber || '').toString().trim().toUpperCase();
         const updatedStudentMap = { ...activeProg, [modKey]: updatedModObj };
 
+        // Synthesize previous level 1 to (mission - 1) as completed
+        for (let lvl = 1; lvl < decoded.mission; lvl++) {
+          const pKey = `MOD-${lvl < 10 ? '0' + lvl : lvl}`;
+          if (!updatedStudentMap[pKey]) updatedStudentMap[pKey] = {};
+          if (!updatedStudentMap[pKey].percentage || Number(updatedStudentMap[pKey].percentage) < 100) {
+            updatedStudentMap[pKey] = {
+              ...updatedStudentMap[pKey],
+              percentage: 100,
+              aiMissionCompleted: true,
+              status: 'COMPLETED'
+            };
+          }
+        }
+
+        const key = (currentUser?.admissionNumber || currentUser?.studentId || currentUser?.email || decoded.admissionNumber || '').toString().trim().toUpperCase();
+
         setUserProgress(prev => {
-          const newState = { ...prev, [key]: updatedStudentMap, ...updatedStudentMap };
+          const newState = {
+            ...prev,
+            [key]: updatedStudentMap,
+            [cleanCurrentAdm]: updatedStudentMap,
+            [cleanDecodedAdm]: updatedStudentMap,
+            ...updatedStudentMap
+          };
           safeStorage.setItem('mastered_all_students_progress', JSON.stringify(newState));
           if (key) safeStorage.setItem(`mastered_progress_${key}`, JSON.stringify(updatedStudentMap));
+          if (cleanCurrentAdm) safeStorage.setItem(`mastered_progress_${cleanCurrentAdm}`, JSON.stringify(updatedStudentMap));
           return newState;
         });
 
