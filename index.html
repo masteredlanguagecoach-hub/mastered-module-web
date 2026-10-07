@@ -2301,11 +2301,24 @@
 
       useEffect(() => {
         refreshLiveData();
-        // Smart interval polling: 30s for Admin, 60s for Student/Logged-out
-        // Prevents background HTTP request spamming (which caused 3-second request queuing lag)
-        const pollInterval = (role === 'admin') ? 30000 : 60000;
+        // Live cross-device sync polling: 5s for Admin, 60s for Student/Logged-out
+        const pollInterval = (role === 'admin') ? 5000 : 60000;
         const timer = setInterval(refreshLiveData, pollInterval);
-        return () => clearInterval(timer);
+
+        // Instant auto-refresh when phone screen lights up or tab is re-focused
+        const handleVisibilityChange = () => {
+          if (document.visibilityState === 'visible') {
+            refreshLiveData();
+          }
+        };
+        window.addEventListener('visibilitychange', handleVisibilityChange);
+        window.addEventListener('focus', handleVisibilityChange);
+
+        return () => {
+          clearInterval(timer);
+          window.removeEventListener('visibilitychange', handleVisibilityChange);
+          window.removeEventListener('focus', handleVisibilityChange);
+        };
       }, [role, currentUser]);
 
       // Save user progress safely strictly under admission key
