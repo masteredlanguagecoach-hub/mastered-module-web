@@ -1996,6 +1996,15 @@
               }
             }
           }
+          const allSaved = safeStorage.getItem('mastered_all_students_progress');
+          if (allSaved) {
+            try {
+              const parsedAll = JSON.parse(allSaved);
+              if (parsedAll && typeof parsedAll === 'object') {
+                initial = { ...initial, ...parsedAll };
+              }
+            } catch(e) {}
+          }
         } catch(e) {}
         return (initial && typeof initial === 'object') ? initial : {};
       });
@@ -2255,54 +2264,39 @@
         return 'MAL TO ENG';
       };
 
-      // Live Google Sheets Request & Student Sync (Every 3 seconds across devices)
+      // Live Google Sheets Request & Student Sync (Across devices)
       const refreshLiveData = async () => {
         try {
           const reqRes = await callAppsScript('getRequests');
-          if (reqRes && reqRes.success && Array.isArray(reqRes.data) && reqRes.data.length > 0) {
-            setRequests(prev => {
-              const map = new Map();
-              (prev || []).forEach(r => {
-                const k = (r.requestId || r.admissionNumber || r.email || '').toString().trim().toUpperCase();
-                if (k) map.set(k, r);
-              });
-              reqRes.data.forEach(r => {
-                const k = (r.requestId || r.admissionNumber || r.email || '').toString().trim().toUpperCase();
-                if (k) map.set(k, { ...r, course: normalizeCourseName(r.course) });
-              });
-              return Array.from(map.values());
-            });
+          if (reqRes && reqRes.success && Array.isArray(reqRes.data)) {
+            const normalizedReqs = reqRes.data.map(r => ({ ...r, course: normalizeCourseName(r.course) }));
+            setRequests(normalizedReqs);
+            safeStorage.setItem('mastered_pending_requests', JSON.stringify(normalizedReqs));
           }
 
           const stdRes = await callAppsScript('getStudents');
-          if (stdRes && stdRes.success && Array.isArray(stdRes.data) && stdRes.data.length > 0) {
-            setStudents(prev => {
-              const map = new Map();
-              (prev || []).forEach(s => {
-                const k = (s.studentId || s.admissionNumber || s.email || '').toString().trim().toUpperCase();
-                if (k) map.set(k, s);
-              });
-              stdRes.data.forEach(s => {
-                const k = (s.studentId || s.admissionNumber || s.email || '').toString().trim().toUpperCase();
-                if (k) map.set(k, { ...s, course: normalizeCourseName(s.course) });
-              });
-              return Array.from(map.values());
-            });
+          if (stdRes && stdRes.success && Array.isArray(stdRes.data)) {
+            const normalizedStds = stdRes.data.map(s => ({ ...s, course: normalizeCourseName(s.course) }));
+            setStudents(normalizedStds);
+            safeStorage.setItem('mastered_approved_students', JSON.stringify(normalizedStds));
           }
 
           if (role === 'admin') {
             const allProgRes = await callAppsScript('getAllStudentProgress');
             if (allProgRes && allProgRes.success && allProgRes.userProgress && typeof allProgRes.userProgress === 'object') {
-              setUserProgress(prev => {
-                const merged = { ...prev, ...allProgRes.userProgress };
-                safeStorage.setItem('mastered_all_students_progress', JSON.stringify(merged));
-                return merged;
-              });
+              setUserProgress(allProgRes.userProgress);
+              safeStorage.setItem('mastered_all_students_progress', JSON.stringify(allProgRes.userProgress));
             }
           } else if (currentUser && role === 'student') {
             await fetchStudentProgressFromCloud(currentUser);
           }
         } catch(e) {}
+      };
+
+      const handleManualRefresh = async () => {
+        showToast('🔄 Syncing live data from Google Sheets...');
+        await refreshLiveData();
+        showToast('✅ Admin Dashboard synchronized live across devices!');
       };
 
       useEffect(() => {
@@ -2577,6 +2571,7 @@
           setRole('admin');
           setActiveTab('admin-dashboard');
           safeStorage.setItem('mastered_user_session', JSON.stringify({ user: adminObj, role: 'admin', tab: 'admin-dashboard' }));
+          refreshLiveData();
           return { success: true };
         }
 
@@ -2586,6 +2581,7 @@
           setRole('admin');
           setActiveTab('admin-dashboard');
           safeStorage.setItem('mastered_user_session', JSON.stringify({ user: live.admin, role: 'admin', tab: 'admin-dashboard' }));
+          refreshLiveData();
           return { success: true };
         }
 
@@ -3769,7 +3765,7 @@
                             )}
                           </div>
                           <div className="flex items-center space-x-2">
-                            <button onClick={refreshLiveData} className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl shrink-0">🔄 Refresh</button>
+                            <button onClick={handleManualRefresh} className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl shrink-0">🔄 Refresh</button>
                             <button onClick={handleResetAllStudentProgress} className="px-3.5 py-2 bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold text-xs rounded-xl shrink-0 transition">⚡ Reset All Progress (0%)</button>
                           </div>
                         </div>
@@ -3894,7 +3890,7 @@
                     <div className="space-y-4 sm:space-y-6">
                       <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 flex flex-col sm:flex-row justify-between sm:items-center gap-2 shadow-sm">
                         <div className="flex items-center space-x-2">
-                          <button onClick={refreshLiveData} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl">🔄 Refresh Sync</button>
+                          <button onClick={handleManualRefresh} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl">🔄 Refresh Sync</button>
                           <span className="px-3 py-1 bg-amber-100 text-amber-800 font-bold text-xs rounded-full">
                             {pendingRequestsList.length} Unique Applicants ({totalRawPendingCount} Total Submissions in Sheet)
                           </span>
