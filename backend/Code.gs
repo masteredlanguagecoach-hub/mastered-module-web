@@ -988,6 +988,100 @@ function handleSaveStudentProgress(data) {
   return { success: true, userProgress: existingObj };
 }
 
+function extractStudentProgressFromRow(row, headers) {
+  var progObj = {};
+  if (!row || !Array.isArray(row)) return progObj;
+
+  var hArr = (headers || []).map(function(h) { return (h || "").toString().trim().toLowerCase(); });
+  var jsonCol = hArr.indexOf("progressjson") >= 0 ? hArr.indexOf("progressjson") : hArr.indexOf("json");
+  var codeCol = hArr.indexOf("latestmclcode") >= 0 ? hArr.indexOf("latestmclcode") : hArr.indexOf("code");
+  var levelCol = hArr.indexOf("latestmissionlevel") >= 0 ? hArr.indexOf("latestmissionlevel") : hArr.indexOf("level");
+  var progCol = hArr.indexOf("latestcodeprogress") >= 0 ? hArr.indexOf("latestcodeprogress") : hArr.indexOf("progress");
+
+  var foundJsonStr = "";
+  var foundMclCode = "";
+  var foundLevel = 0;
+  var foundProgress = 0;
+
+  // 1. Inspect explicit columns if present
+  if (jsonCol >= 0 && row[jsonCol]) {
+    var rawJ = (row[jsonCol] || "").toString().trim();
+    if (rawJ.indexOf("{") >= 0) foundJsonStr = rawJ;
+    else if (rawJ.length >= 10) foundMclCode = rawJ;
+  }
+
+  if (codeCol >= 0 && row[codeCol]) {
+    var rawC = (row[codeCol] || "").toString().trim();
+    if (rawC.indexOf("{") >= 0 && !foundJsonStr) foundJsonStr = rawC;
+    else if (rawC.length >= 10 && !foundMclCode) foundMclCode = rawC;
+  }
+
+  if (levelCol >= 0 && !isNaN(row[levelCol]) && Number(row[levelCol]) > 0) {
+    foundLevel = Number(row[levelCol]);
+  }
+  if (progCol >= 0 && !isNaN(row[progCol]) && Number(row[progCol]) >= 0) {
+    foundProgress = Number(row[progCol]);
+  }
+
+  // 2. Comprehensive scan across all cells in the row to catch legacy/4-column sheets
+  for (var c = 0; c < row.length; c++) {
+    var cellVal = (row[c] || "").toString().trim();
+    if (!cellVal) continue;
+
+    if (!foundJsonStr && cellVal.indexOf("{") >= 0 && cellVal.indexOf("}") >= 0) {
+      foundJsonStr = cellVal;
+    } else if (!foundMclCode && cellVal.replace(/[^A-Z0-9]/gi, "").length >= 10 && cellVal.indexOf("{") < 0) {
+      foundMclCode = cellVal;
+    }
+  }
+
+  // 3. Parse JSON object if found
+  if (foundJsonStr) {
+    try {
+      var p = JSON.parse(foundJsonStr);
+      if (p && typeof p === "object") {
+        progObj = p;
+      }
+    } catch(e) {}
+  }
+
+  // 4. Decode MCL-1 encrypted code or simple MCL pattern if present
+  if (foundMclCode) {
+    var decoded = decodeMcl1(foundMclCode);
+    if (decoded && decoded.success && decoded.mission > 0) {
+      if (decoded.mission > foundLevel) {
+        foundLevel = decoded.mission;
+        foundProgress = decoded.progress;
+      }
+    } else {
+      var mMatch = foundMclCode.match(/(?:MCL|LEVEL|MOD)?[-_\s]*0*(\d{1,2})[-_\s]*0*(\d{1,3})/i);
+      if (mMatch) {
+        var rLvl = parseInt(mMatch[1], 10);
+        var rProg = parseInt(mMatch[2], 10);
+        if (rLvl >= 1 && rLvl <= 35 && rLvl > foundLevel) {
+          foundLevel = rLvl;
+          foundProgress = rProg || 100;
+        }
+      }
+    }
+  }
+
+  // 5. Build module progress objects for all levels up to foundLevel
+  if (foundLevel > 0) {
+    for (var lvl = 1; lvl <= foundLevel; lvl++) {
+      var modKey = "MOD-" + (lvl < 10 ? "0" + lvl : lvl);
+      if (!progObj[modKey]) progObj[modKey] = {};
+      var targetPct = (lvl === foundLevel) ? (foundProgress || 100) : 100;
+      if (!progObj[modKey].percentage || Number(progObj[modKey].percentage) < targetPct) {
+        progObj[modKey].percentage = targetPct;
+        progObj[modKey].aiMissionCompleted = true;
+      }
+    }
+  }
+
+  return progObj;
+}
+
 function handleGetStudentProgress(data) {
   var ss = getMasteredSpreadsheet();
   var sheet = getFlexibleSheet(ss, "StudentProgress");
@@ -1005,15 +1099,8 @@ function handleGetStudentProgress(data) {
   var headers = rows[0].map(function(h) { return (h || "").toString().trim().toLowerCase(); });
   var admCol = headers.indexOf("admissionnumber") >= 0 ? headers.indexOf("admissionnumber") : 0;
   var emailCol = headers.indexOf("email") >= 0 ? headers.indexOf("email") : 1;
-  var codeCol = headers.indexOf("latestmclcode") >= 0 ? headers.indexOf("latestmclcode") : 2;
-  var levelCol = headers.indexOf("latestmissionlevel") >= 0 ? headers.indexOf("latestmissionlevel") : 3;
-  var progCol = headers.indexOf("latestcodeprogress") >= 0 ? headers.indexOf("latestcodeprogress") : 4;
-  var jsonCol = headers.indexOf("progressjson") >= 0 ? headers.indexOf("progressjson") : 5;
 
   var progObj = {};
-  var latestCode = "";
-  var latestLevel = 0;
-  var latestProgress = 0;
 
   for (var i = 1; i < rows.length; i++) {
     var row = rows[i];
@@ -1025,38 +1112,13 @@ function handleGetStudentProgress(data) {
     var isEmailMatch = email && rowEmail && (email === rowEmail);
 
     if (isAdmMatch || isEmailMatch) {
-      latestCode = (row[codeCol] || "").toString().trim();
-      latestLevel = Number(row[levelCol]) || 0;
-      latestProgress = Number(row[progCol]) || 0;
-      var rawJson = (row[jsonCol] || "").toString().trim();
-
-      if (rawJson && rawJson.indexOf("{") >= 0) {
-        try { progObj = JSON.parse(rawJson); } catch(e) {}
-      } else if (latestCode && latestCode.indexOf("{") >= 0) {
-        try { progObj = JSON.parse(latestCode); } catch(e) {}
-      }
-
-      // Synthesize level & progress into progObj if latestLevel > 0
-      if (latestLevel > 0) {
-        for (var lvl = 1; lvl <= latestLevel; lvl++) {
-          var modKey = "MOD-" + (lvl < 10 ? "0" + lvl : lvl);
-          if (!progObj[modKey]) progObj[modKey] = {};
-          var targetPct = (lvl === latestLevel) ? (latestProgress || 100) : 100;
-          if (!progObj[modKey].percentage || Number(progObj[modKey].percentage) < targetPct) {
-            progObj[modKey].percentage = targetPct;
-            progObj[modKey].aiMissionCompleted = true;
-          }
-        }
-      }
+      progObj = extractStudentProgressFromRow(row, headers);
       break;
     }
   }
 
   return {
     success: true,
-    latestCode: latestCode,
-    latestLevel: latestLevel,
-    latestProgress: latestProgress,
     userProgress: progObj
   };
 }
@@ -1074,10 +1136,6 @@ function handleAdminGetAllStudentProgress() {
   var headers = rows[0].map(function(h) { return (h || "").toString().trim().toLowerCase(); });
   var admCol = headers.indexOf("admissionnumber") >= 0 ? headers.indexOf("admissionnumber") : 0;
   var emailCol = headers.indexOf("email") >= 0 ? headers.indexOf("email") : 1;
-  var codeCol = headers.indexOf("latestmclcode") >= 0 ? headers.indexOf("latestmclcode") : 2;
-  var levelCol = headers.indexOf("latestmissionlevel") >= 0 ? headers.indexOf("latestmissionlevel") : 3;
-  var progCol = headers.indexOf("latestcodeprogress") >= 0 ? headers.indexOf("latestcodeprogress") : 4;
-  var jsonCol = headers.indexOf("progressjson") >= 0 ? headers.indexOf("progressjson") : 5;
 
   var allProgMap = {};
 
@@ -1089,29 +1147,7 @@ function handleAdminGetAllStudentProgress() {
 
     if (!rawAdm && !cleanAdm && !rawEmail) continue;
 
-    var progObj = {};
-    var rawJson = (row[jsonCol] || "").toString().trim();
-    var latestCode = (row[codeCol] || "").toString().trim();
-    var latestLevel = Number(row[levelCol]) || 0;
-    var latestProgress = Number(row[progCol]) || 0;
-
-    if (rawJson && rawJson.indexOf("{") >= 0) {
-      try { progObj = JSON.parse(rawJson); } catch(e) {}
-    } else if (latestCode && latestCode.indexOf("{") >= 0) {
-      try { progObj = JSON.parse(latestCode); } catch(e) {}
-    }
-
-    if (latestLevel > 0) {
-      for (var lvl = 1; lvl <= latestLevel; lvl++) {
-        var modKey = "MOD-" + (lvl < 10 ? "0" + lvl : lvl);
-        if (!progObj[modKey]) progObj[modKey] = {};
-        var targetPct = (lvl === latestLevel) ? (latestProgress || 100) : 100;
-        if (!progObj[modKey].percentage || Number(progObj[modKey].percentage) < targetPct) {
-          progObj[modKey].percentage = targetPct;
-          progObj[modKey].aiMissionCompleted = true;
-        }
-      }
-    }
+    var progObj = extractStudentProgressFromRow(row, headers);
 
     if (rawAdm) allProgMap[rawAdm] = progObj;
     if (cleanAdm) allProgMap[cleanAdm] = progObj;
@@ -1216,13 +1252,25 @@ function handleAdminGetStudents() {
   var progMap = {};
   if (progSheet) {
     var pRows = progSheet.getDataRange().getValues();
-    for (var p = 1; p < pRows.length; p++) {
-      var pAdm = (pRows[p][0] || "").toString().trim().toUpperCase();
-      var pEmail = (pRows[p][1] || "").toString().trim().toLowerCase();
-      var pObj = {};
-      try { pObj = JSON.parse(pRows[p][2]); } catch(e) {}
-      if (pAdm) progMap[pAdm] = pObj;
-      if (pEmail) progMap[pEmail] = pObj;
+    if (pRows.length > 1) {
+      var pHeaders = pRows[0].map(function(h) { return (h || "").toString().trim().toLowerCase(); });
+      var pAdmCol = pHeaders.indexOf("admissionnumber") >= 0 ? pHeaders.indexOf("admissionnumber") : 0;
+      var pEmailCol = pHeaders.indexOf("email") >= 0 ? pHeaders.indexOf("email") : 1;
+
+      for (var p = 1; p < pRows.length; p++) {
+        var pRow = pRows[p];
+        var pAdm = (pRow[pAdmCol] || "").toString().trim().toUpperCase();
+        var pEmail = (pRow[pEmailCol] || "").toString().trim().toLowerCase();
+        var pCleanAdm = pAdm.replace(/[^A-Z0-9]/g, "");
+
+        if (!pAdm && !pCleanAdm && !pEmail) continue;
+
+        var pObj = extractStudentProgressFromRow(pRow, pHeaders);
+
+        if (pAdm) progMap[pAdm] = pObj;
+        if (pCleanAdm) progMap[pCleanAdm] = pObj;
+        if (pEmail) progMap[pEmail] = pObj;
+      }
     }
   }
 

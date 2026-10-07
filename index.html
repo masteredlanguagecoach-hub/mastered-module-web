@@ -3846,6 +3846,15 @@
 
                                       const aiTotalPct = Math.round(aiSum / (modules.length || 1));
 
+                                      if (maxLvl === 0 && pMap) {
+                                        const directLvl = Number(pMap.latestMissionLevel || pMap.missionLevel || pMap.level || pMap.latestLevel) || 0;
+                                        const directPct = Number(pMap.latestCodeProgress || pMap.codeProgress || pMap.progress) || 100;
+                                        if (directLvl > 0) {
+                                          maxLvl = directLvl;
+                                          maxPct = directPct;
+                                        }
+                                      }
+
                                       if (maxLvl > 0) {
                                         return (
                                           <div className="space-y-0.5">
