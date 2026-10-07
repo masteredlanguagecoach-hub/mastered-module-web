@@ -116,6 +116,10 @@ function routeActionObj(action, data) {
     case 'getStudentProgress':
       return handleGetStudentProgress(data);
 
+    case 'getAllStudentProgress':
+    case 'adminGetAllStudentProgress':
+      return handleAdminGetAllStudentProgress();
+
     case 'verifyMclCode':
       return handleVerifyMclCode(data);
 
@@ -931,7 +935,7 @@ function handleSaveStudentProgress(data) {
   var adm = (data.admissionNumber || "").toString().trim().toUpperCase();
   var email = (data.email || "").toString().trim().toLowerCase();
   var admClean = adm.replace(/[^A-Z0-9]/g, "");
-  var progressStr = JSON.stringify(data.userProgress || {});
+  var incomingObj = data.userProgress || {};
   var now = new Date();
 
   var rows = sheet.getDataRange().getValues();
@@ -940,22 +944,48 @@ function handleSaveStudentProgress(data) {
   var dateCol = headers.indexOf("lastupdated") >= 0 ? headers.indexOf("lastupdated") + 1 : 7;
 
   var foundRow = -1;
+  var existingObj = {};
 
   for (var i = 1; i < rows.length; i++) {
     var rowAdm = (rows[i][0] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
     var rowEmail = (rows[i][1] || "").toString().trim().toLowerCase();
     if ((admClean && rowAdm === admClean) || (email && rowEmail === email)) {
       foundRow = i + 1;
-      sheet.getRange(foundRow, jsonCol).setValue(progressStr);
-      sheet.getRange(foundRow, dateCol).setValue(now);
+      var rawJson = (rows[i][jsonCol - 1] || "").toString().trim();
+      if (rawJson && rawJson.indexOf("{") >= 0) {
+        try { existingObj = JSON.parse(rawJson); } catch(e) {}
+      }
       break;
     }
   }
 
-  if (foundRow < 0) {
-    sheet.appendRow([adm, email, "", 0, 0, progressStr, now]);
+  // Deep merge incoming userProgress with existing JSON object stored in sheet row
+  for (var mKey in incomingObj) {
+    if (!existingObj[mKey]) {
+      existingObj[mKey] = incomingObj[mKey];
+    } else {
+      var exVal = existingObj[mKey];
+      var inVal = incomingObj[mKey];
+      if (typeof exVal === 'object' && typeof inVal === 'object') {
+        existingObj[mKey] = Object.assign({}, exVal, inVal);
+        if (exVal.quizScores || inVal.quizScores) {
+          existingObj[mKey].quizScores = Object.assign({}, exVal.quizScores || {}, inVal.quizScores || {});
+        }
+      } else {
+        existingObj[mKey] = inVal;
+      }
+    }
   }
-  return { success: true, userProgress: data.userProgress };
+
+  var finalProgressStr = JSON.stringify(existingObj);
+
+  if (foundRow > 0) {
+    sheet.getRange(foundRow, jsonCol).setValue(finalProgressStr);
+    sheet.getRange(foundRow, dateCol).setValue(now);
+  } else {
+    sheet.appendRow([adm, email, "", 0, 0, finalProgressStr, now]);
+  }
+  return { success: true, userProgress: existingObj };
 }
 
 function handleGetStudentProgress(data) {
@@ -1029,6 +1059,66 @@ function handleGetStudentProgress(data) {
     latestProgress: latestProgress,
     userProgress: progObj
   };
+}
+
+function handleAdminGetAllStudentProgress() {
+  var ss = getMasteredSpreadsheet();
+  var sheet = getFlexibleSheet(ss, "StudentProgress");
+  if (!sheet) return { success: true, userProgress: {} };
+
+  ensureStudentProgressHeaders(sheet);
+
+  var rows = sheet.getDataRange().getValues();
+  if (rows.length <= 1) return { success: true, userProgress: {} };
+
+  var headers = rows[0].map(function(h) { return (h || "").toString().trim().toLowerCase(); });
+  var admCol = headers.indexOf("admissionnumber") >= 0 ? headers.indexOf("admissionnumber") : 0;
+  var emailCol = headers.indexOf("email") >= 0 ? headers.indexOf("email") : 1;
+  var codeCol = headers.indexOf("latestmclcode") >= 0 ? headers.indexOf("latestmclcode") : 2;
+  var levelCol = headers.indexOf("latestmissionlevel") >= 0 ? headers.indexOf("latestmissionlevel") : 3;
+  var progCol = headers.indexOf("latestcodeprogress") >= 0 ? headers.indexOf("latestcodeprogress") : 4;
+  var jsonCol = headers.indexOf("progressjson") >= 0 ? headers.indexOf("progressjson") : 5;
+
+  var allProgMap = {};
+
+  for (var i = 1; i < rows.length; i++) {
+    var row = rows[i];
+    var rawAdm = (row[admCol] || "").toString().trim().toUpperCase();
+    var rawEmail = (row[emailCol] || "").toString().trim().toLowerCase();
+    var cleanAdm = rawAdm.replace(/[^A-Z0-9]/g, "");
+
+    if (!rawAdm && !cleanAdm && !rawEmail) continue;
+
+    var progObj = {};
+    var rawJson = (row[jsonCol] || "").toString().trim();
+    var latestCode = (row[codeCol] || "").toString().trim();
+    var latestLevel = Number(row[levelCol]) || 0;
+    var latestProgress = Number(row[progCol]) || 0;
+
+    if (rawJson && rawJson.indexOf("{") >= 0) {
+      try { progObj = JSON.parse(rawJson); } catch(e) {}
+    } else if (latestCode && latestCode.indexOf("{") >= 0) {
+      try { progObj = JSON.parse(latestCode); } catch(e) {}
+    }
+
+    if (latestLevel > 0) {
+      for (var lvl = 1; lvl <= latestLevel; lvl++) {
+        var modKey = "MOD-" + (lvl < 10 ? "0" + lvl : lvl);
+        if (!progObj[modKey]) progObj[modKey] = {};
+        var targetPct = (lvl === latestLevel) ? (latestProgress || 100) : 100;
+        if (!progObj[modKey].percentage || Number(progObj[modKey].percentage) < targetPct) {
+          progObj[modKey].percentage = targetPct;
+          progObj[modKey].aiMissionCompleted = true;
+        }
+      }
+    }
+
+    if (rawAdm) allProgMap[rawAdm] = progObj;
+    if (cleanAdm) allProgMap[cleanAdm] = progObj;
+    if (rawEmail) allProgMap[rawEmail] = progObj;
+  }
+
+  return { success: true, userProgress: allProgMap };
 }
 
 function handleUpdateProgress(data) {

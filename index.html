@@ -56,16 +56,8 @@
 
   <script>
     window.onerror = function(msg, url, lineNo, columnNo, error) {
-      if (!msg || msg === "Script error." || msg === "Script error" || lineNo === 0) return true;
       console.error("Diagnostic Caught:", msg, url, lineNo, error);
-      var div = document.getElementById('debug-log');
-      if (!div) {
-        div = document.createElement('div');
-        div.id = 'debug-log';
-        div.style = 'position:fixed;top:0;left:0;right:0;z-index:999999;background:#990000;color:#ffffff;padding:16px;font-family:monospace;font-size:12px;white-space:pre-wrap;word-break:break-all;max-height:50vh;overflow:auto;box-shadow:0 10px 30px rgba(0,0,0,0.5);';
-        document.body.appendChild(div);
-      }
-      div.innerHTML = '🚨 PORTAL DIAGNOSTIC ERROR:\n' + msg + '\nLine: ' + lineNo + ':' + columnNo + (error && error.stack ? '\nStack: ' + error.stack : '');
+      return true;
     };
   </script>
 
@@ -192,58 +184,36 @@
       }
       const fullPostUrl = `${scriptUrl}?${queryParams}`;
 
-      // Primary POST fetch to send untruncated payload
+      // Primary POST fetch with 6-second timeout controller
       try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 6000);
         const response = await fetch(fullPostUrl, {
           method: "POST",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: postBody,
-          redirect: "follow"
+          redirect: "follow",
+          signal: controller.signal
         });
+        clearTimeout(timeoutId);
         const json = await response.json();
         if (json && json.success !== undefined) return json;
       } catch(err) {
-        console.warn("Direct POST fetch failed, attempting GET fallback...", err);
+        console.warn("Direct POST fetch failed or timed out:", err);
       }
 
-      // Fallback GET request for smaller payloads
+      // Fallback GET request with 5-second timeout controller
       const getUrl = `${scriptUrl}?${queryParams}&payload=${encodeURIComponent(JSON.stringify(payload))}`;
       try {
-        const response = await fetch(getUrl, { method: "GET", redirect: "follow" });
+        const controller2 = new AbortController();
+        const timeoutId2 = setTimeout(() => controller2.abort(), 5000);
+        const response = await fetch(getUrl, { method: "GET", redirect: "follow", signal: controller2.signal });
+        clearTimeout(timeoutId2);
         const json = await response.json();
         if (json && json.success !== undefined) return json;
       } catch(err) {}
 
-      return new Promise((resolve) => {
-        const callbackName = "appsScriptCb_" + Math.floor(Math.random() * 10000000);
-        const script = document.createElement("script");
-        
-        const timeoutId = setTimeout(() => {
-          delete window[callbackName];
-          if (script.parentNode) script.parentNode.removeChild(script);
-          fetch(getUrl, { method: "GET", mode: "no-cors" })
-            .then(() => resolve({ success: true, message: "Dispatched via no-cors" }))
-            .catch(err => resolve({ success: false, message: err.message }));
-        }, 4000);
-
-        window[callbackName] = function(data) {
-          clearTimeout(timeoutId);
-          delete window[callbackName];
-          if (script.parentNode) script.parentNode.removeChild(script);
-          resolve(data);
-        };
-
-        script.src = `${getUrl}&callback=${callbackName}`;
-        script.onerror = function() {
-          clearTimeout(timeoutId);
-          delete window[callbackName];
-          if (script.parentNode) script.parentNode.removeChild(script);
-          fetch(getUrl, { method: "GET", mode: "no-cors" })
-            .then(() => resolve({ success: true, message: "Dispatched via no-cors" }))
-            .catch(err => resolve({ success: false, message: err.message }));
-        };
-        document.body.appendChild(script);
-      });
+      return { success: false, message: "Network request timed out. Operating in fast local mode." };
     }
 
     // Interactive Student Quiz Component
@@ -2320,7 +2290,16 @@
             });
           }
 
-          if (currentUser && role === 'student') {
+          if (role === 'admin') {
+            const allProgRes = await callAppsScript('getAllStudentProgress');
+            if (allProgRes && allProgRes.success && allProgRes.userProgress && typeof allProgRes.userProgress === 'object') {
+              setUserProgress(prev => {
+                const merged = { ...prev, ...allProgRes.userProgress };
+                safeStorage.setItem('mastered_all_students_progress', JSON.stringify(merged));
+                return merged;
+              });
+            }
+          } else if (currentUser && role === 'student') {
             await fetchStudentProgressFromCloud(currentUser);
           }
         } catch(e) {}
