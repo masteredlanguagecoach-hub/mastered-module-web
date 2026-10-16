@@ -293,7 +293,7 @@
       const scoreResult = isSubmitted ? calculateScore() : null;
 
       return (
-        <div className="space-y-4 sm:space-y-6">
+        <div className="space-y-4 sm:space-y-6 pb-28 sm:pb-16">
           {/* Header */}
           <div className="bg-slate-900 text-white p-5 sm:p-7 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between sm:items-center gap-3 border-l-4 border-red-600">
             <div>
@@ -4204,26 +4204,27 @@
             </div>
           )}
 
-          {/* Floating Global AI Coach Toggle Button on Student Views (Hidden on Quiz Page) */}
-          {role === 'student' && activeTab !== 'quizzes' && (
-            <button
-              onClick={() => setShowAiPromptModal(true)}
-              className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-40 bg-gradient-to-r from-purple-700 via-indigo-700 to-purple-800 hover:from-purple-600 hover:to-indigo-600 text-white font-black px-4 py-3 rounded-full shadow-2xl flex items-center space-x-2 border-2 border-purple-300 transition transform hover:scale-105 active:scale-95"
-              title="Mastered AI Coach & Prompts"
-            >
-              <span className="text-lg">🤖</span>
-              <span className="text-xs sm:text-sm font-extrabold">AI Mission Practice</span>
-            </button>
-          )}
-
-          {/* Floating 'I NEED A TRAINER' Support Widget on Student Views */}
+          {/* Floating 'I NEED A TRAINER' Support Widget (Position 1 - Left) */}
           {role === 'student' && (
             <button
               onClick={() => setShowTrainerModal(true)}
-              className="fixed bottom-36 right-4 sm:bottom-20 sm:right-6 z-40 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full shadow-xl flex items-center space-x-2 border-2 border-white transition transform hover:scale-105 active:scale-95 text-xs opacity-95 hover:opacity-100"
+              className="fixed bottom-20 left-4 sm:bottom-6 sm:left-6 lg:left-72 z-40 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full shadow-xl flex items-center space-x-2 border-2 border-white transition transform hover:scale-105 active:scale-95 text-xs opacity-95 hover:opacity-100"
+              title="I Need A Trainer Support"
             >
               <span className="text-base sm:text-lg">💬</span>
               <span className="text-xs tracking-wide">I NEED A TRAINER</span>
+            </button>
+          )}
+
+          {/* Floating Global AI Coach Toggle Button (Position 2 - Left) */}
+          {role === 'student' && (
+            <button
+              onClick={() => setShowAiPromptModal(true)}
+              className="fixed bottom-36 left-4 sm:bottom-20 sm:left-6 lg:left-72 z-40 bg-gradient-to-r from-purple-700 via-indigo-700 to-purple-800 hover:from-purple-600 hover:to-indigo-600 text-white font-black px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full shadow-2xl flex items-center space-x-2 border-2 border-purple-300 transition transform hover:scale-105 active:scale-95 text-xs opacity-95 hover:opacity-100"
+              title="Mastered AI Coach & Prompts"
+            >
+              <span className="text-lg">🤖</span>
+              <span className="text-xs tracking-wide font-extrabold">AI Mission Practice</span>
             </button>
           )}
 
