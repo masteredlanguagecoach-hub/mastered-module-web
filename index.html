@@ -1150,6 +1150,77 @@
 
 
 
+    // Deep Monotonic Progress Merge: Always preserves the highest score, latest mission, and quiz achievements across all devices
+    function mergeProgressMaps(target, source) {
+      if (!target && !source) return {};
+      if (!target) return JSON.parse(JSON.stringify(source || {}));
+      if (!source) return JSON.parse(JSON.stringify(target || {}));
+
+      const result = { ...target };
+      for (const mKey of Object.keys(source)) {
+        const sVal = source[mKey];
+        if (sVal === undefined || sVal === null) continue;
+
+        // Non-object properties (like latestMissionLevel, codeProgress, graduationVideo, etc.)
+        if (typeof sVal !== 'object') {
+          if (mKey === 'percentage' || mKey === 'score' || mKey === 'progress' || mKey === 'latestProgress' || mKey === 'codeProgress') {
+            result[mKey] = Math.max(Number(result[mKey]) || 0, Number(sVal) || 0);
+          } else if (mKey === 'latestMissionLevel' || mKey === 'missionLevel' || mKey === 'level') {
+            result[mKey] = Math.max(Number(result[mKey]) || 0, Number(sVal) || 0);
+          } else {
+            if (result[mKey] === undefined || result[mKey] === null || result[mKey] === '') {
+              result[mKey] = sVal;
+            }
+          }
+          continue;
+        }
+
+        const tVal = result[mKey];
+        if (!tVal || typeof tVal !== 'object') {
+          result[mKey] = JSON.parse(JSON.stringify(sVal));
+          continue;
+        }
+
+        // Deep merge module object
+        const mergedMod = { ...tVal, ...sVal };
+        // Monotonic module percentage: preserve highest
+        const tPct = Number(tVal.percentage) || 0;
+        const sPct = Number(sVal.percentage) || 0;
+        mergedMod.percentage = Math.max(tPct, sPct);
+
+        // AI Mission completion & proof
+        mergedMod.aiMissionCompleted = Boolean(tVal.aiMissionCompleted || sVal.aiMissionCompleted || tVal.aiMissionProof || sVal.aiMissionProof);
+        mergedMod.aiMissionProof = sVal.aiMissionProof || tVal.aiMissionProof || null;
+
+        // Deep merge quizScores
+        const tQuiz = (tVal.quizScores && typeof tVal.quizScores === 'object') ? tVal.quizScores : {};
+        const sQuiz = (sVal.quizScores && typeof sVal.quizScores === 'object') ? sVal.quizScores : {};
+        const mergedQuiz = { ...tQuiz };
+
+        for (const qNum of Object.keys(sQuiz)) {
+          const sq = sQuiz[qNum];
+          if (!sq || typeof sq !== 'object') continue;
+          const tq = mergedQuiz[qNum];
+          if (!tq || typeof tq !== 'object') {
+            mergedQuiz[qNum] = { ...sq };
+          } else {
+            const tqPct = Number(tq.percentage) || 0;
+            const sqPct = Number(sq.percentage) || 0;
+            const maxPct = Math.max(tqPct, sqPct);
+            const bestObj = (maxPct === sqPct) ? sq : tq;
+            mergedQuiz[qNum] = {
+              ...bestObj,
+              percentage: maxPct,
+              passed: maxPct >= 70
+            };
+          }
+        }
+        mergedMod.quizScores = mergedQuiz;
+        result[mKey] = mergedMod;
+      }
+      return result;
+    }
+
     // Comprehensive Student History & Analytics Modal Component
     function StudentHistoryModal({ student, userProgress, modules, isAdmin, onDismiss, onClose }) {
       if (!student) return null;
@@ -1159,26 +1230,56 @@
       const cleanStudentAdm = studentAdm.replace(/[^A-Z0-9]/g, '');
       const studentEmail = (student.email || '').toString().trim().toLowerCase();
       
+      // Extract and MERGE progress data from ALL sources monotonically (highest score wins)
       let progData = {};
-      if (student.userProgress && typeof student.userProgress === 'object' && Object.keys(student.userProgress).length > 0) {
-        progData = student.userProgress;
-      } else if (student.progressData && typeof student.progressData === 'object' && Object.keys(student.progressData).length > 0) {
-        progData = student.progressData;
-      } else if (userProgress && typeof userProgress === 'object') {
+
+      // 1. From student's own progress object if present
+      if (student.userProgress && typeof student.userProgress === 'object') {
+        progData = mergeProgressMaps(progData, student.userProgress);
+      }
+      if (student.progressData && typeof student.progressData === 'object') {
+        progData = mergeProgressMaps(progData, student.progressData);
+      }
+
+      // 2. From global userProgress state
+      if (userProgress && typeof userProgress === 'object') {
         if (studentAdm && userProgress[studentAdm]) {
-          progData = userProgress[studentAdm];
-        } else if (cleanStudentAdm && userProgress[cleanStudentAdm]) {
-          progData = userProgress[cleanStudentAdm];
-        } else if (studentEmail && userProgress[studentEmail]) {
-          progData = userProgress[studentEmail];
-        } else {
-          // Robust fallback search across all userProgress keys
-          const matchedKey = Object.keys(userProgress).find(k => {
-            const cleanKey = String(k).toUpperCase().replace(/[^A-Z0-9]/g, '');
-            return (cleanStudentAdm && cleanKey === cleanStudentAdm) || (studentEmail && String(k).toLowerCase() === studentEmail);
-          });
-          if (matchedKey) progData = userProgress[matchedKey] || {};
+          progData = mergeProgressMaps(progData, userProgress[studentAdm]);
         }
+        if (cleanStudentAdm && userProgress[cleanStudentAdm] && cleanStudentAdm !== studentAdm) {
+          progData = mergeProgressMaps(progData, userProgress[cleanStudentAdm]);
+        }
+        if (studentEmail && userProgress[studentEmail]) {
+          progData = mergeProgressMaps(progData, userProgress[studentEmail]);
+        }
+        // Robust fallback search across all userProgress keys
+        const matchedKey = Object.keys(userProgress).find(k => {
+          const cleanKey = String(k).toUpperCase().replace(/[^A-Z0-9]/g, '');
+          return (cleanStudentAdm && cleanKey === cleanStudentAdm) || (studentEmail && String(k).toLowerCase() === studentEmail);
+        });
+        if (matchedKey && userProgress[matchedKey]) {
+          progData = mergeProgressMaps(progData, userProgress[matchedKey]);
+        }
+      }
+
+      // 3. From safeStorage local cache
+      if (cleanStudentAdm) {
+        try {
+          const cached = safeStorage.getItem(`mastered_progress_${cleanStudentAdm}`);
+          if (cached) {
+            const parsed = JSON.parse(cached);
+            if (parsed && typeof parsed === 'object') progData = mergeProgressMaps(progData, parsed);
+          }
+        } catch(e) {}
+      }
+      if (studentAdm && studentAdm !== cleanStudentAdm) {
+        try {
+          const cached = safeStorage.getItem(`mastered_progress_${studentAdm}`);
+          if (cached) {
+            const parsed = JSON.parse(cached);
+            if (parsed && typeof parsed === 'object') progData = mergeProgressMaps(progData, parsed);
+          }
+        } catch(e) {}
       }
 
       let totalAiMissions = 0;
@@ -1227,6 +1328,15 @@
       const quizPct = totalQuizzesTaken > 0 ? Math.round(totalQuizScoreSum / totalQuizzesTaken) : Math.round((totalQuizzesPassed / (modules.length || 1)) * 100);
       const overallPercentage = Math.round((aiMissionPct + quizPct) / 2);
 
+      const displayPhone = (() => {
+        const p = (student.phone || '').toString().trim();
+        if (!p || p.indexOf('#') >= 0 || p.toUpperCase().indexOf('ERROR') >= 0 || p.toUpperCase().indexOf('REF') >= 0) {
+          return 'No Phone Registered';
+        }
+        return p;
+      })();
+      const displayCourse = normalizeCourseName(student.course || 'Spoken English Course');
+
       return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto" onClick={onClose}>
           <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 max-w-3xl w-full border shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
@@ -1243,7 +1353,7 @@
                   </span>
                 </div>
                 <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">{student.name}</h3>
-                <p className="text-xs text-slate-500 mt-0.5">{student.email} • {student.phone || 'No Phone Registered'} • {student.course || 'Spoken English Course'}</p>
+                <p className="text-xs text-slate-500 mt-0.5">{student.email} • {displayPhone} • {displayCourse}</p>
               </div>
               <div className="flex items-center space-x-2 self-end sm:self-auto">
                 {isAdmin && (
@@ -2023,10 +2133,14 @@
             const parsed = JSON.parse(session);
             const adm = (parsed && parsed.user) ? (parsed.user.admissionNumber || parsed.user.studentId) : null;
             if (adm) {
-              const studentSaved = safeStorage.getItem(`mastered_progress_${adm}`);
+              const cleanAdm = adm.toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+              const studentSaved = safeStorage.getItem(`mastered_progress_${cleanAdm}`) || safeStorage.getItem(`mastered_progress_${adm}`);
               if (studentSaved) {
                 const p = JSON.parse(studentSaved);
-                if (p && typeof p === 'object') initial = p;
+                if (p && typeof p === 'object') {
+                  initial[cleanAdm] = p;
+                  initial[adm] = p;
+                }
               }
             }
           }
@@ -2035,7 +2149,9 @@
             try {
               const parsedAll = JSON.parse(allSaved);
               if (parsedAll && typeof parsedAll === 'object') {
-                initial = { ...initial, ...parsedAll };
+                for (const k of Object.keys(parsedAll)) {
+                  initial[k] = mergeProgressMaps(initial[k], parsedAll[k]);
+                }
               }
             } catch(e) {}
           }
@@ -2046,34 +2162,61 @@
       // Cross-Device Student Progress Sync (Google Apps Script API & Permanent Cloud Database)
       const syncStudentProgressToCloud = async (updatedStudentProgress) => {
         if (!currentUser) return;
-        const adm = (currentUser.admissionNumber || currentUser.studentId || '').toString().trim().toUpperCase();
-        if (!adm) return;
+        const rawAdm = (currentUser.admissionNumber || currentUser.studentId || '').toString().trim().toUpperCase();
+        const cleanAdm = rawAdm.replace(/[^A-Z0-9]/g, '');
+        const email = (currentUser.email || '').toString().trim().toLowerCase();
+        if (!rawAdm && !cleanAdm && !email) return;
 
         setUserProgress(prev => {
-          const currentStudentMap = prev[adm] || {};
-          const mergedStudentProg = { ...currentStudentMap, ...updatedStudentProgress };
-          const allStudentsProg = { ...prev, [adm]: mergedStudentProg };
+          const currentStudentMap = (cleanAdm && prev[cleanAdm]) || (rawAdm && prev[rawAdm]) || (email && prev[email]) || {};
+          const mergedStudentProg = mergeProgressMaps(currentStudentMap, updatedStudentProgress);
+          const allStudentsProg = {
+            ...prev,
+            ...(cleanAdm ? { [cleanAdm]: mergedStudentProg } : {}),
+            ...(rawAdm ? { [rawAdm]: mergedStudentProg } : {}),
+            ...(email ? { [email]: mergedStudentProg } : {})
+          };
           safeStorage.setItem('mastered_all_students_progress', JSON.stringify(allStudentsProg));
-          safeStorage.setItem(`mastered_progress_${adm}`, JSON.stringify(mergedStudentProg));
+          if (cleanAdm) safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(mergedStudentProg));
+          if (rawAdm && rawAdm !== cleanAdm) safeStorage.setItem(`mastered_progress_${rawAdm}`, JSON.stringify(mergedStudentProg));
           return allStudentsProg;
         });
 
+        // Always update currentUser state and local session so currentUser.userProgress is never stale
+        setCurrentUser(prevUser => {
+          if (!prevUser) return prevUser;
+          const updatedUser = {
+            ...prevUser,
+            userProgress: mergeProgressMaps(prevUser.userProgress || {}, updatedStudentProgress)
+          };
+          try {
+            const session = safeStorage.getItem('mastered_user_session');
+            if (session) {
+              const parsed = JSON.parse(session);
+              parsed.user = updatedUser;
+              safeStorage.setItem('mastered_user_session', JSON.stringify(parsed));
+            }
+          } catch(e) {}
+          return updatedUser;
+        });
+
         await callAppsScript('saveStudentProgress', {
-          admissionNumber: adm,
-          email: currentUser.email || '',
+          admissionNumber: rawAdm || cleanAdm,
+          email: email,
           userProgress: updatedStudentProgress
         });
       };
 
       const fetchStudentProgressFromCloud = async (userObj) => {
         if (!userObj) return;
-        const adm = (userObj.admissionNumber || userObj.studentId || '').toString().trim().toUpperCase();
+        const rawAdm = (userObj.admissionNumber || userObj.studentId || '').toString().trim().toUpperCase();
+        const cleanAdm = rawAdm.replace(/[^A-Z0-9]/g, '');
         const email = (userObj.email || '').toString().trim().toLowerCase();
-        if (!adm && !email) return;
+        if (!rawAdm && !cleanAdm && !email) return;
 
         try {
           const res = await callAppsScript('getStudentProgress', {
-            admissionNumber: adm,
+            admissionNumber: rawAdm || cleanAdm,
             email: email
           });
 
@@ -2096,7 +2239,7 @@
 
             // Synthesize level & progress from latestLevel if returned
             if (res.latestLevel && Number(res.latestLevel) > 0) {
-              const latestLvl = Number(res.latestLevel);
+              const latestLvl = Math.min(32, Math.max(1, Number(res.latestLevel)));
               const latestProg = Number(res.latestProgress) || 100;
               for (let lvl = 1; lvl <= latestLvl; lvl++) {
                 const modKey = `MOD-${lvl < 10 ? '0' + lvl : lvl}`;
@@ -2111,23 +2254,43 @@
 
             if (Object.keys(parsedProgMap).length > 0) {
               setUserProgress(prev => {
-                const key = adm || email;
-                const cleanAdm = adm.replace(/[^A-Z0-9]/g, '');
-                const cleanEmail = email.toLowerCase();
-
-                const currentStudentMap = (key && prev[key]) || (cleanAdm && prev[cleanAdm]) || {};
-                const mergedStudentProg = { ...currentStudentMap, ...parsedProgMap };
+                const currentStudentMap = (cleanAdm && prev[cleanAdm]) || (rawAdm && prev[rawAdm]) || (email && prev[email]) || {};
+                const mergedStudentProg = mergeProgressMaps(currentStudentMap, parsedProgMap);
                 
                 const allStudentsProg = {
                   ...prev,
-                  [key]: mergedStudentProg,
-                  [cleanAdm]: mergedStudentProg,
-                  [cleanEmail]: mergedStudentProg
+                  ...(cleanAdm ? { [cleanAdm]: mergedStudentProg } : {}),
+                  ...(rawAdm ? { [rawAdm]: mergedStudentProg } : {}),
+                  ...(email ? { [email]: mergedStudentProg } : {})
                 };
                 safeStorage.setItem('mastered_all_students_progress', JSON.stringify(allStudentsProg));
-                if (key) safeStorage.setItem(`mastered_progress_${key}`, JSON.stringify(mergedStudentProg));
+                if (cleanAdm) safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(mergedStudentProg));
+                if (rawAdm && rawAdm !== cleanAdm) safeStorage.setItem(`mastered_progress_${rawAdm}`, JSON.stringify(mergedStudentProg));
                 return allStudentsProg;
               });
+
+              // Also keep currentUser state and session storage synced with latest cloud data
+              if (currentUser && (
+                (cleanAdm && (currentUser.admissionNumber || '').replace(/[^A-Z0-9]/g, '') === cleanAdm) ||
+                (email && (currentUser.email || '').toLowerCase() === email)
+              )) {
+                setCurrentUser(prevUser => {
+                  if (!prevUser) return prevUser;
+                  const updatedUser = {
+                    ...prevUser,
+                    userProgress: mergeProgressMaps(prevUser.userProgress || {}, parsedProgMap)
+                  };
+                  try {
+                    const session = safeStorage.getItem('mastered_user_session');
+                    if (session) {
+                      const parsed = JSON.parse(session);
+                      parsed.user = updatedUser;
+                      safeStorage.setItem('mastered_user_session', JSON.stringify(parsed));
+                    }
+                  } catch(e) {}
+                  return updatedUser;
+                });
+              }
             }
           }
         } catch(e) {}
@@ -2146,11 +2309,42 @@
       // Helper to get active student progress map across all devices
       const getCurrentStudentProgressMap = () => {
         if (!currentUser) return userProgress || {};
-        const adm = (currentUser.admissionNumber || currentUser.studentId || '').toString().trim().toUpperCase();
+        const rawAdm = (currentUser.admissionNumber || currentUser.studentId || '').toString().trim().toUpperCase();
+        const cleanAdm = rawAdm.replace(/[^A-Z0-9]/g, '');
         const email = (currentUser.email || '').toString().trim().toLowerCase();
-        if (adm && userProgress && userProgress[adm]) return userProgress[adm];
-        if (email && userProgress && userProgress[email]) return userProgress[email];
-        return userProgress || {};
+
+        let found = {};
+        if (cleanAdm && userProgress && userProgress[cleanAdm]) {
+          found = mergeProgressMaps(found, userProgress[cleanAdm]);
+        }
+        if (rawAdm && userProgress && userProgress[rawAdm] && rawAdm !== cleanAdm) {
+          found = mergeProgressMaps(found, userProgress[rawAdm]);
+        }
+        if (email && userProgress && userProgress[email]) {
+          found = mergeProgressMaps(found, userProgress[email]);
+        }
+        if (currentUser.userProgress && typeof currentUser.userProgress === 'object') {
+          found = mergeProgressMaps(found, currentUser.userProgress);
+        }
+        if (cleanAdm) {
+          try {
+            const saved = safeStorage.getItem(`mastered_progress_${cleanAdm}`);
+            if (saved) {
+              const p = JSON.parse(saved);
+              if (p && typeof p === 'object') found = mergeProgressMaps(found, p);
+            }
+          } catch(e) {}
+        }
+        if (rawAdm && rawAdm !== cleanAdm) {
+          try {
+            const saved = safeStorage.getItem(`mastered_progress_${rawAdm}`);
+            if (saved) {
+              const p = JSON.parse(saved);
+              if (p && typeof p === 'object') found = mergeProgressMaps(found, p);
+            }
+          } catch(e) {}
+        }
+        return found;
       };
 
       const currentStudentProg = getCurrentStudentProgressMap();
@@ -2159,9 +2353,18 @@
         const modKey = `MOD-${modNum < 10 ? '0' + modNum : modNum}`;
         const activeProg = getCurrentStudentProgressMap();
         const existing = activeProg[modKey] || { video1: false, audio: false, pdf: false, percentage: 0 };
-        const quizScores = existing.quizScores || {};
-        quizScores[modNum] = scoreObj;
-        
+        const quizScores = { ...(existing.quizScores || {}) };
+
+        // Monotonic quiz score: never downgrade a higher score
+        const existingQ = quizScores[modNum] || {};
+        const maxPct = Math.max(Number(existingQ.percentage) || 0, Number(scoreObj.percentage) || 0);
+        const bestScoreObj = (maxPct === (Number(scoreObj.percentage) || 0)) ? scoreObj : existingQ;
+        quizScores[modNum] = {
+          ...bestScoreObj,
+          percentage: maxPct,
+          passed: maxPct >= 70
+        };
+
         const updatedStudentProg = {
           ...activeProg,
           [modKey]: {
@@ -2197,7 +2400,7 @@
         const modNum = parseInt(modId.replace('MOD-', ''), 10);
         if (qScores[modNum] && qScores[modNum].percentage >= 70) count++;
         
-        updated.percentage = Math.round((count / 2) * 100);
+        updated.percentage = Math.max(Number(existing.percentage) || 0, Math.round((count / 2) * 100));
 
         const updatedStudentProg = { ...activeProg, [modId]: updated };
         syncStudentProgressToCloud(updatedStudentProg);
@@ -2314,7 +2517,7 @@
             setStudents(normalizedStds);
             safeStorage.setItem('mastered_approved_students', JSON.stringify(normalizedStds));
 
-            // Merge student-embedded progress into userProgress state
+            // Merge student-embedded progress into userProgress state monotonically
             setUserProgress(prev => {
               const merged = { ...(prev || {}) };
               normalizedStds.forEach(s => {
@@ -2323,9 +2526,9 @@
                 const sEmail = (s.email || '').toString().trim().toLowerCase();
                 const sp = s.userProgress || s.progressData;
                 if (sp && typeof sp === 'object' && Object.keys(sp).length > 0) {
-                  if (sAdm && !merged[sAdm]) merged[sAdm] = sp;
-                  if (cleanAdm && !merged[cleanAdm]) merged[cleanAdm] = sp;
-                  if (sEmail && !merged[sEmail]) merged[sEmail] = sp;
+                  if (sAdm) merged[sAdm] = mergeProgressMaps(merged[sAdm], sp);
+                  if (cleanAdm && cleanAdm !== sAdm) merged[cleanAdm] = mergeProgressMaps(merged[cleanAdm], sp);
+                  if (sEmail) merged[sEmail] = mergeProgressMaps(merged[sEmail], sp);
                 }
               });
               return merged;
@@ -2335,8 +2538,14 @@
           if (role === 'admin') {
             const allProgRes = await callAppsScript('getAllStudentProgress');
             if (allProgRes && allProgRes.success && allProgRes.userProgress && typeof allProgRes.userProgress === 'object') {
-              setUserProgress(prev => ({ ...(prev || {}), ...allProgRes.userProgress }));
-              safeStorage.setItem('mastered_all_students_progress', JSON.stringify(allProgRes.userProgress));
+              setUserProgress(prev => {
+                const merged = { ...(prev || {}) };
+                for (const k of Object.keys(allProgRes.userProgress)) {
+                  merged[k] = mergeProgressMaps(merged[k], allProgRes.userProgress[k]);
+                }
+                safeStorage.setItem('mastered_all_students_progress', JSON.stringify(merged));
+                return merged;
+              });
             }
           } else if (currentUser && role === 'student') {
             await fetchStudentProgressFromCloud(currentUser);

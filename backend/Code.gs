@@ -644,6 +644,9 @@ function handleLoginStudent(data) {
         return { success: false, message: "Your access application is pending admin approval." };
       }
 
+      var rawPhone = (rows[i][4] || "").toString().trim();
+      var cleanPhone = (rawPhone.indexOf("#") >= 0 || rawPhone.toUpperCase().indexOf("ERROR") >= 0 || rawPhone.toUpperCase().indexOf("REF") >= 0) ? "" : rawPhone;
+
       return {
         success: true,
         deviceToken: deviceToken,
@@ -652,7 +655,7 @@ function handleLoginStudent(data) {
           admissionNumber: rows[i][1],
           name: rows[i][2],
           email: rows[i][3],
-          phone: rows[i][4],
+          phone: cleanPhone,
           course: rows[i][5],
           profileImage: rows[i][6],
           approved: true,
@@ -667,6 +670,9 @@ function handleLoginStudent(data) {
   // Auto-approve paid student fallback check on login attempt
   var paidStudent = checkAndAutoApprovePaidStudent(adm, email);
   if (paidStudent) {
+    var rawPaidPhone = (paidStudent.phone || "").toString().trim();
+    var cleanPaidPhone = (rawPaidPhone.indexOf("#") >= 0 || rawPaidPhone.toUpperCase().indexOf("ERROR") >= 0 || rawPaidPhone.toUpperCase().indexOf("REF") >= 0) ? "" : rawPaidPhone;
+
     return {
       success: true,
       deviceToken: deviceToken,
@@ -675,7 +681,7 @@ function handleLoginStudent(data) {
         admissionNumber: paidStudent.admissionNumber,
         name: paidStudent.name,
         email: paidStudent.email,
-        phone: paidStudent.phone,
+        phone: cleanPaidPhone,
         course: paidStudent.course,
         profileImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80",
         approved: true,
@@ -976,7 +982,7 @@ function handleSaveStudentProgress(data) {
     }
   }
 
-  // Deep merge incoming userProgress with existing JSON object stored in sheet row
+  // Monotonic deep merge: Always preserve the highest scores and achievements
   for (var mKey in incomingObj) {
     if (!existingObj[mKey]) {
       existingObj[mKey] = incomingObj[mKey];
@@ -984,10 +990,22 @@ function handleSaveStudentProgress(data) {
       var exVal = existingObj[mKey];
       var inVal = incomingObj[mKey];
       if (typeof exVal === 'object' && typeof inVal === 'object') {
-        existingObj[mKey] = Object.assign({}, exVal, inVal);
-        if (exVal.quizScores || inVal.quizScores) {
-          existingObj[mKey].quizScores = Object.assign({}, exVal.quizScores || {}, inVal.quizScores || {});
+        var mergedMod = Object.assign({}, exVal, inVal);
+        mergedMod.percentage = Math.max(Number(exVal.percentage) || 0, Number(inVal.percentage) || 0);
+        mergedMod.aiMissionCompleted = Boolean(exVal.aiMissionCompleted || inVal.aiMissionCompleted || exVal.aiMissionProof || inVal.aiMissionProof);
+        mergedMod.aiMissionProof = inVal.aiMissionProof || exVal.aiMissionProof || null;
+
+        var mergedQuizzes = Object.assign({}, exVal.quizScores || {});
+        var inQuizzes = inVal.quizScores || {};
+        for (var qNum in inQuizzes) {
+          var exQ = mergedQuizzes[qNum] || {};
+          var inQ = inQuizzes[qNum] || {};
+          var maxPct = Math.max(Number(exQ.percentage) || 0, Number(inQ.percentage) || 0);
+          mergedQuizzes[qNum] = (maxPct === (Number(inQ.percentage) || 0)) ? inQ : exQ;
+          mergedQuizzes[qNum].percentage = maxPct;
         }
+        mergedMod.quizScores = mergedQuizzes;
+        existingObj[mKey] = mergedMod;
       } else {
         existingObj[mKey] = inVal;
       }
@@ -1271,11 +1289,17 @@ function handleSubmitQuizScore(data) {
     if (!currentProgObj[modKey]) currentProgObj[modKey] = { percentage: 0 };
     if (!currentProgObj[modKey].quizScores) currentProgObj[modKey].quizScores = {};
 
+    var existingQ = currentProgObj[modKey].quizScores[modNum] || {};
+    var existingPct = Number(existingQ.percentage) || 0;
+    var finalPct = Math.max(existingPct, pct);
+    var finalScore = (finalPct === pct) ? score : (existingQ.score !== undefined ? existingQ.score : score);
+    var finalTotal = (finalPct === pct) ? total : (existingQ.total !== undefined ? existingQ.total : total);
+
     currentProgObj[modKey].quizScores[modNum] = {
-      score: score,
-      total: total,
-      percentage: pct,
-      passed: passed === "YES",
+      score: finalScore,
+      total: finalTotal,
+      percentage: finalPct,
+      passed: finalPct >= 70,
       date: now.toISOString()
     };
 
@@ -1333,7 +1357,8 @@ function handleAdminGetStudents() {
     var adm = getItemVal(s, ["admissionnumber", "admission", "adm"]);
     var sName = getItemVal(s, ["name", "fullname"]);
     var sEmail = getItemVal(s, ["email"]);
-    var sPhone = getItemVal(s, ["phone", "whatsappnumber", "whatsapp"]);
+    var sPhoneRaw = (getItemVal(s, ["phone", "whatsappnumber", "whatsapp"]) || "").toString().trim();
+    var sPhone = (sPhoneRaw.indexOf("#") >= 0 || sPhoneRaw.toUpperCase().indexOf("ERROR") >= 0 || sPhoneRaw.toUpperCase().indexOf("REF") >= 0) ? "" : sPhoneRaw;
     var sCourse = getItemVal(s, ["course", "coursename", "coursecode"]);
     var sImg = getItemVal(s, ["profileimage", "image"]) || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80";
     var sApprovedRaw = getItemVal(s, ["approved"]);
