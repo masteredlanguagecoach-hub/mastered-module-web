@@ -173,7 +173,7 @@
       const bodyObj = { action, payload, ...payload };
       const postBody = JSON.stringify(bodyObj);
 
-      // Build query string with action + top-level parameters for scripts expecting e.parameter
+      // Build query string with action + top-level parameters
       let queryParams = `action=${encodeURIComponent(action)}&t=${Date.now()}`;
       if (payload && typeof payload === 'object') {
         Object.keys(payload).forEach(k => {
@@ -182,12 +182,29 @@
           }
         });
       }
-      const fullPostUrl = `${scriptUrl}?${queryParams}`;
 
-      // Primary POST fetch with 6-second timeout controller
+      const isReadAction = ['getStudents', 'getRequests', 'getAllStudentProgress', 'getModules', 'ping', 'getStudentProgress', 'debugSheets'].includes(action);
+
+      // 1. If read action, try direct GET first (fastest, best redirect handling in browsers without CORS preflights)
+      if (isReadAction) {
+        const getUrl = `${scriptUrl}?${queryParams}&payload=${encodeURIComponent(JSON.stringify(payload))}`;
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 20000);
+          const response = await fetch(getUrl, { method: "GET", redirect: "follow", signal: controller.signal });
+          clearTimeout(timeoutId);
+          const json = await response.json();
+          if (json && json.success !== undefined) return json;
+        } catch(err) {
+          console.warn(`GET fetch for ${action} warning:`, err);
+        }
+      }
+
+      // 2. Try POST fetch with generous 25-second timeout controller
+      const fullPostUrl = `${scriptUrl}?${queryParams}`;
       try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 6000);
+        const timeoutId = setTimeout(() => controller.abort(), 25000);
         const response = await fetch(fullPostUrl, {
           method: "POST",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -199,19 +216,21 @@
         const json = await response.json();
         if (json && json.success !== undefined) return json;
       } catch(err) {
-        console.warn("Direct POST fetch failed or timed out:", err);
+        console.warn(`POST fetch for ${action} warning:`, err);
       }
 
-      // Fallback GET request with 5-second timeout controller
-      const getUrl = `${scriptUrl}?${queryParams}&payload=${encodeURIComponent(JSON.stringify(payload))}`;
-      try {
-        const controller2 = new AbortController();
-        const timeoutId2 = setTimeout(() => controller2.abort(), 5000);
-        const response = await fetch(getUrl, { method: "GET", redirect: "follow", signal: controller2.signal });
-        clearTimeout(timeoutId2);
-        const json = await response.json();
-        if (json && json.success !== undefined) return json;
-      } catch(err) {}
+      // 3. Fallback GET request if POST failed
+      if (!isReadAction) {
+        const getUrl = `${scriptUrl}?${queryParams}&payload=${encodeURIComponent(JSON.stringify(payload))}`;
+        try {
+          const controller2 = new AbortController();
+          const timeoutId2 = setTimeout(() => controller2.abort(), 20000);
+          const response = await fetch(getUrl, { method: "GET", redirect: "follow", signal: controller2.signal });
+          clearTimeout(timeoutId2);
+          const json = await response.json();
+          if (json && json.success !== undefined) return json;
+        } catch(err) {}
+      }
 
       return { success: false, message: "Network request timed out. Operating in fast local mode." };
     }

@@ -1040,11 +1040,13 @@ function extractStudentProgressFromRow(row, headers) {
     else if (rawC.length >= 10 && !foundMclCode) foundMclCode = rawC;
   }
 
-  if (levelCol >= 0 && !isNaN(row[levelCol]) && Number(row[levelCol]) > 0) {
-    foundLevel = Number(row[levelCol]);
+  if (levelCol >= 0 && !isNaN(row[levelCol])) {
+    var parsedLvl = parseInt(row[levelCol], 10);
+    if (parsedLvl >= 1 && parsedLvl <= 32) foundLevel = parsedLvl;
   }
-  if (progCol >= 0 && !isNaN(row[progCol]) && Number(row[progCol]) >= 0) {
-    foundProgress = Number(row[progCol]);
+  if (progCol >= 0 && !isNaN(row[progCol])) {
+    var parsedProg = parseInt(row[progCol], 10);
+    if (parsedProg >= 0 && parsedProg <= 100) foundProgress = parsedProg;
   }
 
   // 2. Comprehensive scan across all cells in the row to catch legacy/4-column sheets
@@ -1069,29 +1071,29 @@ function extractStudentProgressFromRow(row, headers) {
     } catch(e) {}
   }
 
-  // 4. Decode MCL-1 encrypted code or simple MCL pattern if present
+  // 4. Decode MCL-1 encrypted code or simple MCL pattern if present (strictly capped 1..32)
   if (foundMclCode) {
     var decoded = decodeMcl1(foundMclCode);
-    if (decoded && decoded.success && decoded.mission > 0) {
+    if (decoded && decoded.success && decoded.mission >= 1 && decoded.mission <= 32) {
       if (decoded.mission > foundLevel) {
         foundLevel = decoded.mission;
-        foundProgress = decoded.progress;
+        foundProgress = Math.min(Math.max(decoded.progress || 0, 0), 100);
       }
     } else {
       var mMatch = foundMclCode.match(/(?:MCL|LEVEL|MOD)?[-_\s]*0*(\d{1,2})[-_\s]*0*(\d{1,3})/i);
       if (mMatch) {
         var rLvl = parseInt(mMatch[1], 10);
         var rProg = parseInt(mMatch[2], 10);
-        if (rLvl >= 1 && rLvl <= 35 && rLvl > foundLevel) {
+        if (rLvl >= 1 && rLvl <= 32 && rLvl > foundLevel) {
           foundLevel = rLvl;
-          foundProgress = rProg || 100;
+          foundProgress = Math.min(Math.max(rProg || 100, 0), 100);
         }
       }
     }
   }
 
-  // 5. Build module progress objects for all levels up to foundLevel
-  if (foundLevel > 0) {
+  // 5. Build module progress objects for all levels up to foundLevel (CAPPED AT 32 TO PREVENT V8 RangeError)
+  if (foundLevel >= 1 && foundLevel <= 32) {
     for (var lvl = 1; lvl <= foundLevel; lvl++) {
       var modKey = "MOD-" + (lvl < 10 ? "0" + lvl : lvl);
       if (!progObj[modKey]) progObj[modKey] = {};
@@ -1099,6 +1101,18 @@ function extractStudentProgressFromRow(row, headers) {
       if (!progObj[modKey].percentage || Number(progObj[modKey].percentage) < targetPct) {
         progObj[modKey].percentage = targetPct;
         progObj[modKey].aiMissionCompleted = true;
+      }
+    }
+  }
+
+  // If stripProofs requested, remove large base64 screenshot strings to keep payload lightweight and prevent memory errors
+  if (stripProofs) {
+    for (var mKey in progObj) {
+      if (progObj[mKey] && typeof progObj[mKey] === "object") {
+        if (progObj[mKey].aiMissionProof) {
+          progObj[mKey].aiMissionCompleted = true;
+          delete progObj[mKey].aiMissionProof;
+        }
       }
     }
   }
@@ -1138,7 +1152,7 @@ function handleGetStudentProgress(data) {
     var isEmailMatch = email && rowEmail && (email === rowEmail);
 
     if (isAdmMatch || isEmailMatch) {
-      progObj = extractStudentProgressFromRow(row, headers);
+      progObj = extractStudentProgressFromRow(row, headers, false); // Single student gets full proof
       break;
     }
   }
@@ -1153,8 +1167,6 @@ function handleAdminGetAllStudentProgress() {
   var ss = getMasteredSpreadsheet();
   var sheet = getFlexibleSheet(ss, "StudentProgress");
   if (!sheet) return { success: true, userProgress: {} };
-
-  ensureStudentProgressHeaders(sheet);
 
   var rows = sheet.getDataRange().getValues();
   if (rows.length <= 1) return { success: true, userProgress: {} };
@@ -1175,10 +1187,10 @@ function handleAdminGetAllStudentProgress() {
 
     if (!rawAdm && !cleanAdm && !rawEmail) continue;
 
-    var progObj = extractStudentProgressFromRow(row, headers);
+    var progObj = extractStudentProgressFromRow(row, headers, true); // Strip base64 for bulk transfer
 
     if (rawAdm) allProgMap[rawAdm] = progObj;
-    if (cleanAdm) allProgMap[cleanAdm] = progObj;
+    if (cleanAdm && cleanAdm !== rawAdm) allProgMap[cleanAdm] = progObj;
     if (rawEmail) allProgMap[rawEmail] = progObj;
   }
 
@@ -1286,16 +1298,10 @@ function handleSubmitQuizScore(data) {
 }
 
 function handleAdminGetStudents() {
-  // Sync all paid students from PAID_STUDENTS tab to Students tab automatically
-  try {
-    syncAllPaidStudentsToStudentsSheet();
-  } catch(eSync) {}
-
   var ss = getMasteredSpreadsheet();
   var progSheet = getFlexibleSheet(ss, "StudentProgress");
   var progMap = {};
   if (progSheet) {
-    ensureStudentProgressHeaders(progSheet);
     var pRows = progSheet.getDataRange().getValues();
     if (pRows.length > 1) {
       var pHeaders = pRows[0] || [];
@@ -1312,10 +1318,10 @@ function handleAdminGetStudents() {
 
         if (!pAdm && !pCleanAdm && !pEmail) continue;
 
-        var pObj = extractStudentProgressFromRow(pRow, pHeaders);
+        var pObj = extractStudentProgressFromRow(pRow, pHeaders, true); // Strip base64 for fast student directory listing
 
         if (pAdm) progMap[pAdm] = pObj;
-        if (pCleanAdm) progMap[pCleanAdm] = pObj;
+        if (pCleanAdm && pCleanAdm !== pAdm) progMap[pCleanAdm] = pObj;
         if (pEmail) progMap[pEmail] = pObj;
       }
     }
