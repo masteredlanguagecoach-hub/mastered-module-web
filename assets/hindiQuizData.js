@@ -2,361 +2,361 @@ const HINDI_QUIZ_BANK = {
   "1": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Self Introduction'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Self Introduction' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "How do you introduce yourself to a new colleague?",
+      "questionHindi": "एक नए सहकर्मी से अपना परिचय आप कैसे देंगे?",
       "options": [
-        "A) I can speak about self introduction in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) My name is Rahul and I am an accountant.",
+        "B) I am going to the market.",
+        "C) Yesterday was rainy.",
+        "D) Please give me some food."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Self Introduction': (Q2)",
-      "questionHindi": "'Self Introduction' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Which helping verb is correctly paired with 'I' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'I' के साथ कौन सी सहायक क्रिया सही है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) be"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Complete the sentence: 'I ___ from Mumbai.'",
+      "questionHindi": "वाक्य पूरा करें: 'I ___ from Mumbai.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) are",
+        "B) am",
+        "C) is",
+        "D) be"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 1? (Q4)",
-      "questionHindi": "मॉड्यूल 1 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which article is used before 'engineer' in: 'I am ___ engineer.'?",
+      "questionHindi": "'engineer' शब्द से पहले कौन सा आर्टिकल आएगा?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) a",
+        "B) an",
+        "C) the",
+        "D) no article"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 1 (Self Introduction)? (Q5)",
-      "questionHindi": "मॉड्यूल 1 (Self Introduction) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which article is used before 'teacher' in: 'He is ___ teacher.'?",
+      "questionHindi": "'teacher' शब्द से पहले कौन सा आर्टिकल आएगा?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) a",
+        "B) an",
+        "C) these",
+        "D) those"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Self Introduction'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Self Introduction' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "What is the natural English response to 'Nice to meet you'?",
+      "questionHindi": "'Nice to meet you' का स्वाभाविक अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) I can speak about self introduction in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Nice to meet you too.",
+        "B) I am fine thank you.",
+        "C) Yes of course.",
+        "D) Goodbye."
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Self Introduction': (Q7)",
-      "questionHindi": "'Self Introduction' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Translate to English: 'मेरा नाम अमित है।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'मेरा नाम अमित है।'",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) My name is Amit.",
+        "B) I Amit name.",
+        "C) Amit is my.",
+        "D) Name me Amit."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which of the following sentences has NO grammatical error?",
+      "questionHindi": "निम्नलिखित में से किस वाक्य में कोई व्याकरण संबंधी त्रुटि नहीं है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I is 25 years old.",
+        "B) I am 25 years old.",
+        "C) I are 25 years old.",
+        "D) I have 25 years old."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 1? (Q9)",
-      "questionHindi": "मॉड्यूल 1 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "How do you tell someone your profession?",
+      "questionHindi": "आप किसी को अपना पेशा कैसे बताते हैं?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) I am a software developer.",
+        "B) I develops software.",
+        "C) I to develop software.",
+        "D) I developer software."
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 1 (Self Introduction)? (Q10)",
-      "questionHindi": "मॉड्यूल 1 (Self Introduction) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Complete the formal greeting: 'Good ___, ladies and gentlemen.'",
+      "questionHindi": "औपचारिक अभिवादन पूरा करें: 'Good ___, ladies and gentlemen.'",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) morning",
+        "B) hello",
+        "C) hey",
+        "D) hi"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Self Introduction'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Self Introduction' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'मैं दिल्ली में रहता हूँ।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'मैं दिल्ली में रहता हूँ।'",
       "options": [
-        "A) I can speak about self introduction in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I live in Delhi.",
+        "B) I living at Delhi.",
+        "C) I lived on Delhi.",
+        "D) I am live Delhi."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Self Introduction': (Q12)",
-      "questionHindi": "'Self Introduction' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence is correct when stating your hobbies?",
+      "questionHindi": "अपने शौक बताते समय कौन सा वाक्य सही है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) My hobbies are reading and travelling.",
+        "B) My hobbies is reading.",
+        "C) I hobby reading.",
+        "D) Reading are my hobby."
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Choose the correct possessive pronoun: 'This is ___ passport.' (my / me)",
+      "questionHindi": "सही संबंधवाचक सर्वनाम चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) my",
+        "B) me",
+        "C) I",
+        "D) mine"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 1? (Q14)",
-      "questionHindi": "मॉड्यूल 1 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'Pleased to ___ you.'",
+      "questionHindi": "वाक्य पूरा करें: 'Pleased to ___ you.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) meet",
+        "B) meat",
+        "C) meeting",
+        "D) met"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 1 (Self Introduction)? (Q15)",
-      "questionHindi": "मॉड्यूल 1 (Self Introduction) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which greeting is appropriate in a professional business interview?",
+      "questionHindi": "व्यावसायिक साक्षात्कार में कौन सा अभिवादन उपयुक्त है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Good morning, sir/ma'am.",
+        "B) What's up buddy?",
+        "C) Hey there!",
+        "D) Yo!"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Self Introduction'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Self Introduction' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Translate: 'मैं एक विद्यार्थी हूँ।'",
+      "questionHindi": "अनुवाद करें: 'मैं एक विद्यार्थी हूँ।'",
       "options": [
-        "A) I can speak about self introduction in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am a student.",
+        "B) I student am.",
+        "C) Student I am.",
+        "D) I is a student."
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Self Introduction': (Q17)",
-      "questionHindi": "'Self Introduction' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Which sentence correctly states your qualification?",
+      "questionHindi": "अपनी योग्यता बताने वाला सही वाक्य कौन सा है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I have a degree in Commerce.",
+        "B) I has degree commerce.",
+        "C) I am degree in Commerce.",
+        "D) Degree commerce I have."
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "What does 'Where are you from?' ask about?",
+      "questionHindi": "'Where are you from?' किस बारे में पूछता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Your origin or hometown",
+        "B) Your current job",
+        "C) Your favorite food",
+        "D) Your age"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 1? (Q19)",
-      "questionHindi": "मॉड्यूल 1 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "How do you politely ask someone their name?",
+      "questionHindi": "किसी का नाम विनम्रता से कैसे पूछें?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) May I know your name, please?",
+        "B) Tell your name.",
+        "C) Who you are?",
+        "D) What name?"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 1 (Self Introduction)? (Q20)",
-      "questionHindi": "मॉड्यूल 1 (Self Introduction) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Complete the sentence: 'I work ___ a private bank.'",
+      "questionHindi": "वाक्य पूरा करें: 'I work ___ a private bank.'",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) on",
+        "C) over",
+        "D) under"
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Self Introduction'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Self Introduction' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which word means 'मूल निवासी' or 'रहने वाला'?",
+      "questionHindi": "किस शब्द का अर्थ 'मूल निवासी' है?",
       "options": [
-        "A) I can speak about self introduction in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) native",
+        "B) stranger",
+        "C) visitor",
+        "D) tourist"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Self Introduction': (Q22)",
-      "questionHindi": "'Self Introduction' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "Translate: 'आपसे मिलकर बहुत खुशी हुई।'",
+      "questionHindi": "अनुवाद करें: 'आपसे मिलकर बहुत खुशी हुई।'",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) It was a great pleasure meeting you.",
+        "B) Meeting you happy.",
+        "C) I meet you pleasure.",
+        "D) Pleasure you meeting."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Complete: 'I am currently ___ for Mastered English.'",
+      "questionHindi": "वाक्य पूरा करें: 'I am currently ___ for Mastered English.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) working",
+        "B) works",
+        "C) worked",
+        "D) to work"
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 1? (Q24)",
-      "questionHindi": "मॉड्यूल 1 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Which sentence correctly describes age?",
+      "questionHindi": "उम्र बताने वाला सही वाक्य कौन सा है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) I am twenty years old.",
+        "B) I have twenty years.",
+        "C) I am twenty years age.",
+        "D) My age have twenty."
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 1 (Self Introduction)? (Q25)",
-      "questionHindi": "मॉड्यूल 1 (Self Introduction) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "What is the short contraction of 'I am'?",
+      "questionHindi": "'I am' का संक्षिप्त रूप क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) I'm",
+        "B) Im",
+        "C) I'am",
+        "D) I'em"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Self Introduction'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Self Introduction' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Translate to English: 'यह मेरा पहला दिन है।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'यह मेरा पहला दिन है।'",
       "options": [
-        "A) I can speak about self introduction in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) This is my first day.",
+        "B) It my first day is.",
+        "C) Today first day me.",
+        "D) First day this is."
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Self Introduction': (Q27)",
-      "questionHindi": "'Self Introduction' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which sentence is grammatically correct?",
+      "questionHindi": "व्याकरण की दृष्टि से कौन सा वाक्य सही है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) My father is a doctor.",
+        "B) My father is an doctor.",
+        "C) My father are a doctor.",
+        "D) Father my is doctor."
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Complete: 'Let me ___ myself.'",
+      "questionHindi": "वाक्य पूरा करें: 'Let me ___ myself.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) introduce",
+        "B) introduction",
+        "C) introduced",
+        "D) introduces"
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 1? (Q29)",
-      "questionHindi": "मॉड्यूल 1 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "What is the meaning of 'Strengths' in an interview introduction?",
+      "questionHindi": "साक्षात्कार परिचय में 'Strengths' का क्या अर्थ है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) Your positive abilities and skills",
+        "B) Physical muscle power",
+        "C) Your weaknesses",
+        "D) Your hobbies"
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 1 (Self Introduction)? (Q30)",
-      "questionHindi": "मॉड्यूल 1 (Self Introduction) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "Choose the correct closure for a self-introduction:",
+      "questionHindi": "आत्म-परिचय समाप्त करने के लिए सही वाक्य चुनें:",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) That is all about me. Thank you!",
+        "B) I finish talking.",
+        "C) Done now.",
+        "D) Stop here."
       ],
       "correctIndex": 0
     }
@@ -364,361 +364,361 @@ const HINDI_QUIZ_BANK = {
   "2": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Talking About People'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About People' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which pronoun refers to a single male person?",
+      "questionHindi": "एक पुरुष के लिए कौन सा सर्वनाम प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about talking about people in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) He",
+        "B) She",
+        "C) They",
+        "D) It"
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Talking About People': (Q2)",
-      "questionHindi": "'Talking About People' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Which pronoun refers to a single female person?",
+      "questionHindi": "एक महिला के लिए कौन सा सर्वनाम प्रयोग किया जाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) She",
+        "B) He",
+        "C) They",
+        "D) We"
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Complete the sentence: 'She ___ very talented.'",
+      "questionHindi": "वाक्य पूरा करें: 'She ___ very talented.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) be"
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 2? (Q4)",
-      "questionHindi": "मॉड्यूल 2 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Complete the sentence: 'They ___ our neighbours.'",
+      "questionHindi": "वाक्य पूरा करें: 'They ___ our neighbours.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 2 (Talking About People)? (Q5)",
-      "questionHindi": "मॉड्यूल 2 (Talking About People) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Translate to English: 'वह बहुत मेहनती है।'",
+      "questionHindi": "अनुवाद करें: 'वह बहुत मेहनती है।'",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) He is very hardworking.",
+        "B) He are hardworking.",
+        "C) He very work hard.",
+        "D) Hardworking he is."
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Talking About People'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About People' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Which word describes a person who is friendly and easy to talk to?",
+      "questionHindi": "जो व्यक्ति मिलनसार और बात करने में आसान हो उसे क्या कहते हैं?",
       "options": [
-        "A) I can speak about talking about people in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) approachable",
+        "B) rude",
+        "C) distant",
+        "D) aggressive"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Talking About People': (Q7)",
-      "questionHindi": "'Talking About People' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct sentence: (singular vs plural)",
+      "questionHindi": "सही वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) My friends are supportive.",
+        "B) My friends is supportive.",
+        "C) My friend are supportive.",
+        "D) Friends my is supportive."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Translate: 'वे लोग डॉक्टर हैं।'",
+      "questionHindi": "अनुवाद करें: 'वे लोग डॉक्टर हैं।'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) They are doctors.",
+        "B) They is doctors.",
+        "C) He are doctors.",
+        "D) Them are doctors."
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 2? (Q9)",
-      "questionHindi": "मॉड्यूल 2 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Complete: 'Rohan and Priya ___ working together.'",
+      "questionHindi": "वाक्य पूरा करें: 'Rohan and Priya ___ working together.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) be"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 2 (Talking About People)? (Q10)",
-      "questionHindi": "मॉड्यूल 2 (Talking About People) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which adjective means 'दयालु'?",
+      "questionHindi": "किस विशेषण का अर्थ 'दयालु' है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) kind",
+        "B) cruel",
+        "C) arrogant",
+        "D) selfish"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Talking About People'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About People' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "What pronoun should be used for an inanimate object like a laptop?",
+      "questionHindi": "लैपटॉप जैसी निर्जीव वस्तु के लिए कौन सा सर्वनाम आता है?",
       "options": [
-        "A) I can speak about talking about people in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) It",
+        "B) He",
+        "C) She",
+        "D) They"
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Talking About People': (Q12)",
-      "questionHindi": "'Talking About People' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Choose the correct sentence describing height:",
+      "questionHindi": "कद का वर्णन करने वाला सही वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) He is very tall.",
+        "B) He has very tall.",
+        "C) He are tall.",
+        "D) Tall is he."
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Translate: 'वह हमेशा समय की पाबंद रहती है।'",
+      "questionHindi": "अनुवाद करें: 'वह हमेशा समय की पाबंद रहती है।'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) She is always punctual.",
+        "B) She are always punctual.",
+        "C) She always punctuality.",
+        "D) Punctual she always."
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 2? (Q14)",
-      "questionHindi": "मॉड्यूल 2 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete: '___ are very honest people.' (They / Them)",
+      "questionHindi": "वाक्य पूरा करें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They",
+        "B) Them",
+        "C) Their",
+        "D) Theirs"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 2 (Talking About People)? (Q15)",
-      "questionHindi": "मॉड्यूल 2 (Talking About People) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which word describes someone who loves to speak a lot?",
+      "questionHindi": "जो बहुत ज्यादा बात करता हो उसे क्या कहते हैं?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) talkative",
+        "B) quiet",
+        "C) shy",
+        "D) silent"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Talking About People'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About People' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Translate: 'वह मेरी बहन है।'",
+      "questionHindi": "अनुवाद करें: 'वह मेरी बहन है।'",
       "options": [
-        "A) I can speak about talking about people in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) She is my sister.",
+        "B) She are my sister.",
+        "C) Her is my sister.",
+        "D) Sister my she is."
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Talking About People': (Q17)",
-      "questionHindi": "'Talking About People' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Which sentence has correct subject-verb agreement?",
+      "questionHindi": "कौन सा वाक्य व्याकरण सम्मत है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Neither of the boys is absent.",
+        "B) Neither of the boys are absent.",
+        "C) Neither boy are absent.",
+        "D) Boy neither is absent."
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "What does 'polite' mean?",
+      "questionHindi": "'Polite' का क्या अर्थ है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) विनम्र (well-mannered)",
+        "B) क्रोधी",
+        "C) चालाक",
+        "D) आलसी"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 2? (Q19)",
-      "questionHindi": "मॉड्यूल 2 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Complete: 'My manager ___ very supportive of new ideas.'",
+      "questionHindi": "वाक्य पूरा करें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) were",
+        "D) am"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 2 (Talking About People)? (Q20)",
-      "questionHindi": "मॉड्यूल 2 (Talking About People) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Choose the opposite of 'generous':",
+      "questionHindi": "'Generous' (उदार) का विलोम शब्द चुनें:",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) stingy (कंजूस)",
+        "B) kind",
+        "C) polite",
+        "D) helpful"
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Talking About People'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About People' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Translate: 'वे बहुत खुशमिजाज लोग हैं।'",
+      "questionHindi": "अनुवाद करें: 'वे बहुत खुशमिजाज लोग हैं।'",
       "options": [
-        "A) I can speak about talking about people in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) They are very cheerful people.",
+        "B) They is very cheerful.",
+        "C) Them cheerful people.",
+        "D) People they are cheerful."
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Talking About People': (Q22)",
-      "questionHindi": "'Talking About People' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "Complete: 'Neither he nor she ___ present today.'",
+      "questionHindi": "वाक्य पूरा करें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) is",
+        "B) are",
+        "C) were",
+        "D) have"
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which word means 'ईमानदार'?",
+      "questionHindi": "किस शब्द का अर्थ 'ईमानदार' है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) honest",
+        "B) dishonest",
+        "C) clever",
+        "D) greedy"
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 2? (Q24)",
-      "questionHindi": "मॉड्यूल 2 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "How do you ask about someone's appearance?",
+      "questionHindi": "किसी के रंग-रूप के बारे में कैसे पूछें?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) What does he look like?",
+        "B) How he looks?",
+        "C) What look he is?",
+        "D) Look what he?"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 2 (Talking About People)? (Q25)",
-      "questionHindi": "मॉड्यूल 2 (Talking About People) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "How do you ask about someone's personality?",
+      "questionHindi": "किसी के व्यक्तित्व के बारे में कैसे पूछें?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) What is she like?",
+        "B) What she likes?",
+        "C) How is her look?",
+        "D) She like what?"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Talking About People'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About People' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Translate: 'वह बहुत बुद्धिमान छात्र है।'",
+      "questionHindi": "अनुवाद करें:",
       "options": [
-        "A) I can speak about talking about people in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) He is a very intelligent student.",
+        "B) He are an intelligent student.",
+        "C) Intelligent he is student.",
+        "D) He intelligent student is."
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Talking About People': (Q27)",
-      "questionHindi": "'Talking About People' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Complete: 'We ___ proud of his achievement.'",
+      "questionHindi": "वाक्य पूरा करें: 'We ___ proud of his achievement.'",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) be"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Which adjective describes someone who never gives up?",
+      "questionHindi": "जो कभी हार न माने उसे क्या कहते हैं?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) determined",
+        "B) lazy",
+        "C) careless",
+        "D) fearful"
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 2? (Q29)",
-      "questionHindi": "मॉड्यूल 2 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Complete: 'Both brothers ___ excellent cricketers.'",
+      "questionHindi": "वाक्य पूरा करें: 'Both brothers ___ excellent cricketers.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 2 (Talking About People)? (Q30)",
-      "questionHindi": "मॉड्यूल 2 (Talking About People) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "Choose the sentence that correctly describes someone's mood:",
+      "questionHindi": "किसी के मनोभाव को सही ढंग से दर्शाने वाला वाक्य चुनें:",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) She looks cheerful today.",
+        "B) She look cheerful today.",
+        "C) She looking cheerful today.",
+        "D) Cheerful she looks."
       ],
       "correctIndex": 0
     }
@@ -726,361 +726,361 @@ const HINDI_QUIZ_BANK = {
   "3": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Family And Possessions'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Family And Possessions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Family and Possessions'?",
+      "questionHindi": "'Family and Possessions' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about family and possessions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about family and possessions.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Family And Possessions': (Q2)",
-      "questionHindi": "'Family And Possessions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Family and Possessions':",
+      "questionHindi": "'Family and Possessions' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 3? (Q4)",
-      "questionHindi": "मॉड्यूल 3 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 3 (Family And Possessions)? (Q5)",
-      "questionHindi": "मॉड्यूल 3 (Family And Possessions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Family And Possessions'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Family And Possessions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about family and possessions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Family And Possessions': (Q7)",
-      "questionHindi": "'Family And Possessions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 3? (Q9)",
-      "questionHindi": "मॉड्यूल 3 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 3 (Family And Possessions)? (Q10)",
-      "questionHindi": "मॉड्यूल 3 (Family And Possessions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Family And Possessions'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Family And Possessions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about family and possessions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Family And Possessions': (Q12)",
-      "questionHindi": "'Family And Possessions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 3? (Q14)",
-      "questionHindi": "मॉड्यूल 3 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 3 (Family And Possessions)? (Q15)",
-      "questionHindi": "मॉड्यूल 3 (Family And Possessions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Family And Possessions'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Family And Possessions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about family and possessions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Family And Possessions': (Q17)",
-      "questionHindi": "'Family And Possessions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 3? (Q19)",
-      "questionHindi": "मॉड्यूल 3 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 3 (Family And Possessions)? (Q20)",
-      "questionHindi": "मॉड्यूल 3 (Family And Possessions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Family And Possessions'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Family And Possessions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about family and possessions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Family And Possessions': (Q22)",
-      "questionHindi": "'Family And Possessions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 3? (Q24)",
-      "questionHindi": "मॉड्यूल 3 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 3 (Family And Possessions)? (Q25)",
-      "questionHindi": "मॉड्यूल 3 (Family And Possessions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Family And Possessions'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Family And Possessions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about family and possessions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Family And Possessions': (Q27)",
-      "questionHindi": "'Family And Possessions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 3? (Q29)",
-      "questionHindi": "मॉड्यूल 3 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 3 (Family And Possessions)? (Q30)",
-      "questionHindi": "मॉड्यूल 3 (Family And Possessions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -1088,361 +1088,361 @@ const HINDI_QUIZ_BANK = {
   "4": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Ability And Permission'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Ability And Permission' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Ability and Permission'?",
+      "questionHindi": "'Ability and Permission' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about ability and permission in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about ability and permission.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Ability And Permission': (Q2)",
-      "questionHindi": "'Ability And Permission' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Ability and Permission':",
+      "questionHindi": "'Ability and Permission' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 4? (Q4)",
-      "questionHindi": "मॉड्यूल 4 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 4 (Ability And Permission)? (Q5)",
-      "questionHindi": "मॉड्यूल 4 (Ability And Permission) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Ability And Permission'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Ability And Permission' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about ability and permission in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Ability And Permission': (Q7)",
-      "questionHindi": "'Ability And Permission' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 4? (Q9)",
-      "questionHindi": "मॉड्यूल 4 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 4 (Ability And Permission)? (Q10)",
-      "questionHindi": "मॉड्यूल 4 (Ability And Permission) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Ability And Permission'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Ability And Permission' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about ability and permission in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Ability And Permission': (Q12)",
-      "questionHindi": "'Ability And Permission' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 4? (Q14)",
-      "questionHindi": "मॉड्यूल 4 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 4 (Ability And Permission)? (Q15)",
-      "questionHindi": "मॉड्यूल 4 (Ability And Permission) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Ability And Permission'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Ability And Permission' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about ability and permission in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Ability And Permission': (Q17)",
-      "questionHindi": "'Ability And Permission' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 4? (Q19)",
-      "questionHindi": "मॉड्यूल 4 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 4 (Ability And Permission)? (Q20)",
-      "questionHindi": "मॉड्यूल 4 (Ability And Permission) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Ability And Permission'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Ability And Permission' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about ability and permission in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Ability And Permission': (Q22)",
-      "questionHindi": "'Ability And Permission' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 4? (Q24)",
-      "questionHindi": "मॉड्यूल 4 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 4 (Ability And Permission)? (Q25)",
-      "questionHindi": "मॉड्यूल 4 (Ability And Permission) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Ability And Permission'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Ability And Permission' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about ability and permission in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Ability And Permission': (Q27)",
-      "questionHindi": "'Ability And Permission' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 4? (Q29)",
-      "questionHindi": "मॉड्यूल 4 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 4 (Ability And Permission)? (Q30)",
-      "questionHindi": "मॉड्यूल 4 (Ability And Permission) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -1450,361 +1450,361 @@ const HINDI_QUIZ_BANK = {
   "5": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Responsibilities And Advice'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Responsibilities And Advice' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Responsibilities and Advice'?",
+      "questionHindi": "'Responsibilities and Advice' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about responsibilities and advice in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about responsibilities and advice.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Responsibilities And Advice': (Q2)",
-      "questionHindi": "'Responsibilities And Advice' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Responsibilities and Advice':",
+      "questionHindi": "'Responsibilities and Advice' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 5? (Q4)",
-      "questionHindi": "मॉड्यूल 5 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 5 (Responsibilities And Advice)? (Q5)",
-      "questionHindi": "मॉड्यूल 5 (Responsibilities And Advice) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Responsibilities And Advice'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Responsibilities And Advice' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about responsibilities and advice in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Responsibilities And Advice': (Q7)",
-      "questionHindi": "'Responsibilities And Advice' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 5? (Q9)",
-      "questionHindi": "मॉड्यूल 5 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 5 (Responsibilities And Advice)? (Q10)",
-      "questionHindi": "मॉड्यूल 5 (Responsibilities And Advice) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Responsibilities And Advice'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Responsibilities And Advice' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about responsibilities and advice in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Responsibilities And Advice': (Q12)",
-      "questionHindi": "'Responsibilities And Advice' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 5? (Q14)",
-      "questionHindi": "मॉड्यूल 5 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 5 (Responsibilities And Advice)? (Q15)",
-      "questionHindi": "मॉड्यूल 5 (Responsibilities And Advice) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Responsibilities And Advice'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Responsibilities And Advice' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about responsibilities and advice in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Responsibilities And Advice': (Q17)",
-      "questionHindi": "'Responsibilities And Advice' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 5? (Q19)",
-      "questionHindi": "मॉड्यूल 5 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 5 (Responsibilities And Advice)? (Q20)",
-      "questionHindi": "मॉड्यूल 5 (Responsibilities And Advice) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Responsibilities And Advice'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Responsibilities And Advice' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about responsibilities and advice in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Responsibilities And Advice': (Q22)",
-      "questionHindi": "'Responsibilities And Advice' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 5? (Q24)",
-      "questionHindi": "मॉड्यूल 5 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 5 (Responsibilities And Advice)? (Q25)",
-      "questionHindi": "मॉड्यूल 5 (Responsibilities And Advice) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Responsibilities And Advice'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Responsibilities And Advice' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about responsibilities and advice in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Responsibilities And Advice': (Q27)",
-      "questionHindi": "'Responsibilities And Advice' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 5? (Q29)",
-      "questionHindi": "मॉड्यूल 5 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 5 (Responsibilities And Advice)? (Q30)",
-      "questionHindi": "मॉड्यूल 5 (Responsibilities And Advice) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -1812,361 +1812,361 @@ const HINDI_QUIZ_BANK = {
   "6": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Requests And Polite English'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Requests And Polite English' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Requests and Polite English'?",
+      "questionHindi": "'Requests and Polite English' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about requests and polite english in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about requests and polite english.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Requests And Polite English': (Q2)",
-      "questionHindi": "'Requests And Polite English' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Requests and Polite English':",
+      "questionHindi": "'Requests and Polite English' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 6? (Q4)",
-      "questionHindi": "मॉड्यूल 6 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 6 (Requests And Polite English)? (Q5)",
-      "questionHindi": "मॉड्यूल 6 (Requests And Polite English) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Requests And Polite English'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Requests And Polite English' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about requests and polite english in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Requests And Polite English': (Q7)",
-      "questionHindi": "'Requests And Polite English' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 6? (Q9)",
-      "questionHindi": "मॉड्यूल 6 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 6 (Requests And Polite English)? (Q10)",
-      "questionHindi": "मॉड्यूल 6 (Requests And Polite English) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Requests And Polite English'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Requests And Polite English' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about requests and polite english in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Requests And Polite English': (Q12)",
-      "questionHindi": "'Requests And Polite English' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 6? (Q14)",
-      "questionHindi": "मॉड्यूल 6 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 6 (Requests And Polite English)? (Q15)",
-      "questionHindi": "मॉड्यूल 6 (Requests And Polite English) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Requests And Polite English'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Requests And Polite English' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about requests and polite english in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Requests And Polite English': (Q17)",
-      "questionHindi": "'Requests And Polite English' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 6? (Q19)",
-      "questionHindi": "मॉड्यूल 6 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 6 (Requests And Polite English)? (Q20)",
-      "questionHindi": "मॉड्यूल 6 (Requests And Polite English) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Requests And Polite English'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Requests And Polite English' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about requests and polite english in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Requests And Polite English': (Q22)",
-      "questionHindi": "'Requests And Polite English' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 6? (Q24)",
-      "questionHindi": "मॉड्यूल 6 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 6 (Requests And Polite English)? (Q25)",
-      "questionHindi": "मॉड्यूल 6 (Requests And Polite English) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Requests And Polite English'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Requests And Polite English' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about requests and polite english in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Requests And Polite English': (Q27)",
-      "questionHindi": "'Requests And Polite English' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 6? (Q29)",
-      "questionHindi": "मॉड्यूल 6 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 6 (Requests And Polite English)? (Q30)",
-      "questionHindi": "मॉड्यूल 6 (Requests And Polite English) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -2174,361 +2174,361 @@ const HINDI_QUIZ_BANK = {
   "7": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Asking Questions'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Asking Questions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Asking Questions'?",
+      "questionHindi": "'Asking Questions' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about asking questions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about asking questions.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Asking Questions': (Q2)",
-      "questionHindi": "'Asking Questions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Asking Questions':",
+      "questionHindi": "'Asking Questions' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 7? (Q4)",
-      "questionHindi": "मॉड्यूल 7 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 7 (Asking Questions)? (Q5)",
-      "questionHindi": "मॉड्यूल 7 (Asking Questions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Asking Questions'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Asking Questions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about asking questions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Asking Questions': (Q7)",
-      "questionHindi": "'Asking Questions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 7? (Q9)",
-      "questionHindi": "मॉड्यूल 7 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 7 (Asking Questions)? (Q10)",
-      "questionHindi": "मॉड्यूल 7 (Asking Questions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Asking Questions'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Asking Questions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about asking questions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Asking Questions': (Q12)",
-      "questionHindi": "'Asking Questions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 7? (Q14)",
-      "questionHindi": "मॉड्यूल 7 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 7 (Asking Questions)? (Q15)",
-      "questionHindi": "मॉड्यूल 7 (Asking Questions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Asking Questions'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Asking Questions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about asking questions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Asking Questions': (Q17)",
-      "questionHindi": "'Asking Questions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 7? (Q19)",
-      "questionHindi": "मॉड्यूल 7 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 7 (Asking Questions)? (Q20)",
-      "questionHindi": "मॉड्यूल 7 (Asking Questions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Asking Questions'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Asking Questions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about asking questions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Asking Questions': (Q22)",
-      "questionHindi": "'Asking Questions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 7? (Q24)",
-      "questionHindi": "मॉड्यूल 7 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 7 (Asking Questions)? (Q25)",
-      "questionHindi": "मॉड्यूल 7 (Asking Questions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Asking Questions'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Asking Questions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about asking questions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Asking Questions': (Q27)",
-      "questionHindi": "'Asking Questions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 7? (Q29)",
-      "questionHindi": "मॉड्यूल 7 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 7 (Asking Questions)? (Q30)",
-      "questionHindi": "मॉड्यूल 7 (Asking Questions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -2536,361 +2536,361 @@ const HINDI_QUIZ_BANK = {
   "8": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Building Natural Sentences'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Building Natural Sentences' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Building Natural Sentences'?",
+      "questionHindi": "'Building Natural Sentences' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about building natural sentences in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about building natural sentences.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Building Natural Sentences': (Q2)",
-      "questionHindi": "'Building Natural Sentences' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Building Natural Sentences':",
+      "questionHindi": "'Building Natural Sentences' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 8? (Q4)",
-      "questionHindi": "मॉड्यूल 8 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 8 (Building Natural Sentences)? (Q5)",
-      "questionHindi": "मॉड्यूल 8 (Building Natural Sentences) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Building Natural Sentences'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Building Natural Sentences' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about building natural sentences in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Building Natural Sentences': (Q7)",
-      "questionHindi": "'Building Natural Sentences' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 8? (Q9)",
-      "questionHindi": "मॉड्यूल 8 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 8 (Building Natural Sentences)? (Q10)",
-      "questionHindi": "मॉड्यूल 8 (Building Natural Sentences) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Building Natural Sentences'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Building Natural Sentences' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about building natural sentences in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Building Natural Sentences': (Q12)",
-      "questionHindi": "'Building Natural Sentences' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 8? (Q14)",
-      "questionHindi": "मॉड्यूल 8 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 8 (Building Natural Sentences)? (Q15)",
-      "questionHindi": "मॉड्यूल 8 (Building Natural Sentences) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Building Natural Sentences'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Building Natural Sentences' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about building natural sentences in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Building Natural Sentences': (Q17)",
-      "questionHindi": "'Building Natural Sentences' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 8? (Q19)",
-      "questionHindi": "मॉड्यूल 8 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 8 (Building Natural Sentences)? (Q20)",
-      "questionHindi": "मॉड्यूल 8 (Building Natural Sentences) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Building Natural Sentences'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Building Natural Sentences' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about building natural sentences in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Building Natural Sentences': (Q22)",
-      "questionHindi": "'Building Natural Sentences' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 8? (Q24)",
-      "questionHindi": "मॉड्यूल 8 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 8 (Building Natural Sentences)? (Q25)",
-      "questionHindi": "मॉड्यूल 8 (Building Natural Sentences) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Building Natural Sentences'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Building Natural Sentences' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about building natural sentences in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Building Natural Sentences': (Q27)",
-      "questionHindi": "'Building Natural Sentences' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 8? (Q29)",
-      "questionHindi": "मॉड्यूल 8 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 8 (Building Natural Sentences)? (Q30)",
-      "questionHindi": "मॉड्यूल 8 (Building Natural Sentences) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -2898,361 +2898,361 @@ const HINDI_QUIZ_BANK = {
   "9": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Talking About Daily Routine'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About Daily Routine' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Talking About Daily Routine'?",
+      "questionHindi": "'Talking About Daily Routine' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about talking about daily routine in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about talking about daily routine.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Talking About Daily Routine': (Q2)",
-      "questionHindi": "'Talking About Daily Routine' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Talking About Daily Routine':",
+      "questionHindi": "'Talking About Daily Routine' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 9? (Q4)",
-      "questionHindi": "मॉड्यूल 9 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 9 (Talking About Daily Routine)? (Q5)",
-      "questionHindi": "मॉड्यूल 9 (Talking About Daily Routine) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Talking About Daily Routine'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About Daily Routine' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about talking about daily routine in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Talking About Daily Routine': (Q7)",
-      "questionHindi": "'Talking About Daily Routine' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 9? (Q9)",
-      "questionHindi": "मॉड्यूल 9 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 9 (Talking About Daily Routine)? (Q10)",
-      "questionHindi": "मॉड्यूल 9 (Talking About Daily Routine) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Talking About Daily Routine'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About Daily Routine' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about talking about daily routine in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Talking About Daily Routine': (Q12)",
-      "questionHindi": "'Talking About Daily Routine' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 9? (Q14)",
-      "questionHindi": "मॉड्यूल 9 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 9 (Talking About Daily Routine)? (Q15)",
-      "questionHindi": "मॉड्यूल 9 (Talking About Daily Routine) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Talking About Daily Routine'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About Daily Routine' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about talking about daily routine in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Talking About Daily Routine': (Q17)",
-      "questionHindi": "'Talking About Daily Routine' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 9? (Q19)",
-      "questionHindi": "मॉड्यूल 9 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 9 (Talking About Daily Routine)? (Q20)",
-      "questionHindi": "मॉड्यूल 9 (Talking About Daily Routine) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Talking About Daily Routine'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About Daily Routine' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about talking about daily routine in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Talking About Daily Routine': (Q22)",
-      "questionHindi": "'Talking About Daily Routine' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 9? (Q24)",
-      "questionHindi": "मॉड्यूल 9 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 9 (Talking About Daily Routine)? (Q25)",
-      "questionHindi": "मॉड्यूल 9 (Talking About Daily Routine) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Talking About Daily Routine'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About Daily Routine' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about talking about daily routine in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Talking About Daily Routine': (Q27)",
-      "questionHindi": "'Talking About Daily Routine' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 9? (Q29)",
-      "questionHindi": "मॉड्यूल 9 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 9 (Talking About Daily Routine)? (Q30)",
-      "questionHindi": "मॉड्यूल 9 (Talking About Daily Routine) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -3260,361 +3260,361 @@ const HINDI_QUIZ_BANK = {
   "10": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Habits And Lifestyle'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Habits And Lifestyle' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Habits and Lifestyle'?",
+      "questionHindi": "'Habits and Lifestyle' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about habits and lifestyle in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about habits and lifestyle.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Habits And Lifestyle': (Q2)",
-      "questionHindi": "'Habits And Lifestyle' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Habits and Lifestyle':",
+      "questionHindi": "'Habits and Lifestyle' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 10? (Q4)",
-      "questionHindi": "मॉड्यूल 10 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 10 (Habits And Lifestyle)? (Q5)",
-      "questionHindi": "मॉड्यूल 10 (Habits And Lifestyle) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Habits And Lifestyle'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Habits And Lifestyle' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about habits and lifestyle in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Habits And Lifestyle': (Q7)",
-      "questionHindi": "'Habits And Lifestyle' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 10? (Q9)",
-      "questionHindi": "मॉड्यूल 10 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 10 (Habits And Lifestyle)? (Q10)",
-      "questionHindi": "मॉड्यूल 10 (Habits And Lifestyle) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Habits And Lifestyle'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Habits And Lifestyle' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about habits and lifestyle in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Habits And Lifestyle': (Q12)",
-      "questionHindi": "'Habits And Lifestyle' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 10? (Q14)",
-      "questionHindi": "मॉड्यूल 10 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 10 (Habits And Lifestyle)? (Q15)",
-      "questionHindi": "मॉड्यूल 10 (Habits And Lifestyle) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Habits And Lifestyle'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Habits And Lifestyle' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about habits and lifestyle in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Habits And Lifestyle': (Q17)",
-      "questionHindi": "'Habits And Lifestyle' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 10? (Q19)",
-      "questionHindi": "मॉड्यूल 10 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 10 (Habits And Lifestyle)? (Q20)",
-      "questionHindi": "मॉड्यूल 10 (Habits And Lifestyle) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Habits And Lifestyle'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Habits And Lifestyle' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about habits and lifestyle in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Habits And Lifestyle': (Q22)",
-      "questionHindi": "'Habits And Lifestyle' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 10? (Q24)",
-      "questionHindi": "मॉड्यूल 10 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 10 (Habits And Lifestyle)? (Q25)",
-      "questionHindi": "मॉड्यूल 10 (Habits And Lifestyle) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Habits And Lifestyle'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Habits And Lifestyle' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about habits and lifestyle in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Habits And Lifestyle': (Q27)",
-      "questionHindi": "'Habits And Lifestyle' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 10? (Q29)",
-      "questionHindi": "मॉड्यूल 10 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 10 (Habits And Lifestyle)? (Q30)",
-      "questionHindi": "मॉड्यूल 10 (Habits And Lifestyle) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -3622,361 +3622,361 @@ const HINDI_QUIZ_BANK = {
   "11": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Likes Dislikes And Opinions'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Likes Dislikes And Opinions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Likes, Dislikes and Opinions'?",
+      "questionHindi": "'Likes, Dislikes and Opinions' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about likes dislikes and opinions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about likes, dislikes and opinions.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Likes Dislikes And Opinions': (Q2)",
-      "questionHindi": "'Likes Dislikes And Opinions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Likes, Dislikes and Opinions':",
+      "questionHindi": "'Likes, Dislikes and Opinions' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 11? (Q4)",
-      "questionHindi": "मॉड्यूल 11 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 11 (Likes Dislikes And Opinions)? (Q5)",
-      "questionHindi": "मॉड्यूल 11 (Likes Dislikes And Opinions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Likes Dislikes And Opinions'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Likes Dislikes And Opinions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about likes dislikes and opinions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Likes Dislikes And Opinions': (Q7)",
-      "questionHindi": "'Likes Dislikes And Opinions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 11? (Q9)",
-      "questionHindi": "मॉड्यूल 11 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 11 (Likes Dislikes And Opinions)? (Q10)",
-      "questionHindi": "मॉड्यूल 11 (Likes Dislikes And Opinions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Likes Dislikes And Opinions'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Likes Dislikes And Opinions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about likes dislikes and opinions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Likes Dislikes And Opinions': (Q12)",
-      "questionHindi": "'Likes Dislikes And Opinions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 11? (Q14)",
-      "questionHindi": "मॉड्यूल 11 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 11 (Likes Dislikes And Opinions)? (Q15)",
-      "questionHindi": "मॉड्यूल 11 (Likes Dislikes And Opinions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Likes Dislikes And Opinions'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Likes Dislikes And Opinions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about likes dislikes and opinions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Likes Dislikes And Opinions': (Q17)",
-      "questionHindi": "'Likes Dislikes And Opinions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 11? (Q19)",
-      "questionHindi": "मॉड्यूल 11 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 11 (Likes Dislikes And Opinions)? (Q20)",
-      "questionHindi": "मॉड्यूल 11 (Likes Dislikes And Opinions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Likes Dislikes And Opinions'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Likes Dislikes And Opinions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about likes dislikes and opinions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Likes Dislikes And Opinions': (Q22)",
-      "questionHindi": "'Likes Dislikes And Opinions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 11? (Q24)",
-      "questionHindi": "मॉड्यूल 11 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 11 (Likes Dislikes And Opinions)? (Q25)",
-      "questionHindi": "मॉड्यूल 11 (Likes Dislikes And Opinions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Likes Dislikes And Opinions'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Likes Dislikes And Opinions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about likes dislikes and opinions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Likes Dislikes And Opinions': (Q27)",
-      "questionHindi": "'Likes Dislikes And Opinions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 11? (Q29)",
-      "questionHindi": "मॉड्यूल 11 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 11 (Likes Dislikes And Opinions)? (Q30)",
-      "questionHindi": "मॉड्यूल 11 (Likes Dislikes And Opinions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -3984,361 +3984,361 @@ const HINDI_QUIZ_BANK = {
   "12": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Talking About What Is Happening Now'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About What Is Happening Now' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Talking About What Is Happening Now'?",
+      "questionHindi": "'Talking About What Is Happening Now' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about talking about what is happening now in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about talking about what is happening now.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Talking About What Is Happening Now': (Q2)",
-      "questionHindi": "'Talking About What Is Happening Now' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Talking About What Is Happening Now':",
+      "questionHindi": "'Talking About What Is Happening Now' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 12? (Q4)",
-      "questionHindi": "मॉड्यूल 12 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 12 (Talking About What Is Happening Now)? (Q5)",
-      "questionHindi": "मॉड्यूल 12 (Talking About What Is Happening Now) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Talking About What Is Happening Now'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About What Is Happening Now' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about talking about what is happening now in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Talking About What Is Happening Now': (Q7)",
-      "questionHindi": "'Talking About What Is Happening Now' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 12? (Q9)",
-      "questionHindi": "मॉड्यूल 12 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 12 (Talking About What Is Happening Now)? (Q10)",
-      "questionHindi": "मॉड्यूल 12 (Talking About What Is Happening Now) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Talking About What Is Happening Now'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About What Is Happening Now' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about talking about what is happening now in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Talking About What Is Happening Now': (Q12)",
-      "questionHindi": "'Talking About What Is Happening Now' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 12? (Q14)",
-      "questionHindi": "मॉड्यूल 12 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 12 (Talking About What Is Happening Now)? (Q15)",
-      "questionHindi": "मॉड्यूल 12 (Talking About What Is Happening Now) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Talking About What Is Happening Now'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About What Is Happening Now' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about talking about what is happening now in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Talking About What Is Happening Now': (Q17)",
-      "questionHindi": "'Talking About What Is Happening Now' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 12? (Q19)",
-      "questionHindi": "मॉड्यूल 12 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 12 (Talking About What Is Happening Now)? (Q20)",
-      "questionHindi": "मॉड्यूल 12 (Talking About What Is Happening Now) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Talking About What Is Happening Now'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About What Is Happening Now' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about talking about what is happening now in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Talking About What Is Happening Now': (Q22)",
-      "questionHindi": "'Talking About What Is Happening Now' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 12? (Q24)",
-      "questionHindi": "मॉड्यूल 12 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 12 (Talking About What Is Happening Now)? (Q25)",
-      "questionHindi": "मॉड्यूल 12 (Talking About What Is Happening Now) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Talking About What Is Happening Now'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About What Is Happening Now' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about talking about what is happening now in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Talking About What Is Happening Now': (Q27)",
-      "questionHindi": "'Talking About What Is Happening Now' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 12? (Q29)",
-      "questionHindi": "मॉड्यूल 12 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 12 (Talking About What Is Happening Now)? (Q30)",
-      "questionHindi": "मॉड्यूल 12 (Talking About What Is Happening Now) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -4346,361 +4346,361 @@ const HINDI_QUIZ_BANK = {
   "13": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Picture Description'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Picture Description' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Picture Description'?",
+      "questionHindi": "'Picture Description' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about picture description in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about picture description.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Picture Description': (Q2)",
-      "questionHindi": "'Picture Description' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Picture Description':",
+      "questionHindi": "'Picture Description' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 13? (Q4)",
-      "questionHindi": "मॉड्यूल 13 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 13 (Picture Description)? (Q5)",
-      "questionHindi": "मॉड्यूल 13 (Picture Description) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Picture Description'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Picture Description' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about picture description in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Picture Description': (Q7)",
-      "questionHindi": "'Picture Description' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 13? (Q9)",
-      "questionHindi": "मॉड्यूल 13 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 13 (Picture Description)? (Q10)",
-      "questionHindi": "मॉड्यूल 13 (Picture Description) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Picture Description'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Picture Description' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about picture description in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Picture Description': (Q12)",
-      "questionHindi": "'Picture Description' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 13? (Q14)",
-      "questionHindi": "मॉड्यूल 13 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 13 (Picture Description)? (Q15)",
-      "questionHindi": "मॉड्यूल 13 (Picture Description) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Picture Description'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Picture Description' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about picture description in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Picture Description': (Q17)",
-      "questionHindi": "'Picture Description' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 13? (Q19)",
-      "questionHindi": "मॉड्यूल 13 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 13 (Picture Description)? (Q20)",
-      "questionHindi": "मॉड्यूल 13 (Picture Description) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Picture Description'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Picture Description' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about picture description in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Picture Description': (Q22)",
-      "questionHindi": "'Picture Description' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 13? (Q24)",
-      "questionHindi": "मॉड्यूल 13 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 13 (Picture Description)? (Q25)",
-      "questionHindi": "मॉड्यूल 13 (Picture Description) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Picture Description'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Picture Description' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about picture description in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Picture Description': (Q27)",
-      "questionHindi": "'Picture Description' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 13? (Q29)",
-      "questionHindi": "मॉड्यूल 13 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 13 (Picture Description)? (Q30)",
-      "questionHindi": "मॉड्यूल 13 (Picture Description) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -4708,361 +4708,361 @@ const HINDI_QUIZ_BANK = {
   "14": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Talking About Yesterday'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About Yesterday' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Talking About Yesterday'?",
+      "questionHindi": "'Talking About Yesterday' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about talking about yesterday in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about talking about yesterday.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Talking About Yesterday': (Q2)",
-      "questionHindi": "'Talking About Yesterday' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Talking About Yesterday':",
+      "questionHindi": "'Talking About Yesterday' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 14? (Q4)",
-      "questionHindi": "मॉड्यूल 14 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 14 (Talking About Yesterday)? (Q5)",
-      "questionHindi": "मॉड्यूल 14 (Talking About Yesterday) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Talking About Yesterday'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About Yesterday' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about talking about yesterday in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Talking About Yesterday': (Q7)",
-      "questionHindi": "'Talking About Yesterday' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 14? (Q9)",
-      "questionHindi": "मॉड्यूल 14 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 14 (Talking About Yesterday)? (Q10)",
-      "questionHindi": "मॉड्यूल 14 (Talking About Yesterday) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Talking About Yesterday'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About Yesterday' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about talking about yesterday in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Talking About Yesterday': (Q12)",
-      "questionHindi": "'Talking About Yesterday' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 14? (Q14)",
-      "questionHindi": "मॉड्यूल 14 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 14 (Talking About Yesterday)? (Q15)",
-      "questionHindi": "मॉड्यूल 14 (Talking About Yesterday) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Talking About Yesterday'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About Yesterday' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about talking about yesterday in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Talking About Yesterday': (Q17)",
-      "questionHindi": "'Talking About Yesterday' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 14? (Q19)",
-      "questionHindi": "मॉड्यूल 14 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 14 (Talking About Yesterday)? (Q20)",
-      "questionHindi": "मॉड्यूल 14 (Talking About Yesterday) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Talking About Yesterday'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About Yesterday' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about talking about yesterday in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Talking About Yesterday': (Q22)",
-      "questionHindi": "'Talking About Yesterday' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 14? (Q24)",
-      "questionHindi": "मॉड्यूल 14 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 14 (Talking About Yesterday)? (Q25)",
-      "questionHindi": "मॉड्यूल 14 (Talking About Yesterday) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Talking About Yesterday'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About Yesterday' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about talking about yesterday in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Talking About Yesterday': (Q27)",
-      "questionHindi": "'Talking About Yesterday' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 14? (Q29)",
-      "questionHindi": "मॉड्यूल 14 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 14 (Talking About Yesterday)? (Q30)",
-      "questionHindi": "मॉड्यूल 14 (Talking About Yesterday) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -5070,361 +5070,361 @@ const HINDI_QUIZ_BANK = {
   "15": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Sharing Experiences'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Sharing Experiences' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Sharing Experiences'?",
+      "questionHindi": "'Sharing Experiences' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about sharing experiences in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about sharing experiences.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Sharing Experiences': (Q2)",
-      "questionHindi": "'Sharing Experiences' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Sharing Experiences':",
+      "questionHindi": "'Sharing Experiences' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 15? (Q4)",
-      "questionHindi": "मॉड्यूल 15 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 15 (Sharing Experiences)? (Q5)",
-      "questionHindi": "मॉड्यूल 15 (Sharing Experiences) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Sharing Experiences'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Sharing Experiences' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about sharing experiences in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Sharing Experiences': (Q7)",
-      "questionHindi": "'Sharing Experiences' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 15? (Q9)",
-      "questionHindi": "मॉड्यूल 15 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 15 (Sharing Experiences)? (Q10)",
-      "questionHindi": "मॉड्यूल 15 (Sharing Experiences) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Sharing Experiences'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Sharing Experiences' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about sharing experiences in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Sharing Experiences': (Q12)",
-      "questionHindi": "'Sharing Experiences' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 15? (Q14)",
-      "questionHindi": "मॉड्यूल 15 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 15 (Sharing Experiences)? (Q15)",
-      "questionHindi": "मॉड्यूल 15 (Sharing Experiences) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Sharing Experiences'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Sharing Experiences' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about sharing experiences in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Sharing Experiences': (Q17)",
-      "questionHindi": "'Sharing Experiences' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 15? (Q19)",
-      "questionHindi": "मॉड्यूल 15 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 15 (Sharing Experiences)? (Q20)",
-      "questionHindi": "मॉड्यूल 15 (Sharing Experiences) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Sharing Experiences'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Sharing Experiences' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about sharing experiences in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Sharing Experiences': (Q22)",
-      "questionHindi": "'Sharing Experiences' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 15? (Q24)",
-      "questionHindi": "मॉड्यूल 15 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 15 (Sharing Experiences)? (Q25)",
-      "questionHindi": "मॉड्यूल 15 (Sharing Experiences) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Sharing Experiences'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Sharing Experiences' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about sharing experiences in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Sharing Experiences': (Q27)",
-      "questionHindi": "'Sharing Experiences' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 15? (Q29)",
-      "questionHindi": "मॉड्यूल 15 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 15 (Sharing Experiences)? (Q30)",
-      "questionHindi": "मॉड्यूल 15 (Sharing Experiences) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -5432,361 +5432,361 @@ const HINDI_QUIZ_BANK = {
   "16": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Storytelling'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Storytelling' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Storytelling'?",
+      "questionHindi": "'Storytelling' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about storytelling in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about storytelling.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Storytelling': (Q2)",
-      "questionHindi": "'Storytelling' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Storytelling':",
+      "questionHindi": "'Storytelling' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 16? (Q4)",
-      "questionHindi": "मॉड्यूल 16 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 16 (Storytelling)? (Q5)",
-      "questionHindi": "मॉड्यूल 16 (Storytelling) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Storytelling'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Storytelling' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about storytelling in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Storytelling': (Q7)",
-      "questionHindi": "'Storytelling' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 16? (Q9)",
-      "questionHindi": "मॉड्यूल 16 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 16 (Storytelling)? (Q10)",
-      "questionHindi": "मॉड्यूल 16 (Storytelling) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Storytelling'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Storytelling' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about storytelling in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Storytelling': (Q12)",
-      "questionHindi": "'Storytelling' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 16? (Q14)",
-      "questionHindi": "मॉड्यूल 16 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 16 (Storytelling)? (Q15)",
-      "questionHindi": "मॉड्यूल 16 (Storytelling) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Storytelling'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Storytelling' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about storytelling in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Storytelling': (Q17)",
-      "questionHindi": "'Storytelling' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 16? (Q19)",
-      "questionHindi": "मॉड्यूल 16 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 16 (Storytelling)? (Q20)",
-      "questionHindi": "मॉड्यूल 16 (Storytelling) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Storytelling'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Storytelling' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about storytelling in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Storytelling': (Q22)",
-      "questionHindi": "'Storytelling' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 16? (Q24)",
-      "questionHindi": "मॉड्यूल 16 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 16 (Storytelling)? (Q25)",
-      "questionHindi": "मॉड्यूल 16 (Storytelling) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Storytelling'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Storytelling' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about storytelling in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Storytelling': (Q27)",
-      "questionHindi": "'Storytelling' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 16? (Q29)",
-      "questionHindi": "मॉड्यूल 16 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 16 (Storytelling)? (Q30)",
-      "questionHindi": "मॉड्यूल 16 (Storytelling) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -5794,361 +5794,361 @@ const HINDI_QUIZ_BANK = {
   "17": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Talking About Interrupted Actions'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About Interrupted Actions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Talking About Interrupted Actions'?",
+      "questionHindi": "'Talking About Interrupted Actions' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about talking about interrupted actions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about talking about interrupted actions.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Talking About Interrupted Actions': (Q2)",
-      "questionHindi": "'Talking About Interrupted Actions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Talking About Interrupted Actions':",
+      "questionHindi": "'Talking About Interrupted Actions' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 17? (Q4)",
-      "questionHindi": "मॉड्यूल 17 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 17 (Talking About Interrupted Actions)? (Q5)",
-      "questionHindi": "मॉड्यूल 17 (Talking About Interrupted Actions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Talking About Interrupted Actions'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About Interrupted Actions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about talking about interrupted actions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Talking About Interrupted Actions': (Q7)",
-      "questionHindi": "'Talking About Interrupted Actions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 17? (Q9)",
-      "questionHindi": "मॉड्यूल 17 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 17 (Talking About Interrupted Actions)? (Q10)",
-      "questionHindi": "मॉड्यूल 17 (Talking About Interrupted Actions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Talking About Interrupted Actions'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About Interrupted Actions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about talking about interrupted actions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Talking About Interrupted Actions': (Q12)",
-      "questionHindi": "'Talking About Interrupted Actions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 17? (Q14)",
-      "questionHindi": "मॉड्यूल 17 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 17 (Talking About Interrupted Actions)? (Q15)",
-      "questionHindi": "मॉड्यूल 17 (Talking About Interrupted Actions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Talking About Interrupted Actions'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About Interrupted Actions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about talking about interrupted actions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Talking About Interrupted Actions': (Q17)",
-      "questionHindi": "'Talking About Interrupted Actions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 17? (Q19)",
-      "questionHindi": "मॉड्यूल 17 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 17 (Talking About Interrupted Actions)? (Q20)",
-      "questionHindi": "मॉड्यूल 17 (Talking About Interrupted Actions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Talking About Interrupted Actions'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About Interrupted Actions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about talking about interrupted actions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Talking About Interrupted Actions': (Q22)",
-      "questionHindi": "'Talking About Interrupted Actions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 17? (Q24)",
-      "questionHindi": "मॉड्यूल 17 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 17 (Talking About Interrupted Actions)? (Q25)",
-      "questionHindi": "मॉड्यूल 17 (Talking About Interrupted Actions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Talking About Interrupted Actions'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Talking About Interrupted Actions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about talking about interrupted actions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Talking About Interrupted Actions': (Q27)",
-      "questionHindi": "'Talking About Interrupted Actions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 17? (Q29)",
-      "questionHindi": "मॉड्यूल 17 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 17 (Talking About Interrupted Actions)? (Q30)",
-      "questionHindi": "मॉड्यूल 17 (Talking About Interrupted Actions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -6156,361 +6156,361 @@ const HINDI_QUIZ_BANK = {
   "18": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Life Experiences'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Life Experiences' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Life Experiences'?",
+      "questionHindi": "'Life Experiences' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about life experiences in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about life experiences.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Life Experiences': (Q2)",
-      "questionHindi": "'Life Experiences' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Life Experiences':",
+      "questionHindi": "'Life Experiences' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 18? (Q4)",
-      "questionHindi": "मॉड्यूल 18 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 18 (Life Experiences)? (Q5)",
-      "questionHindi": "मॉड्यूल 18 (Life Experiences) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Life Experiences'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Life Experiences' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about life experiences in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Life Experiences': (Q7)",
-      "questionHindi": "'Life Experiences' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 18? (Q9)",
-      "questionHindi": "मॉड्यूल 18 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 18 (Life Experiences)? (Q10)",
-      "questionHindi": "मॉड्यूल 18 (Life Experiences) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Life Experiences'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Life Experiences' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about life experiences in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Life Experiences': (Q12)",
-      "questionHindi": "'Life Experiences' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 18? (Q14)",
-      "questionHindi": "मॉड्यूल 18 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 18 (Life Experiences)? (Q15)",
-      "questionHindi": "मॉड्यूल 18 (Life Experiences) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Life Experiences'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Life Experiences' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about life experiences in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Life Experiences': (Q17)",
-      "questionHindi": "'Life Experiences' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 18? (Q19)",
-      "questionHindi": "मॉड्यूल 18 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 18 (Life Experiences)? (Q20)",
-      "questionHindi": "मॉड्यूल 18 (Life Experiences) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Life Experiences'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Life Experiences' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about life experiences in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Life Experiences': (Q22)",
-      "questionHindi": "'Life Experiences' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 18? (Q24)",
-      "questionHindi": "मॉड्यूल 18 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 18 (Life Experiences)? (Q25)",
-      "questionHindi": "मॉड्यूल 18 (Life Experiences) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Life Experiences'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Life Experiences' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about life experiences in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Life Experiences': (Q27)",
-      "questionHindi": "'Life Experiences' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 18? (Q29)",
-      "questionHindi": "मॉड्यूल 18 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 18 (Life Experiences)? (Q30)",
-      "questionHindi": "मॉड्यूल 18 (Life Experiences) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -6518,361 +6518,361 @@ const HINDI_QUIZ_BANK = {
   "19": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Recent Activities'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Recent Activities' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Recent Activities'?",
+      "questionHindi": "'Recent Activities' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about recent activities in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about recent activities.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Recent Activities': (Q2)",
-      "questionHindi": "'Recent Activities' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Recent Activities':",
+      "questionHindi": "'Recent Activities' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 19? (Q4)",
-      "questionHindi": "मॉड्यूल 19 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 19 (Recent Activities)? (Q5)",
-      "questionHindi": "मॉड्यूल 19 (Recent Activities) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Recent Activities'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Recent Activities' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about recent activities in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Recent Activities': (Q7)",
-      "questionHindi": "'Recent Activities' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 19? (Q9)",
-      "questionHindi": "मॉड्यूल 19 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 19 (Recent Activities)? (Q10)",
-      "questionHindi": "मॉड्यूल 19 (Recent Activities) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Recent Activities'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Recent Activities' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about recent activities in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Recent Activities': (Q12)",
-      "questionHindi": "'Recent Activities' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 19? (Q14)",
-      "questionHindi": "मॉड्यूल 19 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 19 (Recent Activities)? (Q15)",
-      "questionHindi": "मॉड्यूल 19 (Recent Activities) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Recent Activities'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Recent Activities' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about recent activities in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Recent Activities': (Q17)",
-      "questionHindi": "'Recent Activities' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 19? (Q19)",
-      "questionHindi": "मॉड्यूल 19 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 19 (Recent Activities)? (Q20)",
-      "questionHindi": "मॉड्यूल 19 (Recent Activities) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Recent Activities'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Recent Activities' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about recent activities in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Recent Activities': (Q22)",
-      "questionHindi": "'Recent Activities' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 19? (Q24)",
-      "questionHindi": "मॉड्यूल 19 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 19 (Recent Activities)? (Q25)",
-      "questionHindi": "मॉड्यूल 19 (Recent Activities) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Recent Activities'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Recent Activities' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about recent activities in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Recent Activities': (Q27)",
-      "questionHindi": "'Recent Activities' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 19? (Q29)",
-      "questionHindi": "मॉड्यूल 19 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 19 (Recent Activities)? (Q30)",
-      "questionHindi": "मॉड्यूल 19 (Recent Activities) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -6880,361 +6880,361 @@ const HINDI_QUIZ_BANK = {
   "20": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Future Plans'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Future Plans' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Future Plans'?",
+      "questionHindi": "'Future Plans' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about future plans in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about future plans.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Future Plans': (Q2)",
-      "questionHindi": "'Future Plans' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Future Plans':",
+      "questionHindi": "'Future Plans' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 20? (Q4)",
-      "questionHindi": "मॉड्यूल 20 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 20 (Future Plans)? (Q5)",
-      "questionHindi": "मॉड्यूल 20 (Future Plans) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Future Plans'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Future Plans' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about future plans in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Future Plans': (Q7)",
-      "questionHindi": "'Future Plans' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 20? (Q9)",
-      "questionHindi": "मॉड्यूल 20 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 20 (Future Plans)? (Q10)",
-      "questionHindi": "मॉड्यूल 20 (Future Plans) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Future Plans'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Future Plans' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about future plans in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Future Plans': (Q12)",
-      "questionHindi": "'Future Plans' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 20? (Q14)",
-      "questionHindi": "मॉड्यूल 20 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 20 (Future Plans)? (Q15)",
-      "questionHindi": "मॉड्यूल 20 (Future Plans) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Future Plans'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Future Plans' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about future plans in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Future Plans': (Q17)",
-      "questionHindi": "'Future Plans' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 20? (Q19)",
-      "questionHindi": "मॉड्यूल 20 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 20 (Future Plans)? (Q20)",
-      "questionHindi": "मॉड्यूल 20 (Future Plans) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Future Plans'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Future Plans' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about future plans in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Future Plans': (Q22)",
-      "questionHindi": "'Future Plans' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 20? (Q24)",
-      "questionHindi": "मॉड्यूल 20 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 20 (Future Plans)? (Q25)",
-      "questionHindi": "मॉड्यूल 20 (Future Plans) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Future Plans'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Future Plans' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about future plans in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Future Plans': (Q27)",
-      "questionHindi": "'Future Plans' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 20? (Q29)",
-      "questionHindi": "मॉड्यूल 20 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 20 (Future Plans)? (Q30)",
-      "questionHindi": "मॉड्यूल 20 (Future Plans) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -7242,361 +7242,361 @@ const HINDI_QUIZ_BANK = {
   "21": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Promises And Predictions'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Promises And Predictions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Promises and Predictions'?",
+      "questionHindi": "'Promises and Predictions' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about promises and predictions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about promises and predictions.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Promises And Predictions': (Q2)",
-      "questionHindi": "'Promises And Predictions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Promises and Predictions':",
+      "questionHindi": "'Promises and Predictions' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 21? (Q4)",
-      "questionHindi": "मॉड्यूल 21 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 21 (Promises And Predictions)? (Q5)",
-      "questionHindi": "मॉड्यूल 21 (Promises And Predictions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Promises And Predictions'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Promises And Predictions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about promises and predictions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Promises And Predictions': (Q7)",
-      "questionHindi": "'Promises And Predictions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 21? (Q9)",
-      "questionHindi": "मॉड्यूल 21 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 21 (Promises And Predictions)? (Q10)",
-      "questionHindi": "मॉड्यूल 21 (Promises And Predictions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Promises And Predictions'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Promises And Predictions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about promises and predictions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Promises And Predictions': (Q12)",
-      "questionHindi": "'Promises And Predictions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 21? (Q14)",
-      "questionHindi": "मॉड्यूल 21 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 21 (Promises And Predictions)? (Q15)",
-      "questionHindi": "मॉड्यूल 21 (Promises And Predictions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Promises And Predictions'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Promises And Predictions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about promises and predictions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Promises And Predictions': (Q17)",
-      "questionHindi": "'Promises And Predictions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 21? (Q19)",
-      "questionHindi": "मॉड्यूल 21 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 21 (Promises And Predictions)? (Q20)",
-      "questionHindi": "मॉड्यूल 21 (Promises And Predictions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Promises And Predictions'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Promises And Predictions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about promises and predictions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Promises And Predictions': (Q22)",
-      "questionHindi": "'Promises And Predictions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 21? (Q24)",
-      "questionHindi": "मॉड्यूल 21 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 21 (Promises And Predictions)? (Q25)",
-      "questionHindi": "मॉड्यूल 21 (Promises And Predictions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Promises And Predictions'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Promises And Predictions' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about promises and predictions in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Promises And Predictions': (Q27)",
-      "questionHindi": "'Promises And Predictions' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 21? (Q29)",
-      "questionHindi": "मॉड्यूल 21 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 21 (Promises And Predictions)? (Q30)",
-      "questionHindi": "मॉड्यूल 21 (Promises And Predictions) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -7604,361 +7604,361 @@ const HINDI_QUIZ_BANK = {
   "22": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Future Activities'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Future Activities' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Future Activities'?",
+      "questionHindi": "'Future Activities' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about future activities in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about future activities.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Future Activities': (Q2)",
-      "questionHindi": "'Future Activities' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Future Activities':",
+      "questionHindi": "'Future Activities' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 22? (Q4)",
-      "questionHindi": "मॉड्यूल 22 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 22 (Future Activities)? (Q5)",
-      "questionHindi": "मॉड्यूल 22 (Future Activities) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Future Activities'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Future Activities' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about future activities in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Future Activities': (Q7)",
-      "questionHindi": "'Future Activities' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 22? (Q9)",
-      "questionHindi": "मॉड्यूल 22 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 22 (Future Activities)? (Q10)",
-      "questionHindi": "मॉड्यूल 22 (Future Activities) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Future Activities'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Future Activities' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about future activities in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Future Activities': (Q12)",
-      "questionHindi": "'Future Activities' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 22? (Q14)",
-      "questionHindi": "मॉड्यूल 22 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 22 (Future Activities)? (Q15)",
-      "questionHindi": "मॉड्यूल 22 (Future Activities) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Future Activities'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Future Activities' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about future activities in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Future Activities': (Q17)",
-      "questionHindi": "'Future Activities' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 22? (Q19)",
-      "questionHindi": "मॉड्यूल 22 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 22 (Future Activities)? (Q20)",
-      "questionHindi": "मॉड्यूल 22 (Future Activities) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Future Activities'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Future Activities' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about future activities in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Future Activities': (Q22)",
-      "questionHindi": "'Future Activities' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 22? (Q24)",
-      "questionHindi": "मॉड्यूल 22 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 22 (Future Activities)? (Q25)",
-      "questionHindi": "मॉड्यूल 22 (Future Activities) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Future Activities'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Future Activities' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about future activities in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Future Activities': (Q27)",
-      "questionHindi": "'Future Activities' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 22? (Q29)",
-      "questionHindi": "मॉड्यूल 22 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 22 (Future Activities)? (Q30)",
-      "questionHindi": "मॉड्यूल 22 (Future Activities) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -7966,361 +7966,361 @@ const HINDI_QUIZ_BANK = {
   "23": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Actions Continuing Until Now'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Actions Continuing Until Now' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Actions Continuing Until Now'?",
+      "questionHindi": "'Actions Continuing Until Now' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about actions continuing until now in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about actions continuing until now.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Actions Continuing Until Now': (Q2)",
-      "questionHindi": "'Actions Continuing Until Now' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Actions Continuing Until Now':",
+      "questionHindi": "'Actions Continuing Until Now' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 23? (Q4)",
-      "questionHindi": "मॉड्यूल 23 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 23 (Actions Continuing Until Now)? (Q5)",
-      "questionHindi": "मॉड्यूल 23 (Actions Continuing Until Now) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Actions Continuing Until Now'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Actions Continuing Until Now' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about actions continuing until now in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Actions Continuing Until Now': (Q7)",
-      "questionHindi": "'Actions Continuing Until Now' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 23? (Q9)",
-      "questionHindi": "मॉड्यूल 23 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 23 (Actions Continuing Until Now)? (Q10)",
-      "questionHindi": "मॉड्यूल 23 (Actions Continuing Until Now) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Actions Continuing Until Now'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Actions Continuing Until Now' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about actions continuing until now in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Actions Continuing Until Now': (Q12)",
-      "questionHindi": "'Actions Continuing Until Now' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 23? (Q14)",
-      "questionHindi": "मॉड्यूल 23 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 23 (Actions Continuing Until Now)? (Q15)",
-      "questionHindi": "मॉड्यूल 23 (Actions Continuing Until Now) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Actions Continuing Until Now'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Actions Continuing Until Now' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about actions continuing until now in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Actions Continuing Until Now': (Q17)",
-      "questionHindi": "'Actions Continuing Until Now' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 23? (Q19)",
-      "questionHindi": "मॉड्यूल 23 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 23 (Actions Continuing Until Now)? (Q20)",
-      "questionHindi": "मॉड्यूल 23 (Actions Continuing Until Now) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Actions Continuing Until Now'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Actions Continuing Until Now' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about actions continuing until now in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Actions Continuing Until Now': (Q22)",
-      "questionHindi": "'Actions Continuing Until Now' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 23? (Q24)",
-      "questionHindi": "मॉड्यूल 23 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 23 (Actions Continuing Until Now)? (Q25)",
-      "questionHindi": "मॉड्यूल 23 (Actions Continuing Until Now) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Actions Continuing Until Now'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Actions Continuing Until Now' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about actions continuing until now in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Actions Continuing Until Now': (Q27)",
-      "questionHindi": "'Actions Continuing Until Now' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 23? (Q29)",
-      "questionHindi": "मॉड्यूल 23 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 23 (Actions Continuing Until Now)? (Q30)",
-      "questionHindi": "मॉड्यूल 23 (Actions Continuing Until Now) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -8328,361 +8328,361 @@ const HINDI_QUIZ_BANK = {
   "24": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Shopping'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Shopping' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Shopping'?",
+      "questionHindi": "'Shopping' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about shopping in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about shopping.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Shopping': (Q2)",
-      "questionHindi": "'Shopping' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Shopping':",
+      "questionHindi": "'Shopping' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 24? (Q4)",
-      "questionHindi": "मॉड्यूल 24 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 24 (Shopping)? (Q5)",
-      "questionHindi": "मॉड्यूल 24 (Shopping) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Shopping'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Shopping' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about shopping in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Shopping': (Q7)",
-      "questionHindi": "'Shopping' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 24? (Q9)",
-      "questionHindi": "मॉड्यूल 24 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 24 (Shopping)? (Q10)",
-      "questionHindi": "मॉड्यूल 24 (Shopping) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Shopping'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Shopping' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about shopping in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Shopping': (Q12)",
-      "questionHindi": "'Shopping' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 24? (Q14)",
-      "questionHindi": "मॉड्यूल 24 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 24 (Shopping)? (Q15)",
-      "questionHindi": "मॉड्यूल 24 (Shopping) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Shopping'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Shopping' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about shopping in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Shopping': (Q17)",
-      "questionHindi": "'Shopping' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 24? (Q19)",
-      "questionHindi": "मॉड्यूल 24 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 24 (Shopping)? (Q20)",
-      "questionHindi": "मॉड्यूल 24 (Shopping) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Shopping'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Shopping' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about shopping in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Shopping': (Q22)",
-      "questionHindi": "'Shopping' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 24? (Q24)",
-      "questionHindi": "मॉड्यूल 24 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 24 (Shopping)? (Q25)",
-      "questionHindi": "मॉड्यूल 24 (Shopping) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Shopping'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Shopping' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about shopping in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Shopping': (Q27)",
-      "questionHindi": "'Shopping' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 24? (Q29)",
-      "questionHindi": "मॉड्यूल 24 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 24 (Shopping)? (Q30)",
-      "questionHindi": "मॉड्यूल 24 (Shopping) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -8690,361 +8690,361 @@ const HINDI_QUIZ_BANK = {
   "25": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Restaurant'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Restaurant' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Restaurant'?",
+      "questionHindi": "'Restaurant' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about restaurant in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about restaurant.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Restaurant': (Q2)",
-      "questionHindi": "'Restaurant' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Restaurant':",
+      "questionHindi": "'Restaurant' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 25? (Q4)",
-      "questionHindi": "मॉड्यूल 25 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 25 (Restaurant)? (Q5)",
-      "questionHindi": "मॉड्यूल 25 (Restaurant) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Restaurant'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Restaurant' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about restaurant in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Restaurant': (Q7)",
-      "questionHindi": "'Restaurant' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 25? (Q9)",
-      "questionHindi": "मॉड्यूल 25 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 25 (Restaurant)? (Q10)",
-      "questionHindi": "मॉड्यूल 25 (Restaurant) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Restaurant'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Restaurant' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about restaurant in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Restaurant': (Q12)",
-      "questionHindi": "'Restaurant' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 25? (Q14)",
-      "questionHindi": "मॉड्यूल 25 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 25 (Restaurant)? (Q15)",
-      "questionHindi": "मॉड्यूल 25 (Restaurant) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Restaurant'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Restaurant' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about restaurant in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Restaurant': (Q17)",
-      "questionHindi": "'Restaurant' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 25? (Q19)",
-      "questionHindi": "मॉड्यूल 25 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 25 (Restaurant)? (Q20)",
-      "questionHindi": "मॉड्यूल 25 (Restaurant) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Restaurant'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Restaurant' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about restaurant in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Restaurant': (Q22)",
-      "questionHindi": "'Restaurant' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 25? (Q24)",
-      "questionHindi": "मॉड्यूल 25 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 25 (Restaurant)? (Q25)",
-      "questionHindi": "मॉड्यूल 25 (Restaurant) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Restaurant'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Restaurant' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about restaurant in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Restaurant': (Q27)",
-      "questionHindi": "'Restaurant' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 25? (Q29)",
-      "questionHindi": "मॉड्यूल 25 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 25 (Restaurant)? (Q30)",
-      "questionHindi": "मॉड्यूल 25 (Restaurant) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -9052,361 +9052,361 @@ const HINDI_QUIZ_BANK = {
   "26": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Travel'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Travel' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Travel'?",
+      "questionHindi": "'Travel' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about travel in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about travel.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Travel': (Q2)",
-      "questionHindi": "'Travel' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Travel':",
+      "questionHindi": "'Travel' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 26? (Q4)",
-      "questionHindi": "मॉड्यूल 26 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 26 (Travel)? (Q5)",
-      "questionHindi": "मॉड्यूल 26 (Travel) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Travel'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Travel' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about travel in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Travel': (Q7)",
-      "questionHindi": "'Travel' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 26? (Q9)",
-      "questionHindi": "मॉड्यूल 26 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 26 (Travel)? (Q10)",
-      "questionHindi": "मॉड्यूल 26 (Travel) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Travel'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Travel' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about travel in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Travel': (Q12)",
-      "questionHindi": "'Travel' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 26? (Q14)",
-      "questionHindi": "मॉड्यूल 26 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 26 (Travel)? (Q15)",
-      "questionHindi": "मॉड्यूल 26 (Travel) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Travel'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Travel' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about travel in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Travel': (Q17)",
-      "questionHindi": "'Travel' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 26? (Q19)",
-      "questionHindi": "मॉड्यूल 26 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 26 (Travel)? (Q20)",
-      "questionHindi": "मॉड्यूल 26 (Travel) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Travel'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Travel' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about travel in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Travel': (Q22)",
-      "questionHindi": "'Travel' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 26? (Q24)",
-      "questionHindi": "मॉड्यूल 26 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 26 (Travel)? (Q25)",
-      "questionHindi": "मॉड्यूल 26 (Travel) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Travel'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Travel' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about travel in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Travel': (Q27)",
-      "questionHindi": "'Travel' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 26? (Q29)",
-      "questionHindi": "मॉड्यूल 26 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 26 (Travel)? (Q30)",
-      "questionHindi": "मॉड्यूल 26 (Travel) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -9414,361 +9414,361 @@ const HINDI_QUIZ_BANK = {
   "27": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Phone Conversation'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Phone Conversation' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Phone Conversation'?",
+      "questionHindi": "'Phone Conversation' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about phone conversation in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about phone conversation.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Phone Conversation': (Q2)",
-      "questionHindi": "'Phone Conversation' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Phone Conversation':",
+      "questionHindi": "'Phone Conversation' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 27? (Q4)",
-      "questionHindi": "मॉड्यूल 27 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 27 (Phone Conversation)? (Q5)",
-      "questionHindi": "मॉड्यूल 27 (Phone Conversation) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Phone Conversation'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Phone Conversation' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about phone conversation in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Phone Conversation': (Q7)",
-      "questionHindi": "'Phone Conversation' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 27? (Q9)",
-      "questionHindi": "मॉड्यूल 27 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 27 (Phone Conversation)? (Q10)",
-      "questionHindi": "मॉड्यूल 27 (Phone Conversation) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Phone Conversation'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Phone Conversation' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about phone conversation in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Phone Conversation': (Q12)",
-      "questionHindi": "'Phone Conversation' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 27? (Q14)",
-      "questionHindi": "मॉड्यूल 27 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 27 (Phone Conversation)? (Q15)",
-      "questionHindi": "मॉड्यूल 27 (Phone Conversation) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Phone Conversation'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Phone Conversation' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about phone conversation in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Phone Conversation': (Q17)",
-      "questionHindi": "'Phone Conversation' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 27? (Q19)",
-      "questionHindi": "मॉड्यूल 27 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 27 (Phone Conversation)? (Q20)",
-      "questionHindi": "मॉड्यूल 27 (Phone Conversation) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Phone Conversation'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Phone Conversation' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about phone conversation in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Phone Conversation': (Q22)",
-      "questionHindi": "'Phone Conversation' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 27? (Q24)",
-      "questionHindi": "मॉड्यूल 27 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 27 (Phone Conversation)? (Q25)",
-      "questionHindi": "मॉड्यूल 27 (Phone Conversation) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Phone Conversation'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Phone Conversation' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about phone conversation in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Phone Conversation': (Q27)",
-      "questionHindi": "'Phone Conversation' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 27? (Q29)",
-      "questionHindi": "मॉड्यूल 27 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 27 (Phone Conversation)? (Q30)",
-      "questionHindi": "मॉड्यूल 27 (Phone Conversation) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -9776,361 +9776,361 @@ const HINDI_QUIZ_BANK = {
   "28": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Job Interview'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Job Interview' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Job Interview'?",
+      "questionHindi": "'Job Interview' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about job interview in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about job interview.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Job Interview': (Q2)",
-      "questionHindi": "'Job Interview' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Job Interview':",
+      "questionHindi": "'Job Interview' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 28? (Q4)",
-      "questionHindi": "मॉड्यूल 28 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 28 (Job Interview)? (Q5)",
-      "questionHindi": "मॉड्यूल 28 (Job Interview) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Job Interview'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Job Interview' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about job interview in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Job Interview': (Q7)",
-      "questionHindi": "'Job Interview' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 28? (Q9)",
-      "questionHindi": "मॉड्यूल 28 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 28 (Job Interview)? (Q10)",
-      "questionHindi": "मॉड्यूल 28 (Job Interview) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Job Interview'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Job Interview' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about job interview in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Job Interview': (Q12)",
-      "questionHindi": "'Job Interview' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 28? (Q14)",
-      "questionHindi": "मॉड्यूल 28 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 28 (Job Interview)? (Q15)",
-      "questionHindi": "मॉड्यूल 28 (Job Interview) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Job Interview'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Job Interview' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about job interview in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Job Interview': (Q17)",
-      "questionHindi": "'Job Interview' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 28? (Q19)",
-      "questionHindi": "मॉड्यूल 28 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 28 (Job Interview)? (Q20)",
-      "questionHindi": "मॉड्यूल 28 (Job Interview) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Job Interview'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Job Interview' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about job interview in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Job Interview': (Q22)",
-      "questionHindi": "'Job Interview' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 28? (Q24)",
-      "questionHindi": "मॉड्यूल 28 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 28 (Job Interview)? (Q25)",
-      "questionHindi": "मॉड्यूल 28 (Job Interview) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Job Interview'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Job Interview' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about job interview in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Job Interview': (Q27)",
-      "questionHindi": "'Job Interview' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 28? (Q29)",
-      "questionHindi": "मॉड्यूल 28 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 28 (Job Interview)? (Q30)",
-      "questionHindi": "मॉड्यूल 28 (Job Interview) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -10138,361 +10138,361 @@ const HINDI_QUIZ_BANK = {
   "29": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Business And Office Communication'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Business And Office Communication' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Business and Office Communication'?",
+      "questionHindi": "'Business and Office Communication' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about business and office communication in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about business and office communication.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Business And Office Communication': (Q2)",
-      "questionHindi": "'Business And Office Communication' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Business and Office Communication':",
+      "questionHindi": "'Business and Office Communication' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 29? (Q4)",
-      "questionHindi": "मॉड्यूल 29 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 29 (Business And Office Communication)? (Q5)",
-      "questionHindi": "मॉड्यूल 29 (Business And Office Communication) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Business And Office Communication'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Business And Office Communication' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about business and office communication in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Business And Office Communication': (Q7)",
-      "questionHindi": "'Business And Office Communication' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 29? (Q9)",
-      "questionHindi": "मॉड्यूल 29 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 29 (Business And Office Communication)? (Q10)",
-      "questionHindi": "मॉड्यूल 29 (Business And Office Communication) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Business And Office Communication'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Business And Office Communication' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about business and office communication in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Business And Office Communication': (Q12)",
-      "questionHindi": "'Business And Office Communication' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 29? (Q14)",
-      "questionHindi": "मॉड्यूल 29 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 29 (Business And Office Communication)? (Q15)",
-      "questionHindi": "मॉड्यूल 29 (Business And Office Communication) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Business And Office Communication'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Business And Office Communication' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about business and office communication in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Business And Office Communication': (Q17)",
-      "questionHindi": "'Business And Office Communication' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 29? (Q19)",
-      "questionHindi": "मॉड्यूल 29 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 29 (Business And Office Communication)? (Q20)",
-      "questionHindi": "मॉड्यूल 29 (Business And Office Communication) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Business And Office Communication'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Business And Office Communication' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about business and office communication in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Business And Office Communication': (Q22)",
-      "questionHindi": "'Business And Office Communication' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 29? (Q24)",
-      "questionHindi": "मॉड्यूल 29 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 29 (Business And Office Communication)? (Q25)",
-      "questionHindi": "मॉड्यूल 29 (Business And Office Communication) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Business And Office Communication'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Business And Office Communication' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about business and office communication in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Business And Office Communication': (Q27)",
-      "questionHindi": "'Business And Office Communication' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 29? (Q29)",
-      "questionHindi": "मॉड्यूल 29 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 29 (Business And Office Communication)? (Q30)",
-      "questionHindi": "मॉड्यूल 29 (Business And Office Communication) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }
@@ -10500,361 +10500,361 @@ const HINDI_QUIZ_BANK = {
   "30": [
     {
       "id": 1,
-      "question": "Which English sentence best fits the lesson topic 'Real Life English Challenge'? (Q1)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Real Life English Challenge' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 1)",
+      "question": "Which sentence correctly expresses the primary focus of 'Real Life English Challenge'?",
+      "questionHindi": "'Real Life English Challenge' के मुख्य विषय को सही ढंग से व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "A) I can speak about real life english challenge in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I can communicate naturally and confidently about real life english challenge.",
+        "B) The table was flying across the river.",
+        "C) Yesterday is very green and loud.",
+        "D) She very book reads tomorrow."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Choose the grammatically correct English sentence for 'Real Life English Challenge': (Q2)",
-      "questionHindi": "'Real Life English Challenge' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 2)",
+      "question": "Identify the grammatically accurate English sentence related to 'Real Life English Challenge':",
+      "questionHindi": "'Real Life English Challenge' से संबंधित व्याकरण की दृष्टि से सही वाक्य पहचानें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) We practice spoken English every day to improve our fluency.",
+        "B) We practicing spoken English every day improve fluency.",
+        "C) We is practice spoken English daily.",
+        "D) Every day we spoken English practice."
       ],
       "correctIndex": 0
     },
     {
       "id": 3,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q3)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 3)",
+      "question": "Translate to English: 'मैं इस विषय को अच्छी तरह समझता हूँ।'",
+      "questionHindi": "अंग्रेजी अनुवाद चुनें: 'मैं इस विषय को अच्छी तरह समझता हूँ।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I understand this topic very well.",
+        "B) I understanding this topic good.",
+        "C) I am understand this topic well.",
+        "D) Topic understand me very well."
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "Which word is essential when forming a complete sentence in Module 30? (Q4)",
-      "questionHindi": "मॉड्यूल 30 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 4)",
+      "question": "Which helping verb is used with 'He' or 'She' in the present tense?",
+      "questionHindi": "वर्तमान काल में 'He' या 'She' के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) were"
       ],
       "correctIndex": 0
     },
     {
       "id": 5,
-      "question": "What is the best daily practice habit for Module 30 (Real Life English Challenge)? (Q5)",
-      "questionHindi": "मॉड्यूल 30 (Real Life English Challenge) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 5)",
+      "question": "Which helping verb is used with plural subjects like 'We' or 'They'?",
+      "questionHindi": "'We' या 'They' जैसे बहुवचन कर्ताओं के साथ कौन सी सहायक क्रिया प्रयुक्त होती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "Which English sentence best fits the lesson topic 'Real Life English Challenge'? (Q6)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Real Life English Challenge' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 6)",
+      "question": "Complete the sentence: 'Practice makes a person ___.'",
+      "questionHindi": "कहावत पूरी करें: 'Practice makes a person ___.'",
       "options": [
-        "A) I can speak about real life english challenge in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) perfect",
+        "B) confused",
+        "C) tired",
+        "D) delayed"
       ],
       "correctIndex": 0
     },
     {
       "id": 7,
-      "question": "Choose the grammatically correct English sentence for 'Real Life English Challenge': (Q7)",
-      "questionHindi": "'Real Life English Challenge' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 7)",
+      "question": "Choose the correct negative sentence:",
+      "questionHindi": "सही नकारात्मक वाक्य चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) I do not understand this word.",
+        "B) I does not understand this word.",
+        "C) I not understand this word.",
+        "D) I am not understand this word."
       ],
       "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q8)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 8)",
+      "question": "Which question word is used to ask for a reason?",
+      "questionHindi": "कारण पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 9,
-      "question": "Which word is essential when forming a complete sentence in Module 30? (Q9)",
-      "questionHindi": "मॉड्यूल 30 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 9)",
+      "question": "Which question word is used to ask for a time?",
+      "questionHindi": "समय पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) When",
+        "B) Where",
+        "C) Why",
+        "D) Which"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the best daily practice habit for Module 30 (Real Life English Challenge)? (Q10)",
-      "questionHindi": "मॉड्यूल 30 (Real Life English Challenge) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 10)",
+      "question": "Which question word is used to ask for a location?",
+      "questionHindi": "स्थान पूछने के लिए किस प्रश्नवाचक शब्द का प्रयोग किया जाता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Where",
+        "B) What",
+        "C) When",
+        "D) Who"
       ],
       "correctIndex": 0
     },
     {
       "id": 11,
-      "question": "Which English sentence best fits the lesson topic 'Real Life English Challenge'? (Q11)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Real Life English Challenge' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 11)",
+      "question": "Translate to English: 'कृपया मुझे एक गिलास पानी दें।'",
+      "questionHindi": "अंग्रेजी में अनुवाद करें: 'कृपया मुझे एक गिलास पानी दें।'",
       "options": [
-        "A) I can speak about real life english challenge in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) Please give me a glass of water.",
+        "B) Give glass water please me.",
+        "C) I want water please give.",
+        "D) Water glass give me please."
       ],
       "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "Choose the grammatically correct English sentence for 'Real Life English Challenge': (Q12)",
-      "questionHindi": "'Real Life English Challenge' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 12)",
+      "question": "Which sentence shows a polite English request?",
+      "questionHindi": "कौन सा वाक्य एक विनम्र अंग्रेजी अनुरोध दर्शाता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) Could you please repeat that?",
+        "B) Speak again now!",
+        "C) What you said repeat!",
+        "D) Tell again fast!"
       ],
       "correctIndex": 0
     },
     {
       "id": 13,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q13)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 13)",
+      "question": "Complete the sentence: 'She has been working here ___ two years.'",
+      "questionHindi": "वाक्य पूरा करें: 'She has been working here ___ two years.'",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) for",
+        "B) since",
+        "C) from",
+        "D) during"
       ],
       "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Which word is essential when forming a complete sentence in Module 30? (Q14)",
-      "questionHindi": "मॉड्यूल 30 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 14)",
+      "question": "Complete the sentence: 'He has lived in this city ___ 2018.'",
+      "questionHindi": "वाक्य पूरा करें: 'He has lived in this city ___ 2018.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) since",
+        "B) for",
+        "C) in",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 15,
-      "question": "What is the best daily practice habit for Module 30 (Real Life English Challenge)? (Q15)",
-      "questionHindi": "मॉड्यूल 30 (Real Life English Challenge) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 15)",
+      "question": "Which modal verb expresses strong necessity or duty?",
+      "questionHindi": "कौन सी मॉडल क्रिया दृढ़ आवश्यकता या कर्तव्य को व्यक्त करती है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) must",
+        "B) might",
+        "C) could",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "Which English sentence best fits the lesson topic 'Real Life English Challenge'? (Q16)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Real Life English Challenge' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 16)",
+      "question": "Which modal verb expresses polite advice?",
+      "questionHindi": "कौन सी मॉडल क्रिया विनम्र सलाह व्यक्त करती है?",
       "options": [
-        "A) I can speak about real life english challenge in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) should",
+        "B) shall",
+        "C) might",
+        "D) must to"
       ],
       "correctIndex": 0
     },
     {
       "id": 17,
-      "question": "Choose the grammatically correct English sentence for 'Real Life English Challenge': (Q17)",
-      "questionHindi": "'Real Life English Challenge' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 17)",
+      "question": "Choose the correct past tense of the verb 'go':",
+      "questionHindi": "'Go' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) went",
+        "B) goed",
+        "C) gone",
+        "D) going"
       ],
       "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q18)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 18)",
+      "question": "Choose the correct past tense of the verb 'see':",
+      "questionHindi": "'See' क्रिया का सही भूतकाल (Past Tense) चुनें:",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) saw",
+        "B) seed",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 0
     },
     {
       "id": 19,
-      "question": "Which word is essential when forming a complete sentence in Module 30? (Q19)",
-      "questionHindi": "मॉड्यूल 30 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 19)",
+      "question": "Choose the correct past participle (V3) of 'write':",
+      "questionHindi": "'Write' क्रिया का सही तीसरा रूप (V3) चुनें:",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) written",
+        "B) wrote",
+        "C) writed",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the best daily practice habit for Module 30 (Real Life English Challenge)? (Q20)",
-      "questionHindi": "मॉड्यूल 30 (Real Life English Challenge) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 20)",
+      "question": "Translate to English: 'चिंता मत करो, सब ठीक हो जाएगा।'",
+      "questionHindi": "अनुवाद करें: 'चिंता मत करो, सब ठीक हो जाएगा।",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Don't worry, everything will be fine.",
+        "B) Not worry, everything good is.",
+        "C) Worry no, all fine will.",
+        "D) Everything fine worry not."
       ],
       "correctIndex": 0
     },
     {
       "id": 21,
-      "question": "Which English sentence best fits the lesson topic 'Real Life English Challenge'? (Q21)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Real Life English Challenge' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 21)",
+      "question": "Which phrase is used to apologize politely?",
+      "questionHindi": "विनम्रतापूर्वक क्षमा माँगने के लिए किस वाक्यांश का प्रयोग किया जाता है?",
       "options": [
-        "A) I can speak about real life english challenge in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) I am extremely sorry for the inconvenience.",
+        "B) It my fault forget it.",
+        "C) No problem for me.",
+        "D) Why you complain?"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the grammatically correct English sentence for 'Real Life English Challenge': (Q22)",
-      "questionHindi": "'Real Life English Challenge' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 22)",
+      "question": "What is the correct English response to 'Thank you so much!'?",
+      "questionHindi": "'Thank you so much!' का सही अंग्रेजी उत्तर क्या है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) You are most welcome!",
+        "B) Yes I know.",
+        "C) That is okay for me.",
+        "D) Welcome you."
       ],
       "correctIndex": 0
     },
     {
       "id": 23,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q23)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 23)",
+      "question": "Which sentence expresses future certainty?",
+      "questionHindi": "कौन सा वाक्य भविष्य की निश्चितता व्यक्त करता है?",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I will definitely attend the session tomorrow.",
+        "B) I attended the session yesterday.",
+        "C) I attending session now.",
+        "D) I was attend session."
       ],
       "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word is essential when forming a complete sentence in Module 30? (Q24)",
-      "questionHindi": "मॉड्यूल 30 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 24)",
+      "question": "Complete the sentence: 'She is fond ___ listening to music.'",
+      "questionHindi": "वाक्य पूरा करें: 'She is fond ___ listening to music.'",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) of",
+        "B) in",
+        "C) at",
+        "D) with"
       ],
       "correctIndex": 0
     },
     {
       "id": 25,
-      "question": "What is the best daily practice habit for Module 30 (Real Life English Challenge)? (Q25)",
-      "questionHindi": "मॉड्यूल 30 (Real Life English Challenge) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 25)",
+      "question": "Which preposition is used for specific clock times (e.g., 5 PM)?",
+      "questionHindi": "निश्चित घड़ी के समय (जैसे 5 PM) के लिए किस पूर्वसर्ग (preposition) का प्रयोग होता है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) by"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "Which English sentence best fits the lesson topic 'Real Life English Challenge'? (Q26)",
-      "questionHindi": "कौन सा अंग्रेजी वाक्य 'Real Life English Challenge' पाठ विषय के लिए सबसे उपयुक्त है? (प्रश्न 26)",
+      "question": "Which preposition is used for days of the week (e.g., Monday)?",
+      "questionHindi": "सप्ताह के दिनों (जैसे Monday) के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) I can speak about real life english challenge in clear English.",
-        "B) Yesterday is blue and table.",
-        "C) The books are running quickly.",
-        "D) She very happy is tomorrow."
+        "A) on",
+        "B) in",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Choose the grammatically correct English sentence for 'Real Life English Challenge': (Q27)",
-      "questionHindi": "'Real Life English Challenge' के लिए व्याकरण की दृष्टि से सही अंग्रेजी वाक्य चुनें: (प्रश्न 27)",
+      "question": "Which preposition is used for months and years (e.g., July, 2026)?",
+      "questionHindi": "महीनों और वर्षों के लिए किस पूर्वसर्ग का प्रयोग होता है?",
       "options": [
-        "A) She speaks clearly and confidently.",
-        "B) She speak clearly and confident.",
-        "C) She speaking clear and confidence.",
-        "D) She are speak clearly."
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
       "id": 28,
-      "question": "Choose the correct Hindi translation of 'I understand this concept clearly.' (Q28)",
-      "questionHindi": "'I understand this concept clearly.' का सही हिंदी अनुवाद चुनें: (प्रश्न 28)",
+      "question": "Translate: 'मुझे अंग्रेजी बोलना बहुत पसंद है।'",
+      "questionHindi": "अनुवाद करें: 'मुझे अंग्रेजी बोलना बहुत पसंद है।",
       "options": [
-        "A) मैं इस अवधारणा को स्पष्ट रूप से समझता/समझती हूँ।",
-        "B) मैं कल बाजार जाऊँगा।",
-        "C) मुझे भूख लग रही है।",
-        "D) वह अंग्रेजी बोल रहा है।"
+        "A) I love speaking English.",
+        "B) English speak I love.",
+        "C) I am speak English love.",
+        "D) Me English speak love."
       ],
       "correctIndex": 0
     },
     {
       "id": 29,
-      "question": "Which word is essential when forming a complete sentence in Module 30? (Q29)",
-      "questionHindi": "मॉड्यूल 30 में एक पूरा वाक्य बनाने के लिए कौन सा शब्द आवश्यक है? (प्रश्न 29)",
+      "question": "Which sentence is in the Present Continuous tense?",
+      "questionHindi": "कौन सा वाक्य Present Continuous tense में है?",
       "options": [
-        "A) A main verb or helping verb",
-        "B) Only punctuation marks",
-        "C) Only numbers",
-        "D) Only capital letters"
+        "A) They are discussing an important project.",
+        "B) They discussed an important project.",
+        "C) They discuss an important project.",
+        "D) They will discuss an important project."
       ],
       "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "What is the best daily practice habit for Module 30 (Real Life English Challenge)? (Q30)",
-      "questionHindi": "मॉड्यूल 30 (Real Life English Challenge) के लिए सबसे अच्छी दैनिक अभ्यास आदत क्या है? (प्रश्न 30)",
+      "question": "What is the most effective way to achieve English speaking fluency?",
+      "questionHindi": "अंग्रेजी बोलने में प्रवाह (fluency) हासिल करने का सबसे प्रभावी तरीका क्या है?",
       "options": [
-        "A) Speak sentences aloud and practice with AI Coach or friends.",
-        "B) Memorize grammar without speaking.",
-        "C) Avoid practicing English completely.",
-        "D) Skip reading and listening."
+        "A) Practice speaking English consistently every single day.",
+        "B) Only memorize grammar rules without speaking aloud.",
+        "C) Avoid conversations completely until you are 100% perfect.",
+        "D) Read books silently without ever pronouncing words."
       ],
       "correctIndex": 0
     }

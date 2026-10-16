@@ -3887,52 +3887,131 @@
                               </div>
                             </div>
                           </div>
-                          <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
-                            <button
-                              onClick={() => setShowAiPromptModal(true)}
-                              className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center space-x-1.5"
-                            >
-                              <span>⚡ Paste AI Progress Code</span>
-                            </button>
-                            <button
-                              onClick={() => handleOpenStudentHistory(currentUser)}
-                              className="px-4 py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center space-x-1.5"
-                            >
-                              <span>📊 View My History</span>
-                            </button>
-                          </div>
+                        </div>
+
+                        {/* Quick Student Actions: Side-by-side in a single clean horizontal line */}
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+                          {/* 1. I Need A Trainer */}
+                          <button
+                            type="button"
+                            onClick={() => setShowTrainerModal(true)}
+                            className="p-3 sm:p-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-xs rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 ease-out transform hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] flex items-center justify-center space-x-2 border border-emerald-400/30 cursor-pointer"
+                            title="I Need A Trainer Support"
+                          >
+                            <span className="text-base sm:text-lg">💬</span>
+                            <span className="tracking-wide uppercase text-[11px] sm:text-xs">I Need A Trainer</span>
+                          </button>
+
+                          {/* 2. AI Mission Practice */}
+                          <button
+                            type="button"
+                            onClick={() => setShowAiPromptModal(true)}
+                            className="p-3 sm:p-3.5 bg-gradient-to-r from-purple-700 via-indigo-700 to-purple-800 hover:from-purple-600 hover:to-indigo-600 text-white font-extrabold text-xs rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 ease-out transform hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] flex items-center justify-center space-x-2 border border-purple-400/30 cursor-pointer"
+                            title="Mastered AI Coach & Prompts"
+                          >
+                            <span className="text-base sm:text-lg">🤖</span>
+                            <span className="tracking-wide uppercase text-[11px] sm:text-xs">AI Mission Practice</span>
+                          </button>
+
+                          {/* 3. Paste AI Progress Code */}
+                          <button
+                            type="button"
+                            onClick={() => setShowAiPromptModal(true)}
+                            className="p-3 sm:p-3.5 bg-slate-900 hover:bg-slate-800 text-amber-300 font-extrabold text-xs rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 ease-out transform hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] flex items-center justify-center space-x-2 border border-slate-700 cursor-pointer"
+                            title="Paste MCL Encrypted Code"
+                          >
+                            <span className="text-base sm:text-lg">⚡</span>
+                            <span className="tracking-wide uppercase text-[11px] sm:text-xs text-white">Paste AI Code</span>
+                          </button>
+
+                          {/* 4. View My History */}
+                          <button
+                            type="button"
+                            onClick={() => handleOpenStudentHistory(currentUser)}
+                            className="p-3 sm:p-3.5 bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white font-extrabold text-xs rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 ease-out transform hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] flex items-center justify-center space-x-2 border border-red-400/30 cursor-pointer"
+                            title="View Detailed Student History & Quiz Scores"
+                          >
+                            <span className="text-base sm:text-lg">📊</span>
+                            <span className="tracking-wide uppercase text-[11px] sm:text-xs">View My History</span>
+                          </button>
                         </div>
 
                         {/* 3 Live Analytics Progress Cards on Student Dashboard */}
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                           {/* Card 1: Total AI Mission Growth */}
-                          <div className="bg-gradient-to-br from-purple-900 to-indigo-950 text-white p-4.5 rounded-2xl border border-purple-800/50 space-y-1 shadow-md">
+                          <div className="bg-slate-900/95 text-white p-4.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-purple-500/30 shadow-md hover:shadow-xl transition-all duration-200 ease-out transform hover:-translate-y-0.5 flex flex-col justify-between space-y-3 relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 w-28 h-28 bg-purple-600/10 rounded-full blur-2xl pointer-events-none"></div>
                             <div className="flex justify-between items-center">
-                              <span className="text-[10px] text-purple-300 font-extrabold uppercase tracking-wider">🤖 AI Mission Growth</span>
+                              <span className="text-[11px] font-black text-purple-300 uppercase tracking-wider flex items-center space-x-1.5">
+                                <span>🤖</span>
+                                <span>AI Mission Growth</span>
+                              </span>
                               {activeMclLevel > 0 && (
-                                <span className="px-2 py-0.5 bg-purple-800/80 text-amber-300 font-mono text-[10px] font-black rounded-md">
+                                <span className="px-2 py-0.5 bg-purple-900/80 text-amber-300 font-mono text-[10px] font-black rounded-md border border-purple-700/50">
                                   Level {activeMclLevel} ({activeMclProg}%)
                                 </span>
                               )}
                             </div>
-                            <h4 className="text-2xl font-black text-purple-200">{dashAiPct}%</h4>
-                            <p className="text-[10px] text-purple-300 font-medium">
-                              {activeMclLevel > 0 ? `Latest Code: Level ${activeMclLevel} Synced (${activeMclProg}%)` : 'Paste MCL Code to sync AI Mission Level'}
+                            <div className="space-y-1.5">
+                              <div className="flex items-baseline space-x-2">
+                                <h4 className="text-3xl font-black text-white tracking-tight">{dashAiPct}%</h4>
+                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Overall AI</span>
+                              </div>
+                              <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                <div className="h-full bg-gradient-to-r from-purple-500 to-indigo-400 rounded-full transition-all duration-500" style={{ width: `${Math.min(100, Math.max(0, dashAiPct))}%` }}></div>
+                              </div>
+                            </div>
+                            <p className="text-[11px] text-purple-200/80 font-medium">
+                              {activeMclLevel > 0 ? `Level ${activeMclLevel} Synced (${activeMclProg}%)` : 'Paste MCL Code to sync AI Level'}
                             </p>
                           </div>
 
                           {/* Card 2: Quiz Performance */}
-                          <div className="bg-gradient-to-br from-emerald-900 to-teal-950 text-white p-4.5 rounded-2xl border border-emerald-800/50 space-y-1 shadow-md">
-                            <span className="text-[10px] text-emerald-300 font-extrabold uppercase tracking-wider">📝 Quiz Performance</span>
-                            <h4 className="text-2xl font-black text-emerald-200">{dashQuizPct}%</h4>
-                            <p className="text-[10px] text-emerald-300 font-medium">Module Quiz Scores (50% Weight)</p>
+                          <div className="bg-slate-900/95 text-white p-4.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-emerald-500/30 shadow-md hover:shadow-xl transition-all duration-200 ease-out transform hover:-translate-y-0.5 flex flex-col justify-between space-y-3 relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 w-28 h-28 bg-emerald-600/10 rounded-full blur-2xl pointer-events-none"></div>
+                            <div className="flex justify-between items-center">
+                              <span className="text-[11px] font-black text-emerald-300 uppercase tracking-wider flex items-center space-x-1.5">
+                                <span>📝</span>
+                                <span>Quiz Performance</span>
+                              </span>
+                              <span className="px-2 py-0.5 bg-emerald-900/80 text-emerald-200 font-mono text-[10px] font-bold rounded-md border border-emerald-700/50">
+                                {dashQuizzesPassed}/{modules.length} Passed
+                              </span>
+                            </div>
+                            <div className="space-y-1.5">
+                              <div className="flex items-baseline space-x-2">
+                                <h4 className="text-3xl font-black text-white tracking-tight">{dashQuizPct}%</h4>
+                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Quiz Score</span>
+                              </div>
+                              <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                <div className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500" style={{ width: `${Math.min(100, Math.max(0, dashQuizPct))}%` }}></div>
+                              </div>
+                            </div>
+                            <p className="text-[11px] text-emerald-200/80 font-medium">Module Quiz Scores (50% Weight)</p>
                           </div>
 
                           {/* Card 3: Total Module Growth */}
-                          <div className="bg-slate-900 text-white p-4.5 rounded-2xl border border-slate-800 space-y-1 shadow-md">
-                            <span className="text-[10px] text-red-400 font-extrabold uppercase tracking-wider">⭐ Total Module Growth</span>
-                            <h4 className="text-2xl font-black text-red-500">{dashTotalGrowth}%</h4>
-                            <p className="text-[10px] text-slate-400 font-medium">50% AI Mission + 50% Quiz Result</p>
+                          <div className="bg-slate-900/95 text-white p-4.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-red-500/30 shadow-md hover:shadow-xl transition-all duration-200 ease-out transform hover:-translate-y-0.5 flex flex-col justify-between space-y-3 relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 w-28 h-28 bg-red-600/10 rounded-full blur-2xl pointer-events-none"></div>
+                            <div className="flex justify-between items-center">
+                              <span className="text-[11px] font-black text-red-400 uppercase tracking-wider flex items-center space-x-1.5">
+                                <span>⭐</span>
+                                <span>Total Module Growth</span>
+                              </span>
+                              <span className="px-2 py-0.5 bg-red-950/80 text-red-200 font-mono text-[10px] font-bold rounded-md border border-red-800/50">
+                                {dashTotalGrowth >= 70 ? 'Mastered' : 'Growing'}
+                              </span>
+                            </div>
+                            <div className="space-y-1.5">
+                              <div className="flex items-baseline space-x-2">
+                                <h4 className="text-3xl font-black text-white tracking-tight">{dashTotalGrowth}%</h4>
+                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Combined</span>
+                              </div>
+                              <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                <div className="h-full bg-gradient-to-r from-red-500 via-amber-500 to-emerald-400 rounded-full transition-all duration-500" style={{ width: `${Math.min(100, Math.max(0, dashTotalGrowth))}%` }}></div>
+                              </div>
+                            </div>
+                            <p className="text-[11px] text-slate-300 font-medium">50% AI Mission + 50% Quiz Result</p>
                           </div>
                         </div>
 
@@ -4532,29 +4611,7 @@
             </div>
           )}
 
-          {/* Floating 'I NEED A TRAINER' Support Widget (Position 1 - Left) */}
-          {!activeQuizModNumber && role === 'student' && (
-            <button
-              onClick={() => setShowTrainerModal(true)}
-              className="fixed bottom-20 left-4 sm:bottom-6 sm:left-6 lg:left-72 z-40 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full shadow-xl flex items-center space-x-2 border-2 border-white transition transform hover:scale-105 active:scale-95 text-xs opacity-95 hover:opacity-100"
-              title="I Need A Trainer Support"
-            >
-              <span className="text-base sm:text-lg">💬</span>
-              <span className="text-xs tracking-wide">I NEED A TRAINER</span>
-            </button>
-          )}
 
-          {/* Floating Global AI Coach Toggle Button (Position 2 - Left) */}
-          {!activeQuizModNumber && role === 'student' && (
-            <button
-              onClick={() => setShowAiPromptModal(true)}
-              className="fixed bottom-36 left-4 sm:bottom-20 sm:left-6 lg:left-72 z-40 bg-gradient-to-r from-purple-700 via-indigo-700 to-purple-800 hover:from-purple-600 hover:to-indigo-600 text-white font-black px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full shadow-2xl flex items-center space-x-2 border-2 border-purple-300 transition transform hover:scale-105 active:scale-95 text-xs opacity-95 hover:opacity-100"
-              title="Mastered AI Coach & Prompts"
-            >
-              <span className="text-lg">🤖</span>
-              <span className="text-xs tracking-wide font-extrabold">AI Mission Practice</span>
-            </button>
-          )}
 
           {/* Trainer Video & WhatsApp Confirmation Modal */}
           {showTrainerModal && (
