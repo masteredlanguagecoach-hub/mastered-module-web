@@ -308,6 +308,18 @@ function decodeMcl1(codeStr) {
   return { success: true, admissionNumber: admStr, mission: mission, progress: progress };
 }
 
+function findColumnIndex(headers, keywords) {
+  if (!headers || !Array.isArray(headers)) return -1;
+  for (var i = 0; i < headers.length; i++) {
+    var h = (headers[i] || "").toString().trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+    for (var j = 0; j < keywords.length; j++) {
+      var kw = keywords[j].toString().trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+      if (h === kw || h.indexOf(kw) >= 0) return i;
+    }
+  }
+  return -1;
+}
+
 function ensureStudentProgressHeaders(sheet) {
   if (!sheet) return;
   var data = sheet.getDataRange().getValues();
@@ -316,13 +328,11 @@ function ensureStudentProgressHeaders(sheet) {
     return;
   }
   
-  var headers = data[0].map(function(h) { return (h || "").toString().trim(); });
-  var hasLatestCode = headers.indexOf("LatestMclCode") >= 0;
+  var headers = data[0].map(function(h) { return (h || "").toString().trim().toLowerCase().replace(/[^a-z0-9]/g, ""); });
+  var hasLatestCode = headers.some(function(h) { return h.indexOf("mcl") >= 0 || h.indexOf("code") >= 0; });
   
-  if (!hasLatestCode && sheet.getLastColumn() < 7) {
-    // Current layout is 4-columns: ["AdmissionNumber", "Email", "ProgressJSON", "LastUpdated"]
-    // Insert 3 new columns between Email (Col B) and ProgressJSON (Col C)
-    sheet.insertColumnsAfter(2, 3); // Inserts 3 columns at C, D, E
+  if (!hasLatestCode && sheet.getLastColumn() <= 4) {
+    sheet.insertColumnsAfter(2, 3);
     sheet.getRange(1, 3, 1, 3).setValues([["LatestMclCode", "LatestMissionLevel", "LatestCodeProgress"]]);
   }
 }
@@ -939,19 +949,26 @@ function handleSaveStudentProgress(data) {
   var now = new Date();
 
   var rows = sheet.getDataRange().getValues();
-  var headers = rows[0].map(function(h) { return (h || "").toString().trim().toLowerCase(); });
-  var jsonCol = headers.indexOf("progressjson") >= 0 ? headers.indexOf("progressjson") + 1 : 6;
-  var dateCol = headers.indexOf("lastupdated") >= 0 ? headers.indexOf("lastupdated") + 1 : 7;
+  var headers = rows[0] || [];
+  var admCol = findColumnIndex(headers, ["admissionnumber", "admission", "adm"]);
+  var emailCol = findColumnIndex(headers, ["email"]);
+  var jsonCol = findColumnIndex(headers, ["progressjson", "json"]);
+  var dateCol = findColumnIndex(headers, ["lastupdated", "updated", "date"]);
+
+  if (admCol < 0) admCol = 0;
+  if (emailCol < 0) emailCol = 1;
+  if (jsonCol < 0) jsonCol = (headers.length >= 6 ? 5 : 2);
+  if (dateCol < 0) dateCol = (headers.length >= 7 ? 6 : 3);
 
   var foundRow = -1;
   var existingObj = {};
 
   for (var i = 1; i < rows.length; i++) {
-    var rowAdm = (rows[i][0] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
-    var rowEmail = (rows[i][1] || "").toString().trim().toLowerCase();
+    var rowAdm = (rows[i][admCol] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+    var rowEmail = (rows[i][emailCol] || "").toString().trim().toLowerCase();
     if ((admClean && rowAdm === admClean) || (email && rowEmail === email)) {
       foundRow = i + 1;
-      var rawJson = (rows[i][jsonCol - 1] || "").toString().trim();
+      var rawJson = (rows[i][jsonCol] || "").toString().trim();
       if (rawJson && rawJson.indexOf("{") >= 0) {
         try { existingObj = JSON.parse(rawJson); } catch(e) {}
       }
@@ -980,8 +997,8 @@ function handleSaveStudentProgress(data) {
   var finalProgressStr = JSON.stringify(existingObj);
 
   if (foundRow > 0) {
-    sheet.getRange(foundRow, jsonCol).setValue(finalProgressStr);
-    sheet.getRange(foundRow, dateCol).setValue(now);
+    sheet.getRange(foundRow, jsonCol + 1).setValue(finalProgressStr);
+    sheet.getRange(foundRow, dateCol + 1).setValue(now);
   } else {
     sheet.appendRow([adm, email, "", 0, 0, finalProgressStr, now]);
   }
@@ -992,11 +1009,18 @@ function extractStudentProgressFromRow(row, headers) {
   var progObj = {};
   if (!row || !Array.isArray(row)) return progObj;
 
-  var hArr = (headers || []).map(function(h) { return (h || "").toString().trim().toLowerCase(); });
-  var jsonCol = hArr.indexOf("progressjson") >= 0 ? hArr.indexOf("progressjson") : hArr.indexOf("json");
-  var codeCol = hArr.indexOf("latestmclcode") >= 0 ? hArr.indexOf("latestmclcode") : hArr.indexOf("code");
-  var levelCol = hArr.indexOf("latestmissionlevel") >= 0 ? hArr.indexOf("latestmissionlevel") : hArr.indexOf("level");
-  var progCol = hArr.indexOf("latestcodeprogress") >= 0 ? hArr.indexOf("latestcodeprogress") : hArr.indexOf("progress");
+  var hClean = (headers || []).map(function(h) {
+    return (h || "").toString().trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+  });
+
+  var jsonCol = -1, codeCol = -1, levelCol = -1, progCol = -1;
+  for (var i = 0; i < hClean.length; i++) {
+    var k = hClean[i];
+    if (k.indexOf("progressjson") >= 0 || k === "json") jsonCol = i;
+    else if (k.indexOf("mclcode") >= 0 || k === "code" || k.indexOf("mcl") >= 0) codeCol = i;
+    else if (k.indexOf("missionlevel") >= 0 || k === "level") levelCol = i;
+    else if (k.indexOf("codeprogress") >= 0 || k === "progress") progCol = i;
+  }
 
   var foundJsonStr = "";
   var foundMclCode = "";
@@ -1096,9 +1120,11 @@ function handleGetStudentProgress(data) {
   var rows = sheet.getDataRange().getValues();
   if (rows.length <= 1) return { success: true, userProgress: {} };
 
-  var headers = rows[0].map(function(h) { return (h || "").toString().trim().toLowerCase(); });
-  var admCol = headers.indexOf("admissionnumber") >= 0 ? headers.indexOf("admissionnumber") : 0;
-  var emailCol = headers.indexOf("email") >= 0 ? headers.indexOf("email") : 1;
+  var headers = rows[0] || [];
+  var admCol = findColumnIndex(headers, ["admissionnumber", "admission", "adm"]);
+  var emailCol = findColumnIndex(headers, ["email"]);
+  if (admCol < 0) admCol = 0;
+  if (emailCol < 0) emailCol = 1;
 
   var progObj = {};
 
@@ -1133,9 +1159,11 @@ function handleAdminGetAllStudentProgress() {
   var rows = sheet.getDataRange().getValues();
   if (rows.length <= 1) return { success: true, userProgress: {} };
 
-  var headers = rows[0].map(function(h) { return (h || "").toString().trim().toLowerCase(); });
-  var admCol = headers.indexOf("admissionnumber") >= 0 ? headers.indexOf("admissionnumber") : 0;
-  var emailCol = headers.indexOf("email") >= 0 ? headers.indexOf("email") : 1;
+  var headers = rows[0] || [];
+  var admCol = findColumnIndex(headers, ["admissionnumber", "admission", "adm"]);
+  var emailCol = findColumnIndex(headers, ["email"]);
+  if (admCol < 0) admCol = 0;
+  if (emailCol < 0) emailCol = 1;
 
   var allProgMap = {};
 
@@ -1200,19 +1228,29 @@ function handleSubmitQuizScore(data) {
   var progSheet = getFlexibleSheet(ss, "StudentProgress");
   if (!progSheet) {
     progSheet = ss.insertSheet("StudentProgress");
-    progSheet.appendRow(["AdmissionNumber", "Email", "ProgressJSON", "LastUpdated"]);
   }
+  ensureStudentProgressHeaders(progSheet);
 
   if (adm) {
-    var rows = progSheet.getDataRange().getValues();
+    var pRows = progSheet.getDataRange().getValues();
+    var pHeaders = pRows[0] || [];
+    var admCol = findColumnIndex(pHeaders, ["admissionnumber", "admission", "adm"]);
+    var jsonCol = findColumnIndex(pHeaders, ["progressjson", "progress", "json"]);
+    var dateCol = findColumnIndex(pHeaders, ["lastupdated", "updated", "date", "timestamp"]);
+    if (admCol < 0) admCol = 0;
+    if (jsonCol < 0) jsonCol = (pHeaders.length > 2 ? pHeaders.length - 2 : 2);
+    if (dateCol < 0) dateCol = (pHeaders.length > 3 ? pHeaders.length - 1 : 3);
+
     var foundIdx = -1;
     var currentProgObj = {};
+    var admClean = adm.replace(/[^A-Z0-9]/g, "");
 
-    for (var i = 1; i < rows.length; i++) {
-      var rAdm = (rows[i][0] || "").toString().trim().toUpperCase();
-      if (rAdm === adm) {
+    for (var i = 1; i < pRows.length; i++) {
+      var rAdm = (pRows[i][admCol] || "").toString().trim().toUpperCase();
+      var rAdmClean = rAdm.replace(/[^A-Z0-9]/g, "");
+      if (rAdm === adm || (admClean && rAdmClean === admClean)) {
         foundIdx = i + 1;
-        try { currentProgObj = JSON.parse(rows[i][2]); } catch(e) {}
+        currentProgObj = extractStudentProgressFromRow(pRows[i], pHeaders);
         break;
       }
     }
@@ -1225,16 +1263,22 @@ function handleSubmitQuizScore(data) {
       score: score,
       total: total,
       percentage: pct,
-      passed: passed === "YES"
+      passed: passed === "YES",
+      date: now.toISOString()
     };
 
     var progJson = JSON.stringify(currentProgObj);
 
     if (foundIdx > 0) {
-      progSheet.getRange(foundIdx, 3).setValue(progJson);
-      progSheet.getRange(foundIdx, 4).setValue(now);
+      progSheet.getRange(foundIdx, jsonCol + 1).setValue(progJson);
+      progSheet.getRange(foundIdx, dateCol + 1).setValue(now);
     } else {
-      progSheet.appendRow([adm, "", progJson, now]);
+      var newRow = [];
+      for (var c = 0; c < pHeaders.length; c++) newRow.push("");
+      newRow[admCol] = adm;
+      newRow[jsonCol] = progJson;
+      newRow[dateCol] = now;
+      progSheet.appendRow(newRow);
     }
   }
 
@@ -1251,11 +1295,14 @@ function handleAdminGetStudents() {
   var progSheet = getFlexibleSheet(ss, "StudentProgress");
   var progMap = {};
   if (progSheet) {
+    ensureStudentProgressHeaders(progSheet);
     var pRows = progSheet.getDataRange().getValues();
     if (pRows.length > 1) {
-      var pHeaders = pRows[0].map(function(h) { return (h || "").toString().trim().toLowerCase(); });
-      var pAdmCol = pHeaders.indexOf("admissionnumber") >= 0 ? pHeaders.indexOf("admissionnumber") : 0;
-      var pEmailCol = pHeaders.indexOf("email") >= 0 ? pHeaders.indexOf("email") : 1;
+      var pHeaders = pRows[0] || [];
+      var pAdmCol = findColumnIndex(pHeaders, ["admissionnumber", "admission", "adm"]);
+      var pEmailCol = findColumnIndex(pHeaders, ["email"]);
+      if (pAdmCol < 0) pAdmCol = 0;
+      if (pEmailCol < 0) pEmailCol = 1;
 
       for (var p = 1; p < pRows.length; p++) {
         var pRow = pRows[p];

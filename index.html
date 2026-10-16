@@ -1141,7 +1141,11 @@
       const studentEmail = (student.email || '').toString().trim().toLowerCase();
       
       let progData = {};
-      if (userProgress && typeof userProgress === 'object') {
+      if (student.userProgress && typeof student.userProgress === 'object' && Object.keys(student.userProgress).length > 0) {
+        progData = student.userProgress;
+      } else if (student.progressData && typeof student.progressData === 'object' && Object.keys(student.progressData).length > 0) {
+        progData = student.progressData;
+      } else if (userProgress && typeof userProgress === 'object') {
         if (studentAdm && userProgress[studentAdm]) {
           progData = userProgress[studentAdm];
         } else if (cleanStudentAdm && userProgress[cleanStudentAdm]) {
@@ -1188,6 +1192,17 @@
           if (qObj.percentage >= 70) totalQuizzesPassed++;
         }
       });
+
+      if (highestMissionLevel === 0) {
+        const directLvl = Number(student.mclLevel || student.latestMissionLevel || student.level || progData.latestMissionLevel || progData.missionLevel || progData.level || progData.latestLevel) || 0;
+        const directPct = Number(student.codeProgress || student.latestProgress || progData.latestCodeProgress || progData.codeProgress || progData.progress) || 100;
+        if (directLvl > 0) {
+          highestMissionLevel = directLvl;
+          highestMissionProgress = directPct;
+          if (totalAiMissions === 0) totalAiMissions = directLvl;
+          if (totalAiSum === 0) totalAiSum = directLvl * 100;
+        }
+      }
 
       const aiMissionPct = Math.round(totalAiSum / (modules.length || 1));
       const quizPct = totalQuizzesTaken > 0 ? Math.round(totalQuizScoreSum / totalQuizzesTaken) : Math.round((totalQuizzesPassed / (modules.length || 1)) * 100);
@@ -1279,7 +1294,7 @@
                             <h5 className="font-bold text-slate-900">{m.title.replace(/^Module \d+:\s*/, '')}</h5>
                           </div>
                           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-500">
-                            <span>AI Mission: {(mData.aiMissionCompleted || aiProof) ? '✅ Uploaded' : '⚪ Pending'}</span>
+                            <span>AI Mission: {((Number(mData.percentage) > 0) || mData.aiMissionCompleted || aiProof || m.moduleNumber <= highestMissionLevel) ? `✅ Completed (${Number(mData.percentage) || (m.moduleNumber <= highestMissionLevel ? 100 : 0)}%)` : '⚪ Pending'}</span>
                           </div>
                         </div>
 
@@ -2279,12 +2294,29 @@
             const normalizedStds = stdRes.data.map(s => ({ ...s, course: normalizeCourseName(s.course) }));
             setStudents(normalizedStds);
             safeStorage.setItem('mastered_approved_students', JSON.stringify(normalizedStds));
+
+            // Merge student-embedded progress into userProgress state
+            setUserProgress(prev => {
+              const merged = { ...(prev || {}) };
+              normalizedStds.forEach(s => {
+                const sAdm = (s.admissionNumber || '').toString().trim().toUpperCase();
+                const cleanAdm = sAdm.replace(/[^A-Z0-9]/g, '');
+                const sEmail = (s.email || '').toString().trim().toLowerCase();
+                const sp = s.userProgress || s.progressData;
+                if (sp && typeof sp === 'object' && Object.keys(sp).length > 0) {
+                  if (sAdm && !merged[sAdm]) merged[sAdm] = sp;
+                  if (cleanAdm && !merged[cleanAdm]) merged[cleanAdm] = sp;
+                  if (sEmail && !merged[sEmail]) merged[sEmail] = sp;
+                }
+              });
+              return merged;
+            });
           }
 
           if (role === 'admin') {
             const allProgRes = await callAppsScript('getAllStudentProgress');
             if (allProgRes && allProgRes.success && allProgRes.userProgress && typeof allProgRes.userProgress === 'object') {
-              setUserProgress(allProgRes.userProgress);
+              setUserProgress(prev => ({ ...(prev || {}), ...allProgRes.userProgress }));
               safeStorage.setItem('mastered_all_students_progress', JSON.stringify(allProgRes.userProgress));
             }
           } else if (currentUser && role === 'student') {
@@ -3654,6 +3686,7 @@
                           const qScores = mProg.quizScores || {};
                           const qObj = qScores[modNum];
                           const aiPct = Number(mProg.percentage) || (mProg.aiMissionCompleted || mProg.aiMissionProof ? 100 : 0);
+                          const aiDone = Boolean(aiPct > 0 || mProg.aiMissionCompleted || mProg.aiMissionProof);
                           const aiPart = Math.round(aiPct / 2);
                           const quizPart = qObj ? Math.round((qObj.percentage || 0) / 2) : 0;
                           const growthPercentage = Math.min(100, aiPart + quizPart);
@@ -3821,7 +3854,11 @@
                                       const cleanAdm = sAdm.replace(/[^A-Z0-9]/g, '');
                                       const sEmail = (s.email || '').toString().trim().toLowerCase();
                                       
-                                      let pMap = userProgress?.[sAdm] || userProgress?.[cleanAdm] || userProgress?.[sEmail] || {};
+                                      let pMap = (s.userProgress && typeof s.userProgress === 'object' && Object.keys(s.userProgress).length > 0)
+                                        ? s.userProgress
+                                        : (s.progressData && typeof s.progressData === 'object' && Object.keys(s.progressData).length > 0)
+                                          ? s.progressData
+                                          : (userProgress?.[sAdm] || userProgress?.[cleanAdm] || userProgress?.[sEmail] || {});
                                       if (!pMap || Object.keys(pMap).length === 0) {
                                         const matchKey = Object.keys(userProgress || {}).find(k => {
                                           const cK = String(k).toUpperCase().replace(/[^A-Z0-9]/g, '');
@@ -3848,9 +3885,9 @@
 
                                       const aiTotalPct = Math.round(aiSum / (modules.length || 1));
 
-                                      if (maxLvl === 0 && pMap) {
-                                        const directLvl = Number(pMap.latestMissionLevel || pMap.missionLevel || pMap.level || pMap.latestLevel) || 0;
-                                        const directPct = Number(pMap.latestCodeProgress || pMap.codeProgress || pMap.progress) || 100;
+                                      if (maxLvl === 0) {
+                                        const directLvl = Number(s.mclLevel || s.latestMissionLevel || s.level || pMap?.latestMissionLevel || pMap?.missionLevel || pMap?.level || pMap?.latestLevel) || 0;
+                                        const directPct = Number(s.codeProgress || s.latestProgress || pMap?.latestCodeProgress || pMap?.codeProgress || pMap?.progress) || 100;
                                         if (directLvl > 0) {
                                           maxLvl = directLvl;
                                           maxPct = directPct;
