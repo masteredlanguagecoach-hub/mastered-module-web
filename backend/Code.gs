@@ -204,19 +204,19 @@ function getSheetData(sheetName) {
 // Mastered Code Language - Version 1 (MCL-1) Codebooks
 var MCL_ADM_MAP = {"A":"XK","B":"QF","C":"NV","D":"HT","E":"RM","F":"ZC","G":"PJ","H":"WD","I":"KY","J":"FV","K":"BG","L":"TR","M":"LX","N":"SQ","O":"CP","P":"JN","Q":"VM","R":"DK","S":"YR","T":"GH","U":"MW","V":"KB","W":"RX","X":"TZ","Y":"PF","Z":"HC","0":"VQ","1":"XT","2":"NR","3":"KD","4":"ZM","5":"FW","6":"PB","7":"CJ","8":"HS","9":"YN"};
 var MCL_REV_ADM = {};
-for (var k1 in MCL_ADM_MAP) { MCL_REV_ADM[MCL_ADM_MAP[k1]] = k1; }
+Object.keys(MCL_ADM_MAP).forEach(function(k) { MCL_REV_ADM[MCL_ADM_MAP[k]] = k; });
 
 var MCL_MIS_MAP = {"0":"AQ","1":"BR","2":"CT","3":"DV","4":"EX","5":"FZ","6":"GK","7":"HM","8":"JP","9":"LS"};
 var MCL_REV_MIS = {};
-for (var k2 in MCL_MIS_MAP) { MCL_REV_MIS[MCL_MIS_MAP[k2]] = k2; }
+Object.keys(MCL_MIS_MAP).forEach(function(k) { MCL_REV_MIS[MCL_MIS_MAP[k]] = k; });
 
 var MCL_PROG_MAP = {"0":"UC","1":"VE","2":"WG","3":"XJ","4":"YL","5":"ZN","6":"AP","7":"BS","8":"DU","9":"EW"};
 var MCL_REV_PROG = {};
-for (var k3 in MCL_PROG_MAP) { MCL_REV_PROG[MCL_PROG_MAP[k3]] = k3; }
+Object.keys(MCL_PROG_MAP).forEach(function(k) { MCL_REV_PROG[MCL_PROG_MAP[k]] = k; });
 
 var MCL_LEN_MAP = {3:"QA", 4:"RB", 5:"SC", 6:"TD", 7:"UE", 8:"VF", 9:"WG", 10:"XH", 11:"YJ", 12:"ZK"};
 var MCL_REV_LEN = {};
-for (var k4 in MCL_LEN_MAP) { MCL_REV_LEN[MCL_LEN_MAP[k4]] = Number(k4); }
+Object.keys(MCL_LEN_MAP).forEach(function(k) { MCL_REV_LEN[MCL_LEN_MAP[k]] = Number(k); });
 
 function encodeMcl1(admInput, missionInput, progressInput) {
   var adm = (admInput || "").toString().toUpperCase().replace(/[^A-Z0-9]/g, "");
@@ -695,6 +695,23 @@ function handleLoginStudent(data) {
   return { success: false, message: "Invalid email or admission number." };
 }
 
+function handleLoginAdmin(data) {
+  var email = (data.email || "").toString().trim().toLowerCase();
+  var pass = (data.password || "").toString().trim();
+  if ((email === "masteredlanguagecoach@gmail.com" || email === "admin@mastered.com") && (pass === "4languagecoach" || pass === "MLC@2026")) {
+    return {
+      success: true,
+      admin: {
+        adminId: "ADM-002",
+        name: "Mastered Language Coach",
+        email: email,
+        role: "Super Admin"
+      }
+    };
+  }
+  return { success: false, message: "Invalid admin email or password." };
+}
+
 function handleVerifyDeviceSession(data) {
   return { valid: true };
 }
@@ -1023,7 +1040,7 @@ function handleSaveStudentProgress(data) {
   return { success: true, userProgress: existingObj };
 }
 
-function extractStudentProgressFromRow(row, headers) {
+function extractStudentProgressFromRow(row, headers, stripProofs) {
   var progObj = {};
   if (!row || !Array.isArray(row)) return progObj;
 
@@ -1351,27 +1368,49 @@ function handleAdminGetStudents() {
     }
   }
 
-  var raw = getSheetData("Students");
-  var list = raw.map(function(s) {
-    var stdId = getItemVal(s, ["studentid", "id"]);
-    var adm = getItemVal(s, ["admissionnumber", "admission", "adm"]);
-    var sName = getItemVal(s, ["name", "fullname"]);
-    var sEmail = getItemVal(s, ["email"]);
-    var sPhoneRaw = (getItemVal(s, ["phone", "whatsappnumber", "whatsapp"]) || "").toString().trim();
+  var sheet = getFlexibleSheet(ss, "Students");
+  if (!sheet) return { success: true, data: [] };
+
+  var data = sheet.getDataRange().getValues();
+  if (!data || data.length <= 1) return { success: true, data: [] };
+
+  var headers = data[0].map(function(h) { return (h || "").toString().trim().toLowerCase().replace(/[^a-z0-9]/g, ""); });
+  var idCol = findColumnIndex(headers, ["studentid", "id"]);
+  var admCol = findColumnIndex(headers, ["admissionnumber", "admission", "adm"]);
+  var nameCol = findColumnIndex(headers, ["name", "fullname"]);
+  var emailCol = findColumnIndex(headers, ["email"]);
+  var phoneCol = findColumnIndex(headers, ["phone", "whatsappnumber", "whatsapp", "mobile"]);
+  var courseCol = findColumnIndex(headers, ["course", "coursename", "coursecode"]);
+  var imgCol = findColumnIndex(headers, ["profileimage", "image"]);
+  var appCol = findColumnIndex(headers, ["approved"]);
+  var statusCol = findColumnIndex(headers, ["status"]);
+  var dateCol = findColumnIndex(headers, ["createddate", "date", "timestamp"]);
+  var tokenCol = findColumnIndex(headers, ["activedevicetoken", "devicetoken"]);
+
+  var list = [];
+  for (var i = 1; i < data.length; i++) {
+    var row = data[i];
+    var stdId = idCol >= 0 ? row[idCol] : ("STD-" + i);
+    var adm = admCol >= 0 ? (row[admCol] || "").toString().trim() : "";
+    var sName = nameCol >= 0 ? (row[nameCol] || "").toString().trim() : "";
+    var sEmail = emailCol >= 0 ? (row[emailCol] || "").toString().trim() : "";
+    var sPhoneRaw = phoneCol >= 0 ? (row[phoneCol] || "").toString().trim() : "";
     var sPhone = (sPhoneRaw.indexOf("#") >= 0 || sPhoneRaw.toUpperCase().indexOf("ERROR") >= 0 || sPhoneRaw.toUpperCase().indexOf("REF") >= 0) ? "" : sPhoneRaw;
-    var sCourse = getItemVal(s, ["course", "coursename", "coursecode"]);
-    var sImg = getItemVal(s, ["profileimage", "image"]) || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80";
-    var sApprovedRaw = getItemVal(s, ["approved"]);
-    var isApp = sApprovedRaw === true || sApprovedRaw.toString().toUpperCase() === 'TRUE';
-    var sStatus = getItemVal(s, ["status"]) || "Active";
-    var sDate = getItemVal(s, ["createddate", "date"]);
-    var sToken = getItemVal(s, ["activedevicetoken", "devicetoken"]);
+    var sCourse = courseCol >= 0 ? (row[courseCol] || "").toString().trim() : "MAL TO ENG";
+    var sImg = (imgCol >= 0 && row[imgCol]) ? row[imgCol] : "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80";
+    var sAppRaw = appCol >= 0 ? row[appCol] : true;
+    var isApp = sAppRaw === true || (sAppRaw || "").toString().toUpperCase() === 'TRUE';
+    var sStatus = statusCol >= 0 ? (row[statusCol] || "Active") : "Active";
+    var sDate = dateCol >= 0 ? row[dateCol] : "";
+    var sToken = tokenCol >= 0 ? row[tokenCol] : "";
 
-    var cleanAdmKey = (adm || "").toString().trim().toUpperCase();
-    var cleanEmailKey = (sEmail || "").toString().trim().toLowerCase();
-    var stdProg = progMap[cleanAdmKey] || progMap[cleanEmailKey] || {};
+    if (!adm && !sEmail && !sName) continue;
 
-    return {
+    var cleanAdmKey = adm.toUpperCase().replace(/[^A-Z0-9]/g, "");
+    var cleanEmailKey = sEmail.toLowerCase();
+    var stdProg = progMap[cleanAdmKey] || progMap[cleanEmailKey] || progMap[adm.toUpperCase()] || {};
+
+    list.push({
       studentId: stdId,
       admissionNumber: adm,
       name: sName,
@@ -1384,94 +1423,7 @@ function handleAdminGetStudents() {
       createdDate: sDate,
       activeDeviceToken: sToken,
       userProgress: stdProg
-    };
-  });
-
-  // Fallback: If Students sheet tab has no data, scan ALL sheet tabs in the spreadsheet!
-  if (!list || list.length === 0) {
-    try {
-      var allSheets = ss.getSheets();
-      var seenKeys = {};
-
-      for (var s = 0; s < allSheets.length; s++) {
-        var sh = allSheets[s];
-        var sName = sh.getName().toUpperCase();
-        if (sName.indexOf("MODULE") >= 0 || sName.indexOf("QUIZ") >= 0) continue;
-
-        var data = sh.getDataRange().getValues();
-        if (!data || data.length <= 1) continue;
-
-        var headerIdx = 0;
-        for (var r = 0; r < Math.min(data.length, 10); r++) {
-          var rStr = "";
-          try {
-            rStr = data[r].map(function(c) { return (c || "").toString(); }).join(" ").toLowerCase();
-          } catch(eStr) {}
-          if (rStr.indexOf("admission") >= 0 || rStr.indexOf("email") >= 0 || rStr.indexOf("name") >= 0 || rStr.indexOf("course") >= 0) {
-            headerIdx = r;
-            break;
-          }
-        }
-
-        var headers = data[headerIdx].map(function(h) { return h.toString().trim().toLowerCase(); });
-        var admIdx = -1, emailIdx = -1, nameIdx = -1, phoneIdx = -1, courseIdx = -1, statusIdx = -1;
-
-        for (var k = 0; k < headers.length; k++) {
-          var h = headers[k];
-          if (h.indexOf("admission") >= 0 || h.indexOf("adm") >= 0) admIdx = k;
-          if (h === "full name" || h.indexOf("full name") >= 0 || (h.indexOf("name") >= 0 && h.indexOf("course") < 0)) nameIdx = k;
-          if (h.indexOf("email") >= 0 && h.indexOf("verified") < 0) emailIdx = k;
-          if (h.indexOf("whatsapp") >= 0 || h.indexOf("phone") >= 0 || h.indexOf("mobile") >= 0) phoneIdx = k;
-          if (h.indexOf("course name") >= 0 || h.indexOf("course code") >= 0 || h.indexOf("course") >= 0) courseIdx = k;
-          if (h.indexOf("status") >= 0) statusIdx = k;
-        }
-
-        if (admIdx < 0 && headers.length > 1) admIdx = 1;
-        if (nameIdx < 0 && headers.length > 2) nameIdx = 2;
-        if (emailIdx < 0 && headers.length > 3) emailIdx = 3;
-        if (phoneIdx < 0 && headers.length > 5) phoneIdx = 5;
-        if (courseIdx < 0 && headers.length > 7) courseIdx = 7;
-
-        for (var i = headerIdx + 1; i < data.length; i++) {
-          var row = data[i];
-          var pAdm = admIdx >= 0 ? (row[admIdx] || "").toString().trim() : "";
-          var pEmail = emailIdx >= 0 ? (row[emailIdx] || "").toString().trim() : "";
-          var pName = nameIdx >= 0 ? (row[nameIdx] || "").toString().trim() : "Student";
-          var pPhone = phoneIdx >= 0 ? (row[phoneIdx] || "").toString().trim() : "";
-          var rawCourse = courseIdx >= 0 ? (row[courseIdx] || "").toString().trim() : "MAL TO ENG";
-          var pStatus = statusIdx >= 0 ? (row[statusIdx] || "").toString().trim() : "Active";
-
-          if (!pAdm && !pEmail) continue;
-
-          var key = (pAdm || pEmail).toUpperCase();
-          if (seenKeys[key]) continue;
-          seenKeys[key] = true;
-
-          var normCourse = "MAL TO ENG";
-          var cUpper = rawCourse.toUpperCase();
-          if (cUpper.indexOf("HI") >= 0 || cUpper.indexOf("HINDI") >= 0) normCourse = "HIND TO ENG";
-          else if (cUpper.indexOf("TA") >= 0 || cUpper.indexOf("TAMIL") >= 0) normCourse = "TAMIL TO ENG";
-          else if (cUpper.indexOf("KA") >= 0 || cUpper.indexOf("KANNADA") >= 0) normCourse = "KANNADA TO ENG";
-          else if (cUpper.indexOf("BA") >= 0 || cUpper.indexOf("BENGALI") >= 0 || cUpper.indexOf("BANGALI") >= 0) normCourse = "BANGALI TO ENG";
-          else normCourse = "MAL TO ENG";
-
-          list.push({
-            studentId: "STD-" + Math.floor(1000 + Math.random() * 9000),
-            admissionNumber: pAdm,
-            name: pName,
-            email: pEmail,
-            phone: pPhone,
-            course: normCourse,
-            profileImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80",
-            approved: true,
-            status: pStatus || "Active",
-            createdDate: new Date().toISOString().split('T')[0],
-            activeDeviceToken: "",
-            userProgress: progMap[pAdm.toUpperCase()] || progMap[pEmail.toLowerCase()] || {}
-          });
-        }
-      }
-    } catch(eScan) {}
+    });
   }
 
   return { success: true, data: list };
@@ -1479,19 +1431,40 @@ function handleAdminGetStudents() {
 
 function handleAdminGetRequests() {
   var ss = getMasteredSpreadsheet();
-  var raw = getSheetData("Requests");
-  var list = raw.map(function(r) {
-    var reqId = getItemVal(r, ["requestid", "id"]);
-    var rName = getItemVal(r, ["name", "fullname"]);
-    var rPhone = getItemVal(r, ["phone", "whatsappnumber", "whatsapp"]);
-    var rEmail = getItemVal(r, ["email"]);
-    var rAdm = getItemVal(r, ["admissionnumber", "admission", "adm"]);
-    var rCourse = getItemVal(r, ["course", "coursename"]);
-    var rStatus = getItemVal(r, ["status"]) || "Pending";
-    var rDate = getItemVal(r, ["createddate", "date"]);
-    var rBy = getItemVal(r, ["approvedby"]);
+  var sheet = getFlexibleSheet(ss, "Requests");
+  if (!sheet) return { success: true, data: [] };
 
-    return {
+  var data = sheet.getDataRange().getValues();
+  if (!data || data.length <= 1) return { success: true, data: [] };
+
+  var headers = data[0].map(function(h) { return (h || "").toString().trim().toLowerCase().replace(/[^a-z0-9]/g, ""); });
+  var idCol = findColumnIndex(headers, ["requestid", "id"]);
+  var nameCol = findColumnIndex(headers, ["name", "fullname"]);
+  var phoneCol = findColumnIndex(headers, ["phone", "whatsappnumber", "whatsapp", "mobile"]);
+  var emailCol = findColumnIndex(headers, ["email"]);
+  var admCol = findColumnIndex(headers, ["admissionnumber", "admission", "adm"]);
+  var courseCol = findColumnIndex(headers, ["course", "coursename"]);
+  var statusCol = findColumnIndex(headers, ["status"]);
+  var dateCol = findColumnIndex(headers, ["createddate", "date", "timestamp"]);
+  var byCol = findColumnIndex(headers, ["approvedby", "by"]);
+
+  var list = [];
+  for (var i = 1; i < data.length; i++) {
+    var row = data[i];
+    var reqId = idCol >= 0 ? row[idCol] : ("REQ-" + i);
+    var rName = nameCol >= 0 ? row[nameCol] : "";
+    var rPhoneRaw = phoneCol >= 0 ? (row[phoneCol] || "").toString().trim() : "";
+    var rPhone = (rPhoneRaw.indexOf("#") >= 0 || rPhoneRaw.toUpperCase().indexOf("ERROR") >= 0 || rPhoneRaw.toUpperCase().indexOf("REF") >= 0) ? "" : rPhoneRaw;
+    var rEmail = emailCol >= 0 ? (row[emailCol] || "").toString().trim() : "";
+    var rAdm = admCol >= 0 ? (row[admCol] || "").toString().trim() : "";
+    var rCourse = courseCol >= 0 ? (row[courseCol] || "").toString().trim() : "";
+    var rStatus = statusCol >= 0 ? (row[statusCol] || "Pending").toString().trim() : "Pending";
+    var rDate = dateCol >= 0 ? row[dateCol] : "";
+    var rBy = byCol >= 0 ? row[byCol] : "";
+
+    if (!rName && !rAdm && !rEmail) continue;
+
+    list.push({
       requestId: reqId,
       name: rName,
       phone: rPhone,
@@ -1501,38 +1474,7 @@ function handleAdminGetRequests() {
       status: rStatus,
       createdDate: rDate,
       approvedBy: rBy
-    };
-  });
-
-  // Fallback: If Requests tab has no data, read directly from PAID_STUDENTS tab
-  if (!list || list.length === 0) {
-    var paidSheet = getFlexibleSheet(ss, "PAID_STUDENTS") || getFlexibleSheet(ss, "Paid Students") || getFlexibleSheet(ss, "Paid");
-    if (paidSheet) {
-      var pData = paidSheet.getDataRange().getValues();
-      if (pData && pData.length > 1) {
-        for (var p = 1; p < pData.length; p++) {
-          var pRow = pData[p];
-          var pAdm = (pRow[1] || pRow[0] || "").toString().trim();
-          var pName = (pRow[2] || pRow[1] || "Student").toString().trim();
-          var pEmail = (pRow[3] || pRow[2] || "").toString().trim();
-          var pPhone = (pRow[5] || pRow[4] || "").toString().trim();
-          var pCourse = (pRow[7] || pRow[6] || "MAL TO ENG").toString().trim();
-          if (pAdm || pEmail) {
-            list.push({
-              requestId: "REQ-" + Math.floor(1000 + Math.random() * 9000),
-              name: pName,
-              phone: pPhone,
-              email: pEmail,
-              admissionNumber: pAdm,
-              course: pCourse,
-              status: "Approved",
-              createdDate: new Date().toISOString().split('T')[0],
-              approvedBy: "System"
-            });
-          }
-        }
-      }
-    }
+    });
   }
 
   return { success: true, data: list };
