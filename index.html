@@ -516,7 +516,12 @@
               const modNum = m.moduleNumber;
               const bank = (typeof window !== 'undefined' && (window.ACTIVE_QUIZ_BANK || window.HINDI_QUIZ_BANK || window.QUIZ_BANK)) || (typeof QUIZ_BANK !== 'undefined' ? QUIZ_BANK : {});
               const quizQuestions = bank[modNum] || [];
-              const scoreData = (userProgress[m.moduleId] && userProgress[m.moduleId].quizScores && userProgress[m.moduleId].quizScores[modNum]) || null;
+              const modKey = `MOD-${modNum < 10 ? '0' + modNum : modNum}`;
+              const modKeyShort = `MOD-${modNum}`;
+              const hindKey = `HIND-MOD-${modNum < 10 ? '0' + modNum : modNum}`;
+              const mProg = (userProgress && (userProgress[m.moduleId] || userProgress[modKey] || userProgress[modKeyShort] || userProgress[hindKey])) || {};
+              const qScores = mProg.quizScores || {};
+              const scoreData = qScores[modNum] || (userProgress && userProgress.quizScores && userProgress.quizScores[modNum]) || null;
               const unlocked = isLevelUnlocked(modNum);
 
               return (
@@ -1150,6 +1155,17 @@
 
 
 
+    // Helper to normalize course names consistently across admin and student views
+    function normalizeCourseName(c) {
+      if (!c) return 'MAL TO ENG';
+      const u = String(c).toUpperCase();
+      if (u.includes('HIND') || u.includes('HINDI')) return 'HIND TO ENG';
+      if (u.includes('TAMIL') || u.includes('TAM')) return 'TAMIL TO ENG';
+      if (u.includes('KANNADA') || u.includes('KAN')) return 'KANNADA TO ENG';
+      if (u.includes('BENGALI') || u.includes('BEN')) return 'BENGALI TO ENG';
+      return 'MAL TO ENG';
+    }
+
     // Deep Monotonic Progress Merge: Always preserves the highest score, latest mission, and quiz achievements across all devices
     function mergeProgressMaps(target, source) {
       if (!target && !source) return {};
@@ -1408,7 +1424,9 @@
                 <div className="max-h-80 overflow-y-auto divide-y divide-slate-100 text-xs">
                   {modules.map(m => {
                     const modKey = `MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
-                    const mData = progData[modKey] || {};
+                    const modKeyShort = `MOD-${m.moduleNumber}`;
+                    const hindKey = `HIND-MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
+                    const mData = progData[modKey] || progData[m.moduleId] || progData[modKeyShort] || progData[hindKey] || {};
                     const qScores = mData.quizScores || {};
                     const qObj = qScores[m.moduleNumber];
                     const aiProof = mData.aiMissionProof;
@@ -1446,7 +1464,7 @@
                                 qObj.percentage >= 85 ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' :
                                 qObj.percentage >= 70 ? 'bg-blue-100 text-blue-800 border border-blue-300' : 'bg-amber-100 text-amber-800 border border-amber-300'
                               }`}>
-                                📝 Quiz: {qObj.score}/30 ({qObj.percentage}%)
+                                📝 Quiz: {qObj.score}/{qObj.total || 23} ({qObj.percentage}%)
                               </span>
                             </div>
                           ) : (
@@ -2215,10 +2233,21 @@
         if (!rawAdm && !cleanAdm && !email) return;
 
         try {
-          const res = await callAppsScript('getStudentProgress', {
+          let res = await callAppsScript('getStudentProgress', {
             admissionNumber: rawAdm || cleanAdm,
             email: email
           });
+
+          // Resilient Fallback: If getStudentProgress fails or errors, call saveStudentProgress with current local progress
+          // As verified live, saveStudentProgress performs monotonic merge in Google Sheets and returns the latest cloud progress!
+          if (!res || !res.success) {
+            const currentLocalProg = getCurrentStudentProgressMap();
+            res = await callAppsScript('saveStudentProgress', {
+              admissionNumber: rawAdm || cleanAdm,
+              email: email,
+              userProgress: currentLocalProg || {}
+            });
+          }
 
           if (res && res.success) {
             const rawData = res.userProgress || res.data || res.progress || res.studentProgress;
@@ -2252,11 +2281,29 @@
               }
             }
 
+            // Normalize and mirror across key aliases (MOD-01, MOD-1, HIND-MOD-01)
+            for (let lvl = 1; lvl <= 32; lvl++) {
+              const padKey = `MOD-${lvl < 10 ? '0' + lvl : lvl}`;
+              const shortKey = `MOD-${lvl}`;
+              const hindKey = `HIND-MOD-${lvl < 10 ? '0' + lvl : lvl}`;
+              const foundObj = parsedProgMap[padKey] || parsedProgMap[shortKey] || parsedProgMap[hindKey];
+              if (foundObj) {
+                parsedProgMap[padKey] = mergeProgressMaps(parsedProgMap[padKey] || {}, foundObj);
+                parsedProgMap[shortKey] = mergeProgressMaps(parsedProgMap[shortKey] || {}, foundObj);
+                parsedProgMap[hindKey] = mergeProgressMaps(parsedProgMap[hindKey] || {}, foundObj);
+              }
+            }
+
             if (Object.keys(parsedProgMap).length > 0) {
+              let localHasHigher = false;
               setUserProgress(prev => {
                 const currentStudentMap = (cleanAdm && prev[cleanAdm]) || (rawAdm && prev[rawAdm]) || (email && prev[email]) || {};
                 const mergedStudentProg = mergeProgressMaps(currentStudentMap, parsedProgMap);
                 
+                if (JSON.stringify(mergedStudentProg) !== JSON.stringify(parsedProgMap)) {
+                  localHasHigher = true;
+                }
+
                 const allStudentsProg = {
                   ...prev,
                   ...(cleanAdm ? { [cleanAdm]: mergedStudentProg } : {}),
@@ -2290,6 +2337,16 @@
                   } catch(e) {}
                   return updatedUser;
                 });
+              }
+
+              // Bidirectional upward sync: If device had higher scores locally, push to cloud immediately!
+              if (localHasHigher) {
+                const activeProg = getCurrentStudentProgressMap();
+                callAppsScript('saveStudentProgress', {
+                  admissionNumber: rawAdm || cleanAdm,
+                  email: email,
+                  userProgress: activeProg
+                }).catch(() => {});
               }
             }
           }
@@ -2351,8 +2408,10 @@
 
       const handleSaveQuizScore = (modNum, scoreObj) => {
         const modKey = `MOD-${modNum < 10 ? '0' + modNum : modNum}`;
+        const modKeyShort = `MOD-${modNum}`;
+        const hindKey = `HIND-MOD-${modNum < 10 ? '0' + modNum : modNum}`;
         const activeProg = getCurrentStudentProgressMap();
-        const existing = activeProg[modKey] || { video1: false, audio: false, pdf: false, percentage: 0 };
+        const existing = activeProg[modKey] || activeProg[modKeyShort] || activeProg[hindKey] || { video1: false, audio: false, pdf: false, percentage: 0 };
         const quizScores = { ...(existing.quizScores || {}) };
 
         // Monotonic quiz score: never downgrade a higher score
@@ -2365,12 +2424,16 @@
           passed: maxPct >= 70
         };
 
+        const updatedModData = {
+          ...existing,
+          quizScores
+        };
+
         const updatedStudentProg = {
           ...activeProg,
-          [modKey]: {
-            ...existing,
-            quizScores
-          }
+          [modKey]: updatedModData,
+          [modKeyShort]: updatedModData,
+          [hindKey]: updatedModData
         };
 
         syncStudentProgressToCloud(updatedStudentProg);
@@ -3764,7 +3827,10 @@
                     let activeMclProg = 0;
 
                     modules.forEach(m => {
-                      const mProg = currentStudentProg[m.moduleId] || {};
+                      const modKey = `MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
+                      const modKeyShort = `MOD-${m.moduleNumber}`;
+                      const hindKey = `HIND-MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
+                      const mProg = currentStudentProg[m.moduleId] || currentStudentProg[modKey] || currentStudentProg[modKeyShort] || currentStudentProg[hindKey] || {};
                       const aiPct = Number(mProg.percentage) || (mProg.aiMissionCompleted || mProg.aiMissionProof ? 100 : 0);
                       dashAiSum += aiPct;
                       if (aiPct > 0 && m.moduleNumber > activeMclLevel) {
@@ -3773,11 +3839,11 @@
                       }
 
                       const qScores = mProg.quizScores || {};
-                      const qObj = qScores[m.moduleNumber];
+                      const qObj = qScores[m.moduleNumber] || (currentStudentProg.quizScores && currentStudentProg.quizScores[m.moduleNumber]);
                       if (qObj) {
                         dashQuizTaken++;
-                        dashQuizScoreSum += (qObj.percentage || 0);
-                        if (qObj.percentage >= 70) dashQuizzesPassed++;
+                        dashQuizScoreSum += (Number(qObj.percentage) || 0);
+                        if (Number(qObj.percentage) >= 70) dashQuizzesPassed++;
                       }
                     });
 
@@ -3910,9 +3976,12 @@
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                         {modules.map(m => {
                           const modNum = m.moduleNumber;
-                          const mProg = currentStudentProg[m.moduleId] || {};
+                          const modKey = `MOD-${modNum < 10 ? '0' + modNum : modNum}`;
+                          const modKeyShort = `MOD-${modNum}`;
+                          const hindKey = `HIND-MOD-${modNum < 10 ? '0' + modNum : modNum}`;
+                          const mProg = currentStudentProg[m.moduleId] || currentStudentProg[modKey] || currentStudentProg[modKeyShort] || currentStudentProg[hindKey] || {};
                           const qScores = mProg.quizScores || {};
-                          const qObj = qScores[modNum];
+                          const qObj = qScores[modNum] || (currentStudentProg.quizScores && currentStudentProg.quizScores[modNum]);
                           const aiPct = Number(mProg.percentage) || (mProg.aiMissionCompleted || mProg.aiMissionProof ? 100 : 0);
                           const aiDone = Boolean(aiPct > 0 || mProg.aiMissionCompleted || mProg.aiMissionProof);
                           const aiPart = Math.round(aiPct / 2);
@@ -4464,7 +4533,7 @@
           )}
 
           {/* Floating 'I NEED A TRAINER' Support Widget (Position 1 - Left) */}
-          {role === 'student' && (
+          {!activeQuizModNumber && role === 'student' && (
             <button
               onClick={() => setShowTrainerModal(true)}
               className="fixed bottom-20 left-4 sm:bottom-6 sm:left-6 lg:left-72 z-40 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full shadow-xl flex items-center space-x-2 border-2 border-white transition transform hover:scale-105 active:scale-95 text-xs opacity-95 hover:opacity-100"
@@ -4476,7 +4545,7 @@
           )}
 
           {/* Floating Global AI Coach Toggle Button (Position 2 - Left) */}
-          {role === 'student' && (
+          {!activeQuizModNumber && role === 'student' && (
             <button
               onClick={() => setShowAiPromptModal(true)}
               className="fixed bottom-36 left-4 sm:bottom-20 sm:left-6 lg:left-72 z-40 bg-gradient-to-r from-purple-700 via-indigo-700 to-purple-800 hover:from-purple-600 hover:to-indigo-600 text-white font-black px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full shadow-2xl flex items-center space-x-2 border-2 border-purple-300 transition transform hover:scale-105 active:scale-95 text-xs opacity-95 hover:opacity-100"
