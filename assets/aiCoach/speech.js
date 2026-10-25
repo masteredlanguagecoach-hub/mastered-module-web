@@ -77,6 +77,65 @@
     return null;
   }
 
+  // Dedicated Fixed Female Voice Selector for Coach Sarah
+  function getCoachFemaleVoice(synth) {
+    if (!synth || typeof synth.getVoices !== 'function') return null;
+    var voices = synth.getVoices() || [];
+    if (!voices || voices.length === 0) return null;
+
+    // High-priority natural and neural female voices across Windows, Edge, Chrome, Android, iOS, macOS
+    var preferredFemaleNames = [
+      'Microsoft Jenny Online (Natural)',
+      'Microsoft Aria Online (Natural)',
+      'Microsoft Sonia Online (Natural)',
+      'Google US English',
+      'Google UK English Female',
+      'Samantha',
+      'Victoria',
+      'Karen',
+      'Microsoft Zira',
+      'Moira',
+      'Tessa',
+      'Fiona',
+      'Jenny',
+      'Aria',
+      'Zira'
+    ];
+
+    for (var i = 0; i < preferredFemaleNames.length; i++) {
+      var name = preferredFemaleNames[i];
+      var match = voices.find(function (v) {
+        return v.name && v.name.indexOf(name) !== -1 && v.lang && v.lang.indexOf('en') === 0;
+      });
+      if (match) return match;
+    }
+
+    // Any English voice with "female" or "woman" explicitly in the identifier
+    var femaleDeclared = voices.find(function (v) {
+      var n = (v.name || '').toLowerCase();
+      return v.lang && v.lang.indexOf('en') === 0 && (n.indexOf('female') !== -1 || n.indexOf('woman') !== -1);
+    });
+    if (femaleDeclared) return femaleDeclared;
+
+    // Fallback: Any English voice that is NOT explicitly male
+    var nonMale = voices.find(function (v) {
+      var n = (v.name || '').toLowerCase();
+      var isMale = n.indexOf('male') !== -1 || n.indexOf('david') !== -1 || n.indexOf('george') !== -1 || n.indexOf('guy') !== -1 || n.indexOf('mark') !== -1;
+      return v.lang && v.lang.indexOf('en') === 0 && !isMale;
+    });
+
+    return nonMale || voices[0] || null;
+  }
+
+  if (typeof window !== 'undefined' && window.speechSynthesis) {
+    try {
+      window.speechSynthesis.onvoiceschanged = function () {
+        window.__masteredFemaleVoice = getCoachFemaleVoice(window.speechSynthesis);
+      };
+      window.__masteredFemaleVoice = getCoachFemaleVoice(window.speechSynthesis);
+    } catch (e) {}
+  }
+
   function LiveVoicePipeline(options) {
     options = options || {};
     this.state = STATES.IDLE;
@@ -207,6 +266,7 @@
     this.initSpeechRecognition();
 
     // 3. Move to Listening
+    this.isSessionActive = true;
     this.transitionTo(STATES.LISTENING);
     this.beginListeningLoop();
     return true;
@@ -486,37 +546,19 @@
     this.accumulatedTranscript = ''; // Always clean transcript before coach speaks
     this.transitionTo(STATES.SPEAKING);
 
-    // Stop recognition while coach is speaking:
-    // 1. Completely frees device audio session for SpeechSynthesis
-    // 2. Prevents microphone from capturing coach's own speaker output
-    if (this.recognition) {
-      try {
-        this.recognition.stop();
-      } catch (e) {}
-    }
-
-    if (!this.synth) {
-      this.isSpeaking = false;
-      this.transitionTo(STATES.LISTENING);
-      this.restartListening();
-      if (onFinish) onFinish();
-      return;
-    }
-
     var self = this;
 
-    // Mobile audio keep-alive & unpause
-    try {
-      if (this.synth.speaking || this.synth.pending) {
-        this.synth.cancel();
+    // STEP 1: Safely stop recognition before speech synthesis begins
+    // This gives 100% audio subsystem focus to the speaker output, avoiding microphone muting/clashes on Android/iOS/Windows
+    var proceedToSpeak = function () {
+      if (!self.synth) {
+        self.isSpeaking = false;
+        self.transitionTo(STATES.LISTENING);
+        self.restartListening();
+        if (onFinish) onFinish();
+        return;
       }
-      if (this.synth.paused) {
-        this.synth.resume();
-      }
-    } catch (e) {}
 
-    // Chrome/Safari safety: 40ms dispatch tick to allow speech engine to settle after cancel/stop
-    setTimeout(function () {
       try {
         if (self.synth.paused) {
           self.synth.resume();
@@ -525,24 +567,18 @@
         var utterance = new window.SpeechSynthesisUtterance(text);
         utterance.lang = self.lang || 'en-US';
         utterance.rate = self.speechRate || 0.95;
-        utterance.pitch = 1.0;
+        utterance.pitch = 1.05; // Warm, natural feminine pitch
+        utterance.volume = 1.0;
 
-        // Select highest quality natural English voice if available
-        if (typeof self.synth.getVoices === 'function') {
-          var voices = self.synth.getVoices();
-          if (voices && voices.length > 0) {
-            var bestVoice = voices.find(function(v) {
-              return v.lang && v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Premium'));
-            }) || voices.find(function(v) {
-              return v.lang && v.lang.startsWith('en');
-            });
-            if (bestVoice) {
-              utterance.voice = bestVoice;
-            }
-          }
+        // Dedicated fixed female voice for Coach Sarah
+        var femaleVoice = (typeof window !== 'undefined' && window.__masteredFemaleVoice) 
+          ? window.__masteredFemaleVoice 
+          : getCoachFemaleVoice(self.synth);
+        if (femaleVoice) {
+          utterance.voice = femaleVoice;
         }
 
-        // Store utterance reference on window to completely prevent mobile Chrome GC bug
+        // Anchor active utterance on window to prevent Chrome V8 garbage-collection from dropping speech mid-sentence
         if (typeof window !== 'undefined') {
           window.__masteredActiveUtterance = utterance;
         }
@@ -563,23 +599,25 @@
             window.__masteredActiveUtterance = null;
           }
           self.accumulatedTranscript = '';
-          self.speakerCooldownUntil = Date.now() + 350; // 350ms echo drain
+          self.speakerCooldownUntil = Date.now() + 250; // 250ms echo drain
 
           if (self.state === STATES.SPEAKING) {
             self.transitionTo(STATES.LISTENING);
           }
 
-          // Restart recognition seamlessly after coach speech finishes
-          setTimeout(function () {
-            self.restartListening();
-          }, 300);
+          // Automatically and seamlessly restart recognition to listen for the student's next words
+          if (self.isSessionActive !== false) {
+            setTimeout(function () {
+              self.restartListening();
+            }, 150);
+          }
 
           if (onFinish) onFinish();
         };
 
-        // Safety timeout: prevent getting stuck in SPEAKING
+        // Safety timeout in case speech engine hangs
         var wordCount = text.split(/\s+/).length;
-        var timeoutMs = Math.max(5000, Math.min(30000, (wordCount / 2.0) * 1000 + 3000));
+        var timeoutMs = Math.max(5000, Math.min(35000, (wordCount / 2.0) * 1000 + 4000));
         self.speakSafetyTimer = setTimeout(function () {
           finishSpeech();
         }, timeoutMs);
@@ -602,7 +640,7 @@
         };
 
         utterance.onerror = function (e) {
-          console.warn("[SpeechSynthesis Utterance Error]", e);
+          console.warn("[Coach Sarah Speech Event]", e && e.error);
           finishSpeech();
         };
 
@@ -614,7 +652,17 @@
         self.restartListening();
         if (onFinish) onFinish();
       }
-    }, 40);
+    };
+
+    // If recognition is active, stop it cleanly first
+    if (this.recognition) {
+      try {
+        this.recognition.stop();
+      } catch (e) {}
+    }
+
+    // Small macrotask dispatch (60ms) to ensure audio hardware cleanly transitions from mic to speaker
+    setTimeout(proceedToSpeak, 60);
   };
 
   LiveVoicePipeline.prototype.replayLastCoachSpeech = function (onFinish) {
@@ -682,6 +730,7 @@
   };
 
   LiveVoicePipeline.prototype.endLiveSession = function () {
+    this.isSessionActive = false;
     this.transitionTo(STATES.ENDING);
 
     if (this.silenceTimer) {

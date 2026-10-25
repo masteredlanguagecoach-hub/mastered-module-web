@@ -1705,6 +1705,23 @@
       const voiceSessionRef = useRef(null);
       const voicePipelineRef = useRef(null);
       const activePromptRef = useRef('');
+      const [callDuration, setCallDuration] = useState(0);
+
+      useEffect(() => {
+        let timer = null;
+        if (voiceState !== 'IDLE' && voiceState !== 'ENDING' && voiceState !== 'ERROR') {
+          timer = setInterval(() => {
+            setCallDuration(prev => prev + 1);
+          }, 1000);
+        } else {
+          setCallDuration(0);
+        }
+        return () => {
+          if (timer) clearInterval(timer);
+        };
+      }, [voiceState]);
+
+      const formattedDuration = `${Math.floor(callDuration / 60).toString().padStart(2, '0')}:${(callDuration % 60).toString().padStart(2, '0')}`;
 
       const updateActivePrompt = (newPrompt) => {
         activePromptRef.current = newPrompt;
@@ -1918,8 +1935,17 @@
         // Update Speaking Task card on screen
         updateActivePrompt(nextQ);
 
-        // Natural conversational spoken reply: Praise/Feedback + Next Question
-        const fullCoachSpokenTurn = `${attempt.feedback} Next question: ${nextQ}`;
+        // Conversational bridge like a real human coach on a voice call
+        const bridges = [
+          "Now tell me,",
+          "I would also love to know,",
+          "Moving forward to our next question,",
+          "On that note,",
+          "Tell me,",
+          "Here is your next speaking question:"
+        ];
+        const bridge = bridges[prof.verifiedSentences % bridges.length];
+        const fullCoachSpokenTurn = `${attempt.feedback} ${bridge} ${nextQ}`;
         setVoiceFeedback(fullCoachSpokenTurn);
 
         if (voicePipelineRef.current) {
@@ -1943,7 +1969,8 @@
         const started = await voicePipelineRef.current.startLiveSession();
         if (started) {
           const initialP = activePromptRef.current || activePromptText;
-          const greeting = `Hello ${currentUser?.name || 'Student'}! Welcome to Mission ${activeMissionNumber}: ${missionInfo.title}. ${initialP}`;
+          const greeting = `Hello ${currentUser?.name || 'Student'}! This is Coach Sarah. Welcome to your live English practice call for Mission ${activeMissionNumber}: ${missionInfo.title}. Let's get started! ${initialP}`;
+          setVoiceFeedback(greeting);
           voicePipelineRef.current.speakCoachResponse(greeting);
         }
       };
@@ -2290,169 +2317,180 @@
                       </div>
                     </div>
 
-                    {/* Speaking Prompt Card */}
-                    <div className="p-4 bg-slate-900 text-white rounded-2xl space-y-2 shadow-inner">
-                      <div className="flex justify-between items-center text-[11px] text-slate-400 border-b border-slate-800 pb-2">
-                        <span className="font-bold uppercase tracking-wider text-indigo-400 flex items-center space-x-1.5">
-                          <span>🎙️</span>
-                          <span>Speaking Task</span>
-                        </span>
-                        <div className="flex items-center space-x-2">
-                          <span className="font-mono text-slate-300">Grammar: {missionInfo.grammarFocus}</span>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              if (voicePipelineRef.current) {
-                                voicePipelineRef.current.unlockMobileAudio();
-                                const pToHear = activePromptRef.current || activePromptText;
-                                voicePipelineRef.current.speakCoachResponse(pToHear);
-                              }
-                            }}
-                            className="px-2.5 py-0.5 bg-slate-800 hover:bg-slate-700 text-indigo-300 font-bold text-[10px] rounded-lg border border-slate-700 transition flex items-center space-x-1 cursor-pointer"
-                            title="Hear this question aloud"
-                          >
-                            <span>🔊</span>
-                            <span>Hear Question</span>
-                          </button>
-                        </div>
-                      </div>
-                      <p className="text-sm sm:text-base font-semibold leading-relaxed text-slate-100">
-                        "{activePromptText || (missionInfo.starterPrompts && missionInfo.starterPrompts[0]) || 'Please speak your answer aloud.'}"
-                      </p>
-                    </div>
-
-                    {/* SUBMODE 1: LIVE VOICE COACH (Primary Hands-Free Experience) */}
+                    {/* SUBMODE 1: LIVE VOICE COACH (Authentic Hands-Free Voice Call with Coach Sarah) */}
                     {voiceSubMode === 'VOICE' ? (
-                      <div className="space-y-3">
-                        {/* Audio Waveform & 12-State Machine Indicator */}
-                        <div className="p-3.5 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 text-white space-y-2.5 border border-slate-800 shadow-md">
-                          <div className="flex justify-between items-center text-xs">
-                            <span className={`px-2.5 py-0.5 rounded-full font-bold text-[11px] ${voiceStateMeta.color} ${voiceStateMeta.pulse ? 'animate-pulse' : ''}`}>
-                              {voiceStateMeta.label}
-                            </span>
-                            <span className="text-[11px] font-mono text-slate-400">
-                              Mic Energy: {voiceAudioLevel}%
-                            </span>
-                          </div>
-
-                          {/* Dynamic 10-Bar Audio Waveform driven by AnalyserNode */}
-                          <div className="flex items-center justify-center space-x-1.5 h-10 py-1">
-                            {[0.4, 0.7, 1.0, 0.8, 0.5, 0.9, 1.2, 0.6, 0.8, 0.5].map((factor, idx) => {
-                              const barHeight = Math.max(5, Math.min(36, Math.round((voiceAudioLevel * factor * 0.4) + (voiceState === 'SPEAKING' ? 16 : 5))));
-                              return (
-                                <div
-                                  key={idx}
-                                  className={`w-2 rounded-full transition-all duration-100 ${
-                                    voiceState === 'LISTENING' ? 'bg-gradient-to-t from-emerald-600 to-teal-400' : (voiceState === 'SPEAKING' ? 'bg-gradient-to-t from-indigo-600 to-purple-400' : 'bg-slate-700')
-                                  }`}
-                                  style={{ height: `${barHeight}px` }}
-                                ></div>
-                              );
-                            })}
-                          </div>
-                        </div>
-
-                        {/* Live Transcript & Feedback */}
-                        {voiceTranscript && (
-                          <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs space-y-1">
-                            <span className="text-[10px] font-bold text-slate-500 uppercase">You said:</span>
-                            <p className="font-semibold text-slate-800 italic">"{voiceTranscript}"</p>
-                          </div>
-                        )}
-
-                        {voiceFeedback && (
-                          <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-950 font-medium flex justify-between items-center gap-2">
-                            <div>
-                              <span className="font-extrabold text-emerald-800">Coach Feedback: </span>
-                              {voiceFeedback}
+                      <div className="space-y-4">
+                        {voiceState === 'IDLE' ? (
+                          /* 1. READY TO CALL CARD (Idle State) */
+                          <div className="p-6 sm:p-7 bg-gradient-to-b from-slate-900 to-slate-950 text-white rounded-3xl border border-slate-800 shadow-xl space-y-5 text-center">
+                            <div className="relative mx-auto w-24 h-24 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 p-1 shadow-lg">
+                              <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-4xl shadow-inner">
+                                👩‍💼
+                              </div>
+                              <span className="absolute bottom-1 right-1 w-5 h-5 bg-emerald-500 border-2 border-slate-900 rounded-full" title="Online & Ready"></span>
                             </div>
+
+                            <div className="space-y-1">
+                              <h3 className="text-xl sm:text-2xl font-black text-white">Coach Sarah</h3>
+                              <p className="text-xs text-indigo-300 font-semibold tracking-wide">Live 1-on-1 English Conversation Coach</p>
+                              <div className="inline-flex items-center space-x-1.5 px-3 py-1 bg-slate-800/80 rounded-full text-[11px] text-slate-300 mt-2 border border-slate-700">
+                                <span>👩‍💼</span>
+                                <span>Fixed Female Voice: <strong className="text-emerald-400">Natural English Accent</strong></span>
+                              </div>
+                            </div>
+
+                            <div className="p-3.5 bg-slate-800/60 rounded-2xl border border-slate-700/60 max-w-md mx-auto text-left space-y-1.5">
+                              <span className="text-[10px] uppercase font-bold text-indigo-300 block">Mission {activeMissionNumber} Call Topic:</span>
+                              <p className="text-xs sm:text-sm font-semibold text-slate-100">
+                                "{activePromptText || (missionInfo.starterPrompts && missionInfo.starterPrompts[0]) || 'Please speak your answer aloud.'}"
+                              </p>
+                            </div>
+
+                            <p className="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
+                              Talk directly with Coach Sarah in a live voice call. Sarah greets you aloud, listens to your answers, and guides your fluency turn by turn hands-free.
+                            </p>
+
                             <button
                               type="button"
-                              onClick={() => {
-                                if (voicePipelineRef.current) {
-                                  voicePipelineRef.current.unlockMobileAudio();
-                                  voicePipelineRef.current.replayLastCoachSpeech();
-                                }
-                              }}
-                              className="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-extrabold text-[10px] rounded-lg shrink-0 transition flex items-center space-x-1 cursor-pointer"
-                              title="Replay coach speech aloud"
+                              onClick={handleStartLivePractice}
+                              className="w-full py-4 px-6 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-extrabold text-sm sm:text-base rounded-2xl shadow-xl transition flex items-center justify-center space-x-3 cursor-pointer"
                             >
-                              <span>🔊</span>
-                              <span>Replay Voice</span>
+                              <span className="text-xl">📞</span>
+                              <span>Start Live Practice Call (Coach Sarah)</span>
                             </button>
                           </div>
-                        )}
-
-                        {/* Voice Controls: Single-Tap Start or Live Controls */}
-                        {voiceState === 'IDLE' ? (
-                          <button
-                            type="button"
-                            onClick={handleStartLivePractice}
-                            className="w-full py-3.5 px-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-md transition flex items-center justify-center space-x-2 cursor-pointer"
-                          >
-                            <span className="text-lg">🎙️</span>
-                            <span>Start Live Practice (Hands-Free Conversation)</span>
-                          </button>
                         ) : (
-                          <div className="space-y-2 pt-1">
-                            <div className="flex flex-wrap gap-2 text-xs font-bold">
+                          /* 2. ACTIVE LIVE CALL SCREEN (In-Call State) */
+                          <div className="p-5 sm:p-6 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 text-white rounded-3xl border border-indigo-900/50 shadow-2xl space-y-5">
+                            {/* Call Header */}
+                            <div className="flex justify-between items-center border-b border-slate-800/80 pb-3 text-xs">
+                              <div className="flex items-center space-x-2">
+                                <span className="relative flex h-3 w-3">
+                                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                                </span>
+                                <span className="font-extrabold uppercase tracking-wide text-emerald-400">Live Call Connected</span>
+                              </div>
+                              <div className="font-mono text-xs font-bold px-3 py-1 bg-slate-800/90 rounded-lg text-slate-200 border border-slate-700">
+                                ⏱️ {formattedDuration}
+                              </div>
+                            </div>
+
+                            {/* Center Avatar with Animated Pulse Radar Ring */}
+                            <div className="flex flex-col items-center justify-center space-y-3 py-2">
+                              <div className="relative">
+                                {voiceState === 'SPEAKING' && (
+                                  <div className="absolute -inset-3 rounded-full bg-indigo-500 opacity-30 animate-ping"></div>
+                                )}
+                                <div className={`relative w-20 h-20 rounded-full p-1 shadow-2xl transition-all duration-300 ${
+                                  voiceState === 'SPEAKING' 
+                                    ? 'bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 scale-105' 
+                                    : (voiceState === 'LISTENING' ? 'bg-gradient-to-tr from-emerald-500 to-teal-400' : 'bg-slate-700')
+                                }`}>
+                                  <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-4xl shadow-inner">
+                                    👩‍💼
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="text-center space-y-1">
+                                <h4 className="text-base font-extrabold text-white">Coach Sarah</h4>
+                                <span className={`inline-block px-3 py-1 rounded-full text-[11px] font-bold ${voiceStateMeta.color} ${voiceStateMeta.pulse ? 'animate-pulse' : ''}`}>
+                                  {voiceState === 'SPEAKING' 
+                                    ? '🗣️ Coach Sarah is speaking... (Listen)' 
+                                    : (voiceState === 'LISTENING' ? '🎙️ Coach Sarah is listening... Speak aloud' : voiceStateMeta.label)}
+                                </span>
+                              </div>
+
+                              {/* Dynamic 10-Bar Audio Waveform */}
+                              <div className="flex items-center justify-center space-x-1.5 h-8 py-1">
+                                {[0.4, 0.7, 1.0, 0.8, 0.5, 0.9, 1.2, 0.6, 0.8, 0.5].map((factor, idx) => {
+                                  const barHeight = Math.max(4, Math.min(32, Math.round((voiceAudioLevel * factor * 0.4) + (voiceState === 'SPEAKING' ? 14 : 4))));
+                                  return (
+                                    <div
+                                      key={idx}
+                                      className={`w-1.5 rounded-full transition-all duration-100 ${
+                                        voiceState === 'LISTENING' ? 'bg-emerald-400' : (voiceState === 'SPEAKING' ? 'bg-indigo-400' : 'bg-slate-700')
+                                      }`}
+                                      style={{ height: `${barHeight}px` }}
+                                    ></div>
+                                  );
+                                })}
+                              </div>
+                            </div>
+
+                            {/* Live Conversation Transcript (Dialogue Cards) */}
+                            <div className="space-y-2.5">
+                              {/* Coach Sarah's live spoken sentence */}
+                              <div className="p-3.5 bg-slate-800/90 border border-slate-700/80 rounded-2xl text-xs space-y-1 text-slate-100 shadow-sm">
+                                <div className="flex items-center space-x-1.5 text-indigo-400 font-extrabold text-[10px] uppercase">
+                                  <span>👩‍💼</span>
+                                  <span>Coach Sarah:</span>
+                                </div>
+                                <p className="font-medium text-xs sm:text-sm leading-relaxed text-indigo-100">
+                                  "{voiceFeedback || activePromptText || (missionInfo.starterPrompts && missionInfo.starterPrompts[0]) || 'Hello! Please speak your answer aloud.'}"
+                                </p>
+                              </div>
+
+                              {/* Student's live transcribed words */}
+                              {voiceTranscript && (
+                                <div className="p-3 bg-emerald-950/40 border border-emerald-800/50 rounded-2xl text-xs space-y-1 text-emerald-100 shadow-sm">
+                                  <div className="flex items-center space-x-1.5 text-emerald-400 font-extrabold text-[10px] uppercase">
+                                    <span>🎙️</span>
+                                    <span>You:</span>
+                                  </div>
+                                  <p className="italic font-semibold text-xs sm:text-sm text-emerald-200">
+                                    "{voiceTranscript}"
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+
+                            {/* Call Controls Bar (Like Phone / WhatsApp Call) */}
+                            <div className="pt-2 flex items-center justify-center space-x-2.5">
                               <button
                                 type="button"
                                 onClick={handlePauseResumeVoice}
-                                className="flex-1 py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl transition cursor-pointer"
+                                className="flex-1 py-3 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs rounded-2xl border border-slate-700 transition flex items-center justify-center space-x-1.5 cursor-pointer"
                               >
-                                {voiceState === 'PAUSED' ? '▶️ Resume Listening' : '⏸️ Pause Listening'}
+                                <span>{voiceState === 'PAUSED' ? '▶️' : '⏸️'}</span>
+                                <span>{voiceState === 'PAUSED' ? 'Resume Call' : 'Hold / Mute'}</span>
                               </button>
+
                               <button
                                 type="button"
-                                onClick={handleInterruptVoice}
-                                disabled={voiceState !== 'SPEAKING'}
-                                className="py-2 px-3 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-xl transition disabled:opacity-40 cursor-pointer"
+                                onClick={handleRepeatInstructionVoice}
+                                className="py-3 px-3.5 bg-slate-800 hover:bg-slate-700 text-indigo-300 font-bold text-xs rounded-2xl border border-slate-700 transition flex items-center justify-center space-x-1 cursor-pointer"
+                                title="Ask Coach Sarah to repeat what she just said"
                               >
-                                ✋ Tap to Interrupt
+                                <span>🔁</span>
+                                <span>Repeat</span>
                               </button>
+
+                              <button
+                                type="button"
+                                onClick={handleSpeedToggleVoice}
+                                className="py-3 px-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs rounded-2xl border border-slate-700 transition flex items-center justify-center space-x-1 cursor-pointer"
+                                title="Adjust Coach Sarah speaking speed"
+                              >
+                                <span>⚡</span>
+                                <span>{voiceSpeechSpeed}x</span>
+                              </button>
+
                               <button
                                 type="button"
                                 onClick={() => {
                                   if (voicePipelineRef.current) {
-                                    voicePipelineRef.current.unlockMobileAudio();
-                                    voicePipelineRef.current.replayLastCoachSpeech();
+                                    voicePipelineRef.current.endLiveSession();
                                   }
+                                  setVoiceSessionEnded(true);
                                 }}
-                                className="py-2 px-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-xl transition cursor-pointer"
+                                className="py-3 px-4 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-extrabold text-xs sm:text-sm rounded-2xl shadow-lg transition flex items-center justify-center space-x-1.5 cursor-pointer"
                               >
-                                🔊 Replay Voice
-                              </button>
-                              <button
-                                type="button"
-                                onClick={handleRepeatInstructionVoice}
-                                className="py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl transition cursor-pointer"
-                              >
-                                🔄 Repeat Task
-                              </button>
-                              <button
-                                type="button"
-                                onClick={handleSpeedToggleVoice}
-                                className="py-2 px-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-xl transition cursor-pointer"
-                              >
-                                ⚡ Speed: {voiceSpeechSpeed}x
+                                <span>🔴</span>
+                                <span>End Call</span>
                               </button>
                             </div>
-                            {/* Mobile Tap-to-Speak Fallback Button */}
-                            <button
-                              type="button"
-                              onClick={() => {
-                                if (voicePipelineRef.current) {
-                                  voicePipelineRef.current.unlockMobileAudio();
-                                  if (voiceState === 'PAUSED') voicePipelineRef.current.resumeListening();
-                                  if (voicePipelineRef.current.beginListeningLoop) voicePipelineRef.current.beginListeningLoop();
-                                }
-                              }}
-                              className="w-full py-2 px-3 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold text-xs rounded-xl border border-slate-200 transition flex items-center justify-center space-x-1.5 cursor-pointer"
-                            >
-                              <span>🎙️</span>
-                              <span>Mobile Notice: Speak anytime or tap here to wake microphone</span>
-                            </button>
                           </div>
                         )}
                       </div>

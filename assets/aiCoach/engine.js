@@ -336,11 +336,11 @@
     var cur = this.getMissionDetails();
     if (isSuccess) {
       var praises = [
-        "Excellent sentence! Very clear grammar.",
-        "Well spoken! That was natural and accurate.",
-        "Spot on! Great use of vocabulary.",
-        "Terrific work! That expresses your thought clearly.",
-        "Nicely phrased! Your fluency is improving."
+        "That was wonderful! You expressed that so clearly.",
+        "Very well spoken! That sounded completely natural and accurate.",
+        "Spot on! I love your pronunciation and choice of words.",
+        "Terrific work! That expresses your thought with great clarity.",
+        "Nicely phrased! Your fluency and confidence are really showing."
       ];
       var idx = this.profile.verifiedSentences % praises.length;
       return praises[idx];
