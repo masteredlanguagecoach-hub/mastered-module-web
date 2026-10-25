@@ -1857,6 +1857,10 @@
                 }
               },
               onError: (err) => {
+                if (err && err.code === 'INVALID_TRANSITION') {
+                  console.warn("[VoicePipeline Notice]", err.message);
+                  return;
+                }
                 setVoiceFeedback('Notice: ' + (err.message || 'Please check microphone.'));
               }
             });

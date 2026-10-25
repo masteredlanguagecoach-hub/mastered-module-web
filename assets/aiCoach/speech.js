@@ -40,17 +40,17 @@
   // Valid State Transitions
   var VALID_TRANSITIONS = {
     IDLE: ['INITIALIZING', 'REQUESTING_MICROPHONE', 'ERROR', 'ENDING'],
-    INITIALIZING: ['REQUESTING_MICROPHONE', 'LISTENING', 'ERROR', 'IDLE'],
-    REQUESTING_MICROPHONE: ['LISTENING', 'ERROR', 'IDLE'],
-    LISTENING: ['PROCESSING_SPEECH', 'PAUSED', 'INTERRUPTED', 'RECOVERING', 'ENDING', 'ERROR', 'IDLE'],
-    PROCESSING_SPEECH: ['GENERATING_RESPONSE', 'LISTENING', 'RECOVERING', 'ERROR', 'ENDING', 'IDLE'],
+    INITIALIZING: ['REQUESTING_MICROPHONE', 'LISTENING', 'SPEAKING', 'ERROR', 'IDLE'],
+    REQUESTING_MICROPHONE: ['LISTENING', 'SPEAKING', 'ERROR', 'IDLE'],
+    LISTENING: ['PROCESSING_SPEECH', 'SPEAKING', 'PAUSED', 'INTERRUPTED', 'RECOVERING', 'ENDING', 'ERROR', 'IDLE'],
+    PROCESSING_SPEECH: ['GENERATING_RESPONSE', 'SPEAKING', 'LISTENING', 'RECOVERING', 'ERROR', 'ENDING', 'IDLE'],
     GENERATING_RESPONSE: ['SPEAKING', 'LISTENING', 'ERROR', 'ENDING', 'IDLE'],
-    SPEAKING: ['LISTENING', 'INTERRUPTED', 'PAUSED', 'ENDING', 'ERROR', 'IDLE'],
-    INTERRUPTED: ['LISTENING', 'PROCESSING_SPEECH', 'IDLE', 'ERROR'],
-    PAUSED: ['LISTENING', 'ENDING', 'IDLE'],
-    RECOVERING: ['LISTENING', 'REQUESTING_MICROPHONE', 'ERROR', 'IDLE'],
+    SPEAKING: ['LISTENING', 'PROCESSING_SPEECH', 'INTERRUPTED', 'PAUSED', 'ENDING', 'ERROR', 'IDLE'],
+    INTERRUPTED: ['LISTENING', 'PROCESSING_SPEECH', 'SPEAKING', 'IDLE', 'ERROR'],
+    PAUSED: ['LISTENING', 'SPEAKING', 'ENDING', 'IDLE'],
+    RECOVERING: ['LISTENING', 'REQUESTING_MICROPHONE', 'SPEAKING', 'ERROR', 'IDLE'],
     ENDING: ['IDLE'],
-    ERROR: ['RECOVERING', 'IDLE', 'REQUESTING_MICROPHONE']
+    ERROR: ['RECOVERING', 'IDLE', 'REQUESTING_MICROPHONE', 'LISTENING', 'SPEAKING']
   };
 
   // Natural Spoken Voice Intents
@@ -144,6 +144,16 @@
     if (this.state === nextState) return true;
     if (!this.canTransition(nextState)) {
       var err = "Invalid state transition from " + this.state + " to " + nextState;
+      console.warn("[LiveVoicePipeline]", err);
+      // Graceful self-healing: if transitioning between active live states, permit transition smoothly
+      if (nextState === STATES.SPEAKING || nextState === STATES.LISTENING || nextState === STATES.PROCESSING_SPEECH || nextState === STATES.INTERRUPTED) {
+        var prevSt = this.state;
+        this.state = nextState;
+        if (this.onStateChange) {
+          this.onStateChange(this.state, prevSt, meta);
+        }
+        return true;
+      }
       if (this.onError) {
         this.onError({ code: 'INVALID_TRANSITION', message: err });
       }
@@ -304,9 +314,10 @@
   LiveVoicePipeline.prototype.handleSpeechResult = function (event) {
     if (this.state === STATES.PAUSED || this.state === STATES.ENDING) return;
 
-    // Barge-in check: if coach is speaking and recognition receives student input
-    if (this.state === STATES.SPEAKING) {
-      this.handleBargeInInterruption("Speech recognition captured utterance during coach speech");
+    // Discard any audio input while coach is speaking or during echo cooldown
+    // This completely stops the microphone from hearing and recording the coach's own speaker output
+    if (this.isSpeaking || this.state === STATES.SPEAKING || (this.speakerCooldownUntil && Date.now() < this.speakerCooldownUntil)) {
+      return;
     }
 
     var interimText = '';
@@ -354,6 +365,25 @@
     var candidate = this.accumulatedTranscript.trim();
     if (!candidate || candidate.split(/\s+/).length < 1) {
       return; // Still waiting for valid speech
+    }
+
+    // Acoustic Prompt Echo Sanitizer: If candidate accidentally begins with coach prompt
+    if (this.lastSpokenText) {
+      var cleanLast = this.lastSpokenText.replace(/[^\w\s]/gi, '').toLowerCase();
+      var cleanCand = candidate.replace(/[^\w\s]/gi, '').toLowerCase();
+      var prefixLen = Math.min(25, cleanLast.length);
+      if (prefixLen >= 8 && cleanCand.indexOf(cleanLast.substring(0, prefixLen)) === 0) {
+        var promptWordCount = this.lastSpokenText.trim().split(/\s+/).length;
+        var candWords = candidate.trim().split(/\s+/);
+        if (candWords.length > promptWordCount) {
+          candidate = candWords.slice(promptWordCount).join(' ').trim();
+        }
+      }
+    }
+
+    if (!candidate || candidate.split(/\s+/).length < 1) {
+      this.accumulatedTranscript = '';
+      return;
     }
 
     // End-of-turn detected!
@@ -416,8 +446,11 @@
         this.synth.cancel();
       } catch (e) {}
     }
-    this.transitionTo(STATES.INTERRUPTED, { reason: reason });
+    this.isSpeaking = false;
+    this.activeUtterance = null;
     this.accumulatedTranscript = '';
+    this.speakerCooldownUntil = Date.now() + 200;
+    this.transitionTo(STATES.INTERRUPTED, { reason: reason });
     var self = this;
     setTimeout(function () {
       if (self.state === STATES.INTERRUPTED) {
@@ -428,15 +461,19 @@
 
   LiveVoicePipeline.prototype.speakCoachResponse = function (text, onFinish) {
     if (!text) {
+      this.isSpeaking = false;
       this.transitionTo(STATES.LISTENING);
       if (onFinish) onFinish();
       return;
     }
 
     this.lastSpokenText = text;
+    this.isSpeaking = true;
+    this.accumulatedTranscript = ''; // Always clean transcript before coach speaks
     this.transitionTo(STATES.SPEAKING);
 
     if (!this.synth) {
+      this.isSpeaking = false;
       this.transitionTo(STATES.LISTENING);
       if (onFinish) onFinish();
       return;
@@ -454,24 +491,55 @@
       utterance.rate = this.speechRate;
       utterance.pitch = 1.0;
 
+      // Select highest quality natural English voice if available
+      if (typeof this.synth.getVoices === 'function') {
+        var voices = this.synth.getVoices();
+        if (voices && voices.length > 0) {
+          var bestVoice = voices.find(function(v) {
+            return v.lang && v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Premium'));
+          }) || voices.find(function(v) {
+            return v.lang && v.lang.startsWith('en');
+          });
+          if (bestVoice) {
+            utterance.voice = bestVoice;
+          }
+        }
+      }
+
+      // Store utterance reference to prevent mobile Chrome garbage collection bug
+      this.activeUtterance = utterance;
+
       // Safety timeout: prevent getting stuck in SPEAKING on mobile browsers
       if (this.speakSafetyTimer) {
         clearTimeout(this.speakSafetyTimer);
       }
       var wordCount = text.split(/\s+/).length;
-      var timeoutMs = Math.max(4000, Math.min(25000, (wordCount / 2.2) * 1000 + 2500));
+      var timeoutMs = Math.max(4000, Math.min(25000, (wordCount / 2.0) * 1000 + 2500));
       this.speakSafetyTimer = setTimeout(function () {
+        self.isSpeaking = false;
+        self.activeUtterance = null;
+        self.accumulatedTranscript = '';
+        self.speakerCooldownUntil = Date.now() + 400;
         if (self.state === STATES.SPEAKING) {
           self.transitionTo(STATES.LISTENING);
           if (onFinish) onFinish();
         }
       }, timeoutMs);
 
+      utterance.onstart = function () {
+        self.isSpeaking = true;
+        self.accumulatedTranscript = '';
+      };
+
       utterance.onend = function () {
         if (self.speakSafetyTimer) {
           clearTimeout(self.speakSafetyTimer);
           self.speakSafetyTimer = null;
         }
+        self.isSpeaking = false;
+        self.activeUtterance = null;
+        self.accumulatedTranscript = '';
+        self.speakerCooldownUntil = Date.now() + 400; // 400ms echo suppression
         if (self.state === STATES.SPEAKING) {
           self.transitionTo(STATES.LISTENING);
         }
@@ -483,6 +551,10 @@
           clearTimeout(self.speakSafetyTimer);
           self.speakSafetyTimer = null;
         }
+        self.isSpeaking = false;
+        self.activeUtterance = null;
+        self.accumulatedTranscript = '';
+        self.speakerCooldownUntil = Date.now() + 400;
         if (self.state === STATES.SPEAKING) {
           self.transitionTo(STATES.LISTENING);
         }
@@ -495,6 +567,10 @@
         clearTimeout(this.speakSafetyTimer);
         this.speakSafetyTimer = null;
       }
+      this.isSpeaking = false;
+      this.activeUtterance = null;
+      this.accumulatedTranscript = '';
+      this.speakerCooldownUntil = Date.now() + 400;
       this.transitionTo(STATES.LISTENING);
       if (onFinish) onFinish();
     }
