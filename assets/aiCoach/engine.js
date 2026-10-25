@@ -56,11 +56,37 @@
   function createProfile(data) {
     var rawAdm = (data && data.admissionNumber) ? String(data.admissionNumber).trim().toUpperCase() : 'STUDENT';
     var mission = parseInt(data && data.currentMission, 10) || 1;
+    var verified = parseInt(data && data.verifiedSentences, 10) || 0;
+
+    // Cloud Database Progress Rehydration
+    if (data && data.userProgress && typeof data.userProgress === 'object') {
+      var highestActive = 1;
+      var foundVerified = 0;
+      for (var m = 1; m <= 32; m++) {
+        var k = 'MOD-' + (m < 10 ? '0' + m : m);
+        var mObj = data.userProgress[k] || data.userProgress['MOD-' + m];
+        if (mObj) {
+          var pct = Number(mObj.percentage) || 0;
+          if (pct >= 100) {
+            highestActive = Math.min(32, m + 1);
+          } else if (pct > 0) {
+            highestActive = m;
+            var t = (Curriculum && Curriculum.getTargetForMission) ? Curriculum.getTargetForMission(m) : (m <= 8 ? 30 : (m <= 23 ? 40 : 50));
+            foundVerified = (typeof mObj.verifiedSentences === 'number') ? mObj.verifiedSentences : Math.round((pct / 100) * t);
+            break;
+          }
+        }
+      }
+      if (!data.currentMission || data.currentMission === 1) {
+        mission = highestActive;
+        verified = foundVerified;
+      }
+    }
+
     if (mission < 1) mission = 1;
     if (mission > 32) mission = 32;
 
     var target = (Curriculum && Curriculum.getTargetForMission) ? Curriculum.getTargetForMission(mission) : (mission <= 8 ? 30 : (mission <= 23 ? 40 : 50));
-    var verified = parseInt(data && data.verifiedSentences, 10) || 0;
     if (verified < 0) verified = 0;
 
     var level = (data && data.englishLevel) ? String(data.englishLevel).toUpperCase() : 'BEGINNER';
@@ -99,6 +125,7 @@
     this.pendingCorrection = null;
     this.lastSavedTimestamp = this.profile.lastUpdated;
     this.saveHandler = options.onSaveProgress || null;
+    this.onSentenceVerified = options.onSentenceVerified || null;
     this.logger = options.logger || function () {};
   }
 
@@ -280,6 +307,19 @@
         this.profile.missionStatus = 'COMPLETED';
         passed = true;
       }
+    }
+
+    // Trigger real-time progress hook
+    if (this.onSentenceVerified) {
+      try {
+        this.onSentenceVerified(this.getProfile(), attempt);
+      } catch (e) {}
+    }
+
+    if (passed && this.saveHandler) {
+      try {
+        this.saveHandler(this.getProfile());
+      } catch (e) {}
     }
 
     return {

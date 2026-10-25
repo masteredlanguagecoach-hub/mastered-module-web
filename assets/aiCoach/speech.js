@@ -104,9 +104,27 @@
     this.accumulatedTranscript = '';
     this.lastSpeechTime = 0;
     this.silenceTimer = null;
+    this.speakSafetyTimer = null;
+    this.lastSpokenText = '';
     this.isBargeInActive = false;
     this.activeTurnId = 0;
   }
+
+  LiveVoicePipeline.prototype.unlockMobileAudio = function () {
+    if (typeof window === 'undefined') return;
+    if (this.audioContext && this.audioContext.state === 'suspended') {
+      try { this.audioContext.resume(); } catch (e) {}
+    }
+    if (this.synth) {
+      try {
+        if (this.synth.paused) this.synth.resume();
+        var primer = new window.SpeechSynthesisUtterance(' ');
+        primer.volume = 0.01;
+        primer.rate = 1.0;
+        this.synth.speak(primer);
+      } catch (e) {}
+    }
+  };
 
   LiveVoicePipeline.prototype.isSupported = function () {
     if (typeof window === 'undefined') return false;
@@ -147,6 +165,9 @@
     if (this.state !== STATES.IDLE && this.state !== STATES.ERROR) {
       return false;
     }
+
+    // Unlock mobile audio on user gesture
+    this.unlockMobileAudio();
 
     this.transitionTo(STATES.INITIALIZING);
 
@@ -225,11 +246,13 @@
         self.onAudioLevel(level);
       }
 
-      // Check for Barge-in Interruption:
-      // If coach is currently speaking and student begins speaking with significant volume
-      if (self.state === STATES.SPEAKING && level > self.volumeThreshold + 8) {
-        self.handleBargeInInterruption("Audio energy detected while coach speaking");
-      }
+      // Note on Barge-in Interruption:
+      // On mobile phones, speaker output feeds directly back into the phone's microphone.
+      // If we trigger barge-in on volume level alone while coach is SPEAKING, the coach
+      // interrupts itself after the first syllable!
+      // Therefore, acoustic energy interruption while SPEAKING is suppressed; interruption
+      // during coach speech is handled cleanly via the prominent "Tap to Interrupt" control
+      // or distinct student speech recognition tokens.
 
       if (typeof window !== 'undefined' && window.requestAnimationFrame) {
         self.animFrameId = window.requestAnimationFrame(tick);
@@ -410,6 +433,7 @@
       return;
     }
 
+    this.lastSpokenText = text;
     this.transitionTo(STATES.SPEAKING);
 
     if (!this.synth) {
@@ -421,13 +445,33 @@
     var self = this;
     try {
       this.synth.cancel();
+      if (this.synth.paused) {
+        this.synth.resume();
+      }
 
       var utterance = new window.SpeechSynthesisUtterance(text);
       utterance.lang = this.lang;
       utterance.rate = this.speechRate;
       utterance.pitch = 1.0;
 
+      // Safety timeout: prevent getting stuck in SPEAKING on mobile browsers
+      if (this.speakSafetyTimer) {
+        clearTimeout(this.speakSafetyTimer);
+      }
+      var wordCount = text.split(/\s+/).length;
+      var timeoutMs = Math.max(4000, Math.min(25000, (wordCount / 2.2) * 1000 + 2500));
+      this.speakSafetyTimer = setTimeout(function () {
+        if (self.state === STATES.SPEAKING) {
+          self.transitionTo(STATES.LISTENING);
+          if (onFinish) onFinish();
+        }
+      }, timeoutMs);
+
       utterance.onend = function () {
+        if (self.speakSafetyTimer) {
+          clearTimeout(self.speakSafetyTimer);
+          self.speakSafetyTimer = null;
+        }
         if (self.state === STATES.SPEAKING) {
           self.transitionTo(STATES.LISTENING);
         }
@@ -435,6 +479,10 @@
       };
 
       utterance.onerror = function (e) {
+        if (self.speakSafetyTimer) {
+          clearTimeout(self.speakSafetyTimer);
+          self.speakSafetyTimer = null;
+        }
         if (self.state === STATES.SPEAKING) {
           self.transitionTo(STATES.LISTENING);
         }
@@ -443,9 +491,22 @@
 
       this.synth.speak(utterance);
     } catch (err) {
+      if (this.speakSafetyTimer) {
+        clearTimeout(this.speakSafetyTimer);
+        this.speakSafetyTimer = null;
+      }
       this.transitionTo(STATES.LISTENING);
       if (onFinish) onFinish();
     }
+  };
+
+  LiveVoicePipeline.prototype.replayLastCoachSpeech = function (onFinish) {
+    if (this.lastSpokenText) {
+      this.unlockMobileAudio();
+      this.speakCoachResponse(this.lastSpokenText, onFinish);
+      return true;
+    }
+    return false;
   };
 
   LiveVoicePipeline.prototype.pauseListening = function () {
@@ -560,6 +621,12 @@
     if (this.pipeline.synth) {
       try { this.pipeline.synth.cancel(); } catch (e) {}
     }
+  };
+  BrowserSpeechEngine.prototype.replay = function (onEnd) {
+    return this.pipeline.replayLastCoachSpeech(onEnd);
+  };
+  BrowserSpeechEngine.prototype.unlockMobileAudio = function () {
+    this.pipeline.unlockMobileAudio();
   };
 
   var MasteredSpeech = {

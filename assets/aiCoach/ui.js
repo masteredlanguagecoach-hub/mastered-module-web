@@ -182,6 +182,11 @@
       var nextQ = sessionRef.current.getNextQuestion();
       setActivePrompt(nextQ);
 
+      // Trigger progress sync hook immediately
+      if (onSaveProgress) {
+        onSaveProgress(sessionRef.current.getProfile());
+      }
+
       var speechText = attempt.feedback + " " + nextQ;
       if (pipelineRef.current) {
         pipelineRef.current.speakCoachResponse(speechText);
@@ -195,6 +200,10 @@
       }
       setCoachFeedback('');
       setLiveTranscript('');
+
+      if (pipelineRef.current.unlockMobileAudio) {
+        pipelineRef.current.unlockMobileAudio();
+      }
 
       var started = await pipelineRef.current.startLiveSession();
       if (started) {
@@ -216,6 +225,14 @@
     var handleInterrupt = function () {
       if (!pipelineRef.current) return;
       pipelineRef.current.handleBargeInInterruption("User tapped interrupt button");
+    };
+
+    var handleReplayVoice = function () {
+      if (!pipelineRef.current) return;
+      if (pipelineRef.current.unlockMobileAudio) {
+        pipelineRef.current.unlockMobileAudio();
+      }
+      pipelineRef.current.replayLastCoachSpeech();
     };
 
     var handleRepeatInstruction = function () {
@@ -513,6 +530,15 @@
                   className: 'py-2.5 px-3 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-xl transition disabled:opacity-40'
                 },
                 '✋ Interrupt Coach'
+              ),
+              React.createElement(
+                'button',
+                {
+                  type: 'button',
+                  onClick: handleReplayVoice,
+                  className: 'py-2.5 px-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-xl transition'
+                },
+                '🔊 Replay Voice'
               ),
               React.createElement(
                 'button',

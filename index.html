@@ -1705,9 +1705,36 @@
       const voicePipelineRef = useRef(null);
 
       const admNum = currentUser?.admissionNumber || 'MTR777';
-      const activeMissionNumber = activeModule?.moduleNumber || 1;
+      const cleanAdm = admNum.replace(/[^A-Z0-9]/g, '');
+      const studentEmail = (currentUser?.email || '').toLowerCase().trim();
+
+      // Retrieve student's current authoritative module progress map
+      const currentStudentProg = (typeof getCurrentStudentProgressMap === 'function') 
+        ? getCurrentStudentProgressMap() 
+        : (userProgress?.[cleanAdm] || userProgress?.[admNum] || userProgress?.[studentEmail] || {});
+
+      // Calculate initial active mission: first module with < 100% progress
+      let derivedMission = activeModule?.moduleNumber || 1;
+      let derivedVerified = 0;
+      for (let m = 1; m <= 32; m++) {
+        const k = `MOD-${m < 10 ? '0' + m : m}`;
+        const mObj = currentStudentProg[k] || currentStudentProg[`MOD-${m}`];
+        if (mObj) {
+          const pct = Number(mObj.percentage) || 0;
+          if (pct >= 100) {
+            derivedMission = Math.min(32, m + 1);
+          } else if (pct > 0) {
+            derivedMission = m;
+            const t = (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission) ? window.MasteredCurriculum.getTargetForMission(m) : (m <= 8 ? 30 : (m <= 23 ? 40 : 50));
+            derivedVerified = (typeof mObj.verifiedSentences === 'number') ? mObj.verifiedSentences : Math.round((pct / 100) * t);
+            break;
+          }
+        }
+      }
+
+      const activeMissionNumber = derivedMission;
       const modKey = `MOD-${activeMissionNumber < 10 ? '0' + activeMissionNumber : activeMissionNumber}`;
-      const modProgObj = userProgress?.[modKey] || {};
+      const modProgObj = currentStudentProg[modKey] || {};
       const currentPct = Number(modProgObj.percentage) || 0;
 
       const mclCode = encodeMcl1(admNum, activeMissionNumber, currentPct);
@@ -1716,20 +1743,86 @@
         ? window.MasteredCurriculum.getMission(activeMissionNumber)
         : { title: `Module ${activeMissionNumber}`, targetSentences: (activeMissionNumber <= 8 ? 30 : (activeMissionNumber <= 23 ? 40 : 50)), grammarFocus: 'English Fluency', situation: 'Speaking Practice', starterPrompts: ['Please speak your answer aloud in full sentences.'] };
 
+      // Synchronize verified spoken practice directly into Google Sheets StudentProgress database
+      const syncVoiceProgressToDatabase = (prof) => {
+        if (!prof) return;
+        const mNum = prof.currentMission;
+        const target = prof.missionTarget || 30;
+        const verified = prof.verifiedSentences || 0;
+        const pct = Math.min(100, Math.round((verified / target) * 100));
+
+        const mKey = `MOD-${mNum < 10 ? '0' + mNum : mNum}`;
+        const activeProg = (typeof getCurrentStudentProgressMap === 'function') ? getCurrentStudentProgressMap() : {};
+
+        const updatedModObj = {
+          ...(activeProg[mKey] || {}),
+          percentage: pct,
+          verifiedSentences: verified,
+          aiMissionCompleted: pct > 0,
+          status: pct === 100 ? 'COMPLETED' : ((activeProg[mKey] && activeProg[mKey].status) || 'IN_PROGRESS'),
+          lastUpdated: new Date().toISOString()
+        };
+
+        const updatedMap = { ...activeProg, [mKey]: updatedModObj };
+
+        // Synthesize completed prior missions as 100%
+        for (let lvl = 1; lvl < mNum; lvl++) {
+          const pKey = `MOD-${lvl < 10 ? '0' + lvl : lvl}`;
+          if (!updatedMap[pKey] || !updatedMap[pKey].percentage || Number(updatedMap[pKey].percentage) < 100) {
+            updatedMap[pKey] = {
+              ...(updatedMap[pKey] || {}),
+              percentage: 100,
+              aiMissionCompleted: true,
+              status: 'COMPLETED'
+            };
+          }
+        }
+
+        // 1. Update React state immediately across all aliases
+        setUserProgress(prev => {
+          const newState = {
+            ...prev,
+            [cleanAdm]: updatedMap,
+            [admNum]: updatedMap,
+            ...(studentEmail ? { [studentEmail]: updatedMap } : {})
+          };
+          safeStorage.setItem('mastered_all_students_progress', JSON.stringify(newState));
+          if (cleanAdm) safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(updatedMap));
+          return newState;
+        });
+
+        // 2. Persist to Google Sheets database asynchronously (cross-device & admin dashboard!)
+        callAppsScript('saveStudentProgress', {
+          admissionNumber: cleanAdm || admNum,
+          email: studentEmail,
+          userProgress: updatedMap
+        }).catch(() => {});
+
+        // 3. Mirror authoritative MCL code in database
+        const code = encodeMcl1(cleanAdm || admNum, mNum, pct);
+        callAppsScript('verifyMclCode', {
+          code: code,
+          admissionNumber: cleanAdm || admNum,
+          email: studentEmail
+        }).catch(() => {});
+      };
+
       useEffect(() => {
         if (window.MasteredAiCoachEngine && window.MasteredCurriculum) {
           const initP = window.MasteredAiCoachEngine.createProfile({
             admissionNumber: admNum,
             name: currentUser?.name || 'Student',
             currentMission: activeMissionNumber,
-            verifiedSentences: 0
+            verifiedSentences: derivedVerified,
+            userProgress: currentStudentProg
           });
+
           const session = new window.MasteredAiCoachEngine.AiCoachSession(initP, {
+            onSentenceVerified: (p) => {
+              syncVoiceProgressToDatabase(p);
+            },
             onSaveProgress: (p) => {
-              if (onVerifyMclCode) {
-                const code = encodeMcl1(p.admissionNumber, p.currentMission, p.progressPct);
-                onVerifyMclCode(code);
-              }
+              syncVoiceProgressToDatabase(p);
             }
           });
           voiceSessionRef.current = session;
@@ -1787,8 +1880,12 @@
           nonce: 'voice_' + turnData.turnId + '_' + Date.now()
         });
 
-        setVoiceVerifiedCount(voiceSessionRef.current.getProfile().verifiedSentences);
+        const prof = voiceSessionRef.current.getProfile();
+        setVoiceVerifiedCount(prof.verifiedSentences);
         setVoiceFeedback(attempt.feedback);
+
+        // Immediate database persistence across devices and admin dashboard
+        syncVoiceProgressToDatabase(prof);
 
         const nextQ = voiceSessionRef.current.getNextQuestion ? voiceSessionRef.current.getNextQuestion() : "Great work! Please keep speaking.";
         setActivePromptText(nextQ);
@@ -1805,6 +1902,11 @@
         }
         setVoiceFeedback('');
         setVoiceTranscript('');
+
+        // Prime mobile audio on direct user tap
+        if (voicePipelineRef.current.unlockMobileAudio) {
+          voicePipelineRef.current.unlockMobileAudio();
+        }
 
         const started = await voicePipelineRef.current.startLiveSession();
         if (started) {
@@ -2161,7 +2263,23 @@
                           <span>🎙️</span>
                           <span>Speaking Task</span>
                         </span>
-                        <span className="font-mono text-slate-300">Grammar: {missionInfo.grammarFocus}</span>
+                        <div className="flex items-center space-x-2">
+                          <span className="font-mono text-slate-300">Grammar: {missionInfo.grammarFocus}</span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (voicePipelineRef.current) {
+                                voicePipelineRef.current.unlockMobileAudio();
+                                voicePipelineRef.current.speakCoachResponse(activePromptText);
+                              }
+                            }}
+                            className="px-2.5 py-0.5 bg-slate-800 hover:bg-slate-700 text-indigo-300 font-bold text-[10px] rounded-lg border border-slate-700 transition flex items-center space-x-1 cursor-pointer"
+                            title="Hear this question aloud"
+                          >
+                            <span>🔊</span>
+                            <span>Hear Question</span>
+                          </button>
+                        </div>
                       </div>
                       <p className="text-sm sm:text-base font-semibold leading-relaxed text-slate-100">
                         "{activePromptText || (missionInfo.starterPrompts && missionInfo.starterPrompts[0]) || 'Please speak your answer aloud.'}"
@@ -2208,9 +2326,25 @@
                         )}
 
                         {voiceFeedback && (
-                          <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-950 font-medium">
-                            <span className="font-extrabold text-emerald-800">Coach Feedback: </span>
-                            {voiceFeedback}
+                          <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-950 font-medium flex justify-between items-center gap-2">
+                            <div>
+                              <span className="font-extrabold text-emerald-800">Coach Feedback: </span>
+                              {voiceFeedback}
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                if (voicePipelineRef.current) {
+                                  voicePipelineRef.current.unlockMobileAudio();
+                                  voicePipelineRef.current.replayLastCoachSpeech();
+                                }
+                              }}
+                              className="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-extrabold text-[10px] rounded-lg shrink-0 transition flex items-center space-x-1 cursor-pointer"
+                              title="Replay coach speech aloud"
+                            >
+                              <span>🔊</span>
+                              <span>Replay Voice</span>
+                            </button>
                           </div>
                         )}
 
@@ -2225,35 +2359,64 @@
                             <span>Start Live Practice (Hands-Free Conversation)</span>
                           </button>
                         ) : (
-                          <div className="flex flex-wrap gap-2 text-xs font-bold pt-1">
+                          <div className="space-y-2 pt-1">
+                            <div className="flex flex-wrap gap-2 text-xs font-bold">
+                              <button
+                                type="button"
+                                onClick={handlePauseResumeVoice}
+                                className="flex-1 py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl transition cursor-pointer"
+                              >
+                                {voiceState === 'PAUSED' ? '▶️ Resume Listening' : '⏸️ Pause Listening'}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={handleInterruptVoice}
+                                disabled={voiceState !== 'SPEAKING'}
+                                className="py-2 px-3 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-xl transition disabled:opacity-40 cursor-pointer"
+                              >
+                                ✋ Tap to Interrupt
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  if (voicePipelineRef.current) {
+                                    voicePipelineRef.current.unlockMobileAudio();
+                                    voicePipelineRef.current.replayLastCoachSpeech();
+                                  }
+                                }}
+                                className="py-2 px-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-xl transition cursor-pointer"
+                              >
+                                🔊 Replay Voice
+                              </button>
+                              <button
+                                type="button"
+                                onClick={handleRepeatInstructionVoice}
+                                className="py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl transition cursor-pointer"
+                              >
+                                🔄 Repeat Task
+                              </button>
+                              <button
+                                type="button"
+                                onClick={handleSpeedToggleVoice}
+                                className="py-2 px-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-xl transition cursor-pointer"
+                              >
+                                ⚡ Speed: {voiceSpeechSpeed}x
+                              </button>
+                            </div>
+                            {/* Mobile Tap-to-Speak Fallback Button */}
                             <button
                               type="button"
-                              onClick={handlePauseResumeVoice}
-                              className="flex-1 py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl transition cursor-pointer"
+                              onClick={() => {
+                                if (voicePipelineRef.current) {
+                                  voicePipelineRef.current.unlockMobileAudio();
+                                  if (voiceState === 'PAUSED') voicePipelineRef.current.resumeListening();
+                                  if (voicePipelineRef.current.beginListeningLoop) voicePipelineRef.current.beginListeningLoop();
+                                }
+                              }}
+                              className="w-full py-2 px-3 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold text-xs rounded-xl border border-slate-200 transition flex items-center justify-center space-x-1.5 cursor-pointer"
                             >
-                              {voiceState === 'PAUSED' ? '▶️ Resume Listening' : '⏸️ Pause Listening'}
-                            </button>
-                            <button
-                              type="button"
-                              onClick={handleInterruptVoice}
-                              disabled={voiceState !== 'SPEAKING'}
-                              className="py-2 px-3 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-xl transition disabled:opacity-40 cursor-pointer"
-                            >
-                              ✋ Interrupt Coach
-                            </button>
-                            <button
-                              type="button"
-                              onClick={handleRepeatInstructionVoice}
-                              className="py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl transition cursor-pointer"
-                            >
-                              🔄 Repeat Task
-                            </button>
-                            <button
-                              type="button"
-                              onClick={handleSpeedToggleVoice}
-                              className="py-2 px-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-xl transition cursor-pointer"
-                            >
-                              ⚡ Speed: {voiceSpeechSpeed}x
+                              <span>🎙️</span>
+                              <span>Mobile Notice: Speak anytime or tap here to wake microphone</span>
                             </button>
                           </div>
                         )}
