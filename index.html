@@ -1344,9 +1344,10 @@
         }
       }
 
-      const aiMissionPct = Math.round(totalAiSum / (modules.length || 1));
-      const quizPct = totalQuizzesTaken > 0 ? Math.round(totalQuizScoreSum / totalQuizzesTaken) : Math.round((totalQuizzesPassed / (modules.length || 1)) * 100);
-      const overallPercentage = Math.round((aiMissionPct + quizPct) / 2);
+      const aiMissionPct = Math.min(100, Math.round(totalAiSum / (modules.length || 1)));
+      const quizCompletionPct = Math.min(100, Math.round((totalQuizzesPassed / (modules.length || 1)) * 100));
+      const quizAvgScore = totalQuizzesTaken > 0 ? Math.round(totalQuizScoreSum / totalQuizzesTaken) : 0;
+      const overallPercentage = Math.min(100, Math.round((aiMissionPct + quizCompletionPct) / 2));
 
       const displayPhone = (() => {
         const p = (student.phone || '').toString().trim();
@@ -1405,15 +1406,15 @@
               {/* Card 2: Quiz Progress */}
               <div className="bg-gradient-to-br from-emerald-900 to-teal-950 text-white p-4.5 rounded-2xl border border-emerald-800/50 space-y-1">
                 <span className="text-[10px] text-emerald-300 font-extrabold uppercase tracking-wider">📝 Quiz Progress</span>
-                <h4 className="text-2xl font-black text-emerald-200">{quizPct}%</h4>
-                <p className="text-[10px] text-emerald-300 font-medium">{totalQuizzesPassed}/{modules.length} Quizzes Passed (&ge;70%)</p>
+                <h4 className="text-2xl font-black text-emerald-200">{quizCompletionPct}%</h4>
+                <p className="text-[10px] text-emerald-300 font-medium">{totalQuizzesPassed}/{modules.length} Quizzes Passed (Avg: {quizAvgScore}%)</p>
               </div>
 
               {/* Card 3: Combined Overall Progress */}
               <div className="bg-slate-900 text-white p-4.5 rounded-2xl border border-slate-800 space-y-1">
                 <span className="text-[10px] text-red-400 font-extrabold uppercase tracking-wider">⭐ Overall Progress</span>
                 <h4 className="text-2xl font-black text-red-500">{overallPercentage}%</h4>
-                <p className="text-[10px] text-slate-400 font-medium">Combined Average (AI % + Quiz %)</p>
+                <p className="text-[10px] text-slate-400 font-medium">50% AI ({aiMissionPct}%) + 50% Quiz ({quizCompletionPct}%)</p>
               </div>
             </div>
 
@@ -4472,6 +4473,7 @@
                   /* Student Dashboard / Modules List View */
                   (() => {
                     let dashAiSum = 0;
+                    let dashAiCompleted = 0;
                     let dashQuizTaken = 0;
                     let dashQuizScoreSum = 0;
                     let dashQuizzesPassed = 0;
@@ -4485,6 +4487,9 @@
                       const mProg = currentStudentProg[m.moduleId] || currentStudentProg[modKey] || currentStudentProg[modKeyShort] || currentStudentProg[hindKey] || {};
                       const aiPct = Number(mProg.percentage) || (mProg.aiMissionCompleted || mProg.aiMissionProof ? 100 : 0);
                       dashAiSum += aiPct;
+                      if (aiPct >= 100) {
+                        dashAiCompleted++;
+                      }
                       if (aiPct > 0 && m.moduleNumber > activeMclLevel) {
                         activeMclLevel = m.moduleNumber;
                         activeMclProg = aiPct;
@@ -4499,9 +4504,10 @@
                       }
                     });
 
-                    const dashAiPct = Math.round(dashAiSum / (modules.length || 1));
-                    const dashQuizPct = dashQuizTaken > 0 ? Math.round(dashQuizScoreSum / dashQuizTaken) : Math.round((dashQuizzesPassed / (modules.length || 1)) * 100);
-                    const dashTotalGrowth = Math.round((dashAiPct + dashQuizPct) / 2);
+                    const dashAiPct = Math.min(100, Math.round(dashAiSum / (modules.length || 1)));
+                    const dashQuizCompletionPct = Math.min(100, Math.round((dashQuizzesPassed / (modules.length || 1)) * 100));
+                    const dashQuizAvgScore = dashQuizTaken > 0 ? Math.round(dashQuizScoreSum / dashQuizTaken) : 0;
+                    const dashTotalGrowth = Math.min(100, Math.round((dashAiPct + dashQuizCompletionPct) / 2));
 
                     return (
                       <div className="space-y-4 sm:space-y-6">
@@ -4625,12 +4631,14 @@
                             <p className="text-xs text-slate-500 font-medium flex items-center space-x-1.5 pt-0.5">
                               <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></span>
                               <span className="truncate">
-                                {activeMclLevel > 0 ? `Level ${activeMclLevel} active • ${activeMclProg}% completed` : 'Paste MCL code to sync level'}
+                                {activeMclLevel > 0 
+                                  ? `Level ${activeMclLevel} active • ${dashAiCompleted} of ${modules.length} completed` 
+                                  : 'Paste MCL code to sync level'}
                               </span>
                             </p>
                           </div>
 
-                          {/* Card 2: Quiz Performance */}
+                          {/* Card 2: Quiz Completion & Performance */}
                           <div className="bg-gradient-to-b from-emerald-50/40 via-white to-white rounded-2xl sm:rounded-3xl p-5 sm:p-5.5 border border-slate-200/90 shadow-sm hover:shadow-md transition-all duration-200 ease-out transform hover:-translate-y-0.5 flex flex-col justify-between space-y-3.5">
                             {/* Header: Icon + Title on left, Badge on right */}
                             <div className="flex items-center justify-between">
@@ -4638,7 +4646,7 @@
                                 <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center text-sm shadow-xs shrink-0">
                                   📝
                                 </div>
-                                <span className="text-xs font-extrabold text-slate-700 uppercase tracking-wider">Quiz Performance</span>
+                                <span className="text-xs font-extrabold text-slate-700 uppercase tracking-wider">Quiz Progress</span>
                               </div>
                               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/70">
                                 {dashQuizzesPassed}/{modules.length} Passed
@@ -4649,14 +4657,14 @@
                             <div className="space-y-1.5">
                               <div className="flex items-baseline justify-between">
                                 <h4 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-                                  {dashQuizPct}<span className="text-xl font-bold text-slate-400 ml-0.5">%</span>
+                                  {dashQuizCompletionPct}<span className="text-xl font-bold text-slate-400 ml-0.5">%</span>
                                 </h4>
-                                <span className="text-xs font-semibold text-slate-500">Average Quiz Score</span>
+                                <span className="text-xs font-semibold text-slate-500">Quiz Completion</span>
                               </div>
                               <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden p-0.5">
                                 <div
                                   className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full transition-all duration-500"
-                                  style={{ width: `${Math.min(100, Math.max(0, dashQuizPct))}%` }}
+                                  style={{ width: `${Math.min(100, Math.max(0, dashQuizCompletionPct))}%` }}
                                 ></div>
                               </div>
                             </div>
@@ -4665,7 +4673,7 @@
                             <p className="text-xs text-slate-500 font-medium flex items-center space-x-1.5 pt-0.5">
                               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
                               <span className="truncate">
-                                {dashQuizTaken > 0 ? `${dashQuizzesPassed} of ${modules.length} modules passed (85%+ target)` : 'Module Quiz Scores (50% Weight)'}
+                                {dashQuizTaken > 0 ? `Avg Score: ${dashQuizAvgScore}% • ${dashQuizzesPassed} of ${modules.length} modules passed (70%+ target)` : 'Module Quiz Scores (50% Weight)'}
                               </span>
                             </p>
                           </div>
@@ -4681,7 +4689,7 @@
                                 <span className="text-xs font-extrabold text-slate-700 uppercase tracking-wider">Total Growth</span>
                               </div>
                               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 text-amber-800 border border-amber-200/70">
-                                {dashTotalGrowth >= 70 ? 'Mastered ⭐' : 'Growing 🚀'}
+                                {dashTotalGrowth >= 70 ? 'Mastered ⭐' : (dashTotalGrowth >= 10 ? 'Growing 🚀' : 'Starting Out 🌱')}
                               </span>
                             </div>
 
@@ -4704,7 +4712,7 @@
                             {/* Footer Status */}
                             <p className="text-xs text-slate-500 font-medium flex items-center space-x-1.5 pt-0.5">
                               <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
-                              <span className="truncate">50% AI Mission + 50% Quiz Result</span>
+                              <span className="truncate">50% AI Mission ({dashAiPct}%) + 50% Quiz ({dashQuizCompletionPct}%)</span>
                             </p>
                           </div>
                         </div>
