@@ -550,7 +550,24 @@
 
     // STEP 1: Safely stop recognition before speech synthesis begins
     // This gives 100% audio subsystem focus to the speaker output, avoiding microphone muting/clashes on Android/iOS/Windows
-    var proceedToSpeak = function () {
+    if (this.recognition) {
+      try {
+        this.recognition.stop();
+      } catch (e) {}
+    }
+
+    // STEP 2: Clear any stuck/frozen Chrome speech synthesis queue from previous turn
+    if (this.synth) {
+      try {
+        this.synth.cancel();
+        if (typeof this.synth.resume === 'function') {
+          this.synth.resume();
+        }
+      } catch (e) {}
+    }
+
+    // STEP 3: Dispatch after 100ms so Chrome's internal audio thread completely resets and accepts the new utterance
+    setTimeout(function () {
       if (!self.synth) {
         self.isSpeaking = false;
         self.transitionTo(STATES.LISTENING);
@@ -560,7 +577,7 @@
       }
 
       try {
-        if (self.synth.paused) {
+        if (typeof self.synth.resume === 'function') {
           self.synth.resume();
         }
 
@@ -578,8 +595,10 @@
           utterance.voice = femaleVoice;
         }
 
-        // Anchor active utterance on window to prevent Chrome V8 garbage-collection from dropping speech mid-sentence
+        // Global queue anchor to completely prevent Chrome V8 garbage-collection from dropping speech mid-sentence
         if (typeof window !== 'undefined') {
+          window.__masteredUtteranceQueue = window.__masteredUtteranceQueue || [];
+          window.__masteredUtteranceQueue.push(utterance);
           window.__masteredActiveUtterance = utterance;
         }
         self.activeUtterance = utterance;
@@ -593,11 +612,14 @@
             clearInterval(self.speechKeepAliveInterval);
             self.speechKeepAliveInterval = null;
           }
-          self.isSpeaking = false;
-          self.activeUtterance = null;
-          if (typeof window !== 'undefined') {
+          if (typeof window !== 'undefined' && window.__masteredUtteranceQueue) {
+            window.__masteredUtteranceQueue = window.__masteredUtteranceQueue.filter(function (u) {
+              return u !== utterance;
+            });
             window.__masteredActiveUtterance = null;
           }
+          self.isSpeaking = false;
+          self.activeUtterance = null;
           self.accumulatedTranscript = '';
           self.speakerCooldownUntil = Date.now() + 250; // 250ms echo drain
 
@@ -641,10 +663,33 @@
 
         utterance.onerror = function (e) {
           console.warn("[Coach Sarah Speech Event]", e && e.error);
+          // If a remote/online voice had a network failure, retry immediately with default system voice
+          if (utterance.voice && e && (e.error === 'network' || e.error === 'audio-busy')) {
+            console.log("[Coach Sarah] Retrying with default voice fallback...");
+            try {
+              var fallbackUtterance = new window.SpeechSynthesisUtterance(text);
+              fallbackUtterance.lang = self.lang || 'en-US';
+              fallbackUtterance.rate = self.speechRate || 0.95;
+              fallbackUtterance.pitch = 1.05;
+              fallbackUtterance.onend = finishSpeech;
+              fallbackUtterance.onerror = finishSpeech;
+              if (typeof window !== 'undefined') window.__masteredActiveUtterance = fallbackUtterance;
+              self.synth.speak(fallbackUtterance);
+              return;
+            } catch (err) {}
+          }
           finishSpeech();
         };
 
         self.synth.speak(utterance);
+
+        // Chrome Watchdog: If speak was queued but hasn't started after 150ms, wake it with resume()
+        setTimeout(function () {
+          if (self.isSpeaking && self.synth && !self.synth.speaking) {
+            try { self.synth.resume(); } catch (e) {}
+          }
+        }, 150);
+
       } catch (err) {
         console.warn("[SpeechSynthesis Exception]", err);
         self.isSpeaking = false;
@@ -652,17 +697,7 @@
         self.restartListening();
         if (onFinish) onFinish();
       }
-    };
-
-    // If recognition is active, stop it cleanly first
-    if (this.recognition) {
-      try {
-        this.recognition.stop();
-      } catch (e) {}
-    }
-
-    // Small macrotask dispatch (60ms) to ensure audio hardware cleanly transitions from mic to speaker
-    setTimeout(proceedToSpeak, 60);
+    }, 100);
   };
 
   LiveVoicePipeline.prototype.replayLastCoachSpeech = function (onFinish) {

@@ -1705,6 +1705,7 @@
       const voiceSessionRef = useRef(null);
       const voicePipelineRef = useRef(null);
       const activePromptRef = useRef('');
+      const handleStudentVoiceTurnRef = useRef(null);
       const [callDuration, setCallDuration] = useState(0);
 
       useEffect(() => {
@@ -1832,6 +1833,11 @@
       };
 
       useEffect(() => {
+        // Prevent tearing down active call pipeline if user is already talking in a live session
+        if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
+          return;
+        }
+
         if (window.MasteredAiCoachEngine && window.MasteredCurriculum) {
           const initP = window.MasteredAiCoachEngine.createProfile({
             admissionNumber: admNum,
@@ -1863,7 +1869,11 @@
               onAudioLevel: (lvl) => setVoiceAudioLevel(lvl),
               onTranscriptUpdate: (fullText) => setVoiceTranscript(fullText),
               onStudentTurnComplete: (turnData) => {
-                handleStudentVoiceTurn(turnData);
+                if (handleStudentVoiceTurnRef.current) {
+                  handleStudentVoiceTurnRef.current(turnData);
+                } else {
+                  handleStudentVoiceTurn(turnData);
+                }
               },
               onIntentDetected: (intent, text) => {
                 if (intent === 'END_SESSION') {
@@ -1893,7 +1903,7 @@
           }
         }
         return () => {
-          if (voicePipelineRef.current) {
+          if (voicePipelineRef.current && !voicePipelineRef.current.isSessionActive) {
             voicePipelineRef.current.endLiveSession();
           }
         };
@@ -1952,6 +1962,7 @@
           voicePipelineRef.current.speakCoachResponse(fullCoachSpokenTurn);
         }
       };
+      handleStudentVoiceTurnRef.current = handleStudentVoiceTurn;
 
       const handleStartLivePractice = async () => {
         if (!voicePipelineRef.current) {
