@@ -287,9 +287,32 @@
       verifiedIncrement: 1,
       passed: passed,
       reason: 'VERIFIED_SPOKEN_SENTENCE',
-      feedback: attempt.feedback || "Great job! Accurate spoken sentence verified.",
+      feedback: attempt.feedback || this.generateFeedback(text, true),
       progress: this.getProfile()
     };
+  };
+
+  AiCoachSession.prototype.generateFeedback = function (text, isSuccess) {
+    var cur = this.getMissionDetails();
+    if (isSuccess) {
+      var praises = [
+        "Excellent sentence! Very clear grammar.",
+        "Well spoken! That was natural and accurate.",
+        "Spot on! Great use of vocabulary.",
+        "Terrific work! That expresses your thought clearly.",
+        "Nicely phrased! Your fluency is improving."
+      ];
+      var idx = this.profile.verifiedSentences % praises.length;
+      return praises[idx];
+    }
+    return "Let's refine that. Focus on " + cur.grammarFocus + " and try speaking again.";
+  };
+
+  AiCoachSession.prototype.getNextQuestion = function () {
+    var cur = this.getMissionDetails();
+    var prompts = cur.starterPrompts || ["Please speak your answer aloud in full sentences."];
+    var nextIndex = this.profile.verifiedSentences % prompts.length;
+    return prompts[nextIndex];
   };
 
   AiCoachSession.prototype.advanceMission = function () {

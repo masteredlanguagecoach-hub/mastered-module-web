@@ -31,38 +31,38 @@ $(8 \times 30) + (15 \times 40) + (9 \times 50) = 240 + 600 + 450 = 1,290$ verif
 
 | Mission | Official Title | Target | Focus Area & Grammar | Situation / Speaking Topic |
 |---|---|:---:|---|---|
-| **1** | Self Introduction | 30 | Present tense, personal pronouns, 'to be' | Introducing name, profession, origin, hobbies, and background |
-| **2** | Talking About Other People | 30 | Third-person singular (he/she/they), adjectives | Describing friends, colleagues, personality traits, and roles |
-| **3** | Family, Possessions & Demonstratives | 30 | Possessive pronouns (my/his/her/their), this/that/these/those | Describing family relationships, personal belongings, and home |
-| **4** | Expressing Abilities & Polite Requests | 30 | Modals: can, could, would, may | Expressing personal abilities, asking polite favors, workplace requests |
-| **5** | Daily Routines & Habits | 30 | Simple present, adverbs of frequency (always, often, usually) | Morning routines, work schedules, daily commute, evening habits |
-| **6** | Actions Happening Now | 30 | Present continuous (is/am/are + -ing) | Describing current activities, live scenes, temporary situations |
-| **7** | Talking About Past Events | 30 | Simple past (regular & irregular verbs), time markers (yesterday, ago) | Childhood memories, yesterday's activities, past trips |
-| **8** | Future Plans & Intentions | 30 | Future forms: going to, will, plan to | Weekend plans, upcoming goals, travel plans, next year's targets |
-| **9** | Simple Present Mastery | 40 | Question formation (do/does), negatives (don't/doesn't) | Inquiring about habits, clarifying schedules, general facts |
-| **10** | Simple Present Playbook | 40 | State vs dynamic verbs, habitual descriptions | Detailed lifestyle interviews, job role breakdowns, daily workflows |
-| **11** | Simple Present Mastery Dashboard | 40 | Extended conversational flow, connectors (because, although, however) | Explaining opinions on work-life balance, comparing routines |
-| **12** | Present Continuous Mastery | 40 | Present continuous for future arrangements, dynamic descriptions | Organizing events, real-time commentary, project updates |
-| **13** | Present Continuous Playbook | 40 | Contrast between simple present and continuous | Describing trends, changes in technology, temporary projects |
-| **14** | Past Tense Mastery | 40 | Did you...? past negatives (didn't), irregular verb drill | Investigating past incidents, discussing historical events |
-| **15** | Simple Past Mastery | 40 | Sequencers (first, then, after that, finally) | Recounting step-by-step past experiences, recounting an achievement |
-| **16** | Storytelling | 40 | Narrative tenses, descriptive adjectives, atmosphere | Telling personal stories, memorable journeys, overcoming challenges |
-| **17** | Interrupted Actions | 40 | Past continuous + simple past (was doing when something happened) | Describing unexpected interruptions, accidents, memorable moments |
-| **18** | Present Perfect Mastery | 40 | Present perfect (have/has + V3), ever, never, already, yet | Life experiences, travel history, personal milestones |
-| **19** | Present Perfect Blueprint | 40 | Present perfect vs simple past, since vs for | Career history, duration of habits, recent accomplishments |
-| **20** | Future Plans Blueprint | 40 | Conditional future (if + present, will + verb) | Career aspirations, contingency plans, conditional scenarios |
-| **21** | Future Tense Mastery | 40 | Future continuous (will be doing), predictions | Imagining life in 10 years, future industry forecasts, milestones |
-| **22** | Future Continuous Mastery | 40 | Specific future times, scheduling arrangements | Describing schedule at 3 PM tomorrow, business travel coordination |
-| **23** | Ongoing Actions | 40 | Present perfect continuous (have been doing) | Explaining ongoing projects, hobby progression, recent efforts |
-| **24** | Shopping and Retail English | 50 | Inquiries, price negotiation, returns, sizing | Buying clothes, asking for discounts, resolving billing disputes |
-| **25** | Restaurant English | 50 | Ordering food, dietary requests, compliments, complaints | Reserving a table, ordering meals, requesting bill, dining feedback |
-| **26** | Travel English | 50 | Airport navigation, hotel check-in, asking directions | Boarding flights, customs inquiries, hotel room issues, sightseeing |
-| **27** | Telephone Conversations | 50 | Phone etiquette, taking messages, clarifying information | Answering business calls, transferring lines, dealing with bad connections |
-| **28** | Job Interview English | 50 | Professional strengths, STAR method, career goals | Self-introduction in interview, handling behavioral questions |
-| **29** | Corporate English | 50 | Meeting participation, disagreeing politely, pitching ideas | Leading status meetings, proposing business strategies, team negotiations |
-| **30** | English Mastery | 50 | Idiomatic expressions, nuance, persuasive speech | Debating controversial topics, public speaking, influencing others |
-| **31** | Natural Fluency Upgrade | 50 | Sentence variety, complex connectors, natural rhythm | Delivering impromptu speeches, analyzing complex world problems |
-| **32** | Professional English Mastery | 50 | Executive communication, leadership presentation | Final comprehensive executive presentation, course defense |
+| **1** | Introduce Yourself | 30 | Present tense, personal pronouns, 'to be' | Introducing name, profession, origin, hobbies, and background |
+| **2** | Talk About Others | 30 | Third-person singular (he/she/they), descriptive adjectives | Describing friends, colleagues, personality traits, and roles |
+| **3** | Describe Your Family | 30 | Possessive pronouns (my/his/her/their), family vocabulary | Describing family relationships, personal belongings, and home |
+| **4** | Talk About What You Can Do | 30 | Modal verbs: can, could, be able to | Expressing personal abilities, talents, and professional skills |
+| **5** | Talk About Responsibilities | 30 | Obligation modals: must, have to, need to, responsible for | Work duties, daily obligations, family responsibilities |
+| **6** | Express Yourself Politely | 30 | Polite modals: would you mind, could you please, may I | Workplace etiquette, asking favors, polite requests |
+| **7** | Ask Like a Pro | 30 | Wh- questions, inverted auxiliary questions, tag questions | Professional inquiries, interviewing others, gathering information |
+| **8** | Handle Everyday English | 30 | Common phrasal verbs, conversational idioms, daily survival phrases | Daily greetings, small talk, street directions, common social situations |
+| **9** | Talk About Your Daily Life | 40 | Simple present, adverbs of frequency (always, often, rarely) | Morning routines, commute, workday structure, evening unwind |
+| **10** | Express Your Likes and Opinions | 40 | Opinion phrases (in my view, I prefer), gerunds vs infinitives | Debating preferences, sharing reviews, expressing viewpoints |
+| **11** | Ask, Answer and Communicate | 40 | Direct and indirect speech, conversational connectors (however, moreover) | Two-way discussions, clarifying ambiguity, meeting participation |
+| **12** | Talk About What's Happening Now | 40 | Present continuous (is/am/are + -ing), dynamic vs stative verbs | Describing live scenes, ongoing tasks, current temporary situations |
+| **13** | Communicate About Current and Future Activities | 40 | Present continuous for future arrangements, 'going to' for plans | Scheduling appointments, upcoming weekend plans, project milestones |
+| **14** | Talk About Yesterday | 40 | Simple past regular and irregular verbs, past time markers | Recounting yesterday's actions, unexpected events, accomplishments |
+| **15** | Talk About Past Experiences | 40 | Present perfect (have + past participle) vs simple past | Life achievements, travel experiences, skills acquired over time |
+| **16** | Tell a Short Story | 40 | Narrative tenses, chronological connectors (first, then, suddenly, finally) | Storytelling, recounting an anecdote, sharing an adventure |
+| **17** | Describe What Was Happening | 40 | Past continuous (was/were + -ing), interrupted past with 'when' / 'while' | Describing background scenes in the past, simultaneous actions |
+| **18** | Share Your Life Journey | 40 | Past perfect (had + participle), used to, life milestones | Personal autobiography, career milestones, major transitions |
+| **19** | Talk About Recent Actions | 40 | Present perfect continuous (have been + -ing), just, already, yet | Recent activities with present effects, ongoing projects |
+| **20** | Talk About Your Future Plans | 40 | Future forms: will, be going to, planning to, intend to | 1-year and 5-year goals, career aspirations, family plans |
+| **21** | Make Promises and Predictions | 40 | Will for spontaneous decisions and promises, likely to, might | Work commitments, future trends, technology predictions |
+| **22** | Describe Future Ongoing Actions | 40 | Future continuous (will be + -ing), time clauses with future meaning | Future schedules, visualizing upcoming life events |
+| **23** | Talk About Ongoing Activities | 40 | Contrast between simple, continuous, and perfect aspects | Status updates, stand-up meetings, project progress reviews |
+| **24** | Shopping Conversation | 50 | Comparative & superlative adjectives, price inquiries, refund phrases | Retail store, comparing products, negotiating prices, returns |
+| **25** | Order Food Confidently | 50 | Restaurant vocabulary, conditional requests ('I would like', 'could we get') | Fine dining, dietary restrictions, paying the bill, tipping etiquette |
+| **26** | Handle Travel Conversations Confidently | 50 | Airport and hotel vocabulary, checking in, directions, transit | International airports, hotel check-in, customs immigration, lost luggage |
+| **27** | Handle Telephone Conversations Confidently | 50 | Telephone etiquette, taking messages, spelling names with phonetics | Professional phone calls, customer service, conference scheduling |
+| **28** | Handle a Job Interview Confidently | 50 | STAR method (Situation, Task, Action, Result), professional accomplishments | Job interview, answering behavioral questions, salary discussions |
+| **29** | Communicate Professionally at Work | 50 | Executive presence, diplomatic phrasing, persuasive argumentation | Boardroom presentations, cross-functional collaboration, client pitching |
+| **30** | Complete a Real-Life Conversation Confidently | 50 | Spontaneous conversational repair, nuance, natural English idioms | Extended unscripted social conversation, networking mixer, dinner party |
+| **31** | Speak Like a Native | 50 | Advanced collocations, natural rhythm, connected speech, nuance | Deep intellectual discussions, emotional expression, humor, subtlety |
+| **32** | Speak Like a Confident English Speaker | 50 | Mastery of all tenses, persuasive rhetoric, keynote delivery | Graduation speech, keynote address, master-level fluency showcase |
 
 ---
 
@@ -220,3 +220,36 @@ Cumulative progress across all missions must **never be reset** between sessions
 18. Student PII is strictly protected.
 19. Coach accurately displays current mission and confirmed progress.
 20. Existing student portal functions remain 100% operational.
+
+---
+
+## 11. Live Speaking Coach Architecture & Continuous Voice Loop
+
+### 11.1 Two Interaction Modes:
+- **Live Voice Coach (Default & Primary):** Tap "Start Live Practice" once to initiate a continuous, hands-free conversation loop. Microphone audio is continuously monitored with Web Audio API `AudioContext` and `AnalyserNode`. Spoken turns are automatically detected with end-of-turn voice activity detection (VAD).
+- **Text Practice (Optional Fallback):** Intended for silent environments or unsupported browsers. Text inputs are evaluated for grammatical accuracy, but **never** increment official verified spoken sentence progress.
+
+### 11.2 12-State Conversation State Machine:
+1. `IDLE`: Session initialized, waiting to start live practice.
+2. `INITIALIZING`: Setting up audio context and engine pipelines.
+3. `REQUESTING_MICROPHONE`: Requesting browser media permission (`navigator.mediaDevices.getUserMedia`).
+4. `LISTENING`: Microphone active, speech recognition listening, real-time volume monitored.
+5. `PROCESSING_SPEECH`: End-of-turn detected; transcribing and tokenizing student speech.
+6. `GENERATING_RESPONSE`: Application engine assessing eligibility and drafting spoken response.
+7. `SPEAKING`: Browser `SpeechSynthesis` speaking aloud. Student can interrupt.
+8. `INTERRUPTED`: Student spoke during coach speech; audio cancelled immediately, pivoting to student turn.
+9. `PAUSED`: User paused session or issued voice pause intent ("stop", "pause").
+10. `RECOVERING`: Transient recognition glitch; restarting listening loop safely without duplicate handlers.
+11. `ENDING`: User ending session; flushing final progress and releasing audio resources.
+12. `ERROR`: Microphone denial or unsupported browser state with friendly guidance.
+
+### 11.3 Barge-In Interruption:
+While state is `SPEAKING`, if student speech or voice energy is detected, the coach immediately aborts audio output (`window.speechSynthesis.cancel()`), transitions to `INTERRUPTED` $\to$ `LISTENING`, and captures the student's utterance.
+
+### 11.4 Spoken Natural Voice Intents:
+- "stop" / "pause": Pauses live listening.
+- "resume" / "start" / "continue": Resumes live conversation.
+- "repeat that" / "repeat please": Repeats the last question.
+- "speak slowly" / "slower please": Reduces coach speech speed.
+- "I don't understand" / "help": Provides simplified prompt explanation.
+- "end session" / "goodbye": Finalizes practice and generates Daily Session Report.

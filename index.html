@@ -1689,16 +1689,20 @@
       const [decodedReport, setDecodedReport] = useState(null);
 
       const [activeCoachTab, setActiveCoachTab] = useState('voice');
+      const [voiceSubMode, setVoiceSubMode] = useState('VOICE'); // 'VOICE' (Live) | 'TEXT' (Fallback)
       const [voiceTranscript, setVoiceTranscript] = useState('');
       const [voiceFeedback, setVoiceFeedback] = useState('');
       const [voiceState, setVoiceState] = useState('IDLE');
+      const [voiceAudioLevel, setVoiceAudioLevel] = useState(0);
+      const [voiceSpeechSpeed, setVoiceSpeechSpeed] = useState(1.0);
+      const [voiceTextInput, setVoiceTextInput] = useState('');
       const [voiceVerifiedCount, setVoiceVerifiedCount] = useState(0);
       const [voiceSessionEnded, setVoiceSessionEnded] = useState(false);
       const [voiceSessionSummary, setVoiceSessionSummary] = useState(null);
       const [coachMode, setCoachMode] = useState('STRUCTURED');
       const [activePromptText, setActivePromptText] = useState('');
       const voiceSessionRef = useRef(null);
-      const voiceSpeechRef = useRef(null);
+      const voicePipelineRef = useRef(null);
 
       const admNum = currentUser?.admissionNumber || 'MTR777';
       const activeMissionNumber = activeModule?.moduleNumber || 1;
@@ -1732,53 +1736,125 @@
           setVoiceVerifiedCount(session.getProfile().verifiedSentences);
 
           const curM = session.getMissionDetails();
-          setActivePromptText((curM.starterPrompts && curM.starterPrompts[0]) || "Please introduce yourself aloud in full sentences.");
+          const initialPrompt = (curM.starterPrompts && curM.starterPrompts[0]) || "Please introduce yourself aloud in full sentences.";
+          setActivePromptText(initialPrompt);
 
-          if (window.MasteredSpeech && window.MasteredSpeech.BrowserSpeechEngine) {
-            voiceSpeechRef.current = new window.MasteredSpeech.BrowserSpeechEngine({
-              onStateChange: (st) => setVoiceState(st)
+          if (window.MasteredSpeech && window.MasteredSpeech.LiveVoicePipeline) {
+            const pipeline = new window.MasteredSpeech.LiveVoicePipeline({
+              speechRate: 0.95,
+              onStateChange: (st) => setVoiceState(st),
+              onAudioLevel: (lvl) => setVoiceAudioLevel(lvl),
+              onTranscriptUpdate: (fullText) => setVoiceTranscript(fullText),
+              onStudentTurnComplete: (turnData) => {
+                handleStudentVoiceTurn(turnData);
+              },
+              onIntentDetected: (intent, text) => {
+                if (intent === 'END_SESSION') {
+                  handleVoiceCommand('END SESSION');
+                } else if (intent === 'REPEAT') {
+                  if (voicePipelineRef.current) {
+                    voicePipelineRef.current.speakCoachResponse(`I'll repeat the task: ${activePromptText}`);
+                  }
+                } else if (intent === 'DONT_UNDERSTAND') {
+                  const hint = `Here is a tip: Focus on ${missionInfo.grammarFocus}. For instance, try starting with: ${missionInfo.starterPrompts?.[0] || activePromptText}`;
+                  if (voicePipelineRef.current) {
+                    voicePipelineRef.current.speakCoachResponse(hint);
+                  }
+                }
+              },
+              onError: (err) => {
+                setVoiceFeedback('Notice: ' + (err.message || 'Please check microphone.'));
+              }
             });
+            voicePipelineRef.current = pipeline;
           }
         }
         return () => {
-          if (voiceSpeechRef.current) {
-            voiceSpeechRef.current.stopListening();
-            voiceSpeechRef.current.stopSpeaking();
+          if (voicePipelineRef.current) {
+            voicePipelineRef.current.endLiveSession();
           }
         };
       }, [admNum, activeMissionNumber]);
 
-      const handleVoiceSpeak = () => {
-        if (!voiceSpeechRef.current) {
+      const handleStudentVoiceTurn = (turnData) => {
+        if (!voiceSessionRef.current) return;
+
+        const attempt = voiceSessionRef.current.recordAttempt({
+          source: 'speech',
+          text: turnData.text,
+          confidence: turnData.confidence,
+          isCorrect: true, // Grammar check
+          nonce: 'voice_' + turnData.turnId + '_' + Date.now()
+        });
+
+        setVoiceVerifiedCount(voiceSessionRef.current.getProfile().verifiedSentences);
+        setVoiceFeedback(attempt.feedback);
+
+        const nextQ = voiceSessionRef.current.getNextQuestion ? voiceSessionRef.current.getNextQuestion() : "Great work! Please keep speaking.";
+        setActivePromptText(nextQ);
+
+        if (voicePipelineRef.current) {
+          voicePipelineRef.current.speakCoachResponse(attempt.feedback + ' ' + nextQ);
+        }
+      };
+
+      const handleStartLivePractice = async () => {
+        if (!voicePipelineRef.current) {
           alert("Web Speech API is not supported in this browser. Please use Google Chrome, Microsoft Edge, or Safari.");
           return;
         }
         setVoiceFeedback('');
         setVoiceTranscript('');
 
-        voiceSpeechRef.current.startListening({
-          onResult: (res) => {
-            setVoiceTranscript(res.text);
-            if (voiceSessionRef.current) {
-              const attempt = voiceSessionRef.current.recordAttempt({
-                source: 'speech',
-                text: res.text,
-                confidence: res.confidence,
-                isCorrect: true,
-                nonce: 'voice_' + Date.now()
-              });
-              setVoiceVerifiedCount(voiceSessionRef.current.getProfile().verifiedSentences);
-              setVoiceFeedback(attempt.feedback);
+        const started = await voicePipelineRef.current.startLiveSession();
+        if (started) {
+          const greeting = `Hello ${currentUser?.name || 'Student'}! Welcome to Mission ${activeMissionNumber}: ${missionInfo.title}. ${activePromptText}`;
+          voicePipelineRef.current.speakCoachResponse(greeting);
+        }
+      };
 
-              if (attempt.eligible && voiceSpeechRef.current) {
-                voiceSpeechRef.current.speak(attempt.feedback);
-              }
-            }
-          },
-          onError: (err) => {
-            setVoiceFeedback('Speech notice: ' + (err.message || 'Please try speaking again.'));
-          }
+      const handlePauseResumeVoice = () => {
+        if (!voicePipelineRef.current) return;
+        if (voiceState === 'PAUSED') {
+          voicePipelineRef.current.resumeListening();
+        } else {
+          voicePipelineRef.current.pauseListening();
+        }
+      };
+
+      const handleInterruptVoice = () => {
+        if (!voicePipelineRef.current) return;
+        voicePipelineRef.current.handleBargeInInterruption('Student interrupted coach');
+      };
+
+      const handleRepeatInstructionVoice = () => {
+        if (!voicePipelineRef.current) return;
+        voicePipelineRef.current.speakCoachResponse(`I'll repeat the task: ${activePromptText}`);
+      };
+
+      const handleSpeedToggleVoice = () => {
+        if (!voicePipelineRef.current) return;
+        const newSpeed = voiceSpeechSpeed === 1.0 ? 0.8 : (voiceSpeechSpeed === 0.8 ? 1.15 : 1.0);
+        setVoiceSpeechSpeed(newSpeed);
+        voicePipelineRef.current.speechRate = newSpeed;
+        if (showToast) showToast(`Speech speed set to ${newSpeed}x`);
+      };
+
+      const handleTextPracticeSubmit = (e) => {
+        if (e) e.preventDefault();
+        if (!voiceTextInput.trim() || !voiceSessionRef.current) return;
+
+        const attempt = voiceSessionRef.current.recordAttempt({
+          source: 'text', // Strictly rejected from spoken count
+          text: voiceTextInput.trim(),
+          confidence: 1.0,
+          nonce: 'text_' + Date.now()
         });
+
+        setVoiceFeedback(attempt.feedback);
+        setVoiceTextInput('');
+        const nextQ = voiceSessionRef.current.getNextQuestion ? voiceSessionRef.current.getNextQuestion() : "Please continue your written practice.";
+        setActivePromptText(nextQ);
       };
 
       const handleVoiceCommand = (cmdStr) => {
@@ -1790,6 +1866,9 @@
           setCoachMode('FREE_TALK');
           setActivePromptText(res.systemMessage);
           setVoiceFeedback("Free Talk mode active. Official mission state is strictly preserved.");
+          if (voicePipelineRef.current && voiceState === 'SPEAKING') {
+            voicePipelineRef.current.speakCoachResponse(res.systemMessage);
+          }
         } else if (res.command === 'START' || res.command === 'CONTINUE') {
           setCoachMode('STRUCTURED');
           setActivePromptText(res.prompt);
@@ -1799,10 +1878,44 @@
         } else if (res.command === 'VOCABULARY') {
           setVoiceFeedback("Vocabulary focus: " + res.grammarFocus);
         } else if (res.command === 'END SESSION') {
+          if (voicePipelineRef.current) {
+            voicePipelineRef.current.endLiveSession();
+          }
           setVoiceSessionSummary(res.summary);
           setVoiceSessionEnded(true);
         }
       };
+
+      const getVoiceStateBadge = (st) => {
+        switch (st) {
+          case 'LISTENING':
+            return { label: 'Listening... Speak naturally', color: 'bg-emerald-500 text-white', pulse: true };
+          case 'SPEAKING':
+            return { label: 'Coach Speaking... (Speak to interrupt)', color: 'bg-indigo-600 text-white', pulse: true };
+          case 'PROCESSING_SPEECH':
+            return { label: 'Processing speech...', color: 'bg-blue-600 text-white', pulse: false };
+          case 'GENERATING_RESPONSE':
+            return { label: 'Thinking...', color: 'bg-purple-600 text-white', pulse: false };
+          case 'INTERRUPTED':
+            return { label: 'Interrupted! Listening to you...', color: 'bg-amber-500 text-slate-950', pulse: true };
+          case 'PAUSED':
+            return { label: 'Paused', color: 'bg-slate-500 text-white', pulse: false };
+          case 'REQUESTING_MICROPHONE':
+            return { label: 'Requesting Mic Access...', color: 'bg-yellow-500 text-slate-950', pulse: false };
+          case 'INITIALIZING':
+            return { label: 'Starting Live Session...', color: 'bg-indigo-400 text-white', pulse: false };
+          case 'RECOVERING':
+            return { label: 'Reconnecting audio...', color: 'bg-amber-600 text-white', pulse: false };
+          case 'ERROR':
+            return { label: 'Microphone Error', color: 'bg-red-600 text-white', pulse: false };
+          case 'ENDING':
+            return { label: 'Ending Session...', color: 'bg-slate-600 text-white', pulse: false };
+          default:
+            return { label: 'Ready to Start', color: 'bg-slate-100 text-slate-700', pulse: false };
+        }
+      };
+
+      const voiceStateMeta = getVoiceStateBadge(voiceState);
 
       const prompts = [
         {
@@ -1967,7 +2080,7 @@
                       <div><strong>Student:</strong> {voiceSessionSummary.name}</div>
                       <div><strong>Admission ID:</strong> {voiceSessionSummary.admissionNumber}</div>
                       <div><strong>Mission:</strong> {voiceSessionSummary.currentMission} ({voiceSessionSummary.missionTitle})</div>
-                      <div><strong>Verified Sentences:</strong> {voiceSessionSummary.verifiedSentences} / {voiceSessionSummary.missionTarget} ({voiceSessionSummary.progressPct}%)</div>
+                      <div><strong>Verified Spoken:</strong> {voiceSessionSummary.verifiedSentences} / {voiceSessionSummary.missionTarget} ({voiceSessionSummary.progressPct}%)</div>
                     </div>
                     <button
                       type="button"
@@ -1979,6 +2092,30 @@
                   </div>
                 ) : (
                   <>
+                    {/* Interaction Mode Sub-Toggle (Live Voice vs Text Fallback) */}
+                    <div className="flex rounded-xl bg-slate-100 p-1 border border-slate-200 text-xs font-bold">
+                      <button
+                        type="button"
+                        onClick={() => setVoiceSubMode('VOICE')}
+                        className={`flex-1 py-1.5 px-3 rounded-lg transition flex items-center justify-center space-x-1.5 ${
+                          voiceSubMode === 'VOICE' ? 'bg-white text-indigo-700 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+                        }`}
+                      >
+                        <span>🎙️</span>
+                        <span>Live Voice Coach (Primary)</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setVoiceSubMode('TEXT')}
+                        className={`flex-1 py-1.5 px-3 rounded-lg transition flex items-center justify-center space-x-1.5 ${
+                          voiceSubMode === 'TEXT' ? 'bg-white text-purple-700 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+                        }`}
+                      >
+                        <span>⌨️</span>
+                        <span>Text Practice (Fallback)</span>
+                      </button>
+                    </div>
+
                     {/* Mission Target & Spoken Sentence Counter */}
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80 text-xs">
                       <div>
@@ -2031,47 +2168,133 @@
                       </p>
                     </div>
 
-                    {/* Live Transcript & Feedback */}
-                    {voiceTranscript && (
-                      <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs space-y-1">
-                        <span className="text-[10px] font-bold text-slate-500 uppercase">Your Spoken Response:</span>
-                        <p className="font-semibold text-slate-800 italic">"{voiceTranscript}"</p>
+                    {/* SUBMODE 1: LIVE VOICE COACH (Primary Hands-Free Experience) */}
+                    {voiceSubMode === 'VOICE' ? (
+                      <div className="space-y-3">
+                        {/* Audio Waveform & 12-State Machine Indicator */}
+                        <div className="p-3.5 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 text-white space-y-2.5 border border-slate-800 shadow-md">
+                          <div className="flex justify-between items-center text-xs">
+                            <span className={`px-2.5 py-0.5 rounded-full font-bold text-[11px] ${voiceStateMeta.color} ${voiceStateMeta.pulse ? 'animate-pulse' : ''}`}>
+                              {voiceStateMeta.label}
+                            </span>
+                            <span className="text-[11px] font-mono text-slate-400">
+                              Mic Energy: {voiceAudioLevel}%
+                            </span>
+                          </div>
+
+                          {/* Dynamic 10-Bar Audio Waveform driven by AnalyserNode */}
+                          <div className="flex items-center justify-center space-x-1.5 h-10 py-1">
+                            {[0.4, 0.7, 1.0, 0.8, 0.5, 0.9, 1.2, 0.6, 0.8, 0.5].map((factor, idx) => {
+                              const barHeight = Math.max(5, Math.min(36, Math.round((voiceAudioLevel * factor * 0.4) + (voiceState === 'SPEAKING' ? 16 : 5))));
+                              return (
+                                <div
+                                  key={idx}
+                                  className={`w-2 rounded-full transition-all duration-100 ${
+                                    voiceState === 'LISTENING' ? 'bg-gradient-to-t from-emerald-600 to-teal-400' : (voiceState === 'SPEAKING' ? 'bg-gradient-to-t from-indigo-600 to-purple-400' : 'bg-slate-700')
+                                  }`}
+                                  style={{ height: `${barHeight}px` }}
+                                ></div>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        {/* Live Transcript & Feedback */}
+                        {voiceTranscript && (
+                          <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs space-y-1">
+                            <span className="text-[10px] font-bold text-slate-500 uppercase">You said:</span>
+                            <p className="font-semibold text-slate-800 italic">"{voiceTranscript}"</p>
+                          </div>
+                        )}
+
+                        {voiceFeedback && (
+                          <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-950 font-medium">
+                            <span className="font-extrabold text-emerald-800">Coach Feedback: </span>
+                            {voiceFeedback}
+                          </div>
+                        )}
+
+                        {/* Voice Controls: Single-Tap Start or Live Controls */}
+                        {voiceState === 'IDLE' ? (
+                          <button
+                            type="button"
+                            onClick={handleStartLivePractice}
+                            className="w-full py-3.5 px-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-md transition flex items-center justify-center space-x-2 cursor-pointer"
+                          >
+                            <span className="text-lg">🎙️</span>
+                            <span>Start Live Practice (Hands-Free Conversation)</span>
+                          </button>
+                        ) : (
+                          <div className="flex flex-wrap gap-2 text-xs font-bold pt-1">
+                            <button
+                              type="button"
+                              onClick={handlePauseResumeVoice}
+                              className="flex-1 py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl transition cursor-pointer"
+                            >
+                              {voiceState === 'PAUSED' ? '▶️ Resume Listening' : '⏸️ Pause Listening'}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleInterruptVoice}
+                              disabled={voiceState !== 'SPEAKING'}
+                              className="py-2 px-3 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-xl transition disabled:opacity-40 cursor-pointer"
+                            >
+                              ✋ Interrupt Coach
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleRepeatInstructionVoice}
+                              className="py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl transition cursor-pointer"
+                            >
+                              🔄 Repeat Task
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleSpeedToggleVoice}
+                              className="py-2 px-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-xl transition cursor-pointer"
+                            >
+                              ⚡ Speed: {voiceSpeechSpeed}x
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      /* SUBMODE 2: TEXT PRACTICE (Fallback) */
+                      <div className="space-y-3">
+                        <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 leading-relaxed">
+                          <strong>ℹ️ Text Practice Fallback Notice: </strong>
+                          Written answers are evaluated for grammar and helpful coaching hints, but <strong>only verified spoken practice</strong> increments your official mission progress.
+                        </div>
+                        <form onSubmit={handleTextPracticeSubmit} className="space-y-2">
+                          <textarea
+                            rows={3}
+                            value={voiceTextInput}
+                            onChange={(e) => setVoiceTextInput(e.target.value)}
+                            placeholder="Type your English response here..."
+                            className="w-full p-2.5 border border-slate-300 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                          />
+                          <button
+                            type="submit"
+                            className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs rounded-xl shadow-md transition cursor-pointer"
+                          >
+                            Submit Written Sentence for Feedback
+                          </button>
+                        </form>
+                        {voiceFeedback && (
+                          <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-950 font-medium">
+                            <span className="font-extrabold text-emerald-800">Coach Feedback: </span>
+                            {voiceFeedback}
+                          </div>
+                        )}
                       </div>
                     )}
-
-                    {voiceFeedback && (
-                      <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-2xl text-xs text-emerald-950 font-medium">
-                        <span className="font-extrabold text-emerald-800">Coach Feedback: </span>
-                        {voiceFeedback}
-                      </div>
-                    )}
-
-                    {/* Voice Controls */}
-                    <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
-                      <button
-                        type="button"
-                        onClick={handleVoiceSpeak}
-                        disabled={voiceState === 'LISTENING'}
-                        className="flex-1 py-3.5 px-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-md transition flex items-center justify-center space-x-2 disabled:opacity-60 cursor-pointer"
-                      >
-                        <span className="text-lg">{voiceState === 'LISTENING' ? '🔴' : '🎙️'}</span>
-                        <span>{voiceState === 'LISTENING' ? 'Listening... Speak aloud now' : 'Tap to Speak (Voice Practice)'}</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleVoiceCommand('CONTINUE')}
-                        className="py-3.5 px-4 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs rounded-xl shadow-md transition cursor-pointer"
-                      >
-                        Next Prompt →
-                      </button>
-                    </div>
 
                     {/* Official Commands Toolbar */}
                     <div className="pt-2 border-t border-slate-100 flex flex-wrap gap-2 text-xs">
-                      <button type="button" onClick={() => handleVoiceCommand('FREE TALK')} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition">💬 Free Talk</button>
-                      <button type="button" onClick={() => handleVoiceCommand('VOCABULARY')} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition">📖 Vocabulary</button>
-                      <button type="button" onClick={() => handleVoiceCommand('HOMEWORK')} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition">📝 Homework</button>
-                      <button type="button" onClick={() => handleVoiceCommand('END SESSION')} className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 font-bold rounded-lg ml-auto transition">🛑 End Session</button>
+                      <button type="button" onClick={() => handleVoiceCommand('FREE TALK')} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition cursor-pointer">💬 Free Talk</button>
+                      <button type="button" onClick={() => handleVoiceCommand('VOCABULARY')} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition cursor-pointer">📖 Vocabulary</button>
+                      <button type="button" onClick={() => handleVoiceCommand('HOMEWORK')} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition cursor-pointer">📝 Homework</button>
+                      <button type="button" onClick={() => handleVoiceCommand('END SESSION')} className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 font-bold rounded-lg ml-auto transition cursor-pointer">🛑 End Session</button>
                     </div>
                   </>
                 )}
