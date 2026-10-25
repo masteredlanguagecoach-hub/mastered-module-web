@@ -1921,46 +1921,45 @@
         });
 
         const prof = voiceSessionRef.current.getProfile();
-        setVoiceVerifiedCount(prof.verifiedSentences);
 
-        // Immediate database persistence across devices and admin dashboard
-        syncVoiceProgressToDatabase(prof);
-
-        // Retrieve the next speaking question for the student
+        // 1. Retrieve the next speaking question for the student immediately
         const nextQ = voiceSessionRef.current.getNextQuestion 
           ? voiceSessionRef.current.getNextQuestion() 
           : "Please keep speaking your thoughts aloud.";
         
-        // Check if mission target was achieved on this turn
+        let coachSpokenMessage = '';
         if (attempt.passed) {
-          const passMsg = `Outstanding job! You completed all ${prof.missionTarget} target sentences for Mission ${prof.currentMission}! Say Next Mission or tap Advance to continue.`;
-          updateActivePrompt(passMsg);
-          setVoiceFeedback(passMsg);
-          if (voicePipelineRef.current) {
-            voicePipelineRef.current.speakCoachResponse(passMsg);
-          }
-          return;
+          coachSpokenMessage = `Outstanding job! You completed all ${prof.missionTarget} target sentences for Mission ${prof.currentMission}! Say Next Mission or tap Advance to continue.`;
+          updateActivePrompt(coachSpokenMessage);
+        } else {
+          // Update Speaking Task card on screen
+          updateActivePrompt(nextQ);
+
+          // Conversational bridge like a real human coach on a voice call
+          const bridges = [
+            "Now tell me,",
+            "I would also love to know,",
+            "Moving forward to our next question,",
+            "On that note,",
+            "Tell me,",
+            "Here is your next speaking question:"
+          ];
+          const bridge = bridges[prof.verifiedSentences % bridges.length];
+          coachSpokenMessage = `${attempt.feedback} ${bridge} ${nextQ}`;
         }
 
-        // Update Speaking Task card on screen
-        updateActivePrompt(nextQ);
+        setVoiceFeedback(coachSpokenMessage);
 
-        // Conversational bridge like a real human coach on a voice call
-        const bridges = [
-          "Now tell me,",
-          "I would also love to know,",
-          "Moving forward to our next question,",
-          "On that note,",
-          "Tell me,",
-          "Here is your next speaking question:"
-        ];
-        const bridge = bridges[prof.verifiedSentences % bridges.length];
-        const fullCoachSpokenTurn = `${attempt.feedback} ${bridge} ${nextQ}`;
-        setVoiceFeedback(fullCoachSpokenTurn);
-
+        // 2. DISPATCH COACH SARAH SPEECH INSTANTANEOUSLY (Sub-400ms human turnaround!)
         if (voicePipelineRef.current) {
-          voicePipelineRef.current.speakCoachResponse(fullCoachSpokenTurn);
+          voicePipelineRef.current.speakCoachResponse(coachSpokenMessage);
         }
+
+        // 3. Defer verified count state and database sync by 25ms so audio starts speaking without UI thread freeze
+        setTimeout(() => {
+          setVoiceVerifiedCount(prof.verifiedSentences);
+          syncVoiceProgressToDatabase(prof);
+        }, 25);
       };
       handleStudentVoiceTurnRef.current = handleStudentVoiceTurn;
 

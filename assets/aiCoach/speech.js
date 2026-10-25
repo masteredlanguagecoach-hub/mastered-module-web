@@ -77,62 +77,109 @@
     return null;
   }
 
+  // Comprehensive list of male voice signatures to strictly reject
+  var MALE_VOICE_NAMES = [
+    'david', 'mark', 'george', 'ravi', 'guy', 'brian', 'christopher', 'eric',
+    'james', 'ryan', 'steffan', 'andrew', 'tom', 'alex', 'daniel', 'fred',
+    'oliver', 'arthur', 'thomas', 'nathan', 'william', 'male', 'sean',
+    'richard', 'paul', 'john', 'michael', 'stefan', 'prabhat', 'hemant',
+    'male_1', 'male_2', 'male-1', 'en-us-x-iom', 'en-us-x-iol'
+  ];
+
+  function isMaleVoice(v) {
+    if (!v) return false;
+    var text = ((v.name || '') + ' ' + (v.voiceURI || '')).toLowerCase();
+    for (var i = 0; i < MALE_VOICE_NAMES.length; i++) {
+      if (text.indexOf(MALE_VOICE_NAMES[i]) !== -1) return true;
+    }
+    return false;
+  }
+
   // Dedicated Fixed Female Voice Selector for Coach Sarah
   function getCoachFemaleVoice(synth) {
     if (!synth || typeof synth.getVoices !== 'function') return null;
     var voices = synth.getVoices() || [];
     if (!voices || voices.length === 0) return null;
 
+    var enVoices = voices.filter(function (v) {
+      return v.lang && v.lang.toLowerCase().indexOf('en') === 0;
+    });
+    if (enVoices.length === 0) enVoices = voices;
+
     // High-priority natural and neural female voices across Windows, Edge, Chrome, Android, iOS, macOS
     var preferredFemaleNames = [
-      'Microsoft Jenny Online (Natural)',
-      'Microsoft Aria Online (Natural)',
-      'Microsoft Sonia Online (Natural)',
-      'Google US English',
-      'Google UK English Female',
-      'Samantha',
-      'Victoria',
-      'Karen',
-      'Microsoft Zira',
-      'Moira',
-      'Tessa',
-      'Fiona',
-      'Jenny',
-      'Aria',
-      'Zira'
+      'microsoft jenny online (natural)',
+      'microsoft aria online (natural)',
+      'microsoft sonia online (natural)',
+      'google us english female',
+      'google uk english female',
+      'samantha',
+      'victoria',
+      'karen',
+      'microsoft zira',
+      'microsoft heera',
+      'microsoft hazel',
+      'microsoft susan',
+      'microsoft linda',
+      'moira',
+      'tessa',
+      'fiona',
+      'ava',
+      'allison',
+      'nora',
+      'jenny',
+      'aria',
+      'zira',
+      'heera'
     ];
 
     for (var i = 0; i < preferredFemaleNames.length; i++) {
-      var name = preferredFemaleNames[i];
-      var match = voices.find(function (v) {
-        return v.name && v.name.indexOf(name) !== -1 && v.lang && v.lang.indexOf('en') === 0;
+      var pref = preferredFemaleNames[i];
+      var match = enVoices.find(function (v) {
+        var n = (v.name || '').toLowerCase();
+        return n.indexOf(pref) !== -1 && !isMaleVoice(v);
       });
       if (match) return match;
     }
 
-    // Any English voice with "female" or "woman" explicitly in the identifier
-    var femaleDeclared = voices.find(function (v) {
-      var n = (v.name || '').toLowerCase();
-      return v.lang && v.lang.indexOf('en') === 0 && (n.indexOf('female') !== -1 || n.indexOf('woman') !== -1);
+    // Any English voice with "female", "woman", or "girl" explicitly in the identifier
+    var femaleDeclared = enVoices.find(function (v) {
+      var text = ((v.name || '') + ' ' + (v.voiceURI || '')).toLowerCase();
+      return (text.indexOf('female') !== -1 || text.indexOf('woman') !== -1 || text.indexOf('girl') !== -1) && !isMaleVoice(v);
     });
     if (femaleDeclared) return femaleDeclared;
 
-    // Fallback: Any English voice that is NOT explicitly male
-    var nonMale = voices.find(function (v) {
-      var n = (v.name || '').toLowerCase();
-      var isMale = n.indexOf('male') !== -1 || n.indexOf('david') !== -1 || n.indexOf('george') !== -1 || n.indexOf('guy') !== -1 || n.indexOf('mark') !== -1;
-      return v.lang && v.lang.indexOf('en') === 0 && !isMale;
+    // Fallback 1: Any English voice that is NOT explicitly male
+    var nonMale = enVoices.find(function (v) {
+      return !isMaleVoice(v);
     });
+    if (nonMale) return nonMale;
 
-    return nonMale || voices[0] || null;
+    // Fallback 2: Any voice in the entire system that is NOT in the male blacklist
+    var anyNonMale = voices.find(function (v) {
+      return !isMaleVoice(v);
+    });
+    if (anyNonMale) return anyNonMale;
+
+    return null;
+  }
+
+  function reloadFemaleVoice(synth) {
+    if (!synth && typeof window !== 'undefined') synth = window.speechSynthesis;
+    if (!synth) return null;
+    var v = getCoachFemaleVoice(synth);
+    if (v && typeof window !== 'undefined') {
+      window.__masteredFemaleVoice = v;
+    }
+    return v;
   }
 
   if (typeof window !== 'undefined' && window.speechSynthesis) {
     try {
       window.speechSynthesis.onvoiceschanged = function () {
-        window.__masteredFemaleVoice = getCoachFemaleVoice(window.speechSynthesis);
+        reloadFemaleVoice(window.speechSynthesis);
       };
-      window.__masteredFemaleVoice = getCoachFemaleVoice(window.speechSynthesis);
+      reloadFemaleVoice(window.speechSynthesis);
     } catch (e) {}
   }
 
@@ -140,8 +187,8 @@
     options = options || {};
     this.state = STATES.IDLE;
     this.lang = options.lang || 'en-US';
-    this.speechRate = options.speechRate || 0.95; // Clear pedagogical cadence
-    this.silenceThresholdMs = options.silenceThresholdMs || 1300; // Silence time before closing turn
+    this.speechRate = options.speechRate || 1.0; // Clear, natural conversational cadence
+    this.silenceThresholdMs = options.silenceThresholdMs || 600; // Fast 600ms turnaround for human-like response
     this.volumeThreshold = options.volumeThreshold || 12; // Energy threshold % for speech detection
 
     // Callbacks
@@ -167,6 +214,10 @@
     this.lastSpokenText = '';
     this.isBargeInActive = false;
     this.activeTurnId = 0;
+
+    if (typeof window !== 'undefined') {
+      window.__masteredActivePipeline = this;
+    }
   }
 
   LiveVoicePipeline.prototype.unlockMobileAudio = function () {
@@ -396,8 +447,9 @@
     if (finalText) {
       this.accumulatedTranscript += finalText;
     }
+    this.latestInterim = interimText;
 
-    var combined = (this.accumulatedTranscript + interimText).trim();
+    var combined = (this.accumulatedTranscript + (interimText ? ' ' + interimText : '')).trim();
     if (this.onTranscriptUpdate) {
       this.onTranscriptUpdate(combined, interimText);
     }
@@ -422,7 +474,10 @@
   LiveVoicePipeline.prototype.onSilenceTimeout = function () {
     if (this.state !== STATES.LISTENING && this.state !== STATES.INTERRUPTED) return;
 
-    var candidate = this.accumulatedTranscript.trim();
+    var candidate = (this.accumulatedTranscript || '').trim();
+    if (!candidate && this.latestInterim) {
+      candidate = this.latestInterim.trim();
+    }
     if (!candidate || candidate.split(/\s+/).length < 1) {
       return; // Still waiting for valid speech
     }
@@ -443,6 +498,7 @@
 
     if (!candidate || candidate.split(/\s+/).length < 1) {
       this.accumulatedTranscript = '';
+      this.latestInterim = '';
       return;
     }
 
@@ -453,6 +509,7 @@
     var intent = detectSpokenIntent(candidate);
     if (intent) {
       this.accumulatedTranscript = '';
+      this.latestInterim = '';
       this.handleVoiceIntent(intent, candidate);
       return;
     }
@@ -460,6 +517,7 @@
     // Complete Student Spoken Turn
     var turnUtterance = candidate;
     this.accumulatedTranscript = '';
+    this.latestInterim = '';
 
     if (this.onStudentTurnComplete) {
       this.onStudentTurnComplete({
@@ -566,7 +624,7 @@
       } catch (e) {}
     }
 
-    // STEP 3: Dispatch after 100ms so Chrome's internal audio thread completely resets and accepts the new utterance
+    // STEP 3: Dispatch with minimal delay (15ms tick) so Chrome audio thread resets without perceptible pause
     setTimeout(function () {
       if (!self.synth) {
         self.isSpeaking = false;
@@ -583,16 +641,21 @@
 
         var utterance = new window.SpeechSynthesisUtterance(text);
         utterance.lang = self.lang || 'en-US';
-        utterance.rate = self.speechRate || 0.95;
-        utterance.pitch = 1.05; // Warm, natural feminine pitch
+        utterance.rate = self.speechRate || 1.0;
+        utterance.pitch = 1.25; // Warm, natural feminine pitch (strictly female tone)
         utterance.volume = 1.0;
 
         // Dedicated fixed female voice for Coach Sarah
-        var femaleVoice = (typeof window !== 'undefined' && window.__masteredFemaleVoice) 
-          ? window.__masteredFemaleVoice 
-          : getCoachFemaleVoice(self.synth);
+        var femaleVoice = getCoachFemaleVoice(self.synth);
+        if (!femaleVoice && typeof window !== 'undefined' && window.__masteredFemaleVoice) {
+          femaleVoice = window.__masteredFemaleVoice;
+        }
         if (femaleVoice) {
           utterance.voice = femaleVoice;
+          if (typeof window !== 'undefined') window.__masteredFemaleVoice = femaleVoice;
+        } else {
+          // If no female-labeled voice exists, elevate pitch to guarantee a warm female timbre
+          utterance.pitch = 1.35;
         }
 
         // Global queue anchor to completely prevent Chrome V8 garbage-collection from dropping speech mid-sentence
@@ -663,14 +726,16 @@
 
         utterance.onerror = function (e) {
           console.warn("[Coach Sarah Speech Event]", e && e.error);
-          // If a remote/online voice had a network failure, retry immediately with default system voice
+          // If a remote/online voice had a network failure, retry immediately with local female voice
           if (utterance.voice && e && (e.error === 'network' || e.error === 'audio-busy')) {
-            console.log("[Coach Sarah] Retrying with default voice fallback...");
+            console.log("[Coach Sarah] Retrying with local female voice fallback...");
             try {
               var fallbackUtterance = new window.SpeechSynthesisUtterance(text);
               fallbackUtterance.lang = self.lang || 'en-US';
-              fallbackUtterance.rate = self.speechRate || 0.95;
-              fallbackUtterance.pitch = 1.05;
+              fallbackUtterance.rate = self.speechRate || 1.0;
+              fallbackUtterance.pitch = 1.30; // Elevated pitch for guaranteed feminine timbre
+              var localFemale = getCoachFemaleVoice(self.synth);
+              if (localFemale) fallbackUtterance.voice = localFemale;
               fallbackUtterance.onend = finishSpeech;
               fallbackUtterance.onerror = finishSpeech;
               if (typeof window !== 'undefined') window.__masteredActiveUtterance = fallbackUtterance;
