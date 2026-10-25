@@ -351,8 +351,19 @@
   AiCoachSession.prototype.getNextQuestion = function () {
     var cur = this.getMissionDetails();
     var prompts = cur.starterPrompts || ["Please speak your answer aloud in full sentences."];
-    var nextIndex = this.profile.verifiedSentences % prompts.length;
-    return prompts[nextIndex];
+    var count = this.profile.verifiedSentences || 0;
+    if (count < prompts.length) {
+      return prompts[count];
+    }
+    var followUps = cur.followUpPrompts || [
+      "Can you give another detailed example related to " + cur.situation + "?",
+      "Using " + cur.grammarFocus + ", describe a specific personal experience you have had.",
+      "How would you explain this situation to a colleague or friend in English?",
+      "What are the most interesting advantages or challenges you notice here?",
+      "Can you summarize your thoughts on this topic in two strong, fluent sentences?"
+    ];
+    var idx = (count - prompts.length) % followUps.length;
+    return followUps[idx];
   };
 
   AiCoachSession.prototype.advanceMission = function () {

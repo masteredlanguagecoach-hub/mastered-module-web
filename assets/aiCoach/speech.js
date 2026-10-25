@@ -459,10 +459,24 @@
     }, 150);
   };
 
+  LiveVoicePipeline.prototype.restartListening = function () {
+    if (!this.recognition) return;
+    if (this.isSpeaking || this.state === STATES.SPEAKING || this.state === STATES.PAUSED || this.state === STATES.ENDING || this.state === STATES.IDLE) {
+      return;
+    }
+    try {
+      this.accumulatedTranscript = '';
+      this.recognition.start();
+    } catch (e) {
+      // Recognition may already be running or starting
+    }
+  };
+
   LiveVoicePipeline.prototype.speakCoachResponse = function (text, onFinish) {
-    if (!text) {
+    if (!text || !text.trim()) {
       this.isSpeaking = false;
       this.transitionTo(STATES.LISTENING);
+      this.restartListening();
       if (onFinish) onFinish();
       return;
     }
@@ -472,108 +486,135 @@
     this.accumulatedTranscript = ''; // Always clean transcript before coach speaks
     this.transitionTo(STATES.SPEAKING);
 
+    // Stop recognition while coach is speaking:
+    // 1. Completely frees device audio session for SpeechSynthesis
+    // 2. Prevents microphone from capturing coach's own speaker output
+    if (this.recognition) {
+      try {
+        this.recognition.stop();
+      } catch (e) {}
+    }
+
     if (!this.synth) {
       this.isSpeaking = false;
       this.transitionTo(STATES.LISTENING);
+      this.restartListening();
       if (onFinish) onFinish();
       return;
     }
 
     var self = this;
+
+    // Mobile audio keep-alive & unpause
     try {
-      this.synth.cancel();
+      if (this.synth.speaking || this.synth.pending) {
+        this.synth.cancel();
+      }
       if (this.synth.paused) {
         this.synth.resume();
       }
+    } catch (e) {}
 
-      var utterance = new window.SpeechSynthesisUtterance(text);
-      utterance.lang = this.lang;
-      utterance.rate = this.speechRate;
-      utterance.pitch = 1.0;
+    // Chrome/Safari safety: 40ms dispatch tick to allow speech engine to settle after cancel/stop
+    setTimeout(function () {
+      try {
+        if (self.synth.paused) {
+          self.synth.resume();
+        }
 
-      // Select highest quality natural English voice if available
-      if (typeof this.synth.getVoices === 'function') {
-        var voices = this.synth.getVoices();
-        if (voices && voices.length > 0) {
-          var bestVoice = voices.find(function(v) {
-            return v.lang && v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Premium'));
-          }) || voices.find(function(v) {
-            return v.lang && v.lang.startsWith('en');
-          });
-          if (bestVoice) {
-            utterance.voice = bestVoice;
+        var utterance = new window.SpeechSynthesisUtterance(text);
+        utterance.lang = self.lang || 'en-US';
+        utterance.rate = self.speechRate || 0.95;
+        utterance.pitch = 1.0;
+
+        // Select highest quality natural English voice if available
+        if (typeof self.synth.getVoices === 'function') {
+          var voices = self.synth.getVoices();
+          if (voices && voices.length > 0) {
+            var bestVoice = voices.find(function(v) {
+              return v.lang && v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Premium'));
+            }) || voices.find(function(v) {
+              return v.lang && v.lang.startsWith('en');
+            });
+            if (bestVoice) {
+              utterance.voice = bestVoice;
+            }
           }
         }
-      }
 
-      // Store utterance reference to prevent mobile Chrome garbage collection bug
-      this.activeUtterance = utterance;
+        // Store utterance reference on window to completely prevent mobile Chrome GC bug
+        if (typeof window !== 'undefined') {
+          window.__masteredActiveUtterance = utterance;
+        }
+        self.activeUtterance = utterance;
 
-      // Safety timeout: prevent getting stuck in SPEAKING on mobile browsers
-      if (this.speakSafetyTimer) {
-        clearTimeout(this.speakSafetyTimer);
-      }
-      var wordCount = text.split(/\s+/).length;
-      var timeoutMs = Math.max(4000, Math.min(25000, (wordCount / 2.0) * 1000 + 2500));
-      this.speakSafetyTimer = setTimeout(function () {
-        self.isSpeaking = false;
-        self.activeUtterance = null;
-        self.accumulatedTranscript = '';
-        self.speakerCooldownUntil = Date.now() + 400;
-        if (self.state === STATES.SPEAKING) {
-          self.transitionTo(STATES.LISTENING);
+        var finishSpeech = function () {
+          if (self.speakSafetyTimer) {
+            clearTimeout(self.speakSafetyTimer);
+            self.speakSafetyTimer = null;
+          }
+          if (self.speechKeepAliveInterval) {
+            clearInterval(self.speechKeepAliveInterval);
+            self.speechKeepAliveInterval = null;
+          }
+          self.isSpeaking = false;
+          self.activeUtterance = null;
+          if (typeof window !== 'undefined') {
+            window.__masteredActiveUtterance = null;
+          }
+          self.accumulatedTranscript = '';
+          self.speakerCooldownUntil = Date.now() + 350; // 350ms echo drain
+
+          if (self.state === STATES.SPEAKING) {
+            self.transitionTo(STATES.LISTENING);
+          }
+
+          // Restart recognition seamlessly after coach speech finishes
+          setTimeout(function () {
+            self.restartListening();
+          }, 300);
+
           if (onFinish) onFinish();
-        }
-      }, timeoutMs);
+        };
 
-      utterance.onstart = function () {
-        self.isSpeaking = true;
-        self.accumulatedTranscript = '';
-      };
+        // Safety timeout: prevent getting stuck in SPEAKING
+        var wordCount = text.split(/\s+/).length;
+        var timeoutMs = Math.max(5000, Math.min(30000, (wordCount / 2.0) * 1000 + 3000));
+        self.speakSafetyTimer = setTimeout(function () {
+          finishSpeech();
+        }, timeoutMs);
 
-      utterance.onend = function () {
-        if (self.speakSafetyTimer) {
-          clearTimeout(self.speakSafetyTimer);
-          self.speakSafetyTimer = null;
-        }
+        // Chrome keep-alive: pause/resume every 5s during long utterances to avoid Chrome 15s cutoff bug
+        self.speechKeepAliveInterval = setInterval(function () {
+          if (self.synth && self.synth.speaking && !self.synth.paused) {
+            self.synth.pause();
+            self.synth.resume();
+          }
+        }, 5000);
+
+        utterance.onstart = function () {
+          self.isSpeaking = true;
+          self.accumulatedTranscript = '';
+        };
+
+        utterance.onend = function () {
+          finishSpeech();
+        };
+
+        utterance.onerror = function (e) {
+          console.warn("[SpeechSynthesis Utterance Error]", e);
+          finishSpeech();
+        };
+
+        self.synth.speak(utterance);
+      } catch (err) {
+        console.warn("[SpeechSynthesis Exception]", err);
         self.isSpeaking = false;
-        self.activeUtterance = null;
-        self.accumulatedTranscript = '';
-        self.speakerCooldownUntil = Date.now() + 400; // 400ms echo suppression
-        if (self.state === STATES.SPEAKING) {
-          self.transitionTo(STATES.LISTENING);
-        }
+        self.transitionTo(STATES.LISTENING);
+        self.restartListening();
         if (onFinish) onFinish();
-      };
-
-      utterance.onerror = function (e) {
-        if (self.speakSafetyTimer) {
-          clearTimeout(self.speakSafetyTimer);
-          self.speakSafetyTimer = null;
-        }
-        self.isSpeaking = false;
-        self.activeUtterance = null;
-        self.accumulatedTranscript = '';
-        self.speakerCooldownUntil = Date.now() + 400;
-        if (self.state === STATES.SPEAKING) {
-          self.transitionTo(STATES.LISTENING);
-        }
-        if (onFinish) onFinish();
-      };
-
-      this.synth.speak(utterance);
-    } catch (err) {
-      if (this.speakSafetyTimer) {
-        clearTimeout(this.speakSafetyTimer);
-        this.speakSafetyTimer = null;
       }
-      this.isSpeaking = false;
-      this.activeUtterance = null;
-      this.accumulatedTranscript = '';
-      this.speakerCooldownUntil = Date.now() + 400;
-      this.transitionTo(STATES.LISTENING);
-      if (onFinish) onFinish();
-    }
+    }, 40);
   };
 
   LiveVoicePipeline.prototype.replayLastCoachSpeech = function (onFinish) {
@@ -627,13 +668,16 @@
   };
 
   LiveVoicePipeline.prototype.handleSpeechEnd = function () {
+    // If coach is speaking or echo cooldown active, do not restart recognition yet (will restart in finishSpeech)
+    if (this.isSpeaking || this.state === STATES.SPEAKING || (this.speakerCooldownUntil && Date.now() < this.speakerCooldownUntil)) {
+      return;
+    }
     // If still in LISTENING state, seamlessly restart continuous recognition
     if (this.state === STATES.LISTENING) {
-      try {
-        if (this.recognition) {
-          this.recognition.start();
-        }
-      } catch (e) {}
+      var self = this;
+      setTimeout(function () {
+        self.restartListening();
+      }, 100);
     }
   };
 

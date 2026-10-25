@@ -1704,6 +1704,12 @@
       const [activePromptText, setActivePromptText] = useState('');
       const voiceSessionRef = useRef(null);
       const voicePipelineRef = useRef(null);
+      const activePromptRef = useRef('');
+
+      const updateActivePrompt = (newPrompt) => {
+        activePromptRef.current = newPrompt;
+        setActivePromptText(newPrompt);
+      };
 
       const admNum = currentUser?.admissionNumber || 'MTR777';
       const cleanAdm = admNum.replace(/[^A-Z0-9]/g, '');
@@ -1831,7 +1837,7 @@
 
           const curM = session.getMissionDetails();
           const initialPrompt = (curM.starterPrompts && curM.starterPrompts[0]) || "Please introduce yourself aloud in full sentences.";
-          setActivePromptText(initialPrompt);
+          updateActivePrompt(initialPrompt);
 
           if (window.MasteredSpeech && window.MasteredSpeech.LiveVoicePipeline) {
             const pipeline = new window.MasteredSpeech.LiveVoicePipeline({
@@ -1847,10 +1853,12 @@
                   handleVoiceCommand('END SESSION');
                 } else if (intent === 'REPEAT') {
                   if (voicePipelineRef.current) {
-                    voicePipelineRef.current.speakCoachResponse(`I'll repeat the task: ${activePromptText}`);
+                    const promptToRepeat = activePromptRef.current || activePromptText;
+                    voicePipelineRef.current.speakCoachResponse(`I'll repeat the task: ${promptToRepeat}`);
                   }
                 } else if (intent === 'DONT_UNDERSTAND') {
-                  const hint = `Here is a tip: Focus on ${missionInfo.grammarFocus}. For instance, try starting with: ${missionInfo.starterPrompts?.[0] || activePromptText}`;
+                  const currentP = activePromptRef.current || activePromptText;
+                  const hint = `Here is a tip: Focus on ${missionInfo.grammarFocus}. For instance, try starting with: ${missionInfo.starterPrompts?.[0] || currentP}`;
                   if (voicePipelineRef.current) {
                     voicePipelineRef.current.speakCoachResponse(hint);
                   }
@@ -1887,16 +1895,35 @@
 
         const prof = voiceSessionRef.current.getProfile();
         setVoiceVerifiedCount(prof.verifiedSentences);
-        setVoiceFeedback(attempt.feedback);
 
         // Immediate database persistence across devices and admin dashboard
         syncVoiceProgressToDatabase(prof);
 
-        const nextQ = voiceSessionRef.current.getNextQuestion ? voiceSessionRef.current.getNextQuestion() : "Great work! Please keep speaking.";
-        setActivePromptText(nextQ);
+        // Retrieve the next speaking question for the student
+        const nextQ = voiceSessionRef.current.getNextQuestion 
+          ? voiceSessionRef.current.getNextQuestion() 
+          : "Please keep speaking your thoughts aloud.";
+        
+        // Check if mission target was achieved on this turn
+        if (attempt.passed) {
+          const passMsg = `Outstanding job! You completed all ${prof.missionTarget} target sentences for Mission ${prof.currentMission}! Say Next Mission or tap Advance to continue.`;
+          updateActivePrompt(passMsg);
+          setVoiceFeedback(passMsg);
+          if (voicePipelineRef.current) {
+            voicePipelineRef.current.speakCoachResponse(passMsg);
+          }
+          return;
+        }
+
+        // Update Speaking Task card on screen
+        updateActivePrompt(nextQ);
+
+        // Natural conversational spoken reply: Praise/Feedback + Next Question
+        const fullCoachSpokenTurn = `${attempt.feedback} Next question: ${nextQ}`;
+        setVoiceFeedback(fullCoachSpokenTurn);
 
         if (voicePipelineRef.current) {
-          voicePipelineRef.current.speakCoachResponse(attempt.feedback + ' ' + nextQ);
+          voicePipelineRef.current.speakCoachResponse(fullCoachSpokenTurn);
         }
       };
 
@@ -1915,7 +1942,8 @@
 
         const started = await voicePipelineRef.current.startLiveSession();
         if (started) {
-          const greeting = `Hello ${currentUser?.name || 'Student'}! Welcome to Mission ${activeMissionNumber}: ${missionInfo.title}. ${activePromptText}`;
+          const initialP = activePromptRef.current || activePromptText;
+          const greeting = `Hello ${currentUser?.name || 'Student'}! Welcome to Mission ${activeMissionNumber}: ${missionInfo.title}. ${initialP}`;
           voicePipelineRef.current.speakCoachResponse(greeting);
         }
       };
@@ -1936,7 +1964,8 @@
 
       const handleRepeatInstructionVoice = () => {
         if (!voicePipelineRef.current) return;
-        voicePipelineRef.current.speakCoachResponse(`I'll repeat the task: ${activePromptText}`);
+        const promptToRepeat = activePromptRef.current || activePromptText;
+        voicePipelineRef.current.speakCoachResponse(`I'll repeat the task: ${promptToRepeat}`);
       };
 
       const handleSpeedToggleVoice = () => {
@@ -2275,7 +2304,8 @@
                             onClick={() => {
                               if (voicePipelineRef.current) {
                                 voicePipelineRef.current.unlockMobileAudio();
-                                voicePipelineRef.current.speakCoachResponse(activePromptText);
+                                const pToHear = activePromptRef.current || activePromptText;
+                                voicePipelineRef.current.speakCoachResponse(pToHear);
                               }
                             }}
                             className="px-2.5 py-0.5 bg-slate-800 hover:bg-slate-700 text-indigo-300 font-bold text-[10px] rounded-lg border border-slate-700 transition flex items-center space-x-1 cursor-pointer"
