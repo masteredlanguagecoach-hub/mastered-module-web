@@ -171,23 +171,34 @@
         source: 'speech',
         text: turnData.text,
         confidence: turnData.confidence,
-        isCorrect: true, // Grammar verification
-        nonce: 'turn_' + turnData.turnId + '_' + Date.now()
+        turnId: turnData.turnId,
+        nonce: 'turn_' + turnData.turnId + '_' + turnData.text.replace(/[^a-zA-Z0-9]/g, '').slice(0, 24)
       });
 
-      setProfileState(sessionRef.current.getProfile());
-      setCoachFeedback(attempt.feedback);
+      var prof = sessionRef.current.getProfile();
+      setProfileState(prof);
 
-      // Coach speaks response aloud and provides next prompt
-      var nextQ = sessionRef.current.getNextQuestion();
-      setActivePrompt(nextQ);
-
-      // Trigger progress sync hook immediately
-      if (onSaveProgress) {
-        onSaveProgress(sessionRef.current.getProfile());
+      var speechText = '';
+      if (attempt.passed) {
+        speechText = "Outstanding job! You completed all " + prof.missionTarget + " target sentences for Mission " + prof.currentMission + "! Let's advance to the next mission.";
+        setActivePrompt(speechText);
+      } else if (attempt.isIntent) {
+        speechText = attempt.feedback;
+      } else if (!attempt.eligible) {
+        speechText = attempt.feedback;
+      } else {
+        var nextQ = sessionRef.current.getNextQuestion();
+        setActivePrompt(nextQ);
+        speechText = attempt.feedback + " " + nextQ;
       }
 
-      var speechText = attempt.feedback + " " + nextQ;
+      setCoachFeedback(speechText);
+
+      // Trigger progress sync hook if eligible
+      if (attempt.eligible && attempt.verifiedIncrement > 0 && onSaveProgress) {
+        onSaveProgress(prof);
+      }
+
       if (pipelineRef.current) {
         pipelineRef.current.speakCoachResponse(speechText);
       }
@@ -269,7 +280,7 @@
         source: 'text', // Non-spoken; strictly increments 0 verified sentences
         text: textInput.trim(),
         confidence: 1.0,
-        nonce: 'text_' + Date.now()
+        nonce: 'text_' + curMission.missionNumber + '_' + textInput.trim().replace(/[^a-zA-Z0-9]/g, '').slice(0, 24)
       });
 
       setCoachFeedback(attempt.feedback);

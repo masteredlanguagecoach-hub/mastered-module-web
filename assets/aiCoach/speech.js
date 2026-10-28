@@ -8,10 +8,16 @@
  *    PAUSED, RECOVERING, ENDING, ERROR)
  * 2. Continuous Hands-Free Voice Loop (No push-to-talk button between turns)
  * 3. Web Audio API (AudioContext + AnalyserNode) for real-time volume level & waveform
- * 4. End-of-turn Voice Activity Detection (VAD) / silence timer
- * 5. Barge-in Interruption (Student speaking aborts coach speech immediately)
- * 6. Natural Spoken Intent Recognition ("stop", "pause", "repeat that", "speak slowly", etc.)
- * 7. Browser-local execution with zero remote audio upload and zero paid API dependencies
+ * 4. Human-like Turn-Taking & Trailing Conjunction Grace Period (1800ms-2200ms)
+ * 5. Full Android Chrome & iOS Safari compatibility:
+ *    - Decoupled hardware mic stream on Android to eliminate audio-capture collisions
+ *    - Removal of whitespace primer utterance that freezes Android TTS
+ *    - Removal of destructive synth.pause()/resume() keep-alive intervals on mobile
+ *    - Fresh SpeechRecognition instance recreation on mobile restart/recovery
+ *    - Bounded exponential backoff for transient speech errors
+ * 6. Barge-in Interruption (Student speaking immediately aborts coach speech)
+ * 7. Dedicated Natural Female Voice Selector for Coach Sarah
+ * 8. Zero remote audio upload and zero third-party paid API dependencies
  */
 
 (function () {
@@ -39,7 +45,7 @@
 
   // Valid State Transitions
   var VALID_TRANSITIONS = {
-    IDLE: ['INITIALIZING', 'REQUESTING_MICROPHONE', 'ERROR', 'ENDING'],
+    IDLE: ['INITIALIZING', 'REQUESTING_MICROPHONE', 'ERROR', 'ENDING', 'SPEAKING'],
     INITIALIZING: ['REQUESTING_MICROPHONE', 'LISTENING', 'SPEAKING', 'ERROR', 'IDLE'],
     REQUESTING_MICROPHONE: ['LISTENING', 'SPEAKING', 'ERROR', 'IDLE'],
     LISTENING: ['PROCESSING_SPEECH', 'SPEAKING', 'PAUSED', 'INTERRUPTED', 'RECOVERING', 'ENDING', 'ERROR', 'IDLE'],
@@ -61,7 +67,7 @@
     SPEAK_SLOW: /^(speak slowly|speak slower|slow down|please speak slowly|too fast)[\.!\?]?$/i,
     SPEAK_NORMAL: /^(speak normally|normal speed|regular speed)[\.!\?]?$/i,
     DONT_UNDERSTAND: /^(i don't understand|i do not understand|what does that mean|explain that|help me)[\.!\?]?$/i,
-    END_SESSION: /^(end session|finish( for today)?|goodbye|bye|quit|exit session)[\.!\?]?$/i
+    END_SESSION: /^(end session|finish( for today)?|goodbye|bye|quit|exit session|stop session|i want to stop|stop practice and end|end call|exit|close session)[\.!\?]?$/i
   };
 
   function detectSpokenIntent(text) {
@@ -77,7 +83,17 @@
     return null;
   }
 
-  // Comprehensive list of male voice signatures to strictly reject
+  // Trailing Conjunctions, Prepositions & Auxiliaries indicating incomplete thought
+  var TRAILING_CONNECTORS = {
+    'and': true, 'but': true, 'or': true, 'because': true, 'so': true,
+    'to': true, 'with': true, 'for': true, 'that': true, 'which': true,
+    'who': true, 'is': true, 'am': true, 'are': true, 'was': true,
+    'were': true, 'have': true, 'has': true, 'in': true, 'at': true,
+    'on': true, 'if': true, 'when': true, 'while': true, 'as': true,
+    'than': true, 'like': true, 'my': true, 'the': true, 'a': true, 'an': true
+  };
+
+  // Male voice blacklist to strictly reject
   var MALE_VOICE_NAMES = [
     'david', 'mark', 'george', 'ravi', 'guy', 'brian', 'christopher', 'eric',
     'james', 'ryan', 'steffan', 'andrew', 'tom', 'alex', 'daniel', 'fred',
@@ -95,7 +111,7 @@
     return false;
   }
 
-  // Dedicated Fixed Female Voice Selector for Coach Sarah
+  // Dedicated Female Voice Selector for Coach Sarah
   function getCoachFemaleVoice(synth) {
     if (!synth || typeof synth.getVoices !== 'function') return null;
     var voices = synth.getVoices() || [];
@@ -106,7 +122,6 @@
     });
     if (enVoices.length === 0) enVoices = voices;
 
-    // High-priority natural and neural female voices across Windows, Edge, Chrome, Android, iOS, macOS
     var preferredFemaleNames = [
       'microsoft jenny online (natural)',
       'microsoft aria online (natural)',
@@ -142,20 +157,17 @@
       if (match) return match;
     }
 
-    // Any English voice with "female", "woman", or "girl" explicitly in the identifier
     var femaleDeclared = enVoices.find(function (v) {
       var text = ((v.name || '') + ' ' + (v.voiceURI || '')).toLowerCase();
       return (text.indexOf('female') !== -1 || text.indexOf('woman') !== -1 || text.indexOf('girl') !== -1) && !isMaleVoice(v);
     });
     if (femaleDeclared) return femaleDeclared;
 
-    // Fallback 1: Any English voice that is NOT explicitly male
     var nonMale = enVoices.find(function (v) {
       return !isMaleVoice(v);
     });
     if (nonMale) return nonMale;
 
-    // Fallback 2: Any voice in the entire system that is NOT in the male blacklist
     var anyNonMale = voices.find(function (v) {
       return !isMaleVoice(v);
     });
@@ -187,9 +199,10 @@
     options = options || {};
     this.state = STATES.IDLE;
     this.lang = options.lang || 'en-US';
-    this.speechRate = options.speechRate || 1.0; // Clear, natural conversational cadence
-    this.silenceThresholdMs = options.silenceThresholdMs || 600; // Fast 600ms turnaround for human-like response
-    this.volumeThreshold = options.volumeThreshold || 12; // Energy threshold % for speech detection
+    this.speechRate = options.speechRate || 0.95;
+    // Turn-taking silence threshold: 1900ms gives learners natural thinking time without premature cutoffs
+    this.silenceThresholdMs = options.silenceThresholdMs || 1900;
+    this.volumeThreshold = options.volumeThreshold || 12;
 
     // Callbacks
     this.onStateChange = options.onStateChange || function () {};
@@ -208,18 +221,25 @@
     this.synth = (typeof window !== 'undefined' && window.speechSynthesis) ? window.speechSynthesis : null;
     this.currentUtterance = null;
     this.accumulatedTranscript = '';
+    this.latestInterim = '';
     this.lastSpeechTime = 0;
     this.silenceTimer = null;
     this.speakSafetyTimer = null;
+    this.speechKeepAliveInterval = null;
     this.lastSpokenText = '';
     this.isBargeInActive = false;
     this.activeTurnId = 0;
+    this.consecutiveErrors = 0;
+    this.speakerCooldownUntil = 0;
 
     if (typeof window !== 'undefined') {
       window.__masteredActivePipeline = this;
     }
   }
 
+  /**
+   * Safe mobile audio context unlocking without whitespace TTS primer that deadlocks Android
+   */
   LiveVoicePipeline.prototype.unlockMobileAudio = function () {
     if (typeof window === 'undefined') return;
     if (this.audioContext && this.audioContext.state === 'suspended') {
@@ -228,10 +248,7 @@
     if (this.synth) {
       try {
         if (this.synth.paused) this.synth.resume();
-        var primer = new window.SpeechSynthesisUtterance(' ');
-        primer.volume = 0.01;
-        primer.rate = 1.0;
-        this.synth.speak(primer);
+        // NEVER speak an empty ' ' string on mobile as it hangs Android TTS
       } catch (e) {}
     }
   };
@@ -239,8 +256,6 @@
   LiveVoicePipeline.prototype.isSupported = function () {
     if (typeof window === 'undefined') return false;
     var hasRecognition = Boolean(window.SpeechRecognition || window.webkitSpeechRecognition);
-    var hasMedia = Boolean(navigator && navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-    var hasAudioContext = Boolean(window.AudioContext || window.webkitAudioContext);
     var hasSynth = Boolean(window.speechSynthesis);
     return Boolean(hasRecognition && hasSynth);
   };
@@ -255,7 +270,6 @@
     if (!this.canTransition(nextState)) {
       var err = "Invalid state transition from " + this.state + " to " + nextState;
       console.warn("[LiveVoicePipeline]", err);
-      // Graceful self-healing: if transitioning between active live states, permit transition smoothly
       if (nextState === STATES.SPEAKING || nextState === STATES.LISTENING || nextState === STATES.PROCESSING_SPEECH || nextState === STATES.INTERRUPTED) {
         var prevSt = this.state;
         this.state = nextState;
@@ -286,31 +300,29 @@
       return false;
     }
 
-    // Unlock mobile audio on user gesture
     this.unlockMobileAudio();
-
     this.transitionTo(STATES.INITIALIZING);
 
-    // 1. Initialize Microphone Audio Stream & Web Audio Analyser
-    try {
-      this.transitionTo(STATES.REQUESTING_MICROPHONE);
-      if (typeof navigator !== 'undefined' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        this.mediaStream = await navigator.mediaDevices.getUserMedia({
-          audio: {
-            echoCancellation: true,
-            noiseSuppression: true,
-            autoGainControl: true
-          }
-        });
-        this.setupAudioAnalyser();
+    var isAndroid = (typeof navigator !== 'undefined') && /Android/i.test(navigator.userAgent);
+
+    // 1. Microphone setup: on desktop and iOS, use getUserMedia + AudioContext for visualizer.
+    // On Android, avoid locking hardware audio capture with getUserMedia so webkitSpeechRecognition has 100% exclusive access.
+    if (!isAndroid) {
+      try {
+        this.transitionTo(STATES.REQUESTING_MICROPHONE);
+        if (typeof navigator !== 'undefined' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          this.mediaStream = await navigator.mediaDevices.getUserMedia({
+            audio: {
+              echoCancellation: true,
+              noiseSuppression: true,
+              autoGainControl: true
+            }
+          });
+          this.setupAudioAnalyser();
+        }
+      } catch (err) {
+        // Fall back gracefully to direct speech recognition
       }
-    } catch (err) {
-      this.transitionTo(STATES.ERROR, { error: err });
-      this.onError({
-        code: 'MICROPHONE_DENIED',
-        message: 'Microphone permission was not granted. Please allow microphone access or switch to Text Practice mode.'
-      });
-      return false;
     }
 
     // 2. Initialize Continuous Speech Recognition
@@ -340,9 +352,7 @@
       source.connect(this.analyser);
 
       this.monitorAudioEnergy();
-    } catch (e) {
-      // AudioContext failure should not crash speech recognition
-    }
+    } catch (e) {}
   };
 
   LiveVoicePipeline.prototype.monitorAudioEnergy = function () {
@@ -362,18 +372,9 @@
       var avg = sum / dataArray.length;
       var level = Math.min(100, Math.round((avg / 128) * 100));
 
-      // Broadcast audio volume level for live visualizer
       if (self.onAudioLevel) {
         self.onAudioLevel(level);
       }
-
-      // Note on Barge-in Interruption:
-      // On mobile phones, speaker output feeds directly back into the phone's microphone.
-      // If we trigger barge-in on volume level alone while coach is SPEAKING, the coach
-      // interrupts itself after the first syllable!
-      // Therefore, acoustic energy interruption while SPEAKING is suppressed; interruption
-      // during coach speech is handled cleanly via the prominent "Tap to Interrupt" control
-      // or distinct student speech recognition tokens.
 
       if (typeof window !== 'undefined' && window.requestAnimationFrame) {
         self.animFrameId = window.requestAnimationFrame(tick);
@@ -383,6 +384,10 @@
     tick();
   };
 
+  /**
+   * Initializes or recreates the SpeechRecognition instance.
+   * Creating a fresh instance avoids dead object errors on Android mobile browsers.
+   */
   LiveVoicePipeline.prototype.initSpeechRecognition = function () {
     if (typeof window === 'undefined') return;
     var SpeechRecognitionClass = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -390,6 +395,9 @@
 
     var self = this;
     try {
+      if (this.recognition) {
+        try { this.recognition.abort(); } catch (e) {}
+      }
       this.recognition = new SpeechRecognitionClass();
       this.recognition.continuous = true;
       this.recognition.interimResults = true;
@@ -417,19 +425,18 @@
     try {
       this.accumulatedTranscript = '';
       this.recognition.start();
-    } catch (e) {
-      // Recognition may already be active
-    }
+    } catch (e) {}
   };
 
   LiveVoicePipeline.prototype.handleSpeechResult = function (event) {
     if (this.state === STATES.PAUSED || this.state === STATES.ENDING) return;
 
     // Discard any audio input while coach is speaking or during echo cooldown
-    // This completely stops the microphone from hearing and recording the coach's own speaker output
     if (this.isSpeaking || this.state === STATES.SPEAKING || (this.speakerCooldownUntil && Date.now() < this.speakerCooldownUntil)) {
       return;
     }
+
+    this.consecutiveErrors = 0;
 
     var interimText = '';
     var finalText = '';
@@ -454,21 +461,43 @@
       this.onTranscriptUpdate(combined, interimText);
     }
 
+    // On Android without AnalyserNode, simulate waveform pulse on active speech
+    if (!this.analyser && this.onAudioLevel) {
+      var simulatedLevel = combined.length > 0 ? Math.min(85, 30 + (interimText.length * 4)) : 0;
+      this.onAudioLevel(simulatedLevel);
+    }
+
     if (combined.length > 0) {
       this.lastSpeechTime = Date.now();
       this.resetSilenceTimer();
     }
   };
 
+  /**
+   * Resets silence timer with dynamic trailing conjunction extension
+   */
   LiveVoicePipeline.prototype.resetSilenceTimer = function () {
     var self = this;
     if (this.silenceTimer) {
       clearTimeout(this.silenceTimer);
     }
 
+    var delay = this.silenceThresholdMs;
+
+    // Trailing conjunction & preposition check
+    var current = (this.accumulatedTranscript + (this.latestInterim ? ' ' + this.latestInterim : '')).trim();
+    if (current) {
+      var words = current.split(/\s+/);
+      var lastWord = words[words.length - 1].toLowerCase().replace(/[^a-z']/g, '');
+      if (TRAILING_CONNECTORS[lastWord]) {
+        // Student is mid-sentence! Add 1200ms grace period so they are never interrupted
+        delay += 1200;
+      }
+    }
+
     this.silenceTimer = setTimeout(function () {
       self.onSilenceTimeout();
-    }, this.silenceThresholdMs);
+    }, delay);
   };
 
   LiveVoicePipeline.prototype.onSilenceTimeout = function () {
@@ -479,10 +508,10 @@
       candidate = this.latestInterim.trim();
     }
     if (!candidate || candidate.split(/\s+/).length < 1) {
-      return; // Still waiting for valid speech
+      return; // Still waiting for speech
     }
 
-    // Acoustic Prompt Echo Sanitizer: If candidate accidentally begins with coach prompt
+    // Acoustic Prompt Echo Sanitizer
     if (this.lastSpokenText) {
       var cleanLast = this.lastSpokenText.replace(/[^\w\s]/gi, '').toLowerCase();
       var cleanCand = candidate.replace(/[^\w\s]/gi, '').toLowerCase();
@@ -502,10 +531,10 @@
       return;
     }
 
-    // End-of-turn detected!
+    // End of turn detected!
     this.transitionTo(STATES.PROCESSING_SPEECH);
 
-    // Check for Spoken Voice Intents ("stop", "pause", "repeat that", etc.)
+    // Check for Spoken Voice Intents
     var intent = detectSpokenIntent(candidate);
     if (intent) {
       this.accumulatedTranscript = '';
@@ -553,7 +582,6 @@
     } else if (intent === 'END_SESSION') {
       this.endLiveSession();
     } else {
-      // Return to listening
       this.transitionTo(STATES.LISTENING);
     }
   };
@@ -567,7 +595,7 @@
     this.isSpeaking = false;
     this.activeUtterance = null;
     this.accumulatedTranscript = '';
-    this.speakerCooldownUntil = Date.now() + 200;
+    this.speakerCooldownUntil = Date.now() + 150;
     this.transitionTo(STATES.INTERRUPTED, { reason: reason });
     var self = this;
     setTimeout(function () {
@@ -578,16 +606,19 @@
   };
 
   LiveVoicePipeline.prototype.restartListening = function () {
-    if (!this.recognition) return;
     if (this.isSpeaking || this.state === STATES.SPEAKING || this.state === STATES.PAUSED || this.state === STATES.ENDING || this.state === STATES.IDLE) {
       return;
     }
+    var isMobile = (typeof navigator !== 'undefined') && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (isMobile || !this.recognition) {
+      this.initSpeechRecognition();
+    }
     try {
       this.accumulatedTranscript = '';
-      this.recognition.start();
-    } catch (e) {
-      // Recognition may already be running or starting
-    }
+      if (this.recognition) {
+        this.recognition.start();
+      }
+    } catch (e) {}
   };
 
   LiveVoicePipeline.prototype.speakCoachResponse = function (text, onFinish) {
@@ -601,20 +632,19 @@
 
     this.lastSpokenText = text;
     this.isSpeaking = true;
-    this.accumulatedTranscript = ''; // Always clean transcript before coach speaks
+    this.accumulatedTranscript = '';
     this.transitionTo(STATES.SPEAKING);
 
     var self = this;
 
     // STEP 1: Safely stop recognition before speech synthesis begins
-    // This gives 100% audio subsystem focus to the speaker output, avoiding microphone muting/clashes on Android/iOS/Windows
     if (this.recognition) {
       try {
         this.recognition.stop();
       } catch (e) {}
     }
 
-    // STEP 2: Clear any stuck/frozen Chrome speech synthesis queue from previous turn
+    // STEP 2: Clear frozen Chrome speech synthesis queue
     if (this.synth) {
       try {
         this.synth.cancel();
@@ -624,7 +654,7 @@
       } catch (e) {}
     }
 
-    // STEP 3: Dispatch with minimal delay (15ms tick) so Chrome audio thread resets without perceptible pause
+    // STEP 3: Dispatch with small tick so audio thread resets
     setTimeout(function () {
       if (!self.synth) {
         self.isSpeaking = false;
@@ -641,11 +671,10 @@
 
         var utterance = new window.SpeechSynthesisUtterance(text);
         utterance.lang = self.lang || 'en-US';
-        utterance.rate = self.speechRate || 1.0;
-        utterance.pitch = 1.25; // Warm, natural feminine pitch (strictly female tone)
+        utterance.rate = self.speechRate || 0.95;
+        utterance.pitch = 1.20; // Warm, natural feminine pitch for Coach Sarah
         utterance.volume = 1.0;
 
-        // Dedicated fixed female voice for Coach Sarah
         var femaleVoice = getCoachFemaleVoice(self.synth);
         if (!femaleVoice && typeof window !== 'undefined' && window.__masteredFemaleVoice) {
           femaleVoice = window.__masteredFemaleVoice;
@@ -654,11 +683,9 @@
           utterance.voice = femaleVoice;
           if (typeof window !== 'undefined') window.__masteredFemaleVoice = femaleVoice;
         } else {
-          // If no female-labeled voice exists, elevate pitch to guarantee a warm female timbre
-          utterance.pitch = 1.35;
+          utterance.pitch = 1.30;
         }
 
-        // Global queue anchor to completely prevent Chrome V8 garbage-collection from dropping speech mid-sentence
         if (typeof window !== 'undefined') {
           window.__masteredUtteranceQueue = window.__masteredUtteranceQueue || [];
           window.__masteredUtteranceQueue.push(utterance);
@@ -684,17 +711,16 @@
           self.isSpeaking = false;
           self.activeUtterance = null;
           self.accumulatedTranscript = '';
-          self.speakerCooldownUntil = Date.now() + 250; // 250ms echo drain
+          self.speakerCooldownUntil = Date.now() + 120; // 120ms echo drain
 
           if (self.state === STATES.SPEAKING) {
             self.transitionTo(STATES.LISTENING);
           }
 
-          // Automatically and seamlessly restart recognition to listen for the student's next words
           if (self.isSessionActive !== false) {
             setTimeout(function () {
               self.restartListening();
-            }, 150);
+            }, 100);
           }
 
           if (onFinish) onFinish();
@@ -707,13 +733,16 @@
           finishSpeech();
         }, timeoutMs);
 
-        // Chrome keep-alive: pause/resume every 5s during long utterances to avoid Chrome 15s cutoff bug
-        self.speechKeepAliveInterval = setInterval(function () {
-          if (self.synth && self.synth.speaking && !self.synth.paused) {
-            self.synth.pause();
-            self.synth.resume();
-          }
-        }, 5000);
+        // Keep-alive ONLY on desktop browsers (never on Android or iOS mobile devices)
+        var isMobile = (typeof navigator !== 'undefined') && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        if (!isMobile) {
+          self.speechKeepAliveInterval = setInterval(function () {
+            if (self.synth && self.synth.speaking && !self.synth.paused) {
+              self.synth.pause();
+              self.synth.resume();
+            }
+          }, 5000);
+        }
 
         utterance.onstart = function () {
           self.isSpeaking = true;
@@ -726,14 +755,12 @@
 
         utterance.onerror = function (e) {
           console.warn("[Coach Sarah Speech Event]", e && e.error);
-          // If a remote/online voice had a network failure, retry immediately with local female voice
           if (utterance.voice && e && (e.error === 'network' || e.error === 'audio-busy')) {
-            console.log("[Coach Sarah] Retrying with local female voice fallback...");
             try {
               var fallbackUtterance = new window.SpeechSynthesisUtterance(text);
               fallbackUtterance.lang = self.lang || 'en-US';
-              fallbackUtterance.rate = self.speechRate || 1.0;
-              fallbackUtterance.pitch = 1.30; // Elevated pitch for guaranteed feminine timbre
+              fallbackUtterance.rate = self.speechRate || 0.95;
+              fallbackUtterance.pitch = 1.25;
               var localFemale = getCoachFemaleVoice(self.synth);
               if (localFemale) fallbackUtterance.voice = localFemale;
               fallbackUtterance.onend = finishSpeech;
@@ -762,7 +789,7 @@
         self.restartListening();
         if (onFinish) onFinish();
       }
-    }, 100);
+    }, 80);
   };
 
   LiveVoicePipeline.prototype.replayLastCoachSpeech = function (onFinish) {
@@ -788,40 +815,38 @@
     if (this.state === STATES.PAUSED) {
       this.accumulatedTranscript = '';
       this.transitionTo(STATES.LISTENING);
+      this.restartListening();
     }
   };
 
   LiveVoicePipeline.prototype.handleSpeechError = function (event) {
     if (event.error === 'no-speech') {
-      // Normal conversational pause; do not treat as fatal error
       return;
     }
     if (event.error === 'aborted') {
       return;
     }
 
-    // Recoverable speech glitch
-    if (this.state === STATES.LISTENING) {
+    this.consecutiveErrors = (this.consecutiveErrors || 0) + 1;
+    var backoffDelay = Math.min(3000, 250 * Math.pow(1.3, Math.min(this.consecutiveErrors, 5)));
+
+    if (this.state === STATES.LISTENING || this.state === STATES.RECOVERING) {
       var self = this;
       this.transitionTo(STATES.RECOVERING, { error: event.error });
       setTimeout(function () {
-        if (self.state === STATES.RECOVERING) {
+        if (self.state === STATES.RECOVERING && self.isSessionActive) {
           self.transitionTo(STATES.LISTENING);
-          try {
-            if (self.recognition) self.recognition.start();
-          } catch (e) {}
+          self.restartListening();
         }
-      }, 300);
+      }, backoffDelay);
     }
   };
 
   LiveVoicePipeline.prototype.handleSpeechEnd = function () {
-    // If coach is speaking or echo cooldown active, do not restart recognition yet (will restart in finishSpeech)
     if (this.isSpeaking || this.state === STATES.SPEAKING || (this.speakerCooldownUntil && Date.now() < this.speakerCooldownUntil)) {
       return;
     }
-    // If still in LISTENING state, seamlessly restart continuous recognition
-    if (this.state === STATES.LISTENING) {
+    if (this.state === STATES.LISTENING && this.isSessionActive) {
       var self = this;
       setTimeout(function () {
         self.restartListening();
@@ -831,6 +856,7 @@
 
   LiveVoicePipeline.prototype.endLiveSession = function () {
     this.isSessionActive = false;
+    this.isSpeaking = false;
     this.transitionTo(STATES.ENDING);
 
     if (this.silenceTimer) {
@@ -868,7 +894,7 @@
     this.transitionTo(STATES.IDLE);
   };
 
-  // Backward-compatible BrowserSpeechEngine wrapper for legacy callers
+  // Backward-compatible BrowserSpeechEngine wrapper
   function BrowserSpeechEngine(options) {
     this.pipeline = new LiveVoicePipeline(options);
   }
