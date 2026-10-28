@@ -199,7 +199,7 @@
     options = options || {};
     this.state = STATES.IDLE;
     this.lang = options.lang || 'en-US';
-    this.speechRate = options.speechRate || 0.95;
+    this.speechRate = options.speechRate || 0.86;
     // Turn-taking silence threshold: 1900ms gives learners natural thinking time without premature cutoffs
     this.silenceThresholdMs = options.silenceThresholdMs || 1900;
     this.volumeThreshold = options.volumeThreshold || 12;
@@ -671,7 +671,7 @@
 
         var utterance = new window.SpeechSynthesisUtterance(text);
         utterance.lang = self.lang || 'en-US';
-        utterance.rate = self.speechRate || 0.95;
+        utterance.rate = self.speechRate || 0.86;
         utterance.pitch = 1.20; // Warm, natural feminine pitch for Coach Sarah
         utterance.volume = 1.0;
 
@@ -759,7 +759,7 @@
             try {
               var fallbackUtterance = new window.SpeechSynthesisUtterance(text);
               fallbackUtterance.lang = self.lang || 'en-US';
-              fallbackUtterance.rate = self.speechRate || 0.95;
+              fallbackUtterance.rate = self.speechRate || 0.86;
               fallbackUtterance.pitch = 1.25;
               var localFemale = getCoachFemaleVoice(self.synth);
               if (localFemale) fallbackUtterance.voice = localFemale;

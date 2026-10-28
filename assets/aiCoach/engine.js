@@ -521,17 +521,92 @@
     return { valid: true };
   }
 
-  // 4. NLP Intent Parser (Questions, Emotions, Hesitation, Persona)
+  // 4. NLP Intent Parser (Questions, Emotions, Hesitation, Clarification, Manglish)
   function detectStudentIntent(text, missionDetails) {
     if (!text || typeof text !== 'string') return null;
     var trimmed = text.trim();
     var lower = trimmed.toLowerCase().replace(/[^\w\s\?']/g, '');
+
+    // Malayalam-English Code-Switching (Manglish) Doubts & Requests
+    if (/(?:manasilayilla|manassilayilla|enikku\s+manasilayilla|enikku\s+manassilayilla|ithu\s+manasilayilla)/i.test(lower)) {
+      return {
+        type: 'MALAYALAM_NOT_UNDERSTOOD',
+        response: "Saramilla! No problem at all. We are learning step by step. Let's keep it simple: tell me your answer in one short, easy English sentence."
+      };
+    }
+    if (/(?:onnode\s+parayumo|onnode\s+parayaamo|veendum\s+parayumo|onnoode\s+parayumo|onnu\s+koodi\s+parayumo)/i.test(lower)) {
+      return {
+        type: 'MALAYALAM_REPEAT',
+        response: "Sure! Here is the question again: " + ((missionDetails && missionDetails.starterPrompts && missionDetails.starterPrompts[0]) || 'Please speak your thoughts aloud in English.')
+      };
+    }
+    if (/(?:ithu\s+entha|ithinte\s+meaning\s+entha|enthaanu\s+ithu|ithu\s+enthanu|ithu\s+entha\s+artham)/i.test(lower)) {
+      return {
+        type: 'MALAYALAM_WHAT_IS_THIS',
+        response: "Let's explain that simply! In English, we express this by using a clear subject and an action verb. Give it a try aloud!"
+      };
+    }
+    if (/(?:onnu\s+explain\s+cheyyumo|explain\s+cheyyaamo|onnu\s+paranju\s+tharumo|paranju\s+tharumo)/i.test(lower)) {
+      return {
+        type: 'MALAYALAM_EXPLAIN',
+        response: "No worries! Let's break it down simply. Try starting your English sentence with 'I usually...' or 'My name is...'. Give it a try!"
+      };
+    }
+    if (/(?:njan\s+onnode\s+parayam|onnode\s+try\s+cheyyam|veendum\s+try\s+cheyyam|njan\s+onnu\s+koodi\s+parayam|njan\s+parayam)/i.test(lower)) {
+      return {
+        type: 'MALAYALAM_RETRY',
+        response: "Yes, definitely! Please go ahead and speak your sentence again."
+      };
+    }
+    if (/(?:sheriyaano|ithu\s+sheriyaano|correct\s+aano|ithu\s+correct\s+aano|shari\s+aano|sheriyano)/i.test(lower)) {
+      return {
+        type: 'MALAYALAM_IS_CORRECT',
+        response: "You are doing really well! Every complete sentence you speak builds fluency. Keep speaking in complete sentences!"
+      };
+    }
 
     // Grammar concepts
     if (/(?:what\s+is|explain)\s+(?:a\s+|an\s+)?(phrasal\s+verb|noun|verb|adjective|preposition|pronoun|tense|grammar)\??/i.test(lower)) {
       return {
         type: 'QUESTION_CONCEPT',
         response: "In English, that grammatical element helps structure your ideas clearly. For example, a phrasal verb combines a verb with a particle like 'wake up' or 'carry on'. Try speaking an example!"
+      };
+    }
+
+    // Specific Doubts & Inquiries from Section 4
+    if (/(?:why\s+is\s+(?:this|my|that)\s+sentence\s+wrong|why\s+was\s+(?:that|it|my\s+sentence)\s+wrong|what\s+was\s+my\s+mistake|why\s+is\s+it\s+wrong)/i.test(lower)) {
+      return {
+        type: 'QUESTION_WHY_WRONG',
+        response: "In English, every complete sentence needs a clear subject and an action or linking verb. Let's practice saying your complete thought again. You can do this!"
+      };
+    }
+
+    if (/(?:can\s+i\s+try\s+again|can\s+i\s+speak\s+again|let\s+me\s+try\s+again|can\s+i\s+repeat|one\s+more\s+time|can\s+i\s+try\s+once\s+more)/i.test(lower)) {
+      return {
+        type: 'REQUEST_RETRY',
+        response: "Yes, absolutely! Go ahead and speak your sentence again."
+      };
+    }
+
+    if (/(?:what\s+is\s+the\s+difference\s+between|difference\s+between\s+(?:these|the\s+two))/i.test(lower)) {
+      return {
+        type: 'QUESTION_DIFFERENCE',
+        response: "The difference usually comes down to verb tense or who is doing the action. Keep your sentence simple and direct. Which version would you like to practice saying?"
+      };
+    }
+
+    if (/(?:can\s+you\s+(?:say|speak)\s+(?:it\s+)?slowly|speak\s+slowly|say\s+it\s+slowly|slowly\s+please|speak\s+more\s+slowly)/i.test(lower)) {
+      return {
+        type: 'REQUEST_SPEAK_SLOWLY',
+        response: "I will speak more slowly and clearly for you. Let's take it step by step. What would you like to say?"
+      };
+    }
+
+    if (/(?:can\s+you\s+explain\s+that|please\s+explain\s+that|can\s+you\s+explain|explain\s+that\s+please)/i.test(lower)) {
+      var grammarFocus = (missionDetails && missionDetails.grammarFocus) ? missionDetails.grammarFocus : 'daily English';
+      return {
+        type: 'REQUEST_EXPLANATION',
+        response: "Certainly! We are practicing " + grammarFocus + ". For example, start your sentence with: 'I usually...' or 'My name is...'. Try speaking that aloud!"
       };
     }
 
@@ -596,7 +671,7 @@
       };
     }
 
-    if (/(?:repeat\s+the\s+question|what\s+was\s+the\s+question|can\s+you\s+repeat)/i.test(lower)) {
+    if (/(?:repeat\s+the\s+question|what\s+was\s+the\s+question|can\s+you\s+repeat|please\s+repeat|repeat\s+please|say\s+that\s+again|say\s+it\s+again)/i.test(lower)) {
       return {
         type: 'QUESTION_REPEAT',
         response: "Of course! Here is your speaking topic: " + ((missionDetails && missionDetails.starterPrompts && missionDetails.starterPrompts[0]) || 'Please speak your thoughts aloud in a complete sentence.')
@@ -977,45 +1052,45 @@
   };
 
   /**
-   * Generates intelligent, context-sensitive conversational feedback based on
-   * the student's actual spoken words rather than canned static rotations.
+   * Generates concise, natural conversational praise based on the student's actual
+   * spoken words, keeping coach responses brief (2-3 words) so the student speaks more.
    */
   AiCoachSession.prototype.generateFeedback = function (text, isSuccess) {
-    var cur = this.getMissionDetails();
     if (!isSuccess) {
-      return "Let's refine that. Focus on " + cur.grammarFocus + " and try speaking again.";
+      return "Let's try that again with a complete sentence.";
     }
 
     var lower = String(text || '').toLowerCase();
 
-    // Contextual acknowledgements
+    // Contextual acknowledgements (Concise: 2-3 words)
     if (/(?:engineer|developer|designer|doctor|teacher|manager|accountant|nurse|student|job|profession|work\s+as)/i.test(lower)) {
-      return "Excellent! Describing your profession clearly with 'I am a...' or 'I work as...' sounds very natural and professional.";
+      return "Spot on!";
     }
     if (/(?:morning|evening|breakfast|coffee|routine|wake\s*up|seven|eight|daily)/i.test(lower)) {
-      return "Great phrasing! Using daily routine vocabulary and time expressions makes your English sound confident and fluent.";
+      return "Great phrasing!";
     }
     if (/(?:family|mother|father|brother|sister|parents|wife|husband|children|son|daughter)/i.test(lower)) {
-      return "Very warmly spoken! Using possessive pronouns to describe family members and personal relationships was spot on.";
+      return "Warmly spoken!";
     }
     if (/(?:reading|books|music|park|walking|hobbies|travel|cooking|sports|playing)/i.test(lower)) {
-      return "Wonderful! Sharing your hobbies in full, connected sentences shows strong conversational fluency.";
+      return "Well said!";
     }
     if (/(?:can|could|able\s+to)/i.test(lower)) {
-      return "Spot on! Expressing your personal abilities using modal verbs was completely accurate.";
+      return "Spot on!";
     }
     if (/(?:must|have\s+to|need\s+to|responsible)/i.test(lower)) {
-      return "Terrific work! You communicated your obligations and responsibilities with great grammatical precision.";
+      return "Very clear!";
     }
 
-    var dynamicPraises = [
-      "Well said! That sounded completely natural, fluent, and well-structured.",
-      "Terrific response! You articulated your thoughts with impressive clarity.",
-      "Spot on! Your sentence was grammatically sound and directly answered the prompt.",
-      "Very well phrased! Your speaking pace and word choices are improving with every turn."
+    var concisePraises = [
+      "Spot on!",
+      "Well said!",
+      "Great sentence!",
+      "Very clear!",
+      "Nicely phrased!"
     ];
-    var idx = this.profile.verifiedSentences % dynamicPraises.length;
-    return dynamicPraises[idx];
+    var idx = (this.profile.verifiedSentences || 0) % concisePraises.length;
+    return concisePraises[idx];
   };
 
   AiCoachSession.prototype.getNextQuestion = function () {
