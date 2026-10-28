@@ -45,6 +45,250 @@
     END_SESSION: /^(end(\s*session)?|finish(\s*for\s*today)?|goodbye|bye|exit|stop|quit|i\s*want\s*to\s*stop)/i
   };
 
+
+  // Comprehensive Real-Life Mission Situation Dialogue Tracks (All 32 Missions)
+  var MISSION_SCENARIOS = {
+    1: {
+      topic: "introducing yourself naturally",
+      guidance: "tell me your full name, your profession or studies, and where you are from",
+      sample: "My name is Alex and I work as a software engineer in Bangalore.",
+      opening: "Welcome to Mission 1: Introduce Yourself! Let's start with the basics—what is your name and what do you do?",
+      stages: [
+        {
+          trigger: /engineer|developer|designer|doctor|teacher|manager|accountant|nurse|student|work|profession|job|sales/i,
+          react: "Very well spoken!",
+          ask: "What do you enjoy most about working in your profession?"
+        },
+        {
+          trigger: /enjoy|like|satisfaction|project|team|challenge|coding|helping|solving|grow/i,
+          react: "That sounds very fulfilling!",
+          ask: "Tell me about two hobbies or activities you enjoy doing in your free time."
+        },
+        {
+          trigger: /reading|books|music|park|walking|sports|football|cricket|cooking|badminton|weekend/i,
+          react: "Those are wonderful ways to recharge!",
+          ask: "What is your primary motivation for improving your English speaking skills?"
+        },
+        {
+          trigger: /fluency|confidence|career|interview|global|speaking|job|client|better|future/i,
+          react: "That is an inspiring and clear goal!",
+          ask: "Where did you grow up, and what is your hometown like?"
+        }
+      ]
+    },
+    2: {
+      topic: "describing friends and colleagues using descriptive adjectives",
+      guidance: "describe a colleague or friend who inspires you",
+      sample: "My close colleague is very reliable and always supports the entire team.",
+      opening: "Welcome to Mission 2: Talk About Others! Think of a close friend or colleague who inspires you. How would you describe their personality?",
+      stages: [
+        {
+          trigger: /friend|colleague|reliable|supportive|kind|helpful|hardworking|inspiring/i,
+          react: "That's a wonderful description!",
+          ask: "What qualities do you think make someone truly trustworthy and supportive at work?"
+        },
+        {
+          trigger: /honesty|trust|communication|patience|teamwork|listening/i,
+          react: "Spot on! Those qualities make a huge difference.",
+          ask: "Tell me about a specific time when this person helped you solve a challenge."
+        }
+      ]
+    },
+    3: {
+      topic: "describing family relationships and home traditions",
+      guidance: "describe your family members and how you spend time together",
+      sample: "My family usually spends weekends together cooking dinner and talking.",
+      opening: "Welcome to Mission 3: Describe Your Family! Tell me a little about your family and who you live with.",
+      stages: [
+        {
+          trigger: /parents|father|mother|brother|sister|wife|husband|children|family|live/i,
+          react: "That sounds like a lovely family!",
+          ask: "How do you and your family usually spend your weekends together?"
+        },
+        {
+          trigger: /weekend|dinner|cooking|movies|outing|relax|together/i,
+          react: "Spending quality time together creates lasting memories.",
+          ask: "What is your favorite family tradition or celebration during the year?"
+        }
+      ]
+    },
+    4: {
+      topic: "expressing personal abilities and professional skills using modal verbs",
+      guidance: "tell me what technical or personal skills you can perform well",
+      sample: "I can solve technical problems and organize projects efficiently.",
+      opening: "Welcome to Mission 4: Talk About What You Can Do! What are three professional skills you can perform exceptionally well?",
+      stages: [
+        {
+          trigger: /can|able|manage|solve|code|design|communicate|lead|organize/i,
+          react: "Those are valuable, high-impact abilities!",
+          ask: "Tell me about a skill you could not do before, but can do confidently now."
+        },
+        {
+          trigger: /before|learned|practiced|now|improved|mastered/i,
+          react: "Consistent practice really pays off!",
+          ask: "What is a new skill or language you are eager to learn next?"
+        }
+      ]
+    },
+    5: {
+      topic: "talking about daily obligations and work duties using must and have to",
+      guidance: "tell me what tasks you have to finish before ending your workday",
+      sample: "I have to finish my daily reports and check emails before leaving work.",
+      opening: "Welcome to Mission 5: Talk About Responsibilities! What are your top daily responsibilities at work or home?",
+      stages: [
+        {
+          trigger: /must|have to|need to|responsible|duty|task|report|meeting/i,
+          react: "That requires strong discipline and focus!",
+          ask: "How do you prioritize your tasks when you face multiple urgent deadlines?"
+        },
+        {
+          trigger: /priority|urgent|schedule|first|important|calendar|list/i,
+          react: "That is a very structured approach to workload management.",
+          ask: "What tasks must you complete before you can comfortably end your day?"
+        }
+      ]
+    },
+    6: {
+      topic: "polite workplace requests and etiquette using polite modals",
+      guidance: "ask a colleague politely for assistance with an urgent project",
+      sample: "Could you please help me review this report when you have a moment?",
+      opening: "Welcome to Mission 6: Express Yourself Politely! Imagine you need assistance with an urgent task. How would you politely ask a colleague for help?",
+      stages: [
+        {
+          trigger: /could you|would you|mind|please|help|assistance|favor/i,
+          react: "That is phrased with great courtesy and respect!",
+          ask: "How would you politely ask your manager for permission to leave early today?"
+        },
+        {
+          trigger: /may i|permission|leave|early|doctor|personal|today/i,
+          react: "Very professional and considerate!",
+          ask: "How would you politely decline an invitation from a friend while remaining warm?"
+        }
+      ]
+    },
+    7: {
+      topic: "asking professional inquiries and questions like a pro",
+      guidance: "ask me insightful questions about career growth or project needs",
+      sample: "What are the most important goals we need to achieve this quarter?",
+      opening: "Welcome to Mission 7: Ask Like a Pro! Imagine you are interviewing a leader. What is an insightful question you would ask them about career development?",
+      stages: [
+        {
+          trigger: /what|how|why|question|career|growth|advice|success/i,
+          react: "That is an insightful and thoughtful inquiry!",
+          ask: "How would you ask a client about their exact requirements for a new project?"
+        },
+        {
+          trigger: /requirement|timeline|expectation|budget|deliverable|client/i,
+          react: "Spot on! That gets right to the core details.",
+          ask: "What is an important question to ask during a weekly team meeting?"
+        }
+      ]
+    },
+    8: {
+      topic: "everyday small talk, friendly greetings, and street directions",
+      guidance: "tell me how you greet your neighbor or ask for directions",
+      sample: "I usually say good morning to my neighbor and ask how they are doing.",
+      opening: "Welcome to Mission 8: Handle Everyday English! Imagine you just ran into a friendly neighbor outside your home. How would you start a chat with them?",
+      stages: [
+        {
+          trigger: /good\s*morning|hello|hi|ask\s+how|greet|say|neighbor|talk/i,
+          react: "That is very warm and polite!",
+          ask: "If your neighbor asks how your day or week is going, what would you say?"
+        },
+        {
+          trigger: /going\s+great|good|fine|busy|day|work|thank|well/i,
+          react: "Spot on! That flows very naturally.",
+          ask: "Now imagine a visitor on your street stops and asks for directions to the nearest bank. How would you guide them?"
+        },
+        {
+          trigger: /straight|turn|left|right|road|street|walk|signal|take|cross/i,
+          react: "Very clear street directions!",
+          ask: "What would you say if they ask if it is within walking distance or if they need a bus?"
+        },
+        {
+          trigger: /walk|bus|near|far|distance|minutes|can\s+walk/i,
+          react: "Nicely explained!",
+          ask: "Now imagine you are in a noisy shop and didn't hear the cashier's total price. How would you politely ask them to repeat it?"
+        },
+        {
+          trigger: /pardon|repeat|could\s+you|again|hear|please/i,
+          react: "Very courteous and polite!",
+          ask: "Before leaving the store, what friendly parting phrase would you say to the shopkeeper?"
+        }
+      ]
+    },
+    9: {
+      topic: "daily life, morning routines, and habits using simple present",
+      guidance: "walk me through your typical morning routine from waking up",
+      sample: "I usually wake up at seven in the morning and drink a hot cup of tea.",
+      opening: "Welcome to Mission 9: Talk About Your Daily Life! Walk me through your typical morning routine from the moment you wake up.",
+      stages: [
+        {
+          trigger: /wake|morning|seven|six|alarm|tea|coffee|breakfast|brush/i,
+          react: "That sounds like a steady and calm morning!",
+          ask: "How often do you exercise or read, and when do you usually find time for it?"
+        },
+        {
+          trigger: /exercise|gym|walk|read|book|always|often|sometimes|rarely/i,
+          react: "Maintaining healthy daily habits makes a huge difference.",
+          ask: "Describe how you manage your evenings to relax and prepare for tomorrow."
+        }
+      ]
+    },
+    10: {
+      topic: "expressing personal likes, preferences, and viewpoints",
+      guidance: "share whether you prefer working from home or in an office",
+      sample: "In my view, working remotely offers much better flexibility and saves commute time.",
+      opening: "Welcome to Mission 10: Express Your Likes and Opinions! To get us started, do you prefer working remotely from home or working in an office with colleagues?",
+      stages: [
+        {
+          trigger: /remote|home|office|prefer|hybrid|working/i,
+          react: "That is a very sensible perspective!",
+          ask: "In your opinion, what is the biggest advantage or challenge of that choice?"
+        },
+        {
+          trigger: /advantage|challenge|time|focus|commute|save|distraction|communication/i,
+          react: "I completely understand that viewpoint!",
+          ask: "Let's talk about technology. In your view, do smartphones help people connect better, or do they cause too much distraction?"
+        },
+        {
+          trigger: /distraction|connect|smartphone|phone|social|people|better|screen/i,
+          react: "That is an insightful observation!",
+          ask: "What kind of books, movies, or leisure activities do you enjoy most in your free time, and why?"
+        },
+        {
+          trigger: /movie|cinema|book|reading|music|action|comedy|fiction|enjoy/i,
+          react: "That sounds wonderfully relaxing!",
+          ask: "Why do you find that particular activity more enjoyable than other pastimes?"
+        }
+      ]
+    }
+  };
+
+  function getMissionOpeningGreeting(mNum, studentName) {
+    var name = studentName || 'Student';
+    var scenario = MISSION_SCENARIOS[mNum];
+    if (scenario) {
+      return "Hello " + name + "! This is Coach Sarah, your speaking buddy on call. " + scenario.opening;
+    }
+    var curM = (Curriculum && Curriculum.getMission) ? Curriculum.getMission(mNum) : null;
+    if (curM) {
+      var p0 = (curM.starterPrompts && curM.starterPrompts[0]) || "Please speak your thoughts aloud.";
+      return "Hello " + name + "! This is Coach Sarah, your speaking buddy on call. Welcome to Mission " + mNum + ": " + curM.title + "! Today we are practicing " + curM.situation + ". To begin, " + p0;
+    }
+    return "Hello " + name + "! This is Coach Sarah, your speaking buddy on call. Let's begin our speaking practice call!";
+  }
+
+  function getMissionGuidanceHelp(mNum, missionDetails) {
+    var scenario = MISSION_SCENARIOS[mNum];
+    if (scenario) {
+      return "No worries at all! For Mission " + mNum + ", we are practicing " + scenario.topic + ". For example, " + scenario.guidance + ". You can say: '" + scenario.sample + "'. Try speaking that aloud!";
+    }
+    var sit = (missionDetails && missionDetails.situation) ? missionDetails.situation : 'daily English speaking';
+    var starter = (missionDetails && missionDetails.starterPrompts && missionDetails.starterPrompts[0]) ? missionDetails.starterPrompts[0] : 'Please express your complete thought in English.';
+    return "No worries at all! For Mission " + mNum + ", we are practicing " + sit + ". Here is an easy way to begin: " + starter + " Try speaking your answer aloud!";
+  }
+
   function normalizeCommand(input) {
     if (!input || typeof input !== 'string') return null;
     var trimmed = input.trim();
@@ -332,8 +576,9 @@
 
           // If preceded or connected by conjunction, it is part of the same compound sentence.
           // Only if there is no conjunction does it represent a distinct independent run-on sentence.
+          var SUBORDINATING_MARKERS = { 'how': true, 'what': true, 'where': true, 'when': true, 'why': true, 'that': true, 'which': true, 'if': true, 'whether': true, 'who': true };
           if (hasClauseVerb) {
-            if (!CONJUNCTIONS[prevWord] && !CONJUNCTIONS[cw]) {
+            if (!CONJUNCTIONS[prevWord] && !CONJUNCTIONS[cw] && !SUBORDINATING_MARKERS[prevWord]) {
               isNewClauseStart = true;
             }
           }
@@ -411,7 +656,40 @@
       }
     }
 
-    // D. Subject & Predicate Verb Identification
+    // D. Incomplete Subordinate / Relative Clause Fragment Check
+    var firstTwo = words.length >= 2 ? (words[0] + ' ' + words[1]) : '';
+    if (firstTwo === 'what i' || firstTwo === 'what we' || firstTwo === 'what to' || firstTwo === 'how to' || firstTwo === 'where to' || firstTwo === 'for which' || firstTwo === 'about which' || firstTwo === 'in which' || firstTwo === 'to which' || firstTwo === 'a boat') {
+      return {
+        valid: false,
+        reason: 'SUBORDINATE_CLAUSE_FRAGMENT',
+        feedback: "That sounds like an incomplete clause fragment. Try expressing your complete thought: 'Tell me which topic to talk about.'. Try speaking that aloud!",
+        modelCorrection: "Tell me which topic to talk about."
+      };
+    }
+    if (joined.indexOf('which experience') !== -1) {
+      return {
+        valid: false,
+        reason: 'SUBORDINATE_CLAUSE_FRAGMENT',
+        feedback: "To ask about the topic, try saying: 'Which topic should we talk about?'. Try speaking that aloud!",
+        modelCorrection: "Which topic should we talk about?"
+      };
+    }
+
+    // E. Stranded Prepositions Check at end of utterance
+    var lastW = words[words.length - 1];
+    var secondLastW = words.length >= 2 ? words[words.length - 2] : '';
+    var danglingPreps = { 'to': true, 'about': true, 'for': true, 'with': true, 'from': true, 'of': true, 'at': true, 'in': true, 'by': true };
+    var acceptedEndings = { 'listen to': true, 'talk to': true, 'speak to': true, 'wait for': true, 'come in': true, 'log in': true, 'wake up': true, 'carry on': true };
+    if (danglingPreps[lastW] && !acceptedEndings[secondLastW + ' ' + lastW]) {
+      return {
+        valid: false,
+        reason: 'STRANDED_PREPOSITION_FRAGMENT',
+        feedback: "That sentence sounds incomplete at the end. Try completing your full thought: 'I want to speak in complete sentences.'. Try speaking that aloud!",
+        modelCorrection: "I want to speak in complete sentences."
+      };
+    }
+
+    // F. Subject & Predicate Verb Identification
     var hasSubject = false;
     var hasVerb = false;
     var verbIndex = -1;
@@ -484,37 +762,106 @@
       };
     }
 
-    // E. Common Learner Grammar Diagnostics
-    // 1. Subject-Verb Agreement: "he go", "she work", "it seem"
-    if (words.length >= 2) {
-      var sIdx = -1;
-      for (var si = 0; si < words.length; si++) {
-        if (words[si] === 'he' || words[si] === 'she' || words[si] === 'it') {
-          sIdx = si;
-          break;
-        }
-      }
-      if (sIdx !== -1 && sIdx + 1 < words.length) {
-        var nextW = words[sIdx + 1];
-        if (nextW === 'go' || nextW === 'work' || nextW === 'live' || nextW === 'like' || nextW === 'want' || nextW === 'start' || nextW === 'need' || nextW === 'read' || nextW === 'play') {
+    // G. Common Learner Grammar Diagnostics & Model Corrections
+    // 1. Subject-Verb Agreement: "he go", "she work", "he dont", "they is", "we was"
+    for (var si = 0; si < words.length; si++) {
+      var curW = words[si];
+      if ((curW === 'he' || curW === 'she' || curW === 'it') && si + 1 < words.length) {
+        var nxtW = words[si + 1];
+        if (nxtW === 'dont' || nxtW === "don't") {
+          var correctedDont = trimmed.replace(/\bdont\b|\bdon't\b/i, "doesn't");
           return {
             valid: false,
             reason: 'SUBJECT_VERB_AGREEMENT',
-            feedback: "Notice the subject agreement: with '" + words[sIdx] + "', use third-person singular (e.g. '" + words[sIdx] + " " + nextW + "s' or past '" + (nextW === 'go' ? 'went' : nextW + 'ed') + "')."
+            feedback: "Notice the subject agreement: with '" + curW + "', use 'doesn\'t' instead of 'don\'t'. Try saying: '" + correctedDont + "'. Try speaking that aloud!",
+            modelCorrection: correctedDont
+          };
+        }
+        var baseSingulars = { 'go': 'goes', 'work': 'works', 'live': 'lives', 'like': 'likes', 'want': 'wants', 'need': 'needs', 'start': 'starts', 'read': 'reads', 'play': 'plays', 'say': 'says', 'tell': 'tells', 'make': 'makes', 'come': 'comes', 'see': 'sees', 'take': 'takes' };
+        if (baseSingulars[nxtW]) {
+          var correctedVerb = trimmed.replace(new RegExp('\\b' + nxtW + '\\b', 'i'), baseSingulars[nxtW]);
+          return {
+            valid: false,
+            reason: 'SUBJECT_VERB_AGREEMENT',
+            feedback: "Notice the subject agreement: with '" + curW + "', use third-person singular '" + baseSingulars[nxtW] + "'. Try saying: '" + correctedVerb + "'. Try speaking that aloud!",
+            modelCorrection: correctedVerb
+          };
+        }
+      }
+      if ((curW === 'they' || curW === 'we') && si + 1 < words.length) {
+        if (words[si + 1] === 'is') {
+          var correctedIs = trimmed.replace(/\bis\b/i, 'are');
+          return {
+            valid: false,
+            reason: 'SUBJECT_VERB_AGREEMENT',
+            feedback: "With plural subjects like '" + curW + "', use 'are' instead of 'is'. Try saying: '" + correctedIs + "'. Try speaking that aloud!",
+            modelCorrection: correctedIs
+          };
+        }
+        if (words[si + 1] === 'was') {
+          var correctedWas = trimmed.replace(/\bwas\b/i, 'were');
+          return {
+            valid: false,
+            reason: 'SUBJECT_VERB_AGREEMENT',
+            feedback: "With plural subjects like '" + curW + "', use 'were' instead of 'was'. Try saying: '" + correctedWas + "'. Try speaking that aloud!",
+            modelCorrection: correctedWas
           };
         }
       }
     }
 
-    // 2. Past time marker with base present verb: e.g. "yesterday I go" or "he go store yesterday"
+    // 2. Past time marker with base present verb: e.g. "yesterday I go" or "last week I meet"
     var hasPastMarker = words.indexOf('yesterday') !== -1 || words.indexOf('ago') !== -1 || words.indexOf('last') !== -1;
     if (hasPastMarker) {
-      if (words.indexOf('go') !== -1) {
-        return {
-          valid: false,
-          reason: 'PAST_TENSE_ERROR',
-          feedback: "When talking about past time (like yesterday), use the past tense 'went' instead of 'go'."
-        };
+      var irregularPast = { 'go': 'went', 'see': 'saw', 'eat': 'ate', 'come': 'came', 'buy': 'bought', 'meet': 'met', 'take': 'took', 'make': 'made', 'write': 'wrote', 'speak': 'spoke', 'drive': 'drove', 'give': 'gave' };
+      for (var baseV in irregularPast) {
+        if (words.indexOf(baseV) !== -1) {
+          var correctedPast = trimmed.replace(new RegExp('\\b' + baseV + '\\b', 'i'), irregularPast[baseV]);
+          return {
+            valid: false,
+            reason: 'PAST_TENSE_ERROR',
+            feedback: "When talking about past time, use the past tense '" + irregularPast[baseV] + "' instead of '" + baseV + "'. Try saying: '" + correctedPast + "'. Try speaking that aloud!",
+            modelCorrection: correctedPast
+          };
+        }
+      }
+    }
+
+    // 3. Missing auxiliary in continuous (e.g. "I going", "he working")
+    var continuousPronouns = { 'i': 'am', 'he': 'is', 'she': 'is', 'it': 'is', 'we': 'are', 'they': 'are', 'you': 'are' };
+    for (var ci = 0; ci < words.length; ci++) {
+      var cp = words[ci];
+      if (continuousPronouns[cp] && ci + 1 < words.length) {
+        var nxtIng = words[ci + 1];
+        if (nxtIng.endsWith('ing') && !COMMON_ING_NOUNS[nxtIng] && nxtIng !== 'morning' && nxtIng !== 'evening') {
+          var auxWord = continuousPronouns[cp];
+          var correctedAux = trimmed.replace(new RegExp('\\b' + cp + '\\b', 'i'), cp + ' ' + auxWord);
+          return {
+            valid: false,
+            reason: 'MISSING_AUXILIARY_CONTINUOUS',
+            feedback: "In continuous actions, add the helping verb '" + auxWord + "'. Try saying: '" + correctedAux + "'. Try speaking that aloud!",
+            modelCorrection: correctedAux
+          };
+        }
+      }
+    }
+
+    // 4. Double verbs missing infinitive 'to' (e.g. "I want go", "I need buy")
+    var verbPairs = { 'want': true, 'need': true, 'like': true, 'decide': true, 'plan': true, 'hope': true, 'try': true };
+    for (var vi = 0; vi < words.length; vi++) {
+      var v1 = words[vi];
+      if (verbPairs[v1] && vi + 1 < words.length) {
+        var v2 = words[vi + 1];
+        var secondBaseVerbs = { 'go': true, 'buy': true, 'work': true, 'play': true, 'eat': true, 'sleep': true, 'travel': true, 'speak': true, 'talk': true, 'learn': true, 'see': true, 'help': true };
+        if (secondBaseVerbs[v2]) {
+          var correctedInfinitive = trimmed.replace(new RegExp('\\b' + v1 + '\\s+' + v2 + '\\b', 'i'), v1 + ' to ' + v2);
+          return {
+            valid: false,
+            reason: 'MISSING_INFINITIVE_TO',
+            feedback: "When connecting two verbs, place 'to' between them. Try saying: '" + correctedInfinitive + "'. Try speaking that aloud!",
+            modelCorrection: correctedInfinitive
+          };
+        }
       }
     }
 
@@ -526,6 +873,26 @@
     if (!text || typeof text !== 'string') return null;
     var trimmed = text.trim();
     var lower = trimmed.toLowerCase().replace(/[^\w\s\?']/g, '');
+
+    // Guidance Request / Student Confusion (Prevents "what should I say" / "which experience" from false counting)
+    if (/(?:which\s+experience|what\s+experience|about\s+which|for\s+which|a\s+boat\s+which|what\s+i\s+want\s+to\s+say|what\s+should\s+i\s+(?:say|speak|talk)|what\s+(?:do\s+i|can\s+i)\s+(?:say|speak|talk)|what\s+to\s+say|how\s+to\s+say|how\s+(?:can|should|do)\s+i\s+start|how\s+to\s+start|tell\s+me\s+what\s+to\s+say|i\s+dont\s+know\s+what\s+to\s+say|what\s+are\s+we\s+talking\s+about|what\s+do\s+you\s+mean|which\s+topic|for\s+which\s+topic)/i.test(lower)) {
+      var mNum = (missionDetails && missionDetails.missionNumber) || 1;
+      return {
+        type: 'STUDENT_GUIDANCE_REQUEST',
+        response: getMissionGuidanceHelp(mNum, missionDetails)
+      };
+    }
+
+    // Student Meta-Greeting or Greeting back to coach
+    if (/(?:i\s+will\s+ask\s+hello|hello\s+how\s+are\s+you|hi\s+coach|hello\s+coach|how\s+are\s+you\s+doing|good\s+morning\s+coach)/i.test(lower)) {
+      var mNum = (missionDetails && missionDetails.missionNumber) || 1;
+      var openingQ = (missionDetails && missionDetails.starterPrompts && missionDetails.starterPrompts[0]) ? missionDetails.starterPrompts[0] : "Please speak your thoughts aloud.";
+      return {
+        type: 'STUDENT_GREETING',
+        response: "Hello there! I'm doing great, thank you for asking! I'm Coach Sarah, your speaking buddy on call. Let's practice Mission " + mNum + ": " + (missionDetails ? missionDetails.title : '') + ". " + openingQ
+      };
+    }
+
 
     // Malayalam-English Code-Switching (Manglish) Doubts & Requests
     if (/(?:manasilayilla|manassilayilla|enikku\s+manasilayilla|enikku\s+manassilayilla|ithu\s+manasilayilla)/i.test(lower)) {
@@ -986,26 +1353,13 @@
       }
     }
 
-    // STEP 3: Self-Correction & Retry Management
-    if (this.pendingCorrection) {
-      if (validCompleteSentences.length > 0) {
-        // Successful self-correction! Clear pending correction and count ONCE.
-        this.pendingCorrection = null;
-        validCompleteSentences = [validCompleteSentences[0]]; // Count the corrected version once
-      } else {
-        return {
-          eligible: false,
-          verifiedIncrement: 0,
-          reason: 'RETRY_INCORRECT',
-          feedback: (firstError && firstError.feedback) ? firstError.feedback : ("Not quite right yet. Try again: " + this.pendingCorrection),
-          progress: this.getProfile()
-        };
-      }
-    } else if (validCompleteSentences.length === 0) {
-      // No valid sentences found; report first error and set pending correction
+    // STRICT ERROR & CORRECTION RULE:
+    // If there is ANY error or incomplete fragment in the utterance, DO NOT COUNT IT!
+    // The coach points out the mistake, provides the correct sentence, and waits for a clean retry.
+    if (firstError || validCompleteSentences.length === 0) {
       var errReason = firstError ? firstError.reason : 'FRAGMENT_OR_INCOMPLETE';
       var errFeedback = firstError ? firstError.feedback : "Please speak in a full, complete sentence.";
-      this.pendingCorrection = attempt.modelCorrection || errFeedback;
+      this.pendingCorrection = (firstError && (firstError.modelCorrection || firstError.correction)) || attempt.modelCorrection || errFeedback;
       var conversationalError = this.generateConnectedTurn(text, false, firstError);
       return {
         eligible: false,
@@ -1015,6 +1369,14 @@
         coachResponse: conversationalError || errFeedback,
         progress: this.getProfile()
       };
+    }
+
+    // STEP 3: Self-Correction & Retry Management
+    if (this.pendingCorrection) {
+      // Successful self-correction! The student repeated accurately.
+      this.pendingCorrection = null;
+      this.lastWasCorrection = true;
+      validCompleteSentences = [validCompleteSentences[0]]; // Count the corrected version once
     }
 
     // STEP 4: Multi-Sentence Count Increment (Up to remaining mission target)
@@ -1075,6 +1437,7 @@
     var rawText = String(text || '').trim();
     var lower = rawText.toLowerCase().replace(/[^\w\s\?']/g, ' ');
     var curMission = this.getMissionDetails();
+    var mNum = (this.profile && this.profile.currentMission) || (curMission && curMission.missionNumber) || 1;
     var ctx = this.dialogueContext || (this.dialogueContext = {
       activeTopic: null,
       topicDepth: 0,
@@ -1120,6 +1483,39 @@
     var isFirstJob = /(?:first\s+job|fresher|no\s+experience|never\s+worked|entry\s+level|my\s+first)/i.test(lower);
     var isInterviewQuestions = /(?:they\s+asked|asked\s+me|questions\s+about|asked\s+to|introduce\s+myself|my\s+strengths|experience|tell\s+me\s+about\s+yourself)/i.test(lower);
     var isInterviewOutcome = /(?:confident|nervous|waiting\s+for|selected|results|cleared|offer)/i.test(lower) && ctx.activeTopic === 'interview';
+
+    // MISSION-SPECIFIC SITUATIONS (Highest Priority for the Active Mission)
+    // Mission 8: Handle Everyday English (Greetings, Small Talk, Street Directions)
+    if (mNum === 8) {
+      if (/(?:neighbor|morning|hello|hi|good\s*morning|greet|meeting|speak\s+to)/i.test(lower)) {
+        return "That is very warm and polite! If your neighbor asks how your week is going, what would you say?";
+      }
+      if (/(?:going\s*(?:well|great)|fine|busy|good|great|thanks|thank|day|week)/i.test(lower)) {
+        return "Spot on! That flows naturally. Now imagine a visitor on your street stops and asks for directions to the nearest bank. How would you guide them?";
+      }
+      if (/(?:straight|turn|left|right|walk|road|street|signal|cross)/i.test(lower)) {
+        return "Very clear street directions! What would you say if they ask if they should take a bus or walk?";
+      }
+      if (/(?:walk|bus|near|far|distance|minutes|can\s+walk)/i.test(lower)) {
+        return "Nicely explained! And if you didn't hear someone clearly in a noisy store, how would you politely ask them to repeat?";
+      }
+      if (/(?:repeat|pardon|could\s+you|again|say\s+that|excuse)/i.test(lower)) {
+        return "Very courteous and polite! What is a friendly parting phrase you say when leaving a store?";
+      }
+    }
+
+    // Mission 10: Express Your Likes and Opinions (Workplace, Tech, Hobbies)
+    if (mNum === 10) {
+      if (/(?:remote|home|office|prefer|work|hybrid)/i.test(lower)) {
+        return "That is a very sensible perspective! In your opinion, what is the biggest advantage of that choice?";
+      }
+      if (/(?:advantage|challenge|time|focus|commute|save|distraction)/i.test(lower)) {
+        return "I completely understand that viewpoint! Now in your view, do smartphones help people connect better, or do they cause distraction?";
+      }
+      if (/(?:phone|smartphone|distraction|connect|social)/i.test(lower)) {
+        return "That is an insightful observation! What kind of books or movies do you enjoy most in your free time, and why?";
+      }
+    }
 
     // SCENARIO 1: Travel & Job Interview (Exact User Conversational Progression)
     // Turn 1: Student: "I went to Kochi yesterday." -> Coach: "Oh, what took you to Kochi?"
@@ -1310,8 +1706,43 @@
       return "Handling that requires dedication. What are your main duties when organizing that?";
     }
 
-    // Fallback: Conversational curiosity
-    return "That sounds fascinating! Could you tell me a little more about that experience?";
+    // Mission 8: Handle Everyday English (Situation Demanding Stages)
+    if (mNum === 8) {
+      if (/(?:neighbor|morning|hello|hi|good\s*morning|greet)/i.test(lower)) {
+        return "That is very warm and polite! If your neighbor asks how your week is going, what would you say?";
+      }
+      if (/(?:going\s*well|fine|busy|good|great|thanks|thank)/i.test(lower)) {
+        return "Spot on! Now imagine a visitor on your street asks for directions to the nearest bank. How would you guide them?";
+      }
+      if (/(?:straight|turn|left|right|walk|road|street|signal)/i.test(lower)) {
+        return "Very clear street directions! What would you say if they ask if they should take a bus or walk?";
+      }
+      if (/(?:walk|bus|near|far|distance|minutes)/i.test(lower)) {
+        return "Nicely explained! And if you didn't hear someone clearly in a noisy store, how would you politely ask them to repeat?";
+      }
+      if (/(?:repeat|pardon|could\s+you|again|say\s+that)/i.test(lower)) {
+        return "Very courteous and polite! What is a friendly parting phrase you say when leaving a store?";
+      }
+    }
+
+    // Mission 10: Express Your Likes and Opinions
+    if (mNum === 10) {
+      if (/(?:remote|home|office|prefer|work|hybrid)/i.test(lower)) {
+        return "That is a very sensible perspective! In your opinion, what is the biggest advantage of that choice?";
+      }
+      if (/(?:advantage|challenge|time|focus|commute|save|distraction)/i.test(lower)) {
+        return "I completely understand that viewpoint! Now in your view, do smartphones help people connect better, or do they cause distraction?";
+      }
+      if (/(?:phone|smartphone|distraction|connect|social)/i.test(lower)) {
+        return "That is an insightful observation! What kind of books or movies do you enjoy most in your free time, and why?";
+      }
+    }
+
+    // Dynamic Mission Situational Fallback (Strictly inside mission situation)
+    var starters = (curMission && curMission.starterPrompts) || [];
+    var pCount = this.profile.verifiedSentences || 0;
+    var nextPrompt = starters[pCount % (starters.length || 1)] || "Please express your complete thought in English.";
+    return "That expresses your thought clearly! In this situation, " + nextPrompt;
   };
 
   /**
@@ -1402,6 +1833,14 @@
     return this.profile;
   };
 
+  AiCoachSession.prototype.getMissionOpeningGreeting = function (studentName) {
+    return getMissionOpeningGreeting(this.profile.currentMission, studentName || this.profile.name);
+  };
+
+  AiCoachSession.prototype.getMissionGuidance = function () {
+    return getMissionGuidanceHelp(this.profile.currentMission, this.getMissionDetails());
+  };
+
   AiCoachSession.prototype.endSession = function () {
     var curDetails = this.getMissionDetails();
     var summary = {
@@ -1444,6 +1883,8 @@
     AiCoachSession: AiCoachSession,
     evaluateSentenceGrammar: evaluateSentenceGrammar,
     detectStudentIntent: detectStudentIntent,
+    getMissionOpeningGreeting: getMissionOpeningGreeting,
+    getMissionGuidanceHelp: getMissionGuidanceHelp,
     segmentSentences: segmentSentences
   };
 

@@ -1741,35 +1741,62 @@
         ? getCurrentStudentProgressMap() 
         : (userProgress?.[cleanAdm] || userProgress?.[admNum] || userProgress?.[studentEmail] || {});
 
-      // Calculate initial active mission: first module with < 100% progress
-      let derivedMission = activeModule?.moduleNumber || 1;
-      let derivedVerified = 0;
+      // 1. Calculate active module matching the profile/dashboard logic:
+      let highestActiveLevel = 0;
+      let firstIncomplete = 1;
+      let foundIncomplete = false;
+
       for (let m = 1; m <= 32; m++) {
         const k = `MOD-${m < 10 ? '0' + m : m}`;
         const mObj = currentStudentProg[k] || currentStudentProg[`MOD-${m}`];
-        if (mObj) {
-          const pct = Number(mObj.percentage) || 0;
-          if (pct >= 100) {
-            derivedMission = Math.min(32, m + 1);
-          } else if (pct > 0) {
-            derivedMission = m;
-            const t = (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission) ? window.MasteredCurriculum.getTargetForMission(m) : (m <= 8 ? 30 : (m <= 23 ? 40 : 50));
-            derivedVerified = (typeof mObj.verifiedSentences === 'number') ? mObj.verifiedSentences : Math.round((pct / 100) * t);
-            break;
-          }
+        const pct = mObj ? (Number(mObj.percentage) || (mObj.aiMissionCompleted ? 100 : 0)) : 0;
+        if (pct > 0 && m > highestActiveLevel) {
+          highestActiveLevel = m;
+        }
+        if (pct < 100 && !foundIncomplete) {
+          firstIncomplete = m;
+          foundIncomplete = true;
         }
       }
 
-      const activeMissionNumber = derivedMission;
+      // Initial active mission:
+      // Priority 1: User explicitly clicked a module in course view (activeModule.moduleNumber)
+      // Priority 2: Student's highest active level (matches profile display: "Level 10 active"!)
+      // Priority 3: First incomplete module
+      const initialMission = (activeModule && activeModule.moduleNumber) 
+        ? activeModule.moduleNumber 
+        : (highestActiveLevel > 0 ? highestActiveLevel : firstIncomplete);
+
+      const [selectedMissionNumber, setSelectedMissionNumber] = useState(initialMission);
+      const activeMissionNumber = selectedMissionNumber;
+
       const modKey = `MOD-${activeMissionNumber < 10 ? '0' + activeMissionNumber : activeMissionNumber}`;
-      const modProgObj = currentStudentProg[modKey] || {};
+      const modProgObj = currentStudentProg[modKey] || currentStudentProg[`MOD-${activeMissionNumber}`] || {};
       const currentPct = Number(modProgObj.percentage) || 0;
+      const tSentences = (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission) 
+        ? window.MasteredCurriculum.getTargetForMission(activeMissionNumber) 
+        : (activeMissionNumber <= 8 ? 30 : (activeMissionNumber <= 23 ? 40 : 50));
+      const missionVerified = (typeof modProgObj.verifiedSentences === 'number') 
+        ? modProgObj.verifiedSentences 
+        : Math.round((currentPct / 100) * tSentences);
 
       const mclCode = encodeMcl1(admNum, activeMissionNumber, currentPct);
 
       const missionInfo = (window.MasteredCurriculum && window.MasteredCurriculum.getMission) 
         ? window.MasteredCurriculum.getMission(activeMissionNumber)
-        : { title: `Module ${activeMissionNumber}`, targetSentences: (activeMissionNumber <= 8 ? 30 : (activeMissionNumber <= 23 ? 40 : 50)), grammarFocus: 'English Fluency', situation: 'Speaking Practice', starterPrompts: ['Please speak your answer aloud in full sentences.'] };
+        : { title: `Module ${activeMissionNumber}`, targetSentences: tSentences, grammarFocus: 'English Fluency', situation: 'Speaking Practice', starterPrompts: ['Please speak your answer aloud in full sentences.'] };
+
+      const handleSwitchMission = (newMNum) => {
+        if (!newMNum || newMNum < 1 || newMNum > 32) return;
+        if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
+          voicePipelineRef.current.endLiveSession();
+        }
+        setSelectedMissionNumber(newMNum);
+        setVoiceSessionEnded(false);
+        setVoiceSessionSummary(null);
+        setVoiceFeedback('');
+        setVoiceTranscript('');
+      };
 
       // Synchronize verified spoken practice directly into Google Sheets StudentProgress database
       const syncVoiceProgressToDatabase = (prof) => {
@@ -1864,7 +1891,7 @@
             admissionNumber: admNum,
             name: currentUser?.name || 'Student',
             currentMission: activeMissionNumber,
-            verifiedSentences: derivedVerified,
+            verifiedSentences: missionVerified,
             userProgress: currentStudentProg
           });
 
@@ -2013,7 +2040,9 @@
         const started = await voicePipelineRef.current.startLiveSession();
         if (started) {
           const initialP = activePromptRef.current || activePromptText;
-          const greeting = `Hello ${currentUser?.name || 'Student'}! This is Coach Sarah. Welcome to your live English practice call for Mission ${activeMissionNumber}: ${missionInfo.title}. Let's get started! ${initialP}`;
+          const greeting = (voiceSessionRef.current && voiceSessionRef.current.getMissionOpeningGreeting)
+            ? voiceSessionRef.current.getMissionOpeningGreeting(currentUser?.name || 'Student')
+            : `Hello ${currentUser?.name || 'Student'}! This is Coach Sarah. Welcome to your live English practice call for Mission ${activeMissionNumber}: ${missionInfo.title}. Let's get started! ${initialP}`;
           setVoiceFeedback(greeting);
           setConversationTurns([{ role: 'coach', text: greeting, timestamp: Date.now() }]);
           voicePipelineRef.current.speakCoachResponse(greeting);
@@ -2350,7 +2379,26 @@
                       </div>
                       <div>
                         <span className="text-[10px] uppercase font-bold text-slate-400 block">Current Mission</span>
-                        <span className="font-extrabold text-slate-900">Level {activeMissionNumber} of 32</span>
+                        <select
+                          value={activeMissionNumber}
+                          onChange={(e) => handleSwitchMission(Number(e.target.value))}
+                          className="font-extrabold text-slate-900 bg-white border border-slate-300 rounded-lg px-1.5 py-0.5 text-xs focus:ring-2 focus:ring-indigo-500 cursor-pointer max-w-full"
+                        >
+                          {Array.from({ length: 32 }, (_, i) => i + 1).map((mNum) => {
+                            const k = `MOD-${mNum < 10 ? '0' + mNum : mNum}`;
+                            const mObj = currentStudentProg[k] || currentStudentProg[`MOD-${mNum}`] || {};
+                            const pct = Number(mObj.percentage) || 0;
+                            const mData = (window.MasteredCurriculum && window.MasteredCurriculum.getMission) ? window.MasteredCurriculum.getMission(mNum) : null;
+                            const title = mData ? mData.title : `Module ${mNum}`;
+                            const statusBadge = pct >= 100 ? '✅ 100%' : (pct > 0 ? `🔄 ${pct}%` : '');
+                            const isActive = mNum === highestActiveLevel ? '⭐ (Active)' : '';
+                            return (
+                              <option key={mNum} value={mNum}>
+                                Level {mNum}: {title} {statusBadge} {isActive}
+                              </option>
+                            );
+                          })}
+                        </select>
                       </div>
                       <div>
                         <span className="text-[10px] uppercase font-bold text-slate-400 block">Spoken Target</span>
