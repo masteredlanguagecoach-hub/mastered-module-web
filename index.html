@@ -1684,7 +1684,7 @@
 
     
     // AI Mission Prompts & Guided Practice Modal Component
-    function AiMissionPromptModal({ onClose, showToast, currentUser, userProgress, activeModule, onVerifyMclCode }) {
+    function AiMissionPromptModal({ onClose, showToast, currentUser, userProgress, setUserProgress, getCurrentStudentProgressMap, activeModule, onVerifyMclCode }) {
       const [copiedPrompt, setCopiedPrompt] = useState(null);
       const [inputMclCode, setInputMclCode] = useState('');
       const [isVerifyingCode, setIsVerifyingCode] = useState(false);
@@ -1774,65 +1774,83 @@
       // Synchronize verified spoken practice directly into Google Sheets StudentProgress database
       const syncVoiceProgressToDatabase = (prof) => {
         if (!prof) return;
-        const mNum = prof.currentMission;
-        const target = prof.missionTarget || 30;
-        const verified = prof.verifiedSentences || 0;
-        const pct = Math.min(100, Math.round((verified / target) * 100));
+        try {
+          const mNum = prof.currentMission;
+          const target = prof.missionTarget || 30;
+          const verified = prof.verifiedSentences || 0;
+          const pct = Math.min(100, Math.round((verified / target) * 100));
 
-        const mKey = `MOD-${mNum < 10 ? '0' + mNum : mNum}`;
-        const activeProg = (typeof getCurrentStudentProgressMap === 'function') ? getCurrentStudentProgressMap() : {};
+          const mKey = `MOD-${mNum < 10 ? '0' + mNum : mNum}`;
+          const activeProg = (typeof getCurrentStudentProgressMap === 'function') 
+            ? getCurrentStudentProgressMap() 
+            : (userProgress?.[cleanAdm] || userProgress?.[admNum] || userProgress?.[studentEmail] || {});
 
-        const updatedModObj = {
-          ...(activeProg[mKey] || {}),
-          percentage: pct,
-          verifiedSentences: verified,
-          aiMissionCompleted: pct > 0,
-          status: pct === 100 ? 'COMPLETED' : ((activeProg[mKey] && activeProg[mKey].status) || 'IN_PROGRESS'),
-          lastUpdated: new Date().toISOString()
-        };
-
-        const updatedMap = { ...activeProg, [mKey]: updatedModObj };
-
-        // Synthesize completed prior missions as 100%
-        for (let lvl = 1; lvl < mNum; lvl++) {
-          const pKey = `MOD-${lvl < 10 ? '0' + lvl : lvl}`;
-          if (!updatedMap[pKey] || !updatedMap[pKey].percentage || Number(updatedMap[pKey].percentage) < 100) {
-            updatedMap[pKey] = {
-              ...(updatedMap[pKey] || {}),
-              percentage: 100,
-              aiMissionCompleted: true,
-              status: 'COMPLETED'
-            };
-          }
-        }
-
-        // 1. Update React state immediately across all aliases
-        setUserProgress(prev => {
-          const newState = {
-            ...prev,
-            [cleanAdm]: updatedMap,
-            [admNum]: updatedMap,
-            ...(studentEmail ? { [studentEmail]: updatedMap } : {})
+          const updatedModObj = {
+            ...(activeProg[mKey] || {}),
+            percentage: pct,
+            verifiedSentences: verified,
+            aiMissionCompleted: pct > 0,
+            status: pct === 100 ? 'COMPLETED' : ((activeProg[mKey] && activeProg[mKey].status) || 'IN_PROGRESS'),
+            lastUpdated: new Date().toISOString()
           };
-          safeStorage.setItem('mastered_all_students_progress', JSON.stringify(newState));
-          if (cleanAdm) safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(updatedMap));
-          return newState;
-        });
 
-        // 2. Persist to Google Sheets database asynchronously (cross-device & admin dashboard!)
-        callAppsScript('saveStudentProgress', {
-          admissionNumber: cleanAdm || admNum,
-          email: studentEmail,
-          userProgress: updatedMap
-        }).catch(() => {});
+          const updatedMap = { ...activeProg, [mKey]: updatedModObj };
 
-        // 3. Mirror authoritative MCL code in database
-        const code = encodeMcl1(cleanAdm || admNum, mNum, pct);
-        callAppsScript('verifyMclCode', {
-          code: code,
-          admissionNumber: cleanAdm || admNum,
-          email: studentEmail
-        }).catch(() => {});
+          // Synthesize completed prior missions as 100%
+          for (let lvl = 1; lvl < mNum; lvl++) {
+            const pKey = `MOD-${lvl < 10 ? '0' + lvl : lvl}`;
+            if (!updatedMap[pKey] || !updatedMap[pKey].percentage || Number(updatedMap[pKey].percentage) < 100) {
+              updatedMap[pKey] = {
+                ...(updatedMap[pKey] || {}),
+                percentage: 100,
+                aiMissionCompleted: true,
+                status: 'COMPLETED'
+              };
+            }
+          }
+
+          // 1. Update React state immediately across all aliases safely
+          if (typeof setUserProgress === 'function') {
+            setUserProgress(prev => {
+              const newState = {
+                ...(prev || {}),
+                [cleanAdm]: updatedMap,
+                [admNum]: updatedMap,
+                ...(studentEmail ? { [studentEmail]: updatedMap } : {})
+              };
+              try {
+                safeStorage.setItem('mastered_all_students_progress', JSON.stringify(newState));
+                if (cleanAdm) safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(updatedMap));
+              } catch(e) {}
+              return newState;
+            });
+          } else {
+            try {
+              if (cleanAdm) safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(updatedMap));
+            } catch(e) {}
+          }
+
+          // 2. Persist to Google Sheets database asynchronously (cross-device & admin dashboard!)
+          callAppsScript('saveStudentProgress', {
+            admissionNumber: cleanAdm || admNum,
+            email: studentEmail,
+            userProgress: updatedMap
+          }).then(res => {
+            console.log("[Google Sheets Save Success]", res);
+          }).catch(err => {
+            console.warn("[Google Sheets Save Warning]", err);
+          });
+
+          // 3. Mirror authoritative MCL code in database
+          const code = encodeMcl1(cleanAdm || admNum, mNum, pct);
+          callAppsScript('verifyMclCode', {
+            code: code,
+            admissionNumber: cleanAdm || admNum,
+            email: studentEmail
+          }).catch(() => {});
+        } catch (syncErr) {
+          console.warn("[Voice Progress Sync Error]", syncErr);
+        }
       };
 
       useEffect(() => {
@@ -1949,11 +1967,11 @@
         } else if (attempt.isIntent) {
           coachSpokenMessage = attempt.feedback;
         } else if (!attempt.eligible) {
-          coachSpokenMessage = attempt.feedback;
+          coachSpokenMessage = attempt.coachResponse || attempt.feedback;
         } else {
-          updateActivePrompt(nextQ);
-          // Concise, human-like response (Section 5: Student speaks more than coach)
-          coachSpokenMessage = `${attempt.feedback} ${nextQ}`;
+          // Connected natural conversation turn from the conversation engine
+          coachSpokenMessage = attempt.coachResponse || attempt.feedback || (voiceSessionRef.current.getNextQuestion ? voiceSessionRef.current.getNextQuestion(turnData.text) : "Tell me more about that.");
+          updateActivePrompt(coachSpokenMessage);
         }
 
         setVoiceFeedback(coachSpokenMessage);
@@ -2075,6 +2093,9 @@
           }
           setVoiceSessionSummary(res.summary);
           setVoiceSessionEnded(true);
+          if (voiceSessionRef.current) {
+            syncVoiceProgressToDatabase(voiceSessionRef.current.getProfile());
+          }
         }
       };
 
@@ -5468,6 +5489,8 @@
                   showToast={showToast}
                   currentUser={currentUser}
                   userProgress={userProgress}
+                  setUserProgress={setUserProgress}
+                  getCurrentStudentProgressMap={getCurrentStudentProgressMap}
                   activeModule={activeModule}
                   onVerifyMclCode={handleVerifyMclCode}
                 />

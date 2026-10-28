@@ -792,6 +792,16 @@
     this.onSentenceVerified = options.onSentenceVerified || null;
     this.logger = options.logger || function () {};
     this.attemptCounter = 0;
+
+    // Conversational Context & Dialogue Manager (Natural Connected Conversation)
+    this.dialogueContext = {
+      activeTopic: null,
+      topicDepth: 0,
+      entities: {},
+      discussedTopics: {},
+      uninterrogatedTurns: 0,
+      history: []
+    };
   }
 
   AiCoachSession.prototype.getProfile = function () {
@@ -996,11 +1006,13 @@
       var errReason = firstError ? firstError.reason : 'FRAGMENT_OR_INCOMPLETE';
       var errFeedback = firstError ? firstError.feedback : "Please speak in a full, complete sentence.";
       this.pendingCorrection = attempt.modelCorrection || errFeedback;
+      var conversationalError = this.generateConnectedTurn(text, false, firstError);
       return {
         eligible: false,
         verifiedIncrement: 0,
         reason: errReason,
-        feedback: errFeedback,
+        feedback: conversationalError || errFeedback,
+        coachResponse: conversationalError || errFeedback,
         progress: this.getProfile()
       };
     }
@@ -1040,6 +1052,8 @@
       } catch (e) {}
     }
 
+    var connectedTurn = this.generateConnectedTurn(text, true);
+
     return {
       eligible: true,
       verifiedIncrement: countToAdd,
@@ -1047,8 +1061,257 @@
       passed: passed,
       reason: 'VERIFIED_SPOKEN_SENTENCE',
       feedback: attempt.feedback || this.generateFeedback(text, true),
+      coachResponse: attempt.coachResponse || connectedTurn,
       progress: this.getProfile()
     };
+  };
+
+  /**
+   * Generates natural, connected, human-like dialogue responses that follow
+   * the student's actual statements, develop topics progressively, and conduct
+   * an authentic conversation rather than asking a rigid list of questions.
+   */
+  AiCoachSession.prototype.generateConnectedTurn = function (text, isSuccess, evalResult) {
+    var rawText = String(text || '').trim();
+    var lower = rawText.toLowerCase().replace(/[^\w\s\?']/g, ' ');
+    var curMission = this.getMissionDetails();
+    var ctx = this.dialogueContext || (this.dialogueContext = {
+      activeTopic: null,
+      topicDepth: 0,
+      entities: {},
+      discussedTopics: {},
+      uninterrogatedTurns: 0,
+      history: []
+    });
+
+    if (rawText) {
+      ctx.history.push({ role: 'student', text: rawText, timestamp: Date.now() });
+    }
+
+    // 1. Natural Error Correction within the conversation (Section 6)
+    if (!isSuccess && evalResult) {
+      if (evalResult.reason === 'SUBJECT_VERB_AGREEMENT') {
+        return evalResult.feedback || "I understand what you mean! Just watch the subject agreement with he/she. Could you try saying that again?";
+      }
+      if (evalResult.reason === 'PAST_TENSE_ERROR') {
+        return evalResult.feedback || "I see! When talking about past events, remember to use past tense. Give it another try!";
+      }
+      if (evalResult.reason === 'MISSING_VERB') {
+        return "I see what you mean! Remember every complete thought needs an action or linking verb like 'is' or 'work'. Try saying that again!";
+      }
+      if (evalResult.reason === 'MISSING_SUBJECT') {
+        return "That's a good phrase! Add a subject like 'I' or 'We' to make it a full sentence, and speak it aloud.";
+      }
+      return evalResult.feedback || "Let's refine that sentence together. Speak your thought aloud in a full sentence!";
+    }
+
+    // 2. Natural Topic & Entity Detection
+    var travelMatch = lower.match(/(?:went\s+to|travelled\s+to|traveled\s+to|visited|trip\s+to|stayed\s+in|flew\s+to|came\s+from|living\s+in|live\s+in|going\s+to)\s+([a-z\s]+?)(?:yesterday|today|last\s+\w+|for\s+\w+|\.|$)/i)
+      || lower.match(/\b(kochi|cochin|bangalore|bengaluru|dubai|london|delhi|mumbai|chennai|calicut|kozhikode|goa|hyderabad|pune|trivandrum|thiruvananthapuram|kerala|kannur|kottayam|thrissur|singapore|uk|usa|canada)\b/i);
+
+    var place = '';
+    if (travelMatch) {
+      place = (travelMatch[1] || travelMatch[0] || '').trim();
+      place = place.charAt(0).toUpperCase() + place.slice(1);
+    }
+
+    var isInterview = /(?:job\s+interview|interview|interviewing|applied\s+for|attend(?:ed)?\s+an\s+interview)/i.test(lower);
+    var jobRoleMatch = lower.match(/(?:sales\s+executive|software\s+engineer|developer|web\s+developer|full\s+stack|accountant|manager|teacher|nurse|doctor|graphic\s+designer|designer|data\s+analyst|marketing\s+executive|consultant|technician|intern|assistant|engineer)\b/i);
+    var isFirstJob = /(?:first\s+job|fresher|no\s+experience|never\s+worked|entry\s+level|my\s+first)/i.test(lower);
+    var isInterviewQuestions = /(?:they\s+asked|asked\s+me|questions\s+about|asked\s+to|introduce\s+myself|my\s+strengths|experience|tell\s+me\s+about\s+yourself)/i.test(lower);
+    var isInterviewOutcome = /(?:confident|nervous|waiting\s+for|selected|results|cleared|offer)/i.test(lower) && ctx.activeTopic === 'interview';
+
+    // SCENARIO 1: Travel & Job Interview (Exact User Conversational Progression)
+    // Turn 1: Student: "I went to Kochi yesterday." -> Coach: "Oh, what took you to Kochi?"
+    if (place && !isInterview && (ctx.activeTopic !== 'interview' || ctx.topicDepth === 0)) {
+      ctx.activeTopic = 'travel';
+      ctx.entities.place = place;
+      ctx.topicDepth = 1;
+      ctx.uninterrogatedTurns++;
+      return "Oh, what took you to " + place + "?";
+    }
+
+    // Turn 2: Student: "I went there for a job interview." -> Coach: "I see. What kind of job was it?"
+    if (isInterview && !jobRoleMatch && !isFirstJob) {
+      ctx.activeTopic = 'interview';
+      ctx.topicDepth = 2;
+      ctx.uninterrogatedTurns++;
+      return "I see. What kind of job was it?";
+    }
+
+    // Turn 3: Student: "It was a sales executive position." -> Coach: "That sounds interesting. Have you worked in sales before?"
+    if (jobRoleMatch && ctx.activeTopic === 'interview' && !isFirstJob) {
+      var role = jobRoleMatch[0];
+      ctx.entities.jobRole = role;
+      ctx.topicDepth = 3;
+      var field = role.includes('sales') ? 'sales' : (role.includes('software') || role.includes('developer') ? 'software development' : (role.includes('teach') ? 'teaching' : 'that field'));
+      ctx.uninterrogatedTurns++;
+      return "That sounds interesting. Have you worked in " + field + " before?";
+    }
+
+    // Turn 4: Student: "No, this would be my first job." -> Coach: "Then your interview preparation is especially important. What did they ask you during the interview?"
+    if (isFirstJob && ctx.activeTopic === 'interview') {
+      ctx.entities.isFirstJob = true;
+      ctx.topicDepth = 4;
+      ctx.uninterrogatedTurns++;
+      return "Then your interview preparation is especially important. What did they ask you during the interview?";
+    }
+
+    // Turn 5: Student answers what they asked
+    if (isInterviewQuestions && ctx.activeTopic === 'interview') {
+      ctx.topicDepth = 5;
+      if (ctx.uninterrogatedTurns >= 2) {
+        ctx.uninterrogatedTurns = 0;
+        return "Answering those questions clearly makes a great impression. It sounds like you handled it very thoughtfully.";
+      }
+      ctx.uninterrogatedTurns++;
+      return "Those are essential interview questions! How did you feel answering them?";
+    }
+
+    // Turn 6: Interview outcome / feelings
+    if (isInterviewOutcome && ctx.activeTopic === 'interview') {
+      ctx.uninterrogatedTurns = 0;
+      return "Staying calm and expressing yourself clearly is the biggest victory in any interview. You should be proud of giving your best!";
+    }
+
+    // SCENARIO 2: Profession & Work
+    if (jobRoleMatch && ctx.activeTopic !== 'interview') {
+      var curRole = jobRoleMatch[0];
+      ctx.activeTopic = 'profession';
+      ctx.entities.jobRole = curRole;
+      ctx.topicDepth = 1;
+      ctx.uninterrogatedTurns++;
+      if (/teacher|teaching/i.test(curRole)) {
+        return "Teaching is such an impactful profession! What subject or age group do you teach?";
+      }
+      if (/developer|software|engineer/i.test(curRole)) {
+        return "Software engineering is a fast-growing field! What kind of projects or technologies do you work with?";
+      }
+      if (/nurse|doctor/i.test(curRole)) {
+        return "Healthcare takes so much dedication and empathy. How long have you been in this profession?";
+      }
+      return "That sounds like an engaging profession! What does a typical day look like in your role?";
+    }
+
+    if (ctx.activeTopic === 'profession' && ctx.topicDepth === 1) {
+      ctx.topicDepth = 2;
+      if (ctx.uninterrogatedTurns >= 2) {
+        ctx.uninterrogatedTurns = 0;
+        return "Managing those responsibilities every day certainly takes strong coordination and communication skills.";
+      }
+      ctx.uninterrogatedTurns++;
+      return "Handling that requires good coordination. Do you usually work in a team or independently?";
+    }
+
+    // SCENARIO 3: Daily Routine & Morning Habits
+    if (/(?:wake\s*up|morning|routine|breakfast|coffee|exercise|gym|jogging|start\s+(?:my\s+)?day)/i.test(lower)) {
+      if (ctx.activeTopic !== 'routine') {
+        ctx.activeTopic = 'routine';
+        ctx.topicDepth = 1;
+        ctx.uninterrogatedTurns++;
+        return "Starting early with a set routine gives you great focus. What is usually your next priority after that?";
+      } else {
+        ctx.topicDepth = 2;
+        if (ctx.uninterrogatedTurns >= 2) {
+          ctx.uninterrogatedTurns = 0;
+          return "Having an organized routine really sets a calm, productive tone for the entire day.";
+        }
+        ctx.uninterrogatedTurns++;
+        return "That sounds like a steady schedule. Do you prefer having your days structured, or being flexible?";
+      }
+    }
+
+    // SCENARIO 4: Hobbies & Free Time
+    if (/(?:reading|books|music|playing|badminton|football|cricket|walking|cooking|baking|gardening|movies|cinema|hobbies|free\s+time|weekend)/i.test(lower)) {
+      if (ctx.activeTopic !== 'hobbies') {
+        ctx.activeTopic = 'hobbies';
+        ctx.topicDepth = 1;
+        ctx.uninterrogatedTurns++;
+        if (/reading|books/i.test(lower)) {
+          return "Reading is such a wonderful habit! What genre of books do you enjoy reading most?";
+        }
+        if (/badminton|football|cricket|tennis|sports/i.test(lower)) {
+          return "Playing sports is great for energy and health! Who do you usually play with?";
+        }
+        if (/cooking|baking|food/i.test(lower)) {
+          return "Cooking is such a creative skill! What is your favorite dish to prepare?";
+        }
+        return "That sounds relaxing! How often do you get time to enjoy that during the week?";
+      } else {
+        ctx.topicDepth = 2;
+        if (ctx.uninterrogatedTurns >= 2) {
+          ctx.uninterrogatedTurns = 0;
+          return "Finding time for personal hobbies is one of the best ways to recharge after a busy week.";
+        }
+        ctx.uninterrogatedTurns++;
+        return "Have you been interested in that for a long time, or did you start recently?";
+      }
+    }
+
+    // SCENARIO 5: Family & Personal Life
+    if (/(?:family|parents|mother|father|brother|sister|wife|husband|children|son|daughter|hometown|relatives)/i.test(lower)) {
+      if (ctx.activeTopic !== 'family') {
+        ctx.activeTopic = 'family';
+        ctx.topicDepth = 1;
+        ctx.uninterrogatedTurns++;
+        return "That is lovely! Do you and your family usually spend time together on weekends?";
+      } else {
+        ctx.topicDepth = 2;
+        ctx.uninterrogatedTurns = 0;
+        return "Spending quality time with family really creates lasting memories and a supportive home.";
+      }
+    }
+
+    // SCENARIO 6: Unexpected Real-Life Events (Section 9)
+    if (/(?:car\s+broke\s+down|puncture|traffic|accident|mechanic|highway|delay)/i.test(lower)) {
+      ctx.activeTopic = 'car_breakdown';
+      ctx.uninterrogatedTurns++;
+      return "Oh no, that sounds stressful! How did you manage to get help and reach safely?";
+    }
+    if (/(?:raining|rain|monsoon|flood|weather|storm)/i.test(lower)) {
+      ctx.activeTopic = 'weather';
+      ctx.uninterrogatedTurns++;
+      return "Heavy rain can certainly disrupt plans! Does it usually cause traffic issues where you are?";
+    }
+    if (/(?:cooked\s+dinner|celebrated|birthday|party|wedding|festival)/i.test(lower)) {
+      ctx.activeTopic = 'celebration';
+      ctx.uninterrogatedTurns++;
+      return "That sounds like a wonderful celebration! What was the highlight of the event?";
+    }
+
+    // SCENARIO 7: Natural Non-Interrogative Reflections (Section 4: Do not end every response with a question)
+    if (ctx.uninterrogatedTurns >= 2) {
+      ctx.uninterrogatedTurns = 0;
+      var observations = [
+        "That makes total sense. Having clear goals always makes learning faster and more rewarding.",
+        "I completely agree. Practical real-life practice is much more effective than memorizing textbook rules.",
+        "That expresses your thought with great clarity. Speaking step by step builds natural confidence.",
+        "That sounds like a very sensible approach. Learning from everyday experiences is how we truly grow."
+      ];
+      return observations[(this.profile.verifiedSentences || 0) % observations.length];
+    }
+
+    // SCENARIO 8: Natural Mission-Guided Conversational Bridging (Section 7)
+    ctx.uninterrogatedTurns++;
+    var mNum = this.profile.currentMission;
+    if (mNum === 1) {
+      return "It's wonderful getting to know you. What goals are you most excited to accomplish this year?";
+    }
+    if (mNum === 2) {
+      return "That's interesting! Is there a close colleague or friend who works with you on that?";
+    }
+    if (mNum === 3) {
+      return "That sounds great! Does your family also enjoy doing similar activities together?";
+    }
+    if (mNum === 4) {
+      return "That sounds rewarding! What is another skill or hobby you would love to learn next?";
+    }
+    if (mNum === 5) {
+      return "Handling that requires dedication. What are your main duties when organizing that?";
+    }
+
+    // Fallback: Conversational curiosity
+    return "That sounds fascinating! Could you tell me a little more about that experience?";
   };
 
   /**
@@ -1093,22 +1356,17 @@
     return concisePraises[idx];
   };
 
-  AiCoachSession.prototype.getNextQuestion = function () {
+  AiCoachSession.prototype.getNextQuestion = function (studentText) {
+    if (studentText) {
+      return this.generateConnectedTurn(studentText, true);
+    }
     var cur = this.getMissionDetails();
     var prompts = cur.starterPrompts || ["Please speak your answer aloud in full sentences."];
     var count = this.profile.verifiedSentences || 0;
-    if (count < prompts.length) {
-      return prompts[count];
+    if (count === 0 && prompts.length > 0) {
+      return prompts[0];
     }
-    var followUps = cur.followUpPrompts || [
-      "Can you give another detailed example related to " + cur.situation + "?",
-      "Using " + cur.grammarFocus + ", describe a specific personal experience you have had.",
-      "How would you explain this situation to a colleague or friend in English?",
-      "What are the most interesting advantages or challenges you notice here?",
-      "Can you summarize your thoughts on this topic in two strong, fluent sentences?"
-    ];
-    var idx = (count - prompts.length) % followUps.length;
-    return followUps[idx];
+    return this.generateConnectedTurn("", true);
   };
 
   AiCoachSession.prototype.advanceMission = function () {
