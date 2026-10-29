@@ -1703,7 +1703,7 @@
 
     
     // AI Mission Prompts & Guided Practice Modal Component
-    function AiMissionPromptModal({ onClose, showToast, currentUser, userProgress, setUserProgress, getCurrentStudentProgressMap, activeModule, onVerifyMclCode }) {
+    function AiMissionPromptModal({ onClose, showToast, currentUser, userProgress, setUserProgress, getCurrentStudentProgressMap, activeModule, onVerifyMclCode, asPage = false }) {
       const [copiedPrompt, setCopiedPrompt] = useState(null);
       const [inputMclCode, setInputMclCode] = useState('');
       const [isVerifyingCode, setIsVerifyingCode] = useState(false);
