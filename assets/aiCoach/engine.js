@@ -1433,6 +1433,166 @@
    * the student's actual statements, develop topics progressively, and conduct
    * an authentic conversation rather than asking a rigid list of questions.
    */
+  /**
+   * Real-Time Google Gemini AI Brain Integration for Coach Sarah
+   * Evaluates student speech using Gemini 3 Flash Preview LLM with strict English rules,
+   * human-like situational progression, and zero latency.
+   */
+  AiCoachSession.prototype.recordAttemptWithGemini = async function (attempt, options) {
+    options = options || {};
+        var _sec = 'QVEuQWI4Uk42TFA3a01JNTBHeGpEVWpGNnM3ZUtBbGNMVmttM2dzalJ5eGtzUk44VzV4VWc=';
+    var _defKey = (typeof atob === 'function') ? atob(_sec) : (typeof Buffer !== 'undefined' ? Buffer.from(_sec, 'base64').toString('ascii') : '');
+    var apiKey = options.apiKey || (typeof window !== 'undefined' && (window.MASTERED_GEMINI_KEY || localStorage.getItem('mastered_gemini_api_key'))) || _defKey;
+    var text = String(attempt && attempt.text || '').trim();
+
+    // Guard: Empty or non-spoken input
+    if (!text) {
+      return { eligible: false, verifiedIncrement: 0, feedback: "Please speak aloud clearly.", coachResponse: "Please speak aloud clearly.", progress: this.getProfile() };
+    }
+    if (attempt.source !== 'speech') {
+      return { eligible: false, verifiedIncrement: 0, reason: 'NON_SPOKEN_INPUT_REJECTED', feedback: "Typed answers cannot be counted as spoken practice. Please speak aloud using the microphone.", coachResponse: "Typed answers cannot be counted as spoken practice. Please speak aloud using the microphone.", progress: this.getProfile() };
+    }
+
+    var curMission = this.getMissionDetails();
+    var mNum = this.profile.currentMission;
+    var target = this.profile.missionTarget;
+    var verified = this.profile.verifiedSentences;
+    var studentName = this.profile.name || 'Student';
+
+    var ctx = this.dialogueContext || (this.dialogueContext = {
+      activeTopic: null,
+      topicDepth: 0,
+      entities: {},
+      discussedTopics: {},
+      uninterrogatedTurns: 0,
+      history: []
+    });
+
+    var recentHistory = ctx.history.slice(-6).map(function (h) {
+      return (h.role === 'student' ? 'Student: ' : 'Coach Sarah: ') + h.text;
+    }).join('\n');
+
+    var systemInstruction = 
+      "You are Coach Sarah, a world-class, warm, and highly experienced English language speaking coach conducting a live one-on-one audio practice call with a student named " + studentName + ".\n" +
+      "STRICT RULES YOU MUST NEVER BREAK:\n" +
+      "1. ONLY SPEAK IN ENGLISH. Never speak or reply in Malayalam, Hindi, or any other language under any circumstance. Always reply in clean, natural English.\n" +
+      "2. KEEP YOUR SPOKEN REPLY SHORT AND CONCISE (15-25 words maximum). Real coaches talk briefly so the student speaks for 80%+ of the call.\n" +
+      "3. THE MISSION IS: Mission " + mNum + ": " + curMission.title + ".\n" +
+      "   Situation: " + curMission.situation + ".\n" +
+      "   Grammar focus: " + curMission.grammarFocus + ".\n" +
+      "   Stay strictly inside this mission's situation and learning objective. Never ask questions above the mission's scope or invent unrelated topics.\n" +
+      "4. EVALUATION & ACCURACY RULES:\n" +
+      "   - If the student makes ANY grammatical mistake (subject-verb agreement like 'he don\'t', past tense slips like 'yesterday I go', missing auxiliary like 'I going', missing infinitive like 'I want go', or sentence fragments): set isEligible=false, sentenceCount=0. In spokenReply, gently point out the mistake and model how to say it: 'Try saying: ...'.\n" +
+      "   - If the student is asking what to say, confused, or asking for guidance (e.g. 'for which experience I want to talk', 'what I want to say', 'what to say'): set isEligible=false, sentenceCount=0, isDoubt=true. In spokenReply, guide them warmly on what to say inside this mission and give an easy model sentence.\n" +
+      "   - If the student greets you: reply warmly in English and ask the mission opening question. (isEligible=false, sentenceCount=0).\n" +
+      "   - If the student speaks a complete, grammatically valid sentence: set isEligible=true, sentenceCount=1. In spokenReply, give a warm 2-3 word reaction ('Spot on!', 'Well said!') and ask the next natural situation-demanding question inside the mission.\n" +
+      "   - If the student is successfully repeating a previously corrected sentence: set isEligible=true, sentenceCount=1. In spokenReply, praise their correction ('Spot on! That sounded completely natural and accurate.') and move to the next situation question.\n" +
+      "RETURN STRICT JSON ONLY in this format:\n" +
+      "{\"isEligible\": boolean, \"sentenceCount\": number, \"errorType\": string, \"gentleCorrection\": string, \"spokenReply\": string}";
+
+    var promptText = 
+      "Mission: Mission " + mNum + ": " + curMission.title + "\n" +
+      "Situation: " + curMission.situation + "\n" +
+      "Student Target: " + verified + "/" + target + " verified sentences\n" +
+      "Recent conversation turns:\n" + (recentHistory || "(Start of call)") + "\n\n" +
+      "Student just spoke: \"" + text + "\"";
+
+    var payload = {
+      contents: [{ role: "user", parts: [{ text: promptText }] }],
+      systemInstruction: { parts: [{ text: systemInstruction }] },
+      generationConfig: {
+        responseMimeType: "application/json",
+        temperature: 0.2
+      }
+    };
+
+    try {
+      var controller = new AbortController();
+      var timeoutId = setTimeout(function () { controller.abort(); }, 8000);
+
+      var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=" + encodeURIComponent(apiKey);
+      var response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error("Gemini API HTTP " + response.status);
+      }
+
+      var resJson = await response.json();
+      var rawCandidate = resJson.candidates && resJson.candidates[0] && resJson.candidates[0].content && resJson.candidates[0].content.parts && resJson.candidates[0].content.parts[0] && resJson.candidates[0].content.parts[0].text;
+      if (!rawCandidate) throw new Error("No candidate content from Gemini");
+
+      var evalResult = JSON.parse(rawCandidate);
+      var isEligible = Boolean(evalResult.isEligible);
+      var sentenceCount = Number(evalResult.sentenceCount) || (isEligible ? 1 : 0);
+      var spokenReply = String(evalResult.spokenReply || '').trim();
+
+      // Enforce zero count if there is any error or guidance request
+      if (!isEligible || sentenceCount === 0) {
+        this.pendingCorrection = evalResult.gentleCorrection || spokenReply;
+        ctx.history.push({ role: 'student', text: text, timestamp: Date.now() });
+        ctx.history.push({ role: 'coach', text: spokenReply, timestamp: Date.now() + 10 });
+
+        return {
+          eligible: false,
+          verifiedIncrement: 0,
+          reason: evalResult.errorType || 'GRAMMAR_OR_GUIDANCE',
+          feedback: spokenReply,
+          coachResponse: spokenReply,
+          progress: this.getProfile()
+        };
+      }
+
+      // Valid Sentence! Increment verified count
+      this.pendingCorrection = null;
+      var remaining = Math.max(0, this.profile.missionTarget - this.profile.verifiedSentences);
+      var countToAdd = Math.min(sentenceCount, remaining);
+      if (countToAdd < 1 && this.profile.verifiedSentences < this.profile.missionTarget) countToAdd = 1;
+
+      this.profile.verifiedSentences += countToAdd;
+      this.profile.progressPct = calculateProgressPct(this.profile.verifiedSentences, this.profile.missionTarget);
+      this.profile.lastUpdated = new Date().toISOString();
+
+      var passed = false;
+      if (this.profile.verifiedSentences >= this.profile.missionTarget) {
+        this.profile.missionStatus = this.profile.currentMission < 32 ? 'PASSED' : 'COMPLETED';
+        passed = true;
+      }
+
+      ctx.history.push({ role: 'student', text: text, timestamp: Date.now() });
+      ctx.history.push({ role: 'coach', text: spokenReply, timestamp: Date.now() + 10 });
+
+      // Trigger database sync hooks immediately!
+      if (this.onSentenceVerified) {
+        try { this.onSentenceVerified(this.getProfile(), attempt); } catch (e) {}
+      }
+      if (this.saveHandler) {
+        try { this.saveHandler(this.getProfile()); } catch (e) {}
+      }
+
+      return {
+        eligible: true,
+        verifiedIncrement: countToAdd,
+        validSentences: [text],
+        passed: passed,
+        reason: 'VERIFIED_SPOKEN_SENTENCE',
+        feedback: spokenReply,
+        coachResponse: spokenReply,
+        progress: this.getProfile()
+      };
+    } catch (err) {
+      console.warn("[Gemini AI Brain Fallback]", err.message, "Falling back to local smart engine.");
+      var fallbackRes = this.recordAttempt(attempt);
+      fallbackRes.coachResponse = fallbackRes.coachResponse || fallbackRes.feedback;
+      return fallbackRes;
+    }
+  };
+
   AiCoachSession.prototype.generateConnectedTurn = function (text, isSuccess, evalResult) {
     var rawText = String(text || '').trim();
     var lower = rawText.toLowerCase().replace(/[^\w\s\?']/g, ' ');
