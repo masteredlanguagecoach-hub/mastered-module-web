@@ -1982,8 +1982,8 @@
           }
         }
         return () => {
-          if (voicePipelineRef.current && !voicePipelineRef.current.isSessionActive) {
-            voicePipelineRef.current.endLiveSession();
+          if (voicePipelineRef.current) {
+            try { voicePipelineRef.current.endLiveSession(); } catch(e) {}
           }
         };
       }, [admNum, activeMissionNumber]);
@@ -3549,6 +3549,9 @@
 
       // Navigation Tab Handler
       const handleNavigateTab = (tabName, closeMobile = false) => {
+        if (tabName !== 'ai_coach' && typeof window !== 'undefined' && window.__masteredActivePipeline) {
+          try { window.__masteredActivePipeline.endLiveSession(); } catch(e) {}
+        }
         setSelectedModuleId(null);
         setActiveQuizModNumber(null);
         setActiveTab(tabName);

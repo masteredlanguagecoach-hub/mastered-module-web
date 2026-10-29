@@ -326,7 +326,8 @@
    */
   LiveVoicePipeline.prototype.startLiveSession = async function () {
     if (this.state !== STATES.IDLE && this.state !== STATES.ERROR) {
-      return false;
+      // Re-entering or resuming call: cleanly end lingering session before starting fresh
+      this.endLiveSession();
     }
 
     this.unlockMobileAudio();
