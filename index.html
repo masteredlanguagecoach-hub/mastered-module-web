@@ -2059,10 +2059,18 @@
 
         const started = await voicePipelineRef.current.startLiveSession();
         if (started) {
-          const initialP = activePromptRef.current || activePromptText;
+          // If a live conversation is already ongoing in this session, resume naturally without resetting turns!
+          if (conversationTurns && conversationTurns.length > 1) {
+            const studentName = currentUser?.name || 'Student';
+            const resumeMsg = `Welcome back ${studentName}! I am listening—please continue where we left off.`;
+            setVoiceFeedback(resumeMsg);
+            voicePipelineRef.current.speakCoachResponse(resumeMsg);
+            return;
+          }
+
           const greeting = (voiceSessionRef.current && voiceSessionRef.current.getMissionOpeningGreeting)
             ? voiceSessionRef.current.getMissionOpeningGreeting(currentUser?.name || 'Student')
-            : `Hello ${currentUser?.name || 'Student'}! This is Coach Sarah. Welcome to your live English practice call for Mission ${activeMissionNumber}: ${missionInfo.title}. Let's get started! ${initialP}`;
+            : `Hello ${currentUser?.name || 'Student'}! This is Coach Sarah, your speaking buddy on call. Let's begin Mission ${activeMissionNumber}: ${missionInfo.title}.`;
           setVoiceFeedback(greeting);
           setConversationTurns([{ role: 'coach', text: greeting, timestamp: Date.now() }]);
           voicePipelineRef.current.speakCoachResponse(greeting);
