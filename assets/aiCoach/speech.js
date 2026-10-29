@@ -102,6 +102,14 @@
     'male_1', 'male_2', 'male-1', 'en-us-x-iom', 'en-us-x-iol'
   ];
 
+  // Phonetic normalization: Clause/sentence-ending "to" transcribed for "too"
+  function normalizeSpokenToo(str) {
+    if (!str || typeof str !== 'string') return '';
+    return str
+      .replace(/\bto([.?!,]|$)/gi, 'too$1')
+      .replace(/\b(me|you|it|that|this|us|them|him|her|there|here|so|also)\s+to\b/gi, '$1 too');
+  }
+
   function isMaleVoice(v) {
     if (!v) return false;
     var text = ((v.name || '') + ' ' + (v.voiceURI || '')).toLowerCase();
@@ -123,14 +131,14 @@
     if (enVoices.length === 0) enVoices = voices;
 
     var preferredFemaleNames = [
+      'samantha',
+      'karen',
+      'victoria',
       'microsoft jenny online (natural)',
       'microsoft aria online (natural)',
       'microsoft sonia online (natural)',
       'google us english female',
       'google uk english female',
-      'samantha',
-      'victoria',
-      'karen',
       'microsoft zira',
       'microsoft heera',
       'microsoft hazel',
@@ -231,6 +239,10 @@
     this.activeTurnId = 0;
     this.consecutiveErrors = 0;
     this.speakerCooldownUntil = 0;
+    this.isStarting = false;
+    this.isListening = false;
+    this.lastStartAttempt = 0;
+    this.restartDebounceTimer = null;
 
     if (typeof window !== 'undefined') {
       window.__masteredActivePipeline = this;
@@ -238,17 +250,34 @@
   }
 
   /**
-   * Safe mobile audio context unlocking without whitespace TTS primer that deadlocks Android
+   * Safe mobile audio context unlocking without hanging Android TTS,
+   * while priming WebKit SpeechSynthesis and Web Audio on iOS Safari
    */
   LiveVoicePipeline.prototype.unlockMobileAudio = function () {
     if (typeof window === 'undefined') return;
-    if (this.audioContext && this.audioContext.state === 'suspended') {
-      try { this.audioContext.resume(); } catch (e) {}
+    var isIOS = (typeof navigator !== 'undefined') && /iPad|iPhone|iPod/.test(navigator.userAgent || '');
+    if (this.audioContext) {
+      if (this.audioContext.state === 'suspended') {
+        try { this.audioContext.resume(); } catch (e) {}
+      }
+      try {
+        var buffer = this.audioContext.createBuffer(1, 1, 22050);
+        var source = this.audioContext.createBufferSource();
+        source.buffer = buffer;
+        source.connect(this.audioContext.destination);
+        source.start(0);
+      } catch (e) {}
     }
     if (this.synth) {
       try {
         if (this.synth.paused) this.synth.resume();
-        // NEVER speak an empty ' ' string on mobile as it hangs Android TTS
+        if (isIOS) {
+          // iOS WebKit requires an utterance inside user gesture to allow subsequent async speaks
+          var primeUtterance = new window.SpeechSynthesisUtterance(' ');
+          primeUtterance.volume = 0.01;
+          primeUtterance.rate = 10;
+          this.synth.speak(primeUtterance);
+        }
       } catch (e) {}
     }
   };
@@ -396,7 +425,12 @@
     var self = this;
     try {
       if (this.recognition) {
+        this.recognition.onstart = null;
+        this.recognition.onresult = null;
+        this.recognition.onerror = null;
+        this.recognition.onend = null;
         try { this.recognition.abort(); } catch (e) {}
+        this.recognition = null;
       }
       this.recognition = new SpeechRecognitionClass();
       this.recognition.continuous = true;
@@ -404,19 +438,30 @@
       this.recognition.lang = this.lang;
       this.recognition.maxAlternatives = 1;
 
+      this.recognition.onstart = function () {
+        self.isStarting = false;
+        self.isListening = true;
+      };
+
       this.recognition.onresult = function (event) {
         self.handleSpeechResult(event);
       };
 
       this.recognition.onerror = function (event) {
+        self.isStarting = false;
+        self.isListening = false;
         self.handleSpeechError(event);
       };
 
       this.recognition.onend = function () {
+        self.isStarting = false;
+        self.isListening = false;
         self.handleSpeechEnd();
       };
     } catch (e) {
       this.recognition = null;
+      this.isStarting = false;
+      this.isListening = false;
     }
   };
 
@@ -424,8 +469,11 @@
     if (!this.recognition) return;
     try {
       this.accumulatedTranscript = '';
+      this.isStarting = true;
       this.recognition.start();
-    } catch (e) {}
+    } catch (e) {
+      this.isStarting = false;
+    }
   };
 
   LiveVoicePipeline.prototype.handleSpeechResult = function (event) {
@@ -445,9 +493,9 @@
       var item = event.results[i];
       var text = item[0].transcript;
       if (item.isFinal) {
-        finalText += text + ' ';
+        finalText += normalizeSpokenToo(text) + ' ';
       } else {
-        interimText += text;
+        interimText += normalizeSpokenToo(text);
       }
     }
 
@@ -609,16 +657,42 @@
     if (this.isSpeaking || this.state === STATES.SPEAKING || this.state === STATES.PAUSED || this.state === STATES.ENDING || this.state === STATES.IDLE) {
       return;
     }
+    if (this.isStarting || this.isListening) {
+      return;
+    }
+
     var isMobile = (typeof navigator !== 'undefined') && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    if (isMobile || !this.recognition) {
+    var now = Date.now();
+    var minGap = isMobile ? 450 : 200;
+
+    if (now - this.lastStartAttempt < minGap) {
+      if (this.restartDebounceTimer) {
+        clearTimeout(this.restartDebounceTimer);
+      }
+      var self = this;
+      this.restartDebounceTimer = setTimeout(function () {
+        self.restartListening();
+      }, minGap - (now - self.lastStartAttempt));
+      return;
+    }
+
+    this.lastStartAttempt = now;
+    this.isStarting = true;
+
+    if (!this.recognition) {
       this.initSpeechRecognition();
     }
+    if (!this.recognition) {
+      this.isStarting = false;
+      return;
+    }
+
     try {
       this.accumulatedTranscript = '';
-      if (this.recognition) {
-        this.recognition.start();
-      }
-    } catch (e) {}
+      this.recognition.start();
+    } catch (e) {
+      this.isStarting = false;
+    }
   };
 
   LiveVoicePipeline.prototype.speakCoachResponse = function (text, onFinish) {
@@ -644,10 +718,13 @@
       } catch (e) {}
     }
 
-    // STEP 2: Clear frozen Chrome speech synthesis queue
+    // STEP 2: Clear speech queue; on iOS WebKit only cancel if actually speaking to prevent synthesizer stall
+    var isIOS = (typeof navigator !== 'undefined') && /iPad|iPhone|iPod/.test(navigator.userAgent || '');
     if (this.synth) {
       try {
-        this.synth.cancel();
+        if (!isIOS || this.synth.speaking) {
+          this.synth.cancel();
+        }
         if (typeof this.synth.resume === 'function') {
           this.synth.resume();
         }
@@ -672,7 +749,7 @@
         var utterance = new window.SpeechSynthesisUtterance(text);
         utterance.lang = self.lang || 'en-US';
         utterance.rate = self.speechRate || 0.86;
-        utterance.pitch = 1.20; // Warm, natural feminine pitch for Coach Sarah
+        utterance.pitch = isIOS ? 1.05 : 1.20; // Natural, pleasant pitch for Coach Sarah
         utterance.volume = 1.0;
 
         var femaleVoice = getCoachFemaleVoice(self.synth);
@@ -843,14 +920,18 @@
   };
 
   LiveVoicePipeline.prototype.handleSpeechEnd = function () {
+    this.isStarting = false;
+    this.isListening = false;
     if (this.isSpeaking || this.state === STATES.SPEAKING || (this.speakerCooldownUntil && Date.now() < this.speakerCooldownUntil)) {
       return;
     }
     if (this.state === STATES.LISTENING && this.isSessionActive) {
       var self = this;
+      var isMobile = (typeof navigator !== 'undefined') && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      var delay = isMobile ? 400 : 120;
       setTimeout(function () {
         self.restartListening();
-      }, 100);
+      }, delay);
     }
   };
 

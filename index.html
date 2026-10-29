@@ -128,7 +128,19 @@
         try { return localStorage.getItem(key); } catch(e) { return null; }
       },
       setItem: (key, val) => {
-        try { localStorage.setItem(key, val); } catch(e) {}
+        try {
+          localStorage.setItem(key, val);
+        } catch(e) {
+          try {
+            for (let i = localStorage.length - 1; i >= 0; i--) {
+              const k = localStorage.key(i);
+              if (k && (k.startsWith('mastered_turn_') || k.startsWith('mastered_cache_') || k.startsWith('mastered_temp_'))) {
+                localStorage.removeItem(k);
+              }
+            }
+            localStorage.setItem(key, val);
+          } catch(e2) {}
+        }
       },
       removeItem: (key) => {
         try { localStorage.removeItem(key); } catch(e) {}
@@ -1213,6 +1225,7 @@
         const tPct = Number(tVal.percentage) || 0;
         const sPct = Number(sVal.percentage) || 0;
         mergedMod.percentage = Math.max(tPct, sPct);
+        mergedMod.verifiedSentences = Math.max(Number(tVal.verifiedSentences) || 0, Number(sVal.verifiedSentences) || 0);
 
         // AI Mission completion & proof
         mergedMod.aiMissionCompleted = Boolean(tVal.aiMissionCompleted || sVal.aiMissionCompleted || tVal.aiMissionProof || sVal.aiMissionProof);
@@ -2023,11 +2036,15 @@
 
         setVoiceFeedback(coachSpokenMessage);
 
-        setConversationTurns(prev => [
-          ...prev,
-          { role: 'student', text: turnData.text, eligible: attempt.eligible, increment: attempt.verifiedIncrement, timestamp: Date.now() },
-          { role: 'coach', text: coachSpokenMessage, timestamp: Date.now() + 10 }
-        ]);
+        setConversationTurns(prev => {
+          const newTurns = [
+            ...prev,
+            { role: 'student', text: turnData.text, eligible: attempt.eligible, increment: attempt.verifiedIncrement, timestamp: Date.now() },
+            { role: 'coach', text: coachSpokenMessage, timestamp: Date.now() + 10 }
+          ];
+          // Keep strictly the last 2 questions and answers (at most 4 turns) so mobile screen stays clean and never requires scrolling
+          return newTurns.slice(-4);
+        });
 
         // 2. DISPATCH COACH SARAH SPEECH INSTANTANEOUSLY (Sub-400ms human turnaround!)
         if (voicePipelineRef.current) {
@@ -2284,34 +2301,34 @@
         }
       };
 
-      return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto" onClick={onClose}>
-          {/* Decoded Report Modal Popup */}
-          {decodedReport && (
-            <DecodedProgressReportModal
-              decodedData={decodedReport}
-              currentUser={currentUser}
-              currentPct={currentPct}
-              onConfirmSave={handleConfirmSaveReport}
-              onClose={() => setDecodedReport(null)}
-            />
-          )}
-
-          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 max-w-2xl w-full border border-slate-200 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-            
-            {/* Modal Header */}
-            <div className="flex justify-between items-start border-b pb-4">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-purple-700 to-indigo-600 flex items-center justify-center text-white text-xl font-black shadow-md">
-                  🤖
-                </div>
-                <div>
-                  <h3 className="font-extrabold text-slate-900 text-base sm:text-lg">Mastered AI Coach — Speaking Practice</h3>
-                  <p className="text-xs text-slate-500 font-medium">Official Browser-Local Speaking Practice & ChatGPT Progress Sync</p>
-                </div>
+      const modalBody = (
+        <div className={`bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-7 w-full border border-slate-200 shadow-xl space-y-5 ${asPage ? 'max-w-4xl mx-auto' : 'max-w-2xl max-h-[90vh] overflow-y-auto'}`} onClick={e => e.stopPropagation()}>
+          
+          {/* Header */}
+          <div className="flex justify-between items-center border-b pb-4">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-purple-700 to-indigo-600 flex items-center justify-center text-white text-xl font-black shadow-md">
+                🤖
               </div>
-              <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
+              <div>
+                <h3 className="font-extrabold text-slate-900 text-base sm:text-lg">Mastered AI Coach — Speaking Room</h3>
+                <p className="text-xs text-slate-500 font-medium">Official Live Continuous Voice Practice & Progress Sync</p>
+              </div>
             </div>
+            {asPage ? (
+              <button
+                type="button"
+                onClick={onClose}
+                className="flex items-center space-x-1.5 px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition cursor-pointer"
+                title="Return to Student Dashboard"
+              >
+                <span>←</span>
+                <span>Dashboard</span>
+              </button>
+            ) : (
+              <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
+            )}
+          </div>
 
             {/* Mode Switcher Tabs */}
             <div className="flex rounded-2xl bg-slate-100 p-1 border border-slate-200">
@@ -2558,54 +2575,58 @@
                               </div>
                             </div>
 
-                            {/* Persistent Live Conversation Transcript Stream */}
-                            <div className="space-y-2 max-h-56 overflow-y-auto p-1 rounded-2xl pr-1.5">
-                              {conversationTurns.length === 0 ? (
-                                <div className="p-3 bg-slate-800/90 border border-slate-700/80 rounded-2xl text-xs space-y-1 text-slate-100 shadow-sm">
-                                  <div className="flex items-center space-x-1.5 text-indigo-400 font-extrabold text-[10px] uppercase">
-                                    <span>👩‍💼</span>
-                                    <span>Coach Sarah:</span>
-                                  </div>
-                                  <p className="font-medium text-xs sm:text-sm leading-relaxed text-indigo-100">
-                                    "{voiceFeedback || activePromptText || (missionInfo.starterPrompts && missionInfo.starterPrompts[0]) || 'Hello! Please speak your answer aloud.'}"
-                                  </p>
+                            {/* Prominent Active Coach Sarah Question - Visible on screen without scrolling */}
+                            <div className="p-3.5 sm:p-4 bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-950 border border-indigo-500/50 rounded-2xl text-xs space-y-1.5 text-slate-100 shadow-lg">
+                              <div className="flex items-center justify-between text-[10px] uppercase font-black tracking-wider text-indigo-300">
+                                <div className="flex items-center space-x-1.5">
+                                  <span>👩‍💼</span>
+                                  <span>Coach Sarah's Question:</span>
                                 </div>
-                              ) : (
-                                conversationTurns.map((turn, tIdx) => (
-                                  turn.role === 'coach' ? (
-                                    <div key={tIdx} className="p-3 bg-slate-800/90 border border-slate-700/80 rounded-2xl text-xs space-y-1 text-slate-100 shadow-sm">
-                                      <div className="flex items-center space-x-1.5 text-indigo-400 font-extrabold text-[10px] uppercase">
-                                        <span>👩‍💼</span>
-                                        <span>Coach Sarah:</span>
-                                      </div>
-                                      <p className="font-medium text-xs sm:text-sm leading-relaxed text-indigo-100">
-                                        "{turn.text}"
-                                      </p>
+                                <span className="bg-indigo-500/20 text-indigo-300 px-2.5 py-0.5 rounded-full font-bold border border-indigo-500/30">
+                                  Current Prompt
+                                </span>
+                              </div>
+                              <p className="font-bold text-xs sm:text-sm leading-relaxed text-indigo-100">
+                                "{voiceFeedback || activePromptText || (missionInfo.starterPrompts && missionInfo.starterPrompts[0]) || 'Hello! Please speak your answer aloud in full sentences.'}"
+                              </p>
+                            </div>
+
+                            {/* Focused Recent Conversation Stream: Last 2 Questions & Answers (4 turns max) */}
+                            <div className="space-y-2 p-1 rounded-2xl">
+                              {conversationTurns.slice(-4).map((turn, tIdx) => (
+                                turn.role === 'coach' ? (
+                                  <div key={tIdx} className="p-2.5 sm:p-3 bg-slate-800/80 border border-slate-700/80 rounded-2xl text-xs space-y-1 text-slate-100 shadow-sm">
+                                    <div className="flex items-center space-x-1.5 text-indigo-400 font-extrabold text-[10px] uppercase">
+                                      <span>👩‍💼</span>
+                                      <span>Coach Sarah:</span>
                                     </div>
-                                  ) : (
-                                    <div key={tIdx} className="p-3 bg-emerald-950/50 border border-emerald-800/50 rounded-2xl text-xs space-y-1 text-emerald-100 shadow-sm">
-                                      <div className="flex items-center justify-between text-[10px] uppercase font-extrabold text-emerald-400">
-                                        <div className="flex items-center space-x-1.5">
-                                          <span>🎙️</span>
-                                          <span>You:</span>
-                                        </div>
-                                        {turn.eligible ? (
-                                          <span className="px-2 py-0.5 rounded-full bg-emerald-600 text-white font-bold">
-                                            +{turn.increment} Verified Sentence{turn.increment > 1 ? 's' : ''}
-                                          </span>
-                                        ) : (
-                                          <span className="px-2 py-0.5 rounded-full bg-amber-600/80 text-white font-bold">
-                                            Practice / Response
-                                          </span>
-                                        )}
+                                    <p className="font-medium text-xs sm:text-sm leading-relaxed text-indigo-100">
+                                      "{turn.text}"
+                                    </p>
+                                  </div>
+                                ) : (
+                                  <div key={tIdx} className="p-2.5 sm:p-3 bg-emerald-950/50 border border-emerald-800/50 rounded-2xl text-xs space-y-1 text-emerald-100 shadow-sm">
+                                    <div className="flex items-center justify-between text-[10px] uppercase font-extrabold text-emerald-400">
+                                      <div className="flex items-center space-x-1.5">
+                                        <span>🎙️</span>
+                                        <span>You:</span>
                                       </div>
-                                      <p className="italic font-semibold text-xs sm:text-sm text-emerald-200">
-                                        "{turn.text}"
-                                      </p>
+                                      {turn.eligible ? (
+                                        <span className="px-2 py-0.5 rounded-full bg-emerald-600 text-white font-bold">
+                                          +{turn.increment} Verified Sentence{turn.increment > 1 ? 's' : ''}
+                                        </span>
+                                      ) : (
+                                        <span className="px-2 py-0.5 rounded-full bg-amber-600/80 text-white font-bold">
+                                          Practice / Response
+                                        </span>
+                                      )}
                                     </div>
-                                  )
-                                ))
-                              )}
+                                    <p className="italic font-semibold text-xs sm:text-sm text-emerald-200">
+                                      "{turn.text}"
+                                    </p>
+                                  </div>
+                                )
+                              ))}
 
                               {/* Student's live transcribed words while speaking */}
                               {voiceTranscript && (
@@ -2910,7 +2931,38 @@
               </div>
             )}
 
+        </div>
+      );
+
+      if (asPage) {
+        return (
+          <div className="w-full max-w-4xl mx-auto space-y-4 py-2 px-1 sm:px-4">
+            {decodedReport && (
+              <DecodedProgressReportModal
+                decodedData={decodedReport}
+                currentUser={currentUser}
+                currentPct={currentPct}
+                onConfirmSave={handleConfirmSaveReport}
+                onClose={() => setDecodedReport(null)}
+              />
+            )}
+            {modalBody}
           </div>
+        );
+      }
+
+      return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto" onClick={onClose}>
+          {decodedReport && (
+            <DecodedProgressReportModal
+              decodedData={decodedReport}
+              currentUser={currentUser}
+              currentPct={currentPct}
+              onConfirmSave={handleConfirmSaveReport}
+              onClose={() => setDecodedReport(null)}
+            />
+          )}
+          {modalBody}
         </div>
       );
     }
@@ -4272,7 +4324,7 @@
 
               {role === 'student' && (
                 <button
-                  onClick={() => setShowAiPromptModal(true)}
+                  onClick={() => handleNavigateTab('ai_coach')}
                   className="px-3 py-1.5 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center space-x-1.5 border border-purple-400/40"
                   title="Mastered AI Coach & Prompts"
                 >
@@ -4525,8 +4577,8 @@
                         <button onClick={() => handleNavigateTab('dashboard', true)} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'dashboard' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Dashboard</button>
                         <button onClick={() => handleNavigateTab('modules', true)} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'modules' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>Modules Explorer ({modules.length})</button>
                         <button onClick={() => handleNavigateTab('quizzes', true)} className={`w-full text-left px-3.5 py-3 rounded-xl transition ${activeTab === 'quizzes' ? 'bg-red-600 text-white font-bold' : 'hover:bg-slate-800 text-slate-300'}`}>30-Question Quizzes 📝</button>
-                        <button onClick={() => { setMobileMenuOpen(false); setShowAiPromptModal(true); }} className="w-full text-left px-3.5 py-3 rounded-xl transition bg-gradient-to-r from-purple-800 to-indigo-800 hover:from-purple-700 hover:to-indigo-700 text-white font-extrabold flex items-center space-x-2">
-                          <span>🤖 AI Mission Practice</span>
+                        <button onClick={() => handleNavigateTab('ai_coach', true)} className={`w-full text-left px-3.5 py-3 rounded-xl transition flex items-center space-x-2 font-extrabold ${activeTab === 'ai_coach' ? 'bg-purple-600 text-white' : 'hover:bg-slate-800 text-purple-300'}`}>
+                          <span>🎙️ AI Coach (Coach Sarah)</span>
                         </button>
                       </>
                     ) : (
@@ -4564,8 +4616,8 @@
                       <button onClick={() => handleNavigateTab('dashboard')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'dashboard' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Dashboard</button>
                       <button onClick={() => handleNavigateTab('modules')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'modules' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Modules Explorer ({modules.length})</button>
                       <button onClick={() => handleNavigateTab('quizzes')} className={`w-full text-left px-3 py-2.5 rounded-xl transition ${activeTab === 'quizzes' ? 'bg-red-600 text-white' : 'hover:bg-slate-800'}`}>Module Quizzes 📝</button>
-                      <button onClick={() => setShowAiPromptModal(true)} className="w-full text-left px-3 py-2.5 rounded-xl transition bg-gradient-to-r from-purple-800 to-indigo-800 hover:from-purple-700 hover:to-indigo-700 text-white font-extrabold flex items-center space-x-2 mt-2 shadow-sm">
-                        <span>🤖 AI Mission Practice</span>
+                      <button onClick={() => handleNavigateTab('ai_coach')} className={`w-full text-left px-3 py-2.5 rounded-xl transition flex items-center space-x-2 font-extrabold mt-2 shadow-sm ${activeTab === 'ai_coach' ? 'bg-purple-600 text-white' : 'hover:bg-slate-800 text-purple-300'}`}>
+                        <span>🎙️ AI Coach (Coach Sarah)</span>
                       </button>
                     </>
                   ) : (
@@ -4705,7 +4757,7 @@
                               <h4 className="font-bold text-sm text-slate-900">AI Mission ChatGPT Report Screenshot Proof</h4>
                               <p className="text-xs text-slate-500">Upload a clear screenshot of your report score from ChatGPT to complete Level {activeModule.moduleNumber} AI Mission!</p>
                             </div>
-                            <button onClick={() => setShowAiPromptModal(true)} className="px-3.5 py-2 bg-purple-700 hover:bg-purple-600 text-white text-xs font-extrabold rounded-xl shadow-md transition self-start sm:self-auto flex items-center space-x-1">
+                            <button onClick={() => handleNavigateTab('ai_coach')} className="px-3.5 py-2 bg-purple-700 hover:bg-purple-600 text-white text-xs font-extrabold rounded-xl shadow-md transition self-start sm:self-auto flex items-center space-x-1">
                               <span>🤖 Open Mastered AI Coach</span>
                             </button>
                           </div>
@@ -4773,7 +4825,19 @@
                       setActiveQuizModNumber(modNum);
                       setActiveQuizModTitle(title);
                     }}
-                    onOpenAiPrompt={() => setShowAiPromptModal(true)}
+                    onOpenAiPrompt={() => handleNavigateTab('ai_coach')}
+                  />
+                ) : activeTab === 'ai_coach' ? (
+                  <AiMissionPromptModal
+                    asPage={true}
+                    onClose={() => handleNavigateTab('dashboard')}
+                    showToast={showToast}
+                    currentUser={currentUser}
+                    userProgress={userProgress}
+                    setUserProgress={setUserProgress}
+                    getCurrentStudentProgressMap={getCurrentStudentProgressMap}
+                    activeModule={activeModule}
+                    onVerifyMclCode={handleVerifyMclCode}
                   />
                 ) : (
                   /* Student Dashboard / Modules List View */
@@ -4869,7 +4933,7 @@
                           {/* 2. AI Mission Practice */}
                           <button
                             type="button"
-                            onClick={() => setShowAiPromptModal(true)}
+                            onClick={() => handleNavigateTab('ai_coach')}
                             className="p-3 sm:p-3.5 bg-gradient-to-r from-purple-700 via-indigo-700 to-purple-800 hover:from-purple-600 hover:to-indigo-600 text-white font-extrabold text-xs rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 ease-out transform hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] flex items-center justify-center space-x-2 border border-purple-400/30 cursor-pointer"
                             title="Mastered AI Coach & Prompts"
                           >
@@ -4880,7 +4944,7 @@
                           {/* 3. Paste AI Progress Code */}
                           <button
                             type="button"
-                            onClick={() => setShowAiPromptModal(true)}
+                            onClick={() => handleNavigateTab('ai_coach')}
                             className="p-3 sm:p-3.5 bg-slate-900 hover:bg-slate-800 text-amber-300 font-extrabold text-xs rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 ease-out transform hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] flex items-center justify-center space-x-2 border border-slate-700 cursor-pointer"
                             title="Paste MCL Encrypted Code"
                           >
@@ -5594,6 +5658,9 @@
                   </button>
                   <button onClick={() => handleNavigateTab('quizzes')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'quizzes' ? 'text-red-500' : 'text-slate-400'}`}>
                     <span>Quizzes 📝</span>
+                  </button>
+                  <button onClick={() => handleNavigateTab('ai_coach')} className={`flex flex-col items-center text-[10px] font-bold ${activeTab === 'ai_coach' ? 'text-purple-400' : 'text-slate-400'}`}>
+                    <span>🎙️ AI Coach</span>
                   </button>
                 </>
               ) : (

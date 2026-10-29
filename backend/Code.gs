@@ -977,6 +977,9 @@ function handleSaveStudentProgress(data) {
   var emailCol = findColumnIndex(headers, ["email"]);
   var jsonCol = findColumnIndex(headers, ["progressjson", "json"]);
   var dateCol = findColumnIndex(headers, ["lastupdated", "updated", "date"]);
+  var levelCol = findColumnIndex(headers, ["latestmissionlevel", "missionlevel", "level"]);
+  var progCol = findColumnIndex(headers, ["latestcodeprogress", "codeprogress", "progress"]);
+  var codeCol = findColumnIndex(headers, ["latestmclcode", "mclcode", "code"]);
 
   if (admCol < 0) admCol = 0;
   if (emailCol < 0) emailCol = 1;
@@ -1009,6 +1012,7 @@ function handleSaveStudentProgress(data) {
       if (typeof exVal === 'object' && typeof inVal === 'object') {
         var mergedMod = Object.assign({}, exVal, inVal);
         mergedMod.percentage = Math.max(Number(exVal.percentage) || 0, Number(inVal.percentage) || 0);
+        mergedMod.verifiedSentences = Math.max(Number(exVal.verifiedSentences) || 0, Number(inVal.verifiedSentences) || 0);
         mergedMod.aiMissionCompleted = Boolean(exVal.aiMissionCompleted || inVal.aiMissionCompleted || exVal.aiMissionProof || inVal.aiMissionProof);
         mergedMod.aiMissionProof = inVal.aiMissionProof || exVal.aiMissionProof || null;
 
@@ -1031,11 +1035,27 @@ function handleSaveStudentProgress(data) {
 
   var finalProgressStr = JSON.stringify(existingObj);
 
+  var highestLvl = 1;
+  var highestProg = 0;
+  for (var m = 1; m <= 32; m++) {
+    var k = "MOD-" + (m < 10 ? "0" + m : m);
+    var mObj = existingObj[k] || existingObj["MOD-" + m];
+    if (mObj) {
+      var pct = Number(mObj.percentage) || (mObj.aiMissionCompleted ? 100 : 0);
+      if (pct > 0 && m >= highestLvl) {
+        highestLvl = m;
+        highestProg = pct;
+      }
+    }
+  }
+
   if (foundRow > 0) {
     sheet.getRange(foundRow, jsonCol + 1).setValue(finalProgressStr);
     sheet.getRange(foundRow, dateCol + 1).setValue(now);
+    if (levelCol >= 0) sheet.getRange(foundRow, levelCol + 1).setValue(highestLvl);
+    if (progCol >= 0) sheet.getRange(foundRow, progCol + 1).setValue(highestProg);
   } else {
-    sheet.appendRow([adm, email, "", 0, 0, finalProgressStr, now]);
+    sheet.appendRow([adm, email, "", highestLvl, highestProg, finalProgressStr, now]);
   }
   return { success: true, userProgress: existingObj };
 }
@@ -1192,9 +1212,25 @@ function handleGetStudentProgress(data) {
     }
   }
 
+  var highestLvl = 0;
+  var highestProg = 0;
+  for (var m = 1; m <= 32; m++) {
+    var k = "MOD-" + (m < 10 ? "0" + m : m);
+    var mObj = progObj[k] || progObj["MOD-" + m];
+    if (mObj) {
+      var pct = Number(mObj.percentage) || (mObj.aiMissionCompleted ? 100 : 0);
+      if (pct > 0 && m >= highestLvl) {
+        highestLvl = m;
+        highestProg = pct;
+      }
+    }
+  }
+
   return {
     success: true,
-    userProgress: progObj
+    userProgress: progObj,
+    latestLevel: highestLvl || 1,
+    latestProgress: highestProg || 0
   };
 }
 
