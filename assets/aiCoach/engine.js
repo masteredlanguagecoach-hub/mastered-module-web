@@ -38,7 +38,8 @@
   var COMMAND_PATTERNS = {
     NEW_STUDENT: /^(new\s*student|register(\s*me)?|sign\s*up|first\s*time(\s*here)?)/i,
     START: /^(start|begin|let'?s\s*start|ready(\s*to\s*practice)?)/i,
-    CONTINUE: /^(continue|next(\s*question)?|keep\s*going|more\s*practice)/i,
+    NEXT_MISSION: /^(next[\s_]*mission|go\s*to\s*next\s*mission|advance\s*mission|advance\s*to\s*next\s*mission|next\s*level|advance|take\s*me\s*to\s*next\s*mission|say\s*next\s*mission)[.!?]?$/i,
+    CONTINUE: /^(continue|next(?:s*question)?|keep\s*going|more\s*practice)[.!?]?$/i,
     HOMEWORK: /^(homework|assignment|home\s*task|give\s*me\s*homework)/i,
     VOCABULARY: /^(vocabulary|vocab|words?|new\s*words?|teach\s*me\s*vocab(ulary)?)/i,
     FREE_TALK: /^(free\s*talk|free\s*conversation|casual\s*chat|let'?s\s*just\s*talk)/i,
@@ -307,6 +308,7 @@
     var trimmed = input.trim();
     if (COMMAND_PATTERNS.NEW_STUDENT.test(trimmed)) return 'NEW STUDENT';
     if (COMMAND_PATTERNS.START.test(trimmed)) return 'START';
+    if (COMMAND_PATTERNS.NEXT_MISSION.test(trimmed)) return 'NEXT_MISSION';
     if (COMMAND_PATTERNS.CONTINUE.test(trimmed)) return 'CONTINUE';
     if (COMMAND_PATTERNS.HOMEWORK.test(trimmed)) return 'HOMEWORK';
     if (COMMAND_PATTERNS.VOCABULARY.test(trimmed)) return 'VOCABULARY';
@@ -1215,6 +1217,24 @@
       };
     }
 
+    if (cmd === 'NEXT_MISSION') {
+      this.currentMode = 'STRUCTURED';
+      var advanced = this.advanceMission(true);
+      var newMission = this.getMissionDetails();
+      var newPrompt = (newMission.starterPrompts && newMission.starterPrompts[0]) || "Please speak your answer aloud in full sentences.";
+      return {
+        command: 'NEXT_MISSION',
+        mode: this.currentMode,
+        advanced: advanced,
+        missionNumber: newMission.missionNumber,
+        prompt: newPrompt,
+        systemMessage: "Outstanding work! Advancing to Mission " + newMission.missionNumber + ": " + newMission.title + ". Let's begin: " + newPrompt,
+        target: newMission.targetSentences,
+        verified: 0,
+        progressPct: 0
+      };
+    }
+
     if (cmd === 'START' || cmd === 'CONTINUE') {
       this.currentMode = 'STRUCTURED';
       var mission = this.getMissionDetails();
@@ -1483,11 +1503,18 @@
       entities: {},
       discussedTopics: {},
       uninterrogatedTurns: 0,
-      history: []
+      history: [],
+      askedQuestions: []
     });
+    ctx.askedQuestions = ctx.askedQuestions || [];
+    ctx.history = ctx.history || [];
 
     var recentHistory = ctx.history.slice(-8).map(function (h) {
       return (h.role === 'student' ? 'Student: ' : 'Coach Sarah: ') + h.text;
+    }).join('\n');
+
+    var forbiddenQuestions = ctx.askedQuestions.slice(-12).map(function (q) {
+      return "- " + q;
     }).join('\n');
 
     var systemInstruction = 
@@ -1505,9 +1532,11 @@
       "   Stay strictly inside this mission's situation and learning objective. Never ask questions above the mission's scope or invent unrelated topics.\n" +
       "4. SPEECH RECOGNITION ARTIFACTS:\n" +
       "   Students saying 'me too', 'that too', or ending a clause with 'too' may be transcribed as 'to'. Treat clause-ending 'to' as 'too' and never penalize the student for this speech recognition artifact.\n" +
-      "5. CONVERSATIONAL MEMORY & NO REPETITION:\n" +
-      "   Look at the recent dialogue turns below. NEVER repeat any question or phrase you already asked earlier in the conversation. Each turn must progress naturally to a new aspect of the mission.\n" +
-      "6. HUMAN COMPREHENSION & INTENT-FIRST RESPONSE RULES:\n" +
+      "5. STRICT ZERO QUESTION REPETITION:\n" +
+      "   Look at the 'Previously Asked Questions' and recent conversation history below. You are STRICTLY FORBIDDEN from repeating or rephrasing any question or topic already covered in this session. Every turn must ask a fresh, situationally demanding question exploring a new angle of the mission.\n" +
+      "6. CONTINUOUS INTERACTIVE DIALOGUE (NEVER STOP WITHOUT A QUESTION):\n" +
+      "   EVERY SINGLE TURN MUST END WITH A DIRECT, FRIENDLY QUESTION OR CONVERSATIONAL PROMPT. Never end a turn with a bare statement, praise, or observation without asking a follow-up question. Even when praising or correcting the student, ALWAYS conclude with the next question so the student always knows what to say and the conversation flows continuously until the mission ends.\n" +
+      "7. HUMAN COMPREHENSION & INTENT-FIRST RESPONSE RULES:\n" +
       "   - Understand the student's actual meaning, emotion, and context—not just literal keywords. If the student answers creatively, with personal details, feelings, or everyday natural conversational phrasing matching the topic, accept it warmly as verified practice (isEligible=true, sentenceCount=1). Never act like a robotic questionnaire or demand rigid textbook formulas.\n" +
       "   - If the student asks a question about the topic or Coach Sarah: Answer their question genuinely and naturally first in English before inviting them to share more.\n" +
       "   - If the student asks for clarification or meaning ('Why is this wrong?', 'What does this mean?', 'How do I say this?'): Answer their question directly, clearly, and simply in English before continuing practice (isEligible=false, sentenceCount=0).\n" +
@@ -1517,7 +1546,6 @@
       "   - If the student makes a grammatical error or slip (e.g. subject-verb agreement 'he don\'t', past tense slips 'yesterday I go', missing auxiliary 'I going', fragments): Set isEligible=false, sentenceCount=0. Acknowledge what they meant politely, say the corrected sentence clearly: 'Try saying: ...', explain the correction in one simple sentence, and ask them to repeat it.\n" +
       "   - If the student is repeating a previously corrected sentence accurately: Set isEligible=true, sentenceCount=1. Praise their correction ('Spot on! That sounded completely natural.') and ask the next situation-demanding question.\n" +
       "   - If the student speaks a complete, grammatically valid English sentence matching the mission: Set isEligible=true, sentenceCount=1. Acknowledge their thought warmly and ask a natural, connected follow-up question that advances the conversation.\n" +
-      "   - Every 2-3 turns, you may share a warm observation or reflection instead of ending with a question, to keep the dialogue completely human and natural.\n" +
       "RETURN STRICT JSON ONLY in this format:\n" +
       "{\"isEligible\": boolean, \"sentenceCount\": number, \"intent\": string, \"errorType\": string, \"gentleCorrection\": string, \"spokenReply\": string}";
 
@@ -1527,6 +1555,7 @@
       "Grammar focus: " + curMission.grammarFocus + "\n" +
       "Topics: " + (curMission.topics || "") + "\n" +
       "Student Target: " + verified + "/" + target + " verified sentences\n" +
+      "Previously asked questions in this session (DO NOT REPEAT ANY OF THESE):\n" + (forbiddenQuestions || "(None yet)") + "\n\n" +
       "Recent conversation turns:\n" + (recentHistory || "(Start of call)") + "\n\n" +
       "Student just spoke: \"" + text + "\"";
 
@@ -1582,6 +1611,25 @@
     var isEligible = Boolean(evalResult.isEligible);
     var sentenceCount = Number(evalResult.sentenceCount) || (isEligible ? 1 : 0);
     var spokenReply = String(evalResult.spokenReply || '').trim();
+
+    // Ensure spokenReply always ends with a question so the student is never left without a prompt
+    if (!spokenReply.includes('?') && !this.pendingCorrection) {
+      var starters = curMission.starterPrompts || [];
+      var unasked = starters.filter(function (s) {
+        return ctx.askedQuestions.indexOf(s) === -1;
+      });
+      var nextQ = unasked[0] || starters[verified % (starters.length || 1)] || "What else would you like to share about that?";
+      spokenReply = spokenReply.replace(/[.!]+$/, '') + ". " + nextQ;
+    }
+
+    // Record question in askedQuestions
+    var qMatch = spokenReply.match(/([^.!?]+[?])/);
+    if (qMatch && qMatch[1]) {
+      var cleanQ = qMatch[1].trim();
+      if (cleanQ && ctx.askedQuestions.indexOf(cleanQ) === -1) {
+        ctx.askedQuestions.push(cleanQ);
+      }
+    }
 
     // Enforce zero count if there is any error, doubt, or guidance request
     if (!isEligible || sentenceCount === 0) {
@@ -1784,7 +1832,7 @@
       ctx.topicDepth = 5;
       if (ctx.uninterrogatedTurns >= 2) {
         ctx.uninterrogatedTurns = 0;
-        return "Answering those questions clearly makes a great impression. It sounds like you handled it very thoughtfully.";
+        return "Answering those questions clearly makes a great impression. It sounds like you handled it very thoughtfully. How did you feel when the interview concluded?";
       }
       ctx.uninterrogatedTurns++;
       return "Those are essential interview questions! How did you feel answering them?";
@@ -1793,7 +1841,7 @@
     // Turn 6: Interview outcome / feelings
     if (isInterviewOutcome && ctx.activeTopic === 'interview') {
       ctx.uninterrogatedTurns = 0;
-      return "Staying calm and expressing yourself clearly is the biggest victory in any interview. You should be proud of giving your best!";
+      return "Staying calm and expressing yourself clearly is the biggest victory in any interview. How do you feel about your overall preparation?";
     }
 
     // SCENARIO 2: Profession & Work
@@ -1819,7 +1867,7 @@
       ctx.topicDepth = 2;
       if (ctx.uninterrogatedTurns >= 2) {
         ctx.uninterrogatedTurns = 0;
-        return "Managing those responsibilities every day certainly takes strong coordination and communication skills.";
+        return "Managing those responsibilities every day certainly takes strong coordination and communication skills. Do you usually work in a team or independently?";
       }
       ctx.uninterrogatedTurns++;
       return "Handling that requires good coordination. Do you usually work in a team or independently?";
@@ -1836,7 +1884,7 @@
         ctx.topicDepth = 2;
         if (ctx.uninterrogatedTurns >= 2) {
           ctx.uninterrogatedTurns = 0;
-          return "Having an organized routine really sets a calm, productive tone for the entire day.";
+          return "Having an organized routine really sets a calm, productive tone for the entire day. What is usually your next priority after that?";
         }
         ctx.uninterrogatedTurns++;
         return "That sounds like a steady schedule. Do you prefer having your days structured, or being flexible?";
@@ -1863,7 +1911,7 @@
         ctx.topicDepth = 2;
         if (ctx.uninterrogatedTurns >= 2) {
           ctx.uninterrogatedTurns = 0;
-          return "Finding time for personal hobbies is one of the best ways to recharge after a busy week.";
+          return "Finding time for personal hobbies is one of the best ways to recharge after a busy week. How long have you been interested in that hobby?";
         }
         ctx.uninterrogatedTurns++;
         return "Have you been interested in that for a long time, or did you start recently?";
@@ -1880,7 +1928,7 @@
       } else {
         ctx.topicDepth = 2;
         ctx.uninterrogatedTurns = 0;
-        return "Spending quality time with family really creates lasting memories and a supportive home.";
+        return "Spending quality time with family really creates lasting memories and a supportive home. How often do you all get together for special occasions?";
       }
     }
 
@@ -1905,31 +1953,31 @@
     if (ctx.uninterrogatedTurns >= 2) {
       ctx.uninterrogatedTurns = 0;
       var observations = [
-        "That makes total sense. Having clear goals always makes learning faster and more rewarding.",
-        "I completely agree. Practical real-life practice is much more effective than memorizing textbook rules.",
-        "That expresses your thought with great clarity. Speaking step by step builds natural confidence.",
-        "That sounds like a very sensible approach. Learning from everyday experiences is how we truly grow."
+        "That makes total sense! Having clear goals always makes learning faster. What is the very first step you plan to take next?",
+        "I completely agree! Practical real-life speaking builds true confidence. How often do you get the chance to speak English during your week?",
+        "That expresses your thought with great clarity! When you speak English, do you feel more comfortable in casual chats or formal discussions?",
+        "That sounds like a very sensible approach! Can you share an example of a situation where you learned something valuable recently?"
       ];
       return observations[(this.profile.verifiedSentences || 0) % observations.length];
     }
 
-    // SCENARIO 8: Natural Mission-Guided Conversational Bridging (Section 7)
+    // SCENARIO 8: Natural Mission-Guided Conversational Bridging (Zero Repetition)
     ctx.uninterrogatedTurns++;
+    ctx.askedQuestions = ctx.askedQuestions || [];
     var mNum = this.profile.currentMission;
-    if (mNum === 1) {
-      return "It's wonderful getting to know you. What goals are you most excited to accomplish this year?";
-    }
-    if (mNum === 2) {
-      return "That's interesting! Is there a close colleague or friend who works with you on that?";
-    }
-    if (mNum === 3) {
-      return "That sounds great! Does your family also enjoy doing similar activities together?";
-    }
-    if (mNum === 4) {
-      return "That sounds rewarding! What is another skill or hobby you would love to learn next?";
-    }
-    if (mNum === 5) {
-      return "Handling that requires dedication. What are your main duties when organizing that?";
+
+    var starters = (curMission && curMission.starterPrompts) || [];
+    var unasked = starters.filter(function (s) {
+      return ctx.askedQuestions.indexOf(s) === -1;
+    });
+
+    if (unasked.length > 0) {
+      var nextPrompt = unasked[0];
+      ctx.askedQuestions.push(nextPrompt);
+      if (mNum === 1 && (this.profile.verifiedSentences || 0) === 0) {
+        return "It's wonderful getting to know you. What goals are you most excited to accomplish this year?";
+      }
+      return nextPrompt;
     }
 
     // Mission 8: Handle Everyday English (Situation Demanding Stages)
@@ -1966,8 +2014,13 @@
 
     // Dynamic Mission Situational Fallback (Strictly inside mission situation)
     var starters = (curMission && curMission.starterPrompts) || [];
-    var pCount = this.profile.verifiedSentences || 0;
-    var nextPrompt = starters[pCount % (starters.length || 1)] || "Please express your complete thought in English.";
+    var unasked = starters.filter(function (s) {
+      return (ctx.askedQuestions || []).indexOf(s) === -1;
+    });
+    var nextPrompt = unasked[0] || starters[(this.profile.verifiedSentences || 0) % (starters.length || 1)] || "Please express your complete thought in English.";
+    if (ctx.askedQuestions && ctx.askedQuestions.indexOf(nextPrompt) === -1) {
+      ctx.askedQuestions.push(nextPrompt);
+    }
     return "That expresses your thought clearly! In this situation, " + nextPrompt;
   };
 
@@ -2026,8 +2079,8 @@
     return this.generateConnectedTurn("", true);
   };
 
-  AiCoachSession.prototype.advanceMission = function () {
-    if (this.profile.verifiedSentences >= this.profile.missionTarget) {
+  AiCoachSession.prototype.advanceMission = function (forceAdvance) {
+    if (forceAdvance || this.profile.verifiedSentences >= this.profile.missionTarget) {
       if (this.profile.currentMission < 32) {
         this.profile.currentMission += 1;
         this.profile.verifiedSentences = 0;
@@ -2037,6 +2090,12 @@
         this.profile.progressPct = 0;
         this.profile.missionStatus = 'IN_PROGRESS';
         this.profile.lastUpdated = new Date().toISOString();
+        if (this.dialogueContext) {
+          this.dialogueContext.askedQuestions = [];
+          this.dialogueContext.history = [];
+          this.dialogueContext.activeTopic = null;
+          this.dialogueContext.topicDepth = 0;
+        }
         return true;
       }
     }

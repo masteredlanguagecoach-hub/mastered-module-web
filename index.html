@@ -1780,11 +1780,11 @@
 
       // Initial active mission:
       // Priority 1: User explicitly clicked a module in course view (activeModule.moduleNumber)
-      // Priority 2: Student's highest active level (matches profile display: "Level 10 active"!)
-      // Priority 3: First incomplete module
+      // Priority 2: First incomplete module (e.g. if 1..8 completed, active starts on 9!)
+      // Priority 3: Student's highest active level
       const initialMission = (activeModule && activeModule.moduleNumber) 
         ? activeModule.moduleNumber 
-        : (highestActiveLevel > 0 ? highestActiveLevel : firstIncomplete);
+        : (foundIncomplete ? firstIncomplete : (highestActiveLevel > 0 ? highestActiveLevel : 1));
 
       const [selectedMissionNumber, setSelectedMissionNumber] = useState(initialMission);
       const activeMissionNumber = selectedMissionNumber;
@@ -1876,11 +1876,15 @@
             } catch(e) {}
           }
 
+          const calculatedNextLvl = prof.nextLevel || (pct === 100 && mNum < 32 ? mNum + 1 : mNum);
+
           // 2. Persist to Google Sheets database asynchronously (cross-device & admin dashboard!)
           callAppsScript('saveStudentProgress', {
             admissionNumber: cleanAdm || admNum,
             email: studentEmail,
-            userProgress: updatedMap
+            userProgress: updatedMap,
+            latestLevel: calculatedNextLvl,
+            latestMissionLevel: calculatedNextLvl
           }).then(res => {
             console.log("[Google Sheets Save Success]", res);
           }).catch(err => {
@@ -1943,7 +1947,9 @@
                 }
               },
               onIntentDetected: (intent, text) => {
-                if (intent === 'END_SESSION') {
+                if (intent === 'NEXT_MISSION') {
+                  handleEndMissionAndContinue();
+                } else if (intent === 'END_SESSION') {
                   handleVoiceCommand('END SESSION');
                 } else if (intent === 'PAUSE') {
                   if (voicePipelineRef.current) {
@@ -1988,8 +1994,118 @@
         };
       }, [admNum, activeMissionNumber]);
 
+      // End Mission and Continue: Completes current mission (100%) and advances to next level
+      const handleEndMissionAndContinue = () => {
+        const currentM = activeMissionNumber;
+        const nextM = Math.min(32, currentM + 1);
+        const target = missionInfo.targetSentences || 30;
+
+        const curKey = `MOD-${currentM < 10 ? '0' + currentM : currentM}`;
+        const nextKey = `MOD-${nextM < 10 ? '0' + nextM : nextM}`;
+        const activeProg = (typeof getCurrentStudentProgressMap === 'function') 
+          ? getCurrentStudentProgressMap() 
+          : (userProgress?.[cleanAdm] || userProgress?.[admNum] || userProgress?.[studentEmail] || {});
+
+        const updatedCurObj = {
+          ...(activeProg[curKey] || {}),
+          percentage: 100,
+          verifiedSentences: target,
+          aiMissionCompleted: true,
+          status: 'COMPLETED',
+          lastUpdated: new Date().toISOString()
+        };
+
+        const updatedNextObj = {
+          ...(activeProg[nextKey] || {}),
+          percentage: activeProg[nextKey]?.percentage || 0,
+          verifiedSentences: activeProg[nextKey]?.verifiedSentences || 0,
+          status: (Number(activeProg[nextKey]?.percentage) >= 100) ? 'COMPLETED' : 'IN_PROGRESS',
+          lastUpdated: new Date().toISOString()
+        };
+
+        const updatedMap = {
+          ...activeProg,
+          [curKey]: updatedCurObj,
+          [nextKey]: updatedNextObj
+        };
+
+        for (let lvl = 1; lvl <= currentM; lvl++) {
+          const pKey = `MOD-${lvl < 10 ? '0' + lvl : lvl}`;
+          updatedMap[pKey] = {
+            ...(updatedMap[pKey] || {}),
+            percentage: 100,
+            verifiedSentences: (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission) ? window.MasteredCurriculum.getTargetForMission(lvl) : 30,
+            aiMissionCompleted: true,
+            status: 'COMPLETED'
+          };
+        }
+
+        if (typeof setUserProgress === 'function') {
+          setUserProgress(prev => {
+            const newState = {
+              ...(prev || {}),
+              [cleanAdm]: updatedMap,
+              [admNum]: updatedMap,
+              ...(studentEmail ? { [studentEmail]: updatedMap } : {})
+            };
+            try {
+              safeStorage.setItem('mastered_all_students_progress', JSON.stringify(newState));
+              if (cleanAdm) safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(updatedMap));
+            } catch(e) {}
+            return newState;
+          });
+        }
+
+        callAppsScript('saveStudentProgress', {
+          admissionNumber: cleanAdm || admNum,
+          email: studentEmail,
+          userProgress: updatedMap,
+          latestLevel: nextM,
+          latestMissionLevel: nextM
+        }).catch(() => {});
+
+        setSelectedMissionNumber(nextM);
+        setVoiceVerifiedCount(0);
+        setVoiceSessionEnded(false);
+        setVoiceSessionSummary(null);
+
+        if (voiceSessionRef.current) {
+          voiceSessionRef.current.profile.currentMission = nextM;
+          voiceSessionRef.current.profile.verifiedSentences = 0;
+          voiceSessionRef.current.profile.missionTarget = (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission) ? window.MasteredCurriculum.getTargetForMission(nextM) : 30;
+          voiceSessionRef.current.profile.progressPct = 0;
+          voiceSessionRef.current.profile.missionStatus = 'IN_PROGRESS';
+          if (voiceSessionRef.current.dialogueContext) {
+            voiceSessionRef.current.dialogueContext.askedQuestions = [];
+            voiceSessionRef.current.dialogueContext.history = [];
+          }
+        }
+
+        const nextInfo = (window.MasteredCurriculum && window.MasteredCurriculum.getMission) ? window.MasteredCurriculum.getMission(nextM) : null;
+        const nextStarter = (nextInfo && nextInfo.starterPrompts && nextInfo.starterPrompts[0]) || "Please introduce yourself aloud in full sentences.";
+        updateActivePrompt(nextStarter);
+
+        const transitionMsg = currentM < 32 
+          ? `Mission ${currentM} completed! Advanced to Mission ${nextM}: ${nextInfo ? nextInfo.title : ''}. ${nextStarter}`
+          : `Outstanding job! You have completed all 32 missions and graduated the speaking program!`;
+        setVoiceFeedback(transitionMsg);
+
+        if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
+          voicePipelineRef.current.speakCoachResponse(transitionMsg);
+        }
+
+        if (showToast) showToast(`🚀 Mission ${currentM} Completed! Advanced to Level ${nextM}`);
+      };
+
       const handleStudentVoiceTurn = async (turnData) => {
         if (!voiceSessionRef.current) return;
+
+        // Intercept Voice Command for NEXT MISSION immediately
+        const trimmedSpoken = String(turnData.text || '').trim();
+        if (/^(next[\s_]*mission|advance\s*mission|next\s*level|advance|take\s*me\s*to\s*next\s*mission|say\s*next\s*mission)[.!?]?$/i.test(trimmedSpoken)) {
+          handleEndMissionAndContinue();
+          return;
+        }
 
         setVoiceState('GENERATING_RESPONSE');
         setVoiceFeedback("Thinking...");
@@ -2022,8 +2138,36 @@
         
         let coachSpokenMessage = '';
         if (attempt.passed) {
-          coachSpokenMessage = `Outstanding job! You completed all ${prof.missionTarget} target sentences for Mission ${prof.currentMission}! Say Next Mission or tap Advance to continue.`;
-          updateActivePrompt(coachSpokenMessage);
+          const completedM = prof.currentMission;
+          const nextM = Math.min(32, completedM + 1);
+          const nextInfo = (window.MasteredCurriculum && window.MasteredCurriculum.getMission) ? window.MasteredCurriculum.getMission(nextM) : null;
+          const nextTitle = nextInfo ? nextInfo.title : ('Mission ' + nextM);
+          const nextPrompt = (nextInfo && nextInfo.starterPrompts && nextInfo.starterPrompts[0]) || "Please tell me about your thoughts aloud.";
+
+          if (completedM < 32) {
+            coachSpokenMessage = `Outstanding job! You completed all ${prof.missionTarget} target sentences for Mission ${completedM}! You have officially leveled up to Mission ${nextM}: ${nextTitle}! Let's keep going: ${nextPrompt}`;
+            updateActivePrompt(nextPrompt);
+
+            // Automatically advance session and UI
+            if (voiceSessionRef.current) {
+              voiceSessionRef.current.advanceMission(true);
+            }
+            setSelectedMissionNumber(nextM);
+            setVoiceVerifiedCount(0);
+
+            setTimeout(() => {
+              syncVoiceProgressToDatabase({
+                ...prof,
+                currentMission: completedM,
+                verifiedSentences: prof.missionTarget,
+                nextLevel: nextM
+              });
+              if (showToast) showToast(`🎉 Mission ${completedM} Completed! Advanced to Level ${nextM}!`);
+            }, 50);
+          } else {
+            coachSpokenMessage = `Outstanding job! You completed all 32 Mastered Language Coach missions! You have officially graduated the conversational speaking program!`;
+            updateActivePrompt(coachSpokenMessage);
+          }
         } else if (attempt.isIntent) {
           coachSpokenMessage = attempt.feedback;
         } else if (!attempt.eligible) {
@@ -2141,6 +2285,10 @@
 
       const handleVoiceCommand = (cmdStr) => {
         if (!voiceSessionRef.current) return;
+        if (cmdStr === 'NEXT_MISSION' || cmdStr === 'NEXT MISSION') {
+          handleEndMissionAndContinue();
+          return;
+        }
         const res = voiceSessionRef.current.dispatchCommand(cmdStr);
         if (!res) return;
 
@@ -2376,6 +2524,15 @@
                       <div><strong>Mission:</strong> Level {voiceSessionSummary.currentMission} ({voiceSessionSummary.missionTitle})</div>
                       <div><strong>Verified Spoken:</strong> {voiceSessionSummary.verifiedSentences} / {voiceSessionSummary.missionTarget} ({voiceSessionSummary.progressPct}%)</div>
                     </div>
+
+                    <button
+                      type="button"
+                      onClick={handleEndMissionAndContinue}
+                      className="w-full py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center justify-center space-x-1.5 cursor-pointer"
+                    >
+                      <span>⏩</span>
+                      <span>End Mission & Advance to Next Level</span>
+                    </button>
 
                     <button
                       type="button"
@@ -2670,10 +2827,20 @@
 
                               <button
                                 type="button"
+                                onClick={handleEndMissionAndContinue}
+                                className="py-3 px-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-extrabold text-xs rounded-2xl shadow-lg transition flex items-center justify-center space-x-1 cursor-pointer"
+                                title="Complete current mission and advance to next level"
+                              >
+                                <span>⏩</span>
+                                <span>End Mission & Continue</span>
+                              </button>
+
+                              <button
+                                type="button"
                                 onClick={() => {
                                   handleVoiceCommand('END SESSION');
                                 }}
-                                className="py-3 px-4 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-extrabold text-xs sm:text-sm rounded-2xl shadow-lg transition flex items-center justify-center space-x-1.5 cursor-pointer"
+                                className="py-3 px-3 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-extrabold text-xs sm:text-sm rounded-2xl shadow-lg transition flex items-center justify-center space-x-1.5 cursor-pointer"
                               >
                                 <span>🔴</span>
                                 <span>End Call</span>
@@ -2719,6 +2886,7 @@
                       <button type="button" onClick={() => handleVoiceCommand('FREE TALK')} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition cursor-pointer">💬 Free Talk</button>
                       <button type="button" onClick={() => handleVoiceCommand('VOCABULARY')} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition cursor-pointer">📖 Vocabulary</button>
                       <button type="button" onClick={() => handleVoiceCommand('HOMEWORK')} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition cursor-pointer">📝 Homework</button>
+                      <button type="button" onClick={handleEndMissionAndContinue} className="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold rounded-lg transition cursor-pointer">⏩ End Mission & Continue</button>
                       <button type="button" onClick={() => handleVoiceCommand('END SESSION')} className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 font-bold rounded-lg ml-auto transition cursor-pointer">🛑 End Session</button>
                     </div>
                   </>
@@ -4862,8 +5030,14 @@
                       dashAiSum += aiPct;
                       if (aiPct >= 100) {
                         dashAiCompleted++;
-                      }
-                      if (aiPct > 0 && m.moduleNumber > activeMclLevel) {
+                        if (m.moduleNumber < 32 && m.moduleNumber + 1 > activeMclLevel) {
+                          activeMclLevel = m.moduleNumber + 1;
+                          activeMclProg = 0;
+                        } else if (m.moduleNumber === 32 && activeMclLevel === 0) {
+                          activeMclLevel = 32;
+                          activeMclProg = 100;
+                        }
+                      } else if (aiPct > 0 && m.moduleNumber >= activeMclLevel) {
                         activeMclLevel = m.moduleNumber;
                         activeMclProg = aiPct;
                       }

@@ -61,6 +61,7 @@
 
   // Natural Spoken Voice Intents
   var SPOKEN_INTENTS = {
+    NEXT_MISSION: /^(next mission|go to next mission|advance mission|advance to next mission|next level|advance|take me to next mission|say next mission)[\.!\?]?$/i,
     PAUSE: /^(stop|pause|wait|hold on|give me a second|pause practice|stop practice)[\.!\?]?$/i,
     RESUME: /^(resume|continue|start again|go ahead|i am ready|ready)[\.!\?]?$/i,
     REPEAT: /^(repeat( that| please)?|what did you say|say that again|could you repeat( that)?|pardon)[\.!\?]?$/i,
@@ -73,6 +74,7 @@
   function detectSpokenIntent(text) {
     if (!text || typeof text !== 'string') return null;
     var trimmed = text.trim();
+    if (SPOKEN_INTENTS.NEXT_MISSION.test(trimmed)) return 'NEXT_MISSION';
     if (SPOKEN_INTENTS.PAUSE.test(trimmed)) return 'PAUSE';
     if (SPOKEN_INTENTS.RESUME.test(trimmed)) return 'RESUME';
     if (SPOKEN_INTENTS.REPEAT.test(trimmed)) return 'REPEAT';
@@ -614,7 +616,10 @@
     }
 
     var self = this;
-    if (intent === 'PAUSE') {
+    if (intent === 'NEXT_MISSION') {
+      // Intent dispatched via onIntentDetected above to advance mission immediately
+      return;
+    } else if (intent === 'PAUSE') {
       this.pauseListening();
     } else if (intent === 'RESUME') {
       this.resumeListening();

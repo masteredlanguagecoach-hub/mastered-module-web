@@ -1042,11 +1042,20 @@ function handleSaveStudentProgress(data) {
     var mObj = existingObj[k] || existingObj["MOD-" + m];
     if (mObj) {
       var pct = Number(mObj.percentage) || (mObj.aiMissionCompleted ? 100 : 0);
-      if (pct > 0 && m >= highestLvl) {
+      if (pct >= 100 && m < 32) {
+        if (m + 1 > highestLvl) highestLvl = m + 1;
+      } else if (pct > 0 && m >= highestLvl) {
         highestLvl = m;
         highestProg = pct;
       }
     }
+  }
+
+  if (data.latestLevel && Number(data.latestLevel) > highestLvl) {
+    highestLvl = Number(data.latestLevel);
+  }
+  if (data.latestMissionLevel && Number(data.latestMissionLevel) > highestLvl) {
+    highestLvl = Number(data.latestMissionLevel);
   }
 
   if (foundRow > 0) {
@@ -1057,7 +1066,7 @@ function handleSaveStudentProgress(data) {
   } else {
     sheet.appendRow([adm, email, "", highestLvl, highestProg, finalProgressStr, now]);
   }
-  return { success: true, userProgress: existingObj };
+  return { success: true, userProgress: existingObj, latestLevel: highestLvl, latestMissionLevel: highestLvl };
 }
 
 function extractStudentProgressFromRow(row, headers, stripProofs) {
