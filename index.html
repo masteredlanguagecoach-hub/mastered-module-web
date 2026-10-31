@@ -1820,30 +1820,53 @@
         setVoiceSessionEnded(false);
         setVoiceSessionSummary(null);
 
-        if (!window.MasteredSpeechLive || !window.MasteredSpeechLive.isLiveVoiceSupported()) {
-          alert("Your browser does not have speech recognition or synthesis enabled. Falling back to text mode.");
+        const speechModule = window.MasteredSpeech || window.MasteredSpeechLive;
+        const hasRecognition = typeof window !== 'undefined' && Boolean(window.SpeechRecognition || window.webkitSpeechRecognition);
+        const hasSynthesis = typeof window !== 'undefined' && Boolean(window.speechSynthesis);
+
+        if (!hasRecognition && !hasSynthesis) {
+          if (showToast) showToast("ℹ️ Speech recognition is not supported in this browser. Switched to Text Practice.");
           setVoiceSubMode('TEXT');
           return;
         }
 
+        if (!speechModule || !speechModule.LiveVoicePipeline) {
+          if (showToast) showToast("Voice service loading... Please try again in a moment.");
+          return;
+        }
+
         if (!voicePipelineRef.current) {
-          const pipeline = new window.MasteredSpeechLive.LiveVoicePipeline({
+          const pipeline = new speechModule.LiveVoicePipeline({
+            speechRate: voiceSpeechSpeed || 0.86,
             onStateChange: (newState) => {
               setVoiceState(newState);
             },
-            onStudentSpeech: (speech) => {
-              if (handleStudentVoiceTurnRef.current) {
-                handleStudentVoiceTurnRef.current(speech);
-              }
-            },
-            onCoachSpeechEnd: () => {
-              setVoiceTranscript('');
-            },
-            onInterimTranscript: (interim) => {
-              setVoiceTranscript(interim);
-            },
             onAudioLevel: (lvl) => {
               setVoiceAudioLevel(lvl);
+            },
+            onTranscriptUpdate: (fullText) => {
+              setVoiceTranscript(fullText);
+            },
+            onStudentTurnComplete: (turnData) => {
+              const text = (typeof turnData === 'string') ? turnData : (turnData && turnData.text ? turnData.text : '');
+              if (handleStudentVoiceTurnRef.current) {
+                handleStudentVoiceTurnRef.current(text);
+              } else {
+                handleStudentVoiceTurn(text);
+              }
+            },
+            onIntentDetected: (intent, text) => {
+              if (intent === 'NEXT_MISSION') {
+                handleEndMissionAndContinue();
+              } else if (intent === 'END_SESSION') {
+                handleVoiceCommand('END SESSION');
+              } else if (intent === 'PAUSE') {
+                handlePauseResumeVoice();
+              } else if (intent === 'RESUME') {
+                handlePauseResumeVoice();
+              } else if (intent === 'REPEAT') {
+                handleRepeatInstructionVoice();
+              }
             },
             onError: (err) => {
               console.warn("Live voice pipeline notification:", err);
@@ -1853,10 +1876,15 @@
         }
 
         try {
+          if (voicePipelineRef.current.unlockMobileAudio) {
+            voicePipelineRef.current.unlockMobileAudio();
+          }
           const started = await voicePipelineRef.current.startLiveSession();
           if (started) {
             const session = voiceSessionRef.current;
-            const greeting = session ? session.getOpeningGreeting() : `Hello! I am Coach Sarah. Welcome to Mission ${activeMissionNumber}. Let's begin!`;
+            const greeting = (session && session.getMissionOpeningGreeting) 
+              ? session.getMissionOpeningGreeting(currentUser?.name || 'Student')
+              : (session ? session.getOpeningGreeting() : `Hello ${currentUser?.name || 'Student'}! I am Coach Sarah. Welcome to Mission ${activeMissionNumber}. Let's begin!`);
             setVoiceFeedback(greeting);
             updateActivePrompt(greeting);
             setConversationTurns([
@@ -1864,35 +1892,55 @@
             ]);
             setTimeout(() => {
               if (voicePipelineRef.current) {
-                voicePipelineRef.current.speak(greeting);
+                if (typeof voicePipelineRef.current.speakCoachResponse === 'function') {
+                  voicePipelineRef.current.speakCoachResponse(greeting);
+                } else if (typeof voicePipelineRef.current.speak === 'function') {
+                  voicePipelineRef.current.speak(greeting);
+                }
               }
             }, 300);
           }
         } catch(e) {
           console.error("Could not start live voice call:", e);
-          alert("Microphone access is needed for hands-free practice with Coach Sarah. Please enable mic permissions.");
+          if (showToast) showToast("Microphone access is needed for hands-free practice with Coach Sarah.");
         }
       };
 
       const handlePauseResumeVoice = () => {
         if (!voicePipelineRef.current) return;
         if (voiceState === 'PAUSED') {
-          voicePipelineRef.current.resumeLiveSession();
+          if (typeof voicePipelineRef.current.resumeListening === 'function') {
+            voicePipelineRef.current.resumeListening();
+          } else if (typeof voicePipelineRef.current.resumeLiveSession === 'function') {
+            voicePipelineRef.current.resumeLiveSession();
+          }
         } else {
-          voicePipelineRef.current.pauseLiveSession();
+          if (typeof voicePipelineRef.current.pauseListening === 'function') {
+            voicePipelineRef.current.pauseListening();
+          } else if (typeof voicePipelineRef.current.pauseLiveSession === 'function') {
+            voicePipelineRef.current.pauseLiveSession();
+          }
         }
       };
 
       const handleRepeatInstructionVoice = () => {
         if (!voicePipelineRef.current) return;
         const phraseToRepeat = voiceFeedback || activePromptText || (missionInfo.starterPrompts && missionInfo.starterPrompts[0]) || "Please speak your answer aloud.";
-        voicePipelineRef.current.speak(phraseToRepeat);
+        if (typeof voicePipelineRef.current.speakCoachResponse === 'function') {
+          voicePipelineRef.current.speakCoachResponse(phraseToRepeat);
+        } else if (typeof voicePipelineRef.current.speak === 'function') {
+          voicePipelineRef.current.speak(phraseToRepeat);
+        }
       };
 
       const handleSpeedToggleVoice = () => {
         if (!voicePipelineRef.current) return;
         const nextSpeed = voiceSpeechSpeed === 1.0 ? 1.2 : (voiceSpeechSpeed === 1.2 ? 0.8 : 1.0);
-        voicePipelineRef.current.setSpeed(nextSpeed);
+        if (typeof voicePipelineRef.current.setSpeed === 'function') {
+          voicePipelineRef.current.setSpeed(nextSpeed);
+        } else {
+          voicePipelineRef.current.speechRate = nextSpeed;
+        }
         setVoiceSpeechSpeed(nextSpeed);
       };
 

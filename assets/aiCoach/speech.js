@@ -1011,15 +1011,36 @@
     this.pipeline.unlockMobileAudio();
   };
 
+  // Seamless compatibility aliases on LiveVoicePipeline prototype
+  LiveVoicePipeline.prototype.speak = function (text, onFinish) {
+    return this.speakCoachResponse(text, onFinish);
+  };
+  LiveVoicePipeline.prototype.pauseLiveSession = function () {
+    return this.pauseListening();
+  };
+  LiveVoicePipeline.prototype.resumeLiveSession = function () {
+    return this.resumeListening();
+  };
+  LiveVoicePipeline.prototype.setSpeed = function (speed) {
+    this.speechRate = Number(speed) || 0.86;
+  };
+
   var MasteredSpeech = {
     STATES: STATES,
     VALID_TRANSITIONS: VALID_TRANSITIONS,
     LiveVoicePipeline: LiveVoicePipeline,
     BrowserSpeechEngine: BrowserSpeechEngine,
-    detectSpokenIntent: detectSpokenIntent
+    detectSpokenIntent: detectSpokenIntent,
+    isLiveVoiceSupported: function () {
+      if (typeof window === 'undefined') return false;
+      var hasRecognition = Boolean(window.SpeechRecognition || window.webkitSpeechRecognition);
+      var hasSynth = Boolean(window.speechSynthesis);
+      return Boolean(hasRecognition && hasSynth);
+    }
   };
 
   root.MasteredSpeech = MasteredSpeech;
+  root.MasteredSpeechLive = MasteredSpeech;
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = MasteredSpeech;
   }
