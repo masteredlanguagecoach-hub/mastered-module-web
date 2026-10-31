@@ -1474,7 +1474,7 @@
                             <button
                               onClick={() => {
                                 const w = window.open();
-                                if (w) { w.document.write(`<title>ChatGPT Proof - Module ${m.moduleNumber}</title><img src="${aiProof}" style="max-width:100%;height:auto;margin:auto;display:block;" />`); }
+                                if (w) { w.document.write(`<title>AI Mission Proof - Module ${m.moduleNumber}</title><img src="${aiProof}" style="max-width:100%;height:auto;margin:auto;display:block;" />`); }
                               }}
                               className="px-2.5 py-1 bg-purple-100 text-purple-800 text-[10px] font-bold rounded-xl border border-purple-300 hover:bg-purple-200 transition"
                             >
@@ -1508,208 +1508,8 @@
       );
     }
 
-    // Mastered Code Language - Version 1 (MCL-1) Codebooks
-    const MCL_ADM_MAP = {"A":"XK","B":"QF","C":"NV","D":"HT","E":"RM","F":"ZC","G":"PJ","H":"WD","I":"KY","J":"FV","K":"BG","L":"TR","M":"LX","N":"SQ","O":"CP","P":"JN","Q":"VM","R":"DK","S":"YR","T":"GH","U":"MW","V":"KB","W":"RX","X":"TZ","Y":"PF","Z":"HC","0":"VQ","1":"XT","2":"NR","3":"KD","4":"ZM","5":"FW","6":"PB","7":"CJ","8":"HS","9":"YN"};
-    const MCL_REV_ADM = Object.fromEntries(Object.entries(MCL_ADM_MAP).map(([k,v]) => [v,k]));
-
-    const MCL_MIS_MAP = {"0":"AQ","1":"BR","2":"CT","3":"DV","4":"EX","5":"FZ","6":"GK","7":"HM","8":"JP","9":"LS"};
-    const MCL_REV_MIS = Object.fromEntries(Object.entries(MCL_MIS_MAP).map(([k,v]) => [v,k]));
-
-    const MCL_PROG_MAP = {"0":"UC","1":"VE","2":"WG","3":"XJ","4":"YL","5":"ZN","6":"AP","7":"BS","8":"DU","9":"EW"};
-    const MCL_REV_PROG = Object.fromEntries(Object.entries(MCL_PROG_MAP).map(([k,v]) => [v,k]));
-
-    const MCL_LEN_MAP = {3:"QA", 4:"RB", 5:"SC", 6:"TD", 7:"UE", 8:"VF", 9:"WG", 10:"XH", 11:"YJ", 12:"ZK"};
-    const MCL_REV_LEN = Object.fromEntries(Object.entries(MCL_LEN_MAP).map(([k,v]) => [v, Number(k)]));
-
-    function encodeMcl1(admInput, missionInput, progressInput) {
-      const adm = String(admInput || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
-      if (!adm || !MCL_LEN_MAP[adm.length]) return "";
-
-      const misNum = parseInt(missionInput) || 1;
-      const misStr = String(misNum).padStart(2, "0");
-
-      const progNum = Math.min(100, Math.max(0, parseInt(progressInput) || 0));
-      const progStr = String(progNum).padStart(3, "0");
-
-      const L = MCL_LEN_MAP[adm.length];
-
-      let encAdm = "";
-      for (let c of adm) { encAdm += (MCL_ADM_MAP[c] || ""); }
-
-      const n = adm.length;
-      const n1 = n % 2 !== 0 ? Math.floor((n + 1) / 2) : n / 2;
-      const encHalf1 = encAdm.substring(0, n1 * 2);
-      const encHalf2 = encAdm.substring(n1 * 2);
-
-      let encMis = "";
-      for (let c of misStr) { encMis += (MCL_MIS_MAP[c] || ""); }
-
-      let encProg = "";
-      for (let c of progStr) { encProg += (MCL_PROG_MAP[c] || ""); }
-
-      const raw = encProg + encHalf1 + encMis + encHalf2 + L;
-      const groups = raw.match(/.{1,4}/g) || [raw];
-      return groups.join("-");
-    }
-
-    function decodeMcl1(codeStr) {
-      const clean = String(codeStr || "").replace(/[^A-Z]/gi, "").toUpperCase();
-      if (clean.length < 12) return { success: false, message: "INVALID PROGRESS CODE" };
-
-      const L_code = clean.slice(-2);
-      if (!MCL_REV_LEN[L_code]) return { success: false, message: "INVALID PROGRESS CODE" };
-
-      const n = MCL_REV_LEN[L_code];
-      const expectedLen = 6 + (2 * n) + 4 + 2;
-      if (clean.length !== expectedLen) return { success: false, message: "INVALID PROGRESS CODE" };
-
-      const n1 = n % 2 !== 0 ? Math.floor((n + 1) / 2) : n / 2;
-      const n2 = n - n1;
-
-      const encProg = clean.substring(0, 6);
-      const encHalf1 = clean.substring(6, 6 + 2 * n1);
-      const encMis = clean.substring(6 + 2 * n1, 6 + 2 * n1 + 4);
-      const encHalf2 = clean.substring(6 + 2 * n1 + 4, 6 + 2 * n1 + 4 + 2 * n2);
-
-      let progDigits = "";
-      for (let i = 0; i < 6; i += 2) {
-        const pair = encProg.substring(i, i + 2);
-        if (!MCL_REV_PROG[pair]) return { success: false, message: "INVALID PROGRESS CODE" };
-        progDigits += MCL_REV_PROG[pair];
-      }
-      const progress = parseInt(progDigits, 10);
-
-      let misDigits = "";
-      for (let i = 0; i < 4; i += 2) {
-        const pair = encMis.substring(i, i + 2);
-        if (!MCL_REV_MIS[pair]) return { success: false, message: "INVALID PROGRESS CODE" };
-        misDigits += MCL_REV_MIS[pair];
-      }
-      const mission = parseInt(misDigits, 10);
-
-      const fullEncAdm = encHalf1 + encHalf2;
-      let admStr = "";
-      for (let i = 0; i < fullEncAdm.length; i += 2) {
-        const pair = fullEncAdm.substring(i, i + 2);
-        if (!MCL_REV_ADM[pair]) return { success: false, message: "INVALID PROGRESS CODE" };
-        admStr += MCL_REV_ADM[pair];
-      }
-
-      if (mission < 1 || mission > 33 || progress < 0 || progress > 100) {
-        return { success: false, message: "INVALID PROGRESS CODE" };
-      }
-
-      return { success: true, admissionNumber: admStr, mission, progress };
-    }
-
-    // Decoded Progress Report Modal Component
-    function DecodedProgressReportModal({ decodedData, currentUser, currentPct, onConfirmSave, onClose }) {
-      if (!decodedData) return null;
-
-      const userAdm = (currentUser?.admissionNumber || '').toString().toUpperCase().trim();
-      const codeAdm = (decodedData.admissionNumber || '').toString().toUpperCase().trim();
-      const isMatched = userAdm ? (codeAdm === userAdm) : true;
-      const isGain = decodedData.progress > currentPct;
-
-      return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md" onClick={onClose}>
-          <div className="bg-white rounded-3xl p-6 max-w-md w-full border border-slate-200 shadow-2xl space-y-5 text-center" onClick={e => e.stopPropagation()}>
-            
-            <div className={`w-16 h-16 rounded-full mx-auto flex items-center justify-center text-3xl shadow-md ${
-              !isMatched ? 'bg-rose-100 text-rose-600 border border-rose-300' :
-              !isGain ? 'bg-amber-100 text-amber-600 border border-amber-300' :
-              'bg-emerald-100 text-emerald-600 border border-emerald-300'
-            }`}>
-              {!isMatched ? '⛔' : !isGain ? 'ℹ️' : '🎉'}
-            </div>
-
-            <div>
-              <h3 className="text-xl font-extrabold text-slate-900">MCL-1 Decoded Progress Report</h3>
-              <p className="text-xs text-slate-500 mt-1">Mastered Code Language Verification Result</p>
-            </div>
-
-            <div className="bg-slate-900 text-white p-4 rounded-2xl space-y-3 text-left border border-slate-800 text-xs">
-              <div className="flex justify-between items-center pb-2 border-b border-slate-800">
-                <span className="text-slate-400">Student Admission:</span>
-                <span className="font-mono font-extrabold text-amber-400 text-sm">{decodedData.admissionNumber}</span>
-              </div>
-
-              <div className="flex justify-between items-center pb-2 border-b border-slate-800">
-                <span className="text-slate-400">Mission Level:</span>
-                <span className="font-extrabold text-white">Level {decodedData.mission}</span>
-              </div>
-
-              <div className="flex justify-between items-center pb-2 border-b border-slate-800">
-                <span className="text-slate-400">Session Progress:</span>
-                <span className="font-black text-emerald-400 text-base">{decodedData.progress}%</span>
-              </div>
-
-              <div className="flex justify-between items-center">
-                <span className="text-slate-400">Account Security:</span>
-                <span className={`font-bold px-2 py-0.5 rounded text-[11px] ${
-                  isMatched ? 'bg-emerald-950 text-emerald-300 border border-emerald-700' : 'bg-rose-950 text-rose-300 border border-rose-700'
-                }`}>
-                  {isMatched ? '✅ Matched Account' : '⛔ Mismatched Account'}
-                </span>
-              </div>
-            </div>
-
-            {!isMatched ? (
-              <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-800 font-bold">
-                ⛔ This code was generated for admission number "{decodedData.admissionNumber}". You cannot update progress using another student's code.
-              </div>
-            ) : !isGain ? (
-              <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800 font-bold">
-                ℹ️ Current recorded progress for Level {decodedData.mission} is ALREADY {currentPct}%. Progress cannot be reduced.
-              </div>
-            ) : (
-              <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 font-bold">
-                🚀 New Progress Verified! Confirming will update your Level {decodedData.mission} progress to {decodedData.progress}% in Google Sheets database.
-              </div>
-            )}
-
-            <div className="flex space-x-2 pt-2">
-              <button
-                type="button"
-                onClick={onClose}
-                className="w-1/2 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition"
-              >
-                Cancel
-              </button>
-              
-              {isMatched && isGain ? (
-                <button
-                  type="button"
-                  onClick={() => { onConfirmSave(); onClose(); }}
-                  className="w-1/2 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition"
-                >
-                  ✅ Save & Sync Progress
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="w-1/2 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-xl transition"
-                >
-                  Close
-                </button>
-              )}
-            </div>
-
-          </div>
-        </div>
-      );
-    }
-
-    
     // AI Mission Prompts & Guided Practice Modal Component
-    function AiMissionPromptModal({ onClose, showToast, currentUser, userProgress, setUserProgress, getCurrentStudentProgressMap, activeModule, onVerifyMclCode, asPage = false }) {
-      const [copiedPrompt, setCopiedPrompt] = useState(null);
-      const [inputMclCode, setInputMclCode] = useState('');
-      const [isVerifyingCode, setIsVerifyingCode] = useState(false);
-      const [decodedReport, setDecodedReport] = useState(null);
-
-      const [activeCoachTab, setActiveCoachTab] = useState('voice');
+    function AiMissionPromptModal({ onClose, showToast, currentUser, userProgress, setUserProgress, getCurrentStudentProgressMap, activeModule, asPage = false }) {
       const [voiceSubMode, setVoiceSubMode] = useState('VOICE'); // 'VOICE' (Live) | 'TEXT' (Fallback)
       const [voiceTranscript, setVoiceTranscript] = useState('');
       const [voiceFeedback, setVoiceFeedback] = useState('');
@@ -1760,7 +1560,7 @@
         ? getCurrentStudentProgressMap() 
         : (userProgress?.[cleanAdm] || userProgress?.[admNum] || userProgress?.[studentEmail] || {});
 
-      // 1. Calculate active module matching the profile/dashboard logic:
+      // Calculate active module matching the profile/dashboard logic:
       let highestActiveLevel = 0;
       let firstIncomplete = 1;
       let foundIncomplete = false;
@@ -1778,10 +1578,6 @@
         }
       }
 
-      // Initial active mission:
-      // Priority 1: User explicitly clicked a module in course view (activeModule.moduleNumber)
-      // Priority 2: First incomplete module (e.g. if 1..8 completed, active starts on 9!)
-      // Priority 3: Student's highest active level
       const initialMission = (activeModule && activeModule.moduleNumber) 
         ? activeModule.moduleNumber 
         : (foundIncomplete ? firstIncomplete : (highestActiveLevel > 0 ? highestActiveLevel : 1));
@@ -1799,8 +1595,6 @@
         ? modProgObj.verifiedSentences 
         : Math.round((currentPct / 100) * tSentences);
 
-      const mclCode = encodeMcl1(admNum, activeMissionNumber, currentPct);
-
       const missionInfo = (window.MasteredCurriculum && window.MasteredCurriculum.getMission) 
         ? window.MasteredCurriculum.getMission(activeMissionNumber)
         : { title: `Module ${activeMissionNumber}`, targetSentences: tSentences, grammarFocus: 'English Fluency', situation: 'Speaking Practice', starterPrompts: ['Please speak your answer aloud in full sentences.'] };
@@ -1815,1289 +1609,846 @@
         setVoiceSessionSummary(null);
         setVoiceFeedback('');
         setVoiceTranscript('');
+        setConversationTurns([]);
+
+        const newKey = `MOD-${newMNum < 10 ? '0' + newMNum : newMNum}`;
+        const newObj = currentStudentProg[newKey] || currentStudentProg[`MOD-${newMNum}`] || {};
+        const newTarget = (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission) 
+          ? window.MasteredCurriculum.getTargetForMission(newMNum) 
+          : 30;
+        const newVerified = (typeof newObj.verifiedSentences === 'number') 
+          ? newObj.verifiedSentences 
+          : Math.round(((Number(newObj.percentage) || 0) / 100) * newTarget);
+        setVoiceVerifiedCount(newVerified);
+
+        const newMData = (window.MasteredCurriculum && window.MasteredCurriculum.getMission) 
+          ? window.MasteredCurriculum.getMission(newMNum) 
+          : null;
+        const starter = (newMData && newMData.starterPrompts && newMData.starterPrompts[0]) 
+          ? newMData.starterPrompts[0] 
+          : 'Please speak your answer aloud.';
+        updateActivePrompt(starter);
+
+        if (voiceSessionRef.current) {
+          voiceSessionRef.current.currentMission = newMNum;
+          voiceSessionRef.current.verifiedSentences = newVerified;
+        }
       };
 
-      // Synchronize verified spoken practice directly into Google Sheets StudentProgress database
-      const syncVoiceProgressToDatabase = (prof) => {
-        if (!prof) return;
-        try {
-          const mNum = prof.currentMission;
-          const target = prof.missionTarget || 30;
-          const verified = prof.verifiedSentences || 0;
-          const pct = Math.min(100, Math.round((verified / target) * 100));
+      const syncVoiceProgressToDatabase = async (progressData) => {
+        if (!progressData) return;
+        const targetMisNum = progressData.currentMission || activeMissionNumber;
+        const targetVerified = progressData.verifiedSentences || 0;
+        const targetPct = progressData.progressPct || 0;
+        const isDone = targetPct >= 100;
 
-          const mKey = `MOD-${mNum < 10 ? '0' + mNum : mNum}`;
-          const activeProg = (typeof getCurrentStudentProgressMap === 'function') 
-            ? getCurrentStudentProgressMap() 
-            : (userProgress?.[cleanAdm] || userProgress?.[admNum] || userProgress?.[studentEmail] || {});
+        const targetKey = `MOD-${targetMisNum < 10 ? '0' + targetMisNum : targetMisNum}`;
+        const existingMod = currentStudentProg[targetKey] || currentStudentProg[`MOD-${targetMisNum}`] || {};
 
-          const updatedModObj = {
-            ...(activeProg[mKey] || {}),
-            percentage: pct,
-            verifiedSentences: verified,
-            aiMissionCompleted: pct > 0,
-            status: pct === 100 ? 'COMPLETED' : ((activeProg[mKey] && activeProg[mKey].status) || 'IN_PROGRESS'),
-            lastUpdated: new Date().toISOString()
+        const updatedModObj = {
+          ...existingMod,
+          percentage: targetPct,
+          verifiedSentences: targetVerified,
+          status: isDone ? 'COMPLETED' : (existingMod.status || 'IN_PROGRESS'),
+          aiMissionCompleted: isDone || existingMod.aiMissionCompleted || targetPct > 0,
+          lastUpdated: new Date().toISOString()
+        };
+
+        const updatedStudentMap = { ...currentStudentProg, [targetKey]: updatedModObj };
+
+        for (let lvl = 1; lvl < targetMisNum; lvl++) {
+          const pKey = `MOD-${lvl < 10 ? '0' + lvl : lvl}`;
+          if (!updatedStudentMap[pKey]) updatedStudentMap[pKey] = {};
+          if (!updatedStudentMap[pKey].percentage || Number(updatedStudentMap[pKey].percentage) < 100) {
+            updatedStudentMap[pKey] = {
+              ...updatedStudentMap[pKey],
+              percentage: 100,
+              aiMissionCompleted: true,
+              status: 'COMPLETED'
+            };
+          }
+        }
+
+        const userKey = (currentUser?.admissionNumber || currentUser?.studentId || currentUser?.email || admNum).toString().trim().toUpperCase();
+
+        setUserProgress(prev => {
+          const newState = {
+            ...prev,
+            [userKey]: updatedStudentMap,
+            [cleanAdm]: updatedStudentMap,
+            [admNum]: updatedStudentMap,
+            ...updatedStudentMap
           };
+          safeStorage.setItem('mastered_all_students_progress', JSON.stringify(newState));
+          if (userKey) safeStorage.setItem(`mastered_progress_${userKey}`, JSON.stringify(updatedStudentMap));
+          if (cleanAdm) safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(updatedStudentMap));
+          return newState;
+        });
 
-          const updatedMap = { ...activeProg, [mKey]: updatedModObj };
-
-          // Synthesize completed prior missions as 100%
-          for (let lvl = 1; lvl < mNum; lvl++) {
-            const pKey = `MOD-${lvl < 10 ? '0' + lvl : lvl}`;
-            if (!updatedMap[pKey] || !updatedMap[pKey].percentage || Number(updatedMap[pKey].percentage) < 100) {
-              updatedMap[pKey] = {
-                ...(updatedMap[pKey] || {}),
-                percentage: 100,
-                aiMissionCompleted: true,
-                status: 'COMPLETED'
-              };
-            }
-          }
-
-          // 1. Update React state immediately across all aliases safely
-          if (typeof setUserProgress === 'function') {
-            setUserProgress(prev => {
-              const newState = {
-                ...(prev || {}),
-                [cleanAdm]: updatedMap,
-                [admNum]: updatedMap,
-                ...(studentEmail ? { [studentEmail]: updatedMap } : {})
-              };
-              try {
-                safeStorage.setItem('mastered_all_students_progress', JSON.stringify(newState));
-                if (cleanAdm) safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(updatedMap));
-              } catch(e) {}
-              return newState;
+        try {
+          if (typeof callAppsScript === 'function') {
+            await callAppsScript('saveStudentProgress', {
+              admissionNumber: currentUser?.admissionNumber || admNum,
+              email: currentUser?.email || studentEmail,
+              userProgress: updatedStudentMap,
+              latestMissionLevel: targetMisNum
             });
-          } else {
-            try {
-              if (cleanAdm) safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(updatedMap));
-            } catch(e) {}
           }
+        } catch(err) {
+          console.warn('Voice progress database sync saved locally, cloud deferred:', err);
+        }
+      };
 
-          const calculatedNextLvl = prof.nextLevel || (pct === 100 && mNum < 32 ? mNum + 1 : mNum);
+      const handleEndMissionAndContinue = async () => {
+        if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
+          voicePipelineRef.current.endLiveSession();
+        }
 
-          // 2. Persist to Google Sheets database asynchronously (cross-device & admin dashboard!)
-          callAppsScript('saveStudentProgress', {
-            admissionNumber: cleanAdm || admNum,
-            email: studentEmail,
-            userProgress: updatedMap,
-            latestLevel: calculatedNextLvl,
-            latestMissionLevel: calculatedNextLvl
-          }).then(res => {
-            console.log("[Google Sheets Save Success]", res);
-          }).catch(err => {
-            console.warn("[Google Sheets Save Warning]", err);
-          });
+        const completedMission = activeMissionNumber;
+        const targetSentences = (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission)
+          ? window.MasteredCurriculum.getTargetForMission(completedMission)
+          : (completedMission <= 8 ? 30 : (completedMission <= 23 ? 40 : 50));
 
-          // 3. Mirror authoritative MCL code in database
-          const code = encodeMcl1(cleanAdm || admNum, mNum, pct);
-          callAppsScript('verifyMclCode', {
-            code: code,
-            admissionNumber: cleanAdm || admNum,
-            email: studentEmail
-          }).catch(() => {});
-        } catch (syncErr) {
-          console.warn("[Voice Progress Sync Error]", syncErr);
+        await syncVoiceProgressToDatabase({
+          currentMission: completedMission,
+          verifiedSentences: targetSentences,
+          progressPct: 100,
+          status: 'COMPLETED'
+        });
+
+        if (showToast) {
+          showToast(`🎉 Level ${completedMission} Completed & Verified 100%!`);
+        }
+
+        const nextMission = Math.min(32, completedMission + 1);
+        handleSwitchMission(nextMission);
+        setVoiceSessionEnded(false);
+        setVoiceSessionSummary(null);
+
+        if (completedMission < 32) {
+          if (showToast) {
+            showToast(`🚀 Advanced to Mission ${nextMission}! Starting new lesson...`);
+          }
+        } else {
+          if (showToast) {
+            showToast(`🏆 Congratulations! You have completed all 32 Missions!`);
+          }
         }
       };
 
       useEffect(() => {
-        // Prevent tearing down active call pipeline if user is already talking in a live session
-        if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
-          return;
-        }
+        setVoiceVerifiedCount(missionVerified);
+        const starter = (missionInfo.starterPrompts && missionInfo.starterPrompts[0]) 
+          ? missionInfo.starterPrompts[0] 
+          : 'Please speak your answer aloud in full sentences.';
+        updateActivePrompt(starter);
 
-        if (window.MasteredAiCoachEngine && window.MasteredCurriculum) {
-          const initP = window.MasteredAiCoachEngine.createProfile({
+        if (window.MasteredAiCoachEngine) {
+          const profile = window.MasteredAiCoachEngine.createProfile({
+            name: currentUser?.name || 'Mastered Student',
             admissionNumber: admNum,
-            name: currentUser?.name || 'Student',
+            englishLevel: currentUser?.englishLevel || 'BEGINNER',
+            learningGoal: currentUser?.learningGoal || 'General English Fluency',
             currentMission: activeMissionNumber,
-            verifiedSentences: missionVerified,
-            userProgress: currentStudentProg
+            verifiedSentences: missionVerified
           });
 
-          const session = new window.MasteredAiCoachEngine.AiCoachSession(initP, {
-            onSentenceVerified: (p) => {
-              syncVoiceProgressToDatabase(p);
+          const session = new window.MasteredAiCoachEngine.AiCoachSession(profile, {
+            onSentenceVerified: (prog) => {
+              setVoiceVerifiedCount(prog.verifiedSentences);
+              syncVoiceProgressToDatabase(prog);
             },
-            onSaveProgress: (p) => {
-              syncVoiceProgressToDatabase(p);
+            onSaveProgress: (prog) => {
+              syncVoiceProgressToDatabase(prog);
             }
           });
+
           voiceSessionRef.current = session;
-          setVoiceVerifiedCount(session.getProfile().verifiedSentences);
-
-          const curM = session.getMissionDetails();
-          const initialPrompt = (curM.starterPrompts && curM.starterPrompts[0]) || "Please introduce yourself aloud in full sentences.";
-          updateActivePrompt(initialPrompt);
-
-          if (window.MasteredSpeech && window.MasteredSpeech.LiveVoicePipeline) {
-            const pipeline = new window.MasteredSpeech.LiveVoicePipeline({
-              speechRate: 0.86,
-              onStateChange: (st) => setVoiceState(st),
-              onAudioLevel: (lvl) => setVoiceAudioLevel(lvl),
-              onTranscriptUpdate: (fullText) => setVoiceTranscript(fullText),
-              onStudentTurnComplete: (turnData) => {
-                if (handleStudentVoiceTurnRef.current) {
-                  handleStudentVoiceTurnRef.current(turnData);
-                } else {
-                  handleStudentVoiceTurn(turnData);
-                }
-              },
-              onIntentDetected: (intent, text) => {
-                if (intent === 'NEXT_MISSION') {
-                  handleEndMissionAndContinue();
-                } else if (intent === 'END_SESSION') {
-                  handleVoiceCommand('END SESSION');
-                } else if (intent === 'PAUSE') {
-                  if (voicePipelineRef.current) {
-                    voicePipelineRef.current.pauseListening();
-                  }
-                } else if (intent === 'RESUME') {
-                  if (voicePipelineRef.current) {
-                    voicePipelineRef.current.resumeListening();
-                  }
-                } else if (intent === 'SPEAK_SLOW') {
-                  setVoiceSpeechSpeed(0.8);
-                } else if (intent === 'SPEAK_NORMAL') {
-                  setVoiceSpeechSpeed(0.86);
-                } else if (intent === 'REPEAT') {
-                  if (voicePipelineRef.current) {
-                    const promptToRepeat = activePromptRef.current || activePromptText;
-                    voicePipelineRef.current.speakCoachResponse(`I'll repeat the task: ${promptToRepeat}`);
-                  }
-                } else if (intent === 'DONT_UNDERSTAND') {
-                  const currentP = activePromptRef.current || activePromptText;
-                  const hint = `Here is a tip: Focus on ${missionInfo.grammarFocus}. For instance, try starting with: ${missionInfo.starterPrompts?.[0] || currentP}`;
-                  if (voicePipelineRef.current) {
-                    voicePipelineRef.current.speakCoachResponse(hint);
-                  }
-                }
-              },
-              onError: (err) => {
-                if (err && err.code === 'INVALID_TRANSITION') {
-                  console.warn("[VoicePipeline Notice]", err.message);
-                  return;
-                }
-                setVoiceFeedback('Notice: ' + (err.message || 'Please check microphone.'));
-              }
-            });
-            voicePipelineRef.current = pipeline;
-          }
         }
+
         return () => {
-          if (voicePipelineRef.current) {
-            try { voicePipelineRef.current.endLiveSession(); } catch(e) {}
+          if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
+            voicePipelineRef.current.endLiveSession();
           }
         };
-      }, [admNum, activeMissionNumber]);
+      }, [activeMissionNumber]);
 
-      // End Mission and Continue: Completes current mission (100%) and advances to next level
-      const handleEndMissionAndContinue = () => {
-        const currentM = activeMissionNumber;
-        const nextM = Math.min(32, currentM + 1);
-        const target = missionInfo.targetSentences || 30;
+      const handleStudentVoiceTurn = async (spokenText) => {
+        if (!spokenText || !spokenText.trim()) return;
 
-        const curKey = `MOD-${currentM < 10 ? '0' + currentM : currentM}`;
-        const nextKey = `MOD-${nextM < 10 ? '0' + nextM : nextM}`;
-        const activeProg = (typeof getCurrentStudentProgressMap === 'function') 
-          ? getCurrentStudentProgressMap() 
-          : (userProgress?.[cleanAdm] || userProgress?.[admNum] || userProgress?.[studentEmail] || {});
+        const cleanSpeech = spokenText.trim();
+        const spokenNormalized = cleanSpeech.toLowerCase();
 
-        const updatedCurObj = {
-          ...(activeProg[curKey] || {}),
-          percentage: 100,
-          verifiedSentences: target,
-          aiMissionCompleted: true,
-          status: 'COMPLETED',
-          lastUpdated: new Date().toISOString()
-        };
-
-        const updatedNextObj = {
-          ...(activeProg[nextKey] || {}),
-          percentage: activeProg[nextKey]?.percentage || 0,
-          verifiedSentences: activeProg[nextKey]?.verifiedSentences || 0,
-          status: (Number(activeProg[nextKey]?.percentage) >= 100) ? 'COMPLETED' : 'IN_PROGRESS',
-          lastUpdated: new Date().toISOString()
-        };
-
-        const updatedMap = {
-          ...activeProg,
-          [curKey]: updatedCurObj,
-          [nextKey]: updatedNextObj
-        };
-
-        for (let lvl = 1; lvl <= currentM; lvl++) {
-          const pKey = `MOD-${lvl < 10 ? '0' + lvl : lvl}`;
-          updatedMap[pKey] = {
-            ...(updatedMap[pKey] || {}),
-            percentage: 100,
-            verifiedSentences: (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission) ? window.MasteredCurriculum.getTargetForMission(lvl) : 30,
-            aiMissionCompleted: true,
-            status: 'COMPLETED'
-          };
-        }
-
-        if (typeof setUserProgress === 'function') {
-          setUserProgress(prev => {
-            const newState = {
-              ...(prev || {}),
-              [cleanAdm]: updatedMap,
-              [admNum]: updatedMap,
-              ...(studentEmail ? { [studentEmail]: updatedMap } : {})
-            };
-            try {
-              safeStorage.setItem('mastered_all_students_progress', JSON.stringify(newState));
-              if (cleanAdm) safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(updatedMap));
-            } catch(e) {}
-            return newState;
-          });
-        }
-
-        callAppsScript('saveStudentProgress', {
-          admissionNumber: cleanAdm || admNum,
-          email: studentEmail,
-          userProgress: updatedMap,
-          latestLevel: nextM,
-          latestMissionLevel: nextM
-        }).catch(() => {});
-
-        setSelectedMissionNumber(nextM);
-        setVoiceVerifiedCount(0);
-        setVoiceSessionEnded(false);
-        setVoiceSessionSummary(null);
-
-        if (voiceSessionRef.current) {
-          voiceSessionRef.current.profile.currentMission = nextM;
-          voiceSessionRef.current.profile.verifiedSentences = 0;
-          voiceSessionRef.current.profile.missionTarget = (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission) ? window.MasteredCurriculum.getTargetForMission(nextM) : 30;
-          voiceSessionRef.current.profile.progressPct = 0;
-          voiceSessionRef.current.profile.missionStatus = 'IN_PROGRESS';
-          if (voiceSessionRef.current.dialogueContext) {
-            voiceSessionRef.current.dialogueContext.askedQuestions = [];
-            voiceSessionRef.current.dialogueContext.history = [];
-          }
-        }
-
-        const nextInfo = (window.MasteredCurriculum && window.MasteredCurriculum.getMission) ? window.MasteredCurriculum.getMission(nextM) : null;
-        const nextStarter = (nextInfo && nextInfo.starterPrompts && nextInfo.starterPrompts[0]) || "Please introduce yourself aloud in full sentences.";
-        updateActivePrompt(nextStarter);
-
-        const transitionMsg = currentM < 32 
-          ? `Mission ${currentM} completed! Advanced to Mission ${nextM}: ${nextInfo ? nextInfo.title : ''}. ${nextStarter}`
-          : `Outstanding job! You have completed all 32 missions and graduated the speaking program!`;
-        setVoiceFeedback(transitionMsg);
-
-        if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
-          voicePipelineRef.current.speakCoachResponse(transitionMsg);
-        }
-
-        if (showToast) showToast(`🚀 Mission ${currentM} Completed! Advanced to Level ${nextM}`);
-      };
-
-      const handleStudentVoiceTurn = async (turnData) => {
-        if (!voiceSessionRef.current) return;
-
-        // Intercept Voice Command for NEXT MISSION immediately
-        const trimmedSpoken = String(turnData.text || '').trim();
-        if (/^(next[\s_]*mission|advance\s*mission|next\s*level|advance|take\s*me\s*to\s*next\s*mission|say\s*next\s*mission)[.!?]?$/i.test(trimmedSpoken)) {
-          handleEndMissionAndContinue();
+        if (spokenNormalized.includes('next mission') || spokenNormalized.includes('advance to next mission') || spokenNormalized.includes('next level')) {
+          if (showToast) showToast('Advancing to next mission...');
+          await handleEndMissionAndContinue();
           return;
         }
 
-        setVoiceState('GENERATING_RESPONSE');
-        setVoiceFeedback("Thinking...");
+        setVoiceTranscript(cleanSpeech);
 
-        let attempt;
-        if (typeof voiceSessionRef.current.recordAttemptWithGemini === 'function') {
-          attempt = await voiceSessionRef.current.recordAttemptWithGemini({
-            source: 'speech',
-            text: turnData.text,
-            confidence: turnData.confidence,
-            turnId: turnData.turnId,
-            nonce: 'voice_' + activeMissionNumber + '_' + turnData.turnId + '_' + turnData.text.replace(/[^a-zA-Z0-9]/g, '').slice(0, 24)
-          });
-        } else {
-          attempt = voiceSessionRef.current.recordAttempt({
-            source: 'speech',
-            text: turnData.text,
-            confidence: turnData.confidence,
-            turnId: turnData.turnId,
-            nonce: 'voice_' + activeMissionNumber + '_' + turnData.turnId + '_' + turnData.text.replace(/[^a-zA-Z0-9]/g, '').slice(0, 24)
-          });
-        }
+        const session = voiceSessionRef.current;
+        if (!session) return;
 
-        const prof = voiceSessionRef.current.getProfile();
+        const turnResult = await session.processStudentSpeechTurn(cleanSpeech);
 
-        // 1. Retrieve the next speaking question for the student immediately
-        const nextQ = voiceSessionRef.current.getNextQuestion 
-          ? voiceSessionRef.current.getNextQuestion() 
-          : "Please keep speaking your thoughts aloud.";
-        
-        let coachSpokenMessage = '';
-        if (attempt.passed) {
-          const completedM = prof.currentMission;
-          const nextM = Math.min(32, completedM + 1);
-          const nextInfo = (window.MasteredCurriculum && window.MasteredCurriculum.getMission) ? window.MasteredCurriculum.getMission(nextM) : null;
-          const nextTitle = nextInfo ? nextInfo.title : ('Mission ' + nextM);
-          const nextPrompt = (nextInfo && nextInfo.starterPrompts && nextInfo.starterPrompts[0]) || "Please tell me about your thoughts aloud.";
-
-          if (completedM < 32) {
-            coachSpokenMessage = `Outstanding job! You completed all ${prof.missionTarget} target sentences for Mission ${completedM}! You have officially leveled up to Mission ${nextM}: ${nextTitle}! Let's keep going: ${nextPrompt}`;
-            updateActivePrompt(nextPrompt);
-
-            // Automatically advance session and UI
-            if (voiceSessionRef.current) {
-              voiceSessionRef.current.advanceMission(true);
-            }
-            setSelectedMissionNumber(nextM);
-            setVoiceVerifiedCount(0);
-
-            setTimeout(() => {
-              syncVoiceProgressToDatabase({
-                ...prof,
-                currentMission: completedM,
-                verifiedSentences: prof.missionTarget,
-                nextLevel: nextM
-              });
-              if (showToast) showToast(`🎉 Mission ${completedM} Completed! Advanced to Level ${nextM}!`);
-            }, 50);
-          } else {
-            coachSpokenMessage = `Outstanding job! You completed all 32 Mastered Language Coach missions! You have officially graduated the conversational speaking program!`;
-            updateActivePrompt(coachSpokenMessage);
-          }
-        } else if (attempt.isIntent) {
-          coachSpokenMessage = attempt.feedback;
-        } else if (!attempt.eligible) {
-          coachSpokenMessage = attempt.coachResponse || attempt.feedback;
-        } else {
-          // Connected natural conversation turn from the conversation engine
-          coachSpokenMessage = attempt.coachResponse || attempt.feedback || (voiceSessionRef.current.getNextQuestion ? voiceSessionRef.current.getNextQuestion(turnData.text) : "Tell me more about that.");
-          updateActivePrompt(coachSpokenMessage);
-        }
-
-        setVoiceFeedback(coachSpokenMessage);
+        setVoiceVerifiedCount(turnResult.verifiedCount);
+        setVoiceFeedback(turnResult.spokenResponse);
+        updateActivePrompt(turnResult.spokenResponse);
 
         setConversationTurns(prev => {
           const newTurns = [
             ...prev,
-            { role: 'student', text: turnData.text, eligible: attempt.eligible, increment: attempt.verifiedIncrement, timestamp: Date.now() },
-            { role: 'coach', text: coachSpokenMessage, timestamp: Date.now() + 10 }
+            { role: 'student', text: cleanSpeech, verified: turnResult.verifiedIncrement > 0 },
+            { role: 'coach', text: turnResult.spokenResponse }
           ];
-          // Keep strictly the last 2 questions and answers (at most 4 turns) so mobile screen stays clean and never requires scrolling
           return newTurns.slice(-4);
         });
 
-        // 2. DISPATCH COACH SARAH SPEECH INSTANTANEOUSLY (Sub-400ms human turnaround!)
-        if (voicePipelineRef.current) {
-          voicePipelineRef.current.speakCoachResponse(coachSpokenMessage);
+        if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
+          voicePipelineRef.current.speak(turnResult.spokenResponse);
         }
 
-        // 3. Defer verified count state and database sync by 25ms so audio starts speaking without UI thread freeze
-        setTimeout(() => {
-          setVoiceVerifiedCount(prof.verifiedSentences);
-          if (attempt.eligible && attempt.verifiedIncrement > 0) {
-            syncVoiceProgressToDatabase(prof);
-          }
-        }, 25);
+        if (turnResult.isMissionCompleted) {
+          if (showToast) showToast(`🎉 Mission ${activeMissionNumber} Target Reached! 100% Completed!`);
+        }
       };
+
       handleStudentVoiceTurnRef.current = handleStudentVoiceTurn;
 
       const handleStartLivePractice = async () => {
-        if (!voicePipelineRef.current) {
-          alert("Web Speech API is not supported in this browser. Please use Google Chrome, Microsoft Edge, or Safari.");
+        setVoiceSessionEnded(false);
+        setVoiceSessionSummary(null);
+
+        if (!window.MasteredSpeechLive || !window.MasteredSpeechLive.isLiveVoiceSupported()) {
+          alert("Your browser does not have speech recognition or synthesis enabled. Falling back to text mode.");
+          setVoiceSubMode('TEXT');
           return;
         }
-        setVoiceFeedback('');
-        setVoiceTranscript('');
 
-        // Prime mobile audio on direct user tap
-        if (voicePipelineRef.current.unlockMobileAudio) {
-          voicePipelineRef.current.unlockMobileAudio();
+        if (!voicePipelineRef.current) {
+          const pipeline = new window.MasteredSpeechLive.LiveVoicePipeline({
+            onStateChange: (newState) => {
+              setVoiceState(newState);
+            },
+            onStudentSpeech: (speech) => {
+              if (handleStudentVoiceTurnRef.current) {
+                handleStudentVoiceTurnRef.current(speech);
+              }
+            },
+            onCoachSpeechEnd: () => {
+              setVoiceTranscript('');
+            },
+            onInterimTranscript: (interim) => {
+              setVoiceTranscript(interim);
+            },
+            onAudioLevel: (lvl) => {
+              setVoiceAudioLevel(lvl);
+            },
+            onError: (err) => {
+              console.warn("Live voice pipeline notification:", err);
+            }
+          });
+          voicePipelineRef.current = pipeline;
         }
 
-        const started = await voicePipelineRef.current.startLiveSession();
-        if (started) {
-          // If a live conversation is already ongoing in this session, resume naturally without resetting turns!
-          if (conversationTurns && conversationTurns.length > 1) {
-            const studentName = currentUser?.name || 'Student';
-            const resumeMsg = `Welcome back ${studentName}! I am listening—please continue where we left off.`;
-            setVoiceFeedback(resumeMsg);
-            voicePipelineRef.current.speakCoachResponse(resumeMsg);
-            return;
+        try {
+          const started = await voicePipelineRef.current.startLiveSession();
+          if (started) {
+            const session = voiceSessionRef.current;
+            const greeting = session ? session.getOpeningGreeting() : `Hello! I am Coach Sarah. Welcome to Mission ${activeMissionNumber}. Let's begin!`;
+            setVoiceFeedback(greeting);
+            updateActivePrompt(greeting);
+            setConversationTurns([
+              { role: 'coach', text: greeting }
+            ]);
+            setTimeout(() => {
+              if (voicePipelineRef.current) {
+                voicePipelineRef.current.speak(greeting);
+              }
+            }, 300);
           }
-
-          const greeting = (voiceSessionRef.current && voiceSessionRef.current.getMissionOpeningGreeting)
-            ? voiceSessionRef.current.getMissionOpeningGreeting(currentUser?.name || 'Student')
-            : `Hello ${currentUser?.name || 'Student'}! This is Coach Sarah, your speaking buddy on call. Let's begin Mission ${activeMissionNumber}: ${missionInfo.title}.`;
-          setVoiceFeedback(greeting);
-          setConversationTurns([{ role: 'coach', text: greeting, timestamp: Date.now() }]);
-          voicePipelineRef.current.speakCoachResponse(greeting);
+        } catch(e) {
+          console.error("Could not start live voice call:", e);
+          alert("Microphone access is needed for hands-free practice with Coach Sarah. Please enable mic permissions.");
         }
       };
 
       const handlePauseResumeVoice = () => {
         if (!voicePipelineRef.current) return;
         if (voiceState === 'PAUSED') {
-          voicePipelineRef.current.resumeListening();
+          voicePipelineRef.current.resumeLiveSession();
         } else {
-          voicePipelineRef.current.pauseListening();
+          voicePipelineRef.current.pauseLiveSession();
         }
-      };
-
-      const handleInterruptVoice = () => {
-        if (!voicePipelineRef.current) return;
-        voicePipelineRef.current.handleBargeInInterruption('Student interrupted coach');
       };
 
       const handleRepeatInstructionVoice = () => {
         if (!voicePipelineRef.current) return;
-        const promptToRepeat = activePromptRef.current || activePromptText;
-        voicePipelineRef.current.speakCoachResponse(`I'll repeat the task: ${promptToRepeat}`);
+        const phraseToRepeat = voiceFeedback || activePromptText || (missionInfo.starterPrompts && missionInfo.starterPrompts[0]) || "Please speak your answer aloud.";
+        voicePipelineRef.current.speak(phraseToRepeat);
       };
 
       const handleSpeedToggleVoice = () => {
         if (!voicePipelineRef.current) return;
-        const newSpeed = voiceSpeechSpeed === 1.0 ? 0.8 : (voiceSpeechSpeed === 0.8 ? 1.15 : 1.0);
-        setVoiceSpeechSpeed(newSpeed);
-        voicePipelineRef.current.speechRate = newSpeed;
-        if (showToast) showToast(`Speech speed set to ${newSpeed}x`);
+        const nextSpeed = voiceSpeechSpeed === 1.0 ? 1.2 : (voiceSpeechSpeed === 1.2 ? 0.8 : 1.0);
+        voicePipelineRef.current.setSpeed(nextSpeed);
+        setVoiceSpeechSpeed(nextSpeed);
       };
 
-      const handleTextPracticeSubmit = (e) => {
-        if (e) e.preventDefault();
-        if (!voiceTextInput.trim() || !voiceSessionRef.current) return;
+      const handleVoiceCommand = (cmd) => {
+        const session = voiceSessionRef.current;
+        if (!session) return;
+        const reply = session.executeCommand(cmd);
 
-        const attempt = voiceSessionRef.current.recordAttempt({
-          source: 'text', // Strictly rejected from spoken count
-          text: voiceTextInput.trim(),
-          confidence: 1.0,
-          nonce: 'text_' + activeMissionNumber + '_' + voiceTextInput.trim().replace(/[^a-zA-Z0-9]/g, '').slice(0, 24)
-        });
-
-        setVoiceFeedback(attempt.feedback);
-        setVoiceTextInput('');
-        const nextQ = voiceSessionRef.current.getNextQuestion ? voiceSessionRef.current.getNextQuestion() : "Please continue your written practice.";
-        setActivePromptText(nextQ);
-      };
-
-      const handleVoiceCommand = (cmdStr) => {
-        if (!voiceSessionRef.current) return;
-        if (cmdStr === 'NEXT_MISSION' || cmdStr === 'NEXT MISSION') {
-          handleEndMissionAndContinue();
-          return;
-        }
-        const res = voiceSessionRef.current.dispatchCommand(cmdStr);
-        if (!res) return;
-
-        if (res.command === 'FREE TALK') {
-          setCoachMode('FREE_TALK');
-          setActivePromptText(res.systemMessage);
-          setVoiceFeedback("Free Talk mode active. Official mission state is strictly preserved.");
-          if (voicePipelineRef.current && voiceState === 'SPEAKING') {
-            voicePipelineRef.current.speakCoachResponse(res.systemMessage);
-          }
-        } else if (res.command === 'START' || res.command === 'CONTINUE') {
-          setCoachMode('STRUCTURED');
-          setActivePromptText(res.prompt);
-          setVoiceFeedback('');
-        } else if (res.command === 'HOMEWORK') {
-          setVoiceFeedback("Homework: " + res.homework.join(' '));
-        } else if (res.command === 'VOCABULARY') {
-          setVoiceFeedback("Vocabulary focus: " + res.grammarFocus);
-        } else if (res.command === 'NEW STUDENT') {
-          setShowRegistrationModal(true);
-        } else if (res.command === 'END SESSION') {
+        if (cmd === 'END SESSION') {
           if (voicePipelineRef.current) {
             voicePipelineRef.current.endLiveSession();
           }
-          setVoiceSessionSummary(res.summary);
+          const rep = session.generateDailyReport();
+          setVoiceSessionSummary(rep);
           setVoiceSessionEnded(true);
-          if (voiceSessionRef.current) {
-            syncVoiceProgressToDatabase(voiceSessionRef.current.getProfile());
-          }
+          return;
+        }
+
+        if (cmd === 'FREE TALK') setCoachMode('FREE_TALK');
+        if (cmd === 'STRUCTURED') setCoachMode('STRUCTURED');
+
+        setVoiceFeedback(reply);
+        updateActivePrompt(reply);
+        setConversationTurns(prev => [
+          ...prev,
+          { role: 'coach', text: reply }
+        ]);
+
+        if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
+          voicePipelineRef.current.speak(reply);
         }
       };
 
-      const getVoiceStateBadge = (st) => {
-        switch (st) {
-          case 'LISTENING':
-            return { label: 'Listening... Speak naturally', color: 'bg-emerald-500 text-white', pulse: true };
-          case 'SPEAKING':
-            return { label: 'Coach Speaking... (Speak to interrupt)', color: 'bg-indigo-600 text-white', pulse: true };
-          case 'PROCESSING_SPEECH':
-            return { label: 'Processing speech...', color: 'bg-blue-600 text-white', pulse: false };
-          case 'GENERATING_RESPONSE':
-            return { label: 'Thinking...', color: 'bg-purple-600 text-white', pulse: false };
-          case 'INTERRUPTED':
-            return { label: 'Interrupted! Listening to you...', color: 'bg-amber-500 text-slate-950', pulse: true };
-          case 'PAUSED':
-            return { label: 'Paused', color: 'bg-slate-500 text-white', pulse: false };
-          case 'REQUESTING_MICROPHONE':
-            return { label: 'Requesting Mic Access...', color: 'bg-yellow-500 text-slate-950', pulse: false };
-          case 'INITIALIZING':
-            return { label: 'Starting Live Session...', color: 'bg-indigo-400 text-white', pulse: false };
-          case 'RECOVERING':
-            return { label: 'Reconnecting audio...', color: 'bg-amber-600 text-white', pulse: false };
-          case 'ERROR':
-            return { label: 'Microphone Error', color: 'bg-red-600 text-white', pulse: false };
-          case 'ENDING':
-            return { label: 'Ending Session...', color: 'bg-slate-600 text-white', pulse: false };
-          default:
-            return { label: 'Ready to Start', color: 'bg-slate-100 text-slate-700', pulse: false };
-        }
-      };
-
-      const voiceStateMeta = getVoiceStateBadge(voiceState);
-
-      const prompts = [
-        {
-          command: "NEW STUDENT",
-          title: "Register New Student",
-          desc: "Register as a new student with your AI Coach.",
-          text: "NEW STUDENT — Register as a new student."
-        },
-        {
-          command: "START",
-          title: "Start / Resume Course",
-          desc: "Start your course or resume your current mission.",
-          text: "START — Start your course or resume your current mission."
-        },
-        {
-          command: "CONTINUE",
-          title: "Continue Speaking Practice",
-          desc: "Continue your current mission and speaking practice.",
-          text: "CONTINUE — Continue your current mission and speaking practice."
-        },
-        {
-          command: "HOMEWORK",
-          title: "Get Homework Assignment",
-          desc: "Get homework based on your current mission.",
-          text: "HOMEWORK — Get homework based on your current mission."
-        },
-        {
-          command: "VOCABULARY",
-          title: "Vocabulary Practice",
-          desc: "Practice vocabulary related to your current mission.",
-          text: "VOCABULARY — Practice vocabulary related to your current mission."
-        },
-        {
-          command: "FREE TALK",
-          title: "Guided Free Conversation",
-          desc: "Have a guided conversation connected to your current mission.",
-          text: "FREE TALK — Have a guided conversation connected to your current mission."
-        },
-        {
-          command: "END SESSION",
-          title: "Finish & Receive Report",
-          desc: "End today's practice and receive your Daily Session Report.",
-          text: "END SESSION — End today's practice and receive your Daily Session Report."
-        }
-      ];
-
-      const handleCopy = (text, label) => {
-        try {
-          if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text);
-          } else {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand("copy");
-            document.body.removeChild(textArea);
-          }
-          setCopiedPrompt(label);
-          if (showToast) showToast(`📋 Copied ${label} to clipboard!`);
-          setTimeout(() => setCopiedPrompt(null), 2500);
-        } catch(e) {
-          if (showToast) showToast(`Copied: ${label}`);
-        }
-      };
-
-      const handleVerifySubmittedCode = (e) => {
+      const handleTextPracticeSubmit = async (e) => {
         e.preventDefault();
-        if (!inputMclCode || !inputMclCode.trim()) {
-          alert("Please enter or paste your MCL-1 progress code from ChatGPT.");
-          return;
-        }
-
-        const decoded = decodeMcl1(inputMclCode.trim());
-        if (!decoded.success) {
-          alert("⛔ " + decoded.message);
-          return;
-        }
-
-        setDecodedReport(decoded);
+        if (!voiceTextInput || !voiceTextInput.trim()) return;
+        const userText = voiceTextInput.trim();
+        setVoiceTextInput('');
+        await handleStudentVoiceTurn(userText);
       };
 
-      const handleConfirmSaveReport = async () => {
-        if (!inputMclCode) return;
-        setIsVerifyingCode(true);
-        try {
-          if (onVerifyMclCode) {
-            await onVerifyMclCode(inputMclCode.trim());
-            setInputMclCode('');
-            setDecodedReport(null);
-          }
-        } catch(err) {
-          alert("Verification error: " + err.toString());
-        } finally {
-          setIsVerifyingCode(false);
-        }
-      };
+      const voiceStateMeta = {
+        'IDLE': { label: 'Ready to Call', color: 'bg-slate-800 text-slate-300 border-slate-700', pulse: false },
+        'INITIALIZING': { label: 'Connecting Mic...', color: 'bg-amber-500/20 text-amber-300 border-amber-500/40', pulse: true },
+        'SPEAKING': { label: 'Coach Sarah is Speaking', color: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40', pulse: true },
+        'LISTENING': { label: 'Coach Sarah is Listening', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40', pulse: true },
+        'PROCESSING': { label: 'Thinking...', color: 'bg-purple-500/20 text-purple-300 border-purple-500/40', pulse: true },
+        'PAUSED': { label: 'Call On Hold', color: 'bg-amber-500/20 text-amber-300 border-amber-500/40', pulse: false },
+        'ERROR': { label: 'Mic Reconnecting', color: 'bg-rose-500/20 text-rose-300 border-rose-500/40', pulse: false }
+      }[voiceState] || { label: voiceState, color: 'bg-slate-800 text-slate-300 border-slate-700', pulse: false };
 
       const modalBody = (
-        <div className={`bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-7 w-full border border-slate-200 shadow-xl space-y-5 ${asPage ? 'max-w-4xl mx-auto' : 'max-w-2xl max-h-[90vh] overflow-y-auto'}`} onClick={e => e.stopPropagation()}>
+        <div className={`bg-slate-900 text-white rounded-3xl p-4 sm:p-6 w-full border border-slate-800 shadow-2xl space-y-4 sm:space-y-5 ${asPage ? 'max-w-4xl mx-auto' : 'max-w-2xl max-h-[92vh] overflow-y-auto'}`} onClick={e => e.stopPropagation()}>
           
-          {/* Header */}
-          <div className="flex justify-between items-center border-b pb-4">
+          {/* Top Bar Header */}
+          <div className="flex justify-between items-center border-b border-slate-800 pb-3 sm:pb-4">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-purple-700 to-indigo-600 flex items-center justify-center text-white text-xl font-black shadow-md">
-                🤖
+              <div className="relative">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center text-white text-xl sm:text-2xl shadow-lg">
+                  👩‍💼
+                </div>
+                <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-500 border-2 border-slate-900 rounded-full" title="Online & Ready"></span>
               </div>
               <div>
-                <h3 className="font-extrabold text-slate-900 text-base sm:text-lg">Mastered AI Coach — Speaking Room</h3>
-                <p className="text-xs text-slate-500 font-medium">Official Live Continuous Voice Practice & Progress Sync</p>
+                <div className="flex items-center space-x-2">
+                  <h3 className="font-black text-white text-base sm:text-lg tracking-tight">Coach Sarah</h3>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                    AI Speaking Studio
+                  </span>
+                </div>
+                <p className="text-[11px] sm:text-xs text-slate-400 font-medium">
+                  Official 1-on-1 English Conversation & Fluency Training
+                </p>
               </div>
             </div>
+
             {asPage ? (
               <button
                 type="button"
                 onClick={onClose}
-                className="flex items-center space-x-1.5 px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition cursor-pointer"
+                className="flex items-center space-x-1.5 px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-extrabold rounded-xl border border-slate-700 transition cursor-pointer shadow-sm hover:text-white"
                 title="Return to Student Dashboard"
               >
                 <span>←</span>
                 <span>Dashboard</span>
               </button>
             ) : (
-              <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
+              <button 
+                onClick={onClose} 
+                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center text-sm font-black transition cursor-pointer border border-slate-700"
+                title="Close Speaking Room"
+              >
+                ✕
+              </button>
             )}
           </div>
 
-            {/* Mode Switcher Tabs */}
-            <div className="flex rounded-2xl bg-slate-100 p-1 border border-slate-200">
-              <button
-                type="button"
-                onClick={() => setActiveCoachTab('voice')}
-                className={`flex-1 py-2.5 px-3 text-xs font-extrabold rounded-xl transition flex items-center justify-center space-x-2 ${
-                  activeCoachTab === 'voice' ? 'bg-white text-indigo-700 shadow-sm border border-slate-200/60' : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                <span>🎙️</span>
-                <span>Live Voice Practice (Browser-Local)</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveCoachTab('mcl')}
-                className={`flex-1 py-2.5 px-3 text-xs font-extrabold rounded-xl transition flex items-center justify-center space-x-2 ${
-                  activeCoachTab === 'mcl' ? 'bg-white text-purple-700 shadow-sm border border-slate-200/60' : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                <span>📋</span>
-                <span>ChatGPT & MCL-1 Code Sync</span>
-              </button>
+          {/* Mission Progress Hero Card */}
+          <div className="bg-slate-950/80 rounded-2xl p-3.5 sm:p-4 border border-slate-800/80 space-y-3 shadow-inner">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+              <div className="flex items-center space-x-2 min-w-0">
+                <span className="text-[10px] uppercase font-black tracking-wider text-indigo-400 shrink-0">Level:</span>
+                <select
+                  value={activeMissionNumber}
+                  onChange={(e) => handleSwitchMission(Number(e.target.value))}
+                  className="font-extrabold text-white bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs sm:text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none cursor-pointer max-w-full truncate"
+                >
+                  {Array.from({ length: 32 }, (_, i) => i + 1).map((mNum) => {
+                    const k = `MOD-${mNum < 10 ? '0' + mNum : mNum}`;
+                    const mObj = currentStudentProg[k] || currentStudentProg[`MOD-${mNum}`] || {};
+                    const pct = Number(mObj.percentage) || 0;
+                    const mData = (window.MasteredCurriculum && window.MasteredCurriculum.getMission) ? window.MasteredCurriculum.getMission(mNum) : null;
+                    const title = mData ? mData.title : `Module ${mNum}`;
+                    const statusBadge = pct >= 100 ? '✅ 100%' : (pct > 0 ? `🔄 ${pct}%` : '');
+                    const isActive = mNum === highestActiveLevel ? '⭐ Active' : '';
+                    return (
+                      <option key={mNum} value={mNum} className="bg-slate-900 text-white">
+                        Level {mNum}: {title} {statusBadge} {isActive}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+
+              <div className="flex items-center space-x-2 shrink-0 self-end sm:self-auto">
+                <span className="px-2.5 py-1 rounded-full text-[11px] font-black bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  🎯 {voiceVerifiedCount} / {missionInfo.targetSentences} Spoken Verified
+                </span>
+                <span className="text-xs font-mono font-black text-slate-300">
+                  {Math.min(100, Math.round((voiceVerifiedCount / missionInfo.targetSentences) * 100))}%
+                </span>
+              </div>
             </div>
 
-            {/* TAB 1: BROWSER-LOCAL VOICE COACH PRACTICE ROOM */}
-            {activeCoachTab === 'voice' && (
-              <div className="space-y-4">
-                {voiceSessionEnded && voiceSessionSummary ? (
-                  <div className="p-5 bg-gradient-to-b from-indigo-50/60 to-white rounded-2xl border border-indigo-200 space-y-4">
-                    <div className="flex justify-between items-center">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-indigo-600 text-white">
-                        Daily Session Report
-                      </span>
-                      <span className="text-xs font-bold text-slate-500">
-                        {voiceSessionSummary.sessionEndedAt ? new Date(voiceSessionSummary.sessionEndedAt).toLocaleDateString() : ''}
-                      </span>
-                    </div>
+            {/* Glowing Gradient Progress Bar */}
+            <div className="w-full h-3 bg-slate-900 rounded-full overflow-hidden p-0.5 border border-slate-800">
+              <div
+                className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-400 rounded-full transition-all duration-500 shadow-sm"
+                style={{ width: `${Math.min(100, Math.round((voiceVerifiedCount / missionInfo.targetSentences) * 100))}%` }}
+              ></div>
+            </div>
 
-                    <h4 className="font-extrabold text-lg text-slate-900">Practice Session Completed & Saved!</h4>
-                    
-                    <div className="grid grid-cols-2 gap-2 text-xs text-slate-700 bg-white p-3.5 rounded-xl border border-slate-200">
-                      <div><strong>Student:</strong> {voiceSessionSummary.name}</div>
-                      <div><strong>Admission ID:</strong> {voiceSessionSummary.admissionNumber}</div>
-                      <div><strong>Mission:</strong> Level {voiceSessionSummary.currentMission} ({voiceSessionSummary.missionTitle})</div>
-                      <div><strong>Verified Spoken:</strong> {voiceSessionSummary.verifiedSentences} / {voiceSessionSummary.missionTarget} ({voiceSessionSummary.progressPct}%)</div>
-                    </div>
+            <div className="flex flex-wrap items-center justify-between text-[11px] text-slate-400 gap-1.5 pt-0.5">
+              <span><strong>Topic:</strong> {missionInfo.title}</span>
+              <span><strong>Grammar:</strong> {missionInfo.grammarFocus || 'Everyday Fluency'}</span>
+            </div>
+          </div>
 
-                    <button
-                      type="button"
-                      onClick={handleEndMissionAndContinue}
-                      className="w-full py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center justify-center space-x-1.5 cursor-pointer"
-                    >
-                      <span>⏩</span>
-                      <span>End Mission & Advance to Next Level</span>
-                    </button>
+          {/* Session Ended Daily Report Card */}
+          {voiceSessionEnded && voiceSessionSummary ? (
+            <div className="p-5 sm:p-6 bg-gradient-to-b from-indigo-950/60 to-slate-950 rounded-2xl border border-indigo-500/40 space-y-4 text-center">
+              <div className="w-14 h-14 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-3xl mx-auto shadow-lg">
+                🏆
+              </div>
+              
+              <div className="space-y-1">
+                <span className="px-3 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500 text-slate-950">
+                  Mission Practice Saved
+                </span>
+                <h4 className="font-black text-lg sm:text-xl text-white">Daily Session Completed!</h4>
+                <p className="text-xs text-slate-300">
+                  Your spoken progress is saved permanently in your portal record.
+                </p>
+              </div>
 
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setVoiceSessionEnded(false);
-                        if (voicePipelineRef.current) {
-                          voicePipelineRef.current.startLiveSession();
-                        }
-                      }}
-                      className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs rounded-xl shadow-md transition"
-                    >
-                      ✨ Continue Live Practice Call
-                    </button>
-                  </div>
-                ) : (
-                  <>
-                    {/* Interaction Mode Sub-Toggle (Live Voice vs Text Fallback) */}
-                    <div className="flex rounded-xl bg-slate-100 p-1 border border-slate-200 text-xs font-bold">
-                      <button
-                        type="button"
-                        onClick={() => setVoiceSubMode('VOICE')}
-                        className={`flex-1 py-1.5 px-3 rounded-lg transition flex items-center justify-center space-x-1.5 ${
-                          voiceSubMode === 'VOICE' ? 'bg-white text-indigo-700 shadow-sm' : 'text-slate-600 hover:text-slate-900'
-                        }`}
-                      >
-                        <span>🎙️</span>
-                        <span>Live Voice Coach (Primary)</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setVoiceSubMode('TEXT')}
-                        className={`flex-1 py-1.5 px-3 rounded-lg transition flex items-center justify-center space-x-1.5 ${
-                          voiceSubMode === 'TEXT' ? 'bg-white text-purple-700 shadow-sm' : 'text-slate-600 hover:text-slate-900'
-                        }`}
-                      >
-                        <span>⌨️</span>
-                        <span>Text Practice (Fallback)</span>
-                      </button>
-                    </div>
+              <div className="grid grid-cols-2 gap-2 text-xs text-left bg-slate-900/90 p-3.5 rounded-xl border border-slate-800 text-slate-200">
+                <div><span className="text-slate-400 block text-[10px] uppercase font-bold">Student:</span><strong>{voiceSessionSummary.name}</strong></div>
+                <div><span className="text-slate-400 block text-[10px] uppercase font-bold">Admission ID:</span><strong className="font-mono">{voiceSessionSummary.admissionNumber}</strong></div>
+                <div><span className="text-slate-400 block text-[10px] uppercase font-bold">Mission:</span>Level {voiceSessionSummary.currentMission}</div>
+                <div><span className="text-slate-400 block text-[10px] uppercase font-bold">Verified Spoken:</span><strong className="text-emerald-400">{voiceSessionSummary.verifiedSentences} / {voiceSessionSummary.missionTarget} ({voiceSessionSummary.progressPct}%)</strong></div>
+              </div>
 
-                    {/* Mission Target & Spoken Sentence Counter */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80 text-xs">
-                      <div>
-                        <span className="text-[10px] uppercase font-bold text-slate-400 block">Student ID</span>
-                        <span className="font-extrabold text-slate-900">{admNum}</span>
+              <div className="flex flex-col sm:flex-row gap-2.5 pt-2">
+                <button
+                  type="button"
+                  onClick={handleEndMissionAndContinue}
+                  className="flex-1 py-3 px-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs sm:text-sm rounded-xl shadow-lg transition flex items-center justify-center space-x-1.5 cursor-pointer"
+                >
+                  <span>⏩</span>
+                  <span>End Mission & Advance to Next Level</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setVoiceSessionEnded(false);
+                    if (voicePipelineRef.current) {
+                      voicePipelineRef.current.startLiveSession();
+                    }
+                  }}
+                  className="py-3 px-4 bg-slate-800 hover:bg-slate-700 text-slate-200 font-extrabold text-xs rounded-xl border border-slate-700 transition cursor-pointer"
+                >
+                  ✨ Continue Live Call
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              {/* Voice Coaching Space */}
+              {voiceSubMode === 'VOICE' ? (
+                <div className="space-y-4">
+                  {voiceState === 'IDLE' ? (
+                    /* 1. READY TO CALL CARD (Idle State) */
+                    <div className="p-6 sm:p-7 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white rounded-3xl border border-slate-800 shadow-xl space-y-5 text-center">
+                      <div className="relative mx-auto w-24 h-24 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 p-1 shadow-xl">
+                        <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-5xl shadow-inner">
+                          👩‍💼
+                        </div>
+                        <span className="absolute bottom-1 right-1 w-5 h-5 bg-emerald-500 border-2 border-slate-900 rounded-full" title="Online & Ready"></span>
                       </div>
-                      <div>
-                        <span className="text-[10px] uppercase font-bold text-slate-400 block">Current Mission</span>
-                        <select
-                          value={activeMissionNumber}
-                          onChange={(e) => handleSwitchMission(Number(e.target.value))}
-                          className="font-extrabold text-slate-900 bg-white border border-slate-300 rounded-lg px-1.5 py-0.5 text-xs focus:ring-2 focus:ring-indigo-500 cursor-pointer max-w-full"
-                        >
-                          {Array.from({ length: 32 }, (_, i) => i + 1).map((mNum) => {
-                            const k = `MOD-${mNum < 10 ? '0' + mNum : mNum}`;
-                            const mObj = currentStudentProg[k] || currentStudentProg[`MOD-${mNum}`] || {};
-                            const pct = Number(mObj.percentage) || 0;
-                            const mData = (window.MasteredCurriculum && window.MasteredCurriculum.getMission) ? window.MasteredCurriculum.getMission(mNum) : null;
-                            const title = mData ? mData.title : `Module ${mNum}`;
-                            const statusBadge = pct >= 100 ? '✅ 100%' : (pct > 0 ? `🔄 ${pct}%` : '');
-                            const isActive = mNum === highestActiveLevel ? '⭐ (Active)' : '';
+
+                      <div className="space-y-1">
+                        <h3 className="text-xl sm:text-2xl font-black text-white">Coach Sarah</h3>
+                        <p className="text-xs text-indigo-300 font-semibold tracking-wide">Live 1-on-1 English Conversation Coach</p>
+                        <div className="inline-flex items-center space-x-1.5 px-3 py-1 bg-slate-800/80 rounded-full text-[11px] text-slate-300 mt-2 border border-slate-700">
+                          <span>👩‍💼</span>
+                          <span>Accent: <strong className="text-emerald-400">Natural English</strong></span>
+                          <span>•</span>
+                          <span>Mode: <strong className="text-indigo-300">Continuous Hands-Free</strong></span>
+                        </div>
+                      </div>
+
+                      <div className="p-3.5 bg-slate-800/70 rounded-2xl border border-slate-700 max-w-md mx-auto text-left space-y-1">
+                        <span className="text-[10px] uppercase font-bold text-indigo-300 block">Mission {activeMissionNumber} Starter Question:</span>
+                        <p className="text-xs sm:text-sm font-semibold text-slate-100 leading-relaxed">
+                          "{activePromptText || (missionInfo.starterPrompts && missionInfo.starterPrompts[0]) || 'Please speak your answer aloud.'}"
+                        </p>
+                      </div>
+
+                      <p className="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
+                        Talk directly with Coach Sarah in a natural spoken conversation. Sarah listens carefully, answers your questions, and automatically verifies your spoken sentences hands-free.
+                      </p>
+
+                      <button
+                        type="button"
+                        onClick={handleStartLivePractice}
+                        className="w-full py-4 px-6 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-black text-sm sm:text-base rounded-2xl shadow-xl transition flex items-center justify-center space-x-3 cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
+                      >
+                        <span className="text-xl">📞</span>
+                        <span>Start Live Practice Call (Coach Sarah)</span>
+                      </button>
+                    </div>
+                  ) : (
+                    /* 2. ACTIVE LIVE CALL SCREEN (In-Call State) */
+                    <div className="p-4 sm:p-6 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white rounded-3xl border border-indigo-500/30 shadow-2xl space-y-4">
+                      
+                      {/* Live Call Status Bar */}
+                      <div className="flex justify-between items-center border-b border-slate-800 pb-2.5 text-xs">
+                        <div className="flex items-center space-x-2">
+                          <span className="relative flex h-3 w-3">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                          </span>
+                          <span className="font-extrabold uppercase tracking-wide text-emerald-400 text-[11px]">Live Call Connected</span>
+                        </div>
+
+                        <div className="flex items-center space-x-2 font-mono text-xs">
+                          <span className="px-2.5 py-0.5 bg-slate-800 rounded-lg text-slate-200 border border-slate-700">
+                            ⏱️ {formattedDuration}
+                          </span>
+                          <span className="px-2 py-0.5 bg-slate-800 rounded-lg text-indigo-300 border border-slate-700 font-bold">
+                            ⚡ {voiceSpeechSpeed}x
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Center Avatar & Reactive Visualizer */}
+                      <div className="flex flex-col items-center justify-center space-y-2.5 py-1">
+                        <div className="relative">
+                          {voiceState === 'SPEAKING' && (
+                            <div className="absolute -inset-2.5 rounded-full bg-indigo-500/40 animate-ping"></div>
+                          )}
+                          {voiceState === 'LISTENING' && (
+                            <div className="absolute -inset-2.5 rounded-full bg-emerald-500/30 animate-pulse"></div>
+                          )}
+                          <div className={`relative w-20 h-20 sm:w-22 sm:h-22 rounded-full p-1 shadow-2xl transition-all duration-300 ${
+                            voiceState === 'SPEAKING' 
+                              ? 'bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 scale-105' 
+                              : (voiceState === 'LISTENING' ? 'bg-gradient-to-tr from-emerald-500 to-teal-400' : 'bg-slate-700')
+                          }`}>
+                            <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-4xl sm:text-5xl shadow-inner">
+                              👩‍💼
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="text-center space-y-1">
+                          <h4 className="text-sm sm:text-base font-black text-white">Coach Sarah</h4>
+                          <span className={`inline-block px-3 py-1 rounded-full text-[11px] font-extrabold border ${voiceStateMeta.color} ${voiceStateMeta.pulse ? 'animate-pulse' : ''}`}>
+                            {voiceState === 'SPEAKING' 
+                              ? '🗣️ Coach Sarah is speaking... (Listen or interrupt)' 
+                              : (voiceState === 'LISTENING' ? '🎙️ Coach Sarah is listening... Speak aloud' : voiceStateMeta.label)}
+                          </span>
+                        </div>
+
+                        {/* Smooth 12-Bar Dynamic Waveform */}
+                        <div className="flex items-center justify-center space-x-1.5 h-8 py-1">
+                          {[0.4, 0.7, 1.0, 0.8, 0.5, 0.9, 1.2, 0.6, 0.8, 0.5, 0.7, 0.4].map((factor, idx) => {
+                            const barHeight = Math.max(4, Math.min(32, Math.round((voiceAudioLevel * factor * 0.4) + (voiceState === 'SPEAKING' ? 14 : 4))));
                             return (
-                              <option key={mNum} value={mNum}>
-                                Level {mNum}: {title} {statusBadge} {isActive}
-                              </option>
+                              <div
+                                key={idx}
+                                className={`w-1.5 rounded-full transition-all duration-100 ${
+                                  voiceState === 'LISTENING' ? 'bg-emerald-400' : (voiceState === 'SPEAKING' ? 'bg-indigo-400' : 'bg-slate-700')
+                                }`}
+                                style={{ height: `${barHeight}px` }}
+                              ></div>
                             );
                           })}
-                        </select>
-                      </div>
-                      <div>
-                        <span className="text-[10px] uppercase font-bold text-slate-400 block">Spoken Target</span>
-                        <span className="font-extrabold text-indigo-600">{missionInfo.targetSentences} Sentences</span>
-                      </div>
-                      <div>
-                        <span className="text-[10px] uppercase font-bold text-slate-400 block">Verified Progress</span>
-                        <span className="font-extrabold text-emerald-600">
-                          {voiceVerifiedCount} / {missionInfo.targetSentences} ({Math.min(100, Math.round((voiceVerifiedCount / missionInfo.targetSentences) * 100))}%)
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Progress Bar */}
-                    <div className="space-y-1.5">
-                      <div className="flex justify-between items-baseline text-xs font-bold text-slate-700">
-                        <span>{missionInfo.title}</span>
-                        <span className="text-indigo-600 font-extrabold">
-                          {voiceVerifiedCount} of {missionInfo.targetSentences} Spoken Verified
-                        </span>
-                      </div>
-                      <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden p-0.5">
-                        <div
-                          className="h-full bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-full transition-all duration-300"
-                          style={{ width: `${Math.min(100, Math.round((voiceVerifiedCount / missionInfo.targetSentences) * 100))}%` }}
-                        ></div>
-                      </div>
-                    </div>
-
-                    {/* SUBMODE 1: LIVE VOICE COACH (Authentic Hands-Free Voice Call with Coach Sarah) */}
-                    {voiceSubMode === 'VOICE' ? (
-                      <div className="space-y-4">
-                        {voiceState === 'IDLE' ? (
-                          /* 1. READY TO CALL CARD (Idle State) */
-                          <div className="p-6 sm:p-7 bg-gradient-to-b from-slate-900 to-slate-950 text-white rounded-3xl border border-slate-800 shadow-xl space-y-5 text-center">
-                            <div className="relative mx-auto w-24 h-24 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 p-1 shadow-lg">
-                              <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-4xl shadow-inner">
-                                👩‍💼
-                              </div>
-                              <span className="absolute bottom-1 right-1 w-5 h-5 bg-emerald-500 border-2 border-slate-900 rounded-full" title="Online & Ready"></span>
-                            </div>
-
-                            <div className="space-y-1">
-                              <h3 className="text-xl sm:text-2xl font-black text-white">Coach Sarah</h3>
-                              <p className="text-xs text-indigo-300 font-semibold tracking-wide">Live 1-on-1 English Conversation Coach</p>
-                              <div className="inline-flex items-center space-x-1.5 px-3 py-1 bg-slate-800/80 rounded-full text-[11px] text-slate-300 mt-2 border border-slate-700">
-                                <span>👩‍💼</span>
-                                <span>Fixed Female Voice: <strong className="text-emerald-400">Natural English Accent</strong></span>
-                              </div>
-                            </div>
-
-                            <div className="p-3.5 bg-slate-800/60 rounded-2xl border border-slate-700/60 max-w-md mx-auto text-left space-y-1.5">
-                              <span className="text-[10px] uppercase font-bold text-indigo-300 block">Mission {activeMissionNumber} Call Topic:</span>
-                              <p className="text-xs sm:text-sm font-semibold text-slate-100">
-                                "{activePromptText || (missionInfo.starterPrompts && missionInfo.starterPrompts[0]) || 'Please speak your answer aloud.'}"
-                              </p>
-                            </div>
-
-                            <p className="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
-                              Talk directly with Coach Sarah in a live voice call. Sarah greets you aloud, listens to your answers, and guides your fluency turn by turn hands-free.
-                            </p>
-
-                            <button
-                              type="button"
-                              onClick={handleStartLivePractice}
-                              className="w-full py-4 px-6 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-extrabold text-sm sm:text-base rounded-2xl shadow-xl transition flex items-center justify-center space-x-3 cursor-pointer"
-                            >
-                              <span className="text-xl">📞</span>
-                              <span>Start Live Practice Call (Coach Sarah)</span>
-                            </button>
-                          </div>
-                        ) : (
-                          /* 2. ACTIVE LIVE CALL SCREEN (In-Call State) */
-                          <div className="p-5 sm:p-6 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 text-white rounded-3xl border border-indigo-900/50 shadow-2xl space-y-5">
-                            {/* Call Header */}
-                            <div className="flex justify-between items-center border-b border-slate-800/80 pb-3 text-xs">
-                              <div className="flex items-center space-x-2">
-                                <span className="relative flex h-3 w-3">
-                                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-                                </span>
-                                <span className="font-extrabold uppercase tracking-wide text-emerald-400">Live Call Connected</span>
-                              </div>
-                              <div className="font-mono text-xs font-bold px-3 py-1 bg-slate-800/90 rounded-lg text-slate-200 border border-slate-700">
-                                ⏱️ {formattedDuration}
-                              </div>
-                            </div>
-
-                            {/* Center Avatar with Animated Pulse Radar Ring */}
-                            <div className="flex flex-col items-center justify-center space-y-3 py-2">
-                              <div className="relative">
-                                {voiceState === 'SPEAKING' && (
-                                  <div className="absolute -inset-3 rounded-full bg-indigo-500 opacity-30 animate-ping"></div>
-                                )}
-                                <div className={`relative w-20 h-20 rounded-full p-1 shadow-2xl transition-all duration-300 ${
-                                  voiceState === 'SPEAKING' 
-                                    ? 'bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 scale-105' 
-                                    : (voiceState === 'LISTENING' ? 'bg-gradient-to-tr from-emerald-500 to-teal-400' : 'bg-slate-700')
-                                }`}>
-                                  <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-4xl shadow-inner">
-                                    👩‍💼
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div className="text-center space-y-1">
-                                <h4 className="text-base font-extrabold text-white">Coach Sarah</h4>
-                                <span className={`inline-block px-3 py-1 rounded-full text-[11px] font-bold ${voiceStateMeta.color} ${voiceStateMeta.pulse ? 'animate-pulse' : ''}`}>
-                                  {voiceState === 'SPEAKING' 
-                                    ? '🗣️ Coach Sarah is speaking... (Listen)' 
-                                    : (voiceState === 'LISTENING' ? '🎙️ Coach Sarah is listening... Speak aloud' : voiceStateMeta.label)}
-                                </span>
-                              </div>
-
-                              {/* Dynamic 10-Bar Audio Waveform */}
-                              <div className="flex items-center justify-center space-x-1.5 h-8 py-1">
-                                {[0.4, 0.7, 1.0, 0.8, 0.5, 0.9, 1.2, 0.6, 0.8, 0.5].map((factor, idx) => {
-                                  const barHeight = Math.max(4, Math.min(32, Math.round((voiceAudioLevel * factor * 0.4) + (voiceState === 'SPEAKING' ? 14 : 4))));
-                                  return (
-                                    <div
-                                      key={idx}
-                                      className={`w-1.5 rounded-full transition-all duration-100 ${
-                                        voiceState === 'LISTENING' ? 'bg-emerald-400' : (voiceState === 'SPEAKING' ? 'bg-indigo-400' : 'bg-slate-700')
-                                      }`}
-                                      style={{ height: `${barHeight}px` }}
-                                    ></div>
-                                  );
-                                })}
-                              </div>
-                            </div>
-
-                            {/* Prominent Active Coach Sarah Question - Visible on screen without scrolling */}
-                            <div className="p-3.5 sm:p-4 bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-950 border border-indigo-500/50 rounded-2xl text-xs space-y-1.5 text-slate-100 shadow-lg">
-                              <div className="flex items-center justify-between text-[10px] uppercase font-black tracking-wider text-indigo-300">
-                                <div className="flex items-center space-x-1.5">
-                                  <span>👩‍💼</span>
-                                  <span>Coach Sarah's Question:</span>
-                                </div>
-                                <span className="bg-indigo-500/20 text-indigo-300 px-2.5 py-0.5 rounded-full font-bold border border-indigo-500/30">
-                                  Current Prompt
-                                </span>
-                              </div>
-                              <p className="font-bold text-xs sm:text-sm leading-relaxed text-indigo-100">
-                                "{voiceFeedback || activePromptText || (missionInfo.starterPrompts && missionInfo.starterPrompts[0]) || 'Hello! Please speak your answer aloud in full sentences.'}"
-                              </p>
-                            </div>
-
-                            {/* Focused Recent Conversation Stream: Last 2 Questions & Answers (4 turns max) */}
-                            <div className="space-y-2 p-1 rounded-2xl">
-                              {conversationTurns.slice(-4).map((turn, tIdx) => (
-                                turn.role === 'coach' ? (
-                                  <div key={tIdx} className="p-2.5 sm:p-3 bg-slate-800/80 border border-slate-700/80 rounded-2xl text-xs space-y-1 text-slate-100 shadow-sm">
-                                    <div className="flex items-center space-x-1.5 text-indigo-400 font-extrabold text-[10px] uppercase">
-                                      <span>👩‍💼</span>
-                                      <span>Coach Sarah:</span>
-                                    </div>
-                                    <p className="font-medium text-xs sm:text-sm leading-relaxed text-indigo-100">
-                                      "{turn.text}"
-                                    </p>
-                                  </div>
-                                ) : (
-                                  <div key={tIdx} className="p-2.5 sm:p-3 bg-emerald-950/50 border border-emerald-800/50 rounded-2xl text-xs space-y-1 text-emerald-100 shadow-sm">
-                                    <div className="flex items-center justify-between text-[10px] uppercase font-extrabold text-emerald-400">
-                                      <div className="flex items-center space-x-1.5">
-                                        <span>🎙️</span>
-                                        <span>You:</span>
-                                      </div>
-                                      {turn.eligible ? (
-                                        <span className="px-2 py-0.5 rounded-full bg-emerald-600 text-white font-bold">
-                                          +{turn.increment} Verified Sentence{turn.increment > 1 ? 's' : ''}
-                                        </span>
-                                      ) : (
-                                        <span className="px-2 py-0.5 rounded-full bg-amber-600/80 text-white font-bold">
-                                          Practice / Response
-                                        </span>
-                                      )}
-                                    </div>
-                                    <p className="italic font-semibold text-xs sm:text-sm text-emerald-200">
-                                      "{turn.text}"
-                                    </p>
-                                  </div>
-                                )
-                              ))}
-
-                              {/* Student's live transcribed words while speaking */}
-                              {voiceTranscript && (
-                                <div className="p-2.5 bg-emerald-950/40 border border-dashed border-emerald-700/60 rounded-xl text-xs text-emerald-200 italic">
-                                  <span className="text-[10px] uppercase font-bold text-emerald-400 not-italic block mb-0.5">Listening to your words...</span>
-                                  "{voiceTranscript}"
-                                </div>
-                              )}
-                            </div>
-
-                            {/* Call Controls Bar (Like Phone / WhatsApp Call) */}
-                            <div className="pt-2 flex items-center justify-center space-x-2.5">
-                              <button
-                                type="button"
-                                onClick={handlePauseResumeVoice}
-                                className="flex-1 py-3 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs rounded-2xl border border-slate-700 transition flex items-center justify-center space-x-1.5 cursor-pointer"
-                              >
-                                <span>{voiceState === 'PAUSED' ? '▶️' : '⏸️'}</span>
-                                <span>{voiceState === 'PAUSED' ? 'Resume Call' : 'Hold / Mute'}</span>
-                              </button>
-
-                              <button
-                                type="button"
-                                onClick={handleRepeatInstructionVoice}
-                                className="py-3 px-3.5 bg-slate-800 hover:bg-slate-700 text-indigo-300 font-bold text-xs rounded-2xl border border-slate-700 transition flex items-center justify-center space-x-1 cursor-pointer"
-                                title="Ask Coach Sarah to repeat what she just said"
-                              >
-                                <span>🔁</span>
-                                <span>Repeat</span>
-                              </button>
-
-                              <button
-                                type="button"
-                                onClick={handleSpeedToggleVoice}
-                                className="py-3 px-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs rounded-2xl border border-slate-700 transition flex items-center justify-center space-x-1 cursor-pointer"
-                                title="Adjust Coach Sarah speaking speed"
-                              >
-                                <span>⚡</span>
-                                <span>{voiceSpeechSpeed}x</span>
-                              </button>
-
-                              <button
-                                type="button"
-                                onClick={handleEndMissionAndContinue}
-                                className="py-3 px-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-extrabold text-xs rounded-2xl shadow-lg transition flex items-center justify-center space-x-1 cursor-pointer"
-                                title="Complete current mission and advance to next level"
-                              >
-                                <span>⏩</span>
-                                <span>End Mission & Continue</span>
-                              </button>
-
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  handleVoiceCommand('END SESSION');
-                                }}
-                                className="py-3 px-3 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-extrabold text-xs sm:text-sm rounded-2xl shadow-lg transition flex items-center justify-center space-x-1.5 cursor-pointer"
-                              >
-                                <span>🔴</span>
-                                <span>End Call</span>
-                              </button>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      /* SUBMODE 2: TEXT PRACTICE (Fallback) */
-                      <div className="space-y-3">
-                        <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 leading-relaxed">
-                          <strong>ℹ️ Text Practice Fallback Notice: </strong>
-                          Written answers are evaluated for grammar and helpful coaching hints, but <strong>only verified spoken practice</strong> increments your official mission progress.
                         </div>
-                        <form onSubmit={handleTextPracticeSubmit} className="space-y-2">
-                          <textarea
-                            rows={3}
-                            value={voiceTextInput}
-                            onChange={(e) => setVoiceTextInput(e.target.value)}
-                            placeholder="Type your English response here..."
-                            className="w-full p-2.5 border border-slate-300 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                          />
-                          <button
-                            type="submit"
-                            className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs rounded-xl shadow-md transition cursor-pointer"
-                          >
-                            Submit Written Sentence for Feedback
-                          </button>
-                        </form>
-                        {voiceFeedback && (
-                          <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-950 font-medium">
-                            <span className="font-extrabold text-emerald-800">Coach Feedback: </span>
-                            {voiceFeedback}
+                      </div>
+
+                      {/* PROMINENT CURRENT QUESTION CARD (Instant High-Contrast Focal Point on Mobile) */}
+                      <div className="p-3.5 sm:p-4 bg-gradient-to-r from-indigo-950/90 via-slate-900 to-indigo-950/90 border-2 border-indigo-500/60 rounded-2xl text-xs space-y-1.5 text-slate-100 shadow-xl">
+                        <div className="flex items-center justify-between text-[10px] uppercase font-black tracking-wider text-indigo-300">
+                          <div className="flex items-center space-x-1.5">
+                            <span>👩‍💼</span>
+                            <span>Coach Sarah's Question:</span>
+                          </div>
+                          <span className="bg-indigo-500/30 text-indigo-200 px-2 py-0.5 rounded-full font-bold border border-indigo-500/40">
+                            Current Question
+                          </span>
+                        </div>
+                        <p className="font-extrabold text-xs sm:text-base leading-relaxed text-indigo-50">
+                          "{voiceFeedback || activePromptText || (missionInfo.starterPrompts && missionInfo.starterPrompts[0]) || 'Hello! Please speak your answer aloud in full sentences.'}"
+                        </p>
+                      </div>
+
+                      {/* Focused Recent Dialogue Stream: Last 2 Exchanges (4 turns max) */}
+                      <div className="space-y-2 p-1 rounded-2xl">
+                        {conversationTurns.slice(-4).map((turn, tIdx) => (
+                          turn.role === 'coach' ? (
+                            <div key={tIdx} className="p-2.5 sm:p-3 bg-slate-900/90 border border-slate-800 rounded-2xl text-xs space-y-1 text-slate-100 shadow-sm">
+                              <div className="flex items-center space-x-1.5 text-indigo-400 font-extrabold text-[10px] uppercase">
+                                <span>👩‍💼</span>
+                                <span>Coach Sarah:</span>
+                              </div>
+                              <p className="font-medium text-xs sm:text-sm text-slate-200 leading-relaxed">
+                                "{turn.text}"
+                              </p>
+                            </div>
+                          ) : (
+                            <div key={tIdx} className="p-2.5 sm:p-3 bg-emerald-950/40 border border-emerald-500/40 rounded-2xl text-xs space-y-1 text-emerald-100 shadow-sm">
+                              <div className="flex items-center justify-between text-[10px] uppercase font-bold text-emerald-400">
+                                <div className="flex items-center space-x-1">
+                                  <span>👤</span>
+                                  <span>You:</span>
+                                </div>
+                                {turn.verified && (
+                                  <span className="px-2 py-0.5 rounded-full bg-emerald-500/30 text-emerald-300 font-black text-[9px] border border-emerald-500/40">
+                                    🎯 +1 Spoken Sentence Verified
+                                  </span>
+                                )}
+                              </div>
+                              <p className="font-semibold text-xs sm:text-sm text-emerald-200">
+                                "{turn.text}"
+                              </p>
+                            </div>
+                          )
+                        ))}
+
+                        {/* Live interim speech transcription */}
+                        {voiceTranscript && (
+                          <div className="p-2.5 bg-emerald-950/50 border border-dashed border-emerald-500/60 rounded-xl text-xs text-emerald-200 italic">
+                            <span className="text-[10px] uppercase font-bold text-emerald-400 not-italic block mb-0.5">
+                              Listening to your voice...
+                            </span>
+                            "{voiceTranscript}"
                           </div>
                         )}
                       </div>
-                    )}
 
-                    {/* Official Commands Toolbar */}
-                    <div className="pt-2 border-t border-slate-100 flex flex-wrap gap-2 text-xs">
-                      <button type="button" onClick={() => setShowRegistrationModal(true)} className="px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-lg transition cursor-pointer">👤 Register</button>
-                      <button type="button" onClick={() => handleVoiceCommand('FREE TALK')} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition cursor-pointer">💬 Free Talk</button>
-                      <button type="button" onClick={() => handleVoiceCommand('VOCABULARY')} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition cursor-pointer">📖 Vocabulary</button>
-                      <button type="button" onClick={() => handleVoiceCommand('HOMEWORK')} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition cursor-pointer">📝 Homework</button>
-                      <button type="button" onClick={handleEndMissionAndContinue} className="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold rounded-lg transition cursor-pointer">⏩ End Mission & Continue</button>
-                      <button type="button" onClick={() => handleVoiceCommand('END SESSION')} className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 font-bold rounded-lg ml-auto transition cursor-pointer">🛑 End Session</button>
-                    </div>
-                  </>
-                )}
-              </div>
-            )}
+                      {/* Tactile Call Controls Bar */}
+                      <div className="pt-2 flex flex-wrap items-center justify-center gap-2">
+                        <button
+                          type="button"
+                          onClick={handlePauseResumeVoice}
+                          className="flex-1 min-w-[110px] py-2.5 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-extrabold text-xs rounded-xl border border-slate-700 transition flex items-center justify-center space-x-1.5 cursor-pointer"
+                        >
+                          <span>{voiceState === 'PAUSED' ? '▶️' : '⏸️'}</span>
+                          <span>{voiceState === 'PAUSED' ? 'Resume' : 'Hold / Mute'}</span>
+                        </button>
 
-            {/* TAB 2: EXISTING CHATGPT & MCL-1 PROGRESS CODE CARD */}
-            {activeCoachTab === 'mcl' && (
-              <>
-            <div className="p-5 bg-slate-900 text-white rounded-2xl sm:rounded-3xl space-y-4 border border-slate-800 shadow-xl">
-              <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3 pb-3 border-b border-slate-800">
-                <div>
-                  <div className="flex items-center space-x-2">
-                    <span className="px-2.5 py-0.5 bg-red-600 text-white text-[10px] font-mono font-black uppercase rounded-md shadow-sm">
-                      MCL-1 Progress Code
-                    </span>
-                    <span className="text-xs text-slate-400 font-extrabold">Level {activeMissionNumber} • {currentPct}% Current Progress</span>
-                  </div>
-                  <h4 className="font-extrabold text-base text-white mt-1">Active AI Mission Progress Code</h4>
-                  <p className="text-xs text-slate-400">Copy your starting code to ChatGPT, or paste the updated progress code from ChatGPT below.</p>
-                </div>
+                        <button
+                          type="button"
+                          onClick={handleRepeatInstructionVoice}
+                          className="py-2.5 px-3 bg-slate-800 hover:bg-slate-700 text-indigo-300 font-extrabold text-xs rounded-xl border border-slate-700 transition flex items-center justify-center space-x-1 cursor-pointer"
+                          title="Ask Coach Sarah to repeat"
+                        >
+                          <span>🔁</span>
+                          <span>Repeat</span>
+                        </button>
 
-                <div className="flex items-center space-x-2 shrink-0">
-                  <div className="bg-slate-950 px-3.5 py-2.5 rounded-xl border border-slate-800 font-mono font-black text-amber-400 text-sm tracking-widest shadow-sm select-all">
-                    {mclCode || 'UCAP-UCLX-GHDK-AQJP-CJCJ-CJTD'}
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => handleCopy(mclCode, 'MCL-1 Progress Code')}
-                    className="px-3.5 py-2.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-extrabold text-xs rounded-xl transition flex items-center space-x-1 border border-amber-400/40 shrink-0"
-                  >
-                    <span>{copiedPrompt === 'MCL-1 Progress Code' ? '✓ Copied!' : '📋 Copy'}</span>
-                  </button>
-                </div>
-              </div>
+                        <button
+                          type="button"
+                          onClick={handleSpeedToggleVoice}
+                          className="py-2.5 px-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-extrabold text-xs rounded-xl border border-slate-700 transition flex items-center justify-center space-x-1 cursor-pointer"
+                          title="Speaking speed"
+                        >
+                          <span>⚡</span>
+                          <span>{voiceSpeechSpeed}x</span>
+                        </button>
 
-              {/* Dedicated Large Full-Width Paste & Update Form */}
-              <form onSubmit={handleVerifySubmittedCode} className="space-y-3 bg-slate-950 p-4 rounded-2xl border border-slate-800">
-                <div className="flex justify-between items-center">
-                  <label className="text-xs font-extrabold text-emerald-400 uppercase tracking-wider flex items-center space-x-1.5">
-                    <span>📥 Paste Progress Code from ChatGPT Below:</span>
-                  </label>
-                  <button
-                    type="button"
-                    onClick={async () => {
-                      try {
-                        if (navigator && navigator.clipboard && navigator.clipboard.readText) {
-                          const text = await navigator.clipboard.readText();
-                          if (text) setInputMclCode(text.trim());
-                        }
-                      } catch(e) {}
-                    }}
-                    className="text-[11px] font-extrabold text-amber-400 hover:text-amber-300 underline flex items-center space-x-1"
-                  >
-                    <span>📋 Paste from Clipboard</span>
-                  </button>
-                </div>
+                        <button
+                          type="button"
+                          onClick={handleEndMissionAndContinue}
+                          className="py-2.5 px-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs rounded-xl shadow-lg transition flex items-center justify-center space-x-1 cursor-pointer"
+                          title="Complete current mission and advance to next level"
+                        >
+                          <span>⏩</span>
+                          <span>End Mission & Continue</span>
+                        </button>
 
-                <div className="flex flex-col sm:flex-row gap-2">
-                  <input
-                    type="text"
-                    placeholder="Paste ChatGPT code (e.g. UCAP-UCLX-GHDK-AQJP-CJCJ-CJTD)..."
-                    value={inputMclCode}
-                    onChange={e => setInputMclCode(e.target.value)}
-                    className="w-full px-4 py-3 bg-slate-900 border border-slate-700 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 rounded-xl text-sm sm:text-base text-white font-mono uppercase tracking-wider outline-none transition shadow-inner placeholder:text-slate-600"
-                  />
-                  <button
-                    type="submit"
-                    disabled={isVerifyingCode}
-                    className="w-full sm:w-auto px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs sm:text-sm rounded-xl shadow-lg transition shrink-0 disabled:opacity-50 flex items-center justify-center space-x-1.5"
-                  >
-                    <span>{isVerifyingCode ? '⏳ Verifying & Saving...' : '⚡ Update Progress & Save'}</span>
-                  </button>
-                </div>
-              </form>
-            </div>
-
-            {/* Quick Instructions Notice */}
-            <div className="p-4 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200/60 rounded-2xl space-y-2 text-xs text-purple-950 font-medium">
-              <p className="font-extrabold text-purple-900 flex items-center space-x-1">
-                <span>💡 How to Practice with Mastered AI Coach:</span>
-              </p>
-              <ol className="list-decimal list-inside space-y-1 text-slate-700 text-[11px]">
-                <li>Copy your <strong>MCL-1 Progress Code</strong> above and paste it to Mastered AI Coach in ChatGPT.</li>
-                <li>Click <strong>"📋 Copy Prompt"</strong> on any practice command below.</li>
-                <li>Click <strong>"🚀 Go to Practice (Launch ChatGPT)"</strong> to open your AI Coach.</li>
-                <li>When ChatGPT gives you an updated progress code, paste it above and click <strong>"⚡ Sync Progress"</strong>!</li>
-              </ol>
-            </div>
-
-            {/* 7 Prompts Grid */}
-            <div className="space-y-3">
-              <h4 className="text-xs font-black uppercase tracking-wider text-slate-500">Official Mission Practice Commands</h4>
-              <div className="grid grid-cols-1 gap-2.5">
-                {prompts.map((p, idx) => (
-                  <div key={idx} className="p-3.5 bg-slate-50 hover:bg-slate-100/80 border border-slate-200 hover:border-purple-300 rounded-2xl transition flex items-center justify-between gap-3">
-                    <div className="space-y-0.5 min-w-0">
-                      <div className="flex items-center space-x-2">
-                        <span className="px-2.5 py-0.5 bg-purple-900 text-purple-100 font-mono font-black text-[11px] rounded-lg shadow-sm">
-                          {p.command}
-                        </span>
-                        <span className="text-xs font-extrabold text-slate-900 truncate">{p.title}</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            handleVoiceCommand('END SESSION');
+                          }}
+                          className="py-2.5 px-3 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-black text-xs rounded-xl shadow-lg transition flex items-center justify-center space-x-1 cursor-pointer"
+                          title="End current call"
+                        >
+                          <span>🔴</span>
+                          <span>End Call</span>
+                        </button>
                       </div>
-                      <p className="text-xs text-slate-600 font-medium pl-0.5">{p.desc}</p>
                     </div>
-                    
+                  )}
+                </div>
+              ) : (
+                /* Text Practice Mode (Fallback) */
+                <div className="space-y-3 p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                  <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-xs text-amber-300 leading-relaxed">
+                    <strong>ℹ️ Text Practice Notice: </strong>
+                    Written answers receive immediate grammar feedback, but <strong>only verified spoken practice</strong> in the Live Call increments your official mission progress.
+                  </div>
+                  <form onSubmit={handleTextPracticeSubmit} className="space-y-2">
+                    <textarea
+                      rows={3}
+                      value={voiceTextInput}
+                      onChange={(e) => setVoiceTextInput(e.target.value)}
+                      placeholder="Type your English response here..."
+                      className="w-full p-3 bg-slate-900 border border-slate-700 rounded-xl text-xs sm:text-sm text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    />
                     <button
-                      onClick={() => handleCopy(p.text, p.command)}
-                      className={`px-3 py-2 rounded-xl text-xs font-extrabold transition shrink-0 flex items-center space-x-1 shadow-sm ${
-                        copiedPrompt === p.command
-                          ? 'bg-emerald-600 text-white'
-                          : 'bg-white text-slate-800 border border-slate-300 hover:bg-purple-50 hover:text-purple-700 hover:border-purple-300'
-                      }`}
+                      type="submit"
+                      className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs rounded-xl shadow-md transition cursor-pointer"
                     >
-                      <span>{copiedPrompt === p.command ? '✓ Copied!' : '📋 Copy Prompt'}</span>
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-            </>
-            )}
-
-            {/* Modal Action Buttons */}
-            <div className="pt-3 border-t flex flex-col sm:flex-row justify-between items-center gap-3">
-              <button
-                onClick={onClose}
-                className="w-full sm:w-auto px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-xs rounded-xl transition cursor-pointer"
-              >
-                Close
-              </button>
-              
-              {activeCoachTab === 'mcl' && (
-                <a
-                  href="https://chatgpt.com/g/g-6a7cdbc46df48191b1fa9d3e754c3bfc-mastered-ai-coach"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white font-extrabold text-xs rounded-xl shadow-lg transition flex items-center justify-center space-x-2"
-                >
-                  <span>🚀 Go to Practice (Launch Mastered AI Coach)</span>
-                  <span>➔</span>
-                </a>
-              )}
-            </div>
-
-            {/* Official AI Coach 4-Field Student Registration Modal */}
-            {showRegistrationModal && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm" onClick={() => setShowRegistrationModal(false)}>
-                <div className="bg-white rounded-3xl p-6 max-w-md w-full border border-slate-200 shadow-2xl space-y-4" onClick={e => e.stopPropagation()}>
-                  <div className="flex justify-between items-center border-b pb-3">
-                    <h3 className="font-extrabold text-slate-900 text-base">Official Student Registration</h3>
-                    <button onClick={() => setShowRegistrationModal(false)} className="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
-                  </div>
-                  <p className="text-xs text-slate-500">Please provide the 4 official required details to set up your AI speaking practice profile:</p>
-                  <form onSubmit={(e) => {
-                    e.preventDefault();
-                    const form = e.target;
-                    const nameVal = form.regName.value.trim();
-                    const admVal = form.regAdm.value.trim().toUpperCase();
-                    const levelVal = form.regLevel.value;
-                    const goalVal = form.regGoal.value.trim();
-
-                    if (window.MasteredAiCoachEngine) {
-                      const newProf = window.MasteredAiCoachEngine.createProfile({
-                        name: nameVal,
-                        admissionNumber: admVal,
-                        englishLevel: levelVal,
-                        learningGoal: goalVal,
-                        currentMission: 1,
-                        verifiedSentences: 0
-                      });
-                      const session = new window.MasteredAiCoachEngine.AiCoachSession(newProf, {
-                        onSentenceVerified: (p) => syncVoiceProgressToDatabase(p),
-                        onSaveProgress: (p) => syncVoiceProgressToDatabase(p)
-                      });
-                      voiceSessionRef.current = session;
-                      setVoiceVerifiedCount(0);
-                      const initP = (session.getMissionDetails().starterPrompts && session.getMissionDetails().starterPrompts[0]) || "Please introduce yourself aloud.";
-                      updateActivePrompt(initP);
-                      setShowRegistrationModal(false);
-                      if (showToast) showToast(`Registered: ${nameVal} (${admVal})! Ready for Mission 1.`);
-                    }
-                  }} className="space-y-3 text-xs">
-                    <div>
-                      <label className="block text-slate-700 font-bold mb-1">1. Student Full Name</label>
-                      <input name="regName" type="text" required defaultValue={currentUser?.name || ''} placeholder="John Doe" className="w-full p-2.5 rounded-xl border border-slate-300 text-slate-900 outline-none focus:ring-2 focus:ring-indigo-500" />
-                    </div>
-                    <div>
-                      <label className="block text-slate-700 font-bold mb-1">2. Admission Number</label>
-                      <input name="regAdm" type="text" required defaultValue={admNum} placeholder="MTR-7082" className="w-full p-2.5 rounded-xl border border-slate-300 text-slate-900 font-mono uppercase outline-none focus:ring-2 focus:ring-indigo-500" />
-                    </div>
-                    <div>
-                      <label className="block text-slate-700 font-bold mb-1">3. English Level</label>
-                      <select name="regLevel" className="w-full p-2.5 rounded-xl border border-slate-300 text-slate-900 font-bold outline-none focus:ring-2 focus:ring-indigo-500">
-                        <option value="BEGINNER">BEGINNER (Missions 1–8: Foundation & Pronouns)</option>
-                        <option value="INTERMEDIATE">INTERMEDIATE (Missions 9–23: Fluency & Tenses)</option>
-                        <option value="ADVANCED">ADVANCED (Missions 24–32: Professional & Debates)</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-slate-700 font-bold mb-1">4. Learning Goal</label>
-                      <input name="regGoal" type="text" required defaultValue="Confident Daily & Professional English Fluency" placeholder="e.g. Job Interview Preparation" className="w-full p-2.5 rounded-xl border border-slate-300 text-slate-900 outline-none focus:ring-2 focus:ring-indigo-500" />
-                    </div>
-                    <button type="submit" className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition cursor-pointer">
-                      Complete Registration & Begin Mission 1
+                      Submit Written Sentence for Feedback
                     </button>
                   </form>
+                  {voiceFeedback && (
+                    <div className="p-3 bg-slate-900 border border-emerald-500/40 rounded-xl text-xs text-emerald-200 font-medium">
+                      <span className="font-extrabold text-emerald-400">Coach Feedback: </span>
+                      {voiceFeedback}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Interaction Mode Sub-Toggle & Quick Commands */}
+              <div className="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs">
+                <div className="flex rounded-xl bg-slate-950 p-1 border border-slate-800">
+                  <button
+                    type="button"
+                    onClick={() => setVoiceSubMode('VOICE')}
+                    className={`py-1.5 px-3 rounded-lg text-xs font-extrabold transition flex items-center space-x-1.5 ${
+                      voiceSubMode === 'VOICE' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    <span>🎙️</span>
+                    <span>Live Call (Primary)</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setVoiceSubMode('TEXT')}
+                    className={`py-1.5 px-3 rounded-lg text-xs font-extrabold transition flex items-center space-x-1.5 ${
+                      voiceSubMode === 'TEXT' ? 'bg-purple-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    <span>⌨️</span>
+                    <span>Text (Fallback)</span>
+                  </button>
+                </div>
+
+                <div className="flex flex-wrap gap-1.5">
+                  <button type="button" onClick={() => setShowRegistrationModal(true)} className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-lg border border-slate-700 transition cursor-pointer text-[11px]">👤 Profile</button>
+                  <button type="button" onClick={() => handleVoiceCommand('FREE TALK')} className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-lg border border-slate-700 transition cursor-pointer text-[11px]">💬 Free Talk</button>
+                  <button type="button" onClick={() => handleVoiceCommand('VOCABULARY')} className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-lg border border-slate-700 transition cursor-pointer text-[11px]">📖 Vocab</button>
+                  <button type="button" onClick={() => handleVoiceCommand('HOMEWORK')} className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-lg border border-slate-700 transition cursor-pointer text-[11px]">📝 Homework</button>
                 </div>
               </div>
-            )}
+            </>
+          )}
+
+          {/* Student Profile Registration Modal */}
+          {showRegistrationModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-sm" onClick={() => setShowRegistrationModal(false)}>
+              <div className="bg-slate-900 text-white rounded-3xl p-6 max-w-md w-full border border-slate-800 shadow-2xl space-y-4" onClick={e => e.stopPropagation()}>
+                <div className="flex justify-between items-center border-b border-slate-800 pb-3">
+                  <h3 className="font-black text-white text-base">Student Practice Profile</h3>
+                  <button onClick={() => setShowRegistrationModal(false)} className="text-slate-400 hover:text-white text-lg font-bold">✕</button>
+                </div>
+                <p className="text-xs text-slate-400">These 4 official details personalize your Coach Sarah speaking experience:</p>
+                <form onSubmit={(e) => {
+                  e.preventDefault();
+                  const form = e.target;
+                  const nameVal = form.regName.value.trim();
+                  const admVal = form.regAdm.value.trim().toUpperCase();
+                  const levelVal = form.regLevel.value;
+                  const goalVal = form.regGoal.value.trim();
+
+                  if (window.MasteredAiCoachEngine) {
+                    const newProf = window.MasteredAiCoachEngine.createProfile({
+                      name: nameVal,
+                      admissionNumber: admVal,
+                      englishLevel: levelVal,
+                      learningGoal: goalVal,
+                      currentMission: activeMissionNumber,
+                      verifiedSentences: voiceVerifiedCount
+                    });
+                    const session = new window.MasteredAiCoachEngine.AiCoachSession(newProf, {
+                      onSentenceVerified: (p) => syncVoiceProgressToDatabase(p),
+                      onSaveProgress: (p) => syncVoiceProgressToDatabase(p)
+                    });
+                    voiceSessionRef.current = session;
+                    setShowRegistrationModal(false);
+                    if (showToast) showToast(`Profile updated: ${nameVal} (${admVal})!`);
+                  }
+                }} className="space-y-3 text-xs">
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">1. Student Full Name</label>
+                    <input name="regName" type="text" required defaultValue={currentUser?.name || ''} placeholder="John Doe" className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white outline-none focus:ring-2 focus:ring-indigo-500" />
+                  </div>
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">2. Admission Number</label>
+                    <input name="regAdm" type="text" required defaultValue={admNum} placeholder="MTR-7082" className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white font-mono uppercase outline-none focus:ring-2 focus:ring-indigo-500" />
+                  </div>
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">3. English Level</label>
+                    <select name="regLevel" defaultValue={currentUser?.englishLevel || 'BEGINNER'} className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white font-bold outline-none focus:ring-2 focus:ring-indigo-500">
+                      <option value="BEGINNER">BEGINNER (Missions 1–8: Foundation & Pronouns)</option>
+                      <option value="INTERMEDIATE">INTERMEDIATE (Missions 9–23: Fluency & Tenses)</option>
+                      <option value="ADVANCED">ADVANCED (Missions 24–32: Professional & Debates)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">4. Learning Goal</label>
+                    <input name="regGoal" type="text" required defaultValue={currentUser?.learningGoal || 'Confident Daily & Professional English Fluency'} placeholder="e.g. Job Interview Preparation" className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white outline-none focus:ring-2 focus:ring-indigo-500" />
+                  </div>
+                  <button type="submit" className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-black text-xs rounded-xl shadow-lg transition cursor-pointer">
+                    Save Profile & Continue
+                  </button>
+                </form>
+              </div>
+            </div>
+          )}
 
         </div>
       );
@@ -3105,31 +2456,13 @@
       if (asPage) {
         return (
           <div className="w-full max-w-4xl mx-auto space-y-4 py-2 px-1 sm:px-4">
-            {decodedReport && (
-              <DecodedProgressReportModal
-                decodedData={decodedReport}
-                currentUser={currentUser}
-                currentPct={currentPct}
-                onConfirmSave={handleConfirmSaveReport}
-                onClose={() => setDecodedReport(null)}
-              />
-            )}
             {modalBody}
           </div>
         );
       }
 
       return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto" onClick={onClose}>
-          {decodedReport && (
-            <DecodedProgressReportModal
-              decodedData={decodedReport}
-              currentUser={currentUser}
-              currentPct={currentPct}
-              onConfirmSave={handleConfirmSaveReport}
-              onClose={() => setDecodedReport(null)}
-            />
-          )}
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto" onClick={onClose}>
           {modalBody}
         </div>
       );
@@ -3880,108 +3213,7 @@
         order: 1
       });
 
-      // Verify & Sync MCL-1 Code
-      const handleVerifyMclCode = async (codeStr) => {
-        if (!codeStr || !codeStr.trim()) return;
 
-        // 1. Client-Side Instant Pre-Validation
-        const decoded = decodeMcl1(codeStr);
-        if (!decoded.success) {
-          alert("⛔ " + decoded.message);
-          return;
-        }
-
-        // Check student match on client side with cleaned alphanumeric check
-        const currentAdm = (currentUser?.admissionNumber || '').toString().trim().toUpperCase();
-        const cleanCurrentAdm = currentAdm.replace(/[^A-Z0-9]/g, '');
-        const cleanDecodedAdm = (decoded.admissionNumber || '').toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
-
-        if (cleanCurrentAdm && cleanDecodedAdm && cleanCurrentAdm !== cleanDecodedAdm && cleanCurrentAdm.indexOf(cleanDecodedAdm) < 0 && cleanDecodedAdm.indexOf(cleanCurrentAdm) < 0) {
-          alert("⛔ THIS CODE DOES NOT BELONG TO YOUR ACCOUNT\n\nThis progress code was generated for student admission number \"" + decoded.admissionNumber + "\", but your account is \"" + currentAdm + "\". You cannot use another student's progress code.");
-          return;
-        }
-
-        const activeProg = getCurrentStudentProgressMap();
-        const modKey = `MOD-${decoded.mission < 10 ? '0' + decoded.mission : decoded.mission}`;
-        const currentModObj = activeProg[modKey] || {};
-        const currentPct = Number(currentModObj.percentage) || 0;
-
-        if (decoded.progress <= currentPct) {
-          alert("ℹ️ NO NEW PROGRESS\n\nYour current recorded progress for Level " + decoded.mission + " is ALREADY " + currentPct + "%. Progress cannot be reduced.");
-          return;
-        }
-
-        // Optimistically update local React state and safeStorage
-        const updatedModObj = {
-          ...currentModObj,
-          percentage: decoded.progress,
-          status: decoded.progress === 100 ? 'COMPLETED' : (currentModObj.status || 'IN_PROGRESS'),
-          aiMissionCompleted: decoded.progress > 0 ? true : currentModObj.aiMissionCompleted,
-          lastUpdated: new Date().toISOString()
-        };
-
-        const updatedStudentMap = { ...activeProg, [modKey]: updatedModObj };
-
-        // Synthesize previous level 1 to (mission - 1) as completed
-        for (let lvl = 1; lvl < decoded.mission; lvl++) {
-          const pKey = `MOD-${lvl < 10 ? '0' + lvl : lvl}`;
-          if (!updatedStudentMap[pKey]) updatedStudentMap[pKey] = {};
-          if (!updatedStudentMap[pKey].percentage || Number(updatedStudentMap[pKey].percentage) < 100) {
-            updatedStudentMap[pKey] = {
-              ...updatedStudentMap[pKey],
-              percentage: 100,
-              aiMissionCompleted: true,
-              status: 'COMPLETED'
-            };
-          }
-        }
-
-        const key = (currentUser?.admissionNumber || currentUser?.studentId || currentUser?.email || decoded.admissionNumber || '').toString().trim().toUpperCase();
-
-        setUserProgress(prev => {
-          const newState = {
-            ...prev,
-            [key]: updatedStudentMap,
-            [cleanCurrentAdm]: updatedStudentMap,
-            [cleanDecodedAdm]: updatedStudentMap,
-            ...updatedStudentMap
-          };
-          safeStorage.setItem('mastered_all_students_progress', JSON.stringify(newState));
-          if (key) safeStorage.setItem(`mastered_progress_${key}`, JSON.stringify(updatedStudentMap));
-          if (cleanCurrentAdm) safeStorage.setItem(`mastered_progress_${cleanCurrentAdm}`, JSON.stringify(updatedStudentMap));
-          return newState;
-        });
-
-        showToast(`🎉 Level ${decoded.mission} progress updated to ${decoded.progress}%!`);
-
-        // Send to backend for permanent Google Sheets record and unlocking
-        try {
-          const res = await callAppsScript('verifyMclCode', {
-            code: codeStr,
-            admissionNumber: currentUser?.admissionNumber || decoded.admissionNumber,
-            email: currentUser?.email
-          });
-
-          if (res && res.success) {
-            const returnedProg = res.userProgress || res.data || {};
-            if (returnedProg && typeof returnedProg === 'object' && Object.keys(returnedProg).length > 0) {
-              setUserProgress(prev => {
-                const existingMap = (key && prev[key]) || {};
-                const mergedMap = { ...existingMap, ...returnedProg };
-                const newState = { ...prev, [key]: mergedMap, ...mergedMap };
-                safeStorage.setItem('mastered_all_students_progress', JSON.stringify(newState));
-                if (key) safeStorage.setItem(`mastered_progress_${key}`, JSON.stringify(mergedMap));
-                return newState;
-              });
-            }
-            showToast(`✅ Progress verified and saved permanently in Google Sheets database!`);
-          } else if (res && !res.success) {
-            alert(res.message);
-          }
-        } catch(err) {
-          showToast(`✅ Progress saved locally.`);
-        }
-      };
 
       // Student Login with Single Device Token Registration & Paid Auto-Approval
       const handleStudentLogin = async (emailInput, admInput) => {
@@ -4859,7 +4091,7 @@
                       <button onClick={() => setLessonTab('video1')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'video1' ? 'bg-red-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>Video Lesson</button>
                       {activeModule.audio && <button onClick={() => setLessonTab('audio')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'audio' ? 'bg-red-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>Audio Accent Drill</button>}
                       {activeModule.pdf && <button onClick={() => setLessonTab('pdf')} className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition ${lessonTab === 'pdf' ? 'bg-red-600 text-white shadow-sm' : 'bg-white border text-slate-700'}`}>PDF Workbook</button>}
-                      <button onClick={() => setLessonTab('aiProof')} className={`px-3.5 py-2 rounded-xl text-xs font-extrabold shrink-0 transition ${lessonTab === 'aiProof' ? 'bg-purple-700 text-white shadow-sm' : 'bg-purple-50 text-purple-900 border border-purple-200'}`}>📸 Upload AI Proof</button>
+                      <button onClick={() => setLessonTab('aiMission')} className={`px-3.5 py-2 rounded-xl text-xs font-extrabold shrink-0 transition ${lessonTab === 'aiMission' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-indigo-50 text-indigo-900 border border-indigo-200'}`}>🤖 AI Mission Practice</button>
                       <button onClick={() => { setActiveQuizModNumber(activeModule.moduleNumber); setActiveQuizModTitle(activeModule.title); }} className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold shrink-0 transition shadow-sm">📝 Take 30-Q Quiz</button>
                     </div>
 
@@ -4921,69 +4153,81 @@
                         </div>
                       )}
 
-                      {lessonTab === 'aiProof' && (
-                        <div className="space-y-4">
-                          <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
-                            <div>
-                              <h4 className="font-bold text-sm text-slate-900">AI Mission ChatGPT Report Screenshot Proof</h4>
-                              <p className="text-xs text-slate-500">Upload a clear screenshot of your report score from ChatGPT to complete Level {activeModule.moduleNumber} AI Mission!</p>
+                      {(lessonTab === 'aiMission' || lessonTab === 'aiProof') && (
+                        <div className="p-5 sm:p-7 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white rounded-2xl sm:rounded-3xl border border-indigo-900/50 shadow-xl space-y-5">
+                          <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3 pb-4 border-b border-slate-800">
+                            <div className="flex items-center space-x-3">
+                              <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 p-0.5 shadow-lg">
+                                <div className="w-full h-full rounded-2xl bg-slate-900 flex items-center justify-center text-2xl">
+                                  👩‍💼
+                                </div>
+                              </div>
+                              <div>
+                                <div className="flex items-center space-x-2">
+                                  <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                                    Official Speaking Room
+                                  </span>
+                                  <span className="text-xs text-indigo-300 font-bold">Level {activeModule.moduleNumber}</span>
+                                </div>
+                                <h4 className="text-lg font-black text-white mt-0.5">AI Mission Practice with Coach Sarah</h4>
+                                <p className="text-xs text-slate-400">Continuous voice conversation with instant pronunciation & fluency guidance.</p>
+                              </div>
                             </div>
-                            <button onClick={() => handleNavigateTab('ai_coach')} className="px-3.5 py-2 bg-purple-700 hover:bg-purple-600 text-white text-xs font-extrabold rounded-xl shadow-md transition self-start sm:self-auto flex items-center space-x-1">
-                              <span>🤖 Open Mastered AI Coach</span>
+
+                            <button
+                              type="button"
+                              onClick={() => handleNavigateTab('ai_coach')}
+                              className="px-5 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white text-xs sm:text-sm font-black rounded-xl shadow-lg transition flex items-center justify-center space-x-2 cursor-pointer shrink-0"
+                            >
+                              <span>🎙️ Start Practice with Coach Sarah</span>
                             </button>
                           </div>
 
-                          {(currentStudentProg[activeModule.moduleId] && currentStudentProg[activeModule.moduleId].aiMissionProof) ? (
-                            <div className="p-4 bg-emerald-50 border-2 border-emerald-300 rounded-2xl space-y-3">
-                              <div className="flex items-center justify-between">
-                                <span className="text-xs font-extrabold text-emerald-900 flex items-center space-x-1">
-                                  <span>✅ AI Mission ChatGPT Screenshot Report Verified & Saved!</span>
-                                </span>
-                                <button
-                                  onClick={() => {
-                                    handleMarkItemComplete(activeModule.moduleId, 'aiMissionProof', null);
-                                    handleMarkItemComplete(activeModule.moduleId, 'aiMissionCompleted', false);
-                                  }}
-                                  className="px-2.5 py-1 bg-red-100 text-red-700 font-bold text-[10px] rounded-lg hover:bg-red-200"
-                                >
-                                  Remove / Replace
-                                </button>
+                          {/* Mission Details & Real-Time Verified Count */}
+                          {(() => {
+                            const modKey = `MOD-${activeModule.moduleNumber < 10 ? '0' + activeModule.moduleNumber : activeModule.moduleNumber}`;
+                            const modKeyShort = `MOD-${activeModule.moduleNumber}`;
+                            const mProg = currentStudentProg[activeModule.moduleId] || currentStudentProg[modKey] || currentStudentProg[modKeyShort] || {};
+                            const curPct = Number(mProg.percentage) || (mProg.aiMissionCompleted ? 100 : 0);
+                            const tTarget = (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission)
+                              ? window.MasteredCurriculum.getTargetForMission(activeModule.moduleNumber)
+                              : (activeModule.moduleNumber <= 8 ? 30 : (activeModule.moduleNumber <= 23 ? 40 : 50));
+                            const verifiedCount = (typeof mProg.verifiedSentences === 'number')
+                              ? mProg.verifiedSentences
+                              : Math.round((curPct / 100) * tTarget);
+
+                            return (
+                              <div className="space-y-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                                  <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800">
+                                    <span className="text-[10px] uppercase font-bold text-slate-400 block">Mission Target</span>
+                                    <span className="text-sm font-black text-indigo-300">{tTarget} Spoken Sentences</span>
+                                  </div>
+                                  <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800">
+                                    <span className="text-[10px] uppercase font-bold text-slate-400 block">Spoken Verified</span>
+                                    <span className="text-sm font-black text-emerald-400">{verifiedCount} of {tTarget} Sentences</span>
+                                  </div>
+                                  <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800">
+                                    <span className="text-[10px] uppercase font-bold text-slate-400 block">Status</span>
+                                    <span className="text-sm font-black text-white">{curPct >= 100 ? '✅ 100% Completed' : (curPct > 0 ? `🔄 In Progress (${curPct}%)` : 'Ready to Start')}</span>
+                                  </div>
+                                </div>
+
+                                <div className="space-y-1.5">
+                                  <div className="flex justify-between items-center text-xs font-bold text-slate-300">
+                                    <span>Mission Progress</span>
+                                    <span className="text-emerald-400 font-black">{curPct}%</span>
+                                  </div>
+                                  <div className="w-full h-3 bg-slate-950 rounded-full overflow-hidden p-0.5 border border-slate-800">
+                                    <div
+                                      className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-400 rounded-full transition-all duration-300"
+                                      style={{ width: `${Math.min(100, curPct)}%` }}
+                                    ></div>
+                                  </div>
+                                </div>
                               </div>
-                              <div className="rounded-xl overflow-hidden border border-emerald-200 shadow-sm max-h-80 bg-slate-900 flex items-center justify-center">
-                                <img src={currentStudentProg[activeModule.moduleId].aiMissionProof} alt="ChatGPT Proof" className="max-h-80 object-contain" />
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="p-6 bg-slate-50 border-2 border-dashed border-purple-300 rounded-2xl text-center space-y-3">
-                              <div className="w-12 h-12 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-xl mx-auto font-bold">
-                                📸
-                              </div>
-                              <div>
-                                <h5 className="font-extrabold text-sm text-slate-900">Upload ChatGPT Mission Report Screenshot</h5>
-                                <p className="text-xs text-slate-500 mt-1">Select your screenshot file from your phone or computer to verify and complete this mission.</p>
-                              </div>
-                              <label className="inline-flex items-center space-x-2 px-5 py-2.5 bg-purple-700 hover:bg-purple-600 text-white font-extrabold text-xs rounded-xl shadow-md cursor-pointer transition">
-                                <span>📁 Choose Screenshot File</span>
-                                <input
-                                  type="file"
-                                  accept="image/*"
-                                  className="hidden"
-                                  onChange={(e) => {
-                                    const file = e.target.files && e.target.files[0];
-                                    if (file) {
-                                      const reader = new FileReader();
-                                      reader.onload = (evt) => {
-                                        const base64 = evt.target.result;
-                                        handleMarkItemComplete(activeModule.moduleId, 'aiMissionProof', base64);
-                                        handleMarkItemComplete(activeModule.moduleId, 'aiMissionCompleted', true);
-                                      };
-                                      reader.readAsDataURL(file);
-                                    }
-                                  }}
-                                />
-                              </label>
-                            </div>
-                          )}
+                            );
+                          })()}
                         </div>
                       )}
                     </div>
@@ -5008,7 +4252,7 @@
                     setUserProgress={setUserProgress}
                     getCurrentStudentProgressMap={getCurrentStudentProgressMap}
                     activeModule={activeModule}
-                    onVerifyMclCode={handleVerifyMclCode}
+                    /* onVerifyMclCode removed */
                   />
                 ) : (
                   /* Student Dashboard / Modules List View */
@@ -5018,8 +4262,8 @@
                     let dashQuizTaken = 0;
                     let dashQuizScoreSum = 0;
                     let dashQuizzesPassed = 0;
-                    let activeMclLevel = 0;
-                    let activeMclProg = 0;
+                    let activeMissionLevel = 0;
+                    let activeMissionProg = 0;
 
                     modules.forEach(m => {
                       const modKey = `MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
@@ -5030,16 +4274,16 @@
                       dashAiSum += aiPct;
                       if (aiPct >= 100) {
                         dashAiCompleted++;
-                        if (m.moduleNumber < 32 && m.moduleNumber + 1 > activeMclLevel) {
-                          activeMclLevel = m.moduleNumber + 1;
-                          activeMclProg = 0;
-                        } else if (m.moduleNumber === 32 && activeMclLevel === 0) {
-                          activeMclLevel = 32;
-                          activeMclProg = 100;
+                        if (m.moduleNumber < 32 && m.moduleNumber + 1 > activeMissionLevel) {
+                          activeMissionLevel = m.moduleNumber + 1;
+                          activeMissionProg = 0;
+                        } else if (m.moduleNumber === 32 && activeMissionLevel === 0) {
+                          activeMissionLevel = 32;
+                          activeMissionProg = 100;
                         }
-                      } else if (aiPct > 0 && m.moduleNumber >= activeMclLevel) {
-                        activeMclLevel = m.moduleNumber;
-                        activeMclProg = aiPct;
+                      } else if (aiPct > 0 && m.moduleNumber >= activeMissionLevel) {
+                        activeMissionLevel = m.moduleNumber;
+                        activeMissionProg = aiPct;
                       }
 
                       const qScores = mProg.quizScores || {};
@@ -5118,15 +4362,15 @@
                             <span className="tracking-wide uppercase text-[11px] sm:text-xs">AI Mission Practice</span>
                           </button>
 
-                          {/* 3. Paste AI Progress Code */}
+                          {/* 3. Course Modules */}
                           <button
                             type="button"
-                            onClick={() => handleNavigateTab('ai_coach')}
+                            onClick={() => handleNavigateTab('modules')}
                             className="p-3 sm:p-3.5 bg-slate-900 hover:bg-slate-800 text-amber-300 font-extrabold text-xs rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 ease-out transform hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] flex items-center justify-center space-x-2 border border-slate-700 cursor-pointer"
-                            title="Paste MCL Encrypted Code"
+                            title="Explore Course Modules (32)"
                           >
-                            <span className="text-base sm:text-lg">⚡</span>
-                            <span className="tracking-wide uppercase text-[11px] sm:text-xs text-white">Paste AI Code</span>
+                            <span className="text-base sm:text-lg">📚</span>
+                            <span className="tracking-wide uppercase text-[11px] sm:text-xs text-white">Course Modules</span>
                           </button>
 
                           {/* 4. View My History */}
@@ -5154,7 +4398,7 @@
                                 <span className="text-xs font-extrabold text-slate-700 uppercase tracking-wider">AI Mission</span>
                               </div>
                               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200/70">
-                                {activeMclLevel > 0 ? `Level ${activeMclLevel} (${activeMclProg}%)` : 'Sync Ready'}
+                                {activeMissionLevel > 0 ? `Level ${activeMissionLevel} (${activeMissionProg}%)` : 'Sync Ready'}
                               </span>
                             </div>
 
@@ -5178,9 +4422,9 @@
                             <p className="text-xs text-slate-500 font-medium flex items-center space-x-1.5 pt-0.5">
                               <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></span>
                               <span className="truncate">
-                                {activeMclLevel > 0 
-                                  ? `Level ${activeMclLevel} active • ${dashAiCompleted} of ${modules.length} completed` 
-                                  : 'Paste MCL code to sync level'}
+                                {activeMissionLevel > 0 
+                                  ? `Level ${activeMissionLevel} active • ${dashAiCompleted} of ${modules.length} completed` 
+                                  : 'Practice with Coach Sarah to level up'}
                               </span>
                             </p>
                           </div>
@@ -5461,7 +4705,7 @@
                                 <th className="p-3">Admission No</th>
                                 <th className="p-3">Email & Phone</th>
                                 <th className="p-3">Course</th>
-                                <th className="p-3">MCL Level & Progress</th>
+                                <th className="p-3">AI Mission Level & Progress</th>
                                 <th className="p-3">Status</th>
                                 <th className="p-3 text-right">Student Record</th>
                               </tr>
@@ -5672,14 +4916,16 @@
                             </div>
 
                             <div className="p-3.5 bg-slate-50 border-t flex justify-end space-x-2">
-                              <a
-                                href="https://chatgpt.com/g/g-6a7cdbc46df48191b1fa9d3e754c3bfc-mastered-ai-coach"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="px-3 py-2 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white font-extrabold text-xs rounded-xl shadow-sm flex items-center space-x-1"
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setActiveModule(m);
+                                  setShowAiPromptModal(true);
+                                }}
+                                className="px-3 py-2 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white font-extrabold text-xs rounded-xl shadow-sm flex items-center space-x-1 cursor-pointer"
                               >
-                                <span>🤖 Mission AI</span>
-                              </a>
+                                <span>🤖 Coach Sarah</span>
+                              </button>
                               <button
                                 onClick={() => {
                                   setModuleForm(m);
@@ -5809,7 +5055,6 @@
                   setUserProgress={setUserProgress}
                   getCurrentStudentProgressMap={getCurrentStudentProgressMap}
                   activeModule={activeModule}
-                  onVerifyMclCode={handleVerifyMclCode}
                 />
               )}
 
