@@ -2009,32 +2009,91 @@
       };
 
       const handleVoiceCommand = (cmd) => {
-        const session = voiceSessionRef.current;
-        if (!session) return;
-        const reply = session.executeCommand(cmd);
-
         if (cmd === 'END SESSION') {
           if (voicePipelineRef.current) {
-            voicePipelineRef.current.endLiveSession();
+            try {
+              voicePipelineRef.current.endLiveSession();
+            } catch (err) {
+              console.warn('Live voice pipeline end error:', err);
+            }
           }
-          const rep = session.generateDailyReport();
-          setVoiceSessionSummary(rep);
+          const session = voiceSessionRef.current;
+          let summary = null;
+          if (session) {
+            try {
+              if (typeof session.generateDailyReport === 'function') {
+                summary = session.generateDailyReport();
+              } else if (typeof session.endSession === 'function') {
+                const res = session.endSession();
+                summary = (res && res.summary) ? res.summary : res;
+              }
+            } catch (err) {
+              console.warn('Error generating session report:', err);
+            }
+          }
+
+          const tSentences = (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission)
+            ? window.MasteredCurriculum.getTargetForMission(activeMissionNumber)
+            : (activeMissionNumber <= 8 ? 30 : (activeMissionNumber <= 23 ? 40 : 50));
+
+          if (!summary) {
+            summary = {
+              name: currentUser?.name || 'Student',
+              admissionNumber: admNum,
+              currentMission: activeMissionNumber,
+              missionTitle: missionInfo.title || `Mission ${activeMissionNumber}`,
+              verifiedSentences: voiceVerifiedCount,
+              missionTarget: tSentences,
+              progressPct: Math.min(100, Math.round((voiceVerifiedCount / (tSentences || 1)) * 100)),
+              sessionEndedAt: new Date().toISOString()
+            };
+          }
+
+          if (!summary.missionTarget) summary.missionTarget = tSentences;
+          if (summary.progressPct === undefined) {
+            summary.progressPct = Math.min(100, Math.round((voiceVerifiedCount / (tSentences || 1)) * 100));
+          }
+
+          syncVoiceProgressToDatabase({
+            currentMission: activeMissionNumber,
+            verifiedSentences: voiceVerifiedCount,
+            progressPct: summary.progressPct,
+            status: summary.progressPct >= 100 ? 'COMPLETED' : 'IN_PROGRESS'
+          });
+
+          setVoiceSessionSummary(summary);
           setVoiceSessionEnded(true);
+          setVoiceState('IDLE');
+          if (showToast) {
+            showToast('📞 Call ended. Spoken progress saved!');
+          }
           return;
         }
+
+        const session = voiceSessionRef.current;
+        if (!session) return;
+        const reply = typeof session.executeCommand === 'function' 
+          ? session.executeCommand(cmd) 
+          : (typeof session.dispatchCommand === 'function' ? session.dispatchCommand(cmd) : '');
 
         if (cmd === 'FREE TALK') setCoachMode('FREE_TALK');
         if (cmd === 'STRUCTURED') setCoachMode('STRUCTURED');
 
-        setVoiceFeedback(reply);
-        updateActivePrompt(reply);
-        setConversationTurns(prev => [
-          ...prev,
-          { role: 'coach', text: reply }
-        ]);
+        if (reply) {
+          setVoiceFeedback(reply);
+          updateActivePrompt(reply);
+          setConversationTurns(prev => [
+            ...prev,
+            { role: 'coach', text: reply }
+          ]);
 
-        if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
-          voicePipelineRef.current.speak(reply);
+          if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
+            if (typeof voicePipelineRef.current.speakCoachResponse === 'function') {
+              voicePipelineRef.current.speakCoachResponse(reply);
+            } else if (typeof voicePipelineRef.current.speak === 'function') {
+              voicePipelineRef.current.speak(reply);
+            }
+          }
         }
       };
 

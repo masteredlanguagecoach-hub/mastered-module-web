@@ -2199,6 +2199,46 @@
     };
   };
 
+  AiCoachSession.prototype.executeCommand = function (cmd) {
+    return this.dispatchCommand(cmd);
+  };
+
+  AiCoachSession.prototype.generateDailyReport = function () {
+    var res = this.endSession();
+    return res && res.summary ? res.summary : res;
+  };
+
+  try {
+    Object.defineProperty(AiCoachSession.prototype, 'currentMission', {
+      get: function () {
+        return this.profile ? this.profile.currentMission : 1;
+      },
+      set: function (val) {
+        if (this.profile) {
+          this.profile.currentMission = Number(val) || 1;
+          if (Curriculum && Curriculum.getTargetForMission) {
+            this.profile.missionTarget = Curriculum.getTargetForMission(this.profile.currentMission);
+          }
+        }
+      },
+      configurable: true
+    });
+
+    Object.defineProperty(AiCoachSession.prototype, 'verifiedSentences', {
+      get: function () {
+        return this.profile ? this.profile.verifiedSentences : 0;
+      },
+      set: function (val) {
+        if (this.profile) {
+          this.profile.verifiedSentences = Number(val) || 0;
+          var target = this.profile.missionTarget || 30;
+          this.profile.progressPct = Math.min(100, Math.round((this.profile.verifiedSentences / target) * 100));
+        }
+      },
+      configurable: true
+    });
+  } catch (propErr) {}
+
   var MasteredAiCoachEngine = {
     normalizeCommand: normalizeCommand,
     calculateProgressPct: calculateProgressPct,
