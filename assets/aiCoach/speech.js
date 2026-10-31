@@ -585,6 +585,17 @@
     // End of turn detected!
     this.transitionTo(STATES.PROCESSING_SPEECH);
 
+    // Safety watchdog: recover automatically if turn evaluation hangs or takes longer than 6 seconds
+    clearTimeout(this.processingSafetyTimer);
+    var self = this;
+    this.processingSafetyTimer = setTimeout(function () {
+      if (self.state === STATES.PROCESSING_SPEECH && self.isSessionActive) {
+        console.warn("[LiveVoicePipeline] Processing speech watchdog timer expired. Recovering to LISTENING...");
+        self.transitionTo(STATES.LISTENING);
+        self.restartListening();
+      }
+    }, 6000);
+
     // Check for Spoken Voice Intents
     var intent = detectSpokenIntent(candidate);
     if (intent) {
@@ -702,6 +713,7 @@
   };
 
   LiveVoicePipeline.prototype.speakCoachResponse = function (text, onFinish) {
+    clearTimeout(this.processingSafetyTimer);
     if (!text || !text.trim()) {
       this.isSpeaking = false;
       this.transitionTo(STATES.LISTENING);
@@ -943,6 +955,7 @@
 
   LiveVoicePipeline.prototype.endLiveSession = function () {
     this.isSessionActive = false;
+    clearTimeout(this.processingSafetyTimer);
     this.isSpeaking = false;
     this.transitionTo(STATES.ENDING);
 

@@ -1773,8 +1773,14 @@
         };
       }, [activeMissionNumber]);
 
-      const handleStudentVoiceTurn = async (spokenText) => {
-        if (!spokenText || !spokenText.trim()) return;
+      const handleStudentVoiceTurn = async (spokenInput) => {
+        const spokenText = (typeof spokenInput === 'string') ? spokenInput : (spokenInput && spokenInput.text ? spokenInput.text : '');
+        if (!spokenText || !spokenText.trim()) {
+          if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
+            voicePipelineRef.current.restartListening();
+          }
+          return;
+        }
 
         const cleanSpeech = spokenText.trim();
         const spokenNormalized = cleanSpeech.toLowerCase();
@@ -1788,29 +1794,87 @@
         setVoiceTranscript(cleanSpeech);
 
         const session = voiceSessionRef.current;
-        if (!session) return;
-
-        const turnResult = await session.processStudentSpeechTurn(cleanSpeech);
-
-        setVoiceVerifiedCount(turnResult.verifiedCount);
-        setVoiceFeedback(turnResult.spokenResponse);
-        updateActivePrompt(turnResult.spokenResponse);
-
-        setConversationTurns(prev => {
-          const newTurns = [
-            ...prev,
-            { role: 'student', text: cleanSpeech, verified: turnResult.verifiedIncrement > 0 },
-            { role: 'coach', text: turnResult.spokenResponse }
-          ];
-          return newTurns.slice(-4);
-        });
-
-        if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
-          voicePipelineRef.current.speak(turnResult.spokenResponse);
+        if (!session) {
+          if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
+            voicePipelineRef.current.restartListening();
+          }
+          return;
         }
 
-        if (turnResult.isMissionCompleted) {
-          if (showToast) showToast(`🎉 Mission ${activeMissionNumber} Target Reached! 100% Completed!`);
+        try {
+          let turnResult;
+          if (typeof session.processStudentSpeechTurn === 'function') {
+            turnResult = await session.processStudentSpeechTurn(cleanSpeech);
+          } else if (typeof session.recordAttemptWithGemini === 'function') {
+            const attempt = await session.recordAttemptWithGemini({
+              source: 'speech',
+              text: cleanSpeech,
+              confidence: 0.95,
+              turnId: Date.now(),
+              nonce: 'voice_' + activeMissionNumber + '_' + Date.now()
+            });
+            turnResult = {
+              verifiedCount: session.getProfile().verifiedSentences,
+              verifiedIncrement: attempt.verifiedIncrement || 0,
+              spokenResponse: attempt.coachResponse || attempt.feedback || (session.getNextQuestion ? session.getNextQuestion(cleanSpeech) : "Tell me more about that."),
+              isMissionCompleted: Boolean(attempt.passed),
+              isEligible: Boolean(attempt.eligible)
+            };
+          } else {
+            const attempt = session.recordAttempt({
+              source: 'speech',
+              text: cleanSpeech,
+              confidence: 0.95,
+              turnId: Date.now(),
+              nonce: 'voice_' + activeMissionNumber + '_' + Date.now()
+            });
+            turnResult = {
+              verifiedCount: session.getProfile().verifiedSentences,
+              verifiedIncrement: attempt.verifiedIncrement || 0,
+              spokenResponse: attempt.coachResponse || attempt.feedback || (session.getNextQuestion ? session.getNextQuestion(cleanSpeech) : "Tell me more about that."),
+              isMissionCompleted: Boolean(attempt.passed),
+              isEligible: Boolean(attempt.eligible)
+            };
+          }
+
+          setVoiceVerifiedCount(turnResult.verifiedCount);
+          setVoiceFeedback(turnResult.spokenResponse);
+          updateActivePrompt(turnResult.spokenResponse);
+
+          setConversationTurns(prev => {
+            const newTurns = [
+              ...prev,
+              { role: 'student', text: cleanSpeech, verified: turnResult.verifiedIncrement > 0 },
+              { role: 'coach', text: turnResult.spokenResponse }
+            ];
+            return newTurns.slice(-4);
+          });
+
+          if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
+            if (typeof voicePipelineRef.current.speakCoachResponse === 'function') {
+              voicePipelineRef.current.speakCoachResponse(turnResult.spokenResponse);
+            } else if (typeof voicePipelineRef.current.speak === 'function') {
+              voicePipelineRef.current.speak(turnResult.spokenResponse);
+            }
+          }
+
+          if (turnResult.isMissionCompleted) {
+            if (showToast) showToast(`🎉 Mission ${activeMissionNumber} Target Reached! 100% Completed!`);
+          }
+        } catch(err) {
+          console.error("[Coach Sarah Turn Error]", err);
+          const fallbackReply = (session && session.getNextQuestion) 
+            ? session.getNextQuestion(cleanSpeech) 
+            : "I heard you! Please tell me more about that.";
+          setVoiceFeedback(fallbackReply);
+          updateActivePrompt(fallbackReply);
+          if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
+            if (typeof voicePipelineRef.current.speakCoachResponse === 'function') {
+              voicePipelineRef.current.speakCoachResponse(fallbackReply);
+            } else if (typeof voicePipelineRef.current.speak === 'function') {
+              voicePipelineRef.current.speak(fallbackReply);
+            }
+          }
         }
       };
 
@@ -1988,9 +2052,11 @@
         'SPEAKING': { label: 'Coach Sarah is Speaking', color: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40', pulse: true },
         'LISTENING': { label: 'Coach Sarah is Listening', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40', pulse: true },
         'PROCESSING': { label: 'Thinking...', color: 'bg-purple-500/20 text-purple-300 border-purple-500/40', pulse: true },
+        'PROCESSING_SPEECH': { label: 'Listening & Thinking...', color: 'bg-purple-500/20 text-purple-300 border-purple-500/40', pulse: true },
+        'GENERATING_RESPONSE': { label: 'Thinking...', color: 'bg-purple-500/20 text-purple-300 border-purple-500/40', pulse: true },
         'PAUSED': { label: 'Call On Hold', color: 'bg-amber-500/20 text-amber-300 border-amber-500/40', pulse: false },
         'ERROR': { label: 'Mic Reconnecting', color: 'bg-rose-500/20 text-rose-300 border-rose-500/40', pulse: false }
-      }[voiceState] || { label: voiceState, color: 'bg-slate-800 text-slate-300 border-slate-700', pulse: false };
+      }[voiceState] || { label: 'Thinking...', color: 'bg-purple-500/20 text-purple-300 border-purple-500/40', pulse: true };
 
       const modalBody = (
         <div className={`bg-slate-900 text-white rounded-3xl p-4 sm:p-6 w-full border border-slate-800 shadow-2xl space-y-4 sm:space-y-5 ${asPage ? 'max-w-4xl mx-auto' : 'max-w-2xl max-h-[92vh] overflow-y-auto'}`} onClick={e => e.stopPropagation()}>

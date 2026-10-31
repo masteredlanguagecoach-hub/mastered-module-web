@@ -2131,6 +2131,39 @@
     return getMissionGuidanceHelp(this.profile.currentMission, this.getMissionDetails());
   };
 
+  /**
+   * Process a student's spoken turn end-to-end with real-time feedback,
+   * sentence verification, and situational next question.
+   */
+  AiCoachSession.prototype.processStudentSpeechTurn = async function (speechInput, options) {
+    var text = (typeof speechInput === 'string') ? speechInput : (speechInput && speechInput.text ? speechInput.text : '');
+    var attemptData = {
+      source: 'speech',
+      text: text,
+      confidence: (speechInput && speechInput.confidence) || 0.95,
+      turnId: (speechInput && speechInput.turnId) || Date.now(),
+      nonce: 'voice_' + this.profile.currentMission + '_' + Date.now() + '_' + String(text).replace(/[^a-zA-Z0-9]/g, '').slice(0, 24)
+    };
+
+    var attempt;
+    if (typeof this.recordAttemptWithGemini === 'function') {
+      attempt = await this.recordAttemptWithGemini(attemptData, options);
+    } else {
+      attempt = this.recordAttempt(attemptData);
+    }
+
+    var coachSpokenMessage = attempt.coachResponse || attempt.feedback || (this.getNextQuestion ? this.getNextQuestion(text) : "Tell me more about that.");
+
+    return {
+      verifiedCount: this.profile.verifiedSentences,
+      verifiedIncrement: attempt.verifiedIncrement || 0,
+      spokenResponse: coachSpokenMessage,
+      isMissionCompleted: Boolean(attempt.passed),
+      isEligible: Boolean(attempt.eligible),
+      attempt: attempt
+    };
+  };
+
   AiCoachSession.prototype.endSession = function () {
     var curDetails = this.getMissionDetails();
     var summary = {
