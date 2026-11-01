@@ -1817,8 +1817,12 @@
           return;
         }
 
-        // INSTANT FILLER: speak within <1s while Gemini generates async reply
-        speakImmediateFiller();
+        // Instant filler acknowledgment in Coach Sarah's voice while AI generates response
+        if (voicePipelineRef.current && typeof voicePipelineRef.current.speakImmediateAcknowledgment === 'function') {
+          voicePipelineRef.current.speakImmediateAcknowledgment();
+        } else {
+          speakImmediateFiller();
+        }
 
         try {
           let turnResult;
@@ -1956,6 +1960,7 @@
             }
           });
           voicePipelineRef.current = pipeline;
+          if (typeof window !== 'undefined') window.__masteredActivePipeline = pipeline;
         }
 
         try {

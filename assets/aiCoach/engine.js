@@ -1564,18 +1564,19 @@
       systemInstruction: { parts: [{ text: systemInstruction }] },
       generationConfig: {
         responseMimeType: "application/json",
-        temperature: 0.2
+        temperature: 0.3,
+        thinkingConfig: { thinkingBudget: 0 }
       }
     };
 
-    var modelsToTry = ['gemini-3.1-flash-lite-preview', 'gemini-3.5-flash', 'gemini-3-flash-preview'];
+    var modelsToTry = ['gemini-3.5-flash', 'gemini-3.1-flash-lite-preview', 'gemini-3-flash-preview'];
     var evalResult = null;
 
     for (var mIdx = 0; mIdx < modelsToTry.length; mIdx++) {
       var modelName = modelsToTry[mIdx];
       try {
         var controller = new AbortController();
-        var timeoutId = setTimeout(function () { controller.abort(); }, 6000);
+        var timeoutId = setTimeout(function () { controller.abort(); }, 8000);
 
         var url = "https://generativelanguage.googleapis.com/v1beta/models/" + modelName + ":generateContent?key=" + encodeURIComponent(apiKey);
         var response = await fetch(url, {
@@ -1618,7 +1619,14 @@
       var unasked = starters.filter(function (s) {
         return ctx.askedQuestions.indexOf(s) === -1;
       });
-      var nextQ = unasked[0] || starters[verified % (starters.length || 1)] || "What else would you like to share about that?";
+      var naturalFollowups = [
+        "What else would you like to share about that?",
+        "Could you tell me a little more about your experience with that?",
+        "How do you feel when you practice that in your daily routine?",
+        "That is very interesting! What happened next?",
+        "Can you describe one more detail about that?"
+      ];
+      var nextQ = unasked[0] || naturalFollowups[verified % naturalFollowups.length];
       spokenReply = spokenReply.replace(/[.!]+$/, '') + ". " + nextQ;
     }
 

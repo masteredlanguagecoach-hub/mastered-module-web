@@ -211,7 +211,7 @@
     this.lang = options.lang || 'en-US';
     this.speechRate = options.speechRate || 0.86;
     // Turn-taking silence threshold: 1900ms gives learners natural thinking time without premature cutoffs
-    this.silenceThresholdMs = options.silenceThresholdMs || 1900;
+    this.silenceThresholdMs = options.silenceThresholdMs || 950;
     this.volumeThreshold = options.volumeThreshold || 12;
 
     // Callbacks
@@ -547,7 +547,7 @@
       var lastWord = words[words.length - 1].toLowerCase().replace(/[^a-z']/g, '');
       if (TRAILING_CONNECTORS[lastWord]) {
         // Student is mid-sentence! Add 1200ms grace period so they are never interrupted
-        delay += 1200;
+        delay += 500;
       }
     }
 
@@ -614,6 +614,13 @@
     var turnUtterance = candidate;
     this.accumulatedTranscript = '';
     this.latestInterim = '';
+
+    // Spoken conversational acknowledgment filler (<300ms perceived response)
+
+
+    this.speakImmediateAcknowledgment();
+
+
 
     if (this.onStudentTurnComplete) {
       this.onStudentTurnComplete({
@@ -715,6 +722,40 @@
     } catch (e) {
       this.isStarting = false;
     }
+  };
+
+  
+  LiveVoicePipeline.prototype.speakImmediateAcknowledgment = function () {
+    if (!this.synth || !this.isSessionActive) return;
+    var fillers = [
+      "I see!",
+      "Got it!",
+      "Interesting!",
+      "Tell me more!",
+      "Wonderful!",
+      "Great!",
+      "Nice!",
+      "Mm-hmm!",
+      "I hear you!"
+    ];
+    this.fillerIndex = ((this.fillerIndex || 0) + 1) % fillers.length;
+    var phrase = fillers[this.fillerIndex];
+
+    try {
+      if (this.synth.speaking) {
+        this.synth.cancel();
+      }
+      var utterance = new window.SpeechSynthesisUtterance(phrase);
+      utterance.lang = this.lang || 'en-US';
+      utterance.rate = 1.05;
+      utterance.pitch = 1.20;
+      var femaleVoice = getCoachFemaleVoice(this.synth);
+      if (!femaleVoice && typeof window !== 'undefined' && window.__masteredFemaleVoice) {
+        femaleVoice = window.__masteredFemaleVoice;
+      }
+      if (femaleVoice) utterance.voice = femaleVoice;
+      this.synth.speak(utterance);
+    } catch (e) {}
   };
 
   LiveVoicePipeline.prototype.speakCoachResponse = function (text, onFinish) {
