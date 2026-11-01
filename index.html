@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -1773,6 +1773,22 @@
         };
       }, [activeMissionNumber]);
 
+      // Instant coach filler responses - spoken immediately while Gemini generates the full reply
+      const COACH_FILLERS = ["I see!", "Got it!", "Interesting!", "Great, tell me more!", "Mm-hmm!", "Nice!", "Okay!", "Sure!", "I hear you!"];
+      let _fillerIdx = 0;
+      const speakImmediateFiller = () => {
+        try {
+          const synth = window.speechSynthesis;
+          if (!synth) return;
+          const filler = COACH_FILLERS[_fillerIdx % COACH_FILLERS.length];
+          _fillerIdx++;
+          if (synth.speaking) { try { synth.cancel(); } catch(e){} }
+          const u = new SpeechSynthesisUtterance(filler);
+          u.lang = "en-US"; u.rate = 1.05; u.pitch = 1.2; u.volume = 1.0;
+          synth.speak(u);
+        } catch(e) {}
+      };
+
       const handleStudentVoiceTurn = async (spokenInput) => {
         const spokenText = (typeof spokenInput === 'string') ? spokenInput : (spokenInput && spokenInput.text ? spokenInput.text : '');
         if (!spokenText || !spokenText.trim()) {
@@ -1800,6 +1816,9 @@
           }
           return;
         }
+
+        // INSTANT FILLER: speak within <1s while Gemini generates async reply
+        speakImmediateFiller();
 
         try {
           let turnResult;
@@ -1923,7 +1942,7 @@
               if (intent === 'NEXT_MISSION') {
                 handleEndMissionAndContinue();
               } else if (intent === 'END_SESSION') {
-                handleVoiceCommand('END SESSION');
+                handleEndCall();
               } else if (intent === 'PAUSE') {
                 handlePauseResumeVoice();
               } else if (intent === 'RESUME') {
@@ -2008,65 +2027,102 @@
         setVoiceSpeechSpeed(nextSpeed);
       };
 
+      // Dedicated, crash-proof End Call lifecycle handler
+      const handleEndCall = async () => {
+        // 1. Immediately halt audio pipeline and speech synthesis
+        if (voicePipelineRef.current) {
+          try {
+            voicePipelineRef.current.endLiveSession();
+          } catch (err) {
+            console.warn('[handleEndCall] Voice pipeline teardown error:', err);
+          }
+        }
+
+        if (typeof window !== 'undefined' && window.speechSynthesis) {
+          try {
+            window.speechSynthesis.cancel();
+          } catch (err) {
+            console.warn('[handleEndCall] SpeechSynthesis cancel error:', err);
+          }
+        }
+
+        // 2. Immediately reset UI visual state and timers
+        setVoiceState('IDLE');
+        setVoiceAudioLevel(0);
+        setCallDuration(0);
+        setVoiceTranscript('');
+
+        // 3. Retrieve session summary safely via endSession, generateDailyReport, or dispatchCommand
+        const session = voiceSessionRef.current;
+        let summary = null;
+        if (session) {
+          try {
+            if (typeof session.endSession === 'function') {
+              const res = session.endSession();
+              summary = (res && res.summary) ? res.summary : res;
+            } else if (typeof session.generateDailyReport === 'function') {
+              summary = session.generateDailyReport();
+            } else if (typeof session.dispatchCommand === 'function') {
+              const res = session.dispatchCommand('END SESSION');
+              summary = (res && res.summary) ? res.summary : res;
+            }
+          } catch (err) {
+            console.warn('[handleEndCall] Error generating session report:', err);
+          }
+        }
+
+        const tSentences = (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission)
+          ? window.MasteredCurriculum.getTargetForMission(activeMissionNumber)
+          : (activeMissionNumber <= 8 ? 30 : (activeMissionNumber <= 23 ? 40 : 50));
+
+        if (!summary) {
+          summary = {
+            name: currentUser?.name || 'Student',
+            admissionNumber: admNum,
+            currentMission: activeMissionNumber,
+            missionTitle: missionInfo.title || `Mission ${activeMissionNumber}`,
+            verifiedSentences: voiceVerifiedCount,
+            missionTarget: tSentences,
+            progressPct: Math.min(100, Math.round((voiceVerifiedCount / (tSentences || 1)) * 100)),
+            sessionEndedAt: new Date().toISOString()
+          };
+        }
+
+        if (!summary.missionTarget) summary.missionTarget = tSentences;
+        if (summary.progressPct === undefined) {
+          summary.progressPct = Math.min(100, Math.round((voiceVerifiedCount / (tSentences || 1)) * 100));
+        }
+
+        // 4. Safely sync profile progress to database so spoken progress is never lost
+        try {
+          if (voiceSessionRef.current && typeof voiceSessionRef.current.getProfile === 'function') {
+            await syncVoiceProgressToDatabase(voiceSessionRef.current.getProfile());
+          } else if (session && typeof session.getProfile === 'function') {
+            await syncVoiceProgressToDatabase(session.getProfile());
+          } else {
+            await syncVoiceProgressToDatabase({
+              currentMission: activeMissionNumber,
+              verifiedSentences: voiceVerifiedCount,
+              progressPct: summary.progressPct,
+              status: summary.progressPct >= 100 ? 'COMPLETED' : 'IN_PROGRESS'
+            });
+          }
+        } catch (syncErr) {
+          console.warn('[handleEndCall] Database sync warning:', syncErr);
+        }
+
+        // 5. Present Session Summary
+        setVoiceSessionSummary(summary);
+        setVoiceSessionEnded(true);
+
+        if (showToast) {
+          showToast('📞 Call ended. Spoken progress saved!');
+        }
+      };
+
       const handleVoiceCommand = (cmd) => {
         if (cmd === 'END SESSION') {
-          if (voicePipelineRef.current) {
-            try {
-              voicePipelineRef.current.endLiveSession();
-            } catch (err) {
-              console.warn('Live voice pipeline end error:', err);
-            }
-          }
-          const session = voiceSessionRef.current;
-          let summary = null;
-          if (session) {
-            try {
-              if (typeof session.generateDailyReport === 'function') {
-                summary = session.generateDailyReport();
-              } else if (typeof session.endSession === 'function') {
-                const res = session.endSession();
-                summary = (res && res.summary) ? res.summary : res;
-              }
-            } catch (err) {
-              console.warn('Error generating session report:', err);
-            }
-          }
-
-          const tSentences = (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission)
-            ? window.MasteredCurriculum.getTargetForMission(activeMissionNumber)
-            : (activeMissionNumber <= 8 ? 30 : (activeMissionNumber <= 23 ? 40 : 50));
-
-          if (!summary) {
-            summary = {
-              name: currentUser?.name || 'Student',
-              admissionNumber: admNum,
-              currentMission: activeMissionNumber,
-              missionTitle: missionInfo.title || `Mission ${activeMissionNumber}`,
-              verifiedSentences: voiceVerifiedCount,
-              missionTarget: tSentences,
-              progressPct: Math.min(100, Math.round((voiceVerifiedCount / (tSentences || 1)) * 100)),
-              sessionEndedAt: new Date().toISOString()
-            };
-          }
-
-          if (!summary.missionTarget) summary.missionTarget = tSentences;
-          if (summary.progressPct === undefined) {
-            summary.progressPct = Math.min(100, Math.round((voiceVerifiedCount / (tSentences || 1)) * 100));
-          }
-
-          syncVoiceProgressToDatabase({
-            currentMission: activeMissionNumber,
-            verifiedSentences: voiceVerifiedCount,
-            progressPct: summary.progressPct,
-            status: summary.progressPct >= 100 ? 'COMPLETED' : 'IN_PROGRESS'
-          });
-
-          setVoiceSessionSummary(summary);
-          setVoiceSessionEnded(true);
-          setVoiceState('IDLE');
-          if (showToast) {
-            showToast('📞 Call ended. Spoken progress saved!');
-          }
+          handleEndCall();
           return;
         }
 
@@ -2080,18 +2136,21 @@
         if (cmd === 'STRUCTURED') setCoachMode('STRUCTURED');
 
         if (reply) {
-          setVoiceFeedback(reply);
-          updateActivePrompt(reply);
-          setConversationTurns(prev => [
-            ...prev,
-            { role: 'coach', text: reply }
-          ]);
+          const replyText = typeof reply === 'string' ? reply : (reply.systemMessage || reply.message || reply.prompt || '');
+          if (replyText) {
+            setVoiceFeedback(replyText);
+            updateActivePrompt(replyText);
+            setConversationTurns(prev => [
+              ...prev,
+              { role: 'coach', text: replyText }
+            ]);
 
-          if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
-            if (typeof voicePipelineRef.current.speakCoachResponse === 'function') {
-              voicePipelineRef.current.speakCoachResponse(reply);
-            } else if (typeof voicePipelineRef.current.speak === 'function') {
-              voicePipelineRef.current.speak(reply);
+            if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
+              if (typeof voicePipelineRef.current.speakCoachResponse === 'function') {
+                voicePipelineRef.current.speakCoachResponse(replyText);
+              } else if (typeof voicePipelineRef.current.speak === 'function') {
+                voicePipelineRef.current.speak(replyText);
+              }
             }
           }
         }
@@ -2252,13 +2311,28 @@
                   type="button"
                   onClick={() => {
                     setVoiceSessionEnded(false);
+                    setVoiceSessionSummary(null);
+                    setVoiceState('IDLE');
+                  }}
+                  className="py-3 px-4 bg-slate-800 hover:bg-slate-700 text-slate-200 font-extrabold text-xs rounded-xl border border-slate-700 transition flex items-center justify-center space-x-1.5 cursor-pointer"
+                  title="Return to Ready to Call state for this mission"
+                >
+                  <span>🔄</span>
+                  <span>Practice Level Again / Ready</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setVoiceSessionEnded(false);
                     if (voicePipelineRef.current) {
                       voicePipelineRef.current.startLiveSession();
                     }
                   }}
-                  className="py-3 px-4 bg-slate-800 hover:bg-slate-700 text-slate-200 font-extrabold text-xs rounded-xl border border-slate-700 transition cursor-pointer"
+                  className="py-3 px-4 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs rounded-xl border border-indigo-500/50 transition flex items-center justify-center space-x-1.5 cursor-pointer"
                 >
-                  ✨ Continue Live Call
+                  <span>✨</span>
+                  <span>Continue Live Call</span>
                 </button>
               </div>
             </div>
@@ -2481,9 +2555,7 @@
 
                         <button
                           type="button"
-                          onClick={() => {
-                            handleVoiceCommand('END SESSION');
-                          }}
+                          onClick={handleEndCall}
                           className="py-2.5 px-3 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-black text-xs rounded-xl shadow-lg transition flex items-center justify-center space-x-1 cursor-pointer"
                           title="End current call"
                         >

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Official Mastered AI Coach Live Continuous Voice Pipeline
  * Source of Truth: docs/MASTERED_AI_COACH_SPEC.md & Section 3/4/5/6 Corrective Prompt
  * 
@@ -46,17 +46,17 @@
   // Valid State Transitions
   var VALID_TRANSITIONS = {
     IDLE: ['INITIALIZING', 'REQUESTING_MICROPHONE', 'ERROR', 'ENDING', 'SPEAKING'],
-    INITIALIZING: ['REQUESTING_MICROPHONE', 'LISTENING', 'SPEAKING', 'ERROR', 'IDLE'],
-    REQUESTING_MICROPHONE: ['LISTENING', 'SPEAKING', 'ERROR', 'IDLE'],
+    INITIALIZING: ['REQUESTING_MICROPHONE', 'LISTENING', 'SPEAKING', 'ERROR', 'ENDING', 'IDLE'],
+    REQUESTING_MICROPHONE: ['LISTENING', 'SPEAKING', 'ERROR', 'ENDING', 'IDLE'],
     LISTENING: ['PROCESSING_SPEECH', 'SPEAKING', 'PAUSED', 'INTERRUPTED', 'RECOVERING', 'ENDING', 'ERROR', 'IDLE'],
     PROCESSING_SPEECH: ['GENERATING_RESPONSE', 'SPEAKING', 'LISTENING', 'RECOVERING', 'ERROR', 'ENDING', 'IDLE'],
     GENERATING_RESPONSE: ['SPEAKING', 'LISTENING', 'ERROR', 'ENDING', 'IDLE'],
     SPEAKING: ['LISTENING', 'PROCESSING_SPEECH', 'INTERRUPTED', 'PAUSED', 'ENDING', 'ERROR', 'IDLE'],
-    INTERRUPTED: ['LISTENING', 'PROCESSING_SPEECH', 'SPEAKING', 'IDLE', 'ERROR'],
+    INTERRUPTED: ['LISTENING', 'PROCESSING_SPEECH', 'SPEAKING', 'ENDING', 'IDLE', 'ERROR'],
     PAUSED: ['LISTENING', 'SPEAKING', 'ENDING', 'IDLE'],
-    RECOVERING: ['LISTENING', 'REQUESTING_MICROPHONE', 'SPEAKING', 'ERROR', 'IDLE'],
+    RECOVERING: ['LISTENING', 'REQUESTING_MICROPHONE', 'SPEAKING', 'ENDING', 'ERROR', 'IDLE'],
     ENDING: ['IDLE'],
-    ERROR: ['RECOVERING', 'IDLE', 'REQUESTING_MICROPHONE', 'LISTENING', 'SPEAKING']
+    ERROR: ['RECOVERING', 'IDLE', 'REQUESTING_MICROPHONE', 'LISTENING', 'SPEAKING', 'ENDING']
   };
 
   // Natural Spoken Voice Intents
@@ -230,12 +230,17 @@
     this.recognition = null;
     this.synth = (typeof window !== 'undefined' && window.speechSynthesis) ? window.speechSynthesis : null;
     this.currentUtterance = null;
+    this.activeUtterance = null;
+    this.isSessionActive = false;
     this.accumulatedTranscript = '';
     this.latestInterim = '';
     this.lastSpeechTime = 0;
     this.silenceTimer = null;
     this.speakSafetyTimer = null;
     this.speechKeepAliveInterval = null;
+    this.speakDispatchTimer = null;
+    this.speakWatchdogTimer = null;
+    this.processingSafetyTimer = null;
     this.lastSpokenText = '';
     this.isBargeInActive = false;
     this.activeTurnId = 0;
@@ -301,7 +306,7 @@
     if (!this.canTransition(nextState)) {
       var err = "Invalid state transition from " + this.state + " to " + nextState;
       console.warn("[LiveVoicePipeline]", err);
-      if (nextState === STATES.SPEAKING || nextState === STATES.LISTENING || nextState === STATES.PROCESSING_SPEECH || nextState === STATES.INTERRUPTED) {
+      if (nextState === STATES.SPEAKING || nextState === STATES.LISTENING || nextState === STATES.PROCESSING_SPEECH || nextState === STATES.INTERRUPTED || nextState === STATES.ENDING || nextState === STATES.IDLE) {
         var prevSt = this.state;
         this.state = nextState;
         if (this.onStateChange) {
@@ -480,7 +485,7 @@
   };
 
   LiveVoicePipeline.prototype.handleSpeechResult = function (event) {
-    if (this.state === STATES.PAUSED || this.state === STATES.ENDING) return;
+    if (!this.isSessionActive || this.state === STATES.PAUSED || this.state === STATES.ENDING || this.state === STATES.IDLE) return;
 
     // Discard any audio input while coach is speaking or during echo cooldown
     if (this.isSpeaking || this.state === STATES.SPEAKING || (this.speakerCooldownUntil && Date.now() < this.speakerCooldownUntil)) {
@@ -552,7 +557,7 @@
   };
 
   LiveVoicePipeline.prototype.onSilenceTimeout = function () {
-    if (this.state !== STATES.LISTENING && this.state !== STATES.INTERRUPTED) return;
+    if (!this.isSessionActive || (this.state !== STATES.LISTENING && this.state !== STATES.INTERRUPTED)) return;
 
     var candidate = (this.accumulatedTranscript || '').trim();
     if (!candidate && this.latestInterim) {
@@ -585,7 +590,7 @@
     // End of turn detected!
     this.transitionTo(STATES.PROCESSING_SPEECH);
 
-    // Safety watchdog: recover automatically if turn evaluation hangs or takes longer than 6 seconds
+    // Safety watchdog: recover automatically if turn evaluation hangs or takes longer than 15 seconds (Gemini can take 8-12s)
     clearTimeout(this.processingSafetyTimer);
     var self = this;
     this.processingSafetyTimer = setTimeout(function () {
@@ -594,7 +599,7 @@
         self.transitionTo(STATES.LISTENING);
         self.restartListening();
       }
-    }, 6000);
+    }, 15000);
 
     // Check for Spoken Voice Intents
     var intent = detectSpokenIntent(candidate);
@@ -671,7 +676,7 @@
   };
 
   LiveVoicePipeline.prototype.restartListening = function () {
-    if (this.isSpeaking || this.state === STATES.SPEAKING || this.state === STATES.PAUSED || this.state === STATES.ENDING || this.state === STATES.IDLE) {
+    if (!this.isSessionActive || this.isSpeaking || this.state === STATES.SPEAKING || this.state === STATES.PAUSED || this.state === STATES.ENDING || this.state === STATES.IDLE) {
       return;
     }
     if (this.isStarting || this.isListening) {
@@ -750,7 +755,16 @@
     }
 
     // STEP 3: Dispatch with small tick so audio thread resets
-    setTimeout(function () {
+    if (this.speakDispatchTimer) {
+      clearTimeout(this.speakDispatchTimer);
+      this.speakDispatchTimer = null;
+    }
+    this.speakDispatchTimer = setTimeout(function () {
+      self.speakDispatchTimer = null;
+      if (!self.isSessionActive || self.state === STATES.ENDING || self.state === STATES.IDLE) {
+        self.isSpeaking = false;
+        return;
+      }
       if (!self.synth) {
         self.isSpeaking = false;
         self.transitionTo(STATES.LISTENING);
@@ -796,6 +810,10 @@
           if (self.speechKeepAliveInterval) {
             clearInterval(self.speechKeepAliveInterval);
             self.speechKeepAliveInterval = null;
+          }
+          if (self.speakWatchdogTimer) {
+            clearTimeout(self.speakWatchdogTimer);
+            self.speakWatchdogTimer = null;
           }
           if (typeof window !== 'undefined' && window.__masteredUtteranceQueue) {
             window.__masteredUtteranceQueue = window.__masteredUtteranceQueue.filter(function (u) {
@@ -871,7 +889,13 @@
         self.synth.speak(utterance);
 
         // Chrome Watchdog: If speak was queued but hasn't started after 150ms, wake it with resume()
-        setTimeout(function () {
+        if (self.speakWatchdogTimer) {
+          clearTimeout(self.speakWatchdogTimer);
+          self.speakWatchdogTimer = null;
+        }
+        self.speakWatchdogTimer = setTimeout(function () {
+          self.speakWatchdogTimer = null;
+          if (!self.isSessionActive || self.state === STATES.ENDING || self.state === STATES.IDLE) return;
           if (self.isSpeaking && self.synth && !self.synth.speaking) {
             try { self.synth.resume(); } catch (e) {}
           }
@@ -940,6 +964,9 @@
   LiveVoicePipeline.prototype.handleSpeechEnd = function () {
     this.isStarting = false;
     this.isListening = false;
+    if (!this.isSessionActive || this.state === STATES.ENDING || this.state === STATES.IDLE || this.state === STATES.PAUSED) {
+      return;
+    }
     if (this.isSpeaking || this.state === STATES.SPEAKING || (this.speakerCooldownUntil && Date.now() < this.speakerCooldownUntil)) {
       return;
     }
@@ -948,6 +975,7 @@
       var isMobile = (typeof navigator !== 'undefined') && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       var delay = isMobile ? 400 : 120;
       setTimeout(function () {
+        if (!self.isSessionActive || self.state === STATES.ENDING || self.state === STATES.IDLE) return;
         self.restartListening();
       }, delay);
     }
@@ -955,28 +983,110 @@
 
   LiveVoicePipeline.prototype.endLiveSession = function () {
     this.isSessionActive = false;
-    clearTimeout(this.processingSafetyTimer);
     this.isSpeaking = false;
+    this.isStarting = false;
+    this.isListening = false;
+    this.accumulatedTranscript = '';
+    this.latestInterim = '';
+
+    // Transition immediately to ENDING
     this.transitionTo(STATES.ENDING);
 
+    // 1. Clear turn processing safety watchdog
+    if (this.processingSafetyTimer) {
+      clearTimeout(this.processingSafetyTimer);
+      this.processingSafetyTimer = null;
+    }
+
+    // 2. Clear silence detection timer
     if (this.silenceTimer) {
       clearTimeout(this.silenceTimer);
       this.silenceTimer = null;
     }
 
+    // 3. Clear speech safety timer and recurring keep-alive interval
+    if (this.speakSafetyTimer) {
+      clearTimeout(this.speakSafetyTimer);
+      this.speakSafetyTimer = null;
+    }
+    if (this.speechKeepAliveInterval) {
+      clearInterval(this.speechKeepAliveInterval);
+      this.speechKeepAliveInterval = null;
+    }
+
+    // 4. Clear speech dispatch timer (80ms) and Chrome watchdog timer (150ms)
+    if (this.speakDispatchTimer) {
+      clearTimeout(this.speakDispatchTimer);
+      this.speakDispatchTimer = null;
+    }
+    if (this.speakWatchdogTimer) {
+      clearTimeout(this.speakWatchdogTimer);
+      this.speakWatchdogTimer = null;
+    }
+
+    // 5. Clear restart debounce timer
+    if (this.restartDebounceTimer) {
+      clearTimeout(this.restartDebounceTimer);
+      this.restartDebounceTimer = null;
+    }
+
+    // 6. Stop visualizer animation frame
     if (this.animFrameId && typeof window !== 'undefined' && window.cancelAnimationFrame) {
       window.cancelAnimationFrame(this.animFrameId);
       this.animFrameId = null;
     }
 
+    // 7. Reset audio level visualizer
+    if (this.onAudioLevel) {
+      try { this.onAudioLevel(0); } catch (e) {}
+    }
+
+    // 8. Decouple active utterance event listeners and clear global utterance queue
+    if (this.activeUtterance) {
+      try {
+        this.activeUtterance.onstart = null;
+        this.activeUtterance.onend = null;
+        this.activeUtterance.onerror = null;
+        this.activeUtterance.onpause = null;
+        this.activeUtterance.onresume = null;
+      } catch (e) {}
+      this.activeUtterance = null;
+    }
+    if (this.currentUtterance) {
+      try {
+        this.currentUtterance.onstart = null;
+        this.currentUtterance.onend = null;
+        this.currentUtterance.onerror = null;
+      } catch (e) {}
+      this.currentUtterance = null;
+    }
+    if (typeof window !== 'undefined') {
+      window.__masteredUtteranceQueue = [];
+      window.__masteredActiveUtterance = null;
+    }
+
+    // 9. Cancel SpeechSynthesis audio playback
     if (this.synth) {
       try { this.synth.cancel(); } catch (e) {}
     }
 
+    // 10. Abort and decouple SpeechRecognition
     if (this.recognition) {
-      try { this.recognition.stop(); } catch (e) {}
+      try {
+        this.recognition.onstart = null;
+        this.recognition.onresult = null;
+        this.recognition.onerror = null;
+        this.recognition.onend = null;
+        if (typeof this.recognition.abort === 'function') {
+          this.recognition.abort();
+        } else if (typeof this.recognition.stop === 'function') {
+          this.recognition.stop();
+        }
+      } catch (e) {}
+      this.recognition = null;
     }
 
+    // 11. Stop media stream tracks
     if (this.mediaStream) {
       try {
         var tracks = this.mediaStream.getTracks();
@@ -987,10 +1097,12 @@
       this.mediaStream = null;
     }
 
+    // 12. Close audio context
     if (this.audioContext && this.audioContext.state !== 'closed') {
       try { this.audioContext.close(); } catch (e) {}
     }
 
+    // 13. Final state transition to IDLE
     this.transitionTo(STATES.IDLE);
   };
 
