@@ -206,7 +206,7 @@
 
     var handleStartLivePractice = async function () {
       if (!pipelineRef.current) {
-        alert("Speech API is not supported in this browser. Please use Chrome, Edge, or Safari.");
+        setPracticeMode("TEXT"); if (typeof showToast === "function") showToast("?? Voice not available. Switched to Text Practice mode.");
         return;
       }
       setCoachFeedback('');

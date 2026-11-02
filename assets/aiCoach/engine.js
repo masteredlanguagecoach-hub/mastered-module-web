@@ -1576,7 +1576,7 @@
       var modelName = modelsToTry[mIdx];
       try {
         var controller = new AbortController();
-        var timeoutId = setTimeout(function () { controller.abort(); }, 8000);
+        var timeoutId = setTimeout(function () { controller.abort(); }, 5000);
 
         var url = "https://generativelanguage.googleapis.com/v1beta/models/" + modelName + ":generateContent?key=" + encodeURIComponent(apiKey);
         var response = await fetch(url, {
@@ -1605,7 +1605,9 @@
     if (!evalResult) {
       console.warn("[Gemini AI Brain Fallback] All cloud models unavailable; falling back to local smart engine.");
       var fallbackRes = this.recordAttempt(attempt);
-      fallbackRes.coachResponse = fallbackRes.coachResponse || fallbackRes.feedback;
+      var fbReply = fallbackRes.coachResponse || fallbackRes.feedback || "Good effort! Keep going. What else would you like to share?";
+      if (fbReply && !fbReply.includes("?")) { fbReply = fbReply.replace(/[.!]+$/, "") + ". What else would you like to share?"; }
+      fallbackRes.coachResponse = fbReply;
       return fallbackRes;
     }
 

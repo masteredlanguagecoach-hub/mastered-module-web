@@ -651,7 +651,7 @@
     // End of turn detected!
     this.transitionTo(STATES.PROCESSING_SPEECH);
 
-    // Safety watchdog: recover automatically if turn evaluation hangs or takes longer than 15 seconds (Gemini can take 8-12s)
+    // Safety watchdog: recover automatically if turn evaluation hangs (Gemini timeout is 8s, recover after 9s)
     clearTimeout(this.processingSafetyTimer);
     var self = this;
     this.processingSafetyTimer = setTimeout(function () {
@@ -660,7 +660,7 @@
         self.transitionTo(STATES.LISTENING);
         self.restartListening();
       }
-    }, 15000);
+    }, 9000);
 
     // Check for Spoken Voice Intents
     var intent = detectSpokenIntent(candidate);
