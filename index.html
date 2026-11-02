@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -1478,7 +1478,7 @@
                             <h5 className="font-bold text-slate-900">{m.title.replace(/^Module \d+:\s*/, '')}</h5>
                           </div>
                           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-500">
-                            <span>AI Mission: {((Number(mData.percentage) > 0) || mData.aiMissionCompleted || aiProof || m.moduleNumber <= highestMissionLevel) ? `✅ Completed (${Number(mData.percentage) || (m.moduleNumber <= highestMissionLevel ? 100 : 0)}%)` : '⚪ Pending'}</span>
+                           <span>AI Mission: {((Number(mData.percentage) > 0) || mData.aiMissionCompleted || aiProof) ? `✅ ${Number(mData.percentage) || 100}%` : '⚪ Pending'}</span>
                           </div>
                         </div>
 
@@ -1675,7 +1675,11 @@
         if (!progressData) return;
         const targetMisNum = progressData.currentMission || activeMissionNumber;
         const targetVerified = Number(progressData.verifiedSentences) || 0;
-        const targetPct = (typeof progressData.progressPct === 'number') ? progressData.progressPct : Math.min(100, Math.round((targetVerified / (tSentences || 1)) * 100));
+        // FIX: compute target sentences for THIS specific mission (not the UI-active mission)
+        const missionTargetSentences = (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission)
+          ? window.MasteredCurriculum.getTargetForMission(targetMisNum)
+          : (targetMisNum <= 8 ? 30 : (targetMisNum <= 23 ? 40 : 50));
+        const targetPct = (typeof progressData.progressPct === 'number') ? progressData.progressPct : Math.min(100, Math.round((targetVerified / (missionTargetSentences || 1)) * 100));
         const isDone = targetPct >= 100;
 
         const targetKey = `MOD-${targetMisNum < 10 ? '0' + targetMisNum : targetMisNum}`;
@@ -1688,7 +1692,8 @@
           percentage: Math.max(Number(existingMod.percentage) || 0, targetPct),
           verifiedSentences: Math.max(Number(existingMod.verifiedSentences) || 0, targetVerified),
           status: isDone ? 'COMPLETED' : (existingMod.status || 'IN_PROGRESS'),
-          aiMissionCompleted: isDone || existingMod.aiMissionCompleted || targetPct > 0,
+          // FIX: only mark truly completed missions — never auto-complete at 1%
+          aiMissionCompleted: isDone || Boolean(existingMod.aiMissionCompleted),
           lastUpdated: new Date().toISOString()
         };
 
@@ -1698,21 +1703,10 @@
           [targetKeyShort]: updatedModObj
         };
 
-        // Complete earlier missions monotonically
-        for (let lvl = 1; lvl < targetMisNum; lvl++) {
-          const pKey = `MOD-${lvl < 10 ? '0' + lvl : lvl}`;
-          const pKeyShort = `MOD-${lvl}`;
-          const pTarget = (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission) ? window.MasteredCurriculum.getTargetForMission(lvl) : (lvl <= 8 ? 30 : (lvl <= 23 ? 40 : 50));
-          if (!updatedStudentMap[pKey]) updatedStudentMap[pKey] = {};
-          updatedStudentMap[pKey] = {
-            ...updatedStudentMap[pKey],
-            percentage: 100,
-            verifiedSentences: Math.max(Number(updatedStudentMap[pKey].verifiedSentences) || 0, pTarget),
-            aiMissionCompleted: true,
-            status: 'COMPLETED'
-          };
-          updatedStudentMap[pKeyShort] = updatedStudentMap[pKey];
-        }
+        // FIX: REMOVED fake mission cascade.
+        // This loop previously auto-marked ALL previous missions as 100% COMPLETED
+        // even if the student never practiced them. That was the root cause of fake progress.
+        // Now progress reflects ONLY actual practice. Monotonic merge still prevents downgrades.
 
         const userKey = (currentUser?.admissionNumber || currentUser?.studentId || currentUser?.email || admNum).toString().trim().toUpperCase();
 
