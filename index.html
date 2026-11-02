@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -1199,6 +1199,19 @@
         const sVal = source[mKey];
         if (sVal === undefined || sVal === null) continue;
 
+        // Defensively filter and recursively unpack any nested admission numbers, emails, or wrapper objects
+        if (typeof sVal === 'object' && sVal !== null && !Array.isArray(sVal)) {
+          if (!mKey.startsWith('MOD-') && !mKey.startsWith('HIND-MOD-') && mKey !== 'quizScores' && mKey !== 'aiMissionProof') {
+            const unpackedSub = mergeProgressMaps({}, sVal);
+            for (const subKey of Object.keys(unpackedSub)) {
+              if (subKey.startsWith('MOD-') || subKey.startsWith('HIND-MOD-')) {
+                result[subKey] = mergeProgressMaps({ [subKey]: result[subKey] }, { [subKey]: unpackedSub[subKey] })[subKey];
+              }
+            }
+            continue;
+          }
+        }
+
         // Non-object properties (like latestMissionLevel, codeProgress, graduationVideo, etc.)
         if (typeof sVal !== 'object') {
           if (mKey === 'percentage' || mKey === 'score' || mKey === 'progress' || mKey === 'latestProgress' || mKey === 'codeProgress') {
@@ -1509,20 +1522,34 @@
     }
 
     // AI Mission Prompts & Guided Practice Modal Component
-    function AiMissionPromptModal({ onClose, showToast, currentUser, userProgress, setUserProgress, getCurrentStudentProgressMap, activeModule, asPage = false }) {
+    function AiMissionPromptModal({ onClose, showToast, currentUser, setCurrentUser, userProgress, setUserProgress, getCurrentStudentProgressMap, activeModule, asPage = false }) {
+      const admNum = currentUser?.admissionNumber || 'MTR777';
+      const cleanAdm = admNum.replace(/[^A-Z0-9]/g, '');
+      const studentEmail = (currentUser?.email || '').toLowerCase().trim();
+
       const [voiceSubMode, setVoiceSubMode] = useState('VOICE'); // 'VOICE' (Live) | 'TEXT' (Fallback)
       const [voiceTranscript, setVoiceTranscript] = useState('');
       const [voiceFeedback, setVoiceFeedback] = useState('');
       const [voiceState, setVoiceState] = useState('IDLE');
       const [voiceAudioLevel, setVoiceAudioLevel] = useState(0);
-      const [voiceSpeechSpeed, setVoiceSpeechSpeed] = useState(1.0);
+      const [voiceSpeechSpeed, setVoiceSpeechSpeed] = useState(0.96);
       const [voiceTextInput, setVoiceTextInput] = useState('');
       const [voiceVerifiedCount, setVoiceVerifiedCount] = useState(0);
       const [voiceSessionEnded, setVoiceSessionEnded] = useState(false);
-      const [voiceSessionSummary, setVoiceSessionSummary] = useState(null);
+      const [voiceSessionSummary, setVoiceSessionSummary] = useState(() => {
+        try {
+          const saved = cleanAdm ? safeStorage.getItem(`mastered_session_summary_${cleanAdm}`) : null;
+          return saved ? JSON.parse(saved) : null;
+        } catch(e) { return null; }
+      });
       const [coachMode, setCoachMode] = useState('STRUCTURED');
       const [activePromptText, setActivePromptText] = useState('');
-      const [conversationTurns, setConversationTurns] = useState([]);
+      const [conversationTurns, setConversationTurns] = useState(() => {
+        try {
+          const saved = cleanAdm ? safeStorage.getItem(`mastered_conversation_${cleanAdm}`) : null;
+          return saved ? JSON.parse(saved) : [];
+        } catch(e) { return []; }
+      });
       const [showRegistrationModal, setShowRegistrationModal] = useState(false);
       const voiceSessionRef = useRef(null);
       const voicePipelineRef = useRef(null);
@@ -1551,10 +1578,6 @@
         setActivePromptText(newPrompt);
       };
 
-      const admNum = currentUser?.admissionNumber || 'MTR777';
-      const cleanAdm = admNum.replace(/[^A-Z0-9]/g, '');
-      const studentEmail = (currentUser?.email || '').toLowerCase().trim();
-
       // Retrieve student's current authoritative module progress map
       const currentStudentProg = (typeof getCurrentStudentProgressMap === 'function') 
         ? getCurrentStudentProgressMap() 
@@ -1582,7 +1605,15 @@
         ? activeModule.moduleNumber 
         : (foundIncomplete ? firstIncomplete : (highestActiveLevel > 0 ? highestActiveLevel : 1));
 
-      const [selectedMissionNumber, setSelectedMissionNumber] = useState(initialMission);
+      const [selectedMissionNumber, setSelectedMissionNumber] = useState(() => {
+        try {
+          const saved = cleanAdm ? safeStorage.getItem(`mastered_selected_mission_${cleanAdm}`) : null;
+          if (saved && Number(saved) >= 1 && Number(saved) <= 32) {
+            return Number(saved);
+          }
+        } catch(e) {}
+        return initialMission;
+      });
       const activeMissionNumber = selectedMissionNumber;
 
       const modKey = `MOD-${activeMissionNumber < 10 ? '0' + activeMissionNumber : activeMissionNumber}`;
@@ -1605,11 +1636,16 @@
           voicePipelineRef.current.endLiveSession();
         }
         setSelectedMissionNumber(newMNum);
+        if (cleanAdm) safeStorage.setItem(`mastered_selected_mission_${cleanAdm}`, String(newMNum));
         setVoiceSessionEnded(false);
         setVoiceSessionSummary(null);
         setVoiceFeedback('');
         setVoiceTranscript('');
         setConversationTurns([]);
+        if (cleanAdm) {
+          safeStorage.removeItem(`mastered_conversation_${cleanAdm}`);
+          safeStorage.removeItem(`mastered_session_summary_${cleanAdm}`);
+        }
 
         const newKey = `MOD-${newMNum < 10 ? '0' + newMNum : newMNum}`;
         const newObj = currentStudentProg[newKey] || currentStudentProg[`MOD-${newMNum}`] || {};
@@ -1638,60 +1674,112 @@
       const syncVoiceProgressToDatabase = async (progressData) => {
         if (!progressData) return;
         const targetMisNum = progressData.currentMission || activeMissionNumber;
-        const targetVerified = progressData.verifiedSentences || 0;
-        const targetPct = progressData.progressPct || 0;
+        const targetVerified = Number(progressData.verifiedSentences) || 0;
+        const targetPct = (typeof progressData.progressPct === 'number') ? progressData.progressPct : Math.min(100, Math.round((targetVerified / (tSentences || 1)) * 100));
         const isDone = targetPct >= 100;
 
         const targetKey = `MOD-${targetMisNum < 10 ? '0' + targetMisNum : targetMisNum}`;
-        const existingMod = currentStudentProg[targetKey] || currentStudentProg[`MOD-${targetMisNum}`] || {};
+        const targetKeyShort = `MOD-${targetMisNum}`;
+        const freshProg = (typeof getCurrentStudentProgressMap === 'function') ? getCurrentStudentProgressMap() : {};
+        const existingMod = freshProg[targetKey] || freshProg[targetKeyShort] || {};
 
         const updatedModObj = {
           ...existingMod,
-          percentage: targetPct,
-          verifiedSentences: targetVerified,
+          percentage: Math.max(Number(existingMod.percentage) || 0, targetPct),
+          verifiedSentences: Math.max(Number(existingMod.verifiedSentences) || 0, targetVerified),
           status: isDone ? 'COMPLETED' : (existingMod.status || 'IN_PROGRESS'),
           aiMissionCompleted: isDone || existingMod.aiMissionCompleted || targetPct > 0,
           lastUpdated: new Date().toISOString()
         };
 
-        const updatedStudentMap = { ...currentStudentProg, [targetKey]: updatedModObj };
+        const updatedStudentMap = {
+          ...freshProg,
+          [targetKey]: updatedModObj,
+          [targetKeyShort]: updatedModObj
+        };
 
+        // Complete earlier missions monotonically
         for (let lvl = 1; lvl < targetMisNum; lvl++) {
           const pKey = `MOD-${lvl < 10 ? '0' + lvl : lvl}`;
+          const pKeyShort = `MOD-${lvl}`;
+          const pTarget = (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission) ? window.MasteredCurriculum.getTargetForMission(lvl) : (lvl <= 8 ? 30 : (lvl <= 23 ? 40 : 50));
           if (!updatedStudentMap[pKey]) updatedStudentMap[pKey] = {};
-          if (!updatedStudentMap[pKey].percentage || Number(updatedStudentMap[pKey].percentage) < 100) {
-            updatedStudentMap[pKey] = {
-              ...updatedStudentMap[pKey],
-              percentage: 100,
-              aiMissionCompleted: true,
-              status: 'COMPLETED'
-            };
-          }
+          updatedStudentMap[pKey] = {
+            ...updatedStudentMap[pKey],
+            percentage: 100,
+            verifiedSentences: Math.max(Number(updatedStudentMap[pKey].verifiedSentences) || 0, pTarget),
+            aiMissionCompleted: true,
+            status: 'COMPLETED'
+          };
+          updatedStudentMap[pKeyShort] = updatedStudentMap[pKey];
         }
 
         const userKey = (currentUser?.admissionNumber || currentUser?.studentId || currentUser?.email || admNum).toString().trim().toUpperCase();
 
+        // 1. Update userProgress WITHOUT spreading module keys into root
         setUserProgress(prev => {
           const newState = {
-            ...prev,
-            [userKey]: updatedStudentMap,
-            [cleanAdm]: updatedStudentMap,
-            [admNum]: updatedStudentMap,
-            ...updatedStudentMap
+            ...(prev || {}),
+            ...(userKey ? { [userKey]: updatedStudentMap } : {}),
+            ...(cleanAdm ? { [cleanAdm]: updatedStudentMap } : {}),
+            ...(admNum ? { [admNum]: updatedStudentMap } : {})
           };
           safeStorage.setItem('mastered_all_students_progress', JSON.stringify(newState));
-          if (userKey) safeStorage.setItem(`mastered_progress_${userKey}`, JSON.stringify(updatedStudentMap));
-          if (cleanAdm) safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(updatedStudentMap));
           return newState;
         });
 
+        // 2. Write clean student module map directly to localStorage
+        if (cleanAdm) safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(updatedStudentMap));
+        if (userKey && userKey !== cleanAdm) safeStorage.setItem(`mastered_progress_${userKey}`, JSON.stringify(updatedStudentMap));
+
+        // 3. Keep currentUser and mastered_user_session synchronously updated
+        if (typeof setCurrentUser === 'function') {
+          setCurrentUser(prevUser => {
+            if (!prevUser) return prevUser;
+            const updatedUser = {
+              ...prevUser,
+              userProgress: mergeProgressMaps(prevUser.userProgress || {}, updatedStudentMap)
+            };
+            try {
+              const session = safeStorage.getItem('mastered_user_session');
+              if (session) {
+                const parsed = JSON.parse(session);
+                parsed.user = updatedUser;
+                parsed.tab = 'ai_coach';
+                safeStorage.setItem('mastered_user_session', JSON.stringify(parsed));
+              }
+            } catch(e) {}
+            return updatedUser;
+          });
+        } else {
+          try {
+            const session = safeStorage.getItem('mastered_user_session');
+            if (session) {
+              const parsed = JSON.parse(session);
+              parsed.user = {
+                ...(parsed.user || {}),
+                userProgress: mergeProgressMaps(parsed.user?.userProgress || {}, updatedStudentMap)
+              };
+              parsed.tab = 'ai_coach';
+              safeStorage.setItem('mastered_user_session', JSON.stringify(parsed));
+            }
+          } catch(e) {}
+        }
+
+        // 4. Save active mission selection
+        if (cleanAdm) {
+          safeStorage.setItem(`mastered_selected_mission_${cleanAdm}`, String(targetMisNum));
+        }
+
+        // 5. Cloud persistence via Google Apps Script
         try {
           if (typeof callAppsScript === 'function') {
             await callAppsScript('saveStudentProgress', {
               admissionNumber: currentUser?.admissionNumber || admNum,
               email: currentUser?.email || studentEmail,
               userProgress: updatedStudentMap,
-              latestMissionLevel: targetMisNum
+              latestMissionLevel: targetMisNum,
+              latestProgress: targetPct
             });
           }
         } catch(err) {
@@ -1773,6 +1861,25 @@
         };
       }, [activeMissionNumber]);
 
+      // Reactive rehydration to keep verified count and AiCoachSession state synchronized when storage/cloud updates
+      useEffect(() => {
+        const freshProg = (typeof getCurrentStudentProgressMap === 'function') ? getCurrentStudentProgressMap() : {};
+        const targetKey = `MOD-${activeMissionNumber < 10 ? '0' + activeMissionNumber : activeMissionNumber}`;
+        const targetObj = freshProg[targetKey] || freshProg[`MOD-${activeMissionNumber}`];
+        if (targetObj && typeof targetObj.verifiedSentences === 'number') {
+          const storedVerified = targetObj.verifiedSentences;
+          if (storedVerified > voiceVerifiedCount) {
+            setVoiceVerifiedCount(storedVerified);
+            if (voiceSessionRef.current) {
+              voiceSessionRef.current.verifiedSentences = storedVerified;
+              if (voiceSessionRef.current.profile) {
+                voiceSessionRef.current.profile.verifiedSentences = storedVerified;
+              }
+            }
+          }
+        }
+      }, [userProgress, currentUser, activeMissionNumber]);
+
       // Instant coach filler responses - spoken immediately while Gemini generates the full reply
       const COACH_FILLERS = ["I see!", "Got it!", "Interesting!", "Great, tell me more!", "Mm-hmm!", "Nice!", "Okay!", "Sure!", "I hear you!"];
       let _fillerIdx = 0;
@@ -1784,7 +1891,27 @@
           _fillerIdx++;
           if (synth.speaking) { try { synth.cancel(); } catch(e){} }
           const u = new SpeechSynthesisUtterance(filler);
-          u.lang = "en-US"; u.rate = 1.05; u.pitch = 1.2; u.volume = 1.0;
+          u.lang = "en-US"; u.rate = 0.96; u.pitch = 1.0; u.volume = 1.0;
+          const femaleVoice = window.__masteredFemaleVoice || 
+            (voicePipelineRef.current && typeof voicePipelineRef.current.getVoice === 'function' ? voicePipelineRef.current.getVoice() : null) ||
+            (window.MasteredSpeech && typeof window.MasteredSpeech.getCoachFemaleVoice === 'function' ? window.MasteredSpeech.getCoachFemaleVoice(synth) : null);
+          if (femaleVoice) {
+            u.voice = femaleVoice;
+            window.__masteredFemaleVoice = femaleVoice;
+          }
+          if (typeof window !== 'undefined') {
+            window.__masteredActiveUtterance = u;
+          }
+          u.onend = () => {
+            if (typeof window !== 'undefined' && window.__masteredActiveUtterance === u) {
+              window.__masteredActiveUtterance = null;
+            }
+          };
+          u.onerror = () => {
+            if (typeof window !== 'undefined' && window.__masteredActiveUtterance === u) {
+              window.__masteredActiveUtterance = null;
+            }
+          };
           synth.speak(u);
         } catch(e) {}
       };
@@ -1819,7 +1946,9 @@
 
         // Instant filler acknowledgment in Coach Sarah's voice while AI generates response
         if (voicePipelineRef.current && typeof voicePipelineRef.current.speakImmediateAcknowledgment === 'function') {
-          voicePipelineRef.current.speakImmediateAcknowledgment();
+          if (!voicePipelineRef.current.isFillerPlaying) {
+            voicePipelineRef.current.speakImmediateAcknowledgment();
+          }
         } else {
           speakImmediateFiller();
         }
@@ -1866,11 +1995,15 @@
 
           setConversationTurns(prev => {
             const newTurns = [
-              ...prev,
+              ...(prev || []),
               { role: 'student', text: cleanSpeech, verified: turnResult.verifiedIncrement > 0 },
               { role: 'coach', text: turnResult.spokenResponse }
             ];
-            return newTurns.slice(-4);
+            const sliced = newTurns.slice(-6);
+            if (cleanAdm) {
+              safeStorage.setItem(`mastered_conversation_${cleanAdm}`, JSON.stringify(sliced));
+            }
+            return sliced;
           });
 
           if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
@@ -1924,7 +2057,7 @@
 
         if (!voicePipelineRef.current) {
           const pipeline = new speechModule.LiveVoicePipeline({
-            speechRate: voiceSpeechSpeed || 0.86,
+            speechRate: voiceSpeechSpeed || 0.96,
             onStateChange: (newState) => {
               setVoiceState(newState);
             },
@@ -1969,15 +2102,21 @@
           }
           const started = await voicePipelineRef.current.startLiveSession();
           if (started) {
+            setVoiceSessionEnded(false);
+            setVoiceSessionSummary(null);
+            if (cleanAdm) safeStorage.removeItem(`mastered_session_summary_${cleanAdm}`);
             const session = voiceSessionRef.current;
             const greeting = (session && session.getMissionOpeningGreeting) 
               ? session.getMissionOpeningGreeting(currentUser?.name || 'Student')
               : (session ? session.getOpeningGreeting() : `Hello ${currentUser?.name || 'Student'}! I am Coach Sarah. Welcome to Mission ${activeMissionNumber}. Let's begin!`);
             setVoiceFeedback(greeting);
             updateActivePrompt(greeting);
-            setConversationTurns([
-              { role: 'coach', text: greeting }
-            ]);
+            setConversationTurns(prev => {
+              if (prev && prev.length > 0) return prev;
+              const initialTurns = [{ role: 'coach', text: greeting }];
+              if (cleanAdm) safeStorage.setItem(`mastered_conversation_${cleanAdm}`, JSON.stringify(initialTurns));
+              return initialTurns;
+            });
             setTimeout(() => {
               if (voicePipelineRef.current) {
                 if (typeof voicePipelineRef.current.speakCoachResponse === 'function') {
@@ -2118,6 +2257,7 @@
 
         // 5. Present Session Summary
         setVoiceSessionSummary(summary);
+        if (cleanAdm) safeStorage.setItem(`mastered_session_summary_${cleanAdm}`, JSON.stringify(summary));
         setVoiceSessionEnded(true);
 
         if (showToast) {
@@ -2377,6 +2517,25 @@
                       <p className="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
                         Talk directly with Coach Sarah in a natural spoken conversation. Sarah listens carefully, answers your questions, and automatically verifies your spoken sentences hands-free.
                       </p>
+
+                      {conversationTurns && conversationTurns.length > 0 && (
+                        <div className="p-3.5 bg-slate-800/80 rounded-2xl border border-indigo-500/30 max-w-md mx-auto text-left space-y-2">
+                          <span className="text-[10px] uppercase font-bold text-emerald-400 flex items-center space-x-1">
+                            <span>💬</span>
+                            <span>Recent Conversation Turns:</span>
+                          </span>
+                          <div className="space-y-1.5 max-h-36 overflow-y-auto">
+                            {conversationTurns.slice(-4).map((turn, tIdx) => (
+                              <div key={tIdx} className={`p-2 rounded-xl text-xs ${turn.role === 'coach' ? 'bg-slate-900/90 text-slate-200 border border-slate-700' : 'bg-emerald-950/40 text-emerald-100 border border-emerald-500/30'}`}>
+                                <strong className={turn.role === 'coach' ? 'text-indigo-400' : 'text-emerald-400'}>
+                                  {turn.role === 'coach' ? 'Coach Sarah: ' : 'You: '}
+                                </strong>
+                                <span>"{turn.text}"</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
 
                       <button
                         type="button"
@@ -3028,18 +3187,26 @@
               parsedProgMap = { ...rawData };
             }
 
-            // Synthesize level & progress from latestLevel if returned
+            // Synthesize level & progress from latestLevel if returned, preserving verifiedSentences
             if (res.latestLevel && Number(res.latestLevel) > 0) {
               const latestLvl = Math.min(32, Math.max(1, Number(res.latestLevel)));
-              const latestProg = Number(res.latestProgress) || 100;
+              const rawProg = (res.latestProgress !== undefined && res.latestProgress !== null && !isNaN(res.latestProgress)) ? Number(res.latestProgress) : (res.latestCodeProgress !== undefined ? Number(res.latestCodeProgress) : null);
+              const latestProg = rawProg !== null ? rawProg : 0;
               for (let lvl = 1; lvl <= latestLvl; lvl++) {
                 const modKey = `MOD-${lvl < 10 ? '0' + lvl : lvl}`;
+                const modKeyShort = `MOD-${lvl}`;
                 if (!parsedProgMap[modKey]) parsedProgMap[modKey] = {};
                 const targetPct = (lvl === latestLvl) ? latestProg : 100;
-                if (!parsedProgMap[modKey].percentage || Number(parsedProgMap[modKey].percentage) < targetPct) {
+                const tSentences = (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission) ? window.MasteredCurriculum.getTargetForMission(lvl) : (lvl <= 8 ? 30 : (lvl <= 23 ? 40 : 50));
+                
+                if (parsedProgMap[modKey].percentage === undefined || Number(parsedProgMap[modKey].percentage) < targetPct) {
                   parsedProgMap[modKey].percentage = targetPct;
-                  parsedProgMap[modKey].aiMissionCompleted = true;
+                  parsedProgMap[modKey].aiMissionCompleted = targetPct >= 100 || Boolean(parsedProgMap[modKey].aiMissionCompleted);
                 }
+                if (parsedProgMap[modKey].verifiedSentences === undefined || Number(parsedProgMap[modKey].verifiedSentences) === 0) {
+                  parsedProgMap[modKey].verifiedSentences = Math.round((targetPct / 100) * tSentences);
+                }
+                parsedProgMap[modKeyShort] = parsedProgMap[modKey];
               }
             }
 
@@ -3307,6 +3474,15 @@
         setActiveQuizModNumber(null);
         setActiveTab(tabName);
         if (closeMobile) setMobileMenuOpen(false);
+
+        try {
+          const session = safeStorage.getItem('mastered_user_session');
+          if (session) {
+            const parsed = JSON.parse(session);
+            parsed.tab = tabName;
+            safeStorage.setItem('mastered_user_session', JSON.stringify(parsed));
+          }
+        } catch(e) {}
       };
 
       // Persistent unique device token for 1-device enforcement
@@ -3409,13 +3585,23 @@
         };
       }, [role, currentUser]);
 
-      // Save user progress safely strictly under admission key
+      // Save sanitized individual student module map strictly under admission key (NO NESTING)
       useEffect(() => {
-        if (userProgress && Object.keys(userProgress).length > 0) {
-          if (currentUser && (currentUser.admissionNumber || currentUser.studentId)) {
-            const adm = currentUser.admissionNumber || currentUser.studentId;
-            safeStorage.setItem(`mastered_progress_${adm}`, JSON.stringify(userProgress));
+        if (!currentUser) return;
+        const rawAdm = (currentUser.admissionNumber || currentUser.studentId || '').toString().trim().toUpperCase();
+        const cleanAdm = rawAdm.replace(/[^A-Z0-9]/g, '');
+        if (!cleanAdm && !rawAdm) return;
+
+        const studentMap = getCurrentStudentProgressMap();
+        if (studentMap && Object.keys(studentMap).length > 0) {
+          const cleanModuleMap = {};
+          for (const k of Object.keys(studentMap)) {
+            if (k.startsWith('MOD-') || k.startsWith('HIND-MOD-')) {
+              cleanModuleMap[k] = studentMap[k];
+            }
           }
+          if (cleanAdm) safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(cleanModuleMap));
+          if (rawAdm && rawAdm !== cleanAdm) safeStorage.setItem(`mastered_progress_${rawAdm}`, JSON.stringify(cleanModuleMap));
         }
       }, [userProgress, currentUser]);
 
@@ -4498,6 +4684,7 @@
                     onClose={() => handleNavigateTab('dashboard')}
                     showToast={showToast}
                     currentUser={currentUser}
+                    setCurrentUser={setCurrentUser}
                     userProgress={userProgress}
                     setUserProgress={setUserProgress}
                     getCurrentStudentProgressMap={getCurrentStudentProgressMap}
@@ -5301,6 +5488,7 @@
                   onClose={() => setShowAiPromptModal(false)}
                   showToast={showToast}
                   currentUser={currentUser}
+                  setCurrentUser={setCurrentUser}
                   userProgress={userProgress}
                   setUserProgress={setUserProgress}
                   getCurrentStudentProgressMap={getCurrentStudentProgressMap}

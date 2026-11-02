@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Official Mastered AI Coach Live Continuous Voice Pipeline
  * Source of Truth: docs/MASTERED_AI_COACH_SPEC.md & Section 3/4/5/6 Corrective Prompt
  * 
@@ -101,7 +101,8 @@
     'james', 'ryan', 'steffan', 'andrew', 'tom', 'alex', 'daniel', 'fred',
     'oliver', 'arthur', 'thomas', 'nathan', 'william', 'male', 'sean',
     'richard', 'paul', 'john', 'michael', 'stefan', 'prabhat', 'hemant',
-    'male_1', 'male_2', 'male-1', 'en-us-x-iom', 'en-us-x-iol'
+    'male_1', 'male_2', 'male-1', 'en-us-x-iom', 'en-us-x-iol', 'en-us-x-iob',
+    'en-in-x-cxc', 'en-in-x-end'
   ];
 
   // Phonetic normalization: Clause/sentence-ending "to" transcribed for "too"
@@ -115,75 +116,110 @@
   function isMaleVoice(v) {
     if (!v) return false;
     var text = ((v.name || '') + ' ' + (v.voiceURI || '')).toLowerCase();
+
+    // Guard: if explicitly female, woman, or girl, never treat as male
+    if (text.indexOf('female') !== -1 || text.indexOf('woman') !== -1 || text.indexOf('girl') !== -1) {
+      return false;
+    }
+
     for (var i = 0; i < MALE_VOICE_NAMES.length; i++) {
-      if (text.indexOf(MALE_VOICE_NAMES[i]) !== -1) return true;
+      // Word-boundary match: prevents 'female' matching 'male', or 'standard' matching 'dan'
+      var rx = new RegExp('(^|[^a-z])' + MALE_VOICE_NAMES[i] + '([^a-z]|$)', 'i');
+      if (rx.test(text)) return true;
     }
     return false;
   }
 
-  // Dedicated Female Voice Selector for Coach Sarah
+  // Dedicated Natural Female Voice Selector for Coach Sarah (Weighted Multi-Tier Scoring)
   function getCoachFemaleVoice(synth) {
     if (!synth || typeof synth.getVoices !== 'function') return null;
     var voices = synth.getVoices() || [];
     if (!voices || voices.length === 0) return null;
+    voices = voices.filter(Boolean);
+    if (voices.length === 0) return null;
 
     var enVoices = voices.filter(function (v) {
-      return v.lang && v.lang.toLowerCase().indexOf('en') === 0;
+      if (!v) return false;
+      var l = (v.lang || '').toLowerCase().replace(/_/g, '-');
+      return l.indexOf('en') === 0;
     });
-    if (enVoices.length === 0) enVoices = voices;
+    if (enVoices.length === 0) enVoices = voices.slice();
 
-    var preferredFemaleNames = [
-      'samantha',
-      'karen',
-      'victoria',
-      'microsoft jenny online (natural)',
-      'microsoft aria online (natural)',
-      'microsoft sonia online (natural)',
-      'google us english female',
-      'google uk english female',
-      'microsoft zira',
-      'microsoft heera',
-      'microsoft hazel',
-      'microsoft susan',
-      'microsoft linda',
-      'moira',
-      'tessa',
-      'fiona',
-      'ava',
-      'allison',
-      'nora',
-      'jenny',
-      'aria',
-      'zira',
-      'heera'
-    ];
+    var candidates = enVoices.filter(function (v) {
+      return v && !isMaleVoice(v);
+    });
+    if (candidates.length === 0) candidates = enVoices.slice();
 
-    for (var i = 0; i < preferredFemaleNames.length; i++) {
-      var pref = preferredFemaleNames[i];
-      var match = enVoices.find(function (v) {
-        var n = (v.name || '').toLowerCase();
-        return n.indexOf(pref) !== -1 && !isMaleVoice(v);
-      });
-      if (match) return match;
+    function scoreVoice(v) {
+      if (!v) return -9999;
+      var name = (v.name || '').toLowerCase();
+      var uri = (v.voiceURI || '').toLowerCase();
+      var text = name + ' ' + uri;
+      var lang = (v.lang || '').toLowerCase().replace(/_/g, '-');
+      var score = 0;
+
+      // 1. Language preference: en-US > en-GB/AU/CA > other English
+      if (lang === 'en-us' || lang.indexOf('en-us') === 0) score += 160;
+      else if (lang.indexOf('en-gb') === 0 || lang.indexOf('en-au') === 0 || lang.indexOf('en-ca') === 0) score += 120;
+      else if (lang.indexOf('en') === 0) score += 80;
+
+      // 2. High-tier neural / natural / enhanced markers (Edge, iOS, Safari)
+      if (text.indexOf('natural') !== -1) score += 600;
+      if (text.indexOf('online') !== -1) score += 300;
+      if (text.indexOf('enhanced') !== -1) score += 500;
+      if (text.indexOf('premium') !== -1) score += 450;
+      if (text.indexOf('neural') !== -1) score += 500;
+
+      // 3. Google Chrome Cloud Voices
+      if (text.indexOf('google us english') !== -1) score += 550;
+      else if (text.indexOf('google') !== -1) score += 300;
+
+      // 4. Character Names
+      // Top-tier: Jenny, Aria, Ava, Zoe, Sonia, Libby
+      if (text.indexOf('jenny') !== -1) score += 350;
+      if (text.indexOf('aria') !== -1) score += 350;
+      if (text.indexOf('ava') !== -1) score += 350;
+      if (text.indexOf('zoe') !== -1) score += 350;
+      if (text.indexOf('sonia') !== -1) score += 300;
+      if (text.indexOf('libby') !== -1) score += 300;
+
+      // Second-tier: Samantha, Karen, Victoria, Allison, Nora, Serena
+      if (text.indexOf('samantha') !== -1) score += 200;
+      if (text.indexOf('karen') !== -1) score += 180;
+      if (text.indexOf('victoria') !== -1) score += 180;
+      if (text.indexOf('allison') !== -1) score += 200;
+      if (text.indexOf('nora') !== -1) score += 200;
+      if (text.indexOf('serena') !== -1) score += 200;
+
+      // Android Google TTS female identifiers
+      if (text.indexOf('en-us-x-sfg') !== -1 || text.indexOf('sfg') !== -1) score += 380;
+      if (text.indexOf('en-us-x-tpf') !== -1 || text.indexOf('tpf') !== -1) score += 350;
+      if (text.indexOf('en-gb-x-rjs') !== -1 || text.indexOf('rjs') !== -1) score += 300;
+      if (text.indexOf('en-gb-x-fis') !== -1 || text.indexOf('fis') !== -1) score += 300;
+      if (text.indexOf('en-in-x-cxx') !== -1 || text.indexOf('cxx') !== -1) score += 250;
+
+      // Explicitly declared female
+      if (text.indexOf('female') !== -1 || text.indexOf('woman') !== -1 || text.indexOf('girl') !== -1) score += 220;
+
+      // Penalize legacy low-bitrate compact voices on iOS/macOS
+      if (text.indexOf('compact') !== -1) score -= 180;
+
+      // Penalize legacy desktop SAPI voices on Windows
+      if (text.indexOf('zira') !== -1) score += 40;
+      if (text.indexOf('heera') !== -1) score += 30;
+      if (text.indexOf('hazel') !== -1) score += 30;
+
+      // Remote network voices generally higher fidelity than low-res offline ROM
+      if (v.localService === false) score += 50;
+
+      return score;
     }
 
-    var femaleDeclared = enVoices.find(function (v) {
-      var text = ((v.name || '') + ' ' + (v.voiceURI || '')).toLowerCase();
-      return (text.indexOf('female') !== -1 || text.indexOf('woman') !== -1 || text.indexOf('girl') !== -1) && !isMaleVoice(v);
+    candidates.sort(function (a, b) {
+      return scoreVoice(b) - scoreVoice(a);
     });
-    if (femaleDeclared) return femaleDeclared;
 
-    var nonMale = enVoices.find(function (v) {
-      return !isMaleVoice(v);
-    });
-    if (nonMale) return nonMale;
-
-    var anyNonMale = voices.find(function (v) {
-      return !isMaleVoice(v);
-    });
-    if (anyNonMale) return anyNonMale;
-
-    return null;
+    return candidates[0] || null;
   }
 
   function reloadFemaleVoice(synth) {
@@ -209,7 +245,7 @@
     options = options || {};
     this.state = STATES.IDLE;
     this.lang = options.lang || 'en-US';
-    this.speechRate = options.speechRate || 0.86;
+    this.speechRate = options.speechRate || 0.96;
     // Turn-taking silence threshold: 1900ms gives learners natural thinking time without premature cutoffs
     this.silenceThresholdMs = options.silenceThresholdMs || 950;
     this.volumeThreshold = options.volumeThreshold || 12;
@@ -250,10 +286,17 @@
     this.isListening = false;
     this.lastStartAttempt = 0;
     this.restartDebounceTimer = null;
+    this.isFillerPlaying = false;
+    this.pendingCoachResponse = null;
+    this.fillerSafetyTimer = null;
 
     if (typeof window !== 'undefined') {
       window.__masteredActivePipeline = this;
     }
+  }
+
+  LiveVoicePipeline.prototype.getVoice = function () {
+    return getCoachFemaleVoice(this.synth) || (typeof window !== 'undefined' ? window.__masteredFemaleVoice : null);
   }
 
   /**
@@ -283,6 +326,21 @@
           var primeUtterance = new window.SpeechSynthesisUtterance(' ');
           primeUtterance.volume = 0.01;
           primeUtterance.rate = 10;
+          if (typeof window !== 'undefined') {
+            window.__masteredActiveUtterance = primeUtterance;
+            window.__masteredUnlockUtterance = primeUtterance;
+          }
+          primeUtterance.onend = function () {
+            if (typeof window !== 'undefined') {
+              if (window.__masteredActiveUtterance === primeUtterance) {
+                window.__masteredActiveUtterance = null;
+              }
+              if (window.__masteredUnlockUtterance === primeUtterance) {
+                window.__masteredUnlockUtterance = null;
+              }
+            }
+          };
+          primeUtterance.onerror = primeUtterance.onend;
           this.synth.speak(primeUtterance);
         }
       } catch (e) {}
@@ -577,6 +635,9 @@
         var candWords = candidate.trim().split(/\s+/);
         if (candWords.length > promptWordCount) {
           candidate = candWords.slice(promptWordCount).join(' ').trim();
+        } else {
+          // Pure echo of coach prompt: drop completely
+          candidate = '';
         }
       }
     }
@@ -664,6 +725,12 @@
   };
 
   LiveVoicePipeline.prototype.handleBargeInInterruption = function (reason) {
+    this.isFillerPlaying = false;
+    this.pendingCoachResponse = null;
+    if (this.fillerSafetyTimer) {
+      clearTimeout(this.fillerSafetyTimer);
+      this.fillerSafetyTimer = null;
+    }
     if (this.synth) {
       try {
         this.synth.cancel();
@@ -721,12 +788,23 @@
       this.recognition.start();
     } catch (e) {
       this.isStarting = false;
+      var self = this;
+      if (this.restartDebounceTimer) {
+        clearTimeout(this.restartDebounceTimer);
+      }
+      this.restartDebounceTimer = setTimeout(function () {
+        self.restartDebounceTimer = null;
+        if (self.state === STATES.LISTENING && self.isSessionActive && !self.isListening) {
+          self.initSpeechRecognition();
+          self.restartListening();
+        }
+      }, 300);
     }
   };
 
   
   LiveVoicePipeline.prototype.speakImmediateAcknowledgment = function () {
-    if (!this.synth || !this.isSessionActive) return;
+    if (!this.synth || !this.isSessionActive || this.isFillerPlaying) return;
     var fillers = [
       "I see!",
       "Got it!",
@@ -742,29 +820,94 @@
     var phrase = fillers[this.fillerIndex];
 
     try {
-      if (this.synth.speaking) {
+      if (this.synth.speaking && !this.isFillerPlaying) {
         this.synth.cancel();
       }
       var utterance = new window.SpeechSynthesisUtterance(phrase);
       utterance.lang = this.lang || 'en-US';
-      utterance.rate = 1.05;
-      utterance.pitch = 1.20;
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      utterance.volume = 1.0;
       var femaleVoice = getCoachFemaleVoice(this.synth);
       if (!femaleVoice && typeof window !== 'undefined' && window.__masteredFemaleVoice) {
         femaleVoice = window.__masteredFemaleVoice;
       }
-      if (femaleVoice) utterance.voice = femaleVoice;
+      if (femaleVoice) {
+        utterance.voice = femaleVoice;
+        if (typeof window !== 'undefined') window.__masteredFemaleVoice = femaleVoice;
+      }
+
+      var self = this;
+      this.isFillerPlaying = true;
+
+      if (this.fillerSafetyTimer) {
+        clearTimeout(this.fillerSafetyTimer);
+      }
+      this.fillerSafetyTimer = setTimeout(function () {
+        self.fillerSafetyTimer = null;
+        if (self.isFillerPlaying) {
+          self.isFillerPlaying = false;
+          if (self.pendingCoachResponse) {
+            var pending = self.pendingCoachResponse;
+            self.pendingCoachResponse = null;
+            self.speakCoachResponse(pending.text, pending.onFinish);
+          }
+        }
+      }, 1500);
+
+      utterance.onstart = function () {
+        self.isFillerPlaying = true;
+      };
+
+      var completeFiller = function () {
+        if (self.fillerSafetyTimer) {
+          clearTimeout(self.fillerSafetyTimer);
+          self.fillerSafetyTimer = null;
+        }
+        self.isFillerPlaying = false;
+        if (typeof window !== 'undefined' && window.__masteredActiveUtterance === utterance) {
+          window.__masteredActiveUtterance = null;
+        }
+        if (self.pendingCoachResponse) {
+          var pending = self.pendingCoachResponse;
+          self.pendingCoachResponse = null;
+          self.speakCoachResponse(pending.text, pending.onFinish);
+        }
+      };
+
+      utterance.onend = completeFiller;
+      utterance.onerror = completeFiller;
+
+      if (typeof window !== 'undefined') {
+        window.__masteredActiveUtterance = utterance;
+      }
       this.synth.speak(utterance);
-    } catch (e) {}
+    } catch (e) {
+      this.isFillerPlaying = false;
+    }
   };
 
-  LiveVoicePipeline.prototype.speakCoachResponse = function (text, onFinish) {
+  LiveVoicePipeline.prototype.speakCoachResponse = function (text, onFinish, isStandalone) {
     clearTimeout(this.processingSafetyTimer);
     if (!text || !text.trim()) {
       this.isSpeaking = false;
-      this.transitionTo(STATES.LISTENING);
-      this.restartListening();
+      if (this.isSessionActive) {
+        this.transitionTo(STATES.LISTENING);
+        this.restartListening();
+      }
       if (onFinish) onFinish();
+      return;
+    }
+
+    if (!this.isSessionActive && !isStandalone) {
+      this.isSpeaking = false;
+      if (onFinish) onFinish();
+      return;
+    }
+
+    // If an acknowledgment filler is currently playing, smoothly queue response until filler finishes naturally
+    if (this.isFillerPlaying) {
+      this.pendingCoachResponse = { text: text, onFinish: onFinish };
       return;
     }
 
@@ -802,14 +945,18 @@
     }
     this.speakDispatchTimer = setTimeout(function () {
       self.speakDispatchTimer = null;
-      if (!self.isSessionActive || self.state === STATES.ENDING || self.state === STATES.IDLE) {
+      if ((!self.isSessionActive && !isStandalone) || self.state === STATES.ENDING || self.state === STATES.IDLE) {
         self.isSpeaking = false;
         return;
       }
       if (!self.synth) {
         self.isSpeaking = false;
-        self.transitionTo(STATES.LISTENING);
-        self.restartListening();
+        if (self.isSessionActive) {
+          self.transitionTo(STATES.LISTENING);
+          self.restartListening();
+        } else {
+          self.transitionTo(STATES.IDLE);
+        }
         if (onFinish) onFinish();
         return;
       }
@@ -821,8 +968,8 @@
 
         var utterance = new window.SpeechSynthesisUtterance(text);
         utterance.lang = self.lang || 'en-US';
-        utterance.rate = self.speechRate || 0.86;
-        utterance.pitch = isIOS ? 1.05 : 1.20; // Natural, pleasant pitch for Coach Sarah
+        utterance.rate = self.speechRate || 0.96;
+        utterance.pitch = 1.0; // Natural, unwarped pitch for Coach Sarah across all platforms
         utterance.volume = 1.0;
 
         var femaleVoice = getCoachFemaleVoice(self.synth);
@@ -832,8 +979,6 @@
         if (femaleVoice) {
           utterance.voice = femaleVoice;
           if (typeof window !== 'undefined') window.__masteredFemaleVoice = femaleVoice;
-        } else {
-          utterance.pitch = 1.30;
         }
 
         if (typeof window !== 'undefined') {
@@ -860,21 +1005,27 @@
             window.__masteredUtteranceQueue = window.__masteredUtteranceQueue.filter(function (u) {
               return u !== utterance;
             });
-            window.__masteredActiveUtterance = null;
+            if (window.__masteredActiveUtterance === utterance) {
+              window.__masteredActiveUtterance = null;
+            }
           }
           self.isSpeaking = false;
           self.activeUtterance = null;
           self.accumulatedTranscript = '';
-          self.speakerCooldownUntil = Date.now() + 120; // 120ms echo drain
+          self.speakerCooldownUntil = Date.now() + 400; // 400ms echo drain cooldown
 
           if (self.state === STATES.SPEAKING) {
-            self.transitionTo(STATES.LISTENING);
+            if (self.isSessionActive) {
+              self.transitionTo(STATES.LISTENING);
+            } else {
+              self.transitionTo(STATES.IDLE);
+            }
           }
 
-          if (self.isSessionActive !== false) {
+          if (self.isSessionActive) {
             setTimeout(function () {
               self.restartListening();
-            }, 100);
+            }, 400);
           }
 
           if (onFinish) onFinish();
@@ -886,17 +1037,6 @@
         self.speakSafetyTimer = setTimeout(function () {
           finishSpeech();
         }, timeoutMs);
-
-        // Keep-alive ONLY on desktop browsers (never on Android or iOS mobile devices)
-        var isMobile = (typeof navigator !== 'undefined') && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        if (!isMobile) {
-          self.speechKeepAliveInterval = setInterval(function () {
-            if (self.synth && self.synth.speaking && !self.synth.paused) {
-              self.synth.pause();
-              self.synth.resume();
-            }
-          }, 5000);
-        }
 
         utterance.onstart = function () {
           self.isSpeaking = true;
@@ -913,8 +1053,9 @@
             try {
               var fallbackUtterance = new window.SpeechSynthesisUtterance(text);
               fallbackUtterance.lang = self.lang || 'en-US';
-              fallbackUtterance.rate = self.speechRate || 0.86;
-              fallbackUtterance.pitch = 1.25;
+              fallbackUtterance.rate = self.speechRate || 0.96;
+              fallbackUtterance.pitch = 1.0;
+              fallbackUtterance.volume = 1.0;
               var localFemale = getCoachFemaleVoice(self.synth);
               if (localFemale) fallbackUtterance.voice = localFemale;
               fallbackUtterance.onend = finishSpeech;
@@ -929,7 +1070,23 @@
 
         self.synth.speak(utterance);
 
-        // Chrome Watchdog: If speak was queued but hasn't started after 150ms, wake it with resume()
+        if (isStandalone && !self.synth.speaking && typeof utterance.onend === 'function') {
+          if (typeof Promise !== 'undefined') {
+            Promise.resolve().then(function () {
+              if (self.isSpeaking && typeof utterance.onend === 'function') {
+                utterance.onend();
+              }
+            });
+          } else {
+            setTimeout(function () {
+              if (self.isSpeaking && typeof utterance.onend === 'function') {
+                utterance.onend();
+              }
+            }, 0);
+          }
+        }
+
+        // Watchdog: If speak was queued but hasn't started after 450ms, wake it with resume()
         if (self.speakWatchdogTimer) {
           clearTimeout(self.speakWatchdogTimer);
           self.speakWatchdogTimer = null;
@@ -940,7 +1097,7 @@
           if (self.isSpeaking && self.synth && !self.synth.speaking) {
             try { self.synth.resume(); } catch (e) {}
           }
-        }, 150);
+        }, 450);
 
       } catch (err) {
         console.warn("[SpeechSynthesis Exception]", err);
@@ -1027,6 +1184,12 @@
     this.isSpeaking = false;
     this.isStarting = false;
     this.isListening = false;
+    this.isFillerPlaying = false;
+    this.pendingCoachResponse = null;
+    if (this.fillerSafetyTimer) {
+      clearTimeout(this.fillerSafetyTimer);
+      this.fillerSafetyTimer = null;
+    }
     this.accumulatedTranscript = '';
     this.latestInterim = '';
 
@@ -1104,6 +1267,7 @@
     if (typeof window !== 'undefined') {
       window.__masteredUtteranceQueue = [];
       window.__masteredActiveUtterance = null;
+      window.__masteredUnlockUtterance = null;
     }
 
     // 9. Cancel SpeechSynthesis audio playback
@@ -1163,7 +1327,7 @@
     this.pipeline.endLiveSession();
   };
   BrowserSpeechEngine.prototype.speak = function (text, onEnd) {
-    this.pipeline.speakCoachResponse(text, onEnd);
+    this.pipeline.speakCoachResponse(text, onEnd, true);
   };
   BrowserSpeechEngine.prototype.stopSpeaking = function () {
     if (this.pipeline.synth) {
@@ -1178,8 +1342,8 @@
   };
 
   // Seamless compatibility aliases on LiveVoicePipeline prototype
-  LiveVoicePipeline.prototype.speak = function (text, onFinish) {
-    return this.speakCoachResponse(text, onFinish);
+  LiveVoicePipeline.prototype.speak = function (text, onFinish, isStandalone) {
+    return this.speakCoachResponse(text, onFinish, isStandalone !== undefined ? isStandalone : !this.isSessionActive);
   };
   LiveVoicePipeline.prototype.pauseLiveSession = function () {
     return this.pauseListening();
@@ -1188,7 +1352,7 @@
     return this.resumeListening();
   };
   LiveVoicePipeline.prototype.setSpeed = function (speed) {
-    this.speechRate = Number(speed) || 0.86;
+    this.speechRate = Number(speed) || 0.96;
   };
 
   var MasteredSpeech = {
@@ -1197,6 +1361,9 @@
     LiveVoicePipeline: LiveVoicePipeline,
     BrowserSpeechEngine: BrowserSpeechEngine,
     detectSpokenIntent: detectSpokenIntent,
+    isMaleVoice: isMaleVoice,
+    getCoachFemaleVoice: getCoachFemaleVoice,
+    reloadFemaleVoice: reloadFemaleVoice,
     isLiveVoiceSupported: function () {
       if (typeof window === 'undefined') return false;
       var hasRecognition = Boolean(window.SpeechRecognition || window.webkitSpeechRecognition);

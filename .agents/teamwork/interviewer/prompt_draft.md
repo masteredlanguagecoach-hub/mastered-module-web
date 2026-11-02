@@ -1,48 +1,30 @@
-Optimize Coach Sarah's conversational latency and interaction behaviour in the Mastered Language Coach Students Portal web application so replies feel immediate, natural, and engaging like talking to a real human English trainer.
+Permanently fix student practice progress recording and persistence across page refreshes, and ensure Coach Sarah uses natural, human-like voice synthesis across mobile and desktop browsers in the Mastered Language Coach Students Portal web application.
 
 Working directory: c:\Users\user\Desktop\MASTERED LANGUAGE COACH STUDENTS PORTAL WEB APP
 Integrity mode: development
 
 ## Requirements
 
-### R1. Sub-2-Second Perceived Voice Response Latency
-Eliminate conversation lag across the voice pipeline (index.html, assets/aiCoach/engine.js, assets/aiCoach/speech.js):
-- Implement immediate conversational acknowledgments and fillers (e.g., "I see!", "Got it!", "Interesting!", "Tell me more!") spoken immediately upon student speech completion while the AI generates the complete response.
-- Streamline transition states from PROCESSING_SPEECH to SPEAKING, removing artificial pauses, unnecessary delays, or blocking operations.
-- Ensure the perceived time between student speech end and coach audio response is under 2 seconds.
+### R1. Natural Voice Synthesis
+Ensure Coach Sarah utilizes the most natural, human-like native browser and device speech synthesis voices (Web Speech API) across mobile (Android/iOS) and desktop browsers, eliminating robotic tone or audio glitches without external paid API dependencies.
 
-### R2. Natural, Context-Aware Coach Persona & Dynamic Dialogue
-Enhance Coach Sarah's conversational engine (generateConnectedTurn / processStudentSpeechTurn) to sound human, warm, and responsive:
-- Generate contextually grounded responses that directly reference and react to the student's actual words rather than cycling through static scripted questions.
-- Maintain a warm, encouraging English trainer persona using natural phrasing, positive reinforcement, and intelligent follow-up questions tailored to student responses.
-- Keep the 32-mission curriculum and learning objectives intact while making in-mission dialogue dynamic and adaptive.
+### R2. Complete Root Cause Fix for Progress Persistence
+Investigate the entire data pipeline across local state in index.html, localStorage caching, AiCoachSession state saving in engine.js, and Google Apps Script / Google Sheets backend synchronization (backend/Code.gs). Permanently fix the root cause so that all student practice progress (verified sentences, mission completion, levels, conversation history) is reliably recorded and preserved across page refreshes, tab reloads, and browser restarts.
 
-### R3. Preservation of Application Data & Core Architecture
-- Preserve the existing application architecture without complete rewrites.
-- Do NOT alter the 4 student registration fields: Name, Admission Number, English Level, and Learning Goal.
-- Maintain compatibility with backend Google Apps Script and ensure existing Google Sheets student records remain uncorrupted.
-
-### R4. Automated Testing and Live Deployment
-- Write and run automated Puppeteer headless Chrome test suites that simulate student speech turns, verify state transitions, validate acknowledgment fillers, and measure response latency under 2 seconds.
-- Deploy the verified application to Vercel (https://mastered-module-web.vercel.app/) and verify live deployment health.
+### R3. Comprehensive Automated Headless Testing Across Sessions
+Construct and execute automated headless browser test suites simulating realistic student practice sessions, turn completions, and page refreshes. Repeatedly verify that progress data, mission states, and backend synchronization persist accurately across multiple simulated practice and reload cycles before completing.
 
 ## Acceptance Criteria
 
-### Response Latency & Conversational Flow
-- [ ] Perceived delay from student speech completion to coach audio playback (acknowledgment filler or direct turn) is under 2 seconds.
-- [ ] Immediate conversational fillers ("I see!", "Got it!", etc.) trigger smoothly without blocking or cutting off the subsequent AI turn.
-- [ ] Pipeline transitions (LISTENING -> PROCESSING_SPEECH -> SPEAKING -> LISTENING) execute reliably without deadlocks, state hangs, or dropped turns.
+### Progress Persistence Across Sessions
+- [ ] Practice progress (verified sentences, mission completion status, and level progression) remains accurately recorded and fully intact after browser page reloads and new sessions.
+- [ ] Local storage caching, engine session state, and Google Apps Script backend synchronization update promptly during practice without data drops or race conditions.
+- [ ] Refreshing the page immediately restores the student's true current progress, completed turns, and mission states.
 
-### Coach Dialogue Persona
-- [ ] Coach Sarah's replies directly address the semantic content of the student's speech.
-- [ ] Sarah does not loop or repeat identical scripted questions within consecutive conversation turns.
-- [ ] Coach turns demonstrate warm, encouraging, human-like English trainer tone with natural conversational follow-ups.
+### Voice Quality
+- [ ] Coach Sarah speech synthesis selects and plays the highest quality natural, human-like native voices available across supported mobile (Android/iOS) and desktop browsers.
+- [ ] Voice playback executes without robotic distortions, clipping, or speech pipeline freezes.
 
-### System & Curriculum Integrity
-- [ ] All 32 curriculum missions remain functional and accessible.
-- [ ] Student registration fields (Name, Admission Number, English Level, Learning Goal) remain unchanged.
-- [ ] Google Sheets backend integration operates correctly without data loss or corruption.
-
-### Verification & Deployment
-- [ ] Automated headless Puppeteer test scripts execute successfully, confirming response timing and dialogue turn progression.
-- [ ] Application is deployed to Vercel and the live URL loads and functions correctly.
+### Automated Verification
+- [ ] Automated headless browser test scripts execute multiple end-to-end practice and reload cycles, verifying persistence programmatically without human intervention.
+- [ ] Test runs pass consistently across repeated executions, confirming zero regression in progress retention.

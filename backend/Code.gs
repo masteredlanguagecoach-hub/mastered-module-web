@@ -1066,7 +1066,7 @@ function handleSaveStudentProgress(data) {
   } else {
     sheet.appendRow([adm, email, "", highestLvl, highestProg, finalProgressStr, now]);
   }
-  return { success: true, userProgress: existingObj, latestLevel: highestLvl, latestMissionLevel: highestLvl };
+  return { success: true, userProgress: existingObj, latestLevel: highestLvl, latestMissionLevel: highestLvl, latestProgress: highestProg };
 }
 
 function extractStudentProgressFromRow(row, headers, stripProofs) {
@@ -1089,7 +1089,7 @@ function extractStudentProgressFromRow(row, headers, stripProofs) {
   var foundJsonStr = "";
   var foundMclCode = "";
   var foundLevel = 0;
-  var foundProgress = 0;
+  var foundProgress = null;
 
   // 1. Inspect explicit columns if present
   if (jsonCol >= 0 && row[jsonCol]) {
@@ -1108,9 +1108,9 @@ function extractStudentProgressFromRow(row, headers, stripProofs) {
     var parsedLvl = parseInt(row[levelCol], 10);
     if (parsedLvl >= 1 && parsedLvl <= 32) foundLevel = parsedLvl;
   }
-  if (progCol >= 0 && !isNaN(row[progCol])) {
+  if (progCol >= 0 && row[progCol] !== "" && row[progCol] !== null && row[progCol] !== undefined && !isNaN(row[progCol])) {
     var parsedProg = parseInt(row[progCol], 10);
-    if (parsedProg >= 0 && parsedProg <= 100) foundProgress = parsedProg;
+    if (!isNaN(parsedProg) && parsedProg >= 0 && parsedProg <= 100) foundProgress = parsedProg;
   }
 
   // 2. Comprehensive scan across all cells in the row to catch legacy/4-column sheets
@@ -1150,7 +1150,8 @@ function extractStudentProgressFromRow(row, headers, stripProofs) {
         var rProg = parseInt(mMatch[2], 10);
         if (rLvl >= 1 && rLvl <= 32 && rLvl > foundLevel) {
           foundLevel = rLvl;
-          foundProgress = Math.min(Math.max(rProg || 100, 0), 100);
+          var rawProgVal = (rProg !== undefined && rProg !== null && !isNaN(rProg)) ? Number(rProg) : 100;
+          foundProgress = Math.min(Math.max(rawProgVal, 0), 100);
         }
       }
     }
@@ -1161,10 +1162,14 @@ function extractStudentProgressFromRow(row, headers, stripProofs) {
     for (var lvl = 1; lvl <= foundLevel; lvl++) {
       var modKey = "MOD-" + (lvl < 10 ? "0" + lvl : lvl);
       if (!progObj[modKey]) progObj[modKey] = {};
-      var targetPct = (lvl === foundLevel) ? (foundProgress || 100) : 100;
-      if (!progObj[modKey].percentage || Number(progObj[modKey].percentage) < targetPct) {
+      var targetPct = (lvl === foundLevel) ? (foundProgress !== null && foundProgress !== undefined ? foundProgress : 100) : 100;
+      if (progObj[modKey].percentage === undefined || Number(progObj[modKey].percentage) < targetPct) {
         progObj[modKey].percentage = targetPct;
-        progObj[modKey].aiMissionCompleted = true;
+        progObj[modKey].aiMissionCompleted = targetPct >= 100 || Boolean(progObj[modKey].aiMissionCompleted);
+      }
+      var targetSentences = (lvl <= 8 ? 30 : (lvl <= 23 ? 40 : 50));
+      if (progObj[modKey].verifiedSentences === undefined || Number(progObj[modKey].verifiedSentences) === 0) {
+        progObj[modKey].verifiedSentences = Math.round((targetPct / 100) * targetSentences);
       }
     }
   }
@@ -1228,7 +1233,9 @@ function handleGetStudentProgress(data) {
     var mObj = progObj[k] || progObj["MOD-" + m];
     if (mObj) {
       var pct = Number(mObj.percentage) || (mObj.aiMissionCompleted ? 100 : 0);
-      if (pct > 0 && m >= highestLvl) {
+      if (pct >= 100 && m < 32) {
+        if (m + 1 > highestLvl) highestLvl = m + 1;
+      } else if (pct > 0 && m >= highestLvl) {
         highestLvl = m;
         highestProg = pct;
       }
