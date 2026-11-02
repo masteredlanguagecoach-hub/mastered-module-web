@@ -1,3 +1,9 @@
+/**
+ * Mastered Language Coach - 32-Mission Malayalam Quiz Bank
+ * Aligned with Official 32-Mission Curriculum (Missions.pdf & curriculum.js)
+ * Exactly 32 missions (keys "1" to "32"), 30 questions each = 960 questions total.
+ * Schema: { id, question, questionMl, options: [4], correctIndex: 0..3 }
+ */
 const QUIZ_BANK = {
   "1": [
     {
@@ -5,12 +11,12 @@ const QUIZ_BANK = {
       "question": "What is the primary goal when introducing yourself in English?",
       "questionMl": "ഇംഗ്ലീഷിൽ സ്വയം പരിചയപ്പെടുത്തുമ്പോൾ പ്രധാന ലക്ഷ്യം എന്താണ്?",
       "options": [
-        "A) To memorize complicated grammar rules",
-        "B) To achieve confident English communication",
+        "A) To achieve confident English communication",
+        "B) To memorize complicated grammar rules",
         "C) To read English literature fluently",
         "D) To eliminate every spoken mistake immediately"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 2,
@@ -18,11 +24,11 @@ const QUIZ_BANK = {
       "questionMl": "വർത്തമാനകാലത്തിൽ 'I' എന്ന സർവ്വനാമത്തോടൊപ്പം ഉപയോഗിക്കുന്ന സഹായക്രിയ ഏതാണ്?",
       "options": [
         "A) is",
-        "B) are",
-        "C) am",
+        "B) am",
+        "C) are",
         "D) be"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 3,
@@ -30,11 +36,11 @@ const QUIZ_BANK = {
       "questionMl": "മലയാളം വിശദീകരണത്തിൽ നിർവ്വചിച്ചിരിക്കുന്നത് പോലെ \"I\" എന്ന പ്രൊനൗണിന്റെ അർത്ഥം എന്താണ്?",
       "options": [
         "A) എനിക്ക്",
-        "B) ഞാൻ",
-        "C) എന്റെ",
+        "B) എന്റെ",
+        "C) ഞാൻ",
         "D) നമ്മൾ"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 4,
@@ -43,22 +49,22 @@ const QUIZ_BANK = {
       "options": [
         "A) I is ready.",
         "B) I are ready.",
-        "C) Whenever we use 'I', we always use 'am' (I am ready)",
-        "D) I be ready."
+        "C) I be ready.",
+        "D) Whenever we use 'I', we always use 'am' (I am ready)"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 5,
       "question": "Which of the following sentences contains a grammatical error?",
       "questionMl": "താഴെ പറയുന്ന വാക്യങ്ങളിൽ വ്യാകരണപരമായ തെറ്റുള്ളത് ഏതിലാണ്?",
       "options": [
-        "A) I am from Kerala.",
-        "B) My name is Abdul.",
-        "C) I is happy.",
+        "A) I is happy.",
+        "B) I am from Kerala.",
+        "C) My name is Abdul.",
         "D) I am a teacher."
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 6,
@@ -78,11 +84,11 @@ const QUIZ_BANK = {
       "questionMl": "അനിശ്ചിതകാല ആർട്ടിക്കിളുകളായ \"a\", \"an\" എന്നിവ തിരഞ്ഞെടുക്കുന്നതിനായി നൽകിയിട്ടുള്ള അന്തിമ നിയമം എന്താണ്?",
       "options": [
         "A) The choice is strictly determined by the first letter of the written word",
-        "B) The choice is completely based on the sound, not just the letter",
-        "C) Vowel letters always take \"a\", and consonant letters take \"an\"",
+        "B) Vowel letters always take \"a\", and consonant letters take \"an\"",
+        "C) The choice is completely based on the sound, not just the letter",
         "D) Articles are selected based on whether the word is singular or plural"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 8,
@@ -90,35 +96,35 @@ const QUIZ_BANK = {
       "questionMl": "എന്തുകൊണ്ടാണ് \"University\" എന്ന വാക്ക് \"an\" എന്നതിന് പകരം \"a\" (\"a university\") എന്ന ആർട്ടിക്കിൾ സ്വീകരിക്കുന്നത്?",
       "options": [
         "A) Because it starts with a vowel letter",
-        "B) Because it sounds like a consonant sound (\"You-niversity\")",
-        "C) Because it refers to a specific geographic location",
-        "D) Because the letter 'U' is completely silent in speech"
+        "B) Because it refers to a specific geographic location",
+        "C) Because the letter 'U' is completely silent in speech",
+        "D) Because it sounds like a consonant sound (\"You-niversity\")"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 9,
       "question": "Why does the word \"Hour\" properly take the article \"an\" (\"an hour\")?",
       "questionMl": "എന്തുകൊണ്ടാണ് \"Hour\" എന്ന വാക്ക് \"an\" (\"an hour\") എന്ന ആർട്ടിക്കിൾ സ്വീകരിക്കുന്നത്?",
       "options": [
-        "A) Because it starts with a vowel letter",
-        "B) Because the letter 'H' is silent, making it start with a vowel sound",
+        "A) Because the letter 'H' is silent, making it start with a vowel sound",
+        "B) Because it starts with a vowel letter",
         "C) Because it represents a duration of time",
         "D) Because it is an irregular noun phrase"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "Complete the standard greeting pattern taught in the module: \"___ to meet you.\"",
-      "questionMl": "മോഡ്യൂളിൽ പഠിപ്പിച്ച സ്റ്റാൻഡേർഡ് ഗ്രീറ്റിംഗ് പാറ്റേൺ പൂർത്തിയാക്കുക: \"___ to meet you.\"",
+      "question": "Complete the standard polite greeting: \"_____ to meet you.\"",
+      "questionMl": "സ്റ്റാൻഡേർഡ് ഗ്രീറ്റിംഗ് പാറ്റേൺ പൂർത്തിയാക്കുക: \"_____ to meet you.\"",
       "options": [
-        "A) Happy",
-        "B) Good",
-        "C) Nice",
-        "D) Ready"
+        "A) Fine",
+        "B) Nice",
+        "C) Goodly",
+        "D) Well"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 11,
@@ -137,24 +143,24 @@ const QUIZ_BANK = {
       "question": "Correct the following common mistake: \"I from Kerala.\"",
       "questionMl": "താഴെ പറയുന്ന പൊതുവായ തെറ്റ് തിരുത്തുക: \"I from Kerala.\"",
       "options": [
-        "A) I am from Kerala.",
-        "B) My from Kerala.",
-        "C) I is from Kerala.",
-        "D) I are from Kerala."
+        "A) My from Kerala.",
+        "B) I is from Kerala.",
+        "C) I are from Kerala.",
+        "D) I am from Kerala."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 13,
       "question": "What core mindset phrase should students remember if they make mistakes during practice?",
       "questionMl": "പരിശീലനത്തിനിടയിൽ തെറ്റുകൾ വരുത്തിയാൽ വിദ്യാർത്ഥികൾ ഓർമ്മിക്കേണ്ട പ്രധാന മാനസികാവസ്ഥ വാചകം ഏതാണ്?",
       "options": [
-        "A) Correctness comes before confidence",
-        "B) Confidence comes before correctness",
+        "A) Confidence comes before correctness",
+        "B) Correctness comes before confidence",
         "C) Never speak with mistakes",
         "D) Grammar rules must be perfect"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 14,
@@ -162,11 +168,11 @@ const QUIZ_BANK = {
       "questionMl": "സ്വയം പരിചയപ്പെടുത്തൽ പരിശീലനത്തിൽ ഉൾപ്പെടുത്താൻ ശുപാർശ ചെയ്യാത്ത പോയിന്റ് താഴെ പറയുന്നവയിൽ ഏതാണ്?",
       "options": [
         "A) Your name and profession",
-        "B) One hobby and one goal",
-        "C) Why you joined this course",
-        "D) Detailed financial background"
+        "B) Detailed financial background",
+        "C) One hobby and one goal",
+        "D) Why you joined this course"
       ],
-      "correctIndex": 3
+      "correctIndex": 1
     },
     {
       "id": 15,
@@ -174,35 +180,35 @@ const QUIZ_BANK = {
       "questionMl": "ശരിയായ പവർ വൊക്കാബുലറി വാക്ക് ഉപയോഗിച്ച് വാക്യം പൂർത്തിയാക്കുക: \"Practice makes ___.\"",
       "options": [
         "A) Perfect",
-        "B) Progress",
-        "C) Success",
+        "B) Success",
+        "C) Progress",
         "D) Confident"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 16,
-      "question": "Which word from Module 1 means the feeling of being worried or anxious about speaking?",
-      "questionMl": "സംസാരിക്കുന്നതിനെക്കുറിച്ച് ആശങ്കയോ ഉത്കണ്ഠയോ ഉള്ള വികാരത്തെ സൂചിപ്പിക്കുന്ന മോഡ്യൂൾ 1-ലെ വാക്ക് ഏതാണ്?",
+      "question": "Which word describes the feeling of being worried or anxious about speaking in front of others?",
+      "questionMl": "സംസാരിക്കുന്നതിനെക്കുറിച്ച് ആശങ്കയോ ഉത്കണ്ഠയോ ഉള്ള വികാരത്തെ സൂചിപ്പിക്കുന്ന വാക്ക് ഏതാണ്?",
       "options": [
         "A) Confident",
-        "B) Nervous",
-        "C) Friendly",
-        "D) Motivated"
+        "B) Energetic",
+        "C) Relaxed",
+        "D) Nervous"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 17,
       "question": "What instruction is given regarding translation in the preparation for the live session?",
       "questionMl": "ലൈവ് സെഷനായുള്ള തയ്യാറെടുപ്പിൽ വിവർത്തനത്തെക്കുറിച്ച് (translation) എന്ത് നിർദ്ദേശമാണ് നൽകിയിട്ടുള്ളത്?",
       "options": [
-        "A) Translate every sentence perfectly from Malayalam first",
-        "B) Write sentences down and translate them word-for-word",
-        "C) Don't translate from Malayalam. Speak naturally",
+        "A) Don't translate from Malayalam. Speak naturally",
+        "B) Translate every sentence perfectly from Malayalam first",
+        "C) Write sentences down and translate them word-for-word",
         "D) Consult a dictionary to verify every single word"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 18,
@@ -210,11 +216,11 @@ const QUIZ_BANK = {
       "questionMl": "താഴെ പറയുന്ന ഓപ്ഷനുകളിൽ നിന്ന് \"an\" എന്ന ആർട്ടിക്കിൾ സ്വീകരിക്കുന്ന വവ്വൽ സൗണ്ട് (vowel sound) ഉദാഹരണം തിരഞ്ഞെടുക്കുക:",
       "options": [
         "A) European",
-        "B) University",
-        "C) Opportunity",
+        "B) Opportunity",
+        "C) University",
         "D) Businessman"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 19,
@@ -222,11 +228,11 @@ const QUIZ_BANK = {
       "questionMl": "“a” എന്ന ആർട്ടിക്കിൾ ഉപയോഗിക്കുന്നതിനുള്ള കോൺസണന്റ് സൗണ്ട് (consonant sound) നിയമവുമായി പൊരുത്തപ്പെടുന്ന വാക്ക് തിരിച്ചറിയുക:",
       "options": [
         "A) Apple",
-        "B) Doctor",
-        "C) Idea",
+        "B) Idea",
+        "C) Doctor",
         "D) Office"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 20,
@@ -242,27 +248,27 @@ const QUIZ_BANK = {
     },
     {
       "id": 21,
-      "question": "Which of these is a correct sentence pattern from Module 1?",
-      "questionMl": "മോഡ്യൂൾ 1-ൽ നിന്നുള്ള ശരിയായ ഒരു വാക്യ ഘടന താഴെ പറയുന്നവയിൽ ഏതാണ്?",
+      "question": "How do you introduce yourself to a new colleague at work?",
+      "questionMl": "ജോലിസ്ഥലത്ത് ഒരു പുതിയ സഹപ്രവർത്തകനോട് സ്വയം പരിചയപ്പെടുത്തുന്ന ശരിയായ വാക്യം ഏതാണ്?",
       "options": [
-        "A) I work as a engineer.",
-        "B) I live in Kerala.",
-        "C) My name Abdul.",
-        "D) I are ready."
+        "A) Hello, I am Rahul and I am an accountant here.",
+        "B) Hello, I Rahul and am an accountant.",
+        "C) Hello, I is Rahul and I are an accountant.",
+        "D) Hello, my are Rahul and I am an accountant."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 22,
       "question": "The English vocabulary word 'Career' refers to:",
       "questionMl": "'Career' എന്ന ഇംഗ്ലീഷ് വാക്ക് എന്തുമായി ബന്ധപ്പെട്ടിരിക്കുന്നു:",
       "options": [
-        "A) A person's professional or job journey",
-        "B) A family dynamic",
+        "A) A family dynamic",
+        "B) A person's professional or job journey",
         "C) A grammatical term",
         "D) A specific travel destination"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 23,
@@ -275,20 +281,104 @@ const QUIZ_BANK = {
         "D) An"
       ],
       "correctIndex": 2
+    },
+    {
+      "id": 24,
+      "question": "Which indefinite article is used before a profession starting with a vowel sound, like 'architect'?",
+      "questionMl": "'architect' പോലെ സ്വരാക്ഷര ശബ്ദത്തിൽ തുടങ്ങുന്ന തൊഴിൽപ്പേരിന് മുമ്പ് ഏത് ആർട്ടിക്കിളാണ് ഉപയോഗിക്കുന്നത്?",
+      "options": [
+        "A) a",
+        "B) the",
+        "C) at",
+        "D) an"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": 25,
+      "question": "How do you state your hometown when someone asks 'Where are you from?'",
+      "questionMl": "\"നിങ്ങൾ എവിടെ നിന്നാണ്?\" എന്ന് ചോദിക്കുമ്പോൾ നിങ്ങളുടെ സ്വദേശം പറയാൻ ഏത് വാക്യമാണ് ഉപയോഗിക്കുന്നത്?",
+      "options": [
+        "A) I am from Kochi.",
+        "B) I is from Kochi.",
+        "C) I from Kochi.",
+        "D) My am from Kochi."
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": 26,
+      "question": "How do you describe your favorite hobby during a self-introduction?",
+      "questionMl": "സ്വയം പരിചയപ്പെടുത്തുമ്പോൾ നിങ്ങളുടെ വിനോദത്തെക്കുറിച്ച് (hobby) പറയാൻ അനുയോജ്യമായ വാക്യം ഏതാണ്?",
+      "options": [
+        "A) My hobby are reading books.",
+        "B) My hobby is reading books.",
+        "C) I hobby reading books.",
+        "D) Mine hobby is read books."
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 27,
+      "question": "Fill in the blank with the correct pronoun: \"_____ name is Sara and I am an engineer.\"",
+      "questionMl": "വിടവ് പൂരിപ്പിക്കുക: \"എന്റെ പേര് സാറ എന്നാണ്, ഞാൻ ഒരു എഞ്ചിനീയറാണ്.\"",
+      "options": [
+        "A) Me",
+        "B) Mine",
+        "C) My",
+        "D) I"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": 28,
+      "question": "Which sentence is grammatically correct when introducing yourself?",
+      "questionMl": "സ്വയം പരിചയപ്പെടുത്തുമ്പോൾ വ്യാകരണപരമായി ശരിയായ വാക്യം ഏതാണ്?",
+      "options": [
+        "A) I am an web designer in Technopark.",
+        "B) I is a web designer in Technopark.",
+        "C) I are a web designer in Technopark.",
+        "D) I am a web designer in Technopark."
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": 29,
+      "question": "How do you explain your primary goal for learning English?",
+      "questionMl": "ഇംഗ്ലീഷ് പഠിക്കുന്നതിന്റെ പ്രധാന ലക്ഷ്യം വ്യക്തമാക്കാൻ ഏത് വാക്യമാണ് ഉപയോഗിക്കുന്നത്?",
+      "options": [
+        "A) My goal is to speak English fluently and confidently.",
+        "B) My goal are to speak English fluently.",
+        "C) I goal is speaking English.",
+        "D) My goal be to speak English."
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": 30,
+      "question": "When someone says 'Nice to meet you', what is the most polite and natural response?",
+      "questionMl": "ഒരാൾ 'Nice to meet you' എന്ന് പറയുമ്പോൾ ഏറ്റവും അനുയോജ്യമായ മറുപടി എന്താണ്?",
+      "options": [
+        "A) I am fine.",
+        "B) Nice to meet you too!",
+        "C) Yes, thank you.",
+        "D) You are welcome."
+      ],
+      "correctIndex": 1
     }
   ],
   "2": [
     {
       "id": 1,
-      "question": "What is the core objective shift from Module 1 to Module 2?",
-      "questionMl": "മോഡ്യൂൾ 1-ൽ നിന്ന് മോഡ്യൂൾ 2-ലേക്ക് വരുമ്പോൾ പ്രധാന ലക്ഷ്യത്തിലുള്ള മാറ്റം എന്താണ്?",
+      "question": "Which pronoun is used to talk about a group of people including yourself?",
+      "questionMl": "നിങ്ങളുൾപ്പെടെയുള്ള ഒരു കൂട്ടം ആളുകളെക്കുറിച്ച് സംസാരിക്കാൻ ഏത് സർവ്വനാമമാണ് ഉപയോഗിക്കുന്നത്?",
       "options": [
-        "A) From writing simple text to writing professional emails",
-        "B) From speaking about oneself to speaking about other people",
-        "C) From basic vocabulary to advanced business management terminology",
-        "D) From listening comprehension to complex translation tasks"
+        "A) They",
+        "B) She",
+        "C) We",
+        "D) He"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 2,
@@ -297,22 +387,22 @@ const QUIZ_BANK = {
       "options": [
         "A) അവൻ (He) / അവർ (She)",
         "B) അവൾ (He) / അവൻ (She)",
-        "C) അവൻ (He) / അവൾ (She)",
-        "D) നമ്മൾ (He) / അവർ (She)"
+        "C) നമ്മൾ (He) / അവർ (She)",
+        "D) അവൻ (He) / അവൾ (She)"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 3,
       "question": "When should a student use the pronoun \"We\" based on the grammar rules?",
       "questionMl": "വ്യാകരണ നിയമങ്ങൾ അനുസരിച്ച് ഒരു വിദ്യാർത്ഥി \"We\" എന്ന പ്രൊനൗൺ എപ്പോഴാണ് ഉപയോഗിക്കേണ്ടത്?",
       "options": [
-        "A) When talking about a single male colleague far away",
-        "B) When talking about a collective group that includes oneself",
+        "A) When talking about a collective group that includes oneself",
+        "B) When talking about a single male colleague far away",
         "C) When talking exclusively about a group of third-party strangers",
         "D) When introducing a single female teacher"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 4,
@@ -320,11 +410,11 @@ const QUIZ_BANK = {
       "questionMl": "മലയാളം വിശദീകരണത്തിൽ നൽകിയിട്ടുള്ള \"They\" എന്ന വാക്കിന്റെ കൃത്യമായ വിവർത്തനം എന്താണ്?",
       "options": [
         "A) നമ്മൾ",
-        "B) അവൻ",
-        "C) അവൾ",
-        "D) അവർ"
+        "B) അവർ",
+        "C) അവൻ",
+        "D) അവൾ"
       ],
-      "correctIndex": 3
+      "correctIndex": 1
     },
     {
       "id": 5,
@@ -332,11 +422,11 @@ const QUIZ_BANK = {
       "questionMl": "ഏകവചന സർവ്വനാമങ്ങളോടും (He/She/It) ബഹുവചന സർവ്വനാമങ്ങളോടും (We/You/They) ശരിയായി പൊരുത്തപ്പെടുന്ന ക്രിയകൾ ഏവ?",
       "options": [
         "A) Singular pronouns take 'are'; Plural pronouns take 'is'",
-        "B) Singular pronouns take 'is'; Plural pronouns take 'are'",
-        "C) Singular pronouns take 'am'; Plural pronouns take 'are'",
+        "B) Singular pronouns take 'am'; Plural pronouns take 'are'",
+        "C) Singular pronouns take 'is'; Plural pronouns take 'are'",
         "D) Both singular and plural pronouns take 'is' exclusively"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 6,
@@ -345,10 +435,10 @@ const QUIZ_BANK = {
       "options": [
         "A) He are my friend.",
         "B) They is happy.",
-        "C) She is a teacher.",
-        "D) We is ready."
+        "C) We is ready.",
+        "D) She is a teacher."
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 7,
@@ -368,11 +458,11 @@ const QUIZ_BANK = {
       "questionMl": "പവർ വൊക്കാബുലറിയിൽ ലിസ്റ്റ് ചെയ്തിട്ടുള്ള, നിങ്ങളോടൊപ്പം ജോലി ചെയ്യുന്ന ഒരു വ്യക്തിയെ വിവരിക്കുന്ന വാക്ക് ഏതാണ്?",
       "options": [
         "A) Neighbour",
-        "B) Classmate",
-        "C) Colleague",
+        "B) Colleague",
+        "C) Classmate",
         "D) Teammate"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 9,
@@ -380,11 +470,11 @@ const QUIZ_BANK = {
       "questionMl": "“Generous” എന്ന പവർ വൊക്കാബുലറി വാക്കിന്റെ ആശയപരമായ അർത്ഥം എന്താണ്?",
       "options": [
         "A) Showing absolute respect to elders",
-        "B) Willing to give money, help, or kindness freely",
-        "C) Having high levels of professional intelligence",
+        "B) Having high levels of professional intelligence",
+        "C) Willing to give money, help, or kindness freely",
         "D) Staying calm under stressful conditions"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 10,
@@ -392,35 +482,35 @@ const QUIZ_BANK = {
       "questionMl": "ഉപയോഗപ്രദമായ ഈ വാക്യ ഘടന പൂർത്തിയാക്കുക: \"They are ___.\"",
       "options": [
         "A) neighbour",
-        "B) neighbours",
-        "C) a neighbours",
-        "D) an neighbour"
+        "B) a neighbours",
+        "C) an neighbour",
+        "D) neighbours"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 11,
       "question": "Which English Power Usage is perfect for introducing a friend to another person?",
       "questionMl": "ഒരു സുഹൃത്തിനെ മറ്റൊരു വ്യക്തിക്ക് പരിചയപ്പെടുത്താൻ ഏറ്റവും അനുയോജ്യമായ ഇംഗ്ലീഷ് പവർ യൂസേജ് ഏതാണ്?",
       "options": [
-        "A) He works with me.",
-        "B) Let me introduce my friend.",
+        "A) Let me introduce my friend.",
+        "B) He works with me.",
         "C) They are from...",
         "D) We study together."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "In the Example Conversation for Module 2, what is the profession of the speaker's brother?",
-      "questionMl": "മോഡ്യൂൾ 2-ലെ മാതൃകാ സംഭാഷണത്തിൽ സംസാരിക്കുന്ന വ്യക്തിയുടെ സഹോദരന്റെ തൊഴിൽ എന്താണ്?",
+      "question": "How do you introduce your brother and his profession?",
+      "questionMl": "നിങ്ങളുടെ സഹോദരനെയും അദ്ദേഹത്തിന്റെ തൊഴിലിനെയും പരിചയപ്പെടുത്തുന്ന ശരിയായ വാക്യം ഏതാണ്?",
       "options": [
-        "A) Nurse",
-        "B) Manager",
-        "C) Teacher",
-        "D) Doctor"
+        "A) He are my brother and he are a doctor.",
+        "B) He is my brother and he is a doctor.",
+        "C) He is my brother and he am a doctor.",
+        "D) Him is my brother and is a doctor."
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 13,
@@ -439,24 +529,24 @@ const QUIZ_BANK = {
       "question": "Fix this sentence pattern mistake: \"She are a doctor.\"",
       "questionMl": "ഈ വാക്യ ഘടനയിലെ തെറ്റ് തിരുത്തുക: \"She are a doctor.\"",
       "options": [
-        "A) She is a doctor.",
-        "B) She am a doctor.",
-        "C) They are a doctor.",
-        "D) He are a doctor."
+        "A) She am a doctor.",
+        "B) They are a doctor.",
+        "C) He are a doctor.",
+        "D) She is a doctor."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 15,
       "question": "Choose the Power Vocabulary word that describes someone who is always happy and full of positive energy:",
       "questionMl": "എപ്പോഴും സന്തോഷവാനായിരിക്കുകയും പോസിറ്റീവ് ഊർജ്ജം നിറഞ്ഞുനിൽക്കുകയും ചെയ്യുന്ന ഒരാളെ വിവരിക്കുന്ന പവർ വൊക്കാബുലറി വാക്ക് തിരഞ്ഞെടുക്കുക:",
       "options": [
-        "A) Polite",
-        "B) Patient",
-        "C) Cheerful",
+        "A) Cheerful",
+        "B) Polite",
+        "C) Patient",
         "D) Responsible"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 16,
@@ -476,11 +566,11 @@ const QUIZ_BANK = {
       "questionMl": "ഒരു സ്ത്രീയെക്കുറിച്ച് മാത്രം സംസാരിക്കാൻ നിങ്ങൾ ഏത് പ്രൊനൗൺ ആണ് ഉപയോഗിക്കേണ്ടത്?",
       "options": [
         "A) He",
-        "B) She",
-        "C) They",
+        "B) They",
+        "C) She",
         "D) We"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 18,
@@ -488,23 +578,23 @@ const QUIZ_BANK = {
       "questionMl": "നന്നായി പെരുമാറുകയും നല്ല മര്യാദകൾ കാണിക്കുകയും ചെയ്യുന്ന ഒരാളെ വിവരിക്കാൻ ഏറ്റവും അനുയോജ്യമായ വാക്ക് ഏതാണ്?",
       "options": [
         "A) Intelligent",
-        "B) Polite",
-        "C) Successful",
-        "D) Hardworking"
+        "B) Successful",
+        "C) Hardworking",
+        "D) Polite"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 19,
-      "question": "When the prompt asks you to practice speaking for Module 2, what is the main instruction regarding mistakes?",
-      "questionMl": "മോഡ്യൂൾ 2-നായി സംസാരിക്കാൻ പരിശീലിക്കാൻ ആവശ്യപ്പെടുമ്പോൾ, തെറ്റുകളെക്കുറിച്ചുള്ള പ്രധാന നിർദ്ദേശം എന്താണ്?",
+      "question": "Which sentence correctly describes your best friend's supportive personality?",
+      "questionMl": "നിങ്ങളുടെ സുഹൃത്തിന്റെ നല്ല സ്വഭാവത്തെക്കുറിച്ച് പറയാൻ ഏറ്റവും അനുയോജ്യമായ വാക്യം ഏതാണ്?",
       "options": [
-        "A) Stop speaking immediately if you make a mistake",
-        "B) Don't worry about mistakes, just keep speaking",
-        "C) Correct every single mistake before moving to the next sentence",
-        "D) Write down the mistakes on paper first"
+        "A) She is very kind and always helps others.",
+        "B) She are very kind and always help others.",
+        "C) She am very kind and always helps.",
+        "D) Her is very kind and always helping."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 20,
@@ -537,32 +627,32 @@ const QUIZ_BANK = {
       "options": [
         "A) അവർ",
         "B) അവൻ",
-        "C) നമ്മൾ",
-        "D) അവൾ"
+        "C) അവൾ",
+        "D) നമ്മൾ"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 23,
-      "question": "Before the live session for Module 2, how many people are students asked to think about describing?",
-      "questionMl": "മോഡ്യൂൾ 2-ന്റെ ലൈവ് സെഷന് മുമ്പ്, എത്ര വ്യക്തികളെക്കുറിച്ച് വിവരിക്കാനാണ് വിദ്യാർത്ഥികളോട് ആലോചിക്കാൻ ആവശ്യപ്പെട്ടിരിക്കുന്നത്?",
+      "question": "How do you introduce two of your coworkers to a visitor?",
+      "questionMl": "നിങ്ങളുടെ രണ്ട് സഹപ്രവർത്തകരെ മറ്റൊരാൾക്ക് പരിചയപ്പെടുത്തുന്ന വാക്യം ഏതാണ്?",
       "options": [
-        "A) One person",
-        "B) Two people",
-        "C) Three people",
-        "D) Five people"
+        "A) They are my colleagues from the marketing team.",
+        "B) They is my colleagues from the marketing team.",
+        "C) Them are my colleagues from the marketing team.",
+        "D) They am my colleagues from marketing team."
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "Which word from Module 2 vocabulary means a person who manages a team or office?",
-      "questionMl": "ഒരു ടീമിനെയോ ഓഫീസിനെയോ നിയന്ത്രിക്കുന്ന വ്യക്തി എന്ന അർത്ഥം വരുന്ന മോഡ്യൂൾ 2 വൊക്കാബുലറിയിലെ വാക്ക് ഏതാണ്?",
+      "question": "Which vocabulary word means a person who manages a team or office?",
+      "questionMl": "ഒരു ടീമിനെയോ ഓഫീസിനെയോ നിയന്ത്രിക്കുന്ന വ്യക്തി എന്ന അർത്ഥം വരുന്ന വാക്ക് ഏതാണ്?",
       "options": [
-        "A) Employee",
+        "A) Colleague",
         "B) Manager",
-        "C) Classmate",
-        "D) Colleague"
+        "C) Friend",
+        "D) Classmate"
       ],
       "correctIndex": 1
     },
@@ -572,11 +662,11 @@ const QUIZ_BANK = {
       "questionMl": "കോടി പൂരിപ്പിക്കുക: \"They are very ___.\"",
       "options": [
         "A) friend",
-        "B) friendly",
-        "C) friendliness",
+        "B) friendliness",
+        "C) friendly",
         "D) friends"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 26,
@@ -584,11 +674,59 @@ const QUIZ_BANK = {
       "questionMl": "'Sarah is an engineer' എന്ന വാക്യത്തിൽ 'Sarah' എന്നതിന് പകരമായി ഉപയോഗിക്കേണ്ട സർവ്വനാമം ഏതാണ്?",
       "options": [
         "A) He",
-        "B) She",
-        "C) They",
-        "D) It"
+        "B) They",
+        "C) It",
+        "D) She"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": 27,
+      "question": "Which helping verb is correctly paired with the plural pronoun 'They' in the present tense?",
+      "questionMl": "വർത്തമാനകാലത്തിൽ 'They' എന്ന ബഹുവചന സർവ്വനാമത്തോടൊപ്പം ഉപയോഗിക്കുന്ന സഹായക്രിയ ഏതാണ്?",
+      "options": [
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) be"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": 28,
+      "question": "Fill in the blank: \"My father and mother _____ teachers in a government school.\"",
+      "questionMl": "എന്റെ അച്ഛനും അമ്മയും അധ്യാപകരാണ് എന്ന് പറയാൻ:",
+      "options": [
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 1
+    },
+    {
+      "id": 29,
+      "question": "How do you describe your sister's hobby?",
+      "questionMl": "നിങ്ങളുടെ സഹോദരിയുടെ വിനോദത്തെക്കുറിച്ച് പറയാൻ ശരിയായ വാക്യം ഏതാണ്?",
+      "options": [
+        "A) She love painting and classical music.",
+        "B) Her loves painting and classical music.",
+        "C) She loves painting and classical music.",
+        "D) She are loving painting."
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": 30,
+      "question": "Which sentence correctly describes your classmate?",
+      "questionMl": "നിങ്ങളുടെ സഹപാഠിയെക്കുറിച്ച് വിവരിക്കുന്ന ശരിയായ വാക്യം ഏതാണ്?",
+      "options": [
+        "A) He are my classmate and he are very hardworking.",
+        "B) Him is my classmate and is very hardworking.",
+        "C) He am my classmate and is hardworking.",
+        "D) He is my classmate and he is very hardworking."
+      ],
+      "correctIndex": 3
     }
   ],
   "3": [
@@ -597,12 +735,12 @@ const QUIZ_BANK = {
       "question": "What do the verbs 'Have' and 'Has' express in English sentences?",
       "questionMl": "ഇംഗ്ലീഷ് വാക്യങ്ങളിൽ 'Have', 'Has' എന്നിവ എന്തിനെയാണ് സൂചിപ്പിക്കുന്നത്?",
       "options": [
-        "A) വരും / പോകും (Movement)",
-        "B) ഉണ്ട് / കൈവശമുണ്ട് (Possession)",
+        "A) ഉണ്ട് / കൈവശമുണ്ട് (Possession)",
+        "B) വരും / പോകും (Movement)",
         "C) ചെയ്യും / ചെയ്യണം (Action)",
         "D) വേണം / അരുത് (Prohibition)"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 2,
@@ -622,11 +760,11 @@ const QUIZ_BANK = {
       "questionMl": "“This” എന്ന ഡെമോൺസ്ട്രേറ്റീവ് വാക്ക് ഉപയോഗിക്കുന്നത് എപ്പോഴാണ് അനുയോജ്യം?",
       "options": [
         "A) For many things or people near you",
-        "B) For one person or one thing that is near you",
-        "C) For one person or one thing that is far from you",
+        "B) For one person or one thing that is far from you",
+        "C) For one person or one thing that is near you",
         "D) For many things or people far from you"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 4,
@@ -634,23 +772,23 @@ const QUIZ_BANK = {
       "questionMl": "“This”, “That” എന്നിവ ഉപയോഗിക്കുന്നതിലെ പ്രധാന ഭൂമിശാസ്ത്രപരമായ (അകലത്തെ അടിസ്ഥാനമാക്കിയുള്ള) വ്യത്യാസം എന്താണ്?",
       "options": [
         "A) \"This\" is used for plural; \"That\" is used for singular",
-        "B) \"This\" is for things near you; \"That\" is for things far from you",
-        "C) \"This\" is for formal settings; \"That\" is for informal settings",
-        "D) \"This\" is for family; \"That\" is for objects"
+        "B) \"This\" is for formal settings; \"That\" is for informal settings",
+        "C) \"This\" is for family; \"That\" is for objects",
+        "D) \"This\" is for things near you; \"That\" is for things far from you"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 5,
       "question": "What is the Malayalam meaning of the plural demonstrative \"These\"?",
       "questionMl": "“These” എന്ന ബഹുവചന ഡെമോൺസ്ട്രേറ്റീവിന്റെ മലയാളം അർത്ഥം എന്താണ്?",
       "options": [
-        "A) ഇത്",
-        "B) അത്",
-        "C) ഇവ",
+        "A) ഇവ",
+        "B) ഇത്",
+        "C) അത്",
         "D) അവ"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 6,
@@ -670,59 +808,59 @@ const QUIZ_BANK = {
       "questionMl": "താഴെ പറയുന്ന ഓപ്ഷനുകളിൽ നിന്ന് \"have/has\" വെർബ് സംബന്ധിച്ച \"Common Mistake\" (പൊതുവായ തെറ്റ്) തിരിച്ചറിയുക:",
       "options": [
         "A) He has a car.",
-        "B) He have a car.",
-        "C) I have a bike.",
+        "B) I have a bike.",
+        "C) He have a car.",
         "D) She has a laptop."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 8,
       "question": "Correct this erroneous expression: \"I has a bike.\"",
       "questionMl": "ഈ തെറ്റായ പ്രയോഗം തിരുത്തുക: \"I has a bike.\"",
       "options": [
-        "A) I have a bike.",
-        "B) He has a bike.",
-        "C) I am a bike.",
-        "D) They has a bike."
+        "A) He has a bike.",
+        "B) I am a bike.",
+        "C) They has a bike.",
+        "D) I have a bike."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 9,
       "question": "Which of the following represents an incorrect matching of a demonstrative word and a verb?",
       "questionMl": "താഴെ പറയുന്നവയിൽ ഒരു ഡെമോൺസ്ട്രേറ്റീവ് വാക്കും വെർബും തമ്മിലുള്ള തെറ്റായ പൊരുത്തപ്പെടുത്തലിനെ പ്രതിനിധീകരിക്കുന്നത് ഏതാണ്?",
       "options": [
-        "A) This is my phone.",
-        "B) These are my books.",
-        "C) This are my books.",
+        "A) This are my books.",
+        "B) This is my phone.",
+        "C) These are my books.",
         "D) Those are my classmates."
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 10,
       "question": "Fix the following error sentence: \"Those is my friend.\"",
       "questionMl": "താഴെ പറയുന്ന തെറ്റായ വാക്യം തിരുത്തുക: \"Those is my friend.\"",
       "options": [
-        "A) Those are my friends.",
-        "B) That are my friend.",
+        "A) That are my friend.",
+        "B) Those are my friends.",
         "C) These is my friend.",
         "D) Those am my friend."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 11,
-      "question": "Which vocabulary word from Module 3 means a child of your aunt or uncle?",
-      "questionMl": "നിങ്ങളുടെ അമ്മായിയുടെയോ അമ്മാവന്റെയോ കുട്ടിയെ അർത്ഥമാക്കുന്ന മോഡ്യൂൾ 3-ലെ വൊക്കാബുലറി വാക്ക് ഏതാണ്?",
+      "question": "Which vocabulary word means a child of your aunt or uncle?",
+      "questionMl": "നിങ്ങളുടെ അമ്മായിയുടെയോ അമ്മാവന്റെയോ കുട്ടിയെ അർത്ഥമാക്കുന്ന വാക്ക് ഏതാണ്?",
       "options": [
-        "A) Brother",
-        "B) Cousin",
-        "C) Relative",
-        "D) Teammate"
+        "A) Niece",
+        "B) Nephew",
+        "C) Cousin",
+        "D) Sibling"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 12,
@@ -730,35 +868,35 @@ const QUIZ_BANK = {
       "questionMl": "ഒരു സാധനം നിങ്ങളുടേതാണെന്ന് പ്രകടിപ്പിക്കുന്നതിനുള്ള ശരിയായ ഇംഗ്ലീഷ് പവർ യൂസേജ് തിരഞ്ഞെടുക്കുക:",
       "options": [
         "A) Those are yours.",
-        "B) This belongs to me.",
-        "C) That looks beautiful.",
-        "D) Take a look at this."
+        "B) That looks beautiful.",
+        "C) Take a look at this.",
+        "D) This belongs to me."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 13,
       "question": "Complete the dialogue from the Example Conversation:",
       "questionMl": "മാതൃകാ സംഭാഷണത്തിൽ നിന്നുള്ള ഡയലോഗ് പൂർത്തിയാക്കുക:",
       "options": [
-        "A) they has jobs",
-        "B) they have jobs",
+        "A) they have jobs",
+        "B) they has jobs",
         "C) those is jobs",
         "D) we are jobs"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 14,
       "question": "What does the sentence pattern \"My family is very supportive\" emphasize?",
       "questionMl": "“My family is very supportive” എന്ന വാക്യ ഘടന എന്തിനെയാണ് ഊന്നിപ്പറയുന്നത്?",
       "options": [
-        "A) A power vocabulary trait meaning helpful and encouraging",
-        "B) A physical location of the home",
+        "A) A physical location of the home",
+        "B) A power vocabulary trait meaning helpful and encouraging",
         "C) The exact number of family members",
         "D) A specific historical event"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 15,
@@ -766,11 +904,11 @@ const QUIZ_BANK = {
       "questionMl": "ഒരു മൃഗത്തോടൊപ്പമോ വസ്തുവോടൊപ്പമോ \"has\" ഉപയോഗിക്കുന്ന ശരിയായ വാക്യം തിരഞ്ഞെടുക്കുക:",
       "options": [
         "A) It have four legs.",
-        "B) It has four legs.",
-        "C) It is four legs.",
+        "B) It is four legs.",
+        "C) It has four legs.",
         "D) They has four legs."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 16,
@@ -789,24 +927,24 @@ const QUIZ_BANK = {
       "question": "Fill in the blank with the correct verb: \"We ___ a class today.\"",
       "questionMl": "ശരിയായ വെർബ് ഉപയോഗിച്ച് കോടി പൂരിപ്പിക്കുക: \"We ___ a class today.\"",
       "options": [
-        "A) has",
-        "B) have",
+        "A) have",
+        "B) has",
         "C) is",
         "D) am"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 18,
       "question": "What error is found in the sentence: \"That are my parents\"?",
       "questionMl": "“That are my parents” എന്ന വാക്യത്തിൽ എന്ത് തെറ്റാണ് കണ്ടെത്താൻ കഴിയുന്നത്?",
       "options": [
-        "A) \"That\" should be replaced with \"Those\" and it should be \"Those are my parents\"",
-        "B) \"parents\" must be singular",
+        "A) \"parents\" must be singular",
+        "B) \"That\" should be replaced with \"Those\" and it should be \"Those are my parents\"",
         "C) \"are\" must be changed to \"am\"",
         "D) No error is present"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 19,
@@ -814,33 +952,33 @@ const QUIZ_BANK = {
       "questionMl": "വാക്യം പൂർത്തിയാക്കുക: \"You have a beautiful ___.\"",
       "options": [
         "A) hair",
-        "B) smile",
-        "C) laptop",
+        "B) laptop",
+        "C) smile",
         "D) class"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 20,
       "question": "Which sentence correctly expresses having a family member or possession?",
       "questionMl": "കുടുംബാംഗത്തെയോ സ്വന്തം വസ്തുവിനെയോ സൂചിപ്പിക്കുന്ന ശരിയായ വാക്യം ഏതാണ്?",
       "options": [
-        "A) I have two brothers.",
-        "B) I having two brothers.",
-        "C) I has two brothers.",
-        "D) I am have two brothers."
+        "A) I having two brothers.",
+        "B) I has two brothers.",
+        "C) I am have two brothers.",
+        "D) I have two brothers."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 21,
-      "question": "Which of the following is an accurate English Power Usage sentence from Module 3?",
-      "questionMl": "താഴെ പറയുന്നവയിൽ മോഡ്യൂൾ 3-ൽ നിന്നുള്ള കൃത്യമായ ഇംഗ്ലീഷ് പവർ യൂസേജ് വാക്യം ഏതാണ്?",
+      "question": "Which sentence correctly describes a special belonging you own?",
+      "questionMl": "നിങ്ങളുടെ പക്കലുള്ള വിലപ്പെട്ട ഒരു വസ്തുവിനെക്കുറിച്ച് പറയാൻ ശരിയായ വാക്യം ഏതാണ്?",
       "options": [
-        "A) These are really useful.",
-        "B) Those is yours.",
-        "C) This belong to me.",
-        "D) That's look beautiful."
+        "A) I have a precious watch given by my grandfather.",
+        "B) I has a precious watch given by my grandfather.",
+        "C) I having a precious watch.",
+        "D) Mine have a precious watch."
       ],
       "correctIndex": 0
     },
@@ -862,11 +1000,11 @@ const QUIZ_BANK = {
       "questionMl": "പരിശീലനത്തിനിടയിൽ കാര്യങ്ങൾ വിവരിക്കുമ്പോൾ, ആത്മവിശ്വാസത്തിനായുള്ള സുവർണ്ണ നിയമം എന്താണ്?",
       "options": [
         "A) Focus heavily on grammar rules before making a sound",
-        "B) Don't worry about mistakes; speak naturally",
-        "C) Translate every single word systematically",
+        "B) Translate every single word systematically",
+        "C) Don't worry about mistakes; speak naturally",
         "D) Speak only if you are 100% correct"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 24,
@@ -874,11 +1012,11 @@ const QUIZ_BANK = {
       "questionMl": "ഏത് പ്രൊനൗൺ ആണ് \"has\" എന്ന വെർബുമായി ശരിയായി പൊരുത്തപ്പെടുന്നത്?",
       "options": [
         "A) You",
-        "B) She",
-        "C) They",
-        "D) We"
+        "B) They",
+        "C) We",
+        "D) She"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 25,
@@ -891,6 +1029,66 @@ const QUIZ_BANK = {
         "D) those"
       ],
       "correctIndex": 0
+    },
+    {
+      "id": 26,
+      "question": "Which sentence correctly describes things that are near to you in the plural form?",
+      "questionMl": "അടുത്തുനിൽക്കുന്ന ഒന്നിലധികം വസ്തുക്കളെക്കുറിച്ച് പറയാൻ ഉപയോഗിക്കുന്ന വാക്യം ഏതാണ്?",
+      "options": [
+        "A) This are my favorite books.",
+        "B) These are my favorite books.",
+        "C) Those is my favorite books.",
+        "D) That are my favorite books."
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 27,
+      "question": "Fill in the blank with 'have' or 'has': \"My brother _____ two mobile phones.\"",
+      "questionMl": "\"എന്റെ സഹോദരന് രണ്ട് മൊബൈൽ ഫോണുകളുണ്ട്\" എന്ന് പറയാൻ ശരിയായ വാക്ക്:",
+      "options": [
+        "A) have",
+        "B) having",
+        "C) has",
+        "D) haves"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": 28,
+      "question": "How do you ask someone if they have a pen you can borrow?",
+      "questionMl": "\"നിങ്ങളുടെ കയ്യിൽ ഒരു പേനയുണ്ടോ?\" എന്ന് ഒരാളോട് ചോദിക്കാൻ:",
+      "options": [
+        "A) Are you have a pen?",
+        "B) Have you a pen?",
+        "C) Does you have a pen?",
+        "D) Do you have a pen?"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": 29,
+      "question": "Which demonstrative pronoun is used for a single object that is far away from you?",
+      "questionMl": "അകലെയിരിക്കുന്ന ഒരൊറ്റ വസ്തുവിനെ ചൂണ്ടിക്കാണിക്കാൻ ഏത് വാക്കാണ് ഉപയോഗിക്കുന്നത്?",
+      "options": [
+        "A) That",
+        "B) This",
+        "C) These",
+        "D) Those"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": 30,
+      "question": "Fill in the blank: \"We _____ a beautiful garden behind our house.\"",
+      "questionMl": "\"ഞങ്ങളുടെ വീടിന് പിന്നിൽ ഒരു മനോഹരമായ പൂന്തോട്ടമുണ്ട്\" എന്ന് പറയാൻ:",
+      "options": [
+        "A) has",
+        "B) have",
+        "C) having",
+        "D) are have"
+      ],
+      "correctIndex": 1
     }
   ],
   "4": [
@@ -913,22 +1111,22 @@ const QUIZ_BANK = {
       "options": [
         "A) കഴിയില്ല",
         "B) വേണം",
-        "C) കഴിയും",
-        "D) ചെയ്യാം"
+        "C) ചെയ്യാം",
+        "D) കഴിയും"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 3,
       "question": "When do we systematically use the word \"Can\" in English grammar?",
       "questionMl": "ഇംഗ്ലീഷ് വ്യാകരണത്തിൽ നമ്മൾ ഏത് സാഹചര്യത്തിലാണ് \"Can\" എന്ന വാക്ക് വ്യവസ്ഥാപിതമായി ഉപയോഗിക്കുന്നത്?",
       "options": [
-        "A) To talk about past actions",
-        "B) To talk about ability or skill",
+        "A) To talk about ability or skill",
+        "B) To talk about past actions",
         "C) To ask for permission formally",
         "D) To describe family possessions"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 4,
@@ -948,11 +1146,11 @@ const QUIZ_BANK = {
       "questionMl": "“Can’t” എന്ന വ്യാകരണ വാക്കിന്റെ മലയാളം അർത്ഥം എന്താണ്?",
       "options": [
         "A) കഴിയും",
-        "B) കഴിയില്ല",
-        "C) വരാം",
+        "B) വരാം",
+        "C) കഴിയില്ല",
         "D) ചെയ്യാം"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 6,
@@ -961,22 +1159,22 @@ const QUIZ_BANK = {
       "options": [
         "A) to hear",
         "B) hears",
-        "C) hear",
-        "D) hearing"
+        "C) hearing",
+        "D) hear"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 7,
       "question": "Which of the following is a polite way to ask for something or request help?",
       "questionMl": "താഴെ പറയുന്നവയിൽ സഹായം ചോദിക്കുന്നതിനോ ഒരു കാര്യം ആവശ്യപ്പെടുന്നതിനോ ഉള്ള വിനയപൂർവ്വമായ മാർഗ്ഗം ഏതാണ്?",
       "options": [
-        "A) Can’t",
-        "B) Am",
-        "C) Could",
+        "A) Could",
+        "B) Can’t",
+        "C) Am",
         "D) Have"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 8,
@@ -997,10 +1195,10 @@ const QUIZ_BANK = {
       "options": [
         "A) to repeat",
         "B) repeating",
-        "C) repeats",
-        "D) repeat"
+        "C) repeat",
+        "D) repeats"
       ],
-      "correctIndex": 3
+      "correctIndex": 2
     },
     {
       "id": 10,
@@ -1008,23 +1206,23 @@ const QUIZ_BANK = {
       "questionMl": "ഈ വാക്യ ഘടന പൂർത്തിയാക്കുക: \"Could you explain ___?\"",
       "options": [
         "A) slow",
-        "B) again",
-        "C) carefully",
-        "D) together"
+        "B) carefully",
+        "C) together",
+        "D) again"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 11,
       "question": "Which natural spoken English phrase politely tells someone not to hurry?",
       "questionMl": "തിടുക്കം കൂട്ടേണ്ടതില്ല എന്ന് മര്യാദയോടെ പറയാൻ ഉപയോഗിക്കുന്ന ഇംഗ്ലീഷ് പ്രയോഗം ഏതാണ്?",
       "options": [
-        "A) I can to do it.",
-        "B) Take your time.",
+        "A) Take your time.",
+        "B) I can to do it.",
         "C) He can drives.",
         "D) Could you to help me?"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 12,
@@ -1056,11 +1254,11 @@ const QUIZ_BANK = {
       "questionMl": "“She can’t to swim” എന്ന വാക്യത്തിലെ തെറ്റ് എന്താണ്?",
       "options": [
         "A) The word \"swim\" should be \"swims\"",
-        "B) The word \"to\" should be removed",
-        "C) \"She\" should be replaced with \"They\"",
-        "D) \"can’t\" should be changed to \"could\""
+        "B) \"She\" should be replaced with \"They\"",
+        "C) \"can’t\" should be changed to \"could\"",
+        "D) The word \"to\" should be removed"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 15,
@@ -1079,12 +1277,12 @@ const QUIZ_BANK = {
       "question": "Fix this sentence structure error: \"He can drives.\"",
       "questionMl": "ഈ വാക്യ ഘടനയിലെ തെറ്റ് പരിഹരിക്കുക: \"He can drives.\"",
       "options": [
-        "A) He can drive.",
-        "B) He can to drive.",
+        "A) He can to drive.",
+        "B) He can drive.",
         "C) He could drives.",
         "D) He can’t to drive."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 17,
@@ -1092,11 +1290,11 @@ const QUIZ_BANK = {
       "questionMl": "ഉപയോഗപ്രദമായ ഈ വാക്യ ഘടന പൂർത്തിയാക്കുക: \"We can learn ___.\"",
       "options": [
         "A) slowly",
-        "B) together",
-        "C) repeat",
+        "B) repeat",
+        "C) together",
         "D) confident"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 18,
@@ -1105,22 +1303,22 @@ const QUIZ_BANK = {
       "options": [
         "A) Things you can do",
         "B) Skills you want to learn",
-        "C) Things your neighbors cannot do",
-        "D) Ask your partner for help politely"
+        "C) Ask your partner for help politely",
+        "D) Things your neighbors cannot do"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 19,
       "question": "Which modal verb is primarily used to express general physical or mental ability?",
       "questionMl": "പൊതുവായ ശാരീരികമോ മാനസികമോ ആയ കഴിവ് പ്രകടിപ്പിക്കാൻ ഉപയോഗിക്കുന്ന മോഡൽ ക്രിയ ഏതാണ്?",
       "options": [
-        "A) Must",
-        "B) Can",
+        "A) Can",
+        "B) Must",
         "C) Should",
         "D) Might"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 20,
@@ -1140,35 +1338,35 @@ const QUIZ_BANK = {
       "questionMl": "ഈ ഇംഗ്ലീഷ് പവർ യൂസേജ് പൂർത്തിയാക്കുക: \"No problem, I can ___.\"",
       "options": [
         "A) repeat",
-        "B) help",
-        "C) explain",
+        "B) explain",
+        "C) help",
         "D) learn"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 22,
-      "question": "Which word from Module 4 Power Vocabulary means to speak or act at a low speed?",
-      "questionMl": "കുറഞ്ഞ വേഗതയിൽ സംസാരിക്കുകയോ പ്രവർത്തിക്കുകയോ ചെയ്യുക എന്ന അർത്ഥം വരുന്ന മോഡ്യൂൾ 4 പവർ വൊക്കാബുലറിയിലെ വാക്ക് ഏതാണ്?",
+      "question": "Which vocabulary word means to speak or act at a low speed?",
+      "questionMl": "കുറഞ്ഞ വേഗതയിൽ സംസാരിക്കുകയോ പ്രവർത്തിക്കുകയോ ചെയ്യുക എന്ന അർത്ഥം വരുന്ന വാക്ക് ഏതാണ്?",
       "options": [
-        "A) Carefully",
-        "B) Slowly",
-        "C) Confident",
-        "D) Improve"
+        "A) Quickly",
+        "B) Loudly",
+        "C) Softly",
+        "D) Slowly"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 23,
       "question": "Fill in the blank using the correct vocabulary word: \"I want to ___ my English speaking skills.\"",
       "questionMl": "ശരിയായ വൊക്കാബുലറി വാക്ക് ഉപയോഗിച്ച് കോടി പൂരിപ്പിക്കുക: \"I want to ___ my English speaking skills.\"",
       "options": [
-        "A) repeat",
-        "B) improve",
+        "A) improve",
+        "B) repeat",
         "C) talent",
         "D) experience"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 24,
@@ -1184,15 +1382,75 @@ const QUIZ_BANK = {
     },
     {
       "id": 25,
-      "question": "Complete the sentence using the correct pronoun and pattern from Module 4: \"They can’t ___ English.\"",
-      "questionMl": "മോഡ്യൂൾ 4-ൽ നിന്നുള്ള ശരിയായ പ്രൊനൗണും ഘടനയും ഉപയോഗിച്ച് വാക്യം പൂർത്തിയാക്കുക: \"They can’t ___ English.\"",
+      "question": "Complete the sentence: \"They can't _____ English fluently yet.\"",
+      "questionMl": "വാക്യം പൂർത്തിയാക്കുക: \"അവർക്ക് ഇതുവരെ ഇംഗ്ലീഷ് നന്നായി സംസാരിക്കാൻ കഴിയില്ല.\"",
       "options": [
-        "A) understands",
-        "B) understand",
-        "C) to understand",
-        "D) understanding"
+        "A) speaks",
+        "B) spoken",
+        "C) speak",
+        "D) speaking"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": 26,
+      "question": "How do you politely ask someone for help using 'could'?",
+      "questionMl": "ഒരാളോട് വളരെ മാന്യമായി സഹായം അഭ്യർത്ഥിക്കാൻ അനുയോജ്യമായ ചോദ്യം ഏതാണ്?",
+      "options": [
+        "A) Can you help me please with this bag?",
+        "B) Could you to help me with this bag?",
+        "C) Can you helping me with this bag?",
+        "D) Could you please help me with this bag?"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": 27,
+      "question": "Fill in the blank: \"She _____ swim very well, so she goes to the pool every day.\"",
+      "questionMl": "അവൾക്ക് നന്നായി നീന്താൻ കഴിയും എന്ന് സൂചിപ്പിക്കാൻ ശരിയായ വാക്ക്:",
+      "options": [
+        "A) can",
+        "B) can't",
+        "C) could not",
+        "D) cannot to"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": 28,
+      "question": "Which sentence correctly expresses an inability to do something in spoken English?",
+      "questionMl": "ഒരു കാര്യം ചെയ്യാൻ കഴിയില്ല എന്ന് വ്യക്തമാക്കുന്ന ശരിയായ വാക്യം ഏതാണ്?",
+      "options": [
+        "A) I can't to speak French, but I can.",
+        "B) I can't speak French, but I can speak English.",
+        "C) I no can speak French.",
+        "D) I cannot speaks French."
       ],
       "correctIndex": 1
+    },
+    {
+      "id": 29,
+      "question": "How do you respond politely when someone asks 'Can you help me carry this box?'",
+      "questionMl": "സഹായം ചോദിക്കുമ്പോൾ സന്തോഷത്തോടെ സമ്മതിക്കുന്ന മാന്യമായ മറുപടി ഏതാണ്?",
+      "options": [
+        "A) No, I am busy always.",
+        "B) Can you carry yourself?",
+        "C) Yes, of course! I can help you.",
+        "D) I am doing help."
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": 30,
+      "question": "Fill in the blank: \"_____ you please repeat that question slowly?\"",
+      "questionMl": "ആ ചോദ്യം ഒന്നു കൂടി സാവധാനം ആവർത്തിക്കാമോ എന്ന് ചോദിക്കാൻ:",
+      "options": [
+        "A) Should to",
+        "B) Are",
+        "C) Have",
+        "D) Could"
+      ],
+      "correctIndex": 3
     }
   ],
   "5": [
@@ -1201,12 +1459,12 @@ const QUIZ_BANK = {
       "question": "Which pronoun group is correctly matched with the grammar rule for \"have to\"?",
       "questionMl": "“have to” എന്ന വ്യാകരണ നിയമവുമായി ശരിയായി പൊരുത്തപ്പെടുന്ന പ്രൊനൗൺ ഗ്രൂപ്പ് ഏതാണ്?",
       "options": [
-        "A) He, She, It",
-        "B) I, You, We, They",
+        "A) I, You, We, They",
+        "B) He, She, It",
         "C) He, She, They",
         "D) I, He, It"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 2,
@@ -1226,11 +1484,11 @@ const QUIZ_BANK = {
       "questionMl": "താഴെ പറയുന്ന വാക്യങ്ങളിൽ സിംഗുലർ തേർഡ് പേഴ്‌സൺ പ്രൊനൗണും വെർബും ശരിയായി പൊരുത്തപ്പെടുന്നത് ഏതിലാണ്?",
       "options": [
         "A) He have to study.",
-        "B) He has to study.",
-        "C) They has to study.",
+        "B) They has to study.",
+        "C) He has to study.",
         "D) We has to study."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 4,
@@ -1238,11 +1496,11 @@ const QUIZ_BANK = {
       "questionMl": "“had to” എന്ന വ്യാകരണ ഘടന നിങ്ങൾ എപ്പോഴാണ് ഉപയോഗിക്കേണ്ടത്?",
       "options": [
         "A) To talk about future plans",
-        "B) To talk about a responsibility in the past",
-        "C) To give general advice to a friend",
-        "D) To describe a daily routine happening now"
+        "B) To give general advice to a friend",
+        "C) To describe a daily routine happening now",
+        "D) To talk about a responsibility in the past"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 5,
@@ -1270,39 +1528,39 @@ const QUIZ_BANK = {
     },
     {
       "id": 7,
-      "question": "What is the literal meaning of \"should\" provided in the module's grammar focus?",
-      "questionMl": "മോഡ്യൂളിന്റെ ഗ്രാമർ ഫോക്കസിൽ നൽകിയിട്ടുള്ള \"should\" എന്ന വാക്കിന്റെ അർത്ഥം എന്താണ്?",
+      "question": "What does the modal verb 'should' express in English sentences?",
+      "questionMl": "ഇംഗ്ലീഷിൽ 'should' എന്ന മോഡൽ വെർബ് എന്തിനെയാണ് സൂചിപ്പിക്കുന്നത്?",
       "options": [
-        "A) ചെയ്യേണ്ടി വന്നു",
-        "B) ചെയ്യണം / നല്ലതാണ്",
-        "C) ചെയ്യേണ്ടതുണ്ട്",
-        "D) ചെയ്യാം"
+        "A) Compulsion",
+        "B) Ability",
+        "C) Advice or suggestion",
+        "D) Past habit"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 8,
       "question": "Complete the Useful Sentence Pattern: \"I have to wake up ___.\"",
       "questionMl": "ഉപയോഗപ്രദമായ ഈ വാക്യ ഘടന പൂർത്തിയാക്കുക: \"I have to wake up ___.\"",
       "options": [
-        "A) early",
-        "B) daily",
-        "C) priority",
-        "D) discipline"
+        "A) daily",
+        "B) priority",
+        "C) discipline",
+        "D) early"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 9,
       "question": "Complete the advice pattern: \"You should practise English ___.\"",
       "questionMl": "ഈ ഉപദേശ ഘടന പൂർത്തിയാക്കുക: \"You should practise English ___.\"",
       "options": [
-        "A) yesterday",
-        "B) daily",
+        "A) daily",
+        "B) yesterday",
         "C) had to",
         "D) necessary"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 10,
@@ -1321,12 +1579,12 @@ const QUIZ_BANK = {
       "question": "Correct the following error regarding the use of \"has to\": \"I has to go.\"",
       "questionMl": "“has to” എന്നതിന്റെ ഉപയോഗവുമായി ബന്ധപ്പെട്ട താഴെ പറയുന്ന തെറ്റ് തിരുത്തുക: \"I has to go.\"",
       "options": [
-        "A) I have to go.",
-        "B) I had to went.",
-        "C) I should to go.",
+        "A) I had to went.",
+        "B) I should to go.",
+        "C) I have to go.",
         "D) I am go."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 12,
@@ -1334,47 +1592,47 @@ const QUIZ_BANK = {
       "questionMl": "ഈ വാക്യ ഘടനയിലെ തെറ്റ് പരിഹരിക്കുക: \"You should to practise.\"",
       "options": [
         "A) You should practising.",
-        "B) You should practise.",
-        "C) You has to practise.",
-        "D) You had to practised."
+        "B) You has to practise.",
+        "C) You had to practised.",
+        "D) You should practise."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 13,
       "question": "Identify the mistake in the sentence: \"I had to went.\"",
       "questionMl": "“I had to went” എന്ന വാക്യത്തിലെ തെറ്റ് എന്താണ്?",
       "options": [
-        "A) \"I\" should be replaced with \"He\"",
-        "B) \"went\" should be replaced with the base form \"go\"",
+        "A) \"went\" should be replaced with the base form \"go\"",
+        "B) \"I\" should be replaced with \"He\"",
         "C) \"had to\" should be changed to \"has to\"",
         "D) \"went\" should be changed to \"gone\""
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 14,
       "question": "Correct this sentence pattern: \"She should studies.\"",
       "questionMl": "ഈ വാക്യ ഘടന ശരിയാക്കുക: \"She should studies.\"",
       "options": [
-        "A) She should study.",
-        "B) She have to study.",
+        "A) She have to study.",
+        "B) She should study.",
         "C) She should to study.",
         "D) She had to studied."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 15,
-      "question": "Which of the following is an \"English Power Usage\" from Module 5 used to encourage continuous effort?",
-      "questionMl": "തുടർച്ചയായ ശ്രമത്തെ പ്രോത്സാഹിപ്പിക്കുന്നതിനായി മോഡ്യൂൾ 5-ൽ നൽകിയിട്ടുള്ള \"English Power Usage\" ഏതാണ്?",
+      "question": "Which sentence correctly gives friendly advice to a colleague who is feeling unwell?",
+      "questionMl": "അസുഖം ബാധിച്ച സുഹൃത്തിന് ഉപദേശം നൽകാൻ ഏറ്റവും അനുയോജ്യമായ വാക്യം ഏതാണ്?",
       "options": [
-        "A) Take your time.",
-        "B) Keep practising.",
-        "C) I have to leave now.",
-        "D) Don’t worry."
+        "A) You have to see a doctor yesterday.",
+        "B) You had to seeing a doctor.",
+        "C) You should see a doctor and take some rest.",
+        "D) You should to see a doctor."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 16,
@@ -1382,33 +1640,33 @@ const QUIZ_BANK = {
       "questionMl": "സംഭാഷണത്തിൽ \"What should I do to improve my English?\" എന്ന ചോദ്യത്തിന് ബി വ്യക്തി നൽകുന്ന മറുപടി എന്താണ്?",
       "options": [
         "A) You have to go to work.",
-        "B) You should practise speaking every day.",
-        "C) I had to visit the hospital.",
-        "D) She has to study every evening."
+        "B) I had to visit the hospital.",
+        "C) She has to study every evening.",
+        "D) You should practise speaking every day."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 17,
       "question": "Where did Person B have to go yesterday according to the example conversation?",
       "questionMl": "മാതൃകാ സംഭാഷണം അനുസരിച്ച് ഇന്നലെ ബി വ്യക്തിക്ക് എവിടെയാണ് പോകേണ്ടി വന്നത്?",
       "options": [
-        "A) To the office",
-        "B) To the hospital",
+        "A) To the hospital",
+        "B) To the office",
         "C) To the school",
         "D) To the market"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "Which word from Module 5 vocabulary refers to a fixed time limit by which something must be completed?",
-      "questionMl": "ഒരു കാര്യം പൂർത്തിയാക്കേണ്ട നിശ്ചിത സമയപരിധിയെ സൂചിപ്പിക്കുന്ന മോഡ്യൂൾ 5-ലെ വാക്ക് ഏതാണ്?",
+      "question": "Which vocabulary word refers to a fixed time limit by which something must be completed?",
+      "questionMl": "ഒരു കാര്യം ചെയ്തു തീർക്കേണ്ട അവസാന സമയപരിധിയെ സൂചിപ്പിക്കുന്ന വാക്ക് ഏതാണ്?",
       "options": [
-        "A) Routine",
+        "A) Schedule",
         "B) Deadline",
-        "C) Appointment",
-        "D) Commitment"
+        "C) Routine",
+        "D) Delay"
       ],
       "correctIndex": 1
     },
@@ -1417,48 +1675,48 @@ const QUIZ_BANK = {
       "question": "What does the vocabulary word \"Priority\" mean?",
       "questionMl": "“Priority” എന്ന വൊക്കാബുലറി വാക്കിന്റെ അർത്ഥം എന്താണ്?",
       "options": [
-        "A) എറ്റവും പ്രാധാന്യമുള്ള കാര്യം (മുൻഗണന)",
-        "B) ഒരു സാധാരണ ശീലം",
-        "C) കഴിഞ്ഞകാല ഉത്തരവാദിത്തം",
+        "A) ഒരു സാധാരണ ശീലം",
+        "B) കഴിഞ്ഞകാല ഉത്തരവാദിത്തം",
+        "C) എറ്റവും പ്രാധാന്യമുള്ള കാര്യം (മുൻഗണന)",
         "D) ഒരു നിശ്ചിത അപ്പോയിന്റ്മെന്റ്"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 20,
       "question": "Fill in the blank: \"It’s important to ___ your work.\"",
       "questionMl": "കോടി പൂരിപ്പിക്കുക: \"It’s important to ___ your work.\"",
       "options": [
-        "A) prepare",
-        "B) duty",
-        "C) should",
-        "D) advice"
+        "A) duty",
+        "B) should",
+        "C) advice",
+        "D) prepare"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 21,
       "question": "Fill in the blank: \"They have to wear ___ at school.\"",
       "questionMl": "കോടി പൂരിപ്പിക്കുക: \"They have to wear ___ at school.\"",
       "options": [
-        "A) homework",
-        "B) uniforms",
+        "A) uniforms",
+        "B) homework",
         "C) routines",
         "D) appointments"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 22,
       "question": "Complete the Power Usage phrase: \"Make it a ___.\"",
       "questionMl": "ഈ പവർ യൂസേജ് വാചകം പൂർത്തിയാക്കുക: \"Make it a ___.\"",
       "options": [
-        "A) habit",
-        "B) discipline",
+        "A) discipline",
+        "B) habit",
         "C) priority",
         "D) deadline"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 23,
@@ -1466,47 +1724,47 @@ const QUIZ_BANK = {
       "questionMl": "താഴെ പറയുന്നവയിൽ ബഹുവചന തേർഡ് പേഴ്‌സൺ പ്രൊനൗണുകൾക്കുള്ള ശരിയായ വാക്യ ഘടന ഏതാണ്?",
       "options": [
         "A) They has to complete the project.",
-        "B) They have to complete the project.",
-        "C) They should to complete the project.",
+        "B) They should to complete the project.",
+        "C) They have to complete the project.",
         "D) They had to completed the project."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 24,
-      "question": "What final mindset reminder does the Mission Reminder provide for Module 5?",
-      "questionMl": "മോഡ്യൂൾ 5-നായി മിഷൻ റിമൈൻഡർ നൽകുന്ന പ്രധാന ഓർമ്മപ്പെടുത്തൽ എന്താണ്?",
+      "question": "Which sentence correctly describes a past obligation that you had to fulfill yesterday?",
+      "questionMl": "ഇന്നലെ നിർബന്ധമായും ചെയ്യേണ്ടിവന്ന ഒരു കാര്യത്തെക്കുറിച്ച് പറയുന്ന ശരിയായ വാക്യം ഏതാണ്?",
       "options": [
-        "A) Memorize all vocabulary words perfectly",
-        "B) Speak confidently using today’s grammar before your Google Meet session",
-        "C) Write down all daily responsibilities in a book",
-        "D) Avoid making any grammatical mistakes while speaking"
+        "A) I have to submit my project report yesterday.",
+        "B) I has to submit my project report yesterday.",
+        "C) I had submit my project report yesterday.",
+        "D) I had to submit my project report yesterday."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 25,
       "question": "Choose the correct sentence that represents a past duty:",
       "questionMl": "കഴിഞ്ഞകാല കടമയെ പ്രതിനിധീകരിക്കുന്ന ശരിയായ വാക്യം തിരഞ്ഞെടുക്കുക:",
       "options": [
-        "A) She has to leave early today.",
-        "B) She had to leave early.",
+        "A) She had to leave early.",
+        "B) She has to leave early today.",
         "C) She should to leave early.",
         "D) She have to leave early."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 26,
       "question": "Complete the pattern: \"We should ___ everyone.\"",
       "questionMl": "ഈ ഘടന പൂർത്തിയാക്കുക: \"We should ___ everyone.\"",
       "options": [
-        "A) respect",
-        "B) to respect",
+        "A) to respect",
+        "B) respect",
         "C) respecting",
         "D) respected"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 27,
@@ -1519,6 +1777,42 @@ const QUIZ_BANK = {
         "D) should"
       ],
       "correctIndex": 2
+    },
+    {
+      "id": 28,
+      "question": "Fill in the blank: \"He _____ wake up early tomorrow because he has an exam.\"",
+      "questionMl": "നാളെ പരീക്ഷയുള്ളതുകൊണ്ട് അവന് നേരത്തെ എഴുന്നേൽക്കണം:",
+      "options": [
+        "A) have to",
+        "B) had to",
+        "C) having to",
+        "D) has to"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": 29,
+      "question": "Which sentence correctly expresses a work responsibility using 'have to'?",
+      "questionMl": "ജോലിസ്ഥലത്തെ ഒരു ഉത്തരവാദിത്തത്തെക്കുറിച്ച് പറയുന്ന ശരിയായ വാക്യം ഏതാണ്?",
+      "options": [
+        "A) We have to attend the team meeting at 10 AM.",
+        "B) We has to attend the team meeting at 10 AM.",
+        "C) We had to attending the meeting tomorrow.",
+        "D) We have attend the meeting."
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": 30,
+      "question": "Fill in the blank: \"You _____ drive carefully when the roads are wet.\"",
+      "questionMl": "റോഡിൽ വെള്ളമുള്ളപ്പോൾ നിങ്ങൾ ശ്രദ്ധിച്ച് വണ്ടിയോടിക്കണം എന്ന് ഉപദേശിക്കാൻ:",
+      "options": [
+        "A) had to",
+        "B) should",
+        "C) would to",
+        "D) has to"
+      ],
+      "correctIndex": 1
     }
   ],
   "6": [
@@ -1528,11 +1822,11 @@ const QUIZ_BANK = {
       "questionMl": "'Would you please', 'I would like to' തുടങ്ങിയ പ്രയോഗങ്ങളുടെ വ്യാകരണപരമായ പ്രവർത്തനം എന്താണ്?",
       "options": [
         "A) Talking about professional routines",
-        "B) Making polite requests, expressing wishes, and talking about possibilities",
-        "C) Asking structural past tense WH questions",
+        "B) Asking structural past tense WH questions",
+        "C) Making polite requests, expressing wishes, and talking about possibilities",
         "D) Describing items possessed by your family"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 2,
@@ -1540,23 +1834,23 @@ const QUIZ_BANK = {
       "questionMl": "മര്യാദയുള്ള അഭ്യർത്ഥനകൾക്കും സാധ്യതകൾക്കും ഉപയോഗിക്കുന്ന മോഡൽ ക്രിയകൾ ഏവ?",
       "options": [
         "A) can, can't, could, should",
-        "B) would, would like to, may, might",
-        "C) have to, has to, had to, should",
-        "D) who, what, where, why"
+        "B) have to, has to, had to, should",
+        "C) who, what, where, why",
+        "D) would, would like to, may, might"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 3,
       "question": "In the polite request 'Would you please help me?', what is 'Would' used for?",
       "questionMl": "'Would you please help me?' എന്ന വാക്യത്തിൽ 'Would' എന്തിനാണ് ഉപയോഗിക്കുന്നത്?",
       "options": [
-        "A) To talk about past habits",
-        "B) For polite requests",
+        "A) For polite requests",
+        "B) To talk about past habits",
         "C) To express complete certainty",
         "D) To show sudden anger"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 4,
@@ -1576,11 +1870,11 @@ const QUIZ_BANK = {
       "questionMl": "ഒരു ആഗ്രഹമോ മുൻഗണനയോ പ്രകടിപ്പിക്കാൻ നിങ്ങൾ ഏത് ഘടനയാണ് ഉപയോഗിക്കേണ്ടത്?",
       "options": [
         "A) May",
-        "B) Would like to",
-        "C) Might",
+        "B) Might",
+        "C) Would like to",
         "D) Had to"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 6,
@@ -1588,23 +1882,23 @@ const QUIZ_BANK = {
       "questionMl": "“എനിക്ക് ഇംഗ്ലീഷ് പഠിക്കാൻ ആഗ്രഹമുണ്ട്” എന്ന വാചകം ഇംഗ്ലീഷിലേക്ക് വിവർത്തനം ചെയ്യുക:",
       "options": [
         "A) I can speak English.",
-        "B) I would like to learn English.",
-        "C) I might learn English tomorrow.",
-        "D) I have to learn English now."
+        "B) I might learn English tomorrow.",
+        "C) I have to learn English now.",
+        "D) I would like to learn English."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 7,
-      "question": "What are the two primary uses of the word \"May\" highlighted in the module?",
-      "questionMl": "മോഡ്യൂളിൽ എടുത്തുപറഞ്ഞിരിക്കുന്ന \"May\" എന്ന വാക്കിന്റെ രണ്ട് പ്രധാന ഉപയോഗങ്ങൾ ഏവ?",
+      "question": "What are the two primary uses of the modal verb 'May'?",
+      "questionMl": "'May' എന്ന മോഡൽ വെർബിന്റെ രണ്ട് പ്രധാന ഉപയോഗങ്ങൾ ഏവ?",
       "options": [
-        "A) Obligation and past duty",
-        "B) Permission or possibility",
-        "C) Strong advice and suggestions",
-        "D) Direct orders and requests"
+        "A) Asking permission and expressing possibility",
+        "B) Obligation and necessity",
+        "C) Past action and future continuous",
+        "D) Refusal and command"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 8,
@@ -1624,11 +1918,11 @@ const QUIZ_BANK = {
       "questionMl": "സാധ്യതകളെക്കുറിച്ച് സംസാരിക്കുമ്പോൾ \"May\", \"Might\" എന്നിവ തമ്മിലുള്ള വ്യത്യാസം എന്താണ്?",
       "options": [
         "A) \"May\" shows past actions; \"Might\" shows future actions",
-        "B) \"Might\" is used for a smaller possibility than \"May\"",
-        "C) \"May\" is completely informal; \"Might\" is strictly formal",
+        "B) \"May\" is completely informal; \"Might\" is strictly formal",
+        "C) \"Might\" is used for a smaller possibility than \"May\"",
         "D) There is absolutely no difference between them"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 10,
@@ -1636,23 +1930,23 @@ const QUIZ_BANK = {
       "questionMl": "“ഞാൻ വൈകിയേക്കാം” എന്ന വാചകം ഇംഗ്ലീഷിലേക്ക് വിവർത്തനം ചെയ്യുക:",
       "options": [
         "A) I am late today.",
-        "B) I might be late.",
-        "C) I would like to be late.",
-        "D) May I be late?"
+        "B) I would like to be late.",
+        "C) May I be late?",
+        "D) I might be late."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 11,
       "question": "Which word from the Power Vocabulary list means to ask someone to come to a social event or meeting?",
       "questionMl": "ഒരു സാമൂഹിക പരിപാടിക്കോ മീറ്റിംഗിനോ ഒരാളെ ക്ഷണിക്കുക എന്ന അർത്ഥം വരുന്ന പവർ വൊക്കാബുലറിയിലെ വാക്ക് ഏതാണ്?",
       "options": [
-        "A) Accept",
-        "B) Invite",
+        "A) Invite",
+        "B) Accept",
         "C) Refuse",
         "D) Choice"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 12,
@@ -1671,12 +1965,12 @@ const QUIZ_BANK = {
       "question": "What is the short, natural contraction pattern for \"I would like to...\" taught in Power Usages?",
       "questionMl": "പവർ യൂസേജിൽ പഠിപ്പിക്കുന്ന \"I would like to...\" എന്നതിന്റെ ചുരുക്കരൂപം ഏതാണ്?",
       "options": [
-        "A) I’d like to…",
-        "B) I’m like to…",
-        "C) I’ve like to…",
+        "A) I’m like to…",
+        "B) I’ve like to…",
+        "C) I’d like to…",
         "D) I’ll like to…"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 14,
@@ -1684,23 +1978,23 @@ const QUIZ_BANK = {
       "questionMl": "മാതൃകാ സംഭാഷണത്തിൽ \"അതെ, സന്തോഷത്തോടെ\" എന്നതിനുള്ള ഇംഗ്ലീഷ് വാചകം ഏതാണ്?",
       "options": [
         "A) Of course.",
-        "B) Yes, I’d love to.",
-        "C) No problem.",
-        "D) Certainly."
+        "B) No problem.",
+        "C) Certainly.",
+        "D) Yes, I’d love to."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 15,
       "question": "Correct the following common mistake: \"I would like learn English.\"",
       "questionMl": "താഴെ പറയുന്ന പൊതുവായ തെറ്റ് തിരുത്തുക: \"I would like learn English.\"",
       "options": [
-        "A) I would like learning English.",
-        "B) I would like to learn English.",
+        "A) I would like to learn English.",
+        "B) I would like learning English.",
         "C) I would likes tea.",
         "D) I may to learn English."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 16,
@@ -1719,24 +2013,24 @@ const QUIZ_BANK = {
       "question": "Fix the sentence structure error: \"He might comes.\"",
       "questionMl": "ഈ വാക്യ ഘടനയിലെ തെറ്റ് പരിഹരിക്കുക: \"He might comes.\"",
       "options": [
-        "A) He might come.",
-        "B) He might to come.",
-        "C) He may comes.",
+        "A) He might to come.",
+        "B) He may comes.",
+        "C) He might come.",
         "D) He would likes to come."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 18,
       "question": "Fix this question pattern mistake: \"Would you likes tea?\"",
       "questionMl": "ഈ ചോദ്യ ഘടനയിലെ തെറ്റ് പരിഹരിക്കുക: \"Would you likes tea?\"",
       "options": [
-        "A) Would you like tea?",
-        "B) Would you to like tea?",
-        "C) May you like tea?",
-        "D) Might you like tea?"
+        "A) Would you to like tea?",
+        "B) May you like tea?",
+        "C) Might you like tea?",
+        "D) Would you like tea?"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 19,
@@ -1752,13 +2046,13 @@ const QUIZ_BANK = {
     },
     {
       "id": 20,
-      "question": "Which word from Module 6 vocabulary means to say \"no\" to an invitation or offer?",
-      "questionMl": "ഒരു ക്ഷണമോ ഓഫറോ നിരസിക്കുക എന്ന അർത്ഥം വരുന്ന മോഡ്യൂൾ 6 വൊക്കാബുലറിയിലെ വാക്ക് ഏതാണ്?",
+      "question": "Which vocabulary word means to politely say 'no' to an invitation or offer?",
+      "questionMl": "ഒരു ക്ഷണമോ ഓഫറോ മാന്യമായി നിരസിക്കുക എന്ന അർത്ഥം വരുന്ന വാക്ക് ഏതാണ്?",
       "options": [
         "A) Accept",
-        "B) Refuse",
-        "C) Prefer",
-        "D) Welcome"
+        "B) Decline",
+        "C) Postpone",
+        "D) Inquire"
       ],
       "correctIndex": 1
     },
@@ -1767,12 +2061,12 @@ const QUIZ_BANK = {
       "question": "Fill in the blank: \"It’s ___ that Ahmed will arrive later.\"",
       "questionMl": "കോടി പൂരിപ്പിക്കുക: \"It’s ___ that Ahmed will arrive later.\"",
       "options": [
-        "A) possible",
-        "B) refuse",
-        "C) decision",
+        "A) refuse",
+        "B) decision",
+        "C) possible",
         "D) permission"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 22,
@@ -1780,23 +2074,23 @@ const QUIZ_BANK = {
       "questionMl": "ഈ സംഭാഷണ ശൈലി പൂർത്തിയാക്കുക: \"May I sit here? Yes, you ___.\"",
       "options": [
         "A) would",
-        "B) may",
-        "C) might",
-        "D) like to"
+        "B) might",
+        "C) like to",
+        "D) may"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 23,
       "question": "Select the correct sentence that describes a wish for a group:",
       "questionMl": "ഒരു ഗ്രൂപ്പിന്റെ ആഗ്രഹത്തെ വിവരിക്കുന്ന ശരിയായ വാക്യം തിരഞ്ഞെടുക്കുക:",
       "options": [
-        "A) We would like join the course.",
-        "B) We would like to join the course.",
+        "A) We would like to join the course.",
+        "B) We would like join the course.",
         "C) We may to join the course.",
         "D) We might joins the course."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 24,
@@ -1804,23 +2098,23 @@ const QUIZ_BANK = {
       "questionMl": "ഈ പവർ യൂസേജ് വാചകം പൂർത്തിയാക്കുക: \"No problem, ___.\"",
       "options": [
         "A) Of course",
-        "B) Certainly",
-        "C) I’d love to",
+        "B) I’d love to",
+        "C) Certainly",
         "D) It might happen"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 25,
-      "question": "What are students reminded to be able to do before their Google Meet session for Module 6?",
-      "questionMl": "മോഡ്യൂൾ 6-നായുള്ള ഗൂഗിൾ മീറ്റ് സെഷന് മുമ്പ് വിദ്യാർത്ഥികൾക്ക് എന്ത് ചെയ്യാൻ കഴിയണം എന്നാണ് ഓർമ്മിപ്പിക്കുന്നത്?",
+      "question": "How do you politely invite a coworker for a cup of coffee?",
+      "questionMl": "ഒരു സഹപ്രവർത്തകനെ കാപ്പി കുടിക്കാൻ മാന്യമായി ക്ഷണിക്കുന്നത് എങ്ങനെയാണ്?",
       "options": [
-        "A) Ask for structural definitions of all verbs",
-        "B) Speak confidently using would, would like to, may, and might",
-        "C) Translate complex text into Malayalam scripts",
-        "D) Complete written grammar charts perfectly"
+        "A) Will you having coffee with me?",
+        "B) May you drink coffee now?",
+        "C) Would you like to have a cup of coffee with me?",
+        "D) Do you like coffee yesterday?"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 26,
@@ -1828,11 +2122,11 @@ const QUIZ_BANK = {
       "questionMl": "കോടി പൂരിപ്പിക്കുക: \"Would you ___ that?\"",
       "options": [
         "A) repeating",
-        "B) repeat",
-        "C) repeats",
-        "D) to repeat"
+        "B) repeats",
+        "C) to repeat",
+        "D) repeat"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 27,
@@ -1845,6 +2139,42 @@ const QUIZ_BANK = {
         "D) Permission"
       ],
       "correctIndex": 0
+    },
+    {
+      "id": 28,
+      "question": "How do you politely ask permission to leave an office meeting early?",
+      "questionMl": "മീറ്റിംഗിൽ നിന്ന് നേരത്തെ പോകാൻ മാന്യമായി അനുവാദം ചോദിക്കുന്നത് എങ്ങനെ?",
+      "options": [
+        "A) Would I leave early today?",
+        "B) May I leave early today, sir?",
+        "C) Might I leave today early?",
+        "D) I will leave early today."
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 29,
+      "question": "Complete the sentence to express a possibility: \"Take an umbrella; it _____ rain later today.\"",
+      "questionMl": "മഴ പെയ്യാൻ സാധ്യതയുണ്ട് എന്ന് പറയാൻ ശരിയായ വാക്ക്:",
+      "options": [
+        "A) would to",
+        "B) must to",
+        "C) might",
+        "D) should to"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": 30,
+      "question": "What is the most polite way to order water in a café using 'would like'?",
+      "questionMl": "കഫേയിൽ മാന്യമായി ഒരു ഗ്ലാസ്സ് വെള്ളം ആവശ്യപ്പെടാൻ:",
+      "options": [
+        "A) I want water quickly.",
+        "B) Give me water now.",
+        "C) I would water please.",
+        "D) I would like a glass of water, please."
+      ],
+      "correctIndex": 3
     }
   ],
   "7": [
@@ -1853,12 +2183,12 @@ const QUIZ_BANK = {
       "question": "Which question word is used when asking about a place or location?",
       "questionMl": "ഒരു സ്ഥലത്തെക്കുറിച്ച് ചോദിക്കാൻ ഉപയോഗിക്കുന്ന ചോദ്യ വാക്ക് ഏതാണ്?",
       "options": [
-        "A) When",
-        "B) Why",
-        "C) Where",
+        "A) Where",
+        "B) When",
+        "C) Why",
         "D) Who"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 2,
@@ -1878,11 +2208,11 @@ const QUIZ_BANK = {
       "questionMl": "“Whom” എന്ന ചോദ്യ വാക്കിന്റെ മലയാളം അർത്ഥം എന്താണ്?",
       "options": [
         "A) ആര്",
-        "B) ആരെ",
-        "C) എവിടെ",
+        "B) എവിടെ",
+        "C) ആരെ",
         "D) എന്ത്"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 4,
@@ -1890,23 +2220,23 @@ const QUIZ_BANK = {
       "questionMl": "ദൈനംദിന സംസാര ഇംഗ്ലീഷിൽ ഒരു വ്യക്തിയെക്കുറിച്ച് ചോദിക്കാൻ സാധാരണയായി ഏത് വാക്കാണ് ഉപയോഗിക്കുന്നത്?",
       "options": [
         "A) Whom is preferred in casual speech",
-        "B) Who is most commonly used in spoken English",
-        "C) Both are used identically in speech",
-        "D) Neither word should be used spoken aloud"
+        "B) Both are used identically in speech",
+        "C) Neither word should be used spoken aloud",
+        "D) Who is most commonly used in spoken English"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 5,
       "question": "Which question word is specifically used to ask about time?",
       "questionMl": "സമയത്തെക്കുറിച്ച് ചോദിക്കാൻ പ്രത്യേകമായി ഉപയോഗിക്കുന്ന ചോദ്യ വാക്ക് ഏതാണ്?",
       "options": [
-        "A) Where",
-        "B) When",
+        "A) When",
+        "B) Where",
         "C) Which",
         "D) Whose"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 6,
@@ -1926,11 +2256,11 @@ const QUIZ_BANK = {
       "questionMl": "“Why are you late?” എന്ന ചോദ്യം വിവർത്തനം ചെയ്യുക:",
       "options": [
         "A) നിങ്ങൾ എപ്പോഴാണ് വരുന്നത്?",
-        "B) നിങ്ങൾ എന്തുകൊണ്ടാണ് വൈകിയത്?",
-        "C) നിങ്ങളുടെ ഓഫീസ് എവിടെയാണ്?",
+        "B) നിങ്ങളുടെ ഓഫീസ് എവിടെയാണ്?",
+        "C) നിങ്ങൾ എന്തുകൊണ്ടാണ് വൈകിയത്?",
         "D) നിങ്ങൾ ആരാണ്?"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 8,
@@ -1938,23 +2268,23 @@ const QUIZ_BANK = {
       "questionMl": "“Which” എന്ന ചോദ്യ വാക്ക് നിങ്ങൾ എപ്പോഴാണ് ഉപയോഗിക്കേണ്ടത്?",
       "options": [
         "A) To ask about ownership or possession",
-        "B) To choose from options",
-        "C) To ask for a structural location",
-        "D) To gather general time data"
+        "B) To ask for a structural location",
+        "C) To gather general time data",
+        "D) To choose from options"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 9,
       "question": "Which question word is used to discover ownership or possession?",
       "questionMl": "ഉടമസ്ഥതയോ കൈവശമുള്ള കാര്യങ്ങളോ കണ്ടെത്തുന്നതിന് ഉപയോഗിക്കുന്ന ചോദ്യ വാക്ക് ഏതാണ്?",
       "options": [
-        "A) Which",
-        "B) Whose",
+        "A) Whose",
+        "B) Which",
         "C) Whom",
         "D) What"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 10,
@@ -1974,35 +2304,35 @@ const QUIZ_BANK = {
       "questionMl": "രീതിയെയോ അവസ്ഥയെയോ കുറിച്ച് ചോദിക്കാൻ കോടി പൂരിപ്പിക്കുക: \"___ can I improve my English?\"",
       "options": [
         "A) Why",
-        "B) How",
-        "C) Who",
+        "B) Who",
+        "C) How",
         "D) When"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 12,
-      "question": "Which word from Module 7 Power Vocabulary describes a state of being eager to know or learn something?",
-      "questionMl": "ഒരു കാര്യത്തെക്കുറിച്ച് അറിയാൻ താൽപ്പര്യമുള്ള അവസ്ഥയെ സൂചിപ്പിക്കുന്ന മോഡ്യൂൾ 7 പവർ വൊക്കാബുലറിയിലെ വാക്ക് ഏതാണ്?",
+      "question": "Which vocabulary word describes a state of being eager to know or learn something?",
+      "questionMl": "ഒരു കാര്യത്തെക്കുറിച്ച് അറിയാൻ താൽപ്പര്യമുള്ള അവസ്ഥയെ സൂചിപ്പിക്കുന്ന വാക്ക് ഏതാണ്?",
       "options": [
-        "A) Choice",
-        "B) Curious",
-        "C) Reason",
-        "D) Method"
+        "A) Silent",
+        "B) Busy",
+        "C) Strict",
+        "D) Curious"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 13,
       "question": "Correct the following extremely common spoken mistake: \"Where you live?\"",
       "questionMl": "സംസാരത്തിൽ സാധാരണയായി വരുത്താറുള്ള താഴെ പറയുന്ന തെറ്റ് തിരുത്തുക: \"Where you live?\"",
       "options": [
-        "A) Where are you live?",
-        "B) Where do you live?",
+        "A) Where do you live?",
+        "B) Where are you live?",
         "C) Where you living?",
         "D) When do you live?"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 14,
@@ -2022,35 +2352,35 @@ const QUIZ_BANK = {
       "questionMl": "ഈ ചോദ്യത്തിലെ പദങ്ങളുടെ ക്രമത്തിലുള്ള തെറ്റ് തിരുത്തുക: \"Why you are late?\"",
       "options": [
         "A) Why late you are?",
-        "B) Why are you late?",
-        "C) Why do you late?",
+        "B) Why do you late?",
+        "C) Why are you late?",
         "D) What reason you late?"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 16,
       "question": "Fix the following error sentence: \"How you improve English?\"",
       "questionMl": "താഴെ പറയുന്ന തെറ്റായ വാക്യം തിരുത്തുക: \"How you improve English?\"",
       "options": [
-        "A) How can you improve your English?",
-        "B) How do you to improve English?",
-        "C) How you are improve English?",
-        "D) Which way you improve English?"
+        "A) How do you to improve English?",
+        "B) How you are improve English?",
+        "C) Which way you improve English?",
+        "D) How can you improve your English?"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 17,
       "question": "Fix this teacher-related question mistake: \"Whom is your teacher?\"",
       "questionMl": "അധ്യാപകനെക്കുറിച്ചുള്ള ഈ ചോദ്യത്തിലെ തെറ്റ് തിരുത്തുക: \"Whom is your teacher?\"",
       "options": [
-        "A) What is your teacher?",
-        "B) Who is your teacher?",
+        "A) Who is your teacher?",
+        "B) What is your teacher?",
         "C) Which is your teacher?",
         "D) Whose is your teacher?"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 18,
@@ -2070,11 +2400,11 @@ const QUIZ_BANK = {
       "questionMl": "മാതൃകാ സംഭാഷണത്തിൽ അഹമ്മദ് എന്തുകൊണ്ടാണ് ഇംഗ്ലീഷ് പഠിക്കുന്നത്?",
       "options": [
         "A) Because he wants to travel to Kochi",
-        "B) Because he wants a better job",
-        "C) Because his friend requested it",
+        "B) Because his friend requested it",
+        "C) Because he wants a better job",
         "D) To talk to his family members"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 20,
@@ -2082,35 +2412,35 @@ const QUIZ_BANK = {
       "questionMl": "താൻ ദിവസവും എങ്ങനെയാണ് ഇംഗ്ലീഷ് പരിശീലിക്കുന്നത് എന്നാണ് അഹമ്മദ് പറയുന്നത്?",
       "options": [
         "A) With his classmates at school",
-        "B) With AI every day",
-        "C) By reading massive grammar files",
-        "D) By translating news channels"
+        "B) By reading massive grammar files",
+        "C) By translating news channels",
+        "D) With AI every day"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 21,
-      "question": "What is the target minimum number of questions you must ask your partner during the Speaking Challenge?",
-      "questionMl": "സ്പീക്കിംഗ് ചലഞ്ചിനിടയിൽ നിങ്ങളുടെ പാർട്ണറോട് കുറഞ്ഞത് എത്ര ചോദ്യങ്ങൾ ചോദിക്കണം എന്നാണ് നിർദ്ദേശിച്ചിട്ടുള്ളത്?",
+      "question": "Which WH-question word is used to ask about someone's reason or purpose?",
+      "questionMl": "ഒരു കാര്യത്തിന്റെ കാരണം ചോദിക്കാൻ ഏത് ചോദ്യവാക്കാണ് ഉപയോഗിക്കുന്നത്?",
       "options": [
-        "A) 5 questions",
-        "B) 10 different questions",
-        "C) 15 questions",
-        "D) 20 questions"
+        "A) Why",
+        "B) Where",
+        "C) When",
+        "D) Which"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 22,
       "question": "Complete the Useful Sentence Pattern: \"Whose book is ___?\"",
       "questionMl": "ഉപയോഗപ്രദമായ ഈ വാക്യ ഘടന പൂർത്തിയാക്കുക: \"Whose book is ___?\"",
       "options": [
-        "A) this",
-        "B) these",
+        "A) these",
+        "B) this",
         "C) those",
         "D) whom"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 23,
@@ -2118,11 +2448,11 @@ const QUIZ_BANK = {
       "questionMl": "കോടി പൂരിപ്പിക്കുക: \"Which one do you ___?\"",
       "options": [
         "A) discover",
-        "B) prefer",
-        "C) direction",
+        "B) direction",
+        "C) prefer",
         "D) location"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 24,
@@ -2130,11 +2460,11 @@ const QUIZ_BANK = {
       "questionMl": "ഈ സംഭാഷണ വാചകം പൂർത്തിയാക്കുക: \"When will you ___?\"",
       "options": [
         "A) arrive",
-        "B) come",
-        "C) live",
-        "D) happen"
+        "B) live",
+        "C) happen",
+        "D) come"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 25,
@@ -2150,13 +2480,13 @@ const QUIZ_BANK = {
     },
     {
       "id": 26,
-      "question": "What capacities must a student be able to show before their Google Meet session according to the Mission Reminder?",
-      "questionMl": "മിရှင် റിമൈൻഡർ അനുസരിച്ച് ലൈവ് സെഷന് മുമ്പ് വിദ്യാർത്ഥികൾക്ക് എന്ത് ചെയ്യാനുള്ള ശേഷി ഉണ്ടായിരിക്കണം?",
+      "question": "How do you ask a new acquaintance about their daily commute to work?",
+      "questionMl": "ദിവസവും ജോലിസ്ഥലത്തേക്ക് എങ്ങനെയാണ് യാത്ര ചെയ്യുന്നത് എന്ന് ചോദിക്കാൻ:",
       "options": [
-        "A) Translate a full script without errors",
-        "B) Ask different types of questions, answer naturally, and maintain a conversation confidently",
-        "C) Read 10 text documents out loud perfectly",
-        "D) Correct their partner's grammar sheets silently"
+        "A) Where do you travel to work every day?",
+        "B) How do you travel to work every day?",
+        "C) When do you work travel?",
+        "D) Who do you travel to work?"
       ],
       "correctIndex": 1
     },
@@ -2166,9 +2496,45 @@ const QUIZ_BANK = {
       "questionMl": "ഈ ഘടന പൂർത്തിയാക്കുക: \"___ colour do you like?\"",
       "options": [
         "A) Who",
-        "B) Which",
-        "C) Whose",
+        "B) Whose",
+        "C) Which",
         "D) Whom"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": 28,
+      "question": "Which question word is used to ask about ownership or possession?",
+      "questionMl": "ഒരു വസ്തു ആരുടേതാണ് എന്ന് ചോദിക്കാൻ ഏത് ചോദ്യവാക്കാണ് ഉപയോഗിക്കുന്നത്?",
+      "options": [
+        "A) Whom",
+        "B) Who",
+        "C) Which",
+        "D) Whose"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": 29,
+      "question": "Complete the question: \"_____ one do you prefer, tea or coffee?\"",
+      "questionMl": "തെരഞ്ഞെടുപ്പ് ചോദിക്കാൻ ഏത് ചോദ്യവാക്കാണ് ഉപയോഗിക്കുന്നത്?",
+      "options": [
+        "A) Which",
+        "B) What",
+        "C) Where",
+        "D) Whose"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": 30,
+      "question": "How do you ask someone politely about their free-time hobbies?",
+      "questionMl": "ഒഴിവുസമയങ്ങളിൽ എന്തൊക്കെ ചെയ്യാനാണ് ഇഷ്ടം എന്ന് ചോദിക്കാൻ:",
+      "options": [
+        "A) When you enjoy your free time?",
+        "B) What do you enjoy doing in your free time?",
+        "C) Why do you like free time?",
+        "D) Who enjoys your free time?"
       ],
       "correctIndex": 1
     }
@@ -2192,23 +2558,23 @@ const QUIZ_BANK = {
       "questionMl": "“My birthday is in July” എന്ന വാചകം മലയാളത്തിലേക്ക് വിവർത്തനം ചെയ്യുക:",
       "options": [
         "A) എന്റെ ജന്മദിനം ജൂലൈ 10-നാണ്.",
-        "B) എന്റെ ജന്മദിനം ജൂലൈയിലാണ്.",
-        "C) എന്റെ ക്ലാസ് തിങ്കളാഴ്ചയാണ്.",
-        "D) ഞാൻ ജൂലൈയിൽ വരാം."
+        "B) എന്റെ ക്ലാസ് തിങ്കളാഴ്ചയാണ്.",
+        "C) ഞാൻ ജൂലൈയിൽ വരാം.",
+        "D) എന്റെ ജന്മദിനം ജൂലൈയിലാണ്."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 3,
       "question": "Which preposition is strictly designated for days, dates, and surfaces?",
       "questionMl": "ദിവസങ്ങൾ, തീയതികൾ, ഉപരിതലങ്ങൾ (surfaces) എന്നിവയ്ക്ക് വേണ്ടി കൃത്യമായി നിശ്ചയിച്ചിട്ടുള്ള പ്രെപ്പോസിഷൻ ഏതാണ്?",
       "options": [
-        "A) in",
-        "B) on",
+        "A) on",
+        "B) in",
         "C) at",
         "D) from"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 4,
@@ -2216,11 +2582,11 @@ const QUIZ_BANK = {
       "questionMl": "ശരിയായ പ്രെപ്പോസിഷൻ ഉപയോഗിച്ച് കോടി പൂരിപ്പിക്കുക: \"The phone is ___ the table.\"",
       "options": [
         "A) in",
-        "B) at",
-        "C) on",
+        "B) on",
+        "C) at",
         "D) for"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 5,
@@ -2228,11 +2594,11 @@ const QUIZ_BANK = {
       "questionMl": "താഴെ പറയുന്ന പൊതുവായ തെറ്റ് തിരുത്തുക: \"Meet me in 9 PM.\"",
       "options": [
         "A) Meet me on 9 PM.",
-        "B) Meet me at 9 PM.",
-        "C) Meet me to 9 PM.",
+        "B) Meet me to 9 PM.",
+        "C) Meet me at 9 PM.",
         "D) Meet me for 9 PM."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 6,
@@ -2241,22 +2607,22 @@ const QUIZ_BANK = {
       "options": [
         "A) Duration",
         "B) Companionship",
-        "C) Direction",
-        "D) Surface position"
+        "C) Surface position",
+        "D) Direction"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 7,
       "question": "Fill in the blank: \"She went ___ Kochi.\"",
       "questionMl": "കോടി പൂരിപ്പിക്കുക: \"She went ___ Kochi.\"",
       "options": [
-        "A) in",
-        "B) on",
-        "C) at",
-        "D) to"
+        "A) to",
+        "B) in",
+        "C) on",
+        "D) at"
       ],
-      "correctIndex": 3
+      "correctIndex": 0
     },
     {
       "id": 8,
@@ -2276,11 +2642,11 @@ const QUIZ_BANK = {
       "questionMl": "“I studied for two hours” എന്ന കാലയളവ് വ്യക്തമാക്കുന്ന വാചകം വിവർത്തനം ചെയ്യുക:",
       "options": [
         "A) ഞാൻ രണ്ട് മണിക്ക് പഠിച്ചു.",
-        "B) ഞാൻ രണ്ട് മണിക്കൂർ പഠിച്ചു.",
-        "C) ഞാൻ രണ്ട് ദിവസമായി പഠിക്കുന്നു.",
+        "B) ഞാൻ രണ്ട് ദിവസമായി പഠിക്കുന്നു.",
+        "C) ഞാൻ രണ്ട് മണിക്കൂർ പഠിച്ചു.",
         "D) ഞാൻ രണ്ടു തവണ പഠിച്ചു."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 10,
@@ -2289,22 +2655,22 @@ const QUIZ_BANK = {
       "options": [
         "A) to",
         "B) inside",
-        "C) from",
-        "D) with"
+        "C) with",
+        "D) from"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 11,
       "question": "Complete the sentence pattern: \"This train comes ___ Chennai.\"",
       "questionMl": "ഈ വാക്യ ഘടന പൂർത്തിയാക്കുക: \"This train comes ___ Chennai.\"",
       "options": [
-        "A) to",
-        "B) from",
+        "A) from",
+        "B) to",
         "C) at",
         "D) on"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 12,
@@ -2312,11 +2678,11 @@ const QUIZ_BANK = {
       "questionMl": "കോടി പൂരിപ്പിക്കുക: \"Write ___ a pen.\"",
       "options": [
         "A) of",
-        "B) by",
-        "C) with",
+        "B) with",
+        "C) by",
         "D) in"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 13,
@@ -2336,23 +2702,23 @@ const QUIZ_BANK = {
       "questionMl": "ഈ വാക്യത്തിലെ ആർട്ടിക്കിൾ തെറ്റ് തിരുത്തുക: \"She is a engineer.\"",
       "options": [
         "A) She is the engineer.",
-        "B) She is an engineer.",
-        "C) She is one engineer.",
-        "D) She are an engineer."
+        "B) She is one engineer.",
+        "C) She are an engineer.",
+        "D) She is an engineer."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 15,
       "question": "What is the correct irregular plural form of the noun 'child'?",
       "questionMl": "'Child' എന്ന വാക്കിന്റെ ശരിയായ ബഹുവചന രൂപം ഏതാണ്?",
       "options": [
-        "A) childs",
-        "B) children",
+        "A) children",
+        "B) childs",
         "C) childrens",
         "D) childes"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 16,
@@ -2360,11 +2726,11 @@ const QUIZ_BANK = {
       "questionMl": "“Singular & Plural” ഫോക്കസിൽ നൽകിയിട്ടുള്ള \"person\" എന്ന വാക്കിന്റെ ബഹുവചനം ഏതാണ്?",
       "options": [
         "A) persons",
-        "B) peoples",
-        "C) people",
+        "B) people",
+        "C) peoples",
         "D) peopleses"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 17,
@@ -2385,22 +2751,22 @@ const QUIZ_BANK = {
       "options": [
         "A) Journey",
         "B) Entrance",
-        "C) Destination",
-        "D) Centre"
+        "C) Centre",
+        "D) Destination"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 19,
       "question": "Complete the Power Usage phrase: \"See you ___...\"",
       "questionMl": "ഈ പവർ യൂസേജ് വാചകം പൂർത്തിയാക്കുക: \"See you ___...\"",
       "options": [
-        "A) on time",
-        "B) right now",
-        "C) at…",
+        "A) at…",
+        "B) on time",
+        "C) right now",
         "D) welcome to"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 20,
@@ -2408,11 +2774,11 @@ const QUIZ_BANK = {
       "questionMl": "മാതൃകാ സംഭാഷണത്തിൽ ബി വ്യക്തി എവിടെയാണ് താമസിക്കുന്നത്?",
       "options": [
         "A) Kochi",
-        "B) Chennai",
-        "C) Perinthalmanna",
+        "B) Perinthalmanna",
+        "C) Chennai",
         "D) Dubai"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 21,
@@ -2420,11 +2786,11 @@ const QUIZ_BANK = {
       "questionMl": "മാതൃകാ സംഭാഷണത്തിൽ ബി വ്യക്തി ആരുടെ കൂടെയാണ് വരുന്നത്?",
       "options": [
         "A) Friend",
-        "B) Brother",
-        "C) Colleague",
+        "B) Colleague",
+        "C) Brother",
         "D) Father"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 22,
@@ -2432,11 +2798,11 @@ const QUIZ_BANK = {
       "questionMl": "പൊതുവായ ഈ തെറ്റ് തിരുത്തുക: \"I live at Kerala.\"",
       "options": [
         "A) I live on Kerala.",
-        "B) I live in Kerala.",
-        "C) I live to Kerala.",
-        "D) I am live in Kerala."
+        "B) I live to Kerala.",
+        "C) I am live in Kerala.",
+        "D) I live in Kerala."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 23,
@@ -2456,11 +2822,11 @@ const QUIZ_BANK = {
       "questionMl": "ഉൾഭാഗം എന്ന അർത്ഥം വരുന്ന പവർ വൊക്കാബുലറിയിലെ വാക്ക് ഏതാണ്?",
       "options": [
         "A) Outside",
-        "B) Between",
-        "C) Inside",
+        "B) Inside",
+        "C) Between",
         "D) Beside"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 25,
@@ -2476,13 +2842,13 @@ const QUIZ_BANK = {
     },
     {
       "id": 26,
-      "question": "Which of the following is NOT a topic listed to talk about in the Speaking Challenge?",
-      "questionMl": "സ്പീക്കിംഗ് ചലഞ്ചിൽ സംസാരിക്കാൻ പറഞ്ഞിട്ടില്ലാത്ത വിഷയം താഴെ പറയുന്നവയിൽ ഏതാണ്?",
+      "question": "Which preposition is correctly used before days of the week, like Monday or Friday?",
+      "questionMl": "ആഴ്ചയിലെ ദിവസങ്ങൾക്ക് മുമ്പ് ഏത് പ്രിപ്പോസിഷനാണ് ഉപയോഗിക്കുന്നത്?",
       "options": [
-        "A) Your home",
-        "B) Your daily travel",
-        "C) Your class timing",
-        "D) Your childhood memories"
+        "A) in",
+        "B) at",
+        "C) for",
+        "D) on"
       ],
       "correctIndex": 3
     },
@@ -2491,12 +2857,48 @@ const QUIZ_BANK = {
       "question": "What is the correct English translation for 'ഫോൺ മേശപ്പുറത്താണ്'?",
       "questionMl": "'ഫോൺ മേശപ്പുറത്താണ്' എന്നതിന്റെ ശരിയായ ഇംഗ്ലീഷ് വിവർത്തനം ഏതാണ്?",
       "options": [
-        "A) The phone is in the table.",
-        "B) The phone is on the table.",
+        "A) The phone is on the table.",
+        "B) The phone is in the table.",
         "C) The phone is at the table.",
         "D) The phone is under the table."
       ],
+      "correctIndex": 0
+    },
+    {
+      "id": 28,
+      "question": "Fill in the blank: \"She arrived _____ the airport two hours before departure.\"",
+      "questionMl": "എയർപോർട്ടിൽ എത്തിച്ചേർന്നു എന്ന് പറയാൻ ശരിയായ പ്രിപ്പോസിഷൻ:",
+      "options": [
+        "A) on",
+        "B) at",
+        "C) to",
+        "D) of"
+      ],
       "correctIndex": 1
+    },
+    {
+      "id": 29,
+      "question": "Which sentence correctly uses the definite article 'the' for a specific item?",
+      "questionMl": "മേശപ്പുറത്തിരിക്കുന്ന നിർദ്ദിഷ്ട പുസ്തകം ആവശ്യപ്പെടുന്ന ശരിയായ വാക്യം:",
+      "options": [
+        "A) Please pass me an book on table.",
+        "B) Please pass me a book on a table.",
+        "C) Please pass me the book on the table.",
+        "D) Please pass the me book."
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": 30,
+      "question": "What is the correct plural form of the irregular noun 'child'?",
+      "questionMl": "'child' എന്ന വാക്കിന്റെ ശരിയായ ബഹുവചന രൂപം ഏതാണ്?",
+      "options": [
+        "A) childs",
+        "B) childrens",
+        "C) childes",
+        "D) children"
+      ],
+      "correctIndex": 3
     }
   ],
   "9": [
@@ -2505,12 +2907,12 @@ const QUIZ_BANK = {
       "question": "What is the correct structural formula for plural pronouns (I/You/We/They) in the Simple Present Tense?",
       "questionMl": "സിംപിൾ പ്രസന്റ് ടെൻസിൽ ബഹുവചന പ്രൊനൗണുകൾക്കുള്ള (I/You/We/They) ശരിയായ ഘടന ഏതാണ്?",
       "options": [
-        "A) Pronoun + Verb + s/es",
-        "B) Pronoun + Verb (V1)",
+        "A) Pronoun + Verb (V1)",
+        "B) Pronoun + Verb + s/es",
         "C) Pronoun + am/is/are + Verb",
         "D) Pronoun + had + Verb"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 2,
@@ -2542,23 +2944,23 @@ const QUIZ_BANK = {
       "questionMl": "He/She/It നിയമം ഉപയോഗിച്ച് കോടി പൂരിപ്പിക്കുക: \"She ___ coffee every morning.\"",
       "options": [
         "A) drink",
-        "B) drinks",
-        "C) drinking",
-        "D) drank"
+        "B) drinking",
+        "C) drank",
+        "D) drinks"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 5,
-      "question": "Which sentence correctly describes a father's occupation according to the module text?",
-      "questionMl": "മോഡ്യൂൾ ടെക്സ്റ്റ് അനുസരിച്ച് അച്ഛന്റെ ജോലിയെ ശരിയായി വിവരിക്കുന്ന വാചകം ഏതാണ്?",
+      "question": "Which sentence correctly describes a daily morning routine?",
+      "questionMl": "രാവിലത്തെ ദിനചര്യയെക്കുറിച്ച് പറയുന്ന ശരിയായ വാക്യം ഏതാണ്?",
       "options": [
-        "A) My father work in Dubai.",
-        "B) My father working in Dubai.",
-        "C) My father works in Dubai.",
-        "D) My father is work in Dubai."
+        "A) I wake up at 6 AM and go for a morning walk.",
+        "B) I wakes up at 6 AM and goes for a walk.",
+        "C) I waking up at 6 AM every day.",
+        "D) I am wake up at 6 AM."
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 6,
@@ -2574,15 +2976,15 @@ const QUIZ_BANK = {
     },
     {
       "id": 7,
-      "question": "Which word from Module 9 Power Vocabulary means a plan that gives expected times for different things to happen?",
-      "questionMl": "വ്യത്യസ്ത കാര്യങ്ങൾ നടക്കേണ്ട നിശ്ചിത സമയക്രമം നൽകുന്ന പവർ വൊക്കാബുലറിയിലെ വാക്ക് ഏതാണ്?",
+      "question": "Which vocabulary word means a plan that gives expected times for different things to happen?",
+      "questionMl": "വ്യത്യസ്ത കാര്യങ്ങൾ നടക്കേണ്ട നിശ്ചിത സമയക്രമം നൽകുന്ന വാക്ക് ഏതാണ്?",
       "options": [
-        "A) Daily",
-        "B) Schedule",
-        "C) Habit",
-        "D) Weekend"
+        "A) Holiday",
+        "B) Routine",
+        "C) Schedule",
+        "D) Memory"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 8,
@@ -2601,12 +3003,12 @@ const QUIZ_BANK = {
       "question": "Complete the negative sentence pattern: \"I never ___.\"",
       "questionMl": "ഈ നെഗറ്റീവ് വാക്യ ഘടന പൂർത്തിയാക്കുക: \"I never ___.\"",
       "options": [
-        "A) plays cricket",
-        "B) (Any base verb/V1 action you never do)",
+        "A) (Any base verb/V1 action you never do)",
+        "B) plays cricket",
         "C) goes to office",
         "D) works in Dubai"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 10,
@@ -2626,11 +3028,11 @@ const QUIZ_BANK = {
       "questionMl": "താഴെ പറയുന്ന തെറ്റായ വാക്യം തിരുത്തുക: \"She study English.\"",
       "options": [
         "A) She is study English.",
-        "B) She studies English.",
-        "C) She studying English.",
+        "B) She studying English.",
+        "C) She studies English.",
         "D) She go to study English."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 12,
@@ -2638,11 +3040,11 @@ const QUIZ_BANK = {
       "questionMl": "ഈ പ്രൊനൗൺ തെറ്റ് തിരുത്തുക: \"I goes to work.\"",
       "options": [
         "A) I going to work.",
-        "B) I go to work.",
-        "C) I am go to work.",
-        "D) He goes to work."
+        "B) I am go to work.",
+        "C) He goes to work.",
+        "D) I go to work."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 13,
@@ -2687,34 +3089,34 @@ const QUIZ_BANK = {
       "options": [
         "A) Practise English",
         "B) Go to sleep",
-        "C) Go to work.",
-        "D) Play football"
+        "C) Play football",
+        "D) Go to work."
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 17,
       "question": "When does Person B state that they practise English?",
       "questionMl": "താൻ എപ്പോഴാണ് ഇംഗ്ലീഷ് പരിശീലിക്കുന്നത് എന്നാണ് ബി വ്യക്തി പറയുന്നത്?",
       "options": [
-        "A) Every morning",
-        "B) Every evening.",
+        "A) Every evening.",
+        "B) Every morning",
         "C) Only on Sundays",
         "D) At 6 AM"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "How long is the Speaking Challenge continuous speech limit for Module 9?",
-      "questionMl": "മോഡ്യൂൾ 9 സ്പീക്കിംഗ് ചലഞ്ചിന്റെ സമയപരിധി എത്രയാണ്?",
+      "question": "Fill in the blank with the correct simple present verb: \"My brother _____ in an IT company in Bangalore.\"",
+      "questionMl": "എന്റെ സഹോദരൻ ബാംഗ്ലൂരിലെ ഒരു ഐടി കമ്പനിയിൽ ജോലി ചെയ്യുന്നു:",
       "options": [
-        "A) 1 minute",
-        "B) 2 minutes",
-        "C) 3 minutes.",
-        "D) 5 minutes"
+        "A) work",
+        "B) works",
+        "C) working",
+        "D) is work"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 19,
@@ -2722,11 +3124,11 @@ const QUIZ_BANK = {
       "questionMl": "മിക്കപ്പോഴും നടക്കുന്ന ഒരു പ്രവർത്തിയെ സൂചിപ്പിക്കുന്ന വൊക്കാബുലറി വാക്ക് ഏതാണ്?",
       "options": [
         "A) Rarely",
-        "B) Always",
-        "C) Sometimes",
+        "B) Sometimes",
+        "C) Always",
         "D) Never"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 20,
@@ -2734,23 +3136,23 @@ const QUIZ_BANK = {
       "questionMl": "“usually” എന്ന അഡ്വെർബിന്റെ മലയാളം അർത്ഥം എന്താണ്?",
       "options": [
         "A) ഒരിക്കലും ഇല്ല",
-        "B) സാധാരണയായി (സാധാരണ)",
-        "C) അപൂർവ്വമായി",
-        "D) എപ്പോഴും"
+        "B) അപൂർവ്വമായി",
+        "C) എപ്പോഴും",
+        "D) സാധാരണയായി (സാധാരണ)"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 21,
       "question": "Complete the pattern: \"We practise English ___.\"",
       "questionMl": "ഈ ഘടന പൂർത്തിയാക്കുക: \"We practise English ___.\"",
       "options": [
-        "A) yesterday",
-        "B) every day.",
+        "A) every day.",
+        "B) yesterday",
         "C) plays",
         "D) rarely completed"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 22,
@@ -2782,23 +3184,23 @@ const QUIZ_BANK = {
       "questionMl": "ശരിയായ വെർബ് രൂപം ഉപയോഗിച്ച് കോടി പൂരിപ്പിക്കുക: \"My mother ___ delicious food.\"",
       "options": [
         "A) cook",
-        "B) cooks",
-        "C) cooking",
-        "D) cooked"
+        "B) cooking",
+        "C) cooked",
+        "D) cooks"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 25,
-      "question": "What is the explicit target tense requested throughout the Speaking Challenge?",
-      "questionMl": "സ്പീക്കിംഗ് ചലഞ്ചിലുടനീളം ഉപയോഗിക്കാൻ ആവശ്യപ്പെട്ടിരിക്കുന്ന നിർദ്ദിഷ്ട ടെൻസ് ഏതാണ്?",
+      "question": "How do you describe how you usually spend your weekends?",
+      "questionMl": "വാരാന്ത്യങ്ങൾ കുടുംബത്തോടൊപ്പം ചെലവഴിക്കുന്നതിനെക്കുറിച്ച് പറയാൻ:",
       "options": [
-        "A) Simple Past Tense",
-        "B) Future Tense",
-        "C) Simple Present Tense.",
-        "D) Present Continuous Tense"
+        "A) On weekends, I usually relax at home with my family.",
+        "B) On weekends, I am usually relax with family.",
+        "C) On weekends, I usually relaxes with family.",
+        "D) On weekends, I relaxing with my family."
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 26,
@@ -2806,21 +3208,21 @@ const QUIZ_BANK = {
       "questionMl": "ദിനചര്യയുടെ ക്രമം പൂർത്തിയാക്കുക: \"I wake up at 6 AM. ___ I brush my teeth.\"",
       "options": [
         "A) Finally",
-        "B) Never",
-        "C) Then / After that",
+        "B) Then / After that",
+        "C) Never",
         "D) Usually"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 27,
-      "question": "What type of activity is \"exercise\" or \"reading books at night\" considered in this module?",
-      "questionMl": "“exercise” അല്ലെങ്കിൽ “reading books at night” എന്നിവ ഈ മോഡ്യൂളിൽ ഏത് തരത്തിലുള്ള പ്രവർത്തനങ്ങളായാണ് കണക്കാക്കുന്നത്?",
+      "question": "Which negative auxiliary verb is used with 'He' and 'She' in the simple present tense?",
+      "questionMl": "സിമ്പിൾ പ്രസന്റ് ടെൻസിൽ 'He', 'She' എന്നിവയോടൊപ്പം ഉപയോഗിക്കുന്ന നെഗറ്റീവ് സഹായക്രിയ ഏതാണ്?",
       "options": [
-        "A) Politeness indicators",
-        "B) Past responsibilities",
-        "C) Routines and Habits.",
-        "D) Direct WH requests"
+        "A) don't",
+        "B) isn't",
+        "C) doesn't",
+        "D) aren't"
       ],
       "correctIndex": 2
     },
@@ -2830,9 +3232,33 @@ const QUIZ_BANK = {
       "questionMl": "“ഞാൻ ബസിൽ ജോലിക്ക് പോകും” എന്ന മലയാളം വാചകത്തിന്റെ ഇംഗ്ലീഷ് രൂപം എന്താണ്?",
       "options": [
         "A) He goes to work by bus.",
-        "B) I go to work by bus.",
-        "C) They go to work by bus.",
-        "D) I went to work by bus."
+        "B) They go to work by bus.",
+        "C) I went to work by bus.",
+        "D) I go to work by bus."
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": 29,
+      "question": "Complete the sentence: \"She _____ drink coffee; she prefers green tea.\"",
+      "questionMl": "അവൾ കാപ്പി കുടിക്കാറില്ല, ഗ്രീൻ ടീയാണ് ഇഷ്ടപ്പെടുന്നത്:",
+      "options": [
+        "A) doesn't",
+        "B) don't",
+        "C) not",
+        "D) isn't"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": 30,
+      "question": "Fill in the blank: \"How often _____ you exercise each week?\"",
+      "questionMl": "ആഴ്ചയിൽ എത്ര തവണ വ്യായാമം ചെയ്യാറുണ്ട് എന്ന് ചോദിക്കാൻ:",
+      "options": [
+        "A) does",
+        "B) do",
+        "C) are",
+        "D) is"
       ],
       "correctIndex": 1
     }
@@ -2844,11 +3270,11 @@ const QUIZ_BANK = {
       "questionMl": "“Verb എന്നാൽ ഒരു പ്രവർത്തിയെ (Action) സൂചിപ്പിക്കുന്ന വാക്കാണ്” എന്ന ഇംഗ്ലീഷ് നിർവ്വചനം ഏതാണ്?",
       "options": [
         "A) A verb is a decorative phrase.",
-        "B) A verb is an action word.",
-        "C) A verb shows time.",
+        "B) A verb shows time.",
+        "C) A verb is an action word.",
         "D) A verb describes options."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 2,
@@ -2856,23 +3282,23 @@ const QUIZ_BANK = {
       "questionMl": "“buy” എന്ന വെർബ് രൂപത്തിന്റെ ശരിയായ മലയാളം അർത്ഥം കണ്ടെത്തുക:",
       "options": [
         "A) വിൽക്കുക",
-        "B) വാങ്ങുക",
-        "C) പാചകം ചെയ്യുക",
-        "D) യാത്ര ചെയ്യുക"
+        "B) പാചകം ചെയ്യുക",
+        "C) യാത്ര ചെയ്യുക",
+        "D) വാങ്ങുക"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 3,
       "question": "What is the V1 base form for the past verb \"went\" as shown in the Verb Forms chart?",
       "questionMl": "വെർബ് ഫോം ചാർട്ടിൽ കാണിച്ചിരിക്കുന്നത് പോലെ \"went\" എന്ന വെർബിന്റെ V1 രൂപം ഏതാണ്?",
       "options": [
-        "A) gone",
-        "B) come",
-        "C) go",
+        "A) go",
+        "B) gone",
+        "C) come",
         "D) wented"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 4,
@@ -2880,11 +3306,11 @@ const QUIZ_BANK = {
       "questionMl": "ബഹുവചന സബ്ജക്റ്റ് നിയമം അനുസരിച്ച് കോടി പൂരിപ്പിക്കുക: \"They ___ football.\"",
       "options": [
         "A) plays",
-        "B) playing",
-        "C) play",
+        "B) play",
+        "C) playing",
         "D) played"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 5,
@@ -2904,23 +3330,23 @@ const QUIZ_BANK = {
       "questionMl": "“I like coffee” എന്ന വാചകം മലയാളത്തിലേക്ക് വിവർത്തനം ചെയ്യുക:",
       "options": [
         "A) എനിക്ക് കാപ്പി ഇഷ്ടമല്ല.",
-        "B) എനിക്ക് കാപ്പി ഇഷ്ടമാണ്.",
-        "C) അവൾക്ക് കാപ്പി ഇഷ്ടമാണ്.",
-        "D) എനിക്ക് ചായയാണ് ഇഷ്ടം."
+        "B) അവൾക്ക് കാപ്പി ഇഷ്ടമാണ്.",
+        "C) എനിക്ക് ചായയാണ് ഇഷ്ടം.",
+        "D) എനിക്ക് കാപ്പി ഇഷ്ടമാണ്."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 7,
       "question": "How do you correctly state a dislike for a singular third person (He/She)?",
       "questionMl": "ഒരു ഏകവചന തേർഡ് പേഴ്‌സണോട് (He/She) ബന്ധപ്പെടുത്തി ‘ഇഷ്ടമല്ല’ എന്ന് എങ്ങനെയാണ് ശരിയായി പറയുക?",
       "options": [
-        "A) He don’t like tea.",
-        "B) He doesn’t like tea.",
+        "A) He doesn’t like tea.",
+        "B) He don’t like tea.",
         "C) He not like tea.",
         "D) He isn't like tea."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 8,
@@ -2940,11 +3366,11 @@ const QUIZ_BANK = {
       "questionMl": "“I think English is important” എന്ന അഭിപ്രായ പ്രകടന വാചകം വിവർത്തനം ചെയ്യുക:",
       "options": [
         "A) ഞാൻ ഇംഗ്ലീഷ് പഠിക്കുന്നു.",
-        "B) എന്റെ അഭിപ്രായത്തിൽ ഇംഗ്ലീഷ് പ്രധാനമാണ്.",
-        "C) ഇംഗ്ലീഷ് പഠിക്കാൻ എനിക്ക് ആഗ്രഹമുണ്ട്.",
+        "B) ഇംഗ്ലീഷ് പഠിക്കാൻ എനിക്ക് ആഗ്രഹമുണ്ട്.",
+        "C) എന്റെ അഭിപ്രായത്തിൽ ഇംഗ്ലീഷ് പ്രധാനമാണ്.",
         "D) ഇംഗ്ലീഷ് എളുപ്പമാണെന്ന് ഞാൻ കരുതുന്നു."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 10,
@@ -2952,23 +3378,23 @@ const QUIZ_BANK = {
       "questionMl": "ഈ വിശ്വാസ പ്രകടന ഘടന പൂർത്തിയാക്കുക: \"I believe practice ___ confidence.\"",
       "options": [
         "A) key to success",
-        "B) improves",
-        "C) interesting",
-        "D) opinion"
+        "B) interesting",
+        "C) opinion",
+        "D) improves"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 11,
-      "question": "Which word from Module 10 Power Vocabulary describes something that causes boredom or is uninteresting?",
-      "questionMl": "വിരസത ഉണ്ടാക്കുന്ന അല്ലെങ്കിൽ താൽപ്പര്യമില്ലാത്ത ഒരു കാര്യത്തെ വിവരിക്കുന്ന പവർ വൊക്കാബുലറിയിലെ വാക്ക് ഏതാണ്?",
+      "question": "Which vocabulary word describes something that causes boredom or is uninteresting?",
+      "questionMl": "വിരസത ഉണ്ടാക്കുന്ന അല്ലെങ്കിൽ താൽപ്പര്യമില്ലാത്ത ഒരു കാര്യത്തെ വിവരിക്കുന്ന വാക്ക് ഏതാണ്?",
       "options": [
-        "A) Interesting",
-        "B) Boring",
-        "C) Important",
-        "D) Exciting"
+        "A) Boring",
+        "B) Exciting",
+        "C) Creative",
+        "D) Amazing"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 12,
@@ -2987,12 +3413,12 @@ const QUIZ_BANK = {
       "question": "Fix the following error sentence: \"He don’t like coffee.\"",
       "questionMl": "താഴെ പറയുന്ന തെറ്റായ വാക്യം തിരുത്തുക: \"He don’t like coffee.\"",
       "options": [
-        "A) He doesn’t like coffee.",
-        "B) He not like coffee.",
-        "C) He don't likes coffee.",
+        "A) He not like coffee.",
+        "B) He don't likes coffee.",
+        "C) He doesn’t like coffee.",
         "D) He isn't like coffee."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 14,
@@ -3000,23 +3426,23 @@ const QUIZ_BANK = {
       "questionMl": "മുൻഗണന വ്യക്തമാക്കുന്നതിലെ ഈ തെറ്റ് തിരുത്തുക: \"I prefers tea.\"",
       "options": [
         "A) I am prefer tea.",
-        "B) I prefer tea.",
-        "C) I prefering tea.",
-        "D) He prefers tea."
+        "B) I prefering tea.",
+        "C) He prefers tea.",
+        "D) I prefer tea."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 15,
       "question": "Correct this addition error: \"I am like football.\"",
       "questionMl": "ഈ തെറ്റ് തിരുത്തുക: \"I am like football.\"",
       "options": [
-        "A) I liking football.",
-        "B) I like football.",
+        "A) I like football.",
+        "B) I liking football.",
         "C) I likes football.",
         "D) I do like football."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 16,
@@ -3036,11 +3462,11 @@ const QUIZ_BANK = {
       "questionMl": "അതേ മാതൃകാ സംഭാഷണത്തിൽ, ഇംഗ്ലീഷ് പഠിക്കുന്നതിനെക്കുറിച്ച് ബി വ്യക്തിയുടെ അഭിപ്രായം എന്താണ്?",
       "options": [
         "A) It is very boring",
-        "B) It is very important.",
-        "C) It is healthy",
+        "B) It is healthy",
+        "C) It is very important.",
         "D) It is comfortable"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 18,
@@ -3048,23 +3474,23 @@ const QUIZ_BANK = {
       "questionMl": "ഒരു അഭിപ്രായത്തോട് യോജിക്കുന്നു എന്ന് പ്രകടിപ്പിക്കാൻ ഉപയോഗിക്കുന്ന പവർ യൂസേജ് ഏതാണ്?",
       "options": [
         "A) I disagree.",
-        "B) I agree.",
-        "C) That’s my opinion.",
-        "D) My favourite…"
+        "B) That’s my opinion.",
+        "C) My favourite…",
+        "D) I agree."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 19,
       "question": "What does the vocabulary word \"delicious\" relate to?",
       "questionMl": "“delicious” എന്ന വൊക്കാബുലറി വാക്ക് ഏതുമായി ബന്ധപ്പെട്ടിരിക്കുന്നു?",
       "options": [
-        "A) High speed travel",
-        "B) Highly pleasant taste in food.",
+        "A) Highly pleasant taste in food.",
+        "B) High speed travel",
         "C) An opinion on grammar charts",
         "D) A physical workspace structure"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 20,
@@ -3084,11 +3510,11 @@ const QUIZ_BANK = {
       "questionMl": "“പരിശീലനം ആത്മവിശ്വാസം വർധിപ്പിക്കുമെന്ന് ഞാൻ വിശ്വസിക്കുന്നു” എന്ന വാചകത്തിന്റെ ഇംഗ്ലീഷ് രൂപം എന്താണ്?",
       "options": [
         "A) I think practice is key to success.",
-        "B) I believe practice improves confidence.",
-        "C) In my opinion, speaking is important.",
+        "B) In my opinion, speaking is important.",
+        "C) I believe practice improves confidence.",
         "D) My favourite hobby is reading."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 22,
@@ -3096,33 +3522,33 @@ const QUIZ_BANK = {
       "questionMl": "പ്രധാന വെർബുകളുടെ ലിസ്റ്റിൽ ഉൾപ്പെടുന്നതും ഒരു സ്ഥലത്തുനിന്ന് മറ്റൊരു സ്ഥലത്തേക്ക് യാത്ര ചെയ്യുക എന്ന അർത്ഥം വരുന്നതുമായ വാക്ക് ഏതാണ്?",
       "options": [
         "A) drive",
-        "B) travel",
-        "C) play",
-        "D) cook"
+        "B) play",
+        "C) cook",
+        "D) travel"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 23,
       "question": "Fill in the blank using the correct verb form: \"My father ___ a car.\"",
       "questionMl": "ശരിയായ വെർബ് രൂപം ഉപയോഗിച്ച് കോടി പൂരിപ്പിക്കുക: \"My father ___ a car.\"",
       "options": [
-        "A) drive",
-        "B) drives",
+        "A) drives",
+        "B) drive",
         "C) driving",
         "D) droven"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 24,
-      "question": "What final task must you be able to complete before your Google Meet session for Module 10?",
-      "questionMl": "മോഡ്യൂൾ 10-ന്റെ ലൈവ് സെഷന് മുമ്പ് നിങ്ങൾ പൂർത്തിയാക്കേണ്ട അവസാന ദൗത്യം എന്താണ്?",
+      "question": "How do you politely express your personal opinion during a group discussion?",
+      "questionMl": "ഒരു ചർച്ചയിൽ സ്വന്തം അഭിപ്രായം മാന്യമായി വ്യക്തമാക്കാൻ ഏത് വാക്യമാണ് ഉപയോഗിക്കുന്നത്?",
       "options": [
-        "A) Write down 50 vocabulary definitions",
-        "B) Talk confidently about your likes, dislikes, and opinions using action verbs.",
-        "C) Complete an intermediate translation exam sheet",
-        "D) Identify past tense verb variants silently"
+        "A) In mine opinion, online learning offer.",
+        "B) In my opinion, online learning offers great flexibility.",
+        "C) To my opinion, online learning is flex.",
+        "D) For my opinion, online learning offer."
       ],
       "correctIndex": 1
     },
@@ -3132,11 +3558,11 @@ const QUIZ_BANK = {
       "questionMl": "ഈ അഭിപ്രായ പ്രകടന വാചകം പൂർത്തിയാക്കുക: \"In my ___, speaking is more important than memorizing.\"",
       "options": [
         "A) believe",
-        "B) opinion",
-        "C) recommendation",
+        "B) recommendation",
+        "C) opinion",
         "D) favourite"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 26,
@@ -3145,22 +3571,58 @@ const QUIZ_BANK = {
       "options": [
         "A) spoke",
         "B) spoken",
-        "C) speak",
-        "D) speaking"
+        "C) speaking",
+        "D) speak"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 27,
       "question": "Which of the following sentences represents an accurate opinion structure?",
       "questionMl": "താഴെ പറയുന്നവയിൽ ശരിയായ ഒരു അഭിപ്രായ പ്രകടന വാചകം ഏതാണ്?",
       "options": [
-        "A) I am think this course is useful.",
-        "B) I think this course is useful.",
+        "A) I think this course is useful.",
+        "B) I am think this course is useful.",
         "C) I thinks this course is useful.",
         "D) This course are useful in my opinion."
       ],
+      "correctIndex": 0
+    },
+    {
+      "id": 28,
+      "question": "Complete the sentence: \"I _____ reading non-fiction books to watching TV.\"",
+      "questionMl": "ടിവി കാണുന്നതിനേക്കാൾ ഞാൻ ഇഷ്ടപ്പെടുന്നത് പുസ്തകം വായിക്കാനാണ്:",
+      "options": [
+        "A) prefers",
+        "B) prefer",
+        "C) preferring",
+        "D) am prefer"
+      ],
       "correctIndex": 1
+    },
+    {
+      "id": 29,
+      "question": "How do you express that you really like a particular South Indian dish?",
+      "questionMl": "ദോശ കഴിക്കാൻ തനിക്ക് വളരെ ഇഷ്ടമാണ് എന്ന് പറയാൻ:",
+      "options": [
+        "A) I really loves eating hot dosa.",
+        "B) I loving hot dosa with chutney.",
+        "C) I really love eating hot dosa with coconut chutney.",
+        "D) Mine love is hot dosa."
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": 30,
+      "question": "Fill in the blank: \"She _____ that teamwork is the key to business success.\"",
+      "questionMl": "ടീം വർക്കാണ് വിജയത്തിന്റെ രഹസ്യമെന്ന് അവൾ വിശ്വസിക്കുന്നു:",
+      "options": [
+        "A) believe",
+        "B) believing",
+        "C) is believe",
+        "D) believes"
+      ],
+      "correctIndex": 3
     }
   ],
   "11": [
@@ -3169,12 +3631,12 @@ const QUIZ_BANK = {
       "question": "Which sentence is grammatically correct?",
       "questionMl": "\"അവൻ ഇവിടെ ജോലി ചെയ്യുമോ?\" എന്ന് ചോദിക്കാൻ 'Does' വന്നുകഴിഞ്ഞാൽ ക്രിയയുടെ കൂടെ 's' ചേർക്കരുത്.2",
       "options": [
-        "A) Does he works here?",
-        "B) Does he work here?",
+        "A) Does he work here?",
+        "B) Does he works here?",
         "C) Do he work here?",
         "D) He working here?"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 2,
@@ -3182,47 +3644,47 @@ const QUIZ_BANK = {
       "questionMl": "'She' എന്ന ഏകവചനത്തിനൊപ്പം ചോദ്യം ചോദിക്കാൻ 'Does' ഉപയോഗിക്കണം, കൂടാതെ ക്രിയ 'speak' എന്ന് ബേസ് ഫോം ആയിരിക്കണം.2",
       "options": [
         "A) Do she speak English?",
-        "B) Does she speaks English?",
-        "C) Does she speak English?",
+        "B) Does she speak English?",
+        "C) Does she speaks English?",
         "D) She speaks English?"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 3,
       "question": "Identify the mistake: \"Where you live?\"",
       "questionMl": "\"നിങ്ങൾ എവിടെയാണ് താമസിക്കുന്നത്?\" എന്ന് കൃത്യമായി ചോദിക്കാൻ 'do' ആവശ്യമാണ്.2",
       "options": [
-        "A) Where do you live?",
-        "B) Where does you live?",
-        "C) Where you are live?",
+        "A) Where does you live?",
+        "B) Where you are live?",
+        "C) Where do you live?",
         "D) Where live you?"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 4,
       "question": "What is the correct question for \"I work in a hospital\"?",
       "questionMl": "\"നിങ്ങൾ എന്ത് ജോലി ചെയ്യുന്നു?\" എന്ന് ചോദിക്കാനുള്ള ശരിയായ രൂപം.2",
       "options": [
-        "A) What do you do?",
-        "B) What does you do?",
-        "C) What you do?",
-        "D) Where do you do?"
+        "A) What does you do?",
+        "B) What you do?",
+        "C) Where do you do?",
+        "D) What do you do?"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 5,
       "question": "Fill in the blank: \"He never ______ tea.\"",
       "questionMl": "'He' എന്ന സബ്ജക്റ്റ് വരുമ്പോൾ സാധാരണ പ്രസ്താവനകളിൽ ക്രിയയുടെ കൂടെ 's' അല്ലെങ്കിൽ 'es' ചേർക്കണം (He never drinks tea - അവൻ ഒരിക്കലും കള്ളം പറയില്ല/ചായ കുടിക്കില്ല).2",
       "options": [
-        "A) drink",
-        "B) drinks",
+        "A) drinks",
+        "B) drink",
         "C) drinking",
         "D) does drink"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 6,
@@ -3230,11 +3692,11 @@ const QUIZ_BANK = {
       "questionMl": "Always എന്നാൽ എപ്പോഴും.2",
       "options": [
         "A) സാധാരണ",
-        "B) പലപ്പോഴും",
-        "C) ചിലപ്പോൾ",
-        "D) എപ്പോഴും"
+        "B) എപ്പോഴും",
+        "C) പലപ്പോഴും",
+        "D) ചിലപ്പോൾ"
       ],
-      "correctIndex": 3
+      "correctIndex": 1
     },
     {
       "id": 7,
@@ -3242,11 +3704,11 @@ const QUIZ_BANK = {
       "questionMl": "'Usually' എന്നാൽ 'സാധാരണ' എന്നാണ് അർത്ഥം.2",
       "options": [
         "A) I always drink tea.",
-        "B) I usually drink tea.",
-        "C) I often drink tea.",
+        "B) I often drink tea.",
+        "C) I usually drink tea.",
         "D) I sometimes drink tea."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 8,
@@ -3255,34 +3717,34 @@ const QUIZ_BANK = {
       "options": [
         "A) never",
         "B) rarely",
-        "C) often",
-        "D) always"
+        "C) always",
+        "D) often"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 9,
       "question": "Which word means \"അപൂർവ്വമായി\"?",
       "questionMl": "Rarely എന്നാൽ അപൂർവ്വമായി.2",
       "options": [
-        "A) Sometimes",
-        "B) Usually",
-        "C) Rarely",
+        "A) Rarely",
+        "B) Sometimes",
+        "C) Usually",
         "D) Never"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 10,
       "question": "Complete the response: \"Do you practise English every day?\" -> \"Yes, ______.\"",
       "questionMl": "'Do' ഉപയോഗിച്ച് ചോദിക്കുന്ന ചോദ്യങ്ങൾക്ക് അതെ എന്ന് പറയാൻ 'Yes, I do' എന്ന് ഉപയോഗിക്കാം.2",
       "options": [
-        "A) I do",
-        "B) I practise",
+        "A) I practise",
+        "B) I do",
         "C) I am",
         "D) I does"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 11,
@@ -3290,11 +3752,11 @@ const QUIZ_BANK = {
       "questionMl": "വിദേശത്ത് ജോലി ചെയ്യുമോ എന്ന് ചോദിക്കുന്ന ലളിതമായ ചോദ്യം.2",
       "options": [
         "A) നിങ്ങളുടെ അച്ഛൻ എവിടെയാണ് ജോലി ചെയ്യുന്നത്?",
-        "B) നിങ്ങളുടെ അച്ഛൻ വിദേശത്ത് ജോലി ചെയ്യുമോ?",
-        "C) നിങ്ങളുടെ അച്ഛൻ ജോലി ചെയ്യുകയാണോ?",
+        "B) നിങ്ങളുടെ അച്ഛൻ ജോലി ചെയ്യുകയാണോ?",
+        "C) നിങ്ങളുടെ അച്ഛൻ വിദേശത്ത് ജോലി ചെയ്യുമോ?",
         "D) അച്ഛൻ എപ്പോഴാണ് വരുന്നത്?"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 12,
@@ -3302,23 +3764,23 @@ const QUIZ_BANK = {
       "questionMl": "\"നിങ്ങൾ വീട്ടിൽ ഏത് ഭാഷയാണ് സംസാരിക്കുന്നത്?\" എന്നതിൽ 'ഏത്' എന്നതിന് 'Which' ഉപയോഗിക്കുന്നു.2",
       "options": [
         "A) Who",
-        "B) Which",
-        "C) Whose",
-        "D) Where"
+        "B) Whose",
+        "C) Where",
+        "D) Which"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 13,
       "question": "Choose the correct WH-word: \"______ do you wake up?\" (നിങ്ങൾ എപ്പോഴാണ് എഴുന്നേൽക്കുന്നത്?)",
       "questionMl": "'എപ്പോൾ' എന്ന് ചോദിക്കാൻ 'When' ഉപയോഗിക്കണം.2",
       "options": [
-        "A) What",
-        "B) Where",
-        "C) When",
+        "A) When",
+        "B) What",
+        "C) Where",
         "D) Why"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 14,
@@ -3337,12 +3799,12 @@ const QUIZ_BANK = {
       "question": "What does the power usage \"Tell me more\" mean?",
       "questionMl": "Tell me more എന്നാൽ കൂടുതൽ വിവരങ്ങൾ പങ്കുവെക്കാൻ ആവശ്യപ്പെടുന്നത്.2",
       "options": [
-        "A) എന്നോട് കൂടുതൽ പറയൂ.",
-        "B) അത് താല്പര്യമുണർത്തുന്നതാണ്.",
-        "C) എനിക്ക് മനസ്സിലായി.",
+        "A) അത് താല്പര്യമുണർത്തുന്നതാണ്.",
+        "B) എനിക്ക് മനസ്സിലായി.",
+        "C) എന്നോട് കൂടുതൽ പറയൂ.",
         "D) ശരി."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 16,
@@ -3350,23 +3812,23 @@ const QUIZ_BANK = {
       "questionMl": "Routine എന്നാൽ ദിനചര്യ.2",
       "options": [
         "A) Conversation",
-        "B) Routine",
-        "C) Confidence",
-        "D) Interview"
+        "B) Confidence",
+        "C) Interview",
+        "D) Routine"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 17,
       "question": "Translate to English: \"നിങ്ങൾ എങ്ങനെയാണ് ജോലിക്ക് പോകുന്നത്?\"",
       "questionMl": "'എങ്ങനെ' എന്നതിന് 'How' ഉപയോഗിക്കുന്നു.2",
       "options": [
-        "A) Where do you travel to work?",
-        "B) How do you travel to work?",
+        "A) How do you travel to work?",
+        "B) Where do you travel to work?",
         "C) When do you travel to work?",
         "D) Why do you travel to work?"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 18,
@@ -3386,11 +3848,11 @@ const QUIZ_BANK = {
       "questionMl": "'Whose' എന്നാൽ 'ആരുടെ' എന്നാണ് അർത്ഥം.2",
       "options": [
         "A) നിങ്ങൾ ഏത് പുസ്തകമാണ് ഉപയോഗിക്കുന്നത്?",
-        "B) നിങ്ങൾ ആരുടെ പുസ്തകമാണ് ഉപയോഗിക്കുന്നത്?",
-        "C) നിങ്ങൾ എവിടെയാണ് പുസ്തകം വെച്ചത്?",
+        "B) നിങ്ങൾ എവിടെയാണ് പുസ്തകം വെച്ചത്?",
+        "C) നിങ്ങൾ ആരുടെ പുസ്തകമാണ് ഉപയോഗിക്കുന്നത്?",
         "D) ആരാണ് ഈ പുസ്തകം തന്നത്?"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 20,
@@ -3398,23 +3860,23 @@ const QUIZ_BANK = {
       "questionMl": "'We' എന്ന സബ്ജക്റ്റിനൊപ്പം ക്രിയയുടെ ബേസ് ഫോം (study) ഉപയോഗിക്കുന്നു.2",
       "options": [
         "A) studies",
-        "B) study",
-        "C) studying",
-        "D) studied"
+        "B) studying",
+        "C) studied",
+        "D) study"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 21,
       "question": "Which word matches with \"ഒരിക്കലും ഇല്ല\"?",
       "questionMl": "Never എന്നാൽ ഒരിക്കലും ഇല്ല.2",
       "options": [
-        "A) Rarely",
-        "B) Sometimes",
-        "C) Never",
+        "A) Never",
+        "B) Rarely",
+        "C) Sometimes",
         "D) Often"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 22,
@@ -3422,23 +3884,23 @@ const QUIZ_BANK = {
       "questionMl": "Communication എന്നാൽ ആശയവിനിമയം.2",
       "options": [
         "A) Practice",
-        "B) Schedule",
-        "C) Communication",
+        "B) Communication",
+        "C) Schedule",
         "D) Habit"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 23,
       "question": "What is the meaning of \"That’s interesting\"?",
       "questionMl": "സംഭാഷണങ്ങളിൽ താല്പര്യം പ്രകടിപ്പിക്കാൻ ഉപയോഗിക്കുന്ന ശൈലി.2",
       "options": [
-        "A) അത് വളരെ കൗതുകകരമാണ് / താല്പര്യമുണർത്തുന്നതാണ്.",
-        "B) തീർച്ചയായും.",
-        "C) നന്ദി.",
+        "A) തീർച്ചയായും.",
+        "B) നന്ദി.",
+        "C) അത് വളരെ കൗതുകകരമാണ് / താല്പര്യമുണർത്തുന്നതാണ്.",
         "D) എനിക്ക് മനസ്സിലായി."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 24,
@@ -3446,23 +3908,23 @@ const QUIZ_BANK = {
       "questionMl": "'Who' എന്നാൽ 'ആര്'.2",
       "options": [
         "A) നിങ്ങൾ എപ്പോഴാണ് ഇംഗ്ലീഷ് പഠിക്കുന്നത്?",
-        "B) നിങ്ങളെ ഇംഗ്ലീഷ് പഠിപ്പിക്കുന്നത് ആരാണ്?",
-        "C) നിങ്ങൾ എങ്ങനെയാണ് ഇംഗ്ലീഷ് പഠിക്കുന്നത്?",
-        "D) നിങ്ങൾ എവിടെയാണ് ഇംഗ്ലീഷ് പഠിക്കുന്നത്?"
+        "B) നിങ്ങൾ എങ്ങനെയാണ് ഇംഗ്ലീഷ് പഠിക്കുന്നത്?",
+        "C) നിങ്ങൾ എവിടെയാണ് ഇംഗ്ലീഷ് പഠിക്കുന്നത്?",
+        "D) നിങ്ങളെ ഇംഗ്ലീഷ് പഠിപ്പിക്കുന്നത് ആരാണ്?"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 25,
       "question": "Complete the statement: \"She always ______ on time.\"",
       "questionMl": "ഏകവചനമായ 'She' ഒപ്പം 'comes' വരുന്നു.2",
       "options": [
-        "A) come",
-        "B) coming",
-        "C) comes",
+        "A) comes",
+        "B) come",
+        "C) coming",
         "D) does come"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 26,
@@ -3494,35 +3956,35 @@ const QUIZ_BANK = {
       "questionMl": "Habit എന്നാൽ ശീലം.2",
       "options": [
         "A) ദിനചര്യ",
-        "B) ശീലം",
-        "C) സംഭാഷണം",
-        "D) ആത്മവിശ്വാസം"
+        "B) സംഭാഷണം",
+        "C) ആത്മവിശ്വാസം",
+        "D) ശീലം"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 29,
       "question": "\"I see.\" in a conversation expression means:",
       "questionMl": "മറ്റൊരാൾ പറയുന്നത് കേട്ട് മനസ്സിലായി എന്ന് കാണിക്കുന്ന പ്രയോഗം.2",
       "options": [
-        "A) ഞാൻ കാണുന്നുണ്ട്.",
-        "B) എനിക്ക് മനസ്സിലായി / ഓ അങ്ങനെയാണോ.",
+        "A) എനിക്ക് മനസ്സിലായി / ഓ അങ്ങനെയാണോ.",
+        "B) ഞാൻ കാണുന്നുണ്ട്.",
         "C) ശരി പോകാം.",
         "D) ഇതൊരു നല്ല ചോദ്യമാണ്."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 30,
       "question": "Correct this question: \"Do you speaks English?\"",
       "questionMl": "'You' വിനൊപ്പം 'Do' വരണം, ക്രിയയിൽ 's' വരാൻ പാടില്ല.2",
       "options": [
-        "A) Do you speak English?",
-        "B) Does you speak English?",
+        "A) Does you speak English?",
+        "B) Do you speak English?",
         "C) Are you speak English?",
         "D) You speaking English?"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     }
   ],
   "12": [
@@ -3532,11 +3994,11 @@ const QUIZ_BANK = {
       "questionMl": "നിലവിൽ നടക്കുന്ന കാര്യങ്ങൾ പറയാനുള്ള വാചകഘടന.3",
       "options": [
         "A) Subject + V1 + s/es",
-        "B) Subject + am/is/are + Verb + ing",
-        "C) Subject + have/has + V3",
+        "B) Subject + have/has + V3",
+        "C) Subject + am/is/are + Verb + ing",
         "D) Subject + do/does + V1"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 2,
@@ -3544,23 +4006,23 @@ const QUIZ_BANK = {
       "questionMl": "\"ഞാൻ ഇംഗ്ലീഷ് പഠിച്ചുകൊണ്ടിരിക്കുന്നു\".3",
       "options": [
         "A) I study English every day.",
-        "B) I am studying English.",
-        "C) I studied English yesterday.",
-        "D) I always study English."
+        "B) I studied English yesterday.",
+        "C) I always study English.",
+        "D) I am studying English."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 3,
       "question": "Correct the mistake: \"I studying English.\"",
       "questionMl": "'I' എന്നതിനൊപ്പം എപ്പോഴും 'am' ചേർക്കണം.3",
       "options": [
-        "A) I is studying English.",
-        "B) I am studying English.",
+        "A) I am studying English.",
+        "B) I is studying English.",
         "C) I are studying English.",
         "D) I be studying English."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 4,
@@ -3568,11 +4030,11 @@ const QUIZ_BANK = {
       "questionMl": "'He' എന്ന ഏകവചനത്തിനൊപ്പം 'is' ഉപയോഗിക്കുന്നു.3",
       "options": [
         "A) are",
-        "B) am",
-        "C) is",
+        "B) is",
+        "C) am",
         "D) be"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 5,
@@ -3592,23 +4054,23 @@ const QUIZ_BANK = {
       "questionMl": "Dinner എന്നാൽ രാത്രിയിലെ ഭക്ഷണം.3",
       "options": [
         "A) അവൾ ഉച്ചഭക്ഷണം കഴിക്കുകയാണ്.",
-        "B) അവൾ രാത്രി ഭക്ഷണം പാചകം ചെയ്യുകയാണ്.",
-        "C) അവൾ ഭക്ഷണം വിളമ്പുകയാണ്.",
-        "D) അവൾ എപ്പോഴും പാചകം ചെയ്യും."
+        "B) അവൾ ഭക്ഷണം വിളമ്പുകയാണ്.",
+        "C) അവൾ എപ്പോഴും പാചകം ചെയ്യും.",
+        "D) അവൾ രാത്രി ഭക്ഷണം പാചകം ചെയ്യുകയാണ്."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 7,
       "question": "Complete the sentence: \"The baby ______ sleeping.\"",
       "questionMl": "കുഞ്ഞ് (ഏകവചനം) ഉറങ്ങുകയാണ്.3",
       "options": [
-        "A) are",
-        "B) is",
+        "A) is",
+        "B) are",
         "C) am",
         "D) being"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 8,
@@ -3628,11 +4090,11 @@ const QUIZ_BANK = {
       "questionMl": "'They' എന്നതിനൊപ്പം 'is' ഉപയോഗിച്ചത് തെറ്റാണ്, 'are' ആണ് വരേണ്ടത്.3",
       "options": [
         "A) He is driving a car.",
-        "B) They is playing.",
-        "C) We are learning English.",
+        "B) We are learning English.",
+        "C) They is playing.",
         "D) I am watching a movie."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 10,
@@ -3640,23 +4102,23 @@ const QUIZ_BANK = {
       "questionMl": "ഇപ്പോൾ സംസാരിച്ചുകൊണ്ടിരിക്കുന്നതിനാൽ Present Continuous രൂപം.3",
       "options": [
         "A) I talk to my friend.",
-        "B) I am talking to my friend.",
-        "C) I speaking to my friend.",
-        "D) I was talking to my friend."
+        "B) I speaking to my friend.",
+        "C) I was talking to my friend.",
+        "D) I am talking to my friend."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 11,
       "question": "What is the \"ing\" form of the verb \"drive\"?",
       "questionMl": "'drive' എന്ന വാക്കിന്റെ ഒടുവിലെ 'e' ഒഴിവാക്കിയാണ് 'ing' ചേർക്കുന്നത്.3",
       "options": [
-        "A) driveing",
-        "B) driving",
+        "A) driving",
+        "B) driveing",
         "C) drivesing",
         "D) droving"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 12,
@@ -3676,11 +4138,11 @@ const QUIZ_BANK = {
       "questionMl": "കൊച്ചിയിലേക്ക് യാത്ര ചെയ്യുകയാണ് എന്ന് പറയാൻ 'to' ഉപയോഗിക്കുന്നു.3",
       "options": [
         "A) at",
-        "B) to",
-        "C) on",
+        "B) on",
+        "C) to",
         "D) in"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 14,
@@ -3688,11 +4150,11 @@ const QUIZ_BANK = {
       "questionMl": "Hold on എന്നാൽ അല്പം കാത്തുനിൽക്കാൻ ആവശ്യപ്പെടുന്നത്.3",
       "options": [
         "A) ഞാൻ വന്നുകൊണ്ടിരിക്കുകയാണ്.",
-        "B) അല്പം കാത്തിരിക്കൂ / ഒരു മിനിറ്റ്.",
-        "C) എനിക്ക് തിരക്കാണ്.",
-        "D) ഞാൻ അതിൽ വർക്ക് ചെയ്യുകയാണ്."
+        "B) എനിക്ക് തിരക്കാണ്.",
+        "C) ഞാൻ അതിൽ വർക്ക് ചെയ്യുകയാണ്.",
+        "D) അല്പം കാത്തിരിക്കൂ / ഒരു മിനിറ്റ്."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 15,
@@ -3724,11 +4186,11 @@ const QUIZ_BANK = {
       "questionMl": "സമയത്തിനായി അപേക്ഷിക്കുന്ന പ്രയോഗം.3",
       "options": [
         "A) എനിക്ക് ഒരു അവസരം തരൂ.",
-        "B) എനിക്ക് ഒരു നിമിഷം തരൂ.",
-        "C) എനിക്ക് വഴി തരൂ.",
+        "B) എനിക്ക് വഴി തരൂ.",
+        "C) എനിക്ക് ഒരു നിമിഷം തരൂ.",
         "D) ഞാൻ പോവുകയാണ്."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 18,
@@ -3737,10 +4199,10 @@ const QUIZ_BANK = {
       "options": [
         "A) am",
         "B) is",
-        "C) are",
-        "D) be"
+        "C) be",
+        "D) are"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 19,
@@ -3772,11 +4234,11 @@ const QUIZ_BANK = {
       "questionMl": "Waiting എന്നാൽ കാത്തിരിക്കുന്നു.3",
       "options": [
         "A) Learning",
-        "B) Waiting",
-        "C) Travelling",
+        "B) Travelling",
+        "C) Waiting",
         "D) Speaking"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 22,
@@ -3784,23 +4246,23 @@ const QUIZ_BANK = {
       "questionMl": "നിലവിൽ ഫോണിൽ സംസാരിച്ചുകൊണ്ടിരിക്കുന്നു.3",
       "options": [
         "A) അവൻ ഫോൺ വിളിക്കുകയായിരുന്നു.",
-        "B) അവൻ ഫോണിൽ സംസാരിക്കുകയാണ്.",
-        "C) അവൻ ഫോൺ വാങ്ങുകയാണ്.",
-        "D) അവൻ ഫോൺ തിരയുകയാണ്."
+        "B) അവൻ ഫോൺ വാങ്ങുകയാണ്.",
+        "C) അവൻ ഫോൺ തിരയുകയാണ്.",
+        "D) അവൻ ഫോണിൽ സംസാരിക്കുകയാണ്."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 23,
       "question": "Fill in the blank: \"I am ______ a movie.\"",
       "questionMl": "സിനിമ കണ്ടുകൊണ്ടിരിക്കുകയാണ്.3",
       "options": [
-        "A) watch",
-        "B) watching",
+        "A) watching",
+        "B) watch",
         "C) watches",
         "D) watched"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 24,
@@ -3808,11 +4270,11 @@ const QUIZ_BANK = {
       "questionMl": "'write' എന്ന വാക്ക് 'writing' ആയി മാറുന്നു.3",
       "options": [
         "A) writeing",
-        "B) writting",
-        "C) writing",
+        "B) writing",
+        "C) writting",
         "D) writesing"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 25,
@@ -3820,11 +4282,11 @@ const QUIZ_BANK = {
       "questionMl": "യാത്രയിലാണ് എന്ന് അറിയിക്കാൻ ഉപയോഗിക്കുന്ന കോമൺ പ്രയോഗം.3",
       "options": [
         "A) ഞാൻ എന്റെ സ്വന്തം വഴിയിലാണ്.",
-        "B) ഞാൻ വന്നുകൊണ്ടിരിക്കുകയാണ് / വഴിയിലാണ്.",
-        "C) എനിക്ക് വഴി അറിയാം.",
+        "B) എനിക്ക് വഴി അറിയാം.",
+        "C) ഞാൻ വന്നുകൊണ്ടിരിക്കുകയാണ് / വഴിയിലാണ്.",
         "D) ഞാൻ തിരക്കിലാണ്."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 26,
@@ -3832,23 +4294,23 @@ const QUIZ_BANK = {
       "questionMl": "മറുപക്ഷത്തുള്ളയാളുടെ നിലവിലെ സംസാരത്തെ അഭിനന്ദിക്കുന്നു.3",
       "options": [
         "A) നിങ്ങൾ സംസാരിക്കണം.",
-        "B) നിങ്ങൾ വളരെ നന്നായി സംസാരിക്കുകയാണ്.",
-        "C) നിങ്ങൾ നന്നായി സംസാരിക്കാറില്ല.",
-        "D) നിങ്ങൾ സംസാരിക്കാൻ പഠിക്കുകയാണ്."
+        "B) നിങ്ങൾ നന്നായി സംസാരിക്കാറില്ല.",
+        "C) നിങ്ങൾ സംസാരിക്കാൻ പഠിക്കുകയാണ്.",
+        "D) നിങ്ങൾ വളരെ നന്നായി സംസാരിക്കുകയാണ്."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 27,
       "question": "Complete: \"I am learning ______ words.\"",
       "questionMl": "\"ഞാൻ പുതിയ വാക്കുകൾ പഠിക്കുകയാണ്.\"3",
       "options": [
-        "A) now",
-        "B) new",
+        "A) new",
+        "B) now",
         "C) currently",
         "D) right now"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 28,
@@ -3880,11 +4342,11 @@ const QUIZ_BANK = {
       "questionMl": "At the moment എന്നാൽ ഈ സമയത്ത് / ഇപ്പോൾ.3",
       "options": [
         "A) Always",
-        "B) Right now / Currently",
-        "C) Sometimes",
-        "D) Never"
+        "B) Sometimes",
+        "C) Never",
+        "D) Right now / Currently"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     }
   ],
   "13": [
@@ -3893,12 +4355,12 @@ const QUIZ_BANK = {
       "question": "What is the sentence structure for a negative sentence in Present Continuous?",
       "questionMl": "ഇല്ല എന്ന് നെഗറ്റീവ് ആയി പറയാൻ 'not' ചേർക്കുന്ന രീതി.1",
       "options": [
-        "A) Subject + not + V1",
-        "B) Subject + am/is/are + not + Verb+ing",
+        "A) Subject + am/is/are + not + Verb+ing",
+        "B) Subject + not + V1",
         "C) Subject + do/does + not + V1",
         "D) Subject + am/is/are + Verb+ing + not"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 2,
@@ -3918,11 +4380,11 @@ const QUIZ_BANK = {
       "questionMl": "നെഗറ്റീവ് ആക്കുമ്പോഴും ക്രിയ 'ing' രൂപത്തിൽ തന്നെ ആയിരിക്കണം.1",
       "options": [
         "A) They aren’t come.",
-        "B) They aren’t coming.",
-        "C) They isn’t coming.",
+        "B) They isn’t coming.",
+        "C) They aren’t coming.",
         "D) They don’t coming."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 4,
@@ -3930,23 +4392,23 @@ const QUIZ_BANK = {
       "questionMl": "'aren't waiting' എന്നാൽ കാത്തിരിക്കുന്നില്ല.1",
       "options": [
         "A) We are waiting.",
-        "B) We aren’t waiting.",
-        "C) We don’t wait.",
-        "D) We not waiting."
+        "B) We don’t wait.",
+        "C) We not waiting.",
+        "D) We aren’t waiting."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 5,
       "question": "Complete the question: \"______ you studying now?\"",
       "questionMl": "'You' വിനോട് ചോദ്യം ചോദിക്കാൻ 'Are' മുന്നിൽ ചേർക്കണം.1",
       "options": [
-        "A) Is",
-        "B) Am",
-        "C) Are",
+        "A) Are",
+        "B) Is",
+        "C) Am",
         "D) Do"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 6,
@@ -3966,11 +4428,11 @@ const QUIZ_BANK = {
       "questionMl": "ഇതൊരു Yes/No ചോദ്യമാണ് (ചെയ്യുകയാണോ?).1",
       "options": [
         "A) അവൾ എന്താണ് പാചകം ചെയ്യുന്നത്?",
-        "B) അവൾ പാചകം ചെയ്യുകയാണോ?",
-        "C) അവൾ പാചകം ചെയ്യാറുണ്ടോ?",
+        "B) അവൾ പാചകം ചെയ്യാറുണ്ടോ?",
+        "C) അവൾ പാചകം ചെയ്യുകയാണോ?",
         "D) അവൾ എപ്പോഴാണ് പാചകം ചെയ്യുന്നത്?"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 8,
@@ -3978,23 +4440,23 @@ const QUIZ_BANK = {
       "questionMl": "'എന്ത്' എന്നതിന് 'What' ഉപയോഗിക്കുന്നു.1",
       "options": [
         "A) Where are you doing?",
-        "B) What are you doing?",
-        "C) Why are you doing?",
-        "D) When are you doing?"
+        "B) Why are you doing?",
+        "C) When are you doing?",
+        "D) What are you doing?"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 9,
       "question": "Fill in the blank: \"______ is calling you?\" (ആരാണ് നിങ്ങളെ വിളിക്കുന്നത്?)",
       "questionMl": "വ്യക്തിയെക്കുറിച്ച് ചോദിക്കാൻ 'Who' ഉപയോഗിക്കുന്നു.1",
       "options": [
-        "A) What",
-        "B) Who",
+        "A) Who",
+        "B) What",
         "C) Whose",
         "D) Which"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 10,
@@ -4013,12 +4475,12 @@ const QUIZ_BANK = {
       "question": "Fill in the blank: \"______ book are you reading?\" (നിങ്ങൾ ഏത് പുസ്തകമാണ് വായിക്കുന്നത്?)",
       "questionMl": "'ഏത്' എന്ന് ചോദിക്കാൻ 'Which' എന്ന് ഉപയോഗിക്കാം.1",
       "options": [
-        "A) Which",
-        "B) Whose",
-        "C) Whom",
+        "A) Whose",
+        "B) Whom",
+        "C) Which",
         "D) What"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 12,
@@ -4026,23 +4488,23 @@ const QUIZ_BANK = {
       "questionMl": "Whose എന്നാൽ ആരുടെ.1",
       "options": [
         "A) ഏത്",
-        "B) ആരുടെ",
-        "C) ആരെയാണ്",
-        "D) എന്തുകൊണ്ട്"
+        "B) ആരെയാണ്",
+        "C) എന്തുകൊണ്ട്",
+        "D) ആരുടെ"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 13,
       "question": "Present Continuous Tense can be used for \"Future Arrangements\". Which sentence shows a future plan?",
       "questionMl": "'tomorrow' (നാളെ) എന്ന് വ്യക്തമാക്കിയ തിട്ടപ്പെടുത്തിയ ഭാവി കാര്യം.1",
       "options": [
-        "A) I am sleeping now.",
-        "B) I am meeting my manager tomorrow.",
+        "A) I am meeting my manager tomorrow.",
+        "B) I am sleeping now.",
         "C) He isn’t working today.",
         "D) Why are you laughing?"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 14,
@@ -4062,35 +4524,35 @@ const QUIZ_BANK = {
       "questionMl": "ഭാവി പ്ലാൻ ആയതിനാൽ 'is + joining' വരുന്നു.1",
       "options": [
         "A) join",
-        "B) joining",
-        "C) joins",
+        "B) joins",
+        "C) joining",
         "D) joined"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 16,
       "question": "What is the mistake in: \"We aren’t go tomorrow.\"",
       "questionMl": "'go' എന്നതിന് പകരം 'going' എന്ന് വേണം.1",
       "options": [
-        "A) We aren’t going tomorrow.",
-        "B) We not going tomorrow.",
-        "C) We don’t going tomorrow.",
-        "D) We isn’t going tomorrow."
+        "A) We not going tomorrow.",
+        "B) We don’t going tomorrow.",
+        "C) We isn’t going tomorrow.",
+        "D) We aren’t going tomorrow."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 17,
       "question": "\"They are visiting us tonight.\" - When is the action planned to happen?",
       "questionMl": "'tonight' എന്നത് ഭാവി പ്ലാൻ ആണ്.1",
       "options": [
-        "A) Right now",
-        "B) Tonight (ഇന്ന് രാത്രി)",
+        "A) Tonight (ഇന്ന് രാത്രി)",
+        "B) Right now",
         "C) Next month",
         "D) Every day"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 18,
@@ -4098,23 +4560,23 @@ const QUIZ_BANK = {
       "questionMl": "Interview എന്നാൽ അഭിമുഖം.1",
       "options": [
         "A) Appointment",
-        "B) Schedule",
-        "C) Interview",
+        "B) Interview",
+        "C) Schedule",
         "D) Preparation"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 19,
       "question": "What does the power usage \"See you tomorrow.\" mean?",
       "questionMl": "പിരിയുമ്പോൾ പറയാവുന്ന ഒരു പ്രയോഗം.1",
       "options": [
-        "A) നാളെ കാണാം.",
-        "B) ഇപ്പോൾ വരാം.",
-        "C) അത് നന്നായിരിക്കുന്നു.",
+        "A) ഇപ്പോൾ വരാം.",
+        "B) അത് നന്നായിരിക്കുന്നു.",
+        "C) നാളെ കാണാം.",
         "D) വഴിയിലാണ്."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 20,
@@ -4122,23 +4584,23 @@ const QUIZ_BANK = {
       "questionMl": "'She' ഏകവചനം ആയതുകൊണ്ട് 'is' വരുന്നു.1",
       "options": [
         "A) are",
-        "B) is",
-        "C) am",
-        "D) do"
+        "B) am",
+        "C) do",
+        "D) is"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 21,
       "question": "\"Why is she crying?\" - What is the Malayalam meaning?",
       "questionMl": "Crying എന്നാൽ കരയുന്നു.1",
       "options": [
-        "A) അവൾ എന്തുകൊണ്ടാണ് ചിരിക്കുന്നത്?",
-        "B) അവൾ എന്തുകൊണ്ടാണ് കരയുന്നത്?",
+        "A) അവൾ എന്തുകൊണ്ടാണ് കരയുന്നത്?",
+        "B) അവൾ എന്തുകൊണ്ടാണ് ചിരിക്കുന്നത്?",
         "C) അവൾ എവിടേക്കാണ് പോകുന്നത്?",
         "D) അവൾ എപ്പോഴാണ് വരുന്നത്?"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 22,
@@ -4158,11 +4620,11 @@ const QUIZ_BANK = {
       "questionMl": "ശരീരത്തിന് അസ്വസ്ഥത തോന്നുമ്പോൾ പറയുന്ന പാറ്റേൺ.1",
       "options": [
         "A) I am not working.",
-        "B) I am not feeling well.",
-        "C) I am not sleeping.",
+        "B) I am not sleeping.",
+        "C) I am not feeling well.",
         "D) I am not coming."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 24,
@@ -4170,23 +4632,23 @@ const QUIZ_BANK = {
       "questionMl": "Busy എന്നാൽ തിരക്ക്.1",
       "options": [
         "A) നിങ്ങൾ ഇപ്പോൾ എവിടെയാണ്?",
-        "B) നിങ്ങൾ ഇപ്പോൾ തിരക്കിലാണോ?",
-        "C) നിങ്ങൾ നാളെ വരുമോ?",
-        "D) നിങ്ങൾക്ക് സുഖമാണോ?"
+        "B) നിങ്ങൾ നാളെ വരുമോ?",
+        "C) നിങ്ങൾക്ക് സുഖമാണോ?",
+        "D) നിങ്ങൾ ഇപ്പോൾ തിരക്കിലാണോ?"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 25,
       "question": "Fill in the blank for a future plan: \"We are having a meeting ______ 10 AM.\"",
       "questionMl": "കൃത്യമായ സമയത്തിന് മുൻപ് 'at' ഉപയോഗിക്കണം.1",
       "options": [
-        "A) on",
-        "B) at",
+        "A) at",
+        "B) on",
         "C) in",
         "D) for"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 26,
@@ -4205,12 +4667,12 @@ const QUIZ_BANK = {
       "question": "\"I’m looking forward to it.\" means:",
       "questionMl": "ഒരു നല്ല കാര്യത്തിനായി ആകാംഷയോടെ കാത്തിരിക്കുമ്പോൾ ഉപയോഗിക്കുന്ന പ്രയോഗം.1",
       "options": [
-        "A) ഞാൻ അതിനായി കാത്തിരിക്കുകയാണ് (വളരെ പ്രതീക്ഷയോടെ).",
-        "B) ഞാൻ അത് നോക്കുകയാണ്.",
-        "C) എനിക്ക് അത് വേണ്ട.",
+        "A) ഞാൻ അത് നോക്കുകയാണ്.",
+        "B) എനിക്ക് അത് വേണ്ട.",
+        "C) ഞാൻ അതിനായി കാത്തിരിക്കുകയാണ് (വളരെ പ്രതീക്ഷയോടെ).",
         "D) ഞാൻ അത് പിന്നീട് ചെയ്യാം."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 28,
@@ -4218,23 +4680,23 @@ const QUIZ_BANK = {
       "questionMl": "ഇന്ന് രാത്രിയിലെ പ്ലാൻ ആയതുകൊണ്ട് Present Continuous രൂപം.1",
       "options": [
         "A) I meet",
-        "B) I’m meeting",
-        "C) I don’t meet",
-        "D) I will meeting"
+        "B) I don’t meet",
+        "C) I will meeting",
+        "D) I’m meeting"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 29,
       "question": "\"How are you travelling?\" - What is being asked?",
       "questionMl": "യാത്ര ചെയ്യുന്ന രീതിയെക്കുറിച്ചാണ് (How) ചോദിക്കുന്നത്.1",
       "options": [
-        "A) നിങ്ങൾ എപ്പോഴാണ് യാത്ര ചെയ്യുന്നത്?",
-        "B) നിങ്ങൾ എങ്ങനെയാണ് യാത്ര ചെയ്യുന്നത്?",
+        "A) നിങ്ങൾ എങ്ങനെയാണ് യാത്ര ചെയ്യുന്നത്?",
+        "B) നിങ്ങൾ എപ്പോഴാണ് യാത്ര ചെയ്യുന്നത്?",
         "C) നിങ്ങൾ ആരുടെ കൂടെയാണ് യാത്ര ചെയ്യുന്നത്?",
         "D) നിങ്ങൾ എവിടേക്കാണ് യാത്ര ചെയ്യുന്നത്?"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 30,
@@ -4268,35 +4730,35 @@ const QUIZ_BANK = {
       "questionMl": "അവൾ ഇന്നലെ രാത്രി ഇംഗ്ലീഷ് പഠിച്ചു.",
       "options": [
         "A) study",
-        "B) studied",
-        "C) studying",
-        "D) studies"
+        "B) studying",
+        "C) studies",
+        "D) studied"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 3,
       "question": "We __________ our grandparents last weekend.",
       "questionMl": "ഞങ്ങൾ കഴിഞ്ഞ വാരാന്ത്യത്തിൽ മുത്തശ്ശനെയും മുത്തശ്ശിയെയും സന്ദർശിച്ചു.",
       "options": [
-        "A) visit",
-        "B) visiting",
-        "C) visited",
+        "A) visited",
+        "B) visit",
+        "C) visiting",
         "D) visits"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 4,
       "question": "They __________ football yesterday afternoon.",
       "questionMl": "അവർ ഇന്നലെ വൈകുന്നേരം ഫുട്ബോൾ കളിച്ചു.",
       "options": [
-        "A) played",
-        "B) play",
+        "A) play",
+        "B) played",
         "C) playing",
         "D) plays"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 5,
@@ -4304,11 +4766,11 @@ const QUIZ_BANK = {
       "questionMl": "അവൻ കഴിഞ്ഞ രാത്രി ഒരു സിനിമ കണ്ടു.",
       "options": [
         "A) watch",
-        "B) watched",
-        "C) watching",
+        "B) watching",
+        "C) watched",
         "D) watches"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 6,
@@ -4316,23 +4778,23 @@ const QUIZ_BANK = {
       "questionMl": "ഞാൻ കഴിഞ്ഞ ആഴ്ച കൊച്ചിയിലേക്ക് പോയി.",
       "options": [
         "A) go",
-        "B) went",
-        "C) gone",
-        "D) goes"
+        "B) gone",
+        "C) goes",
+        "D) went"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 7,
       "question": "She __________ breakfast very early this morning.",
       "questionMl": "അവൾ ഇന്ന് രാവിലെ പ്രഭാതഭക്ഷണം വളരെ നേരത്തെ കഴിച്ചു.",
       "options": [
-        "A) eat",
-        "B) eaten",
-        "C) ate",
+        "A) ate",
+        "B) eat",
+        "C) eaten",
         "D) eating"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 8,
@@ -4364,23 +4826,23 @@ const QUIZ_BANK = {
       "questionMl": "അവർ മാനേജർക്ക് ഒരു വിശദമായ കത്ത് എഴുതി.",
       "options": [
         "A) write",
-        "B) wrote",
-        "C) written",
-        "D) writing"
+        "B) written",
+        "C) writing",
+        "D) wrote"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 11,
       "question": "I __________ my old school teacher yesterday.",
       "questionMl": "ഞാൻ ഇന്നലെ എന്റെ പഴയ സ്കൂൾ അധ്യാപകനെ കണ്ടു.",
       "options": [
-        "A) see",
-        "B) seen",
-        "C) saw",
+        "A) saw",
+        "B) see",
+        "C) seen",
         "D) seeing"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 12,
@@ -4400,11 +4862,11 @@ const QUIZ_BANK = {
       "questionMl": "അവൻ കുറച്ച് മിനിറ്റുകൾക്ക് മുമ്പ് തന്റെ മാനേജറോട് സംസാരിച്ചു.",
       "options": [
         "A) speak",
-        "B) spoke",
-        "C) spoken",
+        "B) spoken",
+        "C) spoke",
         "D) speaks"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 14,
@@ -4413,22 +4875,22 @@ const QUIZ_BANK = {
       "options": [
         "A) have",
         "B) has",
-        "C) had",
-        "D) having"
+        "C) having",
+        "D) had"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 15,
       "question": "She __________ her homework before dinner.",
       "questionMl": "അവൾ അത്താഴത്തിന് മുമ്പ് തന്റെ ഹോംവർക്ക് പൂർത്തിയാക്കി.",
       "options": [
-        "A) finish",
-        "B) finished",
+        "A) finished",
+        "B) finish",
         "C) finishing",
         "D) finishes"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 16,
@@ -4448,11 +4910,11 @@ const QUIZ_BANK = {
       "questionMl": "ഞാൻ ഇന്നലെ എന്റെ കുട്ടിക്കാലത്തെ സുഹൃത്തിനെ കണ്ടു.",
       "options": [
         "A) meet",
-        "B) met",
-        "C) meeting",
+        "B) meeting",
+        "C) met",
         "D) meets"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 18,
@@ -4460,23 +4922,23 @@ const QUIZ_BANK = {
       "questionMl": "ഞങ്ങൾ കാറിൽ കോഴിക്കോട്ടേക്ക് യാത്ര ചെയ്തു.",
       "options": [
         "A) travel",
-        "B) travelled",
-        "C) travelling",
-        "D) travels"
+        "B) travelling",
+        "C) travels",
+        "D) travelled"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 19,
       "question": "They thoroughly __________ the vacation trip.",
       "questionMl": "അവർ അവധിക്കാല യാത്ര പൂർണ്ണമായും ആസ്വദിച്ചു.",
       "options": [
-        "A) enjoy",
-        "B) enjoyed",
+        "A) enjoyed",
+        "B) enjoy",
         "C) enjoying",
         "D) enjoys"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 20,
@@ -4496,11 +4958,11 @@ const QUIZ_BANK = {
       "questionMl": "ട്രെയിൻ ഒരു മണിക്കൂർ മുമ്പ് സ്റ്റേഷനിൽ എത്തി.",
       "options": [
         "A) arrive",
-        "B) arrived",
-        "C) arriving",
+        "B) arriving",
+        "C) arrived",
         "D) arrives"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 22,
@@ -4508,23 +4970,23 @@ const QUIZ_BANK = {
       "questionMl": "ഓഫീസ് മീറ്റിംഗ് കൃത്യം 10 മണിക്ക് ആരംഭിച്ചു.",
       "options": [
         "A) start",
-        "B) started",
-        "C) starting",
-        "D) starts"
+        "B) starting",
+        "C) starts",
+        "D) started"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 23,
       "question": "We __________ the beautiful moments from our childhood.",
       "questionMl": "ഞങ്ങൾ ഞങ്ങളുടെ കുട്ടിക്കാലത്തെ മനോഹരമായ നിമിഷങ്ങൾ ഓർത്തു.",
       "options": [
-        "A) remember",
-        "B) remembered",
+        "A) remembered",
+        "B) remember",
         "C) remembering",
         "D) remembers"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 24,
@@ -4544,11 +5006,11 @@ const QUIZ_BANK = {
       "questionMl": "'eat' എന്ന ക്രമരഹിത ക്രിയയുടെ ശരിയായ ഭൂതകാല രൂപം തിരഞ്ഞെടുക്കുക:",
       "options": [
         "A) eated",
-        "B) ate",
-        "C) eaten",
+        "B) eaten",
+        "C) ate",
         "D) eating"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 26,
@@ -4556,23 +5018,23 @@ const QUIZ_BANK = {
       "questionMl": "ശരിയായ വാക്യം തിരിച്ചറിയുക:",
       "options": [
         "A) I goed to school yesterday.",
-        "B) I went to school yesterday.",
-        "C) I was go to school yesterday.",
-        "D) I gone to school yesterday."
+        "B) I was go to school yesterday.",
+        "C) I gone to school yesterday.",
+        "D) I went to school yesterday."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 27,
       "question": "Identify the mistake: \"She eated breakfast early.\"",
       "questionMl": "തെറ്റ് തിരിച്ചറിയുക: \"She eated breakfast early.\"",
       "options": [
-        "A) early",
-        "B) breakfast",
-        "C) eated",
+        "A) eated",
+        "B) early",
+        "C) breakfast",
         "D) She"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 28,
@@ -4591,12 +5053,12 @@ const QUIZ_BANK = {
       "question": "\"Two days __________\" is a common past time expression.",
       "questionMl": "\"രണ്ട് ദിവസം മുമ്പ്\" എന്നത് സാധാരണയായി ഉപയോഗിക്കുന്ന ഒരു ഭൂതകാല പ്രയോഗമാണ്.",
       "options": [
-        "A) ago",
-        "B) last",
-        "C) before",
+        "A) last",
+        "B) before",
+        "C) ago",
         "D) next"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 30,
@@ -4604,11 +5066,11 @@ const QUIZ_BANK = {
       "questionMl": "അവൻ കഴിഞ്ഞ ആഴ്ച കൃത്യസമയത്ത് പ്രോജക്റ്റ് പൂർത്തിയാക്കി.",
       "options": [
         "A) finish",
-        "B) finished",
-        "C) finishing",
-        "D) finishes"
+        "B) finishing",
+        "C) finishes",
+        "D) finished"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     }
   ],
   "15": [
@@ -4617,12 +5079,12 @@ const QUIZ_BANK = {
       "question": "I __________ to school yesterday.",
       "questionMl": "ഞാൻ ഇന്നലെ സ്കൂളിൽ പോയില്ല.",
       "options": [
-        "A) didn't went",
-        "B) didn't go",
+        "A) didn't go",
+        "B) didn't went",
         "C) don't go",
         "D) not went"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 2,
@@ -4641,12 +5103,12 @@ const QUIZ_BANK = {
       "question": "He __________ to class last Monday.",
       "questionMl": "അവൻ കഴിഞ്ഞ തിങ്കളാഴ്ച ക്ലാസിൽ വന്നില്ല.",
       "options": [
-        "A) didn't come",
-        "B) didn't came",
-        "C) doesn't come",
+        "A) didn't came",
+        "B) doesn't come",
+        "C) didn't come",
         "D) not come"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 4,
@@ -4654,23 +5116,23 @@ const QUIZ_BANK = {
       "questionMl": "ഞങ്ങൾ കഴിഞ്ഞ വാരാന്ത്യത്തിൽ സിനിമ കണ്ടില്ല.",
       "options": [
         "A) didn't watched",
-        "B) didn't watch",
-        "C) don't watch",
-        "D) not watch"
+        "B) don't watch",
+        "C) not watch",
+        "D) didn't watch"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 5,
       "question": "They __________ football yesterday evening.",
       "questionMl": "അവർ ഇന്നലെ വൈകുന്നേരം ഫുട്ബോൾ കളിച്ചില്ല.",
       "options": [
-        "A) didn't played",
-        "B) didn't play",
+        "A) didn't play",
+        "B) didn't played",
         "C) don't play",
         "D) not play"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 6,
@@ -4690,47 +5152,47 @@ const QUIZ_BANK = {
       "questionMl": "നിങ്ങൾ ഇന്നലെ ജോലിക്ക് പോയോ?",
       "options": [
         "A) Do",
-        "B) Did",
-        "C) Does",
+        "B) Does",
+        "C) Did",
         "D) Have"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 8,
       "question": "__________ she call you last night?",
       "questionMl": "അവൾ ഇന്നലെ രാത്രി നിങ്ങളെ വിളിച്ചോ?",
       "options": [
-        "A) Did",
-        "B) Do",
-        "C) Does",
-        "D) Was"
+        "A) Do",
+        "B) Does",
+        "C) Was",
+        "D) Did"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 9,
       "question": "__________ he finish the project yesterday?",
       "questionMl": "അവൻ ഇന്നലെ പ്രോജക്റ്റ് പൂർത്തിയാക്കിയോ?",
       "options": [
-        "A) Has",
-        "B) Did",
+        "A) Did",
+        "B) Has",
         "C) Does",
         "D) Do"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 10,
       "question": "__________ they arrive on time for the meeting?",
       "questionMl": "അവർ മീറ്റിംഗിന് കൃത്യസമയത്ത് എത്തിയോ?",
       "options": [
-        "A) Did",
-        "B) Do",
+        "A) Do",
+        "B) Did",
         "C) Does",
         "D) Have"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 11,
@@ -4750,23 +5212,23 @@ const QUIZ_BANK = {
       "questionMl": "\"നിങ്ങൾ യാത്ര ആസ്വദിച്ചോ?\" — \"അതെ.\"",
       "options": [
         "A) enjoy",
-        "B) did",
-        "C) enjoyed",
-        "D) do"
+        "B) enjoyed",
+        "C) do",
+        "D) did"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 13,
       "question": "\"Did he come to office?\" — \"No, he __________.\"",
       "questionMl": "\"അവൻ ഓഫീസിൽ വന്നോ?\" — \"ഇല്ല.\"",
       "options": [
-        "A) doesn't",
-        "B) didn't",
+        "A) didn't",
+        "B) doesn't",
         "C) don't",
         "D) wasn't"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 14,
@@ -4785,12 +5247,12 @@ const QUIZ_BANK = {
       "question": "__________ did she buy from the shop?",
       "questionMl": "അവൾ കടയിൽ നിന്ന് എന്താണ് വാങ്ങിയത്?",
       "options": [
-        "A) What",
-        "B) Where",
-        "C) Why",
+        "A) Where",
+        "B) Why",
+        "C) What",
         "D) Who"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 16,
@@ -4798,11 +5260,11 @@ const QUIZ_BANK = {
       "questionMl": "നിങ്ങൾ അവധിക്കാലത്ത് എവിടെയാണ് പോയത്?",
       "options": [
         "A) What",
-        "B) Where",
-        "C) Who",
-        "D) Which"
+        "B) Who",
+        "C) Which",
+        "D) Where"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 17,
@@ -4833,36 +5295,36 @@ const QUIZ_BANK = {
       "question": "__________ did he leave the company?",
       "questionMl": "അവൻ എപ്പോഴാണ് കമ്പനി വിട്ടുപോയത്?",
       "options": [
-        "A) When",
-        "B) What",
-        "C) Which",
+        "A) What",
+        "B) Which",
+        "C) When",
         "D) Whom"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 20,
       "question": "__________ did you call me last night?",
       "questionMl": "നിങ്ങൾ ഇന്നലെ രാത്രി എന്നെ എന്തിനാണ് വിളിച്ചത്?",
       "options": [
-        "A) Why",
-        "B) What",
-        "C) Which",
-        "D) Whom"
+        "A) What",
+        "B) Which",
+        "C) Whom",
+        "D) Why"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 21,
       "question": "__________ did she resign from her job?",
       "questionMl": "അവൾ എന്തുകൊണ്ടാണ് ജോലി രാജിവെച്ചത്?",
       "options": [
-        "A) What",
-        "B) Why",
+        "A) Why",
+        "B) What",
         "C) Which",
         "D) Whose"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 22,
@@ -4882,11 +5344,11 @@ const QUIZ_BANK = {
       "questionMl": "ഇന്നലെ നിങ്ങൾ ആരെയാണ് മാർക്കറ്റിൽ വെച്ച് കണ്ടത്?",
       "options": [
         "A) What",
-        "B) Whom",
-        "C) Which",
+        "B) Which",
+        "C) Whom",
         "D) Whose"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 24,
@@ -4894,35 +5356,35 @@ const QUIZ_BANK = {
       "questionMl": "നിങ്ങൾ കഴിഞ്ഞ രാത്രി ഏത് സിനിമയാണ് കണ്ടത്?",
       "options": [
         "A) What",
-        "B) Which",
-        "C) Who",
-        "D) Whom"
+        "B) Who",
+        "C) Whom",
+        "D) Which"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 25,
       "question": "__________ phone did you borrow yesterday?",
       "questionMl": "നിങ്ങൾ ഇന്നലെ ആരുടെ ഫോണാണ് കടം വാങ്ങിയത്?",
       "options": [
-        "A) Who",
-        "B) Whose",
+        "A) Whose",
+        "B) Who",
         "C) Whom",
         "D) Which"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 26,
       "question": "__________ did you travel to Delhi?",
       "questionMl": "നിങ്ങൾ എങ്ങനെയാണ് ഡൽഹിയിലേക്ക് യാത്ര ചെയ്തത്?",
       "options": [
-        "A) How",
-        "B) What",
+        "A) What",
+        "B) How",
         "C) Which",
         "D) Whom"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 27,
@@ -4930,11 +5392,11 @@ const QUIZ_BANK = {
       "questionMl": "ശരിയായ ചോദ്യരൂപം തിരിച്ചറിയുക:",
       "options": [
         "A) Did you went there?",
-        "B) Did you go there?",
-        "C) Where did you went?",
+        "B) Where did you went?",
+        "C) Did you go there?",
         "D) Did she saw him?"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 28,
@@ -4953,12 +5415,12 @@ const QUIZ_BANK = {
       "question": "Identify the mistake: \"He didn’t finished the project.\"",
       "questionMl": "തെറ്റ് തിരിച്ചറിയുക: \"He didn’t finished the project.\"",
       "options": [
-        "A) project",
-        "B) finished",
+        "A) finished",
+        "B) project",
         "C) didn't",
         "D) He"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 30,
@@ -4976,725 +5438,725 @@ const QUIZ_BANK = {
   "16": [
     {
       "id": 1,
-      "question": "I __________ Delhi twice in my life.",
-      "questionMl": "ഞാൻ എന്റെ ജീവിതത്തിൽ രണ്ടുതവണ ഡൽഹി സന്ദർശിച്ചിട്ടുണ്ട്.",
+      "question": "Which connector is best used to begin telling a story chronologically?",
+      "questionMl": "ഒരു കഥ കാലാനുക്രമത്തിൽ പറയാൻ തുടങ്ങുമ്പോൾ ആദ്യം ഉപയോഗിക്കാൻ ഏറ്റവും അനുയോജ്യമായ വാക്ക് ഏതാണ്?",
       "options": [
-        "A) have visited",
-        "B) has visited",
-        "C) visited",
-        "D) am visiting"
+        "A) Finally",
+        "B) Suddenly",
+        "C) First",
+        "D) After that"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 2,
-      "question": "She __________ her graduation recently.",
-      "questionMl": "അവൾ ഈയടുത്ത് അവളുടെ ബിരുദം പൂർത്തിയാക്കിയിട്ടുണ്ട്.",
+      "question": "Fill in the blank: \"_____, the electricity went out and the entire room became dark.\"",
+      "questionMl": "പെട്ടെന്നുണ്ടായ സംഭവത്തെ സൂചിപ്പിക്കാൻ ശരിയായ വാക്ക് തിരഞ്ഞെടുക്കുക: \"_____, electricity പോയി, മുറി മുഴുവൻ ഇരുട്ടിലായി.\"",
       "options": [
-        "A) have completed",
-        "B) has completed",
-        "C) completed",
-        "D) completes"
+        "A) First",
+        "B) Usually",
+        "C) Rarely",
+        "D) Suddenly"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 3,
-      "question": "He __________ his room keys and cannot enter now.",
-      "questionMl": "അവന് അവന്റെ മുറിയുടെ താക്കോൽ നഷ്ടപ്പെട്ടു (അതുകൊണ്ട് ഇപ്പോൾ കയറാൻ കഴിയുന്നില്ല).",
+      "question": "Complete the story: \"We searched for the lost keys everywhere. _____, my brother found them under the sofa.\"",
+      "questionMl": "കഥ പൂർത്തിയാക്കുക: \"ഞങ്ങൾ താക്കോൽ എല്ലായിടത്തും തിരഞ്ഞു. ഒടുവിൽ എന്റെ സഹോദരൻ അത് സോഫയുടെ അടിയിൽ കണ്ടെത്തി.\"",
       "options": [
-        "A) has lost",
-        "B) have lost",
-        "C) lost",
-        "D) lose"
+        "A) Finally",
+        "B) First",
+        "C) Suddenly",
+        "D) Yesterday"
       ],
       "correctIndex": 0
     },
     {
       "id": 4,
-      "question": "We __________ in this city for five years.",
-      "questionMl": "ഞങ്ങൾ അഞ്ച് വർഷമായി ഈ നഗരത്തിലാണ് താമസിക്കുന്നത്.",
+      "question": "Which sequence word shows what happened immediately after the first event?",
+      "questionMl": "ആദ്യത്തെ സംഭവത്തിന് തൊട്ടുപിന്നാലെ എന്ത് സംഭവിച്ചു എന്ന് കാണിക്കാൻ ഉപയോഗിക്കുന്ന വാക്ക് ഏതാണ്?",
       "options": [
-        "A) has lived",
-        "B) have lived",
-        "C) lived",
-        "D) live"
+        "A) Finally",
+        "B) Then",
+        "C) Last year",
+        "D) In conclusion"
       ],
       "correctIndex": 1
     },
     {
       "id": 5,
-      "question": "They __________ already had their lunch.",
-      "questionMl": "അവർ ഇതിനകം അവരുടെ ഉച്ചഭക്ഷണം കഴിച്ചു കഴിഞ്ഞു.",
+      "question": "Fill in the blank with the correct past tense: \"Last Sunday, we _____ an adventurous road trip to Wayanad.\"",
+      "questionMl": "ശരിയായ ഭൂതകാല ക്രിയ ഉപയോഗിക്കുക: \"കഴിഞ്ഞ ഞായറാഴ്ച ഞങ്ങൾ വയനാട്ടിലേക്ക് ഒരു യാത്ര പോയി.\"",
       "options": [
-        "A) has",
-        "B) have",
-        "C) did",
-        "D) are"
+        "A) take",
+        "B) taken",
+        "C) took",
+        "D) takes"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 6,
-      "question": "I __________ that movie before.",
-      "questionMl": "ഞാൻ ആ സിനിമ മുൻപ് കണ്ടിട്ടുണ്ട്.",
+      "question": "Complete the sentence: \"The bus broke down on the highway, but _____, a mechanic was nearby.\"",
+      "questionMl": "ഭാഗ്യകരമായ ഒരു വഴിത്തിരിവ് കാണിക്കാൻ ശരിയായ വാക്ക് ഏതാണ്: \"ഹൈവേയിൽ ബസ് കേടായി, പക്ഷേ ഭാഗ്യവശാൽ ഒരു മെക്കാനിക്ക് അടുത്തുണ്ടായിരുന്നു.\"",
       "options": [
-        "A) has seen",
-        "B) have seen",
-        "C) saw",
-        "D) see"
+        "A) unfortunately",
+        "B) slowly",
+        "C) finally",
+        "D) luckily"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 7,
-      "question": "I have __________ traveled by airplane.",
-      "questionMl": "ഞാൻ ഒരിക്കലും വിമാനത്തിൽ യാത്ര ചെയ്തിട്ടില്ല.",
+      "question": "What does the sequence phrase \"After that\" indicate in storytelling?",
+      "questionMl": "കഥ പറയുമ്പോൾ \"After that\" എന്ന പ്രയോഗം എന്തിനെയാണ് സൂചിപ്പിക്കുന്നത്?",
       "options": [
-        "A) ever",
-        "B) never",
-        "C) yet",
-        "D) already"
+        "A) The next subsequent event",
+        "B) The opening event",
+        "C) The end of the story",
+        "D) A sudden accident"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 8,
-      "question": "__________ you ever visited Munnar?",
-      "questionMl": "നിങ്ങൾ എപ്പോഴെങ്കിലും മൂന്നാർ സന്ദർശിച്ചിട്ടുണ്ടോ?",
+      "question": "Choose the correct sentence describing a childhood memory:",
+      "questionMl": "കുട്ടിക്കാലത്തെ ഒരു ഓർമ്മയെ ശരിയായി വിവരിക്കുന്ന വാക്യം ഏതാണ്?",
       "options": [
-        "A) Has",
-        "B) Have",
-        "C) Did",
-        "D) Do"
+        "A) When I am a child, I visit my grandparents.",
+        "B) When I was a child, I visited my grandparents every summer.",
+        "C) When I was a child, I will visit my grandparents.",
+        "D) When I was a child, I visiting my grandparents."
       ],
       "correctIndex": 1
     },
     {
       "id": 9,
-      "question": "She has not finished the project __________.",
-      "questionMl": "അവൾ ഇതുവരെ പ്രോജക്റ്റ് പൂർത്തിയാക്കിയിട്ടില്ല.",
+      "question": "Fill in the blank: \"First, I heard a strange noise outside. _____, I opened the front door to check.\"",
+      "questionMl": "കഥയിലെ തുടർച്ച കാണിക്കാൻ വിടവ് പൂരിപ്പിക്കുക: \"ആദ്യം ഞാൻ പുറത്ത് വിചിത്രമായ ഒരു ശബ്ദം കേട്ടു. പിന്നീട് ഞാൻ മുൻവാതിൽ തുറന്നു നോക്കി.\"",
       "options": [
-        "A) already",
-        "B) yet",
-        "C) just",
-        "D) never"
+        "A) Finally",
+        "B) At last",
+        "C) Then",
+        "D) Never"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 10,
-      "question": "He has __________ arrived at the office; he is at his desk now.",
-      "questionMl": "അവൻ ഇപ്പോൾ മാത്രമാണ് ഓഫീസിൽ എത്തിയത്; അവൻ ഇപ്പോൾ സീറ്റിലുണ്ട്.",
+      "question": "Which sentence correctly uses simple past to describe an unexpected event?",
+      "questionMl": "അപ്രതീക്ഷിതമായ ഒരു സംഭവത്തെ ലളിതമായ ഭൂതകാലത്തിൽ ശരിയായി പറയുന്ന വാക്യം ഏതാണ്?",
       "options": [
-        "A) yet",
-        "B) just",
-        "C) never",
-        "D) ever"
+        "A) A cat suddenly jumps in front of my car.",
+        "B) A cat suddenly jumping in front of my car.",
+        "C) A cat suddenly has jump in front of my car.",
+        "D) A cat suddenly jumped in front of my car."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 11,
-      "question": "I have lived here __________ 2020.",
-      "questionMl": "ഞാൻ 2020 മുതൽ ഇവിടെ താമസിക്കുന്നു.",
+      "question": "Complete the dialogue: \"How did your weekend trip go?\" - \"_____ we missed the train, but we caught the next one.\"",
+      "questionMl": "സംഭാഷണം പൂർത്തിയാക്കുക: \"ആദ്യം ഞങ്ങൾക്ക് ട്രെയിൻ മിസ്സായി, പക്ഷേ ഞങ്ങൾ അടുത്ത ട്രെയിൻ പിടിച്ചു.\"",
       "options": [
-        "A) for",
-        "B) since",
-        "C) ago",
-        "D) from"
+        "A) At first",
+        "B) Finally",
+        "C) Always",
+        "D) After"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 12,
-      "question": "We have been friends __________ ten years.",
-      "questionMl": "ഞങ്ങൾ പത്ത് വർഷമായി സുഹൃത്തുക്കളാണ്.",
+      "question": "Which word means an amusing or humorous event that happened to you?",
+      "questionMl": "രസകരമായ അല്ലെങ്കിൽ ചിരിയുണർത്തുന്ന ഒരു അനുഭവത്തെ സൂചിപ്പിക്കുന്ന വാക്ക് ഏതാണ്?",
       "options": [
-        "A) since",
-        "B) for",
-        "C) ago",
-        "D) before"
+        "A) Tragedy",
+        "B) Funny incident",
+        "C) Scheduled meeting",
+        "D) Career milestone"
       ],
       "correctIndex": 1
     },
     {
       "id": 13,
-      "question": "How long __________ you learned English?",
-      "questionMl": "എത്ര കാലമായി നിങ്ങൾ ഇംഗ്ലീഷ് പഠിക്കുന്നു?",
+      "question": "Fill in the blank: \"We walked for three hours in the forest. _____, we reached the beautiful waterfall.\"",
+      "questionMl": "ഒടുവിൽ ലക്ഷ്യസ്ഥാനത്ത് എത്തിച്ചേർന്നതിനെ സൂചിപ്പിക്കുന്ന വാക്ക് ഏതാണ്?",
       "options": [
-        "A) has",
-        "B) have",
-        "C) did",
-        "D) do"
+        "A) Suddenly",
+        "B) First",
+        "C) Eventually",
+        "D) Tomorrow"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 14,
-      "question": "I haven't completed the assignment __________.",
-      "questionMl": "ഞാൻ ഈ അസൈൻമെന്റ് ഇതുവരെ പൂർത്തിയാക്കിയിട്ടില്ല.",
+      "question": "Complete the story sentence: \"While playing cricket in the rain, my friend _____ and dropped the ball.\"",
+      "questionMl": "മഴയത്ത് കളിക്കുന്നതിനിടയിൽ സുഹൃത്ത് തെന്നിവീണതിനെ ഭൂതകാലത്തിൽ പറയുക:",
       "options": [
-        "A) already",
-        "B) yet",
-        "C) just",
-        "D) ever"
+        "A) slips",
+        "B) slipping",
+        "C) has slip",
+        "D) slipped"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 15,
-      "question": "Have you __________ eaten Chinese food?",
-      "questionMl": "നിങ്ങൾ എപ്പോഴെങ്കിലും ചൈനീസ് ഭക്ഷണം കഴിച്ചിട്ടുണ്ടോ?",
+      "question": "What is the past tense of the irregular verb 'lose' when talking about a lost wallet?",
+      "questionMl": "നഷ്ടപ്പെട്ടു എന്ന് പറയാൻ 'lose' എന്ന ക്രിയയുടെ ശരിയായ ഭൂതകാല രൂപം ഏതാണ്?",
       "options": [
-        "A) never",
-        "B) ever",
-        "C) yet",
-        "D) since"
+        "A) lost",
+        "B) losed",
+        "C) loosen",
+        "D) losing"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 16,
-      "question": "She __________ just left the meeting room.",
-      "questionMl": "അവൾ ഇപ്പോൾ മാത്രമാണ് മീറ്റിംഗ് റൂമിൽ നിന്ന് പോയത്.",
+      "question": "Complete the sentence: \"Luckily, an honest person _____ my wallet and returned it.\"",
+      "questionMl": "ഭാഗ്യവശാൽ ഒരാൾ എന്റെ വാലറ്റ് കണ്ടെത്തുകയും അത് തിരികെ നൽകുകയും ചെയ്തു:",
       "options": [
-        "A) have",
-        "B) has",
-        "C) is",
-        "D) did"
+        "A) find",
+        "B) found",
+        "C) finds",
+        "D) finding"
       ],
       "correctIndex": 1
     },
     {
       "id": 17,
-      "question": "They have __________ all the milestones so far.",
-      "questionMl": "അവർ ഇതുവരെയുള്ള എല്ലാ ലക്ഷ്യങ്ങളും കൈവരിച്ചിട്ടുണ്ട്.",
+      "question": "Which expression is commonly used to bring a short story to an end?",
+      "questionMl": "കഥ അവസാനിപ്പിക്കുമ്പോൾ സാധാരണയായി ഉപയോഗിക്കുന്ന പ്രയോഗം ഏതാണ്?",
       "options": [
-        "A) achieve",
-        "B) achieved",
-        "C) achieving",
-        "D) achieves"
+        "A) To begin with",
+        "B) In the beginning",
+        "C) In the end",
+        "D) Suddenly"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 18,
-      "question": "I have __________ this book many times.",
-      "questionMl": "ഞാൻ ഈ പുസ്തകം പലതവണ വായിച്ചിട്ടുണ്ട്.",
+      "question": "Fill in the blank: \"We packed our bags, loaded the car, and _____ set off on our holiday.\"",
+      "questionMl": "യാത്ര പുറപ്പെട്ടതിനെ സൂചിപ്പിക്കാൻ ശരിയായ വാക്ക്: \"ഞങ്ങൾ ബാഗുകൾ പാക്ക് ചെയ്തു, ഒടുവിൽ യാത്ര തിരിച്ചു.\"",
       "options": [
-        "A) readed",
-        "B) read (V3)",
-        "C) reading",
-        "D) reads"
+        "A) suddenly",
+        "B) usually",
+        "C) rarely",
+        "D) finally"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 19,
-      "question": "Identify the correct past participle (V3) form of 'see':",
-      "questionMl": "'see' എന്ന ക്രിയയുടെ ശരിയായ പാസ്റ്റ് പാർട്ടിസിപ്പിൾ (V3) രൂപം ഏതാണ്?",
+      "question": "Which question is best to ask a friend to hear their travel story?",
+      "questionMl": "സുഹൃത്തിന്റെ യാത്രാനുഭവത്തെക്കുറിച്ച് ചോദിക്കാൻ ഏറ്റവും അനുയോജ്യമായ ചോദ്യം ഏതാണ്?",
       "options": [
-        "A) saw",
-        "B) seen",
-        "C) seeing",
-        "D) sees"
+        "A) What did you do on your holiday trip?",
+        "B) What do you do tomorrow?",
+        "C) What are you doing now?",
+        "D) What will you do next year?"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "Identify the mistake: \"I have saw that movie before.\"",
-      "questionMl": "തെറ്റ് തിരിച്ചറിയുക: \"I have saw that movie before.\"",
+      "question": "Complete the story: \"The lights flickered, the wind howled, and _____ a loud thunder shook the windows.\"",
+      "questionMl": "അപ്രതീക്ഷിതമായി വലിയ ഇടിമിന്നലുണ്ടായതിനെ സൂചിപ്പിക്കാൻ ശരിയായ വാക്ക് ഏതാണ്?",
       "options": [
-        "A) before",
-        "B) saw",
-        "C) have",
-        "D) movie"
+        "A) slowly",
+        "B) suddenly",
+        "C) first",
+        "D) politely"
       ],
       "correctIndex": 1
     },
     {
       "id": 21,
-      "question": "Identify the mistake: \"She has went to London last year.\"",
-      "questionMl": "തെറ്റ് തിരിച്ചറിയുക: \"She has went to London last year.\" (കഴിഞ്ഞ വർഷം എന്ന് വ്യക്തമാക്കിയതിനാൽ സിമ്പിൾ പാസ്റ്റ് ആണ് വേണ്ടത്).",
+      "question": "Choose the correct past tense sentence describing a reunion:",
+      "questionMl": "സ്കൂൾ അധ്യാപകനെ കണ്ടുമുട്ടിയതിനെ സൂചിപ്പിക്കുന്ന ശരിയായ ഭൂതകാല വാക്യം ഏതാണ്?",
       "options": [
-        "A) went",
-        "B) has",
-        "C) London",
-        "D) Both A and B"
+        "A) We meet our school teacher yesterday.",
+        "B) We are meet our school teacher last week.",
+        "C) We met our school teacher after ten years.",
+        "D) We meeting our school teacher two days ago."
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": 22,
+      "question": "Fill in the blank: \"First we bought the tickets, _____ we went inside the cinema hall.\"",
+      "questionMl": "ആദ്യം ഞങ്ങൾ ടിക്കറ്റ് വാങ്ങി, പിന്നീട് സിനിമ ഹാളിനുള്ളിലേക്ക് കയറി:",
+      "options": [
+        "A) sudden",
+        "B) at first",
+        "C) before",
+        "D) then"
       ],
       "correctIndex": 3
     },
     {
-      "id": 22,
-      "question": "Correct the sentence: \"I have lived here since five years.\"",
-      "questionMl": "വാക്യം ശരിയാക്കുക: \"I have lived here since five years.\"",
+      "id": 23,
+      "question": "How do you describe a funny school memory in the past tense?",
+      "questionMl": "സ്കൂൾ കാലത്തെ ഒരു രസകരമായ അനുഭവം പങ്കുവെക്കുന്ന ശരിയായ വാക്യം ഏതാണ്?",
       "options": [
-        "A) I have lived here for five years.",
-        "B) I lived here since five years.",
-        "C) I have live here for five years.",
-        "D) I am living here since five years."
+        "A) One day during lunch break, my friend mistakenly drank salt water.",
+        "B) One day my friend will drink salt water.",
+        "C) One day my friend is drinking salt water tomorrow.",
+        "D) One day during lunch break, my friend mistakenly drink salt water."
       ],
       "correctIndex": 0
     },
     {
-      "id": 23,
-      "question": "\"So far\" is a common time expression used with:",
-      "questionMl": "\"So far\" (ഇതുവരെ) എന്ന പ്രയോഗം ഏത് ടെൻസിനൊപ്പമാണ് സാധാരണയായി ഉപയോഗിക്കുന്നത്?",
-      "options": [
-        "A) Simple Past Tense",
-        "B) Present Perfect Tense",
-        "C) Future Tense",
-        "D) Simple Present Tense"
-      ],
-      "correctIndex": 1
-    },
-    {
       "id": 24,
-      "question": "They __________ bought a new house recently.",
-      "questionMl": "അവർ ഈയടുത്ത് ഒരു പുതിയ വീട് വാങ്ങിയിട്ടുണ്ട്.",
+      "question": "Complete the sentence: \"The dog barked loudly, and _____ the thief jumped over the wall and escaped.\"",
+      "questionMl": "പട്ടി കുരച്ച ഉടൻ തന്നെ കള്ളൻ മതിൽ ചാടി രക്ഷപ്പെട്ടു:",
       "options": [
-        "A) has",
-        "B) have",
-        "C) did",
-        "D) are"
+        "A) yesterday",
+        "B) immediately",
+        "C) never",
+        "D) always"
       ],
       "correctIndex": 1
     },
     {
       "id": 25,
-      "question": "He __________ not updated his profile yet.",
-      "questionMl": "അവൻ ഇതുവരെ അവന്റെ പ്രൊഫൈൽ പുതുക്കിയിട്ടില്ല.",
+      "question": "What is the best response when someone tells an exciting story?",
+      "questionMl": "ഒരാൾ രസകരമായ ഒരു കഥ പറഞ്ഞു കേൾപ്പിക്കുമ്പോൾ നൽകാൻ അനുയോജ്യമായ മറുപടി ഏതാണ്?",
       "options": [
-        "A) have",
-        "B) has",
-        "C) is",
-        "D) did"
+        "A) What is your name?",
+        "B) I am going home tomorrow.",
+        "C) That sounds like an amazing experience!",
+        "D) Please do this work now."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 26,
-      "question": "Has she __________ spoken to the manager about her leave?",
-      "questionMl": "അവൾ എപ്പോഴെങ്കിലും തന്റെ അവധിയെക്കുറിച്ച് മാനേജറോട് സംസാരിച്ചിട്ടുണ്ടോ?",
+      "question": "Identify the grammatical error in this storytelling sentence: \"First he woke up, then he washes his face.\"",
+      "questionMl": "ഈ വാക്യത്തിലെ വ്യാകരണപരമായ തെറ്റ് കണ്ടെത്തുക: \"First he woke up, then he washes his face.\"",
       "options": [
-        "A) ever",
-        "B) never",
-        "C) yet",
-        "D) since"
+        "A) 'woke up' is wrong",
+        "B) 'then' is wrong",
+        "C) 'he' is wrong",
+        "D) 'washes' should be 'washed'"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": 27,
+      "question": "Complete the sentence: \"_____ we arrived at the airport, we realized we forgot our passports at home.\"",
+      "questionMl": "എയർപോർട്ടിൽ എത്തിയപ്പോഴാണ് പാസ്‌പോർട്ട് വീട്ടിൽ മറന്നുവെച്ച കാര്യം ഓർത്തത്:",
+      "options": [
+        "A) When",
+        "B) First",
+        "C) Suddenly",
+        "D) Finally"
       ],
       "correctIndex": 0
     },
     {
-      "id": 27,
-      "question": "I __________ never experienced anything like this before.",
-      "questionMl": "ഞാൻ മുൻപൊരിക്കലും ഇതുപോലൊന്ന് അനുഭവിച്ചിട്ടില്ല.",
-      "options": [
-        "A) has",
-        "B) have",
-        "C) am",
-        "D) did"
-      ],
-      "correctIndex": 1
-    },
-    {
       "id": 28,
-      "question": "Choose the correct V3 form for the verb 'write':",
-      "questionMl": "'write' എന്ന ക്രിയയുടെ ശരിയായ V3 രൂപം തിരഞ്ഞെടുക്കുക:",
+      "question": "Choose the correct connector: \"We missed our flight; _____, the airline booked us on the evening flight without extra charge.\"",
+      "questionMl": "ഞങ്ങൾക്ക് ഫ്ലൈറ്റ് മിസ്സായി; ഭാഗ്യവശാൽ എയർലൈൻ അടുത്ത ഫ്ലൈറ്റിൽ അധിക ചാർജില്ലാതെ ടിക്കറ്റ് നൽകി:",
       "options": [
-        "A) wrote",
-        "B) written",
-        "C) writing",
-        "D) writes"
+        "A) suddenly",
+        "B) fortunately",
+        "C) first",
+        "D) yesterday"
       ],
       "correctIndex": 1
     },
     {
       "id": 29,
-      "question": "We have __________ finished the presentation.",
-      "questionMl": "ഞങ്ങൾ ഇതിനകം പ്രസന്റേഷൻ പൂർത്തിയാക്കിക്കഴിഞ്ഞു.",
+      "question": "Complete the narrative: \"The examination was very tough, but _____ all my classmates passed with good marks.\"",
+      "questionMl": "പരീക്ഷ വളരെ കഠിനമായിരുന്നു, എങ്കിലും അവസാനം എല്ലാ കൂട്ടുകാരും നല്ല മാർക്കോടെ വിജയിച്ചു:",
       "options": [
-        "A) already",
-        "B) yet",
-        "C) ever",
-        "D) since"
+        "A) first",
+        "B) suddenly",
+        "C) in the end",
+        "D) right now"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 30,
-      "question": "Which sentence indicates a past action with a result that matters right now?",
-      "questionMl": "ഭൂതകാലത്തിൽ നടന്നതും എന്നാൽ ഫലം നിലവിലുമുള്ള ഒരു പ്രവൃത്തിയെ സൂചിപ്പിക്കുന്ന വാക്യം ഏതാണ്?",
+      "question": "Which sentence correctly uses past sequence markers?",
+      "questionMl": "സംഭവങ്ങളുടെ ക്രമം ശരിയായി വ്യക്തമാക്കുന്ന വാക്യം ഏതാണ്?",
       "options": [
-        "A) I lost my key yesterday.",
-        "B) I have lost my key.",
-        "C) I will lose my key.",
-        "D) I lose my key daily."
+        "A) First I call customer care, and after that they resolve.",
+        "B) First I calling customer care, and then they resolving.",
+        "C) First I have called, and after that they resolve.",
+        "D) First I called the customer care, and after that they resolved my issue."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     }
   ],
   "17": [
     {
       "id": 1,
-      "question": "I __________ buy a new laptop tomorrow because my old one broke.",
-      "questionMl": "എന്റെ പഴയത് കേടായതുകൊണ്ട് ഞാൻ നാളെ ഒരു പുതിയ ലാപ്ടോപ്പ് വാങ്ങാൻ പോവുകയാണ്.",
+      "question": "What is the basic grammatical structure of the Past Continuous Tense?",
+      "questionMl": "പാസ്റ്റ് കണ്ടിന്യൂവസ് ടെൻസിന്റെ (Past Continuous Tense) അടിസ്ഥാന വാക്യ ഘടന എന്താണ്?",
       "options": [
-        "A) will to",
-        "B) going to",
-        "C) am going to",
-        "D) will going to"
+        "A) Subject + was/were + verb-ing",
+        "B) Subject + is/are + verb-ing",
+        "C) Subject + will be + verb-ing",
+        "D) Subject + has been + verb-ing"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "I think it __________ rain heavily tonight; the clouds are very dark.",
-      "questionMl": "ഇന്ന് രാത്രി മഴ പെയ്യുമെന്ന് ഞാൻ കരുതുന്നു.",
+      "question": "Which helping verb is used with singular subjects (I, He, She, It) in Past Continuous?",
+      "questionMl": "ഏകവചന സബ്ജക്റ്റുകൾക്കൊപ്പം (I, He, She, It) പാസ്റ്റ് കണ്ടിന്യൂവസിൽ ഉപയോഗിക്കുന്ന സഹായക്രിയ ഏതാണ്?",
       "options": [
-        "A) is going",
-        "B) will",
-        "C) am to",
-        "D) going to"
+        "A) were",
+        "B) was",
+        "C) is",
+        "D) are"
       ],
       "correctIndex": 1
     },
     {
       "id": 3,
-      "question": "She __________ start a new business venture next month.",
-      "questionMl": "അവൾ അടുത്ത മാസം ഒരു പുതിയ ബിസിനസ്സ് തുടങ്ങാൻ പോവുകയാണ്.",
+      "question": "Which helping verb is used with plural subjects (We, You, They) in Past Continuous?",
+      "questionMl": "ബഹുവചന സബ്ജക്റ്റുകൾക്കൊപ്പം (We, You, They) പാസ്റ്റ് കണ്ടിന്യൂവസിൽ ഉപയോഗിക്കുന്ന സഹായക്രിയ ഏതാണ്?",
       "options": [
-        "A) is going to",
-        "B) will to",
-        "C) going to",
-        "D) am going to"
+        "A) was",
+        "B) are",
+        "C) were",
+        "D) have"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": 4,
+      "question": "Fill in the blank: \"I _____ dinner when the doorbell rang.\"",
+      "questionMl": "കോളിംഗ് ബെൽ അടിച്ചപ്പോൾ ഞാൻ ഭക്ഷണം പാകം ചെയ്യുകയായിരുന്നു:",
+      "options": [
+        "A) were cooking",
+        "B) am cooking",
+        "C) cook",
+        "D) was cooking"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": 5,
+      "question": "Complete the sentence: \"While they _____ along the road, it started raining heavily.\"",
+      "questionMl": "അവർ റോഡിലൂടെ നടക്കുമ്പോൾ കനത്ത മഴ പെയ്യാൻ തുടങ്ങി:",
+      "options": [
+        "A) were walking",
+        "B) was walking",
+        "C) are walking",
+        "D) walked"
       ],
       "correctIndex": 0
     },
     {
-      "id": 4,
-      "question": "Don't worry about the load, we __________ help you with this heavy project.",
-      "questionMl": "വിഷമിക്കേണ്ട, ഞങ്ങൾ ഈ വലിയ പ്രോജക്റ്റിൽ നിങ്ങളെ സഹായിക്കാം.",
-      "options": [
-        "A) going to",
-        "B) will",
-        "C) am going to",
-        "D) are going"
-      ],
-      "correctIndex": 1
-    },
-    {
-      "id": 5,
-      "question": "They __________ travel to Dubai next week for vacation.",
-      "questionMl": "അവർ അടുത്ത ആഴ്ച ദുബായിലേക്ക് യാത്ര ചെയ്യാൻ പോവുകയാണ്.",
-      "options": [
-        "A) will to",
-        "B) are going to",
-        "C) going to",
-        "D) is going to"
-      ],
-      "correctIndex": 1
-    },
-    {
       "id": 6,
-      "question": "I promise I __________ call you as soon as I reach home safely.",
-      "questionMl": "ഞാൻ വീട്ടിലെത്തുമ്പോൾ നിന്നെ വിളിക്കാം എന്ന് വാഗ്ദാനം ചെയ്യുന്നു.",
+      "question": "Fill in the blank: \"What _____ you doing at 8 PM yesterday evening?\"",
+      "questionMl": "\"ഇന്നലെ വൈകുന്നേരം 8 മണിക്ക് നിങ്ങൾ എന്തെടുക്കുകയായിരുന്നു?\" എന്ന് ചോദിക്കാൻ:",
       "options": [
-        "A) am going to",
-        "B) will",
-        "C) going to",
-        "D) to will"
+        "A) was",
+        "B) were",
+        "C) did",
+        "D) are"
       ],
       "correctIndex": 1
     },
     {
       "id": 7,
-      "question": "What __________ you doing next weekend?",
-      "questionMl": "അടുത്ത വാരാന്ത്യത്തിൽ നിങ്ങൾ എന്താണ് ചെയ്യുന്നത്?",
+      "question": "Complete the sentence: \"The students _____ quietly when the principal entered the classroom.\"",
+      "questionMl": "പ്രിൻസിപ്പൽ ക്ലാസ്സിലേക്ക് വന്നപ്പോൾ കുട്ടികൾ പഠിക്കുകയായിരുന്നു:",
       "options": [
-        "A) will",
-        "B) are",
-        "C) going to",
-        "D) do"
+        "A) was studying",
+        "B) is studying",
+        "C) were studying",
+        "D) studied"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 8,
-      "question": "We __________ planning to shift our office next year.",
-      "questionMl": "ഞങ്ങൾ അടുത്ത വർഷം ഓഫീസ് മാറ്റാൻ പദ്ധതിയിടുന്നു.",
+      "question": "Which conjunction is typically followed by a continuous ongoing action in the past?",
+      "questionMl": "മുൻപ് നടന്നുകൊണ്ടിരുന്ന ഒരു പ്രവർത്തിക്ക് മുമ്പായി സാധാരണയായി ഉപയോഗിക്കുന്ന കൺജങ്ഷൻ ഏതാണ്?",
       "options": [
-        "A) will",
-        "B) are",
-        "C) going to",
-        "D) am"
+        "A) Soon",
+        "B) Yesterday",
+        "C) Tomorrow",
+        "D) While"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 9,
-      "question": "I __________ attend a crucial job interview tomorrow morning.",
-      "questionMl": "ഞാൻ നാളെ രാവിലെ ഒരു ജോബ് ഇന്റർവ്യൂവിൽ പങ്കെടുക്കാൻ പോവുകയാണ്.",
+      "question": "Fill in the blank: \"She _____ television when the power went out.\"",
+      "questionMl": "വൈദ്യുതി നിലച്ചപ്പോൾ അവൾ ടിവി കാണുകയായിരുന്നു:",
       "options": [
-        "A) am going to",
-        "B) will to",
-        "C) going to",
-        "D) are going to"
+        "A) was watching",
+        "B) were watching",
+        "C) watched",
+        "D) is watching"
       ],
       "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "\"Will you be free in the evening?\" — \"Yes, I __________.\"",
-      "questionMl": "\"നിങ്ങൾ വൈകുന്നേരം ഫ്രീ ആയിരിക്കുമോ?\" — \"അതെ.\"",
+      "question": "Complete the question: \"_____ he sleeping when you called him yesterday?\"",
+      "questionMl": "\"ഇന്നലെ നീ വിളിച്ചപ്പോൾ അവൻ ഉറങ്ങുകയായിരുന്നോ?\" എന്ന് ചോദിക്കാൻ:",
       "options": [
-        "A) am free",
-        "B) will",
-        "C) going to",
-        "D) do"
+        "A) Were",
+        "B) Was",
+        "C) Did",
+        "D) Is"
       ],
       "correctIndex": 1
     },
     {
       "id": 11,
-      "question": "Which structure is commonly used for spontaneous instant decisions?",
-      "questionMl": "പെട്ടെന്നുള്ള തീരുമാനങ്ങൾ പ്രകടിപ്പിക്കാൻ സാധാരണയായി ഉപയോഗിക്കുന്ന ഘടന ഏതാണ്?",
+      "question": "Choose the correct negative sentence in Past Continuous:",
+      "questionMl": "പാസ്റ്റ് കണ്ടിന്യൂവസിലെ ശരിയായ നിഷേധാത്മക (negative) വാക്യം ഏതാണ്?",
       "options": [
-        "A) Subject + am/is/are + going to",
-        "B) Subject + will + Verb (Base Form)",
-        "C) Subject + V2",
-        "D) Subject + have/has + V3"
-      ],
-      "correctIndex": 1
-    },
-    {
-      "id": 12,
-      "question": "Correct the mistake: \"I going to buy a car soon.\"",
-      "questionMl": "ഈ തെറ്റ് തിരുത്തുക: \"I going to buy a car soon.\"",
-      "options": [
-        "A) I will to buy a car soon.",
-        "B) I am going to buy a car soon.",
-        "C) I going buy a car soon.",
-        "D) I am will buy a car soon."
-      ],
-      "correctIndex": 1
-    },
-    {
-      "id": 13,
-      "question": "Correct the error sentence: \"I will to help you tomorrow.\"",
-      "questionMl": "തെറ്റായ ഈ വാചകം ശരിയാക്കുക: \"I will to help you tomorrow.\"",
-      "options": [
-        "A) I will helping you tomorrow.",
-        "B) I am will help you tomorrow.",
-        "C) I will help you tomorrow.",
-        "D) I going to help you tomorrow."
+        "A) I were not listening to music at that time.",
+        "B) I did not listening to music at that time.",
+        "C) I was not listening to music at that time.",
+        "D) I was not listen to music at that time."
       ],
       "correctIndex": 2
     },
     {
-      "id": 14,
-      "question": "Fix the following preference error: \"Next week I am go to Kochi.\"",
-      "questionMl": "ഈ തെറ്റ് തിരുത്തുക: \"Next week I am go to Kochi.\"",
+      "id": 12,
+      "question": "Fill in the blank: \"While my mother was cooking, my father _____ the newspaper.\"",
+      "questionMl": "ഒരേ സമയം രണ്ട് കാര്യങ്ങൾ നടന്നുകൊണ്ടിരുന്നതിനെ സൂചിപ്പിക്കാൻ: \"അമ്മ പാചകം ചെയ്യുമ്പോൾ അച്ഛൻ പത്രം വായിക്കുകയായിരുന്നു.\"",
       "options": [
-        "A) Next week I am going to Kochi.",
-        "B) Next week I will going to Kochi.",
-        "C) Next week I will to go Kochi.",
-        "D) Next week I go to Kochi."
+        "A) were reading",
+        "B) readed",
+        "C) is reading",
+        "D) was reading"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": 13,
+      "question": "Complete the sentence: \"We _____ for the bus when the accident happened.\"",
+      "questionMl": "അപകടം നടക്കുമ്പോൾ ഞങ്ങൾ ബസിനായി കാത്തുനിൽക്കുകയായിരുന്നു:",
+      "options": [
+        "A) were waiting",
+        "B) was waiting",
+        "C) waited",
+        "D) are waiting"
       ],
       "correctIndex": 0
     },
     {
-      "id": 15,
-      "question": "What is the Malayalam meaning of the vocabulary word \"Tomorrow\"?",
-      "questionMl": "\"Tomorrow\" എന്ന വാക്കിന്റെ മലയാളം അർത്ഥം എന്താണ്?",
+      "id": 14,
+      "question": "Fill in the blank: \"The phone rang while I _____ a shower.\"",
+      "questionMl": "ഞാൻ കുളിച്ചുകൊണ്ടിരിക്കുമ്പോഴാണ് ഫോൺ റിംഗ് ചെയ്തത്:",
       "options": [
-        "A) ഇന്നലെ",
-        "B) ഇന്ന് രാത്രി",
-        "C) നാളെ",
-        "D) അടുത്ത ആഴ്ച"
+        "A) were taking",
+        "B) was taking",
+        "C) took",
+        "D) am taking"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 15,
+      "question": "Choose the grammatically correct question:",
+      "questionMl": "നിങ്ങൾ അവളെ കണ്ടപ്പോൾ അവൾ എന്തെടുക്കുകയായിരുന്നു എന്ന് ചോദിക്കുന്ന ശരിയായ വാക്യം ഏതാണ്?",
+      "options": [
+        "A) What were she doing when you saw her?",
+        "B) What did she doing when you saw her?",
+        "C) What was she doing when you saw her?",
+        "D) What is she doing yesterday?"
       ],
       "correctIndex": 2
     },
     {
       "id": 16,
-      "question": "What does the expression \"Someday\" stand for in Malayalam?",
-      "questionMl": "\"Someday\" എന്ന പ്രയോഗം മലയാളത്തിൽ എന്തിനെയാണ് സൂചിപ്പിക്കുന്നത്?",
+      "question": "Complete the sentence: \"My laptop battery died while I _____ the office report.\"",
+      "questionMl": "ഓഫീസിലെ റിപ്പോർട്ട് എഴുതിക്കൊണ്ടിരിക്കുമ്പോഴാണ് ലാപ്ടോപ്പിന്റെ ബാറ്ററി തീർന്നത്:",
       "options": [
-        "A) ഇന്ന്",
-        "B) എപ്പോഴെങ്കിലും / എന്നെങ്കിലും",
-        "C) കൃത്യസമയത്ത്",
-        "D) ഒരിക്കലും ഇല്ല"
+        "A) were writing",
+        "B) wrote",
+        "C) is writing",
+        "D) was writing"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 17,
-      "question": "Translate the useful pattern: \"ഞാൻ ചെയ്യാൻ പദ്ധതിയിടുന്നു\"",
-      "questionMl": "\"ഞാൻ ചെയ്യാൻ പദ്ധതിയിടുന്നു\" എന്ന വാചകത്തിന്റെ ശരിയായ ഇംഗ്ലീഷ് രൂപം ഏതാണ്?",
+      "question": "Fill in the blank: \"They _____ football in the ground when it suddenly began to storm.\"",
+      "questionMl": "പെട്ടെന്ന് കൊടുങ്കാറ്റ് ഉണ്ടായപ്പോൾ അവർ ഗ്രൗണ്ടിൽ ഫുട്ബോൾ കളിക്കുകയായിരുന്നു:",
       "options": [
-        "A) I think I will...",
-        "B) We are planning to...",
-        "C) I promise I will...",
-        "D) What are you doing?"
+        "A) were playing",
+        "B) was playing",
+        "C) played",
+        "D) are playing"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 18,
-      "question": "\"Right away\" means:",
-      "questionMl": "\"Right away\" എന്ന പ്രയോഗത്തിന്റെ അർത്ഥം എന്താണ്?",
+      "question": "Which sentence correctly describes an interrupted past action?",
+      "questionMl": "ഒരു പ്രവർത്തിക്കിടയിൽ മറ്റൊരു തടസ്സം ഉണ്ടായതിനെ ശരിയായി വിവരിക്കുന്ന വാക്യം ഏതാണ്?",
       "options": [
-        "A) പിന്നീട് ചെയ്യാം",
-        "B) ഇപ്പോൾത്തന്നെ / ഉടൻ തന്നെ",
-        "C) വളരെ ദൂരെയാണ്",
-        "D) വഴി തെറ്റി"
+        "A) I drove to the supermarket when my tire was puncturing.",
+        "B) I was driving to the supermarket when my tire punctured.",
+        "C) I driving to the supermarket when my tire puncture.",
+        "D) I was drive to the supermarket when my tire punctured."
       ],
       "correctIndex": 1
     },
     {
       "id": 19,
-      "question": "What does the word \"Arrangement\" relate to?",
-      "questionMl": "\"Arrangement\" എന്ന വാക്ക് ഏതുമായി ബന്ധപ്പെട്ടിരിക്കുന്നു?",
+      "question": "Fill in the blank: \"Why _____ you laughing during the serious team meeting yesterday?\"",
+      "questionMl": "ഇന്നലത്തെ മീറ്റിംഗിൽ നിങ്ങൾ എന്തിനാണ് ചിരിച്ചുകൊണ്ടിരുന്നത് എന്ന് ചോദിക്കാൻ:",
       "options": [
-        "A) കഴിഞ്ഞുപോയ അനുഭവം",
-        "B) ഭാവിയിലേക്കുള്ള ക്രമീകരണങ്ങൾ",
-        "C) പഴയ കഥകൾ",
-        "D) വ്യാകരണ ചാർട്ടുകൾ"
+        "A) was",
+        "B) did",
+        "C) were",
+        "D) are"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 20,
-      "question": "Fill in the blank: \"I think I __________ stay at home tonight.\"",
-      "questionMl": "ഞാൻ ഇന്ന് രാത്രി വീട്ടിൽത്തന്നെ നിൽക്കുമെന്ന് കരുതുന്നു.",
+      "question": "Complete the sentence: \"The baby _____ peacefully until the loud thunderstorm woke him up.\"",
+      "questionMl": "ഇടിമിന്നൽ ഉണർത്തുന്നത് വരെ കുഞ്ഞ് ശാന്തമായി ഉറങ്ങുകയായിരുന്നു:",
       "options": [
-        "A) am going",
-        "B) will",
-        "C) to",
-        "D) going to"
+        "A) were sleeping",
+        "B) slept",
+        "C) is sleeping",
+        "D) was sleeping"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 21,
-      "question": "Complete the sentence: \"She is __________ prepare for the exam.\"",
-      "questionMl": "അവൾ പരീക്ഷയ്ക്ക് തയ്യാറെടുക്കാൻ പോവുകയാണ്.",
+      "question": "Choose the correct option: \"At 10 AM yesterday, the manager _____ an important presentation.\"",
+      "questionMl": "ഇന്നലെ രാവിലെ 10 മണിക്ക് മാനേജർ ഒരു പ്രധാന പ്രസന്റേഷൻ നൽകിക്കൊണ്ടിരിക്കുകയായിരുന്നു:",
       "options": [
-        "A) will",
-        "B) going to",
-        "C) will be",
-        "D) goes to"
+        "A) was delivering",
+        "B) were delivering",
+        "C) delivered",
+        "D) is delivering"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Identify the future time expression:",
-      "questionMl": "ഭാവികാലത്തെ സൂചിപ്പിക്കുന്ന പ്രയോഗം തിരിച്ചറിയുക:",
+      "question": "Fill in the blank: \"While we _____ in the traffic jam, we listened to the radio.\"",
+      "questionMl": "ഞങ്ങൾ ട്രാഫിക്കിൽ കുടുങ്ങിക്കിടക്കുമ്പോൾ റേഡിയോ കേട്ടു:",
       "options": [
-        "A) Yesterday morning",
-        "B) A few days ago",
-        "C) Next year",
-        "D) Last night"
-      ],
-      "correctIndex": 2
-    },
-    {
-      "id": 23,
-      "question": "Translate to English: \"ഞാൻ നാളെ ഒരു പുതിയ കാർ വാങ്ങാൻ പോവുകയാണ്.\"",
-      "questionMl": "\"ഞാൻ നാളെ ഒരു പുതിയ കാർ വാങ്ങാൻ പോവുകയാണ്\" എന്നതിന്റെ ഇംഗ്ലീഷ് പരിഭാഷ ഏതാണ്?",
-      "options": [
-        "A) Tomorrow I buy a new car.",
-        "B) I am going to buy a new car tomorrow.",
-        "C) I will buying a new car tomorrow.",
-        "D) I bought a new car yesterday."
+        "A) was sitting",
+        "B) were sitting",
+        "C) sat",
+        "D) are sitting"
       ],
       "correctIndex": 1
     },
     {
-      "id": 24,
-      "question": "Which word matches with the meaning \"ലക്ഷ്യം\"?",
-      "questionMl": "\"ലക്ഷ്യം\" എന്ന അർത്ഥം വരുന്ന ഇംഗ്ലീഷ് വാക്ക് ഏതാണ്?",
+      "id": 23,
+      "question": "Complete the sentence: \"He burnt his finger while he _____ water for tea.\"",
+      "questionMl": "ചായയ്ക്ക് വെള്ളം തിളപ്പിച്ചുകൊണ്ടിരുന്നപ്പോൾ അവൻ കൈ പൊള്ളിച്ചു:",
       "options": [
-        "A) Schedule",
-        "B) Interview",
-        "C) Goal",
-        "D) Business"
+        "A) were boiling",
+        "B) boiled",
+        "C) was boiling",
+        "D) is boiling"
       ],
       "correctIndex": 2
     },
     {
-      "id": 25,
-      "question": "Select the correct negative pattern for 'will':",
-      "questionMl": "'will' എന്നതിന്റെ ശരിയായ നെഗറ്റീവ് രൂപം തിരഞ്ഞെടുക്കുക:",
+      "id": 24,
+      "question": "Identify the grammatical error: \"They was traveling on the train when they lost their luggage.\"",
+      "questionMl": "ഈ വാക്യത്തിലെ വ്യാകരണപരമായ തെറ്റ് കണ്ടെത്തുക: \"They was traveling on the train when they lost their luggage.\"",
       "options": [
-        "A) will not (won't)",
-        "B) don't will",
-        "C) am not will",
-        "D) wasn't will"
+        "A) 'traveling' should be 'travel'",
+        "B) 'lost' should be 'lose'",
+        "C) 'on' should be 'in'",
+        "D) 'was' should be 'were'"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": 25,
+      "question": "Complete the conversation: \"What were you doing when I called you?\" - \"I _____ my bike.\"",
+      "questionMl": "സംഭാഷണം പൂർത്തിയാക്കുക: \"ഞാൻ വിളിച്ചപ്പോൾ നീ എന്തെടുക്കുകയായിരുന്നു?\" - \"ഞാൻ ബൈക്ക് നന്നാക്കുകയായിരുന്നു.\"",
+      "options": [
+        "A) was repairing",
+        "B) were repairing",
+        "C) repaired",
+        "D) am repairing"
       ],
       "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "\"Later today\" is an expression that means:",
-      "questionMl": "\"Later today\" എന്ന പ്രയോഗം കൊണ്ട് അർത്ഥമാക്കുന്നത് എന്താണ്?",
+      "question": "Fill in the blank: \"The teacher noticed that two students _____ notes during the lecture.\"",
+      "questionMl": "ക്ലാസ് നടക്കുന്നതിനിടയിൽ രണ്ട് കുട്ടികൾ കുറിപ്പുകൾ കൈമാറുന്നത് അധ്യാപിക ശ്രദ്ധിച്ചു:",
       "options": [
-        "A) ഇന്നലെ വൈകി",
-        "B) ഇന്ന് പിന്നീട്",
-        "C) അടുത്ത വർഷം",
-        "D) രാവിലെ തന്നെ"
+        "A) was passing",
+        "B) were passing",
+        "C) passed",
+        "D) are passing"
       ],
       "correctIndex": 1
     },
     {
       "id": 27,
-      "question": "Identify the correct structured question about someone's plan:",
-      "questionMl": "ഒരാളുടെ പ്ലാനിനെക്കുറിച്ച് ചോദിക്കുന്ന ശരിയായ ചോദ്യരൂപം ഏതാണ്?",
+      "question": "Choose the correct sentence with 'when':",
+      "questionMl": "അതിഥികൾ എത്തുമ്പോൾ ഞങ്ങൾ ഉച്ചഭക്ഷണം കഴിക്കുകയായിരുന്നു എന്ന് പറയുന്ന ശരിയായ വാക്യം ഏതാണ്?",
       "options": [
-        "A) What are you going to do tomorrow?",
-        "B) What will you doing tomorrow?",
-        "C) What do you going to do tomorrow?",
-        "D) What are you will do tomorrow?"
+        "A) We had lunch when the guests were arriving.",
+        "B) We are having lunch when the guests arrived.",
+        "C) We were having lunch when the guests arrived.",
+        "D) We were have lunch when the guests arrived."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 28,
-      "question": "Complete the pattern: \"We are going to __________ a new project next week.\"",
-      "questionMl": "ഞങ്ങൾ അടുത്ത ആഴ്ച ഒരു പുതിയ പ്രോജക്റ്റ് ആരംഭിക്കാൻ പോവുകയാണ്.",
+      "question": "Fill in the blank: \"She slipped and dropped her phone while she _____ across the wet floor.\"",
+      "questionMl": "നനഞ്ഞ തറയിലൂടെ ഓടുമ്പോൾ അവൾ തെന്നിവീഴുകയും ഫോൺ താഴെ വീഴുകയും ചെയ്തു:",
       "options": [
-        "A) started",
-        "B) start",
-        "C) starting",
-        "D) starts"
+        "A) were running",
+        "B) ran",
+        "C) runs",
+        "D) was running"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 29,
-      "question": "\"In a few minutes\" indicates:",
-      "questionMl": "\"In a few minutes\" എന്ന പ്രയോഗം എന്തിനെ കാണിക്കുന്നു?",
+      "question": "Complete the sentence: \"The security guard _____ at the gate when the delivery van arrived.\"",
+      "questionMl": "ഡെലിവറി വാൻ എത്തുമ്പോൾ സെക്യൂരിറ്റി ഗാർഡ് ഗേറ്റിൽ നിൽക്കുകയായിരുന്നു:",
       "options": [
-        "A) ഒരുപാട് കാലം മുമ്പ്",
-        "B) കുറച്ച് മിനിറ്റുകൾക്കുള്ളിൽ",
-        "C) കഴിഞ്ഞ മാസം",
-        "D) ഒരിക്കലും നടക്കില്ല"
+        "A) was standing",
+        "B) were standing",
+        "C) stood",
+        "D) is standing"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 30,
-      "question": "Which sentence correctly describes an action interrupted by another in the past?",
-      "questionMl": "ഭൂതകാലത്തിൽ മറ്റൊരു പ്രവർത്തനം മൂലം തടസ്സപ്പെട്ട ഒരു പ്രവർത്തനത്തെ ശരിയായി വിവരിക്കുന്ന വാക്യം ഏതാണ്?",
+      "question": "Which sentence correctly uses Past Continuous to talk about a past evening at home?",
+      "questionMl": "ഇന്നലെ രാത്രി സഹോദരി ഹോംവർക്ക് ചെയ്യുകയും ഞാൻ നോവൽ വായിക്കുകയും ചെയ്തുകൊണ്ടിരിക്കുകയായിരുന്നു എന്ന് ശരിയായി പറയുന്ന വാക്യം ഏതാണ്?",
       "options": [
-        "A) I was studying when the phone rang.",
-        "B) I studied when the phone was ringing.",
-        "C) I study when phone ring.",
-        "D) I will studying when phone rang."
+        "A) Last night, my sister was do her homework while I was read a novel.",
+        "B) Last night, my sister was doing her homework while I was reading a novel.",
+        "C) Last night, my sister did do her homework while I am reading a novel.",
+        "D) Last night, my sister were doing her homework while I was reading."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     }
   ],
   "18": [
@@ -5715,24 +6177,24 @@ const QUIZ_BANK = {
       "question": "I __________ as a dedicated teacher in a school before.",
       "questionMl": "ഞാൻ ഒരു അധ്യാപകനായി ജോലി ചെയ്തിട്ടുണ്ട്.",
       "options": [
-        "A) have worked",
-        "B) worked yesterday",
-        "C) has worked",
-        "D) working"
+        "A) worked yesterday",
+        "B) has worked",
+        "C) working",
+        "D) have worked"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 3,
       "question": "She __________ her intensive nursing course this term.",
       "questionMl": "അവൾ നഴ്സിംഗ് കോഴ്സ് പൂർത്തിയാക്കിയിട്ടുണ്ട്.",
       "options": [
-        "A) have completed",
-        "B) has completed",
+        "A) has completed",
+        "B) have completed",
         "C) complete",
         "D) completing"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 4,
@@ -5740,23 +6202,23 @@ const QUIZ_BANK = {
       "questionMl": "അവൻ ദുബായിൽ ജോലി ചെയ്തിട്ടുണ്ട്.",
       "options": [
         "A) have worked",
-        "B) working",
-        "C) has worked",
+        "B) has worked",
+        "C) working",
         "D) works"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 5,
       "question": "My brother __________ Arabic from a well-known institute.",
       "questionMl": "എന്റെ സഹോദരൻ അറബിക് പഠിച്ചിട്ടുണ്ട്.",
       "options": [
-        "A) has learned",
-        "B) have learned",
-        "C) learning",
+        "A) have learned",
+        "B) learning",
+        "C) has learned",
         "D) learn"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 6,
@@ -5764,23 +6226,23 @@ const QUIZ_BANK = {
       "questionMl": "എന്റെ അച്ഛൻ ഒരു ബിസിനസ് തുടങ്ങിയിട്ടുണ്ട്.",
       "options": [
         "A) have started",
-        "B) has started",
-        "C) starting",
-        "D) starts"
+        "B) starting",
+        "C) starts",
+        "D) has started"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 7,
       "question": "Have you __________ worked abroad in your career?",
       "questionMl": "നിങ്ങൾ എപ്പോഴെങ്കിലും വിദേശത്ത് ജോലി ചെയ്തിട്ടുണ്ടോ?",
       "options": [
-        "A) never",
-        "B) ever",
+        "A) ever",
+        "B) never",
         "C) yet",
         "D) since"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 8,
@@ -5812,23 +6274,23 @@ const QUIZ_BANK = {
       "questionMl": "ഞാൻ ഇതിനകം എന്റെ ഡിപ്ലോമ പൂർത്തിയാക്കിയിട്ടുണ്ട്.",
       "options": [
         "A) yet",
-        "B) already",
-        "C) since",
-        "D) ever"
+        "B) since",
+        "C) ever",
+        "D) already"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 11,
       "question": "I have __________ started learning English with a coach.",
       "questionMl": "ഞാൻ അടുത്തിടെ ഇംഗ്ലീഷ് പഠിക്കാൻ തുടങ്ങിയിട്ടുണ്ട്.",
       "options": [
-        "A) yet",
-        "B) ever",
-        "C) recently",
+        "A) recently",
+        "B) yet",
+        "C) ever",
         "D) ago"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 12,
@@ -5848,35 +6310,35 @@ const QUIZ_BANK = {
       "questionMl": "തെറ്റായ ഈ വാചകം ശരിയാക്കുക: \"She have completed the course.\"",
       "options": [
         "A) She completing the course.",
-        "B) She has completed the course.",
-        "C) She has complete the course.",
+        "B) She has complete the course.",
+        "C) She has completed the course.",
         "D) She have complete the course."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 14,
       "question": "Fix the following error pattern: \"I have saw that movie.\"",
       "questionMl": "ഈ തെറ്റ് തിരുത്തുക: \"I have saw that movie.\"",
       "options": [
-        "A) I have seen that movie.",
-        "B) I have see that movie.",
-        "C) I sawed that movie.",
-        "D) I am saw that movie."
+        "A) I have see that movie.",
+        "B) I sawed that movie.",
+        "C) I am saw that movie.",
+        "D) I have seen that movie."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 15,
       "question": "Fix this verb mistake: \"He has wrote a book.\"",
       "questionMl": "ഈ ക്രിയാപരമായ തെറ്റ് തിരുത്തുക: \"He has wrote a book.\"",
       "options": [
-        "A) He has write a book.",
-        "B) He has writing a book.",
-        "C) He has written a book.",
+        "A) He has written a book.",
+        "B) He has write a book.",
+        "C) He has writing a book.",
         "D) He wrote a book already."
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 16,
@@ -5896,11 +6358,11 @@ const QUIZ_BANK = {
       "questionMl": "'go' എന്ന ക്രിയയുടെ ശരിയായ V3 രൂപം ഏതാണ്?",
       "options": [
         "A) went",
-        "B) gone",
-        "C) going",
+        "B) going",
+        "C) gone",
         "D) goes"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 18,
@@ -5909,10 +6371,10 @@ const QUIZ_BANK = {
       "options": [
         "A) saw",
         "B) seeing",
-        "C) seen",
-        "D) sees"
+        "C) sees",
+        "D) seen"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 19,
@@ -5932,11 +6394,11 @@ const QUIZ_BANK = {
       "questionMl": "\"നേട്ടം\" എന്ന അർത്ഥം വരുന്ന പവർ വൊക്കാബുലറി വാക്ക് ഏതാണ്?",
       "options": [
         "A) Education",
-        "B) Career",
-        "C) Achievement",
+        "B) Achievement",
+        "C) Career",
         "D) Confidence"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 21,
@@ -5944,11 +6406,11 @@ const QUIZ_BANK = {
       "questionMl": "\"Confidence\" എന്ന വാക്കിന്റെ മലയാളം അർത്ഥം എന്താണ്?",
       "options": [
         "A) വിദ്യഭ്യാസം",
-        "B) ആത്മവിശ്വാസം",
-        "C) സർട്ടിഫിക്കറ്റ്",
+        "B) സർട്ടിഫിക്കറ്റ്",
+        "C) ആത്മവിശ്വാസം",
         "D) നേതൃത്വം"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 22,
@@ -5957,22 +6419,22 @@ const QUIZ_BANK = {
       "options": [
         "A) give",
         "B) gave",
-        "C) given",
-        "D) giving"
+        "C) giving",
+        "D) given"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 23,
       "question": "\"I have always wanted to become a businessman.\" What does \"always\" mean?",
       "questionMl": "\"I have always wanted to become a businessman.\" എന്നതിൽ \"always\" എന്ന വാക്കിന്റെ അർത്ഥം എന്താണ്?",
       "options": [
-        "A) ഒരിക്കലും ഇല്ല",
-        "B) എപ്പോഴും",
+        "A) എപ്പോഴും",
+        "B) ഒരിക്കലും ഇല്ല",
         "C) അടുത്തിടെ",
         "D) ഇതുവരെ"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 24,
@@ -6004,53 +6466,92 @@ const QUIZ_BANK = {
       "questionMl": "\"So far\" എന്ന പവർ യൂസേജിന്റെ അർത്ഥം എന്താണ്?",
       "options": [
         "A) ഒരിയ്ക്കൽ",
-        "B) ഇതുവരെ",
-        "C) നാളെ",
-        "D) വളരെ ദൂരെ"
+        "B) നാളെ",
+        "C) വളരെ ദൂരെ",
+        "D) ഇതുവരെ"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 27,
       "question": "\"I have gained valuable experience.\" What does \"valuable\" mean?",
       "questionMl": "\"I have gained valuable experience.\" എന്നതിൽ \"valuable\" എന്ന വാക്കിന്റെ അർത്ഥം എന്താണ്?",
       "options": [
-        "A) വിലയില്ലാത്ത",
-        "B) വിലയേറിയ / മൂല്യവത്തായ",
+        "A) വിലയേറിയ / മൂല്യവത്തായ",
+        "B) വിലയില്ലാത്ത",
         "C) പുതിയ",
         "D) പഴയ"
       ],
+      "correctIndex": 0
+    },
+    {
+      "id": 28,
+      "question": "Complete the sentence: \"I have _____ worked in a foreign country, but I want to travel soon.\"",
+      "questionMl": "ഞാൻ ഇതുവരെ വിദേശത്ത് ജോലി ചെയ്തിട്ടില്ല എന്ന് പറയാൻ:",
+      "options": [
+        "A) ever",
+        "B) never",
+        "C) already",
+        "D) yet"
+      ],
       "correctIndex": 1
+    },
+    {
+      "id": 29,
+      "question": "How do you state your career experience so far in an interview?",
+      "questionMl": "ഇതുവരെയുള്ള തൊഴിൽ പരിചയത്തെക്കുറിച്ച് അഭിമുഖത്തിൽ പറയാൻ:",
+      "options": [
+        "A) So far, I gained five years experience in sales.",
+        "B) So far, I am gaining five years of experience.",
+        "C) So far, I have gained five years of experience in sales.",
+        "D) So far, I have gain five years experience."
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": 30,
+      "question": "Fill in the blank: \"Have you _____ visited the historic monuments in Delhi?\"",
+      "questionMl": "നിങ്ങൾ എപ്പോഴെങ്കിലും ഡൽഹിയിലെ ചരിത്രസ്മാരകങ്ങൾ സന്ദർശിച്ചിട്ടുണ്ടോ എന്ന് ചോദിക്കാൻ:",
+      "options": [
+        "A) never",
+        "B) yet",
+        "C) so far",
+        "D) ever"
+      ],
+      "correctIndex": 3
     }
   ],
   "19": [
     {
       "id": 1,
-      "question": "Have you finished your work __________?A) already",
+      "question": "Have you finished your work __________?",
       "questionMl": "നിങ്ങൾ നിങ്ങളുടെ ജോലി ഇതുവരെ പൂർത്തിയാക്കിയോ?",
       "options": [
-        "B) just",
-        "C) yet",
+        "A) yet",
+        "B) already",
+        "C) just",
         "D) still"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "She has __________ left the office.A) yet",
+      "question": "She has __________ left the office.",
       "questionMl": "അവൾ ഇതിനകം ഓഫീസിൽ നിന്ന് പോയിട്ടുണ്ട്.",
       "options": [
-        "B) still",
-        "C) already",
+        "A) yet",
+        "B) already",
+        "C) still",
         "D) ago"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 3,
-      "question": "I __________ haven't completed the project.A) already",
+      "question": "I __________ haven't completed the project.",
       "questionMl": "ഞാൻ ഇപ്പോഴും പ്രോജക്റ്റ് പൂർത്തിയാക്കിയിട്ടില്ല.",
       "options": [
+        "A) already",
         "B) yet",
         "C) still",
         "D) just"
@@ -6059,31 +6560,34 @@ const QUIZ_BANK = {
     },
     {
       "id": 4,
-      "question": "We have __________ reached home.A) yet",
+      "question": "We have __________ reached home.",
       "questionMl": "ഞങ്ങൾ ഇപ്പോൾത്തന്നെ വീട്ടിലെത്തി.",
       "options": [
+        "A) yet",
         "B) still",
-        "C) just",
-        "D) tomorrow"
+        "C) tomorrow",
+        "D) just"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 5,
-      "question": "They haven't replied __________.A) already",
+      "question": "They haven't replied __________.",
       "questionMl": "അവർ ഇതുവരെ മറുപടി നൽകിയിട്ടില്ല.",
       "options": [
-        "B) just",
-        "C) yet",
+        "A) yet",
+        "B) already",
+        "C) just",
         "D) recently"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 6,
-      "question": "I have __________ joined this company.A) yet",
+      "question": "I have __________ joined this company.",
       "questionMl": "ഞാൻ അടുത്തിടെ ഈ കമ്പനിയിൽ ചേർന്നിട്ടുണ്ട്.",
       "options": [
+        "A) yet",
         "B) recently",
         "C) still",
         "D) already yesterday"
@@ -6092,9 +6596,10 @@ const QUIZ_BANK = {
     },
     {
       "id": 7,
-      "question": "My manager has just __________ the report.A) approve",
+      "question": "My manager has just __________ the report.",
       "questionMl": "എന്റെ മാനേജർ ഇപ്പോൾത്തന്നെ റിപ്പോർട്ട് അംഗീകരിച്ചിട്ടുണ്ട്.",
       "options": [
+        "A) approve",
         "B) approving",
         "C) approved",
         "D) approves"
@@ -6103,31 +6608,34 @@ const QUIZ_BANK = {
     },
     {
       "id": 8,
-      "question": "We have already __________ the tickets.A) book",
+      "question": "We have already __________ the tickets.",
       "questionMl": "ഞങ്ങൾ ഇതിനകം ടിക്കറ്റുകൾ ബുക്ക് ചെയ്തിട്ടുണ്ട്.",
       "options": [
+        "A) book",
         "B) booking",
-        "C) booked",
-        "D) books"
+        "C) books",
+        "D) booked"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 9,
-      "question": "She __________ hasn't called me.A) yet",
+      "question": "She __________ hasn't called me.",
       "questionMl": "അവൾ ഇപ്പോഴും എന്നെ വിളിച്ചിട്ടില്ല.",
       "options": [
-        "B) already",
-        "C) still",
+        "A) still",
+        "B) yet",
+        "C) already",
         "D) just"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 10,
-      "question": "What is the correct structure for the Present Perfect Tense?A) Subject + will + V1",
+      "question": "What is the correct structure for the Present Perfect Tense?",
       "questionMl": "പ്രസന്റ് പെർഫെക്റ്റ് ടെൻസിന്റെ ശരിയായ ഘടന ഏതാണ്?",
       "options": [
+        "A) Subject + will + V1",
         "B) Subject + have/has + V3",
         "C) Subject + will be + V+ing",
         "D) Subject + V2"
@@ -6136,42 +6644,46 @@ const QUIZ_BANK = {
     },
     {
       "id": 11,
-      "question": "Identify the correct sentence:A) I have just went home.",
+      "question": "Identify the correct sentence:",
       "questionMl": "ശരിയായ വാക്യം തിരിച്ചറിയുക:",
       "options": [
-        "B) I have just gone home.",
-        "C) I have already finished yesterday.",
+        "A) I have just went home.",
+        "B) I have already finished yesterday.",
+        "C) I have just gone home.",
         "D) Did you finish yet?"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 12,
-      "question": "Correct the mistake: \"She has already finish.\"A) She has already finishing.",
+      "question": "Correct the mistake: \"She has already finish.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"She has already finish.\"",
       "options": [
-        "B) She has already finished.",
-        "C) She already finished yesterday.",
-        "D) She is already finish."
+        "A) She has already finishing.",
+        "B) She already finished yesterday.",
+        "C) She is already finish.",
+        "D) She has already finished."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 13,
-      "question": "Choose the correct negative form:A) I didn't complete it yet.",
+      "question": "Choose the correct negative form:",
       "questionMl": "ശരിയായ നെഗറ്റീവ് രൂപം തിരഞ്ഞെടുക്കുക:",
       "options": [
-        "B) I haven't completed it yet.",
+        "A) I haven't completed it yet.",
+        "B) I didn't complete it yet.",
         "C) I not completed it yet.",
         "D) I don't completed it yet."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "\"Yet\" is used mainly in:A) Positive sentences",
+      "question": "\"Yet\" is used mainly in:",
       "questionMl": "\"Yet\" പ്രധാനമായും ഉപയോഗിക്കുന്നത് എവിടെയാണ്?",
       "options": [
+        "A) Positive sentences",
         "B) Questions and negative sentences",
         "C) Future predictions",
         "D) Instant decisions"
@@ -6180,9 +6692,10 @@ const QUIZ_BANK = {
     },
     {
       "id": 15,
-      "question": "I have already __________ the email.A) send",
+      "question": "I have already __________ the email.",
       "questionMl": "ഞാൻ ഇതിനകം ഇമെയിൽ അയച്ചിട്ടുണ്ട്.",
       "options": [
+        "A) send",
         "B) sending",
         "C) sent",
         "D) sends"
@@ -6191,42 +6704,46 @@ const QUIZ_BANK = {
     },
     {
       "id": 16,
-      "question": "Have you booked your ticket __________?A) just",
+      "question": "Have you booked your ticket __________?",
       "questionMl": "നിങ്ങൾ ടിക്കറ്റ് ഇതുവരെ ബുക്ക് ചെയ്തോ?",
       "options": [
-        "B) yet",
-        "C) still",
-        "D) recently"
+        "A) just",
+        "B) still",
+        "C) recently",
+        "D) yet"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": 17,
+      "question": "He has recently __________ English.",
+      "questionMl": "അവൻ അടുത്തിടെ ഇംഗ്ലീഷ് പഠിച്ചിട്ടുണ്ട്.",
+      "options": [
+        "A) learned",
+        "B) learn",
+        "C) learning",
+        "D) learns"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": 18,
+      "question": "\"ഇതിനകം\" matches with which English word?",
+      "questionMl": "\"ഇതിനകം\" എന്ന അർത്ഥം വരുന്ന ഇംഗ്ലീഷ് വാക്ക് ഏതാണ്?",
+      "options": [
+        "A) Yet",
+        "B) Already",
+        "C) Still",
+        "D) Just"
       ],
       "correctIndex": 1
     },
     {
-      "id": 17,
-      "question": "He has recently __________ English.A) learn",
-      "questionMl": "അവൻ അടുത്തിടെ ഇംഗ്ലീഷ് പഠിച്ചിട്ടുണ്ട്.",
-      "options": [
-        "B) learning",
-        "C) learned",
-        "D) learns"
-      ],
-      "correctIndex": 2
-    },
-    {
-      "id": 18,
-      "question": "\"ഇതിനകം\" matches with which English word?A) Yet",
-      "questionMl": "\"ഇതിനകം\" എന്ന അർത്ഥം വരുന്ന ഇംഗ്ലീഷ് വാക്ക് ഏതാണ്?",
-      "options": [
-        "B) Still",
-        "C) Already",
-        "D) Just"
-      ],
-      "correctIndex": 2
-    },
-    {
       "id": 19,
-      "question": "\"അടുത്തിടെ\" matches with which vocabulary word?A) Just",
+      "question": "\"അടുത്തിടെ\" matches with which vocabulary word?",
       "questionMl": "\"അടുത്തിടെ\" എന്ന അർത്ഥം വരുന്ന വൊക്കാബുലറി വാക്ക് ഏതാണ്?",
       "options": [
+        "A) Just",
         "B) Still",
         "C) Recently",
         "D) Yet"
@@ -6235,75 +6752,82 @@ const QUIZ_BANK = {
     },
     {
       "id": 20,
-      "question": "\"ഇപ്പോഴും\" matches with which word?A) Already",
+      "question": "\"ഇപ്പോഴും\" matches with which word?",
       "questionMl": "\"ഇപ്പോഴും\" എന്ന അർത്ഥം വരുന്ന വാക്ക് ഏതാണ്?",
       "options": [
+        "A) Already",
         "B) Yet",
-        "C) Still",
-        "D) Just"
+        "C) Just",
+        "D) Still"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 21,
-      "question": "\"ഇപ്പോൾത്തന്നെ\" matches with which word?A) Yet",
+      "question": "\"ഇപ്പോൾത്തന്നെ\" matches with which word?",
       "questionMl": "\"ഇപ്പോൾത്തന്നെ\" എന്ന അർത്ഥം വരുന്ന വാക്ക് ഏതാണ്?",
       "options": [
-        "B) Just",
+        "A) Just",
+        "B) Yet",
         "C) Still",
         "D) Recently"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Find the mistake: \"Have you finished today's work yesterday?\"A) finished",
+      "question": "Find the mistake: \"Have you finished today's work yesterday?\"",
       "questionMl": "തെറ്റ് കണ്ടെത്തുക: \"Have you finished today's work yesterday?\"",
       "options": [
-        "B) today's",
-        "C) yesterday (Present Perfect cannot be used with specific past times)",
+        "A) finished",
+        "B) yesterday (Present Perfect cannot be used with specific past times)",
+        "C) today's",
         "D) work"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 23,
-      "question": "Complete the sentence: \"We have recently __________ this course.\"A) start",
+      "question": "Complete the sentence: \"We have recently __________ this course.\"",
       "questionMl": "ഞങ്ങൾ അടുത്തിടെ ഈ കോഴ്സ് തുടങ്ങിയിട്ടുണ്ട്.",
       "options": [
-        "B) started",
-        "C) starting",
+        "A) start",
+        "B) starting",
+        "C) started",
         "D) starts"
-      ],
-      "correctIndex": 1
-    },
-    {
-      "id": 24,
-      "question": "I haven't __________ him yet.A) call",
-      "questionMl": "ഞാൻ ഇതുവരെ അവനെ വിളിച്ചിട്ടില്ല.",
-      "options": [
-        "B) calling",
-        "C) called",
-        "D) calls"
       ],
       "correctIndex": 2
     },
     {
+      "id": 24,
+      "question": "I haven't __________ him yet.",
+      "questionMl": "ഞാൻ ഇതുവരെ അവനെ വിളിച്ചിട്ടില്ല.",
+      "options": [
+        "A) call",
+        "B) calling",
+        "C) calls",
+        "D) called"
+      ],
+      "correctIndex": 3
+    },
+    {
       "id": 25,
-      "question": "\"Not yet\" translates to:A) ഇതിനകം കഴിഞ്ഞു",
+      "question": "\"Not yet\" translates to:",
       "questionMl": "\"Not yet\" എന്നതിന്റെ മലയാളം അർത്ഥം എന്താണ്?",
       "options": [
-        "B) ഇതുവരെ ഇല്ല",
+        "A) ഇതുവരെ ഇല്ല",
+        "B) ഇതിനകം കഴിഞ്ഞു",
         "C) ഇപ്പോൾത്തന്നെ",
         "D) എപ്പോഴും"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 26,
-      "question": "\"That's done\" means:A) അത് ചെയ്യണം",
+      "question": "\"That's done\" means:",
       "questionMl": "\"That's done\" എന്നതിന്റെ അർത്ഥം എന്താണ്?",
       "options": [
+        "A) അത് ചെയ്യണം",
         "B) അത് കഴിഞ്ഞു",
         "C) അത് ചെയ്യുന്നില്ല",
         "D) അത് ചെയ്യാം"
@@ -6312,44 +6836,60 @@ const QUIZ_BANK = {
     },
     {
       "id": 27,
-      "question": "\"I'm waiting for the reply\" translates to:A) ഞാൻ മറുപടി അയച്ചിട്ടുണ്ട്",
+      "question": "\"I'm waiting for the reply\" translates to:",
       "questionMl": "\"I'm waiting for the reply\" എന്നതിന്റെ അർത്ഥം എന്താണ്?",
       "options": [
-        "B) ഞാൻ മറുപടിക്കായി കാത്തിരിക്കുകയാണ്",
-        "C) ഞാൻ മറുപടി തന്നു",
+        "A) ഞാൻ മറുപടി അയച്ചിട്ടുണ്ട്",
+        "B) ഞാൻ മറുപടി തന്നു",
+        "C) ഞാൻ മറുപടിക്കായി കാത്തിരിക്കുകയാണ്",
         "D) എനിക്ക് മറുപടി ആവശ്യമില്ല"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 28,
-      "question": "Choose the correct past participle (V3) form for 'submit':A) submit",
+      "question": "Choose the correct past participle (V3) form for 'submit':",
       "questionMl": "'submit' എന്ന ക്രിയയുടെ ശരിയായ V3 രൂപം തിരഞ്ഞെടുക്കുക:",
       "options": [
+        "A) submit",
         "B) submitting",
-        "C) submitted",
-        "D) submits"
+        "C) submits",
+        "D) submitted"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 29,
-      "question": "During Module 19 Speaking Challenge, you should speak continuously for:A) 1 minute",
-      "questionMl": "മോഡ്യൂൾ 19 സ്പീക്കിംഗ് ചലഞ്ചിൽ നിങ്ങൾ എത്ര സമയം തുടർച്ചയായി സംസാരിക്കണം?",
+      "question": "Complete the sentence: \"She has _____ joined our team as a senior project manager.\"",
+      "questionMl": "അവൾ അടുത്തിടെയാണ് ഞങ്ങളുടെ ടീമിൽ സീനിയർ പ്രൊജക്റ്റ് മാനേജരായി ചേർന്നത്:",
       "options": [
-        "B) 2 minutes",
-        "C) 5 minutes",
-        "D) 10 minutes"
+        "A) recently",
+        "B) yet",
+        "C) still",
+        "D) ago"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
+    },
+    {
+      "id": 30,
+      "question": "Fill in the blank: \"Have you received the client's confirmation email _____?\"",
+      "questionMl": "ക്ലയന്റിന്റെ സ്ഥിരീകരണ ഇമെയിൽ ഇതുവരെ ലഭിച്ചോ എന്ന് ചോദിക്കാൻ:",
+      "options": [
+        "A) already",
+        "B) yet",
+        "C) still",
+        "D) just"
+      ],
+      "correctIndex": 1
     }
   ],
   "20": [
     {
       "id": 1,
-      "question": "She __________ become a doctor.A) am going to",
+      "question": "She __________ become a doctor.",
       "questionMl": "അവൾ ഒരു ഡോക്ടർ ആകാൻ പോകുകയാണ്.",
       "options": [
+        "A) am going to",
         "B) are going to",
         "C) is going to",
         "D) going to"
@@ -6358,20 +6898,22 @@ const QUIZ_BANK = {
     },
     {
       "id": 2,
-      "question": "We __________ open a new office.A) am going to",
+      "question": "We __________ open a new office.",
       "questionMl": "ഞങ്ങൾ ഒരു പുതിയ ഓഫീസ് തുറക്കാൻ പോകുകയാണ്.",
       "options": [
+        "A) am going to",
         "B) is going to",
-        "C) are going to",
-        "D) going to"
+        "C) going to",
+        "D) are going to"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 3,
-      "question": "He is going to __________ a new bike.A) buy",
+      "question": "He is going to __________ a new bike.",
       "questionMl": "അവൻ ഒരു പുതിയ ബൈക്ക് വാങ്ങാൻ പോകുകയാണ്.",
       "options": [
+        "A) buy",
         "B) bought",
         "C) buying",
         "D) buys"
@@ -6380,86 +6922,94 @@ const QUIZ_BANK = {
     },
     {
       "id": 4,
-      "question": "I am going to __________ my friend tomorrow.A) meet",
+      "question": "I am going to __________ my friend tomorrow.",
       "questionMl": "ഞാൻ നാളെ എന്റെ സുഹൃത്തിനെ കാണാൻ പോകുകയാണ്.",
       "options": [
-        "B) met",
+        "A) met",
+        "B) meet",
         "C) meeting",
         "D) meets"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 5,
-      "question": "They are going to __________ a new house next year.A) build",
+      "question": "They are going to __________ a new house next year.",
       "questionMl": "അവർ അടുത്ത വർഷം ഒരു പുതിയ വീട് നിർമ്മിക്കാൻ പോകുകയാണ്.",
       "options": [
-        "B) built",
-        "C) building",
+        "A) built",
+        "B) building",
+        "C) build",
         "D) builds"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 6,
-      "question": "\"നാളെ\" matches with which future time expression?A) Next week",
+      "question": "\"നാളെ\" matches with which future time expression?",
       "questionMl": "\"നാളെ\" എന്ന അർത്ഥം വരുന്ന ഭാവികാല പ്രയോഗം ഏതാണ്?",
       "options": [
-        "B) Tomorrow",
-        "C) Soon",
-        "D) Future"
+        "A) Next week",
+        "B) Soon",
+        "C) Future",
+        "D) Tomorrow"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 7,
-      "question": "\"അടുത്ത മാസം\" translates to:A) Next week",
+      "question": "\"അടുത്ത മാസം\" translates to:",
       "questionMl": "\"അടുത്ത മാസം\" എന്നതിന്റെ ഇംഗ്ലീഷ് രൂപം ഏതാണ്?",
       "options": [
-        "B) Next month",
+        "A) Next month",
+        "B) Next week",
         "C) Next year",
         "D) Soon"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": 8,
+      "question": "I am going to __________ my English.",
+      "questionMl": "ഞാൻ എന്റെ ഇംഗ്ലീഷ് മെച്ചപ്പെടുത്താൻ പോകുകയാണ്.",
+      "options": [
+        "A) improved",
+        "B) improve",
+        "C) improving",
+        "D) improves"
       ],
       "correctIndex": 1
     },
     {
-      "id": 8,
-      "question": "I am going to __________ my English.A) improve",
-      "questionMl": "ഞാൻ എന്റെ ഇംഗ്ലീഷ് മെച്ചപ്പെടുത്താൻ പോകുകയാണ്.",
-      "options": [
-        "B) improved",
-        "C) improving",
-        "D) improves"
-      ],
-      "correctIndex": 0
-    },
-    {
       "id": 9,
-      "question": "We are going to __________ a new project.A) launch",
+      "question": "We are going to __________ a new project.",
       "questionMl": "ഞങ്ങൾ ഒരു പുതിയ പ്രോജക്റ്റ് ആരംഭിക്കാൻ പോകുകയാണ്.",
       "options": [
-        "B) launched",
-        "C) launching",
+        "A) launched",
+        "B) launching",
+        "C) launch",
         "D) launches"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 10,
-      "question": "She is going to __________ abroad.A) study",
+      "question": "She is going to __________ abroad.",
       "questionMl": "അവൾ വിദേശത്ത് പഠിക്കാൻ പോകുകയാണ്.",
       "options": [
-        "B) studied",
-        "C) studying",
-        "D) studies"
+        "A) studied",
+        "B) studying",
+        "C) studies",
+        "D) study"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 11,
-      "question": "They are going to __________ tomorrow.A) celebrate",
+      "question": "They are going to __________ tomorrow.",
       "questionMl": "അവർ നാളെ ആഘോഷിക്കാൻ പോകുകയാണ്.",
       "options": [
+        "A) celebrate",
         "B) celebrated",
         "C) celebrating",
         "D) celebrates"
@@ -6468,20 +7018,22 @@ const QUIZ_BANK = {
     },
     {
       "id": 12,
-      "question": "Identify the correct structure for 'You / We / They':A) Subject + am going to + V1",
+      "question": "Identify the correct structure for 'You / We / They':",
       "questionMl": "'You / We / They' എന്നിവയ്ക്കൊപ്പം ഉപയോഗിക്കുന്ന ശരിയായ ഘടന ഏതാണ്?",
       "options": [
-        "B) Subject + is going to + V1",
-        "C) Subject + are going to + V1",
+        "A) Subject + am going to + V1",
+        "B) Subject + are going to + V1",
+        "C) Subject + is going to + V1",
         "D) Subject + going to + V1"
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 13,
-      "question": "Identify the mistake: \"I going to start a business.\"A) start",
+      "question": "Identify the mistake: \"I going to start a business.\"",
       "questionMl": "തെറ്റ് തിരിച്ചറിയുക: \"I going to start a business.\"",
       "options": [
+        "A) start",
         "B) business",
         "C) going (missing 'am')",
         "D) I"
@@ -6490,75 +7042,82 @@ const QUIZ_BANK = {
     },
     {
       "id": 14,
-      "question": "Identify the mistake: \"She are going to study.\"A) study",
+      "question": "Identify the mistake: \"She are going to study.\"",
       "questionMl": "തെറ്റ് തിരിച്ചറിയുക: \"She are going to study.\"",
       "options": [
+        "A) study",
         "B) going",
-        "C) are (should be 'is')",
-        "D) She"
+        "C) She",
+        "D) are (should be 'is')"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 15,
-      "question": "Correct the sentence: \"We is going to travel.\"A) We am going to travel.",
+      "question": "Correct the sentence: \"We is going to travel.\"",
       "questionMl": "വാക്യം ശരിയാക്കുക: \"We is going to travel.\"",
       "options": [
-        "B) We are going to travel.",
+        "A) We are going to travel.",
+        "B) We am going to travel.",
         "C) We going to travel.",
         "D) We will going to travel."
-      ],
-      "correctIndex": 1
-    },
-    {
-      "id": 16,
-      "question": "Correct the sentence: \"I am going to starts a business.\"A) I am going to start a business.",
-      "questionMl": "വാക്യം ശരിയാക്കുക: \"I am going to starts a business.\"",
-      "options": [
-        "B) I am going to started a business.",
-        "C) I going to start a business.",
-        "D) I am go to start a business."
       ],
       "correctIndex": 0
     },
     {
-      "id": 17,
-      "question": "\"My plan is to...\" translates to:A) എന്റെ ലക്ഷ്യം...",
-      "questionMl": "\"My plan is to...\" എന്നതിന്റെ മലയാളം അർത്ഥം എന്താണ്?",
+      "id": 16,
+      "question": "Correct the sentence: \"I am going to starts a business.\"",
+      "questionMl": "വാക്യം ശരിയാക്കുക: \"I am going to starts a business.\"",
       "options": [
-        "B) എന്റെ പദ്ധതി...",
-        "C) ഞാൻ പ്രതീക്ഷിക്കുന്നു...",
-        "D) എനിക്ക് കാത്തിരിക്കാനാവില്ല..."
+        "A) I am going to started a business.",
+        "B) I am going to start a business.",
+        "C) I going to start a business.",
+        "D) I am go to start a business."
       ],
       "correctIndex": 1
+    },
+    {
+      "id": 17,
+      "question": "\"My plan is to...\" translates to:",
+      "questionMl": "\"My plan is to...\" എന്നതിന്റെ മലയാളം അർത്ഥം എന്താണ്?",
+      "options": [
+        "A) എന്റെ ലക്ഷ്യം...",
+        "B) ഞാൻ പ്രതീക്ഷിക്കുന്നു...",
+        "C) എന്റെ പദ്ധതി...",
+        "D) എനിക്ക് കാത്തിരിക്കാനാവില്ല..."
+      ],
+      "correctIndex": 2
     },
     {
       "id": 18,
-      "question": "\"My goal is...\" translates to:A) എന്റെ പദ്ധതി...",
+      "question": "\"My goal is...\" translates to:",
       "questionMl": "\"My goal is...\" എന്നതിന്റെ മലയാളം അർത്ഥം എന്താണ്?",
       "options": [
-        "B) എന്റെ ലക്ഷ്യം...",
-        "C) എന്റെ സ്വപ്നം...",
-        "D) എന്റെ ജോലി..."
+        "A) എന്റെ പദ്ധതി...",
+        "B) എന്റെ സ്വപ്നം...",
+        "C) എന്റെ ജോലി...",
+        "D) എന്റെ ലക്ഷ്യം..."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 19,
-      "question": "\"I can't wait to...\" shows:A) പേടി",
+      "question": "\"I can't wait to...\" shows:",
       "questionMl": "\"I can't wait to...\" എന്ന പ്രയോഗം എന്തിനെ കാണിക്കുന്നു?",
       "options": [
-        "B) വലിയ ആകാക്ഷ/കാത്തിരിക്കാൻ വയ്യ",
+        "A) വലിയ ആകാക്ഷ/കാത്തിരിക്കാൻ വയ്യ",
+        "B) പേടി",
         "C) വിഷമം",
         "D) വിമുഖത"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 20,
-      "question": "What is the Malayalam meaning of \"Career\"?A) വിനോദം",
+      "question": "What is the Malayalam meaning of \"Career\"?",
       "questionMl": "\"Career\" എന്ന വാക്കിന്റെ മലയാളം അർത്ഥം എന്താണ്?",
       "options": [
+        "A) വിനോദം",
         "B) തൊഴിൽ/കരിയർ",
         "C) യാത്ര",
         "D) വിജയം"
@@ -6567,31 +7126,34 @@ const QUIZ_BANK = {
     },
     {
       "id": 21,
-      "question": "\"Dream\" matches with which meaning?A) ലക്ഷ്യം",
+      "question": "\"Dream\" matches with which meaning?",
       "questionMl": "\"Dream\" എന്ന വാക്കിന്റെ അർത്ഥം എന്താണ്?",
       "options": [
-        "B) സ്വപ്നം",
-        "C) പദ്ധതി",
+        "A) ലക്ഷ്യം",
+        "B) പദ്ധതി",
+        "C) സ്വപ്നം",
         "D) വിജയം"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 22,
-      "question": "\"Success\" means:A) പരാജയം",
+      "question": "\"Success\" means:",
       "questionMl": "\"Success\" എന്ന വാക്കിന്റെ അർത്ഥം എന്താണ്?",
       "options": [
-        "B) വിജയം",
-        "C) അവസരം",
-        "D) വിദ്യാഭ്യാസം"
+        "A) പരാജയം",
+        "B) അവസരം",
+        "C) വിദ്യാഭ്യാസം",
+        "D) വിജയം"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 23,
-      "question": "We are going to meet our __________.A) clients",
+      "question": "We are going to meet our __________.",
       "questionMl": "ഞങ്ങൾ ഞങ്ങളുടെ ക്ലയന്റുകളെ കാണാൻ പോകുകയാണ്.",
       "options": [
+        "A) clients",
         "B) career",
         "C) success",
         "D) future"
@@ -6600,66 +7162,108 @@ const QUIZ_BANK = {
     },
     {
       "id": 24,
-      "question": "He is going to __________ for a new job.A) apply",
+      "question": "He is going to __________ for a new job.",
       "questionMl": "അവൻ ഒരു പുതിയ ജോലിക്ക് അപേക്ഷിക്കാൻ പോകുകയാണ്.",
       "options": [
-        "B) applied",
+        "A) applied",
+        "B) apply",
         "C) applying",
         "D) applies"
-      ],
-      "correctIndex": 0
-    },
-    {
-      "id": 25,
-      "question": "I am going to __________ more money.A) save",
-      "questionMl": "ഞാൻ കൂടുതൽ പണം സംരക്ഷിക്കാൻ പോകുകയാണ്.",
-      "options": [
-        "B) saved",
-        "C) saving",
-        "D) saves"
-      ],
-      "correctIndex": 0
-    },
-    {
-      "id": 26,
-      "question": "\"Soon\" means:A) നാളെ",
-      "questionMl": "\"Soon\" എന്ന വാക്കിന്റെ അർത്ഥം എന്താണ്?",
-      "options": [
-        "B) ഉടൻ",
-        "C) ഭാവിയിൽ",
-        "D) കഴിഞ്ഞ വർഷം"
       ],
       "correctIndex": 1
     },
     {
-      "id": 27,
-      "question": "\"In the future\" means:A) ഇന്നലെ",
-      "questionMl": "\"In the future\" എന്ന പ്രയോഗത്തിന്റെ അർത്ഥം എന്താണ്?",
+      "id": 25,
+      "question": "I am going to __________ more money.",
+      "questionMl": "ഞാൻ കൂടുതൽ പണം സംരക്ഷിക്കാൻ പോകുകയാണ്.",
       "options": [
-        "B) ഉടൻ",
-        "C) ഭാവിയിൽ",
-        "D) ഇപ്പോൾ"
+        "A) saved",
+        "B) saving",
+        "C) save",
+        "D) saves"
       ],
       "correctIndex": 2
+    },
+    {
+      "id": 26,
+      "question": "\"Soon\" means:",
+      "questionMl": "\"Soon\" എന്ന വാക്കിന്റെ അർത്ഥം എന്താണ്?",
+      "options": [
+        "A) നാളെ",
+        "B) ഭാവിയിൽ",
+        "C) കഴിഞ്ഞ വർഷം",
+        "D) ഉടൻ"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": 27,
+      "question": "\"In the future\" means:",
+      "questionMl": "\"In the future\" എന്ന പ്രയോഗത്തിന്റെ അർത്ഥം എന്താണ്?",
+      "options": [
+        "A) ഭാവിയിൽ",
+        "B) ഇന്നലെ",
+        "C) ഉടൻ",
+        "D) ഇപ്പോൾ"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": 28,
+      "question": "Fill in the blank: \"I am _____ start preparing for my civil services examination next month.\"",
+      "questionMl": "അടുത്ത മാസം മുതൽ സിവിൽ സർവീസ് പരീക്ഷയ്ക്ക് തയ്യാറെടുക്കാൻ തുടങ്ങാൻ പോവുകയാണ്:",
+      "options": [
+        "A) go to",
+        "B) going to",
+        "C) will to",
+        "D) went to"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 29,
+      "question": "How do you talk about your family's upcoming holiday plan?",
+      "questionMl": "അടുത്ത വാരാന്ത്യത്തിൽ മൂന്നാറിലെ മുത്തശ്ശനെയും മുത്തശ്ശിയെയും സന്ദർശിക്കാൻ പോകുന്നു എന്ന് പറയാൻ:",
+      "options": [
+        "A) We is going to visit our grandparents next weekend.",
+        "B) We are go to visit our grandparents.",
+        "C) We are going to visit our grandparents in Munnar next weekend.",
+        "D) We going to visit our grandparents."
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": 30,
+      "question": "Complete the question: \"What are you _____ do after completing your degree course?\"",
+      "questionMl": "ഡിഗ്രി പഠനം കഴിഞ്ഞാൽ നിങ്ങൾ എന്ത് ചെയ്യാനാണ് ഉദ്ദേശിക്കുന്നത് എന്ന് ചോദിക്കാൻ:",
+      "options": [
+        "A) go to",
+        "B) will",
+        "C) gone to",
+        "D) going to"
+      ],
+      "correctIndex": 3
     }
   ],
   "21": [
     {
       "id": 1,
-      "question": "Don't worry. Everything __________ be okay.A) is",
+      "question": "Don't worry. Everything __________ be okay.",
       "questionMl": "വിഷമിക്കണ്ട. എല്ലാം ശരിയാകും.",
       "options": [
-        "B) will",
+        "A) will",
+        "B) is",
         "C) am",
         "D) will to"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "I __________ call you tonight.A) will to",
+      "question": "I __________ call you tonight.",
       "questionMl": "ഞാൻ ഇന്ന് രാത്രി നിന്നെ വിളിക്കും.",
       "options": [
+        "A) will to",
         "B) will",
         "C) am will",
         "D) will calling"
@@ -6668,75 +7272,82 @@ const QUIZ_BANK = {
     },
     {
       "id": 3,
-      "question": "She __________ pass the exam.A) will to",
+      "question": "She __________ pass the exam.",
       "questionMl": "അവൾ പരീക്ഷ വിജയിക്കും.",
       "options": [
-        "B) will",
-        "C) will studies",
+        "A) will to",
+        "B) will studies",
+        "C) will",
         "D) am will"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 4,
-      "question": "We __________ finish the project on time.A) will to",
+      "question": "We __________ finish the project on time.",
       "questionMl": "ഞങ്ങൾ പ്രോജക്റ്റ് സമയത്ത് പൂർത്തിയാക്കും.",
       "options": [
-        "B) will",
-        "C) will went",
-        "D) are will"
+        "A) will to",
+        "B) will went",
+        "C) are will",
+        "D) will"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 5,
-      "question": "I __________ always support you.A) will to",
+      "question": "I __________ always support you.",
       "questionMl": "ഞാൻ എപ്പോഴും നിന്നെ പിന്തുണയ്ക്കും.",
       "options": [
-        "B) will",
+        "A) will",
+        "B) will to",
         "C) am going",
         "D) will goes"
-      ],
-      "correctIndex": 1
-    },
-    {
-      "id": 6,
-      "question": "I __________ forget you.A) won't",
-      "questionMl": "ഞാൻ നിന്നെ മറക്കില്ല.",
-      "options": [
-        "B) will not to",
-        "C) don't will",
-        "D) am not will"
       ],
       "correctIndex": 0
     },
     {
-      "id": 7,
-      "question": "I think it __________ rain today.A) is going",
-      "questionMl": "ഇന്ന് മഴ പെയ്യുമെന്ന് ഞാൻ കരുതുന്നു.",
+      "id": 6,
+      "question": "I __________ forget you.",
+      "questionMl": "ഞാൻ നിന്നെ മറക്കില്ല.",
       "options": [
-        "B) will",
-        "C) to",
-        "D) will to"
+        "A) will not to",
+        "B) won't",
+        "C) don't will",
+        "D) am not will"
       ],
       "correctIndex": 1
+    },
+    {
+      "id": 7,
+      "question": "I think it __________ rain today.",
+      "questionMl": "ഇന്ന് മഴ പെയ്യുമെന്ന് ഞാൻ കരുതുന്നു.",
+      "options": [
+        "A) is going",
+        "B) to",
+        "C) will",
+        "D) will to"
+      ],
+      "correctIndex": 2
     },
     {
       "id": 8,
-      "question": "I'm thirsty. I__________ buy some water.A) will to",
+      "question": "I'm thirsty. I__________ buy some water.",
       "questionMl": "എനിക്ക് ദാഹമുണ്ട്. ഞാൻ വെള്ളം വാങ്ങാം.",
       "options": [
-        "B) 'll",
-        "C) am going",
-        "D) will buying"
+        "A) will to",
+        "B) am going",
+        "C) will buying",
+        "D) 'll"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 9,
-      "question": "I __________ answer the phone.A) will",
+      "question": "I __________ answer the phone.",
       "questionMl": "ഞാൻ ഫോൺ എടുക്കാം.",
       "options": [
+        "A) will",
         "B) will to",
         "C) am will",
         "D) will helping"
@@ -6745,9 +7356,10 @@ const QUIZ_BANK = {
     },
     {
       "id": 10,
-      "question": "Identify the correct structure for 'will':A) Subject + will + V2",
+      "question": "Identify the correct structure for 'will':",
       "questionMl": "'will' ഉപയോഗിക്കുന്ന ശരിയായ വാക്യ ഘടന ഏതാണ്?",
       "options": [
+        "A) Subject + will + V2",
         "B) Subject + will + V1",
         "C) Subject + will + V+ing",
         "D) Subject + will to + V1"
@@ -6756,9 +7368,10 @@ const QUIZ_BANK = {
     },
     {
       "id": 11,
-      "question": "Identify the mistake: \"I will goes tomorrow.\"A) tomorrow",
+      "question": "Identify the mistake: \"I will goes tomorrow.\"",
       "questionMl": "തെറ്റ് തിരിച്ചറിയുക: \"I will goes tomorrow.\"",
       "options": [
+        "A) tomorrow",
         "B) will",
         "C) goes (should be 'go')",
         "D) I"
@@ -6767,119 +7380,130 @@ const QUIZ_BANK = {
     },
     {
       "id": 12,
-      "question": "Identify the mistake: \"She will studies hard.\"A) hard",
+      "question": "Identify the mistake: \"She will studies hard.\"",
       "questionMl": "തെറ്റ് തിരിച്ചറിയുക: \"She will studies hard.\"",
       "options": [
-        "B) studies (should be 'study')",
-        "C) will",
-        "D) She"
+        "A) hard",
+        "B) will",
+        "C) She",
+        "D) studies (should be 'study')"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 13,
-      "question": "Correct the sentence: \"He will to call you.\"A) He will calling you.",
+      "question": "Correct the sentence: \"He will to call you.\"",
       "questionMl": "വാക്യം ശരിയാക്കുക: \"He will to call you.\"",
       "options": [
-        "B) He will call you.",
+        "A) He will call you.",
+        "B) He will calling you.",
         "C) He will calls you.",
         "D) He is will call you."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 14,
-      "question": "Correct the sentence: \"We will went there.\"A) We will go there.",
+      "question": "Correct the sentence: \"We will went there.\"",
       "questionMl": "വാക്യം ശരിയാക്കുക: \"We will went there.\"",
       "options": [
-        "B) We will going there.",
+        "A) We will going there.",
+        "B) We will go there.",
         "C) We are will go there.",
         "D) We will gone there."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 15,
-      "question": "\"Trust me\" translates to:A) എന്നെ വിശ്വസിക്കൂ",
+      "question": "\"Trust me\" translates to:",
       "questionMl": "\"Trust me\" എന്നതിന്റെ മലയാളം അർത്ഥം എന്താണ്?",
       "options": [
-        "B) വിഷമിക്കണ്ട",
-        "C) ഞാൻ നോക്കിക്കൊള്ളാം",
+        "A) വിഷമിക്കണ്ട",
+        "B) ഞാൻ നോക്കിക്കൊള്ളാം",
+        "C) എന്നെ വിശ്വസിക്കൂ",
         "D) നീ കാണും"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 16,
-      "question": "\"You'll see\" translates to:A) നീ നോക്കൂ",
+      "question": "\"You'll see\" translates to:",
       "questionMl": "\"You'll see\" എന്നതിന്റെ മലയാളം അർത്ഥം എന്താണ്?",
       "options": [
-        "B) നീ കാണും",
-        "C) നീ പോകൂ",
-        "D) നീ ചെയ്യൂ"
+        "A) നീ നോക്കൂ",
+        "B) നീ പോകൂ",
+        "C) നീ ചെയ്യൂ",
+        "D) നീ കാണും"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 17,
-      "question": "\"I'll take care of it\" means:A) ഞാൻ അത് മറക്കും",
+      "question": "\"I'll take care of it\" means:",
       "questionMl": "\"I'll take care of it\" എന്ന പ്രയോഗത്തിന്റെ അർത്ഥം എന്താണ്?",
       "options": [
-        "B) ഞാൻ അത് നോക്കിക്കൊള്ളാം",
+        "A) ഞാൻ അത് നോക്കിക്കൊള്ളാം",
+        "B) ഞാൻ അത് മറക്കും",
         "C) അത് വിട്ടേക്കൂ",
         "D) എനിക്ക് അറിയില്ല"
-      ],
-      "correctIndex": 1
-    },
-    {
-      "id": 18,
-      "question": "\"Leave it to me\" means:A) അത് എന്നെ ഏൽപ്പിക്കൂ",
-      "questionMl": "\"Leave it to me\" എന്ന പ്രയോഗത്തിന്റെ അർത്ഥം എന്താണ്?",
-      "options": [
-        "B) അത് അവിടെ വെക്കൂ",
-        "C) അത് ചെയ്യണ്ട",
-        "D) ഞാൻ പോകുന്നു"
       ],
       "correctIndex": 0
     },
     {
-      "id": 19,
-      "question": "What is the Malayalam meaning of \"Promise\"?A) ലക്ഷ്യം",
-      "questionMl": "\"Promise\" എന്ന വാക്കിന്റെ മലയാളം അർത്ഥം എന്താണ്?",
+      "id": 18,
+      "question": "\"Leave it to me\" means:",
+      "questionMl": "\"Leave it to me\" എന്ന പ്രയോഗത്തിന്റെ അർത്ഥം എന്താണ്?",
       "options": [
-        "B) വാഗ്ദാനം",
-        "C) പ്രവചനം",
-        "D) വിജയം"
+        "A) അത് അവിടെ വെക്കൂ",
+        "B) അത് എന്നെ ഏൽപ്പിക്കൂ",
+        "C) അത് ചെയ്യണ്ട",
+        "D) ഞാൻ പോകുന്നു"
       ],
       "correctIndex": 1
+    },
+    {
+      "id": 19,
+      "question": "What is the Malayalam meaning of \"Promise\"?",
+      "questionMl": "\"Promise\" എന്ന വാക്കിന്റെ മലയാളം അർത്ഥം എന്താണ്?",
+      "options": [
+        "A) ലക്ഷ്യം",
+        "B) പ്രവചനം",
+        "C) വാഗ്ദാനം",
+        "D) വിജയം"
+      ],
+      "correctIndex": 2
     },
     {
       "id": 20,
-      "question": "\"Predict\" means:A) പിന്തുണയ്ക്കുക",
+      "question": "\"Predict\" means:",
       "questionMl": "\"Predict\" എന്ന വാക്കിന്റെ അർത്ഥം എന്താണ്?",
       "options": [
-        "B) പ്രവചിക്കുക",
-        "C) വിശ്വസിക്കുക",
-        "D) തീരുമാനിക്കുക"
+        "A) പിന്തുണയ്ക്കുക",
+        "B) വിശ്വസിക്കുക",
+        "C) തീരുമാനിക്കുക",
+        "D) പ്രവചിക്കുക"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 21,
-      "question": "\"Believe\" means:A) മറക്കുക",
+      "question": "\"Believe\" means:",
       "questionMl": "\"Believe\" എന്ന വാക്കിന്റെ അർത്ഥം എന്താണ്?",
       "options": [
-        "B) വിശ്വസിക്കുക",
+        "A) വിശ്വസിക്കുക",
+        "B) മറക്കുക",
         "C) സഹായിക്കുക",
         "D) വിജയിക്കുക"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "\"I won't give up\" translates to:A) ഞാൻ സഹായിക്കില്ല",
+      "question": "\"I won't give up\" translates to:",
       "questionMl": "\"I won't give up\" എന്ന വാചകത്തിന്റെ അർത്ഥം എന്താണ്?",
       "options": [
+        "A) ഞാൻ സഹായിക്കില്ല",
         "B) ഞാൻ പിന്മാറില്ല",
         "C) ഞാൻ വരാം",
         "D) ഞാൻ വിളിക്കാം"
@@ -6888,56 +7512,97 @@ const QUIZ_BANK = {
     },
     {
       "id": 23,
-      "question": "\"They will support us\" translates to:A) അവർ നമ്മളെ വിളിക്കും",
+      "question": "\"They will support us\" translates to:",
       "questionMl": "\"They will support us\" എന്നതിന്റെ മലയാളം അർത്ഥം എന്താണ്?",
       "options": [
-        "B) അവർ നമ്മളെ പിന്തുണക്കും",
-        "C) അവർ നമ്മളെ മറക്കും",
+        "A) അവർ നമ്മളെ വിളിക്കും",
+        "B) അവർ നമ്മളെ മറക്കും",
+        "C) അവർ നമ്മളെ പിന്തുണക്കും",
         "D) അവർ നമ്മളെ സഹായിക്കില്ല"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 24,
-      "question": "I think you will __________.A) success",
+      "question": "I think you will __________.",
       "questionMl": "നീ വിജയിക്കുമെന്ന് ഞാൻ കരുതുന്നു.",
       "options": [
-        "B) succeed",
-        "C) succeeding",
-        "D) successful"
+        "A) success",
+        "B) succeeding",
+        "C) successful",
+        "D) succeed"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 25,
-      "question": "Which of the following is an instant decision?A) I am going to build a house next year.",
+      "question": "Which of the following is an instant decision?",
       "questionMl": "പെട്ടെന്നുള്ള തീരുമാനം കാണിക്കുന്ന വാക്യം ഏതാണ്?",
       "options": [
-        "B) I'm thirsty. I'll buy some water.",
+        "A) I'm thirsty. I'll buy some water.",
+        "B) I am going to build a house next year.",
         "C) I have lived here for five years.",
         "D) I went to school yesterday."
-      ],
-      "correctIndex": 1
-    },
-    {
-      "id": 26,
-      "question": "He will __________ a doctor.A) become",
-      "questionMl": "അവൻ ഒരു ഡോക്ടർ ആകും.",
-      "options": [
-        "B) became",
-        "C) becoming",
-        "D) becomes"
       ],
       "correctIndex": 0
     },
     {
+      "id": 26,
+      "question": "He will __________ a doctor.",
+      "questionMl": "അവൻ ഒരു ഡോക്ടർ ആകും.",
+      "options": [
+        "A) became",
+        "B) become",
+        "C) becoming",
+        "D) becomes"
+      ],
+      "correctIndex": 1
+    },
+    {
       "id": 27,
-      "question": "\"Everything will be fine\" means:A) എല്ലാം മോശമാകും",
+      "question": "\"Everything will be fine\" means:",
       "questionMl": "\"Everything will be fine\" എന്നതിന്റെ അർത്ഥം എന്താണ്?",
       "options": [
-        "B) എല്ലാം ശരിയാകും",
-        "C) ഒന്നും ശരിയാകില്ല",
+        "A) എല്ലാം മോശമാകും",
+        "B) ഒന്നും ശരിയാകില്ല",
+        "C) എല്ലാം ശരിയാകും",
         "D) ഞാൻ നോക്കാം"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": 28,
+      "question": "How do you make a sincere promise to a friend who asked for help?",
+      "questionMl": "സുഹൃത്തിന് ഉറപ്പായ ഒരു വാക്ക് നൽകാൻ അനുയോജ്യമായ വാക്യം ഏതാണ്?",
+      "options": [
+        "A) I promise I will helping you tomorrow.",
+        "B) I promise I am will help you.",
+        "C) I promise I will to help you.",
+        "D) I promise I will definitely help you with your project tomorrow."
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": 29,
+      "question": "Fill in the blank with the correct negative future form: \"Don't worry, I _____ tell your secret to anyone.\"",
+      "questionMl": "വിഷമിക്കേണ്ട, ഞാൻ ഈ രഹസ്യം ആരോടും പറയില്ല എന്ന് ഉറപ്പ് നൽകാൻ:",
+      "options": [
+        "A) won't",
+        "B) will",
+        "C) am not",
+        "D) don't will"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": 30,
+      "question": "Complete the prediction: \"Looking at the dark clouds in the sky, I think it _____ rain heavily this evening.\"",
+      "questionMl": "ആകാശത്തെ കാർമേഘങ്ങൾ കണ്ടിട്ട് ഇന്ന് വൈകുന്നേരം കനത്ത മഴ പെയ്യുമെന്ന് തോന്നുന്നു:",
+      "options": [
+        "A) is will",
+        "B) will",
+        "C) will to",
+        "D) won't to"
       ],
       "correctIndex": 1
     }
@@ -6949,11 +7614,11 @@ const QUIZ_BANK = {
       "questionMl": "ശരിയായ ഫ്യൂച്ചർ കണ്ടിന്യൂവസ് വാചകം തിരഞ്ഞെടുക്കുക:",
       "options": [
         "A) At this time tomorrow, I will study for my exam.",
-        "B) At this time tomorrow, I will be studying for my exam.",
-        "C) At this time tomorrow, I am studying for my exam.",
+        "B) At this time tomorrow, I am studying for my exam.",
+        "C) At this time tomorrow, I will be studying for my exam.",
         "D) At this time tomorrow, I studied for my exam."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 2,
@@ -6961,23 +7626,23 @@ const QUIZ_BANK = {
       "questionMl": "ഫ്യൂച്ചർ കണ്ടിന്യൂവസ് ടെൻസിന്റെ ശരിയായ നെഗറ്റീവ് ഘടന ഏതാണ്?",
       "options": [
         "A) Subject + will be not + Verb+ing",
-        "B) Subject + will not (won't) + be + Verb+ing",
-        "C) Subject + not will be + Verb+ing",
-        "D) Subject + will be no + Verb+ing"
+        "B) Subject + not will be + Verb+ing",
+        "C) Subject + will be no + Verb+ing",
+        "D) Subject + will not (won't) + be + Verb+ing"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 3,
       "question": "Complete the sentence: \"She _____ (not / attend) the meeting tomorrow afternoon.\"",
       "questionMl": "വാചകം പൂർത്തിയാക്കുക: \"അവൾ നാളെ ഉച്ചയ്ക്ക് മീറ്റിംഗിൽ പങ്കെടുക്കുകയായിരിക്കില്ല.\"",
       "options": [
-        "A) won't attending",
-        "B) won't be attend",
-        "C) won't be attending",
+        "A) won't be attending",
+        "B) won't attending",
+        "C) won't be attend",
         "D) isn't be attending"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 4,
@@ -6997,11 +7662,11 @@ const QUIZ_BANK = {
       "questionMl": "തെറ്റായ വാചകം കണ്ടെത്തുക:",
       "options": [
         "A) He will be working tomorrow morning.",
-        "B) I will studying tomorrow.",
-        "C) They will be playing football.",
+        "B) They will be playing football.",
+        "C) I will studying tomorrow.",
         "D) We will be going there."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 6,
@@ -7010,34 +7675,34 @@ const QUIZ_BANK = {
       "options": [
         "A) She will studying.",
         "B) She will be studies.",
-        "C) She will be studying.",
-        "D) She will studied."
+        "C) She will studied.",
+        "D) She will be studying."
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 7,
       "question": "Fill in the blank: \"At this time tomorrow, we _____ to Delhi.\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"നാളെ ഈ സമയത്ത് ഞങ്ങൾ ഡൽഹിയിലേക്ക് യാത്ര ചെയ്യുകയായിരിക്കും.\"",
       "options": [
-        "A) will fly",
-        "B) will be flying",
+        "A) will be flying",
+        "B) will fly",
         "C) will flying",
         "D) are fly"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 8,
       "question": "Complete the WH-question: \"What _____ you be doing tomorrow morning?\"",
       "questionMl": "WH-ചോദ്യം പൂർത്തിയാക്കുക: \"നാളെ രാവിലെ നിങ്ങൾ എന്ത് ചെയ്യുകയായിരിക്കും?\"",
       "options": [
-        "A) will",
-        "B) do",
+        "A) do",
+        "B) will",
         "C) are",
         "D) have"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 9,
@@ -7045,35 +7710,35 @@ const QUIZ_BANK = {
       "questionMl": "ഈ ചോദ്യത്തിന് ശരിയായ ഉത്തരം തിരഞ്ഞെടുക്കുക: \"നിങ്ങൾ ഇന്ന് രാത്രി പഠിക്കുകയായിരിക്കുമോ?\"",
       "options": [
         "A) Yes, I am.",
-        "B) Yes, I will.",
-        "C) Yes, I do.",
+        "B) Yes, I do.",
+        "C) Yes, I will.",
         "D) Yes, I be."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 10,
       "question": "Fill in the blank: \"Which project _____ she be working on?\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"അവൾ ഏത് പ്രോജക്റ്റിലാണ് ജോലി ചെയ്യുകയായിരിക്കുക?\"",
       "options": [
-        "A) will",
-        "B) does",
-        "C) is",
-        "D) has"
+        "A) does",
+        "B) is",
+        "C) has",
+        "D) will"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 11,
       "question": "Which English sentence matches: \"ഞങ്ങൾ അടുത്ത ആഴ്ച യാത്ര ചെയ്യുകയായിരിക്കും.\"?",
       "questionMl": "\"ഞങ്ങൾ അടുത്ത ആഴ്ച യാത്ര ചെയ്യുകയായിരിക്കും\" എന്നതിന് അനുയോജ്യമായ ഇംഗ്ലീഷ് വാചകം ഏതാണ്?",
       "options": [
-        "A) We travel next week.",
-        "B) We will be travelling next week.",
+        "A) We will be travelling next week.",
+        "B) We travel next week.",
         "C) We were travelling next week.",
         "D) We have travelled next week."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 12,
@@ -7092,12 +7757,12 @@ const QUIZ_BANK = {
       "question": "Complete the sentence: \"My father _____ to work at 8 AM tomorrow.\"",
       "questionMl": "വാചകം പൂർത്തിയാക്കുക: \"എന്റെ അച്ഛൻ നാളെ രാവിലെ 8 മണിക്ക് ജോലിയിലേക്ക് ഡ്രൈവ് ചെയ്യുകയായിരിക്കും.\"",
       "options": [
-        "A) will be driving",
-        "B) will drive be",
-        "C) will driving",
+        "A) will drive be",
+        "B) will driving",
+        "C) will be driving",
         "D) is be driving"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 14,
@@ -7105,35 +7770,35 @@ const QUIZ_BANK = {
       "questionMl": "ശരിയായ നെഗറ്റീവ് വാചകം തിരഞ്ഞെടുക്കുക:",
       "options": [
         "A) I won't working tomorrow.",
-        "B) I won't be working tomorrow.",
-        "C) I will be not working tomorrow.",
-        "D) I not will be working tomorrow."
+        "B) I will be not working tomorrow.",
+        "C) I not will be working tomorrow.",
+        "D) I won't be working tomorrow."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 15,
       "question": "Fill in the blank: \"_____ car will you be driving?\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"നിങ്ങൾ ആരുടെ കാറാണ് ഓടിക്കുകയായിരിക്കുക?\"",
       "options": [
-        "A) Who",
-        "B) Whom",
-        "C) Whose",
+        "A) Whose",
+        "B) Who",
+        "C) Whom",
         "D) Which one"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 16,
       "question": "Fill in the blank: \"Where _____ they be staying during the vacation?\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"അവധിക്ക് അവർ എവിടെയാണ് താമസിക്കുകയായിരിക്കുക?\"",
       "options": [
-        "A) will",
-        "B) are",
+        "A) are",
+        "B) will",
         "C) do",
         "D) have"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 17,
@@ -7141,11 +7806,11 @@ const QUIZ_BANK = {
       "questionMl": "ഫ്യൂച്ചർ കണ്ടിന്യൂവസ് ടെൻസിലെ Yes/No ചോദ്യങ്ങളുടെ ശരിയായ ഘടന ഏതാണ്?",
       "options": [
         "A) Will + Subject + Verb+ing?",
-        "B) Will + Subject + be + Verb+ing?",
-        "C) Be + Subject + will + Verb+ing?",
+        "B) Be + Subject + will + Verb+ing?",
+        "C) Will + Subject + be + Verb+ing?",
         "D) Subject + will + be + Verb+ing?"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 18,
@@ -7153,35 +7818,35 @@ const QUIZ_BANK = {
       "questionMl": "ശരിയായ ഓപ്ഷൻ തിരഞ്ഞെടുക്കുക: \"അടുത്ത ആഴ്ച ഈ സമയത്ത് ഞങ്ങൾ ഞങ്ങളുടെ വിജയം ആഘോഷിക്കുകയായിരിക്കും.\"",
       "options": [
         "A) will celebrating",
-        "B) will be celebrating",
-        "C) celebrated",
-        "D) celebrate"
+        "B) celebrated",
+        "C) celebrate",
+        "D) will be celebrating"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 19,
       "question": "Fill in the blank: \"Who _____ teaching tomorrow?\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"നാളെ ആരാണ് പഠിപ്പിക്കുകയായിരിക്കുക?\"",
       "options": [
-        "A) will",
-        "B) will be",
+        "A) will be",
+        "B) will",
         "C) is be",
         "D) shall"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 20,
       "question": "Complete the sentence: \"The students _____ English at this time tomorrow.\"",
       "questionMl": "വാചകം പൂർത്തിയാക്കുക: \"വിദ്യാർത്ഥികൾ നാളെ ഈ സമയത്ത് ഇംഗ്ലീഷ് പഠിച്ചുകൊണ്ടിരിക്കുകയായിരിക്കും.\"",
       "options": [
-        "A) will be learning",
-        "B) will learn be",
+        "A) will learn be",
+        "B) will be learning",
         "C) learning",
         "D) will be learn"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 21,
@@ -7189,11 +7854,11 @@ const QUIZ_BANK = {
       "questionMl": "\"പ്രവർത്തനങ്ങളുടെയും സമയങ്ങളുടെയും പ്ലാൻ/ക്രമം\" എന്നതിനെ കുറിക്കുന്ന വാക്ക് ഏതാണ്?",
       "options": [
         "A) Journey",
-        "B) Schedule",
-        "C) Vacation",
+        "B) Vacation",
+        "C) Schedule",
         "D) Assignment"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 22,
@@ -7201,47 +7866,47 @@ const QUIZ_BANK = {
       "questionMl": "ശരിയായ ഓപ്ഷൻ തിരഞ്ഞെടുക്കുക: \"ക്ലാസ് സമയത്ത് ഞാൻ ഫോൺ ഉപയോഗിക്കുകയായിരിക്കില്ല.\"",
       "options": [
         "A) for",
-        "B) during",
-        "C) since",
-        "D) until"
+        "B) since",
+        "C) until",
+        "D) during"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 23,
       "question": "Correct the error: \"They will be travel.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"They will be travel.\"",
       "options": [
-        "A) They will travelling.",
-        "B) They will be travelling.",
+        "A) They will be travelling.",
+        "B) They will travelling.",
         "C) They travel.",
         "D) They will be travelled."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 24,
       "question": "Complete the question: \"How _____ you be preparing for the presentation?\"",
       "questionMl": "ചോദ്യം പൂർത്തിയാക്കുക: \"പ്രസന്റേഷനായി നിങ്ങൾ എങ്ങനെയാണ് തയ്യാറെടുക്കുകയായിരിക്കുക?\"",
       "options": [
-        "A) will",
-        "B) are",
+        "A) are",
+        "B) will",
         "C) do",
         "D) were"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 25,
       "question": "Fill in the blank: \"Whom _____ she be calling later?\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"അവൾ പിന്നീട് ആരെയാണ് വിളിക്കുകയായിരിക്കുക?\"",
       "options": [
-        "A) will",
-        "B) is",
-        "C) does",
+        "A) is",
+        "B) does",
+        "C) will",
         "D) has"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 26,
@@ -7250,22 +7915,22 @@ const QUIZ_BANK = {
       "options": [
         "A) I studied yesterday.",
         "B) I am a teacher.",
-        "C) I will be writing my exam tomorrow morning.",
-        "D) I have finished my homework."
+        "C) I have finished my homework.",
+        "D) I will be writing my exam tomorrow morning."
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 27,
       "question": "Choose the correct short negative answer to: \"Will she be attending the meeting?\"",
       "questionMl": "\"Will she be attending the meeting?\" എന്ന ചോദ്യത്തിന് ശരിയായ ചുരുങ്ങിയ നെഗറ്റീവ് ഉത്തരം ഏതാണ്?",
       "options": [
-        "A) No, she doesn't.",
-        "B) No, she isn't.",
-        "C) No, she won't.",
+        "A) No, she won't.",
+        "B) No, she doesn't.",
+        "C) No, she isn't.",
         "D) No, she hasn't."
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 28,
@@ -7285,23 +7950,23 @@ const QUIZ_BANK = {
       "questionMl": "\"നാളെ ഈ സമയത്ത് ഞാൻ പ്രസന്റേഷൻ തയ്യാറാക്കുകയായിരിക്കും\" എന്നതിന്റെ ശരിയായ പരിഭാഷ ഏതാണ്?",
       "options": [
         "A) I prepared my presentation tomorrow at this time.",
-        "B) I will be preparing my presentation at this time tomorrow.",
-        "C) I prepare my presentation tomorrow.",
+        "B) I prepare my presentation tomorrow.",
+        "C) I will be preparing my presentation at this time tomorrow.",
         "D) I have prepared my presentation at this time tomorrow."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 30,
       "question": "Fill in the blank: \"Why _____ you be working late tonight?\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"നിങ്ങൾ എന്തുകൊണ്ടാണ് ഇന്ന് രാത്രി വൈകി ജോലി ചെയ്യുകയായിരിക്കുക?\"",
       "options": [
-        "A) will",
-        "B) are",
-        "C) do",
-        "D) did"
+        "A) are",
+        "B) do",
+        "C) did",
+        "D) will"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     }
   ],
   "23": [
@@ -7310,24 +7975,24 @@ const QUIZ_BANK = {
       "question": "What is the correct structure for the Present Perfect Continuous Tense?",
       "questionMl": "പ്രസന്റ് പെർഫെക്റ്റ് കണ്ടിന്യൂവസ് ടെൻസിന്റെ ശരിയായ ഘടന ഏതാണ്?",
       "options": [
-        "A) Subject + has/have + Verb+ing",
-        "B) Subject + have/has been + Verb+ing",
+        "A) Subject + have/has been + Verb+ing",
+        "B) Subject + has/have + Verb+ing",
         "C) Subject + had been + Verb",
         "D) Subject + is/are + Verb+ing"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 2,
       "question": "Choose the correct option: \"I _____ English for six months.\"",
       "questionMl": "ശരിയായ ഓപ്ഷൻ തിരഞ്ഞെടുക്കുക: \"ഞാൻ ആറുമാസമായി ഇംഗ്ലീഷ് പഠിച്ചുകൊണ്ടിരിക്കുകയാണ്.\"",
       "options": [
-        "A) have been learning",
-        "B) has been learning",
+        "A) has been learning",
+        "B) have been learning",
         "C) am learning",
         "D) was learning"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 3,
@@ -7335,35 +8000,35 @@ const QUIZ_BANK = {
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"അവൾ 2023 മുതൽ ഇവിടെ ജോലി ചെയ്യുകയാണ്.\"",
       "options": [
         "A) for",
-        "B) since",
-        "C) from",
+        "B) from",
+        "C) since",
         "D) during"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 4,
       "question": "Fill in the blank: \"We have been waiting _____ an hour.\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"ഞങ്ങൾ ഒരു മണിക്കൂറായി കാത്തിരിക്കുകയാണ്.\"",
       "options": [
-        "A) for",
-        "B) since",
-        "C) from",
-        "D) by"
+        "A) since",
+        "B) from",
+        "C) by",
+        "D) for"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 5,
       "question": "When do we use \"for\"?",
       "questionMl": "\"for\" എപ്പോഴാണ് ഉപയോഗിക്കുന്നത്?",
       "options": [
-        "A) To show a starting point in time",
-        "B) To show a duration of time",
+        "A) To show a duration of time",
+        "B) To show a starting point in time",
         "C) To show a future event",
         "D) To show a completed past action"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 6,
@@ -7406,24 +8071,24 @@ const QUIZ_BANK = {
       "question": "Choose the correct negative form: \"She _____ coming to class regularly.\"",
       "questionMl": "ശരിയായ നെഗറ്റീവ് രൂപം തിരഞ്ഞെടുക്കുക: \"അവൾ സ്ഥിരമായി ക്ലാസിൽ വരുന്നില്ല.\"",
       "options": [
-        "A) haven't been",
-        "B) hasn't been",
+        "A) hasn't been",
+        "B) haven't been",
         "C) don't been",
         "D) isn't been"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 10,
       "question": "Complete the question: \"_____ you been learning English for long?\"",
       "questionMl": "ചോദ്യം പൂർത്തിയാക്കുക: \"നിങ്ങൾ വളരെക്കാലമായി ഇംഗ്ലീഷ് പഠിക്കുകയാണോ?\"",
       "options": [
-        "A) Have",
-        "B) Has",
+        "A) Has",
+        "B) Have",
         "C) Do",
         "D) Are"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 11,
@@ -7443,11 +8108,11 @@ const QUIZ_BANK = {
       "questionMl": "തെറ്റായ വാചകം കണ്ടെത്തുക:",
       "options": [
         "A) I have been learning English.",
-        "B) I have been studying since two years.",
-        "C) She has been working here since Monday.",
-        "D) We have been waiting for an hour."
+        "B) She has been working here since Monday.",
+        "C) We have been waiting for an hour.",
+        "D) I have been studying since two years."
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 13,
@@ -7466,12 +8131,12 @@ const QUIZ_BANK = {
       "question": "Complete the question: \"What _____ you been doing since morning?\"",
       "questionMl": "ചോദ്യം പൂർത്തിയാക്കുക: \"രാവിലെ മുതൽ നിങ്ങൾ എന്താണ് ചെയ്യുന്നത്?\"",
       "options": [
-        "A) have",
-        "B) has",
+        "A) has",
+        "B) have",
         "C) do",
         "D) are"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 15,
@@ -7479,35 +8144,35 @@ const QUIZ_BANK = {
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"എപ്പോൾ മുതലാണ് അവൾ ഇവിടെ ജോലി ചെയ്യുന്നത്?\"",
       "options": [
         "A) have",
-        "B) has",
-        "C) is",
+        "B) is",
+        "C) has",
         "D) was"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 16,
       "question": "Fill in the blank: \"Which project _____ he been handling?\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"അവൻ ഏത് പ്രോജക്റ്റാണ് കൈകാര്യം ചെയ്യുന്നത്?\"",
       "options": [
-        "A) has",
-        "B) have",
-        "C) is",
-        "D) does"
+        "A) have",
+        "B) is",
+        "C) does",
+        "D) has"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 17,
       "question": "Choose the correct sentence:",
       "questionMl": "ശരിയായ വാചകം തിരഞ്ഞെടുക്കുക:",
       "options": [
-        "A) I have been learn English for six months.",
-        "B) I have been learning English for six months.",
+        "A) I have been learning English for six months.",
+        "B) I have been learn English for six months.",
         "C) I have learning English for six months.",
         "D) I am learning English since six months."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 18,
@@ -7540,22 +8205,22 @@ const QUIZ_BANK = {
       "options": [
         "A) Who",
         "B) Whom",
-        "C) Whose",
-        "D) Which"
+        "C) Which",
+        "D) Whose"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 21,
       "question": "Select the correct translation for: \"ഞങ്ങൾ കഴിഞ്ഞ മാസം മുതൽ പരീക്ഷയ്ക്ക് തയ്യാറെടുക്കുകയാണ്.\"",
       "questionMl": "\"ഞങ്ങൾ കഴിഞ്ഞ മാസം മുതൽ പരീക്ഷയ്ക്ക് തയ്യാറെടുക്കുകയാണ്\" എന്നതിന്റെ ശരിയായ ഇംഗ്ലീഷ് വാചകം ഏതാണ്?",
       "options": [
-        "A) We prepared for the exam last month.",
-        "B) We are preparing for the exam for last month.",
-        "C) We have been preparing for the exam since last month.",
+        "A) We have been preparing for the exam since last month.",
+        "B) We prepared for the exam last month.",
+        "C) We are preparing for the exam for last month.",
         "D) We will be preparing for the exam since last month."
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 22,
@@ -7574,84 +8239,96 @@ const QUIZ_BANK = {
       "question": "Choose the correct negative sentence: \"I _____ sleeping well recently.\"",
       "questionMl": "ശരിയായ നെഗറ്റീവ് വാചകം തിരഞ്ഞെടുക്കുക: \"ഞാൻ അടുത്തിടെ നന്നായി ഉറങ്ങുന്നില്ല.\"",
       "options": [
-        "A) haven't been",
-        "B) hasn't been",
-        "C) not have been",
+        "A) hasn't been",
+        "B) not have been",
+        "C) haven't been",
         "D) am not been"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 24,
       "question": "Choose the correct question word filler: \"Why _____ you been working late?\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"നിങ്ങൾ എന്തുകൊണ്ടാണ് വൈകി ജോലി ചെയ്യുന്നത്?\"",
       "options": [
-        "A) have",
-        "B) has",
-        "C) are",
-        "D) do"
+        "A) has",
+        "B) are",
+        "C) do",
+        "D) have"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 25,
       "question": "Select the correct vocabulary word meaning \"doing something regularly and steadily\":",
       "questionMl": "\"ഒരു കാര്യം കൃത്യമായും സ്ഥിരമായും ചെയ്യുക\" എന്നതിനെ കുറിക്കുന്ന പദം ഏതാണ്?",
       "options": [
-        "A) Journey",
-        "B) Routine",
-        "C) Consistency",
+        "A) Consistency",
+        "B) Journey",
+        "C) Routine",
         "D) Experience"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
     },
     {
       "id": 26,
       "question": "Correct the mistake: \"We have been waited for an hour.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"We have been waited for an hour.\"",
       "options": [
-        "A) We have been waiting for an hour.",
-        "B) We have waiting for an hour.",
+        "A) We have waiting for an hour.",
+        "B) We have been waiting for an hour.",
         "C) We have wait for an hour.",
         "D) We are waited for an hour."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 27,
       "question": "Fill in the blank: \"How _____ you been preparing for the interview?\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"ഇന്റർവ്യൂവിനായി നിങ്ങൾ എങ്ങനെയാണ് തയ്യാറെടുക്കുന്നത്?\"",
       "options": [
-        "A) have",
-        "B) has",
-        "C) do",
+        "A) has",
+        "B) do",
+        "C) have",
         "D) are"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 28,
       "question": "Choose the correct preposition: \"I have been working _____ my goals.\"",
       "questionMl": "ശരിയായ പ്രിപ്പോസിഷൻ തിരഞ്ഞെടുക്കുക: \"ഞാൻ എന്റെ ലക്ഷ്യങ്ങൾക്കായി പ്രവർത്തിച്ചുകൊണ്ടിരിക്കുകയാണ്.\"",
       "options": [
-        "A) towards",
-        "B) since",
-        "C) into",
-        "D) from"
+        "A) since",
+        "B) into",
+        "C) from",
+        "D) towards"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 29,
       "question": "Fill in the blank: \"She hasn't been _____ my calls.\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"അവൾ എന്റെ കോളുകൾക്ക് മറുപടി നൽകുന്നില്ല.\"",
       "options": [
-        "A) answer",
-        "B) answered",
-        "C) answering",
+        "A) answering",
+        "B) answer",
+        "C) answered",
         "D) answers"
       ],
-      "correctIndex": 2
+      "correctIndex": 0
+    },
+    {
+      "id": 30,
+      "question": "Complete the sentence: \"She has been practicing yoga every morning _____ three years.\"",
+      "questionMl": "ഒരു നിശ്ചിത കാലയളവിനെ (three years) സൂചിപ്പിക്കാൻ 'for' ഉപയോഗിക്കുക:",
+      "options": [
+        "A) since",
+        "B) for",
+        "C) from",
+        "D) during"
+      ],
+      "correctIndex": 1
     }
   ],
   "24": [
@@ -7661,11 +8338,11 @@ const QUIZ_BANK = {
       "questionMl": "ഒരു കടക്കാരനോട് ഒരു സാധനം കാണിക്കാൻ ആവശ്യപ്പെടാനുള്ള ഏറ്റവും മര്യാദയുള്ള മാർഗം ഏതാണ്?",
       "options": [
         "A) Give me this shirt.",
-        "B) Could you please show me this shirt?",
-        "C) Show shirt now.",
+        "B) Show shirt now.",
+        "C) Could you please show me this shirt?",
         "D) I want this shirt instantly."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 2,
@@ -7673,11 +8350,11 @@ const QUIZ_BANK = {
       "questionMl": "ഒരു സാധനത്തിന്റെ വില മര്യാദയോടെ എങ്ങനെ ചോദിക്കാം?",
       "options": [
         "A) What price?",
-        "B) How much does this cost?",
-        "C) Give price list.",
-        "D) Tell money."
+        "B) Give price list.",
+        "C) Tell money.",
+        "D) How much does this cost?"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 3,
@@ -7708,36 +8385,36 @@ const QUIZ_BANK = {
       "question": "What do you say when you want to test if clothes fit you?",
       "questionMl": "വസ്ത്രങ്ങൾ ധരിച്ചു നോക്കാമോ എന്ന് എങ്ങനെ ചോദിക്കാം?",
       "options": [
-        "A) Can I try this on?",
-        "B) Can I wear this home?",
-        "C) Can I test this?",
+        "A) Can I wear this home?",
+        "B) Can I test this?",
+        "C) Can I try this on?",
         "D) Can I dress it?"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 6,
       "question": "Which sentence is used to state what you are searching for in a store?",
       "questionMl": "നിങ്ങൾ കടയിൽ എന്താണ് അന്വേഷിക്കുന്നത് എന്ന് പറയാൻ ഏത് വാചകം ഉപയോഗിക്കാം?",
       "options": [
-        "A) I'm looking for sports shoes.",
-        "B) I look sports shoes.",
-        "C) I searching sports shoes.",
-        "D) I am look sports shoes."
+        "A) I look sports shoes.",
+        "B) I searching sports shoes.",
+        "C) I am look sports shoes.",
+        "D) I'm looking for sports shoes."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 7,
       "question": "How do you politely ask for a payment receipt?",
       "questionMl": "പേയ്മെന്റ് ബിൽ മര്യാദയോടെ എങ്ങനെ ചോദിച്ചു വാങ്ങാം?",
       "options": [
-        "A) I need bill.",
-        "B) Could I have the receipt, please?",
+        "A) Could I have the receipt, please?",
+        "B) I need bill.",
         "C) Give receipt paper.",
         "D) Pay bill now."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 8,
@@ -7756,12 +8433,12 @@ const QUIZ_BANK = {
       "question": "If you want a different color, how do you ask?",
       "questionMl": "മറ്റൊരു നിറത്തിൽ ഉണ്ടോ എന്ന് എങ്ങനെ ചോദിക്കാം?",
       "options": [
-        "A) Do you have this in black?",
-        "B) Give black color.",
-        "C) Is black color existing?",
+        "A) Give black color.",
+        "B) Is black color existing?",
+        "C) Do you have this in black?",
         "D) Why not black?"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 10,
@@ -7769,23 +8446,23 @@ const QUIZ_BANK = {
       "questionMl": "തെറ്റ് തിരുത്തുക: \"Pack this.\"",
       "options": [
         "A) Packing this.",
-        "B) Could you please pack this?",
-        "C) Pack this quickly.",
-        "D) You pack this item."
+        "B) Pack this quickly.",
+        "C) You pack this item.",
+        "D) Could you please pack this?"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 11,
       "question": "Which word refers to a company's unique product name or mark?",
       "questionMl": "ഒരു കമ്പനിയുടെ ഉൽപ്പന്ന നാമത്തെയോ അടയാളത്തെയോ കുറിക്കുന്ന വാക്ക് ഏതാണ്?",
       "options": [
-        "A) Discount",
-        "B) Brand",
+        "A) Brand",
+        "B) Discount",
         "C) Wallet",
         "D) Change"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 12,
@@ -7804,60 +8481,60 @@ const QUIZ_BANK = {
       "question": "If you want a bigger size in clothing, what do you ask?",
       "questionMl": "വലിയ സൈസ് ഉണ്ടോ എന്ന് എങ്ങനെ ചോദിക്കാം?",
       "options": [
-        "A) Do you have a larger size?",
-        "B) Give big size.",
-        "C) Make it larger.",
+        "A) Give big size.",
+        "B) Make it larger.",
+        "C) Do you have a larger size?",
         "D) Where is big size?"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 14,
       "question": "Which phrase expresses that you have decided to buy an item?",
       "questionMl": "ഒരു സാധനം വാങ്ങാൻ നിങ്ങൾ തീരുമാനിച്ചു എന്ന് പറയാൻ ഏത് വാചകം ഉപയോഗിക്കാം?",
       "options": [
-        "A) I'll take this one.",
-        "B) I'm looking for this.",
-        "C) I leave this one.",
-        "D) I try this on."
+        "A) I'm looking for this.",
+        "B) I leave this one.",
+        "C) I try this on.",
+        "D) I'll take this one."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 15,
       "question": "What is the balance money returned after paying with a larger currency note called?",
       "questionMl": "വലിയ നോട്ട് നൽകിയ ശേഷം തിരികെ ലഭിക്കുന്ന ബാക്കി പണത്തെ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) Bill",
-        "B) Change",
+        "A) Change",
+        "B) Bill",
         "C) Offer",
         "D) Receipt"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 16,
       "question": "If an item is damaged, what store policy allows you to replace it?",
       "questionMl": "ഒരു സാധനം കേടാണെങ്കിൽ അത് മാറ്റി വാങ്ങാൻ സഹായിക്കുന്ന കടയുടെ പോളിസി ഏതാണ്?",
       "options": [
-        "A) Return / Exchange policy",
-        "B) Price tag policy",
+        "A) Price tag policy",
+        "B) Return / Exchange policy",
         "C) Cashier policy",
         "D) Brand policy"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 17,
       "question": "Identify the correct sentence for asking about card payment:",
       "questionMl": "കാർഡ് ഉപയോഗിച്ച് പണം നൽകുന്നതിനെക്കുറിച്ച് ചോദിക്കുന്ന ശരിയായ വാചകം ഏതാണ്?",
       "options": [
-        "A) Can I pay by card?",
-        "B) Am I pay card?",
-        "C) Do I giving card?",
+        "A) Am I pay card?",
+        "B) Do I giving card?",
+        "C) Can I pay by card?",
         "D) Card payment do?"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 18,
@@ -7865,23 +8542,23 @@ const QUIZ_BANK = {
       "questionMl": "സാധനം വാങ്ങിയതിന്റെ തെളിവായി ലഭിക്കുന്ന രേഖയെ എന്ത് വിളിക്കുന്നു?",
       "options": [
         "A) Wallet",
-        "B) Receipt",
-        "C) Counter",
-        "D) Offer"
+        "B) Counter",
+        "C) Offer",
+        "D) Receipt"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 19,
       "question": "Which phrase is a standard polite closing when leaving a shop?",
       "questionMl": "കടയിൽ നിന്ന് ഇറങ്ങുമ്പോൾ പറയുന്ന മര്യാദയുള്ള വാചകം ഏതാണ്?",
       "options": [
-        "A) Give me more.",
-        "B) Have a nice day.",
+        "A) Have a nice day.",
+        "B) Give me more.",
         "C) Stop working.",
         "D) Pay me back."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 20,
@@ -7900,12 +8577,12 @@ const QUIZ_BANK = {
       "question": "Choose the correct spelling and usage: \"Could you please give me a _____ on this item?\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"ഡിസ്കൗണ്ട്\" എന്നതിന്റെ ശരിയായ സ്പെല്ലിംഗ് ഏതാണ്?",
       "options": [
-        "A) discount",
-        "B) disscount",
-        "C) descount",
+        "A) disscount",
+        "B) descount",
+        "C) discount",
         "D) discunt"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 22,
@@ -7913,47 +8590,47 @@ const QUIZ_BANK = {
       "questionMl": "മരുന്നുകൾ വാങ്ങാൻ ഏത് കടയിലാണ് പോകേണ്ടത്?",
       "options": [
         "A) Footwear shop",
-        "B) Medical shop / Pharmacy",
-        "C) Bookstore",
-        "D) Jewellery shop"
+        "B) Bookstore",
+        "C) Jewellery shop",
+        "D) Medical shop / Pharmacy"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 23,
       "question": "What does \"quality\" refer to?",
       "questionMl": "\"Quality\" (ഗുണനിലവാരം) എന്നത് എന്തിനെയാണ് സൂചിപ്പിക്കുന്നത്?",
       "options": [
-        "A) How much something costs",
-        "B) How good or well-made something is",
+        "A) How good or well-made something is",
+        "B) How much something costs",
         "C) The size of the shop",
         "D) The color of the item"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 24,
       "question": "Choose the best response when the shopkeeper asks: \"What size do you need?\"",
       "questionMl": "\"What size do you need?\" എന്ന ചോദ്യത്തിന് ഏറ്റവും അനുയോജ്യമായ ഉത്തരം ഏതാണ്?",
       "options": [
-        "A) Medium, please.",
-        "B) Yes, I do.",
+        "A) Yes, I do.",
+        "B) Medium, please.",
         "C) ₹1,250.",
         "D) By card."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 25,
       "question": "Correct the mistake: \"What price?\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"What price?\"",
       "options": [
-        "A) How much does this cost?",
-        "B) How price is?",
-        "C) Which price this?",
+        "A) How price is?",
+        "B) Which price this?",
+        "C) How much does this cost?",
         "D) What is cost price?"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 26,
@@ -7961,23 +8638,23 @@ const QUIZ_BANK = {
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"അത് വളരെ അനുയോജ്യമാണ്. ഞാൻ ഇതെടുത്തോളാം.\"",
       "options": [
         "A) expensive",
-        "B) perfect",
-        "C) wrong",
-        "D) bad"
+        "B) wrong",
+        "C) bad",
+        "D) perfect"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 27,
       "question": "When a shop offers 10% off the original price, what is it called?",
       "questionMl": "വിലയിൽ നിന്ന് 10% കുറവ് നൽകുമ്പോൾ അതിനെ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) A price hike",
-        "B) A discount / offer",
+        "A) A discount / offer",
+        "B) A price hike",
         "C) A bill",
         "D) An exchange"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 28,
@@ -7997,11 +8674,11 @@ const QUIZ_BANK = {
       "questionMl": "\"I bought this shirt yesterday\" എന്ന വാചകത്തിൽ ഉപയോഗിച്ചിരിക്കുന്ന ടെൻസ് ഏതാണ്?",
       "options": [
         "A) Present Perfect",
-        "B) Simple Past",
-        "C) Future Continuous",
+        "B) Future Continuous",
+        "C) Simple Past",
         "D) Simple Present"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 30,
@@ -8009,11 +8686,11 @@ const QUIZ_BANK = {
       "questionMl": "\"Customer\" (ഉപഭോക്താവ്) എന്നാൽ ആര്?",
       "options": [
         "A) The person selling goods",
-        "B) The person buying goods or services",
-        "C) The store owner",
-        "D) The security guard"
+        "B) The store owner",
+        "C) The security guard",
+        "D) The person buying goods or services"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     }
   ],
   "25": [
@@ -8022,12 +8699,12 @@ const QUIZ_BANK = {
       "question": "How do you politely ask for the food menu at a restaurant?",
       "questionMl": "ഒരു റെസ്റ്റോറന്റിൽ ഭക്ഷണം തിരഞ്ഞെടുക്കാനുള്ള മെനു മര്യാദയോടെ എങ്ങനെ ചോദിക്കാം?",
       "options": [
-        "A) Give menu.",
-        "B) Could I see the menu, please?",
+        "A) Could I see the menu, please?",
+        "B) Give menu.",
         "C) I want menu now.",
         "D) Where menu paper?"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 2,
@@ -8035,23 +8712,23 @@ const QUIZ_BANK = {
       "questionMl": "ചിക്കൻ ബിരിയാണി ഓർഡർ ചെയ്യാനുള്ള മര്യാദയുള്ള രീതി ഏതാണ്?",
       "options": [
         "A) Give me biryani.",
-        "B) Bring biryani fast.",
-        "C) I'd like to have chicken biryani, please.",
+        "B) I'd like to have chicken biryani, please.",
+        "C) Bring biryani fast.",
         "D) Biryani send to table."
       ],
-      "correctIndex": 2
+      "correctIndex": 1
     },
     {
       "id": 3,
       "question": "How do you ask the waiter for a food recommendation?",
       "questionMl": "റെസ്റ്റോറന്റിലെ വെയ്റ്ററോട് നല്ല വിഭവം നിർദ്ദേശിക്കാൻ എങ്ങനെ ചോദിക്കാം?",
       "options": [
-        "A) What do you recommend?",
-        "B) What is food?",
-        "C) Tell me what to eat.",
+        "A) What is food?",
+        "B) Tell me what to eat.",
+        "C) What do you recommend?",
         "D) Which food is there?"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 4,
@@ -8059,23 +8736,23 @@ const QUIZ_BANK = {
       "questionMl": "ഒരു വിഭവത്തിൽ എരിവ് കുറയ്ക്കാൻ എങ്ങനെ മര്യാദയോടെ ആവശ്യപ്പെടാം?",
       "options": [
         "A) Too spicy.",
-        "B) Could you make it less spicy?",
-        "C) Don't put chilli.",
-        "D) No spice item."
+        "B) Don't put chilli.",
+        "C) No spice item.",
+        "D) Could you make it less spicy?"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 5,
       "question": "How do you politely ask for drinking water?",
       "questionMl": "കുടിവെള്ളം മര്യാദയോടെ എങ്ങനെ ചോദിച്ചു വാങ്ങാം?",
       "options": [
-        "A) Bring water.",
-        "B) Could I have some water, please?",
+        "A) Could I have some water, please?",
+        "B) Bring water.",
         "C) Water give me.",
         "D) Need water now."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 6,
@@ -8095,11 +8772,11 @@ const QUIZ_BANK = {
       "questionMl": "റെസ്റ്റോറന്റ് മെനുവിലെ \"starter\" എന്നാൽ എന്ത്?",
       "options": [
         "A) The final sweet item",
-        "B) A small dish served before the main meal",
-        "C) A hot drink after dinner",
+        "B) A hot drink after dinner",
+        "C) A small dish served before the main meal",
         "D) The bill received at the end"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 8,
@@ -8108,10 +8785,10 @@ const QUIZ_BANK = {
       "options": [
         "A) Dessert",
         "B) Main course",
-        "C) Beverage",
-        "D) Starter"
+        "C) Starter",
+        "D) Beverage"
       ],
-      "correctIndex": 2
+      "correctIndex": 3
     },
     {
       "id": 9,
@@ -8130,12 +8807,12 @@ const QUIZ_BANK = {
       "question": "How do you ask if a dish contains no meat or fish?",
       "questionMl": "ഒരു വിഭവം വെജിറ്റേറിയനാണോ എന്ന് എങ്ങനെ ചോദിക്കാം?",
       "options": [
-        "A) Is this dish vegetarian?",
-        "B) Food no meat?",
+        "A) Food no meat?",
+        "B) Is this dish vegetarian?",
         "C) Vegetable inside?",
         "D) Is this meat free?"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 11,
@@ -8143,35 +8820,35 @@ const QUIZ_BANK = {
       "questionMl": "റെസ്റ്റോറന്റിൽ ഭക്ഷണം വിളമ്പുന്ന വ്യക്തിയെ എന്ത് വിളിക്കുന്നു?",
       "options": [
         "A) Customer",
-        "B) Waiter",
-        "C) Manager",
+        "B) Manager",
+        "C) Waiter",
         "D) Chef"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 12,
       "question": "Correct the mistake: \"Give me biryani.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"Give me biryani.\"",
       "options": [
-        "A) I'd like a chicken biryani, please.",
-        "B) Biryani bring to me.",
-        "C) Biryani give fast.",
-        "D) Give biryani please."
+        "A) Biryani bring to me.",
+        "B) Biryani give fast.",
+        "C) Give biryani please.",
+        "D) I'd like a chicken biryani, please."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 13,
       "question": "Correct the mistake: \"Bring water.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"Bring water.\"",
       "options": [
-        "A) Bring water quick.",
-        "B) Could I have some water, please?",
+        "A) Could I have some water, please?",
+        "B) Bring water quick.",
         "C) Water bring here.",
         "D) Give water to table."
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 14,
@@ -8190,24 +8867,24 @@ const QUIZ_BANK = {
       "question": "What compliment can you give when the food is very tasty?",
       "questionMl": "ഭക്ഷണം വളരെ രുചികരമായിരുന്നു എന്ന് പറയാൻ ഉപയോഗിക്കുന്ന വാചകം ഏതാണ്?",
       "options": [
-        "A) The food was delicious.",
-        "B) Food is finished.",
-        "C) No bad food.",
+        "A) Food is finished.",
+        "B) No bad food.",
+        "C) The food was delicious.",
         "D) Food is big."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 16,
       "question": "How do you ask to pay using a debit or credit card?",
       "questionMl": "കാർഡ് ഉപയോഗിച്ച് പണം നൽകാൻ സാധിക്കുമോ എന്ന് എങ്ങനെ ചോദിക്കാം?",
       "options": [
-        "A) Can I pay by card?",
-        "B) Is card okaying?",
-        "C) Giving card for payment?",
-        "D) Card machine give."
+        "A) Is card okaying?",
+        "B) Giving card for payment?",
+        "C) Card machine give.",
+        "D) Can I pay by card?"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 17,
@@ -8238,12 +8915,12 @@ const QUIZ_BANK = {
       "question": "Complete the sentence: \"I'll _____ a cup of tea.\"",
       "questionMl": "വാചകം പൂർത്തിയാക്കുക: \"ഞാൻ ഒരു കപ്പ് ചായ എടുക്കാം.\"",
       "options": [
-        "A) have",
-        "B) taking",
-        "C) drank",
+        "A) taking",
+        "B) drank",
+        "C) have",
         "D) gives"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 20,
@@ -8251,11 +8928,11 @@ const QUIZ_BANK = {
       "questionMl": "ഒരു ഭക്ഷണത്തിലെ \"main course\" എന്നാൽ എന്ത്?",
       "options": [
         "A) The light drink at the start",
-        "B) The primary, principal dish of the meal",
-        "C) The sweet item at the end",
-        "D) The tip given to the waiter"
+        "B) The sweet item at the end",
+        "C) The tip given to the waiter",
+        "D) The primary, principal dish of the meal"
       ],
-      "correctIndex": 1
+      "correctIndex": 3
     },
     {
       "id": 21,
@@ -8274,12 +8951,12 @@ const QUIZ_BANK = {
       "question": "Fill in the blank: \"Could I see the _____, please?\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"ദയവായി മെനു കാണാമോ?\"",
       "options": [
-        "A) menu",
-        "B) table",
+        "A) table",
+        "B) menu",
         "C) chair",
         "D) order"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 23,
@@ -8287,23 +8964,23 @@ const QUIZ_BANK = {
       "questionMl": "\"മധുരമുള്ള\" എന്നതിനെ കുറിക്കുന്ന വാക്ക് ഏതാണ്?",
       "options": [
         "A) Spicy",
-        "B) Sweet",
-        "C) Bitter",
+        "B) Bitter",
+        "C) Sweet",
         "D) Salty"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 24,
       "question": "Fill in the blank: \"The food _____ great.\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"ഭക്ഷണം വളരെ രുചികരമായിരിക്കുന്നു.\"",
       "options": [
-        "A) tastes",
-        "B) tasting",
-        "C) tasted be",
-        "D) taste is"
+        "A) tasting",
+        "B) tasted be",
+        "C) taste is",
+        "D) tastes"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 25,
@@ -8322,36 +8999,36 @@ const QUIZ_BANK = {
       "question": "Complete the response: Waiter: \"Would you like anything else?\" Customer: \"_____, thank you.\"",
       "questionMl": "സംഭാഷണം പൂർത്തിയാക്കുക:",
       "options": [
-        "A) No",
-        "B) Not",
+        "A) Not",
+        "B) No",
         "C) Never",
         "D) Don't"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 27,
       "question": "What is the proof of payment document given after paying the bill?",
       "questionMl": "പണം നൽകിയ ശേഷം ലഭിക്കുന്ന രേഖയെ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) Receipt",
-        "B) Menu",
-        "C) Passport",
+        "A) Menu",
+        "B) Passport",
+        "C) Receipt",
         "D) Ticket"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 28,
       "question": "Complete the polite request: \"_____ you bring the bill, please?\"",
       "questionMl": "വാചകം പൂർത്തിയാക്കുക:",
       "options": [
-        "A) Could",
-        "B) Did",
-        "C) Are",
-        "D) Have"
+        "A) Did",
+        "B) Are",
+        "C) Have",
+        "D) Could"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 29,
@@ -8370,12 +9047,12 @@ const QUIZ_BANK = {
       "question": "Choose the correct option: \"I'd like to _____ food, please.\"",
       "questionMl": "ശരിയായ ഓപ്ഷൻ തിരഞ്ഞെടുക്കുക: \"എനിക്ക് ഭക്ഷണം ഓർഡർ ചെയ്യണം.\"",
       "options": [
-        "A) order",
-        "B) ordered",
+        "A) ordered",
+        "B) order",
         "C) ordering",
         "D) orders"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     }
   ],
   "26": [
@@ -8385,23 +9062,23 @@ const QUIZ_BANK = {
       "questionMl": "വഴി ചോദിക്കാൻ ഒരാളുടെ ശ്രദ്ധ തിരിക്കാൻ ഏത് വാചകം ഉപയോഗിക്കാം?",
       "options": [
         "A) Hey you!",
-        "B) Excuse me...",
-        "C) Listen here.",
+        "B) Listen here.",
+        "C) Excuse me...",
         "D) Stop there."
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 2,
       "question": "How do you ask someone how to reach the bus station?",
       "questionMl": "ബസ് സ്റ്റേഷനിൽ എങ്ങനെ എത്താം എന്ന് എങ്ങനെ ചോദിക്കാം?",
       "options": [
-        "A) How can I get to the bus station?",
-        "B) How go bus station?",
-        "C) Where bus going?",
-        "D) Bus station location give."
+        "A) How go bus station?",
+        "B) Where bus going?",
+        "C) Bus station location give.",
+        "D) How can I get to the bus station?"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 3,
@@ -8420,36 +9097,36 @@ const QUIZ_BANK = {
       "question": "How do you ask for the price of a travel ticket?",
       "questionMl": "യാത്രാ ടിക്കറ്റിന്റെ വില എത്രയാണെന്ന് എങ്ങനെ ചോദിക്കാം?",
       "options": [
-        "A) How much is the ticket?",
-        "B) What ticket money?",
+        "A) What ticket money?",
+        "B) How much is the ticket?",
         "C) Ticket price give.",
         "D) How many for ticket?"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 5,
       "question": "How do you politely request a hotel room booking?",
       "questionMl": "ഒരു ഹോട്ടൽ മുറി ബുക്ക് ചെയ്യാൻ മര്യാദയോടെ എങ്ങനെ ആവശ്യപ്പെടാം?",
       "options": [
-        "A) I'd like to reserve a hotel room.",
-        "B) Hotel room want.",
-        "C) Give me room.",
+        "A) Hotel room want.",
+        "B) Give me room.",
+        "C) I'd like to reserve a hotel room.",
         "D) Room booking now."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 6,
       "question": "How do you ask if morning meal is provided with the hotel stay?",
       "questionMl": "ഹോട്ടൽ താമസത്തോടൊപ്പം പ്രഭാതഭക്ഷണം ഉൾപ്പെടുത്തിയിട്ടുണ്ടോ എന്ന് എങ്ങനെ ചോദിക്കാം?",
       "options": [
-        "A) Is breakfast included?",
-        "B) Morning food giving?",
-        "C) Food inside room price?",
-        "D) Eat breakfast free?"
+        "A) Morning food giving?",
+        "B) Food inside room price?",
+        "C) Eat breakfast free?",
+        "D) Is breakfast included?"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 7,
@@ -8468,36 +9145,36 @@ const QUIZ_BANK = {
       "question": "How do you ask about a flight's departure time?",
       "questionMl": "വിമാനം എപ്പോഴാണ് പുറപ്പെടുന്നത് എന്ന് എങ്ങനെ ചോദിക്കാം?",
       "options": [
-        "A) When does the flight depart?",
-        "B) Flight go when?",
+        "A) Flight go when?",
+        "B) When does the flight depart?",
         "C) What time flight fly?",
         "D) Flight time where?"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 9,
       "question": "How do you ask where to collect your bags at an airport?",
       "questionMl": "വിമാനത്താവളത്തിൽ ലഗേജ് എവിടെ നിന്ന് കൈപ്പറ്റാമെന്ന് എങ്ങനെ ചോദിക്കാം?",
       "options": [
-        "A) Where can I collect my luggage?",
-        "B) Where my bag?",
-        "C) Luggage place where?",
+        "A) Where my bag?",
+        "B) Luggage place where?",
+        "C) Where can I collect my luggage?",
         "D) Bags give me where?"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 10,
       "question": "What document gives you permission to board an airplane?",
       "questionMl": "വിമാനത്തിൽ കയറാൻ സഹായിക്കുന്ന രേഖ ഏതാണ്?",
       "options": [
-        "A) Boarding pass",
-        "B) Receipt",
-        "C) Menu",
-        "D) License"
+        "A) Receipt",
+        "B) Menu",
+        "C) License",
+        "D) Boarding pass"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 11,
@@ -8529,47 +9206,47 @@ const QUIZ_BANK = {
       "questionMl": "\"Departure\" എന്നാൽ എന്ത്?",
       "options": [
         "A) Arriving at a place",
-        "B) Leaving a place",
-        "C) Staying in a hotel",
+        "B) Staying in a hotel",
+        "C) Leaving a place",
         "D) Eating food"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 14,
       "question": "What does \"arrival\" mean?",
       "questionMl": "\"Arrival\" എന്നാൽ എന്ത്?",
       "options": [
-        "A) Reaching a destination",
-        "B) Leaving a station",
-        "C) Buying a ticket",
-        "D) Missing a train"
+        "A) Leaving a station",
+        "B) Buying a ticket",
+        "C) Missing a train",
+        "D) Reaching a destination"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 15,
       "question": "Correct the mistake: \"Where station?\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"Where station?\"",
       "options": [
-        "A) Where station is?",
-        "B) Where is the railway station?",
+        "A) Where is the railway station?",
+        "B) Where station is?",
         "C) Station where going?",
         "D) Is where station?"
       ],
-      "correctIndex": 1
+      "correctIndex": 0
     },
     {
       "id": 16,
       "question": "Correct the mistake: \"Give one ticket.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"Give one ticket.\"",
       "options": [
-        "A) I'd like to buy one ticket, please.",
-        "B) One ticket give fast.",
+        "A) One ticket give fast.",
+        "B) I'd like to buy one ticket, please.",
         "C) Ticket give me one.",
         "D) Buy ticket one."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 17,
@@ -8577,23 +9254,23 @@ const QUIZ_BANK = {
       "questionMl": "തെറ്റ് തിരുത്തുക: \"How go airport?\"",
       "options": [
         "A) How I can go airport?",
-        "B) How can I get to the airport?",
-        "C) Airport going how?",
+        "B) Airport going how?",
+        "C) How can I get to the airport?",
         "D) Way for airport?"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 18,
       "question": "What do you say to wish someone a safe travel?",
       "questionMl": "ഒരാൾക്ക് സുരക്ഷിതമായ യാത്ര ആശംസിക്കാൻ ഏത് വാചകം ഉപയോഗിക്കാം?",
       "options": [
-        "A) Have a safe journey.",
-        "B) Go fast.",
-        "C) Don't travel.",
-        "D) Come back soon."
+        "A) Go fast.",
+        "B) Don't travel.",
+        "C) Come back soon.",
+        "D) Have a safe journey."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 19,
@@ -8612,36 +9289,36 @@ const QUIZ_BANK = {
       "question": "Complete the response: \"Thank you very much.\" → \"_____\"",
       "questionMl": "പ്രതികരണം പൂർത്തിയാക്കുക: \"Thank you very much.\" → \"_____\"",
       "options": [
-        "A) You're welcome.",
-        "B) No thank you.",
+        "A) No thank you.",
+        "B) You're welcome.",
         "C) Bye bye.",
         "D) I am fine."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 21,
       "question": "What is the place where trains stop for passengers called?",
       "questionMl": "ട്രെയിനുകൾ യാത്രക്കാർക്കായി നിർത്തുന്ന സ്ഥലത്തെ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) Railway station",
-        "B) Airport",
-        "C) Bakery",
+        "A) Airport",
+        "B) Bakery",
+        "C) Railway station",
         "D) Food court"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 22,
       "question": "Which official document is essential for international travel?",
       "questionMl": "അന്താരാഷ്ട്ര യാത്രകൾക്ക് നിർബന്ധമായും വേണ്ട ഔദ്യോഗിക രേഖ ഏതാണ്?",
       "options": [
-        "A) Passport",
-        "B) Bill",
-        "C) Receipt",
-        "D) Menu"
+        "A) Bill",
+        "B) Receipt",
+        "C) Menu",
+        "D) Passport"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 23,
@@ -8660,36 +9337,36 @@ const QUIZ_BANK = {
       "question": "Fill in the blank: \"I'm looking _____ the nearest bus stop.\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"ഞാൻ അടുത്തുള്ള ബസ് സ്റ്റോപ്പ് അന്വേഷിക്കുകയാണ്.\"",
       "options": [
-        "A) for",
-        "B) at",
+        "A) at",
+        "B) for",
         "C) on",
         "D) into"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 25,
       "question": "What is a person visiting a new place for pleasure called?",
       "questionMl": "വിനോദത്തിനായി പുതിയ സ്ഥലങ്ങൾ സന്ദർശിക്കുന്ന വ്യക്തിയെ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) Tourist",
-        "B) Cashier",
-        "C) Waiter",
+        "A) Cashier",
+        "B) Waiter",
+        "C) Tourist",
         "D) Operator"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 26,
       "question": "What tool shows geographical routes and locations?",
       "questionMl": "വഴികളും സ്ഥലങ്ങളും കാണിക്കുന്ന ഭൂപടത്തെ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) Map",
-        "B) Ticket",
-        "C) Receipt",
-        "D) Menu"
+        "A) Ticket",
+        "B) Receipt",
+        "C) Menu",
+        "D) Map"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 27,
@@ -8708,36 +9385,36 @@ const QUIZ_BANK = {
       "question": "Which modal verb is used to make polite requests like: \"_____ you please help me?\"",
       "questionMl": "മര്യാദയോടെ സഹായം ചോദിക്കാൻ ഏത് മോഡൽ വെർബ് ഉപയോഗിക്കാം?",
       "options": [
-        "A) Could",
-        "B) Did",
+        "A) Did",
+        "B) Could",
         "C) Must",
         "D) Was"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 29,
       "question": "Choose the correct room option for two people staying together:",
       "questionMl": "രണ്ടുപേർക്ക് ഒരുമിച്ച് താമസിക്കാനുള്ള ഹോട്ടൽ മുറി ഏതാണ്?",
       "options": [
-        "A) Double room",
-        "B) Single room",
-        "C) Kitchen",
+        "A) Single room",
+        "B) Kitchen",
+        "C) Double room",
         "D) Counter"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 30,
       "question": "Complete the question: \"Which _____ does the train leave from?\"",
       "questionMl": "ചോദ്യം പൂർത്തിയാക്കുക:",
       "options": [
-        "A) platform",
-        "B) menu",
-        "C) table",
-        "D) signal"
+        "A) menu",
+        "B) table",
+        "C) signal",
+        "D) platform"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     }
   ],
   "27": [
@@ -8758,36 +9435,36 @@ const QUIZ_BANK = {
       "question": "How do you politely ask to speak to someone on the phone?",
       "questionMl": "ഫോണിൽ ഒരാളോട് സംസാരിക്കാമോ എന്ന് മര്യാദയോടെ എങ്ങനെ ചോദിക്കാം?",
       "options": [
-        "A) May I speak to Mr. Rahman, please?",
-        "B) Give phone to Rahman.",
+        "A) Give phone to Rahman.",
+        "B) May I speak to Mr. Rahman, please?",
         "C) Call Rahman now.",
         "D) I want Rahman."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 3,
       "question": "How do you politely ask who is on the line?",
       "questionMl": "ആരാണ് വിളിക്കുന്നത് എന്ന് മര്യാദയോടെ എങ്ങനെ ചോദിക്കാം?",
       "options": [
-        "A) Who's calling, please?",
-        "B) Who are you?",
-        "C) Tell name now.",
+        "A) Who are you?",
+        "B) Tell name now.",
+        "C) Who's calling, please?",
         "D) Whose phone is this?"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 4,
       "question": "How do you politely ask the receptionist to connect your call to the manager?",
       "questionMl": "മാനേജറുമായി ഫോൺ ബന്ധിപ്പിച്ചു തരാമോ എന്ന് എങ്ങനെ ചോദിക്കാം?",
       "options": [
-        "A) Could you connect me to the manager?",
-        "B) Manager give now.",
-        "C) Connect phone fast.",
-        "D) Call manager to me."
+        "A) Manager give now.",
+        "B) Connect phone fast.",
+        "C) Call manager to me.",
+        "D) Could you connect me to the manager?"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 5,
@@ -8806,36 +9483,36 @@ const QUIZ_BANK = {
       "question": "How do you request someone to return your call later?",
       "questionMl": "അദ്ദേഹത്തോട് എന്നെ തിരിച്ചു വിളിക്കാൻ പറയാമോ എന്ന് എങ്ങനെ ആവശ്യപ്പെടാം?",
       "options": [
-        "A) Could you ask him to call me back?",
-        "B) Call me again.",
+        "A) Call me again.",
+        "B) Could you ask him to call me back?",
         "C) Tell him phone me.",
         "D) Return call now."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 7,
       "question": "How do you tell the caller that you will contact them later?",
       "questionMl": "ഞാൻ പിന്നീട് വിളിക്കാം എന്ന് എങ്ങനെ പറയാം?",
       "options": [
-        "A) I'll call you later.",
-        "B) I calling later.",
-        "C) Later I phone.",
+        "A) I calling later.",
+        "B) Later I phone.",
+        "C) I'll call you later.",
         "D) I call back after."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 8,
       "question": "How do you ask someone to repeat what they just said?",
       "questionMl": "പറഞ്ഞ കാര്യം വീണ്ടും പറയാമോ എന്ന് മര്യാദയോടെ എങ്ങനെ ചോദിക്കാം?",
       "options": [
-        "A) Could you repeat that, please?",
-        "B) Repeat again.",
-        "C) Tell once more fast.",
-        "D) Say again now."
+        "A) Repeat again.",
+        "B) Tell once more fast.",
+        "C) Say again now.",
+        "D) Could you repeat that, please?"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 9,
@@ -8854,36 +9531,36 @@ const QUIZ_BANK = {
       "question": "How do you tell someone you will send details via messaging app?",
       "questionMl": "വിവരങ്ങൾ വാട്ട്‌സ്ആപ്പിലൂടെ അയയ്ക്കാം എന്ന് എങ്ങനെ പറയാം?",
       "options": [
-        "A) I'll send you the details by WhatsApp.",
-        "B) WhatsApp I send details.",
+        "A) WhatsApp I send details.",
+        "B) I'll send you the details by WhatsApp.",
         "C) Details in WhatsApp come.",
         "D) Sending details WhatsApp now."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 11,
       "question": "What is the polite way to ask a caller to wait briefly on the line?",
       "questionMl": "ഫോൺ ലൈനിൽ അല്പസമയം കാത്തുനിൽക്കാൻ മര്യാദയോടെ എങ്ങനെ ആവശ്യപ്പെടാം?",
       "options": [
-        "A) Hold on, please.",
-        "B) Wait.",
-        "C) Stop there.",
+        "A) Wait.",
+        "B) Stop there.",
+        "C) Hold on, please.",
         "D) Don't cut call."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 12,
       "question": "What do you say when someone calls you by mistake?",
       "questionMl": "ഒരാൾ തെറ്റായ നമ്പറിലേക്ക് വിളിച്ചാൽ എന്താണ് പറയുക?",
       "options": [
-        "A) I'm sorry, you have the wrong number.",
-        "B) Why you calling me?",
-        "C) Wrong call cut it.",
-        "D) Who told you this number?"
+        "A) Why you calling me?",
+        "B) Wrong call cut it.",
+        "C) Who told you this number?",
+        "D) I'm sorry, you have the wrong number."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 13,
@@ -8902,36 +9579,36 @@ const QUIZ_BANK = {
       "question": "Correct the mistake: \"Wait.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"Wait.\"",
       "options": [
-        "A) Please hold for a moment.",
-        "B) Wait there.",
+        "A) Wait there.",
+        "B) Please hold for a moment.",
         "C) Waiting now.",
         "D) You wait line."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 15,
       "question": "Correct the mistake: \"I not hear.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"I not hear.\"",
       "options": [
-        "A) I can't hear you clearly.",
-        "B) No hearing to me.",
-        "C) Hearing not possible.",
+        "A) No hearing to me.",
+        "B) Hearing not possible.",
+        "C) I can't hear you clearly.",
         "D) I am not hear."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 16,
       "question": "Correct the mistake: \"Who are you?\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"Who are you?\"",
       "options": [
-        "A) May I know who's calling?",
-        "B) Who is you calling?",
-        "C) What is your name tell?",
-        "D) Who calling me?"
+        "A) Who is you calling?",
+        "B) What is your name tell?",
+        "C) Who calling me?",
+        "D) May I know who's calling?"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 17,
@@ -8950,36 +9627,36 @@ const QUIZ_BANK = {
       "question": "What does \"callback\" mean in telephone terms?",
       "questionMl": "\"Callback\" എന്നാൽ എന്ത്?",
       "options": [
-        "A) Returning a phone call",
-        "B) Cutting the call",
+        "A) Cutting the call",
+        "B) Returning a phone call",
         "C) Changing the phone number",
         "D) Buying a new phone"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 19,
       "question": "What do you say to close a telephone call politely?",
       "questionMl": "ഫോൺ കോൾ മര്യാദയോടെ അവസാനിപ്പിക്കുമ്പോൾ എന്ത് പറയാം?",
       "options": [
-        "A) Thank you for calling. Have a nice day.",
-        "B) Cut call now.",
-        "C) Go away.",
+        "A) Cut call now.",
+        "B) Go away.",
+        "C) Thank you for calling. Have a nice day.",
         "D) No more talking."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 20,
       "question": "What is a call involving three or more people called?",
       "questionMl": "മൂന്നോ അതിലധികമോ ആളുകൾ പങ്കാളികളാകുന്ന ഫോൺ കോളിനെ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) Conference call",
-        "B) Missed call",
-        "C) Wrong number",
-        "D) Voicemail"
+        "A) Missed call",
+        "B) Wrong number",
+        "C) Voicemail",
+        "D) Conference call"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 21,
@@ -8998,36 +9675,36 @@ const QUIZ_BANK = {
       "question": "What phrase means \"a phone call that was not answered\"?",
       "questionMl": "\"എടുക്കാത്ത ഫോൺ കോൾ\" എന്നതിനെ എന്താണ് വിളിക്കുന്നത്?",
       "options": [
-        "A) Missed call",
-        "B) Conference call",
+        "A) Conference call",
+        "B) Missed call",
         "C) Voicemail",
         "D) Callback"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 23,
       "question": "Fill in the blank: \"Please _____ the line while I check.\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"ഞാൻ പരിശോധിക്കുന്നതുവരെ ലൈനിൽ കാത്തുനിൽക്കൂ.\"",
       "options": [
-        "A) hold",
-        "B) cut",
-        "C) drop",
+        "A) cut",
+        "B) drop",
+        "C) hold",
         "D) break"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 24,
       "question": "What word refers to cellular network connectivity/reception?",
       "questionMl": "ഫോണിന്റെ നെറ്റ്‌വർക്ക് ലഭ്യതയെ കുറിക്കുന്ന വാക്ക് ഏതാണ്?",
       "options": [
-        "A) Signal",
-        "B) Receipt",
-        "C) Menu",
-        "D) Boarding pass"
+        "A) Receipt",
+        "B) Menu",
+        "C) Boarding pass",
+        "D) Signal"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 25,
@@ -9046,36 +9723,36 @@ const QUIZ_BANK = {
       "question": "Fill in the blank: \"I can't _____ you clearly.\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"എനിക്ക് നിങ്ങളെ വ്യക്തമായി കേൾക്കാൻ സാധിക്കുന്നില്ല.\"",
       "options": [
-        "A) hear",
-        "B) hearing",
+        "A) hearing",
+        "B) hear",
         "C) heard",
         "D) hears"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 27,
       "question": "What is the person receiving the call called?",
       "questionMl": "ഫോൺ കോൾ സ്വീകരിക്കുന്ന വ്യക്തിയെ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) Receiver",
-        "B) Caller",
-        "C) Waiter",
+        "A) Caller",
+        "B) Waiter",
+        "C) Receiver",
         "D) Customer"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 28,
       "question": "What is the person making the call called?",
       "questionMl": "ഫോൺ വിളിക്കുന്ന വ്യക്തിയെ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) Caller",
-        "B) Receiver",
-        "C) Cashier",
-        "D) Tourist"
+        "A) Receiver",
+        "B) Cashier",
+        "C) Tourist",
+        "D) Caller"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 29,
@@ -9094,12 +9771,12 @@ const QUIZ_BANK = {
       "question": "Complete the polite request: \"May I _____ to Faisal?\"",
       "questionMl": "ചോദ്യം പൂർത്തിയാക്കുക:",
       "options": [
-        "A) speak",
-        "B) speaking",
+        "A) speaking",
+        "B) speak",
         "C) spoke",
         "D) speaks"
       ],
-      "correctIndex": -1
+      "correctIndex": 1
     }
   ],
   "28": [
@@ -9108,24 +9785,24 @@ const QUIZ_BANK = {
       "question": "How do you start a professional self-introduction in an interview?",
       "questionMl": "ഇന്റർവ്യൂവിൽ എങ്ങനെയാണ് പ്രൊഫഷണലായി നിങ്ങളെക്കുറിച്ച് പരിചയപ്പെടുത്തി തുടങ്ങുന്നത്?",
       "options": [
-        "A) Let me introduce myself.",
-        "B) Listen to my story.",
-        "C) I am candidate here.",
+        "A) Listen to my story.",
+        "B) I am candidate here.",
+        "C) Let me introduce myself.",
         "D) Me name is Ahmed."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 2,
       "question": "Which sentence correctly describes graduation from a university?",
       "questionMl": "ഒരു യൂണിവേഴ്സിറ്റിയിൽ നിന്ന് ബിരുദം നേടിയതിനെ സൂചിപ്പിക്കുന്ന ശരിയായ വാചകം ഏതാണ്?",
       "options": [
-        "A) I graduated from Calicut University.",
-        "B) I am pass Calicut University.",
-        "C) I finish university.",
-        "D) I out from college."
+        "A) I am pass Calicut University.",
+        "B) I finish university.",
+        "C) I out from college.",
+        "D) I graduated from Calicut University."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 3,
@@ -9144,36 +9821,36 @@ const QUIZ_BANK = {
       "question": "How do you state that you enjoy collaborating with others at work?",
       "questionMl": "മറ്റുള്ളവരുമായി ചേർന്ന് ടീമിൽ ജോലി ചെയ്യുന്നത് ഇഷ്ടപ്പെടുന്നു എന്ന് എങ്ങനെ പറയാം?",
       "options": [
-        "A) I enjoy working in a team.",
-        "B) I like single work.",
+        "A) I like single work.",
+        "B) I enjoy working in a team.",
         "C) I work only alone.",
         "D) I no need team."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 5,
       "question": "How do you state your ability to handle difficult or demanding work situations?",
       "questionMl": "സമ്മർദ്ദമുള്ള സാഹചര്യങ്ങളിൽ ജോലി ചെയ്യാൻ എനിക്ക് കഴിയും എന്ന് എങ്ങനെ പറയാം?",
       "options": [
-        "A) I can work under pressure.",
-        "B) I hate pressure work.",
-        "C) I can't do hard work.",
+        "A) I hate pressure work.",
+        "B) I can't do hard work.",
+        "C) I can work under pressure.",
         "D) Work is too much pressure."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 6,
       "question": "What is the polite way to explain that you pick up new skills fast?",
       "questionMl": "ഒരു കാര്യം വേഗത്തിൽ പഠിച്ചെടുക്കാൻ കഴിയുന്ന ആളാണ് എന്ന് എങ്ങനെ പറയാം?",
       "options": [
-        "A) I learn quickly.",
-        "B) I am slow student.",
-        "C) I know everything already.",
-        "D) Learning is hard for me."
+        "A) I am slow student.",
+        "B) I know everything already.",
+        "C) Learning is hard for me.",
+        "D) I learn quickly."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 7,
@@ -9192,36 +9869,36 @@ const QUIZ_BANK = {
       "question": "What is the document containing your education, skills, and work history called?",
       "questionMl": "നിങ്ങളുടെ വിദ്യാഭ്യാസം, കഴിവുകൾ, തൊഴിൽ പരിചയം എന്നിവ അടങ്ങിയ രേഖയെ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) Resume / CV",
-        "B) Menu",
+        "A) Menu",
+        "B) Resume / CV",
         "C) Receipt",
         "D) Boarding pass"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 9,
       "question": "What does \"qualification\" refer to in an interview?",
       "questionMl": "ഇന്റർവ്യൂവിൽ \"qualification\" എന്നത് എന്തിനെ സൂചിപ്പിക്കുന്നു?",
       "options": [
-        "A) Educational achievements and degrees",
-        "B) Salary demands",
-        "C) Hotel reservation",
+        "A) Salary demands",
+        "B) Hotel reservation",
+        "C) Educational achievements and degrees",
         "D) Daily meal plan"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 10,
       "question": "What power phrase is used when explaining a point or topic in detail?",
       "questionMl": "ഒരു കാര്യം വിശദീകരിച്ച് പറയാൻ ഉപയോഗിക്കുന്ന പവർ ഫ്രെയ്സ് ഏതാണ്?",
       "options": [
-        "A) Let me explain...",
-        "B) I don't care...",
-        "C) Stop talking...",
-        "D) Give me money..."
+        "A) I don't care...",
+        "B) Stop talking...",
+        "C) Give me money...",
+        "D) Let me explain..."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 11,
@@ -9240,36 +9917,36 @@ const QUIZ_BANK = {
       "question": "Correct the mistake: \"I have two year experience.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"I have two year experience.\"",
       "options": [
-        "A) I have two years of experience.",
-        "B) I have two year of experience.",
+        "A) I have two year of experience.",
+        "B) I have two years of experience.",
         "C) I am having two year experience.",
         "D) Experience of two year I have."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 13,
       "question": "Correct the mistake: \"I worked here since 2022.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"I worked here since 2022.\"",
       "options": [
-        "A) I have worked here since 2022.",
-        "B) I working here since 2022.",
-        "C) I work here since 2022.",
+        "A) I working here since 2022.",
+        "B) I work here since 2022.",
+        "C) I have worked here since 2022.",
         "D) I am worked here since 2022."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 14,
       "question": "Correct the mistake: \"I am graduate.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"I am graduate.\"",
       "options": [
-        "A) I am a graduate.",
-        "B) I am graduating person.",
-        "C) Me is graduate.",
-        "D) I graduation done."
+        "A) I am graduating person.",
+        "B) Me is graduate.",
+        "C) I graduation done.",
+        "D) I am a graduate."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 15,
@@ -9288,36 +9965,36 @@ const QUIZ_BANK = {
       "question": "What is the English phrase for stating your positive qualities or strong areas?",
       "questionMl": "നിങ്ങളുടെ കഴിവുകളെയും നല്ല ഗുണങ്ങളെയും കുറിച്ച് പറയാൻ ഏത് വാക്ക് ഉപയോഗിക്കുന്നു?",
       "options": [
-        "A) Strengths",
-        "B) Weaknesses",
+        "A) Weaknesses",
+        "B) Strengths",
         "C) Disadvantages",
         "D) Failures"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 17,
       "question": "What word refers to areas you need to improve upon?",
       "questionMl": "നിങ്ങൾ മെച്ചപ്പെടുത്തേണ്ട കാര്യങ്ങളെ/ദൗർബല്യങ്ങളെ കുറിച്ച് പറയാൻ ഏത് വാക്ക് ഉപയോഗിക്കുന്നു?",
       "options": [
-        "A) Weaknesses",
-        "B) Strengths",
-        "C) Achievements",
+        "A) Strengths",
+        "B) Achievements",
+        "C) Weaknesses",
         "D) Qualifications"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 18,
       "question": "How do you express your willingness to upgrade your skills?",
       "questionMl": "എന്റെ കഴിവുകൾ മെച്ചപ്പെടുത്താൻ ഞാൻ തയ്യാറാണ് എന്ന് എങ്ങനെ പറയാം?",
       "options": [
-        "A) I am willing to improve my skills.",
-        "B) No need to learn new things.",
-        "C) I know all skills.",
-        "D) Skill is not important."
+        "A) No need to learn new things.",
+        "B) I know all skills.",
+        "C) Skill is not important.",
+        "D) I am willing to improve my skills."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 19,
@@ -9336,36 +10013,36 @@ const QUIZ_BANK = {
       "question": "How do you politely say you are waiting for their reply after an interview?",
       "questionMl": "ഇന്റർവ്യൂവിന് ശേഷം നിങ്ങളുടെ മറുപടിക്കായി കാത്തിരിക്കുന്നു എന്ന് എങ്ങനെ പറയാം?",
       "options": [
-        "A) I look forward to hearing from you.",
-        "B) Call me today itself.",
+        "A) Call me today itself.",
+        "B) I look forward to hearing from you.",
         "C) Why no reply given?",
         "D) Give result right now."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 21,
       "question": "What does \"career goal\" mean?",
       "questionMl": "\"Career goal\" എന്നാൽ എന്ത്?",
       "options": [
-        "A) Professional ambition or target in work life",
-        "B) Sports score",
-        "C) Daily food plan",
+        "A) Sports score",
+        "B) Daily food plan",
+        "C) Professional ambition or target in work life",
         "D) Travel itinerary"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 22,
       "question": "What word refers to the payment received for work done in a job?",
       "questionMl": "ജോലിക്ക് പകരമായി ലഭിക്കുന്ന പ്രതിഫലത്തെ/ശമ്പളത്തെ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) Salary",
-        "B) Receipt",
-        "C) Menu",
-        "D) Ticket"
+        "A) Receipt",
+        "B) Menu",
+        "C) Ticket",
+        "D) Salary"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 23,
@@ -9384,36 +10061,36 @@ const QUIZ_BANK = {
       "question": "Fill in the blank: \"My biggest _____ is my ability to communicate well.\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"എന്റെ ഏറ്റവും വലിയ ശക്തി എന്റെ നല്ല ആശയവിനിമയ ശേഷിയാണ്.\"",
       "options": [
-        "A) strength",
-        "B) weakness",
+        "A) weakness",
+        "B) strength",
         "C) error",
         "D) problem"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 25,
       "question": "Fill in the blank: \"I have completed several _____ courses.\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"ഞാൻ നിരവധി സർട്ടിഫിക്കേഷൻ കോഴ്സുകൾ പൂർത്തിയാക്കിയിട്ടുണ്ട്.\"",
       "options": [
-        "A) certification",
-        "B) certificate is",
-        "C) certify",
+        "A) certificate is",
+        "B) certify",
+        "C) certification",
         "D) certified of"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 26,
       "question": "Complete the sentence: \"It was a pleasure _____ with you.\"",
       "questionMl": "വാചകം പൂർത്തിയാക്കുക: \"നിങ്ങളോട് സംസാരിക്കാൻ സാധിച്ചതിൽ സന്തോഷമുണ്ട്.\"",
       "options": [
-        "A) speaking",
-        "B) speak",
-        "C) spoke",
-        "D) speaks"
+        "A) speak",
+        "B) spoke",
+        "C) speaks",
+        "D) speaking"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 27,
@@ -9432,36 +10109,36 @@ const QUIZ_BANK = {
       "question": "Which question asks where you aim to reach professionally in the future?",
       "questionMl": "ഭാവിയിൽ തൊഴിൽ രംഗത്ത് നിങ്ങൾ എവിടെയെത്താൻ ആഗ്രഹിക്കുന്നു എന്ന് ചോദിക്കുന്ന ചോദ്യം ഏതാണ്?",
       "options": [
-        "A) Where do you see yourself in five years?",
-        "B) Where do you live?",
+        "A) Where do you live?",
+        "B) Where do you see yourself in five years?",
         "C) When did you wake up?",
         "D) What did you eat today?"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 29,
       "question": "Choose the phrase that means \"from what I have learned in my work history\":",
       "questionMl": "\"എന്റെ തൊഴിൽ പരിചയത്തിൽ നിന്ന്...\" എന്ന് പറയാൻ ഏത് വാചകം ഉപയോഗിക്കാം?",
       "options": [
-        "A) From my experience...",
-        "B) From my home...",
-        "C) From my story...",
+        "A) From my home...",
+        "B) From my story...",
+        "C) From my experience...",
         "D) From my book..."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 30,
       "question": "Complete the polite closing: \"I am confident that I can _____ to your company.\"",
       "questionMl": "വാചകം പൂർത്തിയാക്കുക: \"നിങ്ങളുടെ കമ്പനിയുടെ വളർച്ചയ്ക്ക് സംഭാവന നൽകാൻ എനിക്ക് സാധിക്കുമെന്ന് ഞാൻ വിശ്വസിക്കുന്നു.\"",
       "options": [
-        "A) contribute",
-        "B) contributing",
-        "C) contributed",
-        "D) contributes"
+        "A) contributing",
+        "B) contributed",
+        "C) contributes",
+        "D) contribute"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     }
   ],
   "29": [
@@ -9482,36 +10159,36 @@ const QUIZ_BANK = {
       "question": "How do you politely open a workplace meeting?",
       "questionMl": "ഓഫീസ് മീറ്റിംഗ് മര്യാദയോടെ എങ്ങനെ ആരംഭിക്കാം?",
       "options": [
-        "A) Could we start the meeting?",
-        "B) Start meeting now!",
+        "A) Start meeting now!",
+        "B) Could we start the meeting?",
         "C) Sit quiet meeting starts.",
         "D) Why meeting not start?"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 3,
       "question": "How do you inform your manager that a report has been finished?",
       "questionMl": "ഞാൻ റിപ്പോർട്ട് പൂർത്തിയാക്കിയിട്ടുണ്ട് എന്ന് മാനേജരെ എങ്ങനെ അറിയിക്കാം?",
       "options": [
-        "A) I have completed the report.",
-        "B) Report finish me.",
-        "C) I doing report completed.",
+        "A) Report finish me.",
+        "B) I doing report completed.",
+        "C) I have completed the report.",
         "D) Finished report I am."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 4,
       "question": "How do you state that you are currently working on a project?",
       "questionMl": "ഞാൻ പ്രോജക്റ്റിൽ ജോലി ചെയ്യുകയാണ് എന്ന് എങ്ങനെ പറയാം?",
       "options": [
-        "A) I'm working on the project.",
-        "B) Project I do now.",
-        "C) Working project me.",
-        "D) I am project work."
+        "A) Project I do now.",
+        "B) Working project me.",
+        "C) I am project work.",
+        "D) I'm working on the project."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 5,
@@ -9530,36 +10207,36 @@ const QUIZ_BANK = {
       "question": "How do you state that you will complete a task before the evening?",
       "questionMl": "ഞാൻ ഇത് ഇന്ന് വൈകുന്നേരത്തോടെ പൂർത്തിയാക്കും എന്ന് എങ്ങനെ പറയാം?",
       "options": [
-        "A) I'll finish it by this evening.",
-        "B) Evening I finish.",
+        "A) Evening I finish.",
+        "B) I'll finish it by this evening.",
         "C) I finishing this evening.",
         "D) Finish in evening me."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 7,
       "question": "What word refers to the target date or time by which a task must be completed?",
       "questionMl": "ഒരു ജോലി പൂർത്തിയാക്കേണ്ട അവസാന തീയതിയെ/സമയത്തെ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) Deadline",
-        "B) Menu",
-        "C) Ticket",
+        "A) Menu",
+        "B) Ticket",
+        "C) Deadline",
         "D) Receipt"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 8,
       "question": "How do you suggest arranging another meeting time?",
       "questionMl": "മറ്റൊരു മീറ്റിംഗ് ഷെഡ്യൂൾ ചെയ്യാം എന്ന് എങ്ങനെ നിർദ്ദേശിക്കാം?",
       "options": [
-        "A) Let's schedule another meeting.",
-        "B) Make meeting again fast.",
-        "C) Meeting tomorrow must.",
-        "D) Schedule meeting why."
+        "A) Make meeting again fast.",
+        "B) Meeting tomorrow must.",
+        "C) Schedule meeting why.",
+        "D) Let's schedule another meeting."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 9,
@@ -9578,36 +10255,36 @@ const QUIZ_BANK = {
       "question": "What do you say to show appreciation for advice or constructive evaluation received?",
       "questionMl": "നിങ്ങളുടെ അഭിപ്രായത്തിന്/അവലോകനത്തിന് നന്ദി എന്ന് എങ്ങനെ പറയാം?",
       "options": [
-        "A) I appreciate your feedback.",
-        "B) Feedback not needed.",
+        "A) Feedback not needed.",
+        "B) I appreciate your feedback.",
         "C) Don't tell feedback.",
         "D) Your opinion bad."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 11,
       "question": "Correct the mistake: \"Send report quickly.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"Send report quickly.\"",
       "options": [
-        "A) Please send the report as soon as possible.",
-        "B) Report send quick fast.",
-        "C) Send quick report now.",
+        "A) Report send quick fast.",
+        "B) Send quick report now.",
+        "C) Please send the report as soon as possible.",
         "D) Quickly sending report."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 12,
       "question": "Correct the mistake: \"I finish tomorrow.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"I finish tomorrow.\"",
       "options": [
-        "A) I'll finish it tomorrow.",
-        "B) I finish iting tomorrow.",
-        "C) Tomorrow I finish done.",
-        "D) I am finish tomorrow."
+        "A) I finish iting tomorrow.",
+        "B) Tomorrow I finish done.",
+        "C) I am finish tomorrow.",
+        "D) I'll finish it tomorrow."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 13,
@@ -9626,36 +10303,36 @@ const QUIZ_BANK = {
       "question": "Correct the mistake: \"I completed just now.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"I completed just now.\"",
       "options": [
-        "A) I have just completed it.",
-        "B) I complete just now done.",
+        "A) I complete just now done.",
+        "B) I have just completed it.",
         "C) Just now I complete.",
         "D) Completing done just now."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 15,
       "question": "Correct the mistake: \"Give file.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"Give file.\"",
       "options": [
-        "A) Could you please send me the file?",
-        "B) File give fast.",
-        "C) Giving file to me.",
+        "A) File give fast.",
+        "B) Giving file to me.",
+        "C) Could you please send me the file?",
         "D) File pass me."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 16,
       "question": "What phrase means \"I will handle/manage this task\"?",
       "questionMl": "\"ഞാൻ ഈ കാര്യം ഏറ്റെടുത്ത് ചെയ്തോളാം\" എന്ന് പറയാൻ ഏത് വാചകം ഉപയോഗിക്കാം?",
       "options": [
-        "A) I'll take care of it.",
-        "B) I don't know it.",
-        "C) You do it yourself.",
-        "D) Leave it away."
+        "A) I don't know it.",
+        "B) You do it yourself.",
+        "C) Leave it away.",
+        "D) I'll take care of it."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 17,
@@ -9674,36 +10351,36 @@ const QUIZ_BANK = {
       "question": "What phrase means \"I will find the answer/information and reply to you later\"?",
       "questionMl": "\"ഞാൻ അന്വേഷിച്ച ശേഷം നിങ്ങളെ തിരികെ അറിയിക്കാം\" എന്ന് പറയാൻ ഏത് വാചകം ഉപയോഗിക്കാം?",
       "options": [
-        "A) I'll get back to you.",
-        "B) Go away now.",
+        "A) Go away now.",
+        "B) I'll get back to you.",
         "C) Don't call again.",
         "D) I am back home."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 19,
       "question": "What word refers to a person who works in the same organization as you?",
       "questionMl": "നിങ്ങളോടൊപ്പം ജോലി ചെയ്യുന്ന സഹപ്രവർത്തകനെ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) Colleague",
-        "B) Customer",
-        "C) Waiter",
+        "A) Customer",
+        "B) Waiter",
+        "C) Colleague",
         "D) Tourist"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 20,
       "question": "What word refers to a business customer or buyer of services in an office context?",
       "questionMl": "ഓഫീസ് സേവനങ്ങൾ സ്വീകരിക്കുന്ന വ്യക്തിയെ/സ്ഥാപനത്തെ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) Client",
-        "B) Cashier",
-        "C) Driver",
-        "D) Passenger"
+        "A) Cashier",
+        "B) Driver",
+        "C) Passenger",
+        "D) Client"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 21,
@@ -9722,36 +10399,36 @@ const QUIZ_BANK = {
       "question": "How do you propose discussing an issue together with a team?",
       "questionMl": "നമുക്ക് ഇതിനെക്കുറിച്ച് ചർച്ച ചെയ്യാം എന്ന് എങ്ങനെ പറയാം?",
       "options": [
-        "A) Let's discuss this.",
-        "B) Don't discuss this.",
+        "A) Don't discuss this.",
+        "B) Let's discuss this.",
         "C) Discussion no need.",
         "D) Stop talking."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 23,
       "question": "What do you say to agree positively with a colleague's suggestion?",
       "questionMl": "സഹപ്രവർത്തകന്റെ നല്ല നിർദ്ദേശത്തോട് യോജിക്കാൻ എന്ത് പറയാം?",
       "options": [
-        "A) That's a good idea.",
-        "B) Bad idea this.",
-        "C) Why telling ideas?",
+        "A) Bad idea this.",
+        "B) Why telling ideas?",
+        "C) That's a good idea.",
         "D) No idea good."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 24,
       "question": "Fill in the blank: \"We are making good _____ on this project.\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"ഞങ്ങൾ ഈ പ്രോജക്റ്റിൽ നല്ല പുരോഗതി കൈവരിക്കുന്നുണ്ട്.\"",
       "options": [
-        "A) progress",
-        "B) delay",
-        "C) mistake",
-        "D) loss"
+        "A) delay",
+        "B) mistake",
+        "C) loss",
+        "D) progress"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 25,
@@ -9770,36 +10447,36 @@ const QUIZ_BANK = {
       "question": "Fill in the blank: \"Keep me _____ on the project status.\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"പ്രോജക്റ്റിന്റെ സ്ഥിതിവിവരങ്ങൾ എന്നെ അറിയിച്ചുകൊണ്ടിരിക്കുക.\"",
       "options": [
-        "A) updated",
-        "B) updating",
+        "A) updating",
+        "B) updated",
         "C) update",
         "D) updates"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 27,
       "question": "Which word refers to a visual talk using slides or speech at work?",
       "questionMl": "സ്ലൈഡുകളും മറ്റും ഉപയോഗിച്ച് നടത്തുന്ന അവതരണത്തെ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) Presentation",
-        "B) Receipt",
-        "C) Passport",
+        "A) Receipt",
+        "B) Passport",
+        "C) Presentation",
         "D) Ticket"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 28,
       "question": "Complete the phrase: \"Let's work _____ to complete this project.\"",
       "questionMl": "വാചകം പൂർത്തിയാക്കുക: \"ഈ പ്രോജക്റ്റ് പൂർത്തിയാക്കാൻ നമുക്ക് ഒരുമിച്ച് പ്രവർത്തിക്കാം.\"",
       "options": [
-        "A) together",
-        "B) single",
-        "C) alone",
-        "D) away"
+        "A) single",
+        "B) alone",
+        "C) away",
+        "D) together"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 29,
@@ -9812,6 +10489,18 @@ const QUIZ_BANK = {
         "D) Platform"
       ],
       "correctIndex": 0
+    },
+    {
+      "id": 30,
+      "question": "How do you politely decline an invitation to a meeting due to a schedule conflict?",
+      "questionMl": "മറ്റൊരു തിരക്കുള്ളതുകൊണ്ട് ഒരു മീറ്റിംഗിൽ പങ്കെടുക്കാൻ കഴിയില്ലെന്ന് മാന്യമായി അറിയിക്കാൻ:",
+      "options": [
+        "A) I cannot come because I don't want to.",
+        "B) I apologize, but I have a prior commitment at that time.",
+        "C) No, I am very busy.",
+        "D) Meeting is cancelled by me."
+      ],
+      "correctIndex": 1
     }
   ],
   "30": [
@@ -9820,24 +10509,24 @@ const QUIZ_BANK = {
       "question": "What conversation connector is used to introduce a new topic naturally into speech?",
       "questionMl": "സംഭാഷണത്തിനിടെ ഒരു പുതിയ വിഷയം സ്വാഭാവികമായി അവതരിപ്പിക്കാൻ ഏത് ഫ്രെയ്സ് ഉപയോഗിക്കാം?",
       "options": [
-        "A) By the way...",
-        "B) Stop now...",
-        "C) No more topic...",
+        "A) Stop now...",
+        "B) No more topic...",
+        "C) By the way...",
         "D) End of talk..."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 2,
       "question": "What power phrase is used to emphasize a real fact or truth?",
       "questionMl": "ഒരു യഥാർത്ഥ വസ്തുത ഊന്നിപ്പറയാൻ ഏത് ഫ്രെയ്സ് ഉപയോഗിക്കാം?",
       "options": [
-        "A) In fact...",
-        "B) In fake...",
-        "C) Out of truth...",
-        "D) Not fact..."
+        "A) In fake...",
+        "B) Out of truth...",
+        "C) Not fact...",
+        "D) In fact..."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 3,
@@ -9856,36 +10545,36 @@ const QUIZ_BANK = {
       "question": "What phrase means \"certainly\" or \"without doubt\"?",
       "questionMl": "\"തീർച്ചയായും\" എന്ന് പറയാൻ ഉപയോഗിക്കുന്ന ലളിതമായ വാചകം ഏതാണ്?",
       "options": [
-        "A) Of course.",
-        "B) Never at all.",
+        "A) Never at all.",
+        "B) Of course.",
         "C) No way.",
         "D) Not possible."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 5,
       "question": "How do you politely respond when someone apologizes or thanks you?",
       "questionMl": "\"പ്രശ്നമില്ല\" അല്ലെങ്കിൽ \"സാരമില്ല\" എന്ന് പറയാൻ ഏത് വാചകം ഉപയോഗിക്കാം?",
       "options": [
-        "A) No problem.",
-        "B) Big problem.",
-        "C) Don't talk.",
+        "A) Big problem.",
+        "B) Don't talk.",
+        "C) No problem.",
         "D) Pay money."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 6,
       "question": "How do you express complete agreement with someone's opinion?",
       "questionMl": "ഞാൻ നിങ്ങളോട് പൂർണ്ണമായും യോജിക്കുന്നു എന്ന് എങ്ങനെ പറയാം?",
       "options": [
-        "A) I completely agree with you.",
-        "B) I am disagreeing always.",
-        "C) You are wrong.",
-        "D) No agreement with you."
+        "A) I am disagreeing always.",
+        "B) You are wrong.",
+        "C) No agreement with you.",
+        "D) I completely agree with you."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 7,
@@ -9904,36 +10593,36 @@ const QUIZ_BANK = {
       "question": "What do you say to compliment someone on asking a clever or relevant question?",
       "questionMl": "അത് നല്ലൊരു ചോദ്യമാണ് എന്ന് പറയാൻ ഏത് വാചകം ഉപയോഗിക്കാം?",
       "options": [
-        "A) That's a good question.",
-        "B) Bad question asked.",
+        "A) Bad question asked.",
+        "B) That's a good question.",
         "C) Why asking question?",
         "D) Don't question me."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 9,
       "question": "Correct the mistake: \"I no understand.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"I no understand.\"",
       "options": [
-        "A) I don't understand.",
-        "B) I not understanding.",
-        "C) Me no understand.",
+        "A) I not understanding.",
+        "B) Me no understand.",
+        "C) I don't understand.",
         "D) Understanding no me."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 10,
       "question": "Correct the mistake: \"He go yesterday.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"He go yesterday.\"",
       "options": [
-        "A) He went yesterday.",
-        "B) He goings yesterday.",
-        "C) Yesterday he go.",
-        "D) He gone yesterday."
+        "A) He goings yesterday.",
+        "B) Yesterday he go.",
+        "C) He gone yesterday.",
+        "D) He went yesterday."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 11,
@@ -9952,36 +10641,36 @@ const QUIZ_BANK = {
       "question": "Correct the mistake: \"I am agree.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"I am agree.\"",
       "options": [
-        "A) I agree.",
-        "B) I agreeing am.",
+        "A) I agreeing am.",
+        "B) I agree.",
         "C) Me am agree.",
         "D) Agreed I am."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 13,
       "question": "Correct the mistake: \"Explain me.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"Explain me.\"",
       "options": [
-        "A) Explain it to me.",
-        "B) Explain me it.",
-        "C) Me explain doing.",
+        "A) Explain me it.",
+        "B) Me explain doing.",
+        "C) Explain it to me.",
         "D) Explain to I."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 14,
       "question": "What power phrase is used to show that you find something intriguing or engaging?",
       "questionMl": "അത് രസകരമായിരിക്കുന്നു എന്ന് പറയാൻ ഏത് വാചകം ഉപയോഗിക്കാം?",
       "options": [
-        "A) That's interesting.",
-        "B) That's boring.",
-        "C) I don't care.",
-        "D) Nothing special."
+        "A) That's boring.",
+        "B) I don't care.",
+        "C) Nothing special.",
+        "D) That's interesting."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 15,
@@ -10000,36 +10689,36 @@ const QUIZ_BANK = {
       "question": "What word means \"the ability to speak a language smoothly and easily\"?",
       "questionMl": "ഒരു ഭാഷ തടസ്സമില്ലാതെ ഒഴുക്കോടെ സംസാരിക്കാനുള്ള കഴിവിനെ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) Fluency",
-        "B) Grammar",
+        "A) Grammar",
+        "B) Fluency",
         "C) Vocabulary",
         "D) Spelling"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 17,
       "question": "Complete the phrase: \"In my opinion, communication is more important than _____.\"",
       "questionMl": "വാചകം പൂർത്തിയാക്കുക: \"എന്റെ അഭിപ്രായത്തിൽ, ഗ്രാമറിനേക്കാൾ പ്രധാനമാണ് ആശയവിനിമയം.\"",
       "options": [
-        "A) grammar",
-        "B) food",
-        "C) sleep",
+        "A) food",
+        "B) sleep",
+        "C) grammar",
         "D) travel"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 18,
       "question": "What word refers to a feeling of self-assurance arising from one's appreciation of one's own abilities?",
       "questionMl": "ആത്മവിശ്വാസം എന്നതിനെ ഇംഗ്ലീഷിൽ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) Confidence",
-        "B) Hesitation",
-        "C) Fear",
-        "D) Doubt"
+        "A) Hesitation",
+        "B) Fear",
+        "C) Doubt",
+        "D) Confidence"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 19,
@@ -10048,36 +10737,36 @@ const QUIZ_BANK = {
       "question": "What phrase is used when offering to make something clear to the listener?",
       "questionMl": "ഞാൻ ഇത് വിശദീകരിക്കാം എന്ന് പറയാൻ ഏത് വാചകം ഉപയോഗിക്കാം?",
       "options": [
-        "A) Let me explain.",
-        "B) Don't ask me.",
+        "A) Don't ask me.",
+        "B) Let me explain.",
         "C) I won't tell.",
         "D) Forget it."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 21,
       "question": "Complete the conversation: A: \"Is there a supermarket nearby?\" B: \"Yes, _____ one opposite the station.\"",
       "questionMl": "സംഭാഷണം പൂർത്തിയാക്കുക:",
       "options": [
-        "A) there's",
-        "B) is",
-        "C) here",
+        "A) is",
+        "B) here",
+        "C) there's",
         "D) was"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 22,
       "question": "Choose the correct phrase for expressing a personal view:",
       "questionMl": "നിങ്ങളുടെ കാഴ്ചപ്പാട് അവതരിപ്പിക്കാൻ ഏത് വാചകം ഉപയോഗിക്കാം?",
       "options": [
-        "A) In my opinion...",
-        "B) Out of my view...",
-        "C) No view I have...",
-        "D) Don't view me..."
+        "A) Out of my view...",
+        "B) No view I have...",
+        "C) Don't view me...",
+        "D) In my opinion..."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 23,
@@ -10096,36 +10785,36 @@ const QUIZ_BANK = {
       "question": "What does \"opportunity\" mean?",
       "questionMl": "\"Opportunity\" എന്നാൽ എന്ത്?",
       "options": [
-        "A) A set of circumstances that makes it possible to do something / A chance",
-        "B) A mistake",
+        "A) A mistake",
+        "B) A set of circumstances that makes it possible to do something / A chance",
         "C) A problem",
         "D) A delay"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 25,
       "question": "What word means \"a conclusion reached after consideration\"?",
       "questionMl": "ഒരു തീരുമാനത്തെ/തീർപ്പിനെ ഇംഗ്ലീഷിൽ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) Decision",
-        "B) Problem",
-        "C) Question",
+        "A) Problem",
+        "B) Question",
+        "C) Decision",
         "D) Hesitation"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 26,
       "question": "What word refers to a means of solving a problem or dealing with a difficult situation?",
       "questionMl": "ഒരു പ്രശ്നത്തിനുള്ള പരിഹാരത്തെ എന്ത് വിളിക്കുന്നു?",
       "options": [
-        "A) Solution",
-        "B) Challenge",
-        "C) Conflict",
-        "D) Doubt"
+        "A) Challenge",
+        "B) Conflict",
+        "C) Doubt",
+        "D) Solution"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 27,
@@ -10144,36 +10833,36 @@ const QUIZ_BANK = {
       "question": "Complete the polite response: \"Thank you for helping me.\" → \"_____. It was my pleasure.\"",
       "questionMl": "പ്രതികരണം പൂർത്തിയാക്കുക:",
       "options": [
-        "A) No problem",
-        "B) Not helping",
+        "A) Not helping",
+        "B) No problem",
         "C) Why thanks",
         "D) Pay me"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 29,
       "question": "Choose the option that correctly combines polite English and natural expression:",
       "questionMl": "മര്യാദയുള്ളതും സ്വാഭാവികവുമായ ശരിയായ ഇംഗ്ലീഷ് വാചകം തിരഞ്ഞെടുക്കുക:",
       "options": [
-        "A) By the way, how was your interview?",
-        "B) Tell interview fast.",
-        "C) Interview happened how?",
+        "A) Tell interview fast.",
+        "B) Interview happened how?",
+        "C) By the way, how was your interview?",
         "D) How interview done?"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 30,
       "question": "What is the ultimate goal of real-life English communication?",
       "questionMl": "വാസ്തവ ജീവിതത്തിലെ ഇംഗ്ലീഷ് ആശയവിനിമയത്തിന്റെ അന്തിമ ലക്ഷ്യം എന്താണ്?",
       "options": [
-        "A) To speak naturally and confidently without translating mentally from Malayalam",
-        "B) To memorize grammar rules without speaking",
-        "C) To speak as fast as possible with errors",
-        "D) To avoid talking to people"
+        "A) To memorize grammar rules without speaking",
+        "B) To speak as fast as possible with errors",
+        "C) To avoid talking to people",
+        "D) To speak naturally and confidently without translating mentally from Malayalam"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     }
   ],
   "31": [
@@ -10194,36 +10883,36 @@ const QUIZ_BANK = {
       "question": "What is a more natural spoken expression for \"Okay\"?",
       "questionMl": "\"Okay\" എന്നതിന് പകരം കൂടുതൽ സ്വാഭാവികമായി എന്താണ് പറയാൻ സാധിക്കുക?",
       "options": [
-        "A) Sounds good.",
-        "B) Is good.",
+        "A) Is good.",
+        "B) Sounds good.",
         "C) Okaying.",
         "D) Fine okay."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 3,
       "question": "How do native speakers naturally say \"Wait\" when asking for a brief moment?",
       "questionMl": "\"Wait\" എന്ന് പറയുന്നതിന് പകരം ഒരു നിമിഷം കാത്തുനിൽക്കാൻ ഏത് ശൈലി ഉപയോഗിക്കാം?",
       "options": [
-        "A) Hang on a second.",
-        "B) Stop walking.",
-        "C) Standing there.",
+        "A) Stop walking.",
+        "B) Standing there.",
+        "C) Hang on a second.",
         "D) Wait line."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 4,
       "question": "Instead of saying \"I don't know\", what polite phrase can you use?",
       "questionMl": "\"I don't know\" എന്നതിന് പകരം ഉപയോഗിക്കാവുന്ന മര്യാദയുള്ള വാചകം ഏതാണ്?",
       "options": [
-        "A) I'm not sure.",
-        "B) I don't care.",
-        "C) No knowledge me.",
-        "D) Ask others."
+        "A) I don't care.",
+        "B) No knowledge me.",
+        "C) Ask others.",
+        "D) I'm not sure."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 5,
@@ -10242,36 +10931,36 @@ const QUIZ_BANK = {
       "question": "What is a natural way to say \"Come quickly / Come fast\"?",
       "questionMl": "\"Come quickly\" എന്നതിന് പകരം എന്താണ് പറയേണ്ടത്?",
       "options": [
-        "A) Hurry up!",
-        "B) Run fastly.",
+        "A) Run fastly.",
+        "B) Hurry up!",
         "C) Come speed.",
         "D) Fast coming."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 7,
       "question": "What expression means \"I understand / I comprehend\"?",
       "questionMl": "\"എനിക്ക് മനസ്സിലായി\" എന്ന് പറയാൻ ഉപയോഗിക്കുന്ന നാച്വറൽ ശൈലി ഏതാണ്?",
       "options": [
-        "A) Got it.",
-        "B) Catch it.",
-        "C) Take it.",
+        "A) Catch it.",
+        "B) Take it.",
+        "C) Got it.",
         "D) Hold it."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 8,
       "question": "What casual expression is used to say \"It's okay / Don't worry about it\"?",
       "questionMl": "\"പ്രശ്നമില്ല / സാരമില്ല\" എന്ന് പറയാൻ ഉപയോഗിക്കുന്ന കാഷ്വൽ ശൈലി ഏതാണ്?",
       "options": [
-        "A) No worries.",
-        "B) No fear.",
-        "C) Worry not.",
-        "D) Not matter."
+        "A) No fear.",
+        "B) Worry not.",
+        "C) Not matter.",
+        "D) No worries."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 9,
@@ -10290,36 +10979,36 @@ const QUIZ_BANK = {
       "question": "What conversation filler is used to state a fact or truth?",
       "questionMl": "ഒരു കാര്യത്തിന്റെ സത്യാവസ്ഥ വെളിപ്പെടുത്തുമ്പോൾ ഉപയോഗിക്കുന്ന ഫില്ലർ ഏതാണ്?",
       "options": [
-        "A) Actually...",
-        "B) Fake...",
+        "A) Fake...",
+        "B) Actually...",
         "C) Lie...",
         "D) Wrongly..."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 11,
       "question": "What filler is used to share something truthful and candid?",
       "questionMl": "\"സത്യമായി പറഞ്ഞാൽ...\" എന്ന് വ്യക്തമാക്കാൻ ഏത് പദം ഉപയോഗിക്കാം?",
       "options": [
-        "A) Honestly...",
-        "B) Dishonestly...",
-        "C) Cheat...",
+        "A) Dishonestly...",
+        "B) Cheat...",
+        "C) Honestly...",
         "D) Doubt..."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 12,
       "question": "What filler is used to explain the main point or core idea simply?",
       "questionMl": "\"അടിസ്ഥാനപരമായി പറയുകയാണെങ്കിൽ...\" എന്ന് വ്യക്തമാക്കാൻ ഏത് ഫില്ലർ ഉപയോഗിക്കാം?",
       "options": [
-        "A) Basically...",
-        "B) Hard...",
-        "C) Complex...",
-        "D) Tough..."
+        "A) Hard...",
+        "B) Complex...",
+        "C) Tough...",
+        "D) Basically..."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 13,
@@ -10338,36 +11027,36 @@ const QUIZ_BANK = {
       "question": "What filler is used to clarify or rephrase what you intended to say?",
       "questionMl": "\"ഞാൻ ഉദ്ദേശിച്ചത് എന്തെന്നാൽ...\" എന്ന് പറയാൻ ഏത് ശൈലി ഉപയോഗിക്കുന്നു?",
       "options": [
-        "A) I mean...",
-        "B) I say...",
+        "A) I say...",
+        "B) I mean...",
         "C) I call...",
         "D) I shout..."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 15,
       "question": "What natural reaction shows shock or disbelief at surprising news?",
       "questionMl": "വിശ്വസിക്കാൻ പ്രയാസമുള്ള കാര്യങ്ങൾ കേൾക്കുമ്പോൾ ഉപയോഗിക്കുന്ന പ്രതികരണം ഏതാണ്?",
       "options": [
-        "A) No way!",
-        "B) Go away!",
-        "C) Yes way!",
+        "A) Go away!",
+        "B) Yes way!",
+        "C) No way!",
         "D) Walk away!"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 16,
       "question": "How do you express strong emphatic agreement instead of just saying \"Yes\"?",
       "questionMl": "\"Yes\" എന്നതിന് പകരം തീർച്ചയായും യോജിക്കുന്നു എന്ന് പറയാൻ ഏത് വാക്ക് ഉപയോഗിക്കാം?",
       "options": [
-        "A) Absolutely.",
-        "B) Never.",
-        "C) No.",
-        "D) Seldom."
+        "A) Never.",
+        "B) No.",
+        "C) Seldom.",
+        "D) Absolutely."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 17,
@@ -10386,36 +11075,36 @@ const QUIZ_BANK = {
       "question": "What casual phrase means \"It was my mistake\"?",
       "questionMl": "\"എന്റെ തെറ്റാണ്\" എന്ന് സ്വയം ഏറ്റുപറയാൻ കാഷ്വലായി ഉപയോഗിക്കുന്ന വാചകം ഏതാണ്?",
       "options": [
-        "A) My bad.",
-        "B) My good.",
+        "A) My good.",
+        "B) My bad.",
         "C) Your bad.",
         "D) Their fault."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 19,
       "question": "What phrase means \"I am fully prepared and ready\"?",
       "questionMl": "\"ഞാൻ പൂർണ്ണമായും തയ്യാറാണ്\" എന്ന് പറയാൻ ഏത് ശൈലി ഉപയോഗിക്കാം?",
       "options": [
-        "A) I'm all set.",
-        "B) I'm sleeping.",
-        "C) I'm going.",
+        "A) I'm sleeping.",
+        "B) I'm going.",
+        "C) I'm all set.",
         "D) I'm confused."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 20,
       "question": "What phrase means \"I am currently traveling / on my destination route\"?",
       "questionMl": "\"ഞാൻ വരുന്ന വഴിയിലാണ്\" എന്ന് അറിയിക്കാൻ ഏത് വാചകം ഉപയോഗിക്കാം?",
       "options": [
-        "A) I'm on my way.",
-        "B) I'm at home.",
-        "C) I'm sleeping.",
-        "D) I'm stopped."
+        "A) I'm at home.",
+        "B) I'm sleeping.",
+        "C) I'm stopped.",
+        "D) I'm on my way."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 21,
@@ -10434,36 +11123,36 @@ const QUIZ_BANK = {
       "question": "What professional phrase means \"Keep sharing updates with me\"?",
       "questionMl": "\"പുതിയ വിവരങ്ങൾ എന്നെ അറിയിച്ചുകൊണ്ടിരിക്കുക\" എന്ന് പറയാൻ ഏത് വാചകം ഉപയോഗിക്കാം?",
       "options": [
-        "A) Keep me posted.",
-        "B) Don't send mail.",
+        "A) Don't send mail.",
+        "B) Keep me posted.",
         "C) Stop updates.",
         "D) Forget me."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 23,
       "question": "What phrase shows that a proposed plan sounds acceptable and good?",
       "questionMl": "\"നല്ലൊരു പദ്ധതിയാണ് / എനിക്ക് സമ്മതമാണ്\" എന്ന് പറയാൻ ഏത് വാചകം ഉപയോഗിക്കാം?",
       "options": [
-        "A) Sounds like a plan.",
-        "B) Bad plan.",
-        "C) No planning.",
+        "A) Bad plan.",
+        "B) No planning.",
+        "C) Sounds like a plan.",
         "D) Don't plan."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 24,
       "question": "Correct the mistake: \"Come fast.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"Come fast.\"",
       "options": [
-        "A) Hurry up!",
-        "B) Fast coming.",
-        "C) Speed run.",
-        "D) Come speed."
+        "A) Fast coming.",
+        "B) Speed run.",
+        "C) Come speed.",
+        "D) Hurry up!"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 25,
@@ -10482,36 +11171,36 @@ const QUIZ_BANK = {
       "question": "Correct the mistake: \"Very good.\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"Very good.\"",
       "options": [
-        "A) That's awesome!",
-        "B) Much good.",
+        "A) Much good.",
+        "B) That's awesome!",
         "C) Very much good.",
         "D) Gooding."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 27,
       "question": "Complete the phrase: \"Thanks for _____ me know.\"",
       "questionMl": "വാചകം പൂർത്തിയാക്കുക: \"എന്നെ കാര്യം അറിയിച്ചതിന് നന്ദി.\"",
       "options": [
-        "A) letting",
-        "B) making",
-        "C) giving",
+        "A) making",
+        "B) giving",
+        "C) letting",
         "D) telling to"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 28,
       "question": "Complete the phrase: \"I'll look _____ it.\"",
       "questionMl": "വാചകം പൂർത്തിയാക്കുക: \"ഞാൻ അത് പരിശോധിക്കാം.\"",
       "options": [
-        "A) into",
-        "B) onto",
-        "C) over to",
-        "D) out of"
+        "A) onto",
+        "B) over to",
+        "C) out of",
+        "D) into"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 29,
@@ -10530,12 +11219,12 @@ const QUIZ_BANK = {
       "question": "Complete the polite disagreement phrase: \"I see your point, _____\"",
       "questionMl": "വാചകം പൂർത്തിയാക്കുക: \"നിങ്ങളുടെ അഭിപ്രായം എനിക്ക് മനസ്സിലാകുന്നു, പക്ഷേ...\"",
       "options": [
-        "A) but...",
-        "B) and...",
+        "A) and...",
+        "B) but...",
         "C) so...",
         "D) or..."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     }
   ],
   "32": [
@@ -10544,24 +11233,24 @@ const QUIZ_BANK = {
       "question": "Instead of saying \"I think...\", what is an advanced professional phrase to state your opinion?",
       "questionMl": "\"I think...\" എന്നതിന് പകരം സ്വന്തം അഭിപ്രായം പറയാൻ ഉപയോഗിക്കുന്ന അഡ്വാൻസ്ഡ് ശൈലി ഏതാണ്?",
       "options": [
-        "A) In my opinion...",
-        "B) My mind says...",
-        "C) Brain thinking...",
+        "A) My mind says...",
+        "B) Brain thinking...",
+        "C) In my opinion...",
         "D) I am thought..."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 2,
       "question": "Instead of saying \"I think yes\", what phrase expresses complete agreement?",
       "questionMl": "\"ഞാൻ പൂർണ്ണമായും യോജിക്കുന്നു\" എന്ന് പറയാൻ ഏത് അഡ്വാൻസ്ഡ് ശൈലി ഉപയോഗിക്കാം?",
       "options": [
-        "A) I couldn't agree more.",
-        "B) I agree yes.",
-        "C) Thinking yes.",
-        "D) Yes I think."
+        "A) I agree yes.",
+        "B) Thinking yes.",
+        "C) Yes I think.",
+        "D) I couldn't agree more."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 3,
@@ -10580,36 +11269,36 @@ const QUIZ_BANK = {
       "question": "Instead of saying \"Maybe\", what phrase indicates that the answer depends on conditions?",
       "questionMl": "\"സാഹചര്യങ്ങളെ ആശ്രയിച്ചിരിക്കുന്നു\" എന്ന് വ്യക്തമാക്കാൻ ഏത് ശൈലി ഉപയോഗിക്കാം?",
       "options": [
-        "A) It depends.",
-        "B) Maybe yes no.",
+        "A) Maybe yes no.",
+        "B) It depends.",
         "C) Doubting.",
         "D) Not fixed."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 5,
       "question": "Instead of saying \"Listen...\", what phrase is used to draw attention to the main point?",
       "questionMl": "\"കാര്യം ഇതാണ്...\" എന്ന് സംഭാഷണത്തിൽ ശ്രദ്ധ തിരിക്കാൻ ഏത് വാചകം ഉപയോഗിക്കാം?",
       "options": [
-        "A) Here's the thing...",
-        "B) Listen me...",
-        "C) Ear give me...",
+        "A) Listen me...",
+        "B) Ear give me...",
+        "C) Here's the thing...",
         "D) Hearing this..."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 6,
       "question": "Instead of saying \"Because...\", what formal phrase introduces the primary reason?",
       "questionMl": "\"പ്രധാന കാരണം എന്തെന്നാൽ...\" എന്ന് പറയാൻ ഏത് വാചകം ഉപയോഗിക്കാം?",
       "options": [
-        "A) The main reason is...",
-        "B) Because why...",
-        "C) Reason is that why...",
-        "D) Due to because..."
+        "A) Because why...",
+        "B) Reason is that why...",
+        "C) Due to because...",
+        "D) The main reason is..."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 7,
@@ -10628,36 +11317,36 @@ const QUIZ_BANK = {
       "question": "Instead of \"I want to say...\", what phrase expresses your desire to make a statement politely?",
       "questionMl": "\"ഞാൻ പറയാൻ ആഗ്രഹിക്കുന്നത് എന്തെന്നാൽ...\" എന്ന് മര്യാദയോടെ എങ്ങനെ പറയാം?",
       "options": [
-        "A) What I'd like to say is...",
-        "B) I tell want...",
+        "A) I tell want...",
+        "B) What I'd like to say is...",
         "C) Saying my wish...",
         "D) Want to tell..."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 9,
       "question": "Instead of bluntly saying \"I think you're wrong\", how do you politely disagree?",
       "questionMl": "\"നിങ്ങളുടെ അഭിപ്രായം എനിക്ക് മനസ്സിലാകുന്നുണ്ട്, പക്ഷേ...\" എന്ന് മര്യാദയോടെ എങ്ങനെ പറയാം?",
       "options": [
-        "A) I see your point, but...",
-        "B) You are wrong completely.",
-        "C) Bad opinion yours.",
+        "A) You are wrong completely.",
+        "B) Bad opinion yours.",
+        "C) I see your point, but...",
         "D) Shut your mouth."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 10,
       "question": "What conversation starter is used when sharing a candid, truthful feeling?",
       "questionMl": "\"സത്യമായി പറഞ്ഞാൽ...\" എന്ന് പറയാൻ ഉപയോഗിക്കുന്ന അഡ്വാൻസ്ഡ് ശൈലി ഏതാണ്?",
       "options": [
-        "A) To be honest...",
-        "B) Lie away...",
-        "C) Fake opinion...",
-        "D) Truth telling..."
+        "A) Lie away...",
+        "B) Fake opinion...",
+        "C) Truth telling...",
+        "D) To be honest..."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 11,
@@ -10676,36 +11365,36 @@ const QUIZ_BANK = {
       "question": "What phrase means \"When everything is taken into consideration / ultimately\"?",
       "questionMl": "\"അവസാനം പ്രധാനപ്പെട്ടത്...\" എന്ന് ഉപസംഹാരമായി പറയാൻ ഏത് ശൈലി ഉപയോഗിക്കുന്നു?",
       "options": [
-        "A) At the end of the day...",
-        "B) At night time...",
+        "A) At night time...",
+        "B) At the end of the day...",
         "C) Day ending...",
         "D) Sun setting..."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 13,
       "question": "Which phrase is used to give your own personal perspective?",
       "questionMl": "\"വ്യക്തിപരമായി പറയുകയാണെങ്കിൽ...\" എന്ന് പറയാൻ ഏത് വാക്ക് ഉപയോഗിക്കുന്നു?",
       "options": [
-        "A) Personally...",
-        "B) Publicly...",
-        "C) Everyone...",
+        "A) Publicly...",
+        "B) Everyone...",
+        "C) Personally...",
         "D) Nobody..."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 14,
       "question": "How do you introduce an opinion based on what you have experienced in life?",
       "questionMl": "\"എന്റെ അനുഭവത്തിൽ നിന്ന്...\" എന്ന് പറയാൻ ഏത് ശൈലി ഉപയോഗിക്കാം?",
       "options": [
-        "A) From my experience...",
-        "B) From my eyes...",
-        "C) From my brain...",
-        "D) From my home..."
+        "A) From my eyes...",
+        "B) From my brain...",
+        "C) From my home...",
+        "D) From my experience..."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 15,
@@ -10724,36 +11413,36 @@ const QUIZ_BANK = {
       "question": "What phrase is used to state a firm personal conviction?",
       "questionMl": "\"ഞാൻ ഉറച്ചു വിശ്വസിക്കുന്നു\" എന്ന് പറയാൻ ഏത് വാചകം ഉപയോഗിക്കുന്നു?",
       "options": [
-        "A) I strongly believe...",
-        "B) I weakly think...",
+        "A) I weakly think...",
+        "B) I strongly believe...",
         "C) Doubt is there...",
         "D) Not sure..."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 17,
       "question": "What advanced phrase means \"As far as it affects or relates to me\"?",
       "questionMl": "\"എന്നെ സംബന്ധിച്ചിടത്തോളം...\" എന്ന് പറയാൻ ഏത് വാചകം ഉപയോഗിക്കുന്നു?",
       "options": [
-        "A) As far as I'm concerned...",
-        "B) As far as I go...",
-        "C) Far away from me...",
+        "A) As far as I go...",
+        "B) Far away from me...",
+        "C) As far as I'm concerned...",
         "D) Not concerned me..."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 18,
       "question": "What phrase means \"The way I interpret or analyze the situation\"?",
       "questionMl": "\"ഞാൻ ഇതിനെ കാണുന്ന രീതിയിൽ...\" എന്ന് പറയാൻ ഏത് ഫ്രെയ്സ് ഉപയോഗിക്കുന്നു?",
       "options": [
-        "A) The way I see it...",
-        "B) The eye I look...",
-        "C) Seeing way my...",
-        "D) Looking like this..."
+        "A) The eye I look...",
+        "B) Seeing way my...",
+        "C) Looking like this...",
+        "D) The way I see it..."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 19,
@@ -10772,36 +11461,36 @@ const QUIZ_BANK = {
       "question": "How do you politely request to contribute a point to an ongoing discussion?",
       "questionMl": "\"എനിക്ക് ഒരു കാര്യം കൂടി കൂട്ടിച്ചേർക്കാനുണ്ട്\" എന്ന് പ്രൊഫഷണലായി എങ്ങനെ പറയാം?",
       "options": [
-        "A) I'd like to add something.",
-        "B) I will talk now.",
+        "A) I will talk now.",
+        "B) I'd like to add something.",
         "C) Stop talking I add.",
         "D) My point listen."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 21,
       "question": "What compliment do you give when someone raises a thoughtful question in a presentation?",
       "questionMl": "\"അതൊരു മികച്ച ചോദ്യമാണ്\" എന്ന് പറയാൻ ഏത് വാചകം ഉപയോഗിക്കുന്നു?",
       "options": [
-        "A) That's a great question.",
-        "B) Bad question raised.",
-        "C) Why this question?",
+        "A) Bad question raised.",
+        "B) Why this question?",
+        "C) That's a great question.",
         "D) Don't ask questions."
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 22,
       "question": "How do you thank someone for drawing attention to an important error or detail?",
       "questionMl": "\"അത് ചൂണ്ടിക്കാണിച്ചതിന് നന്ദി\" എന്ന് പ്രൊഫഷണലായി എങ്ങനെ പറയാം?",
       "options": [
-        "A) Thank you for pointing that out.",
-        "B) Don't point details.",
-        "C) Why pointing me?",
-        "D) Finger pointing bad."
+        "A) Don't point details.",
+        "B) Why pointing me?",
+        "C) Finger pointing bad.",
+        "D) Thank you for pointing that out."
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 23,
@@ -10820,36 +11509,36 @@ const QUIZ_BANK = {
       "question": "What informal idiom means \"To make a long story brief and get to the point\"?",
       "questionMl": "\"ചുരുക്കത്തിൽ സംഗതി ഇതാണ്...\" എന്ന് പറയാൻ ഏത് ഇഡിയം ഉപയോഗിക്കാം?",
       "options": [
-        "A) Long story short...",
-        "B) Big story long...",
+        "A) Big story long...",
+        "B) Long story short...",
         "C) Short story reading...",
         "D) Tell long story..."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 25,
       "question": "What word refers to a particular attitude or way of considering a matter?",
       "questionMl": "കാഴ്ചപ്പാട് എന്ന അർത്ഥത്തിൽ വരുന്ന വാക്ക് ഏതാണ്?",
       "options": [
-        "A) Perspective",
-        "B) Receipt",
-        "C) Platform",
+        "A) Receipt",
+        "B) Platform",
+        "C) Perspective",
         "D) Destination"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 26,
       "question": "What word means \"the quality of always performing in a similar way or maintaining high standards\"?",
       "questionMl": "സ്ഥിരത എന്ന അർത്ഥം വരുന്ന അഡ്വാൻസ്ഡ് വാക്ക് ഏതാണ്?",
       "options": [
-        "A) Consistency",
-        "B) Delay",
-        "C) Error",
-        "D) Weakness"
+        "A) Delay",
+        "B) Error",
+        "C) Weakness",
+        "D) Consistency"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     },
     {
       "id": 27,
@@ -10868,37 +11557,46 @@ const QUIZ_BANK = {
       "question": "Correct the mistake: \"I want to say...\"",
       "questionMl": "തെറ്റ് തിരുത്തുക: \"I want to say...\"",
       "options": [
-        "A) What I'd like to say is...",
-        "B) Saying wish I have.",
+        "A) Saying wish I have.",
+        "B) What I'd like to say is...",
         "C) Wanting to tell.",
         "D) I am tell want."
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 29,
       "question": "Fill in the blank: \"At the end of the day, _____ matters.\"",
       "questionMl": "വിട്ടഭാഗം പൂരിപ്പിക്കുക: \"അവസാനം പ്രധാനം ആത്മവിശ്വാസമാണ്.\"",
       "options": [
-        "A) confidence",
-        "B) fear",
-        "C) worry",
+        "A) fear",
+        "B) worry",
+        "C) confidence",
         "D) hesitation"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 30,
       "question": "Complete the phrase: \"To sum up, practice makes _____.\"",
       "questionMl": "വാചകം പൂർത്തിയാക്കുക: \"ചുരുക്കത്തിൽ, പരിശീലനം പുരോഗതിയിലേക്ക് നയിക്കുന്നു.\"",
       "options": [
-        "A) progress",
-        "B) problem",
-        "C) failure",
-        "D) delay"
+        "A) problem",
+        "B) failure",
+        "C) delay",
+        "D) progress"
       ],
-      "correctIndex": 0
+      "correctIndex": 3
     }
   ]
 };
-if (typeof window !== 'undefined') { window.QUIZ_BANK = QUIZ_BANK; }
+
+if (typeof window !== 'undefined') {
+  window.QUIZ_BANK = QUIZ_BANK;
+}
+if (typeof globalThis !== 'undefined') {
+  globalThis.QUIZ_BANK = QUIZ_BANK;
+}
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { QUIZ_BANK };
+}
