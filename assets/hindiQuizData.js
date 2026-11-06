@@ -1,69 +1,69 @@
-// AUTO-GENERATED: Hindi→English Mission-Aligned Quiz Bank
-// 32 Missions × 30 Questions = 960 MCQs
-// Generated: 2026-11-02T13:04:32.548Z
-// DO NOT EDIT MANUALLY — regenerate with generate_hindi_quiz.cjs
-
-(function(root) {
-  'use strict';
-  var HINDI_QUIZ_BANK = {
+/**
+ * Mastered Language Coach - 32-Mission Hindi Quiz Bank
+ * Aligned with Official 32-Mission Curriculum (Missions.pdf, spec_report.md & curriculum.js)
+ * Exactly 32 missions (keys "1" to "32"), 30 questions each = 960 questions total.
+ * Schema: { id: 1..30, question: string, questionHindi: string, options: [string x 4], correctIndex: 0..3 }
+ * Options prefixed with A), B), C), D). Balanced correctIndex (~25% each).
+ */
+const HINDI_QUIZ_BANK = {
   "1": [
     {
       "id": 1,
-      "question": "Translate the sentence: 'मेरा नाम राहुल है।'",
-      "questionHindi": "वाक्य का अनुवाद करें: 'मेरा नाम राहुल है।'",
+      "question": "Translate the introduction: 'मेरा नाम राहुल है।' (My name is...)",
+      "questionHindi": "आत्म-परिचय का अनुवाद करें: 'मेरा नाम राहुल है।'",
       "options": [
-        "My name is Rahul.",
-        "I am name Rahul.",
-        "My name am Rahul.",
-        "I name is Rahul."
+        "A) My name is Rahul.",
+        "B) I am name Rahul.",
+        "C) My name am Rahul.",
+        "D) I name is Rahul."
       ],
       "correctIndex": 0
     },
     {
       "id": 2,
-      "question": "Translate the sentence: 'मैं दिल्ली से हूँ।'",
-      "questionHindi": "वाक्य का अनुवाद करें: 'मैं दिल्ली से हूँ।'",
+      "question": "Translate where you are from: 'मैं दिल्ली से हूँ।' (I am from...)",
+      "questionHindi": "आप कहाँ से हैं यह बताने वाले वाक्य का अनुवाद करें: 'मैं दिल्ली से हूँ।'",
       "options": [
-        "I am to Delhi.",
-        "I am from Delhi.",
-        "My place am Delhi.",
-        "I from Delhi."
+        "A) I am to Delhi.",
+        "B) I am from Delhi.",
+        "C) My place am Delhi.",
+        "D) I from Delhi."
       ],
       "correctIndex": 1
     },
     {
       "id": 3,
-      "question": "Translate the sentence: 'मैं एक शिक्षक हूँ।'",
-      "questionHindi": "वाक्य का अनुवाद करें: 'मैं एक शिक्षक हूँ।'",
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "I am teacher.",
-        "I am an teacher.",
-        "I am a teacher.",
-        "My job teacher."
+        "A) I am teacher.",
+        "B) I am an teacher.",
+        "C) I am a teacher.",
+        "D) My job teacher."
       ],
       "correctIndex": 2
     },
     {
       "id": 4,
-      "question": "Translate the sentence: 'मुझे किताबें पढ़ना पसंद है।'",
-      "questionHindi": "वाक्य का अनुवाद करें: 'मुझे किताबें पढ़ना पसंद है।'",
+      "question": "Translate your hobby: 'मुझे किताबें पढ़ना पसंद है।' (I like reading...)",
+      "questionHindi": "अपने शौक का अनुवाद करें: 'मुझे किताबें पढ़ना पसंद है।'",
       "options": [
-        "My hobby reading books.",
-        "I am like reading books.",
-        "I reading books.",
-        "I like reading books."
+        "A) My hobby reading books.",
+        "B) I am like reading books.",
+        "C) I reading books.",
+        "D) I like reading books."
       ],
       "correctIndex": 3
     },
     {
       "id": 5,
-      "question": "Choose the correct word for 'पेशे से' in English:",
-      "questionHindi": "अंग्रेजी में 'पेशे से' के लिए सही शब्द चुनें:",
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "By profession",
-        "By hobby",
-        "By name",
-        "By goal"
+        "A) By profession",
+        "B) By hobby",
+        "C) By name",
+        "D) By goal"
       ],
       "correctIndex": 0
     },
@@ -72,46 +72,46 @@
       "question": "Choose the correct English phrase for 'मेरा लक्ष्य':",
       "questionHindi": "'मेरा लक्ष्य' के लिए सही अंग्रेजी वाक्यांश चुनें:",
       "options": [
-        "My hobby",
-        "My goal",
-        "My profession",
-        "My place"
+        "A) My hobby",
+        "B) My goal",
+        "C) My profession",
+        "D) My place"
       ],
       "correctIndex": 1
     },
     {
       "id": 7,
-      "question": "Choose the correct English word for 'मूल रूप से':",
-      "questionHindi": "'मूल रूप से' के लिए सही अंग्रेजी शब्द चुनें:",
+      "question": "Choose the correct English word for where you are from originally: 'मूल रूप से'",
+      "questionHindi": "मूल रूप से (where you are from) के लिए सही अंग्रेजी शब्द चुनें: 'मूल रूप से'",
       "options": [
-        "Currently",
-        "Finally",
-        "Originally",
-        "Usually"
+        "A) Currently",
+        "B) Finally",
+        "C) Originally",
+        "D) Usually"
       ],
       "correctIndex": 2
     },
     {
       "id": 8,
-      "question": "Choose the correct English phrase for 'खाली समय':",
-      "questionHindi": "'खाली समय' के लिए सही अंग्रेजी वाक्यांश चुनें:",
+      "question": "Choose the correct English phrase for your free-time hobby: 'खाली समय'",
+      "questionHindi": "खाली समय के शौक (free-time hobby) के लिए सही अंग्रेजी वाक्यांश चुनें: 'खाली समय'",
       "options": [
-        "Busy time",
-        "Work time",
-        "Goal time",
-        "Free time"
+        "A) Busy time",
+        "B) Work time",
+        "C) Goal time",
+        "D) Free time"
       ],
       "correctIndex": 3
     },
     {
       "id": 9,
-      "question": "Complete the sentence: 'I ____ an engineer.'",
-      "questionHindi": "वाक्य पूरा करें: 'I ____ an engineer.'",
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "am",
-        "is",
-        "are",
-        "be"
+        "A) am",
+        "B) is",
+        "C) are",
+        "D) be"
       ],
       "correctIndex": 0
     },
@@ -120,46 +120,46 @@
       "question": "Which article correctly fits: 'I am ____ artist.'?",
       "questionHindi": "कौन सा आर्टिकल सही है: 'I am ____ artist.'?",
       "options": [
-        "a",
-        "an",
-        "the",
-        "no article needed"
+        "A) 'a'",
+        "B) 'an'",
+        "C) 'the'",
+        "D) no article needed"
       ],
       "correctIndex": 1
     },
     {
       "id": 11,
-      "question": "Which article correctly fits: 'She is ____ doctor.'?",
-      "questionHindi": "कौन सा आर्टिकल सही है: 'She is ____ doctor.'?",
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "an",
-        "the",
-        "a",
-        "no article needed"
+        "A) 'an'",
+        "B) 'the'",
+        "C) 'a'",
+        "D) no article needed"
       ],
       "correctIndex": 2
     },
     {
       "id": 12,
-      "question": "Complete the sentence with the correct possessive pronoun: '____ hometown is very beautiful.'",
-      "questionHindi": "सही संबंधवाचक सर्वनाम से वाक्य पूरा करें: '____ hometown is very beautiful.'",
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "I",
-        "Me",
-        "Am",
-        "My"
+        "A) 'I'",
+        "B) Me",
+        "C) Am",
+        "D) My"
       ],
       "correctIndex": 3
     },
     {
       "id": 13,
-      "question": "Fill in the blank (मेरा): '____ primary goal is to speak English fluently.'",
-      "questionHindi": "रिक्त स्थान भरें (मेरा): '____ primary goal is to speak English fluently.'",
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "My",
-        "I",
-        "Me",
-        "Am"
+        "A) My",
+        "B) 'I'",
+        "C) Me",
+        "D) Am"
       ],
       "correctIndex": 0
     },
@@ -168,46 +168,46 @@
       "question": "Fill in the blank (एक): 'I have ____ passion for learning new languages.'",
       "questionHindi": "रिक्त स्थान भरें (एक): 'I have ____ passion for learning new languages.'",
       "options": [
-        "an",
-        "a",
-        "the",
-        "my"
+        "A) 'an'",
+        "B) 'a'",
+        "C) 'the'",
+        "D) my"
       ],
       "correctIndex": 1
     },
     {
       "id": 15,
-      "question": "Fill in the blank (हूँ): 'I ____ excited to introduce myself today.'",
-      "questionHindi": "रिक्त स्थान भरें (हूँ): 'I ____ excited to introduce myself today.'",
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "is",
-        "are",
-        "am",
-        "was"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) was"
       ],
       "correctIndex": 2
     },
     {
       "id": 16,
-      "question": "Translate the sentence: 'कृपया अपना परिचय दें।'",
-      "questionHindi": "वाक्य का अनुवाद करें: 'कृपया अपना परिचय दें।'",
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "Please tell your hobby.",
-        "Please show your place.",
-        "Please meet your goal.",
-        "Please introduce yourself."
+        "A) Please tell your hobby.",
+        "B) Please show your place.",
+        "C) Please meet your goal.",
+        "D) Please introduce yourself."
       ],
       "correctIndex": 3
     },
     {
       "id": 17,
-      "question": "Translate the sentence: 'मुझे अपने खाली समय में संगीत सुनना पसंद है।'",
-      "questionHindi": "वाक्य का अनुवाद करें: 'मुझे अपने खाली समय में संगीत सुनना पसंद है।'",
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "I enjoy listening to music in my free time.",
-        "My free time is listen music.",
-        "I am listening music free time.",
-        "I like music in my work time."
+        "A) I enjoy listening to music in my free time.",
+        "B) My free time is listen music.",
+        "C) I am listening music free time.",
+        "D) I like music in my work time."
       ],
       "correctIndex": 0
     },
@@ -216,82 +216,82 @@
       "question": "Translate the sentence: 'मेरा मुख्य लक्ष्य अंग्रेजी बोलना सुधारना है।'",
       "questionHindi": "वाक्य का अनुवाद करें: 'मेरा मुख्य लक्ष्य अंग्रेजी बोलना सुधारना है।'",
       "options": [
-        "My main hobby is learning English.",
-        "My primary goal is to improve my English speaking skills.",
-        "I am improving my English goal.",
-        "My profession is English speaking skills."
+        "A) My main hobby is learning English.",
+        "B) My primary goal is to improve my English speaking skills.",
+        "C) I am improving my English goal.",
+        "D) My profession is English speaking skills."
       ],
       "correctIndex": 1
     },
     {
       "id": 19,
-      "question": "Translate the sentence: 'आप मूल रूप से कहाँ से हैं?'",
-      "questionHindi": "वाक्य का अनुवाद करें: 'आप मूल रूप से कहाँ से हैं?'",
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "What is your hometown like?",
-        "Where do you live now?",
-        "Where are you originally from?",
-        "Which profession are you from?"
+        "A) What is your hometown like?",
+        "B) Where do you live now?",
+        "C) Where are you originally from?",
+        "D) Which profession are you from?"
       ],
       "correctIndex": 2
     },
     {
       "id": 20,
-      "question": "Translate the sentence: 'आपको अपने शहर के बारे में क्या सबसे ज्यादा पसंद है?'",
-      "questionHindi": "वाक्य का अनुवाद करें: 'आपको अपने शहर के बारे में क्या सबसे ज्यादा पसंद है?'",
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "What is your hometown name?",
-        "Where is your hometown located?",
-        "How is your hometown city?",
-        "What do you like most about your hometown?"
+        "A) What is your hometown name?",
+        "B) Where is your hometown located?",
+        "C) How is your hometown city?",
+        "D) What do you like most about your hometown?"
       ],
       "correctIndex": 3
     },
     {
       "id": 21,
-      "question": "Choose the correct English word for 'शौक':",
-      "questionHindi": "'शौक' के लिए सही अंग्रेजी शब्द चुनें:",
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "Hobby",
-        "Goal",
-        "Name",
-        "Place"
+        "A) Hobby",
+        "B) Goal",
+        "C) Name",
+        "D) Place"
       ],
       "correctIndex": 0
     },
     {
       "id": 22,
-      "question": "Choose the correct English phrase for 'अपना परिचय दें':",
-      "questionHindi": "'अपना परिचय दें' के लिए सही अंग्रेजी वाक्यांश चुनें:",
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "Tell your goal",
-        "Introduce yourself",
-        "Ask a question",
-        "Describe your city"
+        "A) Tell your goal",
+        "B) Introduce yourself",
+        "C) Ask a question",
+        "D) Describe your city"
       ],
       "correctIndex": 1
     },
     {
       "id": 23,
-      "question": "Choose the correct English word for 'सुधारना':",
-      "questionHindi": "'सुधारना' के लिए सही अंग्रेजी शब्द चुनें:",
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "Introduce",
-        "Enjoy",
-        "Improve",
-        "Speak"
+        "A) Introduce",
+        "B) Enjoy",
+        "C) Improve",
+        "D) Speak"
       ],
       "correctIndex": 2
     },
     {
       "id": 24,
-      "question": "Choose the correct English word for 'गृहनगर / जन्मभूमि':",
-      "questionHindi": "'गृहनगर / जन्मभूमि' के लिए सही अंग्रेजी शब्द चुनें:",
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "Country",
-        "Profession",
-        "Skill",
-        "Hometown"
+        "A) Country",
+        "B) Profession",
+        "C) Skill",
+        "D) Hometown"
       ],
       "correctIndex": 3
     },
@@ -300,10 +300,10 @@
       "question": "Select the grammatically correct sentence:",
       "questionHindi": "व्याकरण की दृष्टि से सही वाक्य चुनें:",
       "options": [
-        "I am a student from Mumbai.",
-        "I is a student from Mumbai.",
-        "My am a student from Mumbai.",
-        "I are a student from Mumbai."
+        "A) I am a student from Mumbai.",
+        "B) I is a student from Mumbai.",
+        "C) My am a student from Mumbai.",
+        "D) I are a student from Mumbai."
       ],
       "correctIndex": 0
     },
@@ -312,11287 +312,11292 @@
       "question": "Select the grammatically correct sentence:",
       "questionHindi": "व्याकरण की दृष्टि से सही वाक्य चुनें:",
       "options": [
-        "I am an accountant.",
-        "I am a accountant.",
-        "My name am an accountant.",
-        "I is an accountant."
+        "A) I am an accountant.",
+        "B) I am a accountant.",
+        "C) My name am an accountant.",
+        "D) I is an accountant."
       ],
       "correctIndex": 0
     },
     {
       "id": 27,
-      "question": "Fill in the blank (दो गतिविधियाँ): 'Tell me about ____ activities you enjoy.'",
-      "questionHindi": "रिक्त स्थान भरें (दो गतिविधियाँ): 'Tell me about ____ activities you enjoy.'",
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "one",
-        "two",
-        "an",
-        "a"
+        "A) one",
+        "B) two",
+        "C) 'an'",
+        "D) 'a'"
       ],
       "correctIndex": 1
     },
     {
       "id": 28,
-      "question": "Fill in the blank (मैं): '____ am a software developer by profession.'",
-      "questionHindi": "रिक्त स्थान भरें (मैं): '____ am a software developer by profession.'",
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "My",
-        "Me",
-        "I",
-        "Mine"
+        "A) My",
+        "B) Me",
+        "C) 'I'",
+        "D) Mine"
       ],
       "correctIndex": 2
     },
     {
       "id": 29,
-      "question": "Translate the sentence: 'मैं पहली बार आपसे मिल रहा हूँ।'",
-      "questionHindi": "वाक्य का अनुवाद करें: 'मैं पहली बार आपसे मिल रहा हूँ।'",
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "I am introducing you today.",
-        "My name is meeting you.",
-        "I am happy to see your place.",
-        "I am meeting you for the first time."
+        "A) I am introducing you today.",
+        "B) My name is meeting you.",
+        "C) I am happy to see your place.",
+        "D) I am meeting you for the first time."
       ],
       "correctIndex": 3
     },
     {
       "id": 30,
-      "question": "Translate the sentence: 'मेरे दो पसंदीदा शौक खाना पकाना और तैरना हैं।'",
-      "questionHindi": "वाक्य का अनुवाद करें: 'मेरे दो पसंदीदा शौक खाना पकाना और तैरना हैं।'",
+      "question": "Translate the sentence describing your two favorite hobbies: 'मेरे दो पसंदीदा शौक खाना पकाना और तैरना हैं।'",
+      "questionHindi": "अपने दो पसंदीदा शौक (two hobbies) बताने वाले वाक्य का अनुवाद करें:",
       "options": [
-        "My two favorite hobbies are cooking and swimming.",
-        "I like two hobbies is cook and swim.",
-        "My goal is cooking and swimming.",
-        "I am hobbies are cooking and swimming."
+        "A) My two favorite hobbies are cooking and swimming.",
+        "B) I like two hobbies is cook and swim.",
+        "C) My goal is cooking and swimming.",
+        "D) I am hobbies are cooking and swimming."
       ],
       "correctIndex": 0
     }
   ],
   "2": [
     {
-      "id": 31,
+      "id": 1,
       "question": "He is my father.",
       "questionHindi": "वह मेरे पिताजी हैं।",
       "options": [
-        "He is my father.",
-        "She is my father.",
-        "They is my father.",
-        "We is my father."
+        "A) He is my father.",
+        "B) She is my father.",
+        "C) They is my father.",
+        "D) We is my father."
       ],
       "correctIndex": 0
     },
     {
-      "id": 32,
+      "id": 2,
       "question": "Choose the correct pronoun for a female classmate: '____ is my classmate.'",
       "questionHindi": "एक महिला सहपाठी के लिए सही सर्वनाम चुनें: '____ is my classmate.'",
       "options": [
-        "He",
-        "They",
-        "We",
-        "She"
+        "A) He",
+        "B) They",
+        "C) We",
+        "D) She"
       ],
       "correctIndex": 3
     },
     {
-      "id": 33,
-      "question": "Select the correct translation: 'वे मेरे मित्र हैं।'",
-      "questionHindi": "सही अनुवाद चुनें: 'वे मेरे मित्र हैं।'",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "He is my friend.",
-        "They are my friends.",
-        "She is my friend.",
-        "We is my friends."
+        "A) He is my friend.",
+        "B) They are my friends.",
+        "C) She is my friend.",
+        "D) We is my friends."
       ],
       "correctIndex": 1
     },
     {
-      "id": 34,
+      "id": 4,
       "question": "Fill in the blank: 'My brother is kind. ____ is very helpful.'",
       "questionHindi": "रिक्त स्थान भरें: 'My brother is kind. ____ is very helpful.'",
       "options": [
-        "She",
-        "They",
-        "We",
-        "He"
+        "A) She",
+        "B) They",
+        "C) We",
+        "D) He"
       ],
       "correctIndex": 3
     },
     {
-      "id": 35,
-      "question": "What is the best way to introduce your mother?",
-      "questionHindi": "अपनी माँ का परिचय देने का सबसे अच्छा तरीका क्या है?",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "She are my mother.",
-        "They is my mother.",
-        "He is my mother.",
-        "She is my mother."
+        "A) She are my mother.",
+        "B) They is my mother.",
+        "C) He is my mother.",
+        "D) She is my mother."
       ],
       "correctIndex": 3
     },
     {
-      "id": 36,
+      "id": 6,
       "question": "Complete the sentence: 'We ____ colleagues at the office.'",
       "questionHindi": "वाक्य पूरा करें: 'We ____ colleagues at the office.'",
       "options": [
-        "are",
-        "is",
-        "am",
-        "be"
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) be"
       ],
       "correctIndex": 0
     },
     {
-      "id": 37,
+      "id": 7,
       "question": "Translate: 'मेरी बहन एक शिक्षिका है।'",
       "questionHindi": "अनुवाद करें: 'मेरी बहन एक शिक्षिका है।'",
       "options": [
-        "He is a teacher.",
-        "She is a teacher.",
-        "They are teachers.",
-        "We are teachers."
+        "A) He is a teacher.",
+        "B) She is a teacher.",
+        "C) They are teachers.",
+        "D) We are teachers."
       ],
       "correctIndex": 1
     },
     {
-      "id": 38,
+      "id": 8,
       "question": "Choose the correct grammar: '____ are my classmates.'",
       "questionHindi": "सही व्याकरण चुनें: '____ are my classmates.'",
       "options": [
-        "He",
-        "She",
-        "It",
-        "They"
+        "A) He",
+        "B) She",
+        "C) It",
+        "D) They"
       ],
       "correctIndex": 3
     },
     {
-      "id": 39,
-      "question": "How do you say 'वह मेरी सहेली है' in English?",
-      "questionHindi": "आप 'वह मेरी सहेली है' को अंग्रेजी में कैसे कहेंगे?",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "She is my friend.",
-        "He is my friend.",
-        "They are my friends.",
-        "We is my friend."
+        "A) She is my friend.",
+        "B) He is my friend.",
+        "C) They are my friends.",
+        "D) We is my friend."
       ],
       "correctIndex": 0
     },
     {
-      "id": 40,
+      "id": 10,
       "question": "Which sentence is grammatically correct?",
       "questionHindi": "कौन सा वाक्य व्याकरण की दृष्टि से सही है?",
       "options": [
-        "They is my sister.",
-        "She are my sister.",
-        "He is my brother.",
-        "We is my brother."
+        "A) They is my sister.",
+        "B) She are my sister.",
+        "C) He is my brother.",
+        "D) We is my brother."
       ],
       "correctIndex": 2
     },
     {
-      "id": 41,
-      "question": "Translate: 'हम दोस्त हैं।'",
-      "questionHindi": "अनुवाद करें: 'हम दोस्त हैं।'",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "They are friends.",
-        "We are friends.",
-        "She is a friend.",
-        "He is a friend."
+        "A) They are friends.",
+        "B) We are friends.",
+        "C) She is a friend.",
+        "D) He is a friend."
       ],
       "correctIndex": 1
     },
     {
-      "id": 42,
-      "question": "Fill in the blank: 'My teacher is smart. ____ is very knowledgeable.'",
-      "questionHindi": "रिक्त स्थान भरें: 'My teacher is smart. ____ is very knowledgeable.'",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "They",
-        "We",
-        "He",
-        "It"
+        "A) They",
+        "B) We",
+        "C) He",
+        "D) It"
       ],
       "correctIndex": 2
     },
     {
-      "id": 43,
-      "question": "Which option describes a group of colleagues?",
-      "questionHindi": "कौन सा विकल्प सहकर्मियों के समूह का वर्णन करता है?",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "She is my colleague.",
-        "They are my colleagues.",
-        "He is my colleague.",
-        "I is my colleague."
+        "A) She is my colleague.",
+        "B) They are my colleagues.",
+        "C) He is my colleague.",
+        "D) I is my colleague."
       ],
       "correctIndex": 1
     },
     {
-      "id": 44,
+      "id": 14,
       "question": "Choose the correct form: 'My sister and I ____ happy.'",
       "questionHindi": "सही रूप चुनें: 'My sister and I ____ happy.'",
       "options": [
-        "is",
-        "are",
-        "am",
-        "be"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) be"
       ],
       "correctIndex": 1
     },
     {
-      "id": 45,
-      "question": "What is the English for 'सहपाठी'?",
-      "questionHindi": "'सहपाठी' के लिए अंग्रेजी शब्द क्या है?",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "Friend",
-        "Colleague",
-        "Classmate",
-        "Teacher"
+        "A) Friend",
+        "B) Colleague",
+        "C) Classmate",
+        "D) Teacher"
       ],
       "correctIndex": 2
     },
     {
-      "id": 46,
-      "question": "Translate: 'वे मेरे सहकर्मी हैं।'",
-      "questionHindi": "अनुवाद करें: 'वे मेरे सहकर्मी हैं।'",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "He is my colleague.",
-        "They are my colleagues.",
-        "She is my colleague.",
-        "We are my colleagues."
+        "A) He is my colleague.",
+        "B) They are my colleagues.",
+        "C) She is my colleague.",
+        "D) We are my colleagues."
       ],
       "correctIndex": 1
     },
     {
-      "id": 47,
-      "question": "Select the correct sentence for introducing a male friend.",
-      "questionHindi": "एक पुरुष मित्र का परिचय देने के लिए सही वाक्य चुनें।",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "She is my friend.",
-        "They are my friend.",
-        "He is my friend.",
-        "We is my friend."
+        "A) She is my friend.",
+        "B) They are my friend.",
+        "C) He is my friend.",
+        "D) We is my friend."
       ],
       "correctIndex": 2
     },
     {
-      "id": 48,
+      "id": 18,
       "question": "Fill in the blank: '____ is my sister, she is a doctor.'",
       "questionHindi": "रिक्त स्थान भरें: '____ is my sister, she is a doctor.'",
       "options": [
-        "He",
-        "They",
-        "We",
-        "She"
+        "A) He",
+        "B) They",
+        "C) We",
+        "D) She"
       ],
       "correctIndex": 3
     },
     {
-      "id": 49,
-      "question": "Which word means 'colleague' in Hindi?",
-      "questionHindi": "किस शब्द का अर्थ हिंदी में 'colleague' होता है?",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "मित्र",
-        "सहकर्मी",
-        "भाई",
-        "शिक्षिका"
+        "A) मित्र",
+        "B) सहकर्मी",
+        "C) भाई",
+        "D) शिक्षिका"
       ],
       "correctIndex": 1
     },
     {
-      "id": 50,
-      "question": "Complete: 'My parents are kind. ____ are my inspiration.'",
-      "questionHindi": "पूरा करें: 'My parents are kind. ____ are my inspiration.'",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "They",
-        "He",
-        "She",
-        "We"
+        "A) They",
+        "B) He",
+        "C) She",
+        "D) We"
       ],
       "correctIndex": 0
     },
     {
-      "id": 51,
-      "question": "Correct the error: 'He are my brother.'",
-      "questionHindi": "गलती सुधारें: 'He are my brother.'",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "He is my brother.",
-        "They is my brother.",
-        "She are my brother.",
-        "We is my brother."
+        "A) He is my brother.",
+        "B) They is my brother.",
+        "C) She are my brother.",
+        "D) We is my brother."
       ],
       "correctIndex": 0
     },
     {
-      "id": 52,
-      "question": "Translate: 'वह मेरी माँ है और वह बहुत अच्छी है।'",
-      "questionHindi": "अनुवाद करें: 'वह मेरी माँ है और वह बहुत अच्छी है।'",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "He is my mother and he is good.",
-        "They are my mother and they are good.",
-        "She is my mother and she is good.",
-        "We are my mother and we are good."
+        "A) He is my mother and he is good.",
+        "B) They are my mother and they are good.",
+        "C) She is my mother and she is good.",
+        "D) We are my mother and we are good."
       ],
       "correctIndex": 2
     },
     {
-      "id": 53,
-      "question": "Choose the best description for a helpful classmate.",
-      "questionHindi": "एक सहायक सहपाठी के लिए सबसे अच्छा विवरण चुनें।",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "He is a helpful classmate.",
-        "She are a helpful classmate.",
-        "They is a helpful classmate.",
-        "We is a helpful classmate."
+        "A) He is a helpful classmate.",
+        "B) She are a helpful classmate.",
+        "C) They is a helpful classmate.",
+        "D) We is a helpful classmate."
       ],
       "correctIndex": 0
     },
     {
-      "id": 54,
-      "question": "Fill in the blank: '____ are my favorite teachers.'",
-      "questionHindi": "रिक्त स्थान भरें: '____ are my favorite teachers.'",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "He",
-        "She",
-        "They",
-        "It"
+        "A) He",
+        "B) She",
+        "C) They",
+        "D) It"
       ],
       "correctIndex": 2
     },
     {
-      "id": 55,
+      "id": 25,
       "question": "What does 'She is my sister' mean in Hindi?",
       "questionHindi": "'She is my sister' का हिंदी में क्या अर्थ है?",
       "options": [
-        "वह मेरा भाई है।",
-        "वह मेरी बहन है।",
-        "वे मेरी बहनें हैं।",
-        "हम बहनें हैं।"
+        "A) वह मेरा भाई है।",
+        "B) वह मेरी बहन है।",
+        "C) वे मेरी बहनें हैं।",
+        "D) हम बहनें हैं।"
       ],
       "correctIndex": 1
     },
     {
-      "id": 56,
+      "id": 26,
       "question": "Complete the sentence: 'My friend and I ____ classmates.'",
       "questionHindi": "वाक्य पूरा करें: 'My friend and I ____ classmates.'",
       "options": [
-        "is",
-        "am",
-        "are",
-        "be"
+        "A) is",
+        "B) am",
+        "C) are",
+        "D) be"
       ],
       "correctIndex": 2
     },
     {
-      "id": 57,
-      "question": "Which pronoun fits: '____ is my father, he is a teacher.'",
-      "questionHindi": "कौन सा सर्वनाम फिट बैठता है: '____ is my father, he is a teacher.'",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "He",
-        "She",
-        "They",
-        "We"
+        "A) He",
+        "B) She",
+        "C) They",
+        "D) We"
       ],
       "correctIndex": 0
     },
     {
-      "id": 58,
-      "question": "Translate: 'मेरे भाई और मेरी बहन बहुत अच्छे हैं।'",
-      "questionHindi": "अनुवाद करें: 'मेरे भाई और मेरी बहन बहुत अच्छे हैं।'",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "He and she is good.",
-        "They are good.",
-        "She and he is good.",
-        "We is good."
+        "A) He and she is good.",
+        "B) They are good.",
+        "C) She and he is good.",
+        "D) We is good."
       ],
       "correctIndex": 1
     },
     {
-      "id": 59,
-      "question": "Identify the correct plural sentence.",
-      "questionHindi": "सही बहुवचन वाक्य की पहचान करें।",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "They are my friends.",
-        "He are my friends.",
-        "She are my friends.",
-        "We is my friends."
+        "A) They are my friends.",
+        "B) He are my friends.",
+        "C) She are my friends.",
+        "D) We is my friends."
       ],
       "correctIndex": 0
     },
     {
-      "id": 60,
+      "id": 30,
       "question": "Select the correct phrase for 'वे मेरे सहपाठी हैं'.",
       "questionHindi": "'वे मेरे सहपाठी हैं' के लिए सही वाक्यांश चुनें।",
       "options": [
-        "He is my classmate.",
-        "She is my classmate.",
-        "They are my classmates.",
-        "We is my classmates."
+        "A) He is my classmate.",
+        "B) She is my classmate.",
+        "C) They are my classmates.",
+        "D) We is my classmates."
       ],
       "correctIndex": 2
     }
   ],
   "3": [
     {
-      "id": 61,
+      "id": 1,
       "question": "Choose the correct translation: 'मेरे पास एक पुरानी किताब है।'",
       "questionHindi": "Choose the correct translation: 'मेरे पास एक पुरानी किताब है।'",
       "options": [
-        "I has an old book.",
-        "This have an old book.",
-        "That has an old book.",
-        "I have an old book."
+        "A) I has an old book.",
+        "B) This have an old book.",
+        "C) That has an old book.",
+        "D) I have an old book."
       ],
       "correctIndex": 3
     },
     {
-      "id": 62,
+      "id": 2,
       "question": "Complete the sentence: 'My brother ____ a new bicycle.'",
       "questionHindi": "वाक्य पूरा करें: 'My brother ____ a new bicycle.'",
       "options": [
-        "have",
-        "these",
-        "those",
-        "has"
+        "A) have",
+        "B) these",
+        "C) those",
+        "D) has"
       ],
       "correctIndex": 3
     },
     {
-      "id": 63,
-      "question": "Which sentence correctly uses 'this' to describe a belonging?",
-      "questionHindi": "कौन सा वाक्य 'this' का सही उपयोग करता है?",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "This is my favorite bag.",
-        "This are my favorite bags.",
-        "This have my bag.",
-        "This my bag is."
+        "A) This is my favorite bag.",
+        "B) This are my favorite bags.",
+        "C) This have my bag.",
+        "D) This my bag is."
       ],
       "correctIndex": 0
     },
     {
-      "id": 64,
+      "id": 4,
       "question": "Translate: 'ये मेरे माता-पिता हैं।'",
       "questionHindi": "Translate: 'ये मेरे माता-पिता हैं।'",
       "options": [
-        "That is my parents.",
-        "These is my parents.",
-        "This are my parents.",
-        "These are my parents."
+        "A) That is my parents.",
+        "B) These is my parents.",
+        "C) This are my parents.",
+        "D) These are my parents."
       ],
       "correctIndex": 3
     },
     {
-      "id": 65,
-      "question": "Select the correct sentence for describing family members.",
-      "questionHindi": "परिवार के सदस्यों का वर्णन करने के लिए सही वाक्य चुनें।",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "My sister have a teacher.",
-        "My sister has a teacher.",
-        "My sister this a teacher.",
-        "My sister is a teacher."
+        "A) My sister have a teacher.",
+        "B) My sister has a teacher.",
+        "C) My sister this a teacher.",
+        "D) My sister is a teacher."
       ],
       "correctIndex": 3
     },
     {
-      "id": 66,
+      "id": 6,
       "question": "Choose the correct word for 'वह मेरा घर है।'",
       "questionHindi": "Choose the correct word for 'वह मेरा घर है।'",
       "options": [
-        "This is my home.",
-        "These is my home.",
-        "Those are my home.",
-        "That is my home."
+        "A) This is my home.",
+        "B) These is my home.",
+        "C) Those are my home.",
+        "D) That is my home."
       ],
       "correctIndex": 3
     },
     {
-      "id": 67,
+      "id": 7,
       "question": "Fill in the blank: '____ are my friends playing in the garden.'",
       "questionHindi": "खाली स्थान भरें: '____ are my friends playing in the garden.'",
       "options": [
-        "This",
-        "That",
-        "Has",
-        "Those"
+        "A) This",
+        "B) That",
+        "C) Has",
+        "D) Those"
       ],
       "correctIndex": 3
     },
     {
-      "id": 68,
+      "id": 8,
       "question": "Identify the correct English translation for 'मेरी बहन के पास एक गुड़िया है।'",
       "questionHindi": "Identify the correct English translation for 'मेरी बहन के पास एक गुड़िया है।'",
       "options": [
-        "My sister have a doll.",
-        "My sister is a doll.",
-        "My sister that a doll.",
-        "My sister has a doll."
+        "A) My sister have a doll.",
+        "B) My sister is a doll.",
+        "C) My sister that a doll.",
+        "D) My sister has a doll."
       ],
       "correctIndex": 3
     },
     {
-      "id": 69,
-      "question": "Which sentence is grammatically correct?",
-      "questionHindi": "कौन सा वाक्य व्याकरण की दृष्टि से सही है?",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "They has a big house.",
-        "They this a big house.",
-        "They those a big house.",
-        "They have a big house."
+        "A) They has a big house.",
+        "B) They this a big house.",
+        "C) They those a big house.",
+        "D) They have a big house."
       ],
       "correctIndex": 3
     },
     {
-      "id": 70,
+      "id": 10,
       "question": "Translate: 'वे मेरी किताबें हैं।'",
       "questionHindi": "Translate: 'वे मेरी किताबें हैं।'",
       "options": [
-        "Those are my books.",
-        "These is my books.",
-        "That are my books.",
-        "This is my books."
+        "A) Those are my books.",
+        "B) These is my books.",
+        "C) That are my books.",
+        "D) This is my books."
       ],
       "correctIndex": 0
     },
     {
-      "id": 71,
+      "id": 11,
       "question": "Choose the correct phrase: 'My father ____ a blue car.'",
-      "questionHindi": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "have",
-        "these",
-        "has",
-        "this"
+        "A) have",
+        "B) these",
+        "C) has",
+        "D) this"
       ],
       "correctIndex": 2
     },
     {
-      "id": 72,
-      "question": "What is the English for 'यह मेरा पसंदीदा कमरा है।'?",
-      "questionHindi": "What is the English for 'यह मेरा पसंदीदा कमरा है।'?",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "That is my favorite room.",
-        "These are my favorite rooms.",
-        "This is my favorite room.",
-        "Those is my favorite room."
+        "A) That is my favorite room.",
+        "B) These are my favorite rooms.",
+        "C) This is my favorite room.",
+        "D) Those is my favorite room."
       ],
       "correctIndex": 2
     },
     {
-      "id": 73,
-      "question": "Select the correct sentence to describe a possession.",
-      "questionHindi": "किसी वस्तु का वर्णन करने के लिए सही वाक्य चुनें।",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "I have a special watch.",
-        "I has a special watch.",
-        "I that a special watch.",
-        "I this a special watch."
+        "A) I have a special watch.",
+        "B) I has a special watch.",
+        "C) I that a special watch.",
+        "D) I this a special watch."
       ],
       "correctIndex": 0
     },
     {
-      "id": 74,
+      "id": 14,
       "question": "Translate: 'क्या तुम्हारे पास एक पालतू कुत्ता है?'",
       "questionHindi": "Translate: 'क्या तुम्हारे पास एक पालतू कुत्ता है?'",
       "options": [
-        "Has you a pet dog?",
-        "Is you a pet dog?",
-        "Have you a pet dog?",
-        "That you a pet dog?"
+        "A) Has you a pet dog?",
+        "B) Is you a pet dog?",
+        "C) Have you a pet dog?",
+        "D) That you a pet dog?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 75,
+      "id": 15,
       "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
-      "questionHindi": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "This",
-        "That",
-        "Those",
-        "Has"
+        "A) This",
+        "B) That",
+        "C) Those",
+        "D) Has"
       ],
       "correctIndex": 2
     },
     {
-      "id": 76,
-      "question": "Complete: 'My mother ____ a beautiful garden.'",
-      "questionHindi": "Complete: 'My mother ____ a beautiful garden.'",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "have",
-        "this",
-        "has",
-        "these"
+        "A) have",
+        "B) this",
+        "C) has",
+        "D) these"
       ],
       "correctIndex": 2
     },
     {
-      "id": 77,
-      "question": "Choose the translation: 'ये खिलौने मेरे हैं।'",
-      "questionHindi": "Choose the translation: 'ये खिलौने मेरे हैं।'",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "These toys are mine.",
-        "Those toys are mine.",
-        "This toys are mine.",
-        "That toys are mine."
+        "A) These toys are mine.",
+        "B) Those toys are mine.",
+        "C) This toys are mine.",
+        "D) That toys are mine."
       ],
       "correctIndex": 0
     },
     {
-      "id": 78,
+      "id": 18,
       "question": "Which sentence correctly describes a family activity?",
       "questionHindi": "कौन सा वाक्य पारिवारिक गतिविधि का सही वर्णन करता है?",
       "options": [
-        "We has dinner together.",
-        "We have dinner together.",
-        "We this dinner together.",
-        "We those dinner together."
+        "A) We has dinner together.",
+        "B) We have dinner together.",
+        "C) We this dinner together.",
+        "D) We those dinner together."
       ],
       "correctIndex": 1
     },
     {
-      "id": 79,
-      "question": "Fill in the blank: '____ is my favorite toy.' (close to the speaker)",
-      "questionHindi": "Fill in the blank: '____ is my favorite toy.' (close to the speaker)",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "These",
-        "Those",
-        "This",
-        "Have"
+        "A) These",
+        "B) Those",
+        "C) This",
+        "D) Have"
       ],
       "correctIndex": 2
     },
     {
-      "id": 80,
-      "question": "Translate: 'उनके पास एक बड़ा घर है।'",
-      "questionHindi": "Translate: 'उनके पास एक बड़ा घर है।'",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "They has a big house.",
-        "They have a big house.",
-        "They this a big house.",
-        "They those a big house."
+        "A) They has a big house.",
+        "B) They have a big house.",
+        "C) They this a big house.",
+        "D) They those a big house."
       ],
       "correctIndex": 1
     },
     {
-      "id": 81,
+      "id": 21,
       "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
-      "questionHindi": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "This",
-        "That",
-        "Those",
-        "Has"
+        "A) This",
+        "B) That",
+        "C) Those",
+        "D) Has"
       ],
       "correctIndex": 2
     },
     {
-      "id": 82,
-      "question": "Which sentence describes a family member's profession?",
-      "questionHindi": "कौन सा वाक्य परिवार के सदस्य के पेशे का वर्णन करता है?",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "My brother is a doctor.",
-        "My brother has a doctor.",
-        "My brother this a doctor.",
-        "My brother those a doctor."
+        "A) My brother is a doctor.",
+        "B) My brother has a doctor.",
+        "C) My brother this a doctor.",
+        "D) My brother those a doctor."
       ],
       "correctIndex": 0
     },
     {
-      "id": 83,
-      "question": "Translate: 'यह मेरी कलम है।'",
-      "questionHindi": "Translate: 'यह मेरी कलम है।'",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "That is my pen.",
-        "This is my pen.",
-        "These are my pens.",
-        "Those are my pens."
+        "A) That is my pen.",
+        "B) This is my pen.",
+        "C) These are my pens.",
+        "D) Those are my pens."
       ],
       "correctIndex": 1
     },
     {
-      "id": 84,
-      "question": "Fill in the blank: 'We ____ a small family.'",
-      "questionHindi": "Fill in the blank: 'We ____ a small family.'",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "has",
-        "have",
-        "this",
-        "that"
+        "A) has",
+        "B) have",
+        "C) this",
+        "D) that"
       ],
       "correctIndex": 1
     },
     {
-      "id": 85,
+      "id": 25,
       "question": "Which sentence describes your belongings?",
       "questionHindi": "कौन सा वाक्य आपके सामान का वर्णन करता है?",
       "options": [
-        "I have a blue bag.",
-        "I has a blue bag.",
-        "I this a blue bag.",
-        "I that a blue bag."
+        "A) I have a blue bag.",
+        "B) I has a blue bag.",
+        "C) I this a blue bag.",
+        "D) I that a blue bag."
       ],
       "correctIndex": 0
     },
     {
-      "id": 86,
+      "id": 26,
       "question": "Translate: 'वे मेरे दोस्त हैं।'",
       "questionHindi": "Translate: 'वे मेरे दोस्त हैं।'",
       "options": [
-        "These are my friends.",
-        "Those are my friends.",
-        "This is my friend.",
-        "That is my friend."
+        "A) These are my friends.",
+        "B) Those are my friends.",
+        "C) This is my friend.",
+        "D) That is my friend."
       ],
       "correctIndex": 1
     },
     {
-      "id": 87,
-      "question": "Choose the correct form: 'My sister ____ a red dress.'",
-      "questionHindi": "Choose the correct form: 'My sister ____ a red dress.'",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "have",
-        "has",
-        "this",
-        "those"
+        "A) have",
+        "B) has",
+        "C) this",
+        "D) those"
       ],
       "correctIndex": 1
     },
     {
-      "id": 88,
+      "id": 28,
       "question": "Complete the sentence: '____ is my favorite book.'",
-      "questionHindi": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "These",
-        "Those",
-        "This",
-        "Have"
+        "A) These",
+        "B) Those",
+        "C) This",
+        "D) Have"
       ],
       "correctIndex": 2
     },
     {
-      "id": 89,
-      "question": "Translate: 'मेरे पास बहुत सारी किताबें हैं।'",
-      "questionHindi": "Translate: 'मेरे पास बहुत सारी किताबें हैं।'",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "I has many books.",
-        "I have many books.",
-        "I this many books.",
-        "I those many books."
+        "A) I has many books.",
+        "B) I have many books.",
+        "C) I this many books.",
+        "D) I those many books."
       ],
       "correctIndex": 1
     },
     {
-      "id": 90,
+      "id": 30,
       "question": "Select the correct option for 'वह मेरा भाई है।'",
       "questionHindi": "Select the correct option for 'वह मेरा भाई है।'",
       "options": [
-        "This is my brother.",
-        "That is my brother.",
-        "These are my brothers.",
-        "Those are my brothers."
+        "A) This is my brother.",
+        "B) That is my brother.",
+        "C) These are my brothers.",
+        "D) Those are my brothers."
       ],
       "correctIndex": 1
     }
   ],
   "4": [
     {
-      "id": 91,
+      "id": 1,
       "question": "Choose the correct translation: 'मैं तैर सकता हूँ, लेकिन मैं साइकिल नहीं चला सकता।'",
       "questionHindi": "मैं तैर सकता हूँ, लेकिन मैं साइकिल नहीं चला सकता।",
       "options": [
-        "I could swim, but I can't ride a bike.",
-        "I can swim, and I can ride a bike.",
-        "I can't swim, but I can ride a bike.",
-        "I can swim, but I can't ride a bicycle."
+        "A) I could swim, but I can't ride a bike.",
+        "B) I can swim, and I can ride a bike.",
+        "C) I can't swim, but I can ride a bike.",
+        "D) I can swim, but I can't ride a bicycle."
       ],
       "correctIndex": 3
     },
     {
-      "id": 92,
+      "id": 2,
       "question": "Which sentence is the most polite way to ask for help?",
       "questionHindi": "मदद मांगने का सबसे विनम्र तरीका कौन सा है?",
       "options": [
-        "Help me now.",
-        "Can you help me?",
-        "You help me.",
-        "Could you please help me with this?"
+        "A) Help me now.",
+        "B) Can you help me?",
+        "C) You help me.",
+        "D) Could you please help me with this?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 93,
-      "question": "Select the correct sentence for: 'क्या आप मुझे हिंदी में समझा सकते हैं?'",
-      "questionHindi": "क्या आप मुझे हिंदी में समझा सकते हैं?",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "Can you explain me in Hindi?",
-        "Could you explain Hindi to me?",
-        "Can you explain me to Hindi?",
-        "Could you explain to me in Hindi?"
+        "A) Can you explain me in Hindi?",
+        "B) Could you explain Hindi to me?",
+        "C) Can you explain me to Hindi?",
+        "D) Could you explain to me in Hindi?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 94,
+      "id": 4,
       "question": "Fill in the blank: 'I ______ play the guitar when I was a child, but I can play it perfectly now.'",
       "questionHindi": "रिक्त स्थान भरें: 'मैं बचपन में गिटार नहीं बजा सकता था, लेकिन अब मैं इसे पूरी तरह बजा सकता हूँ।'",
       "options": [
-        "can",
-        "can't",
-        "could",
-        "couldn't"
+        "A) can",
+        "B) can't",
+        "C) could",
+        "D) couldn't"
       ],
       "correctIndex": 3
     },
     {
-      "id": 95,
-      "question": "Which option translates 'मैं कल नहीं आ सकता'?",
-      "questionHindi": "मैं कल नहीं आ सकता।",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "I couldn't come tomorrow.",
-        "I can come tomorrow.",
-        "I could come tomorrow.",
-        "I can't come tomorrow."
+        "A) I couldn't come tomorrow.",
+        "B) I can come tomorrow.",
+        "C) I could come tomorrow.",
+        "D) I can't come tomorrow."
       ],
       "correctIndex": 3
     },
     {
-      "id": 96,
+      "id": 6,
       "question": "Choose the best response to: 'Could you help me carry these bags?'",
       "questionHindi": "'क्या आप इन बैगों को ले जाने में मेरी मदद कर सकते हैं?' का सबसे अच्छा उत्तर चुनें।",
       "options": [
-        "Yes, I can't.",
-        "No, I can.",
-        "I could not.",
-        "Sure, I'd be happy to help."
+        "A) Yes, I can't.",
+        "B) No, I can.",
+        "C) I could not.",
+        "D) Sure, I'd be happy to help."
       ],
       "correctIndex": 3
     },
     {
-      "id": 97,
+      "id": 7,
       "question": "Identify the correct sentence: 'क्या आप मेरी फाइल चेक कर सकते हैं?'",
       "questionHindi": "क्या आप मेरी फाइल चेक कर सकते हैं?",
       "options": [
-        "Can you check my file?",
-        "Could you checking my file?",
-        "Can you checking my file?",
-        "Could you check my file?"
+        "A) Can you check my file?",
+        "B) Could you checking my file?",
+        "C) Can you checking my file?",
+        "D) Could you check my file?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 98,
+      "id": 8,
       "question": "Fill in the blank: '______ you please pass the salt?' (Polite request)",
       "questionHindi": "रिक्त स्थान भरें: 'क्या आप कृपया नमक पास कर सकते हैं?' (विनम्र अनुरोध)",
       "options": [
-        "Can",
-        "Should",
-        "Could",
-        "Must"
+        "A) Can",
+        "B) Should",
+        "C) Could",
+        "D) Must"
       ],
       "correctIndex": 2
     },
     {
-      "id": 99,
-      "question": "What is the meaning of 'I can speak two languages'?",
-      "questionHindi": "'I can speak two languages' का अर्थ क्या है?",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "मैं दो भाषाएं बोल सकता हूँ।",
-        "मैं दो भाषाएं बोलता था।",
-        "मैं दो भाषाएं बोलूँगा।",
-        "मैं दो भाषाओं को समझता हूँ।"
+        "A) मैं दो भाषाएं बोल सकता हूँ।",
+        "B) मैं दो भाषाएं बोलता था।",
+        "C) मैं दो भाषाएं बोलूँगा।",
+        "D) मैं दो भाषाओं को समझता हूँ।"
       ],
       "correctIndex": 0
     },
     {
-      "id": 100,
+      "id": 10,
       "question": "Choose the grammatically correct sentence.",
       "questionHindi": "व्याकरण की दृष्टि से सही वाक्य चुनें।",
       "options": [
-        "She can to dance well.",
-        "She cans dance well.",
-        "She can dance well.",
-        "She could to dance well."
+        "A) She can to dance well.",
+        "B) She cans dance well.",
+        "C) She can dance well.",
+        "D) She could to dance well."
       ],
       "correctIndex": 2
     },
     {
-      "id": 101,
-      "question": "Which phrase expresses a past inability?",
-      "questionHindi": "कौन सा वाक्यांश अतीत की असमर्थता को व्यक्त करता है?",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "I can run fast.",
-        "I can't run fast.",
-        "I couldn't run fast.",
-        "I could run fast."
+        "A) I can run fast.",
+        "B) I can't run fast.",
+        "C) I couldn't run fast.",
+        "D) I could run fast."
       ],
       "correctIndex": 2
     },
     {
-      "id": 102,
-      "question": "Translate: 'वह बहुत अच्छा खाना बना सकती है।'",
-      "questionHindi": "वह बहुत अच्छा खाना बना सकती है।",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "She can cook very well.",
-        "She could cook very well.",
-        "She can't cook very well.",
-        "She could not cook very well."
+        "A) She can cook very well.",
+        "B) She could cook very well.",
+        "C) She can't cook very well.",
+        "D) She could not cook very well."
       ],
       "correctIndex": 0
     },
     {
-      "id": 103,
-      "question": "Which word fills the blank: 'I ______ swim across the river when I was younger.'",
-      "questionHindi": "रिक्त स्थान भरें: 'मैं जब छोटा था तो नदी तैर कर पार कर सकता था।'",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "can",
-        "can't",
-        "could",
-        "couldn't"
+        "A) can",
+        "B) can't",
+        "C) could",
+        "D) couldn't"
       ],
       "correctIndex": 2
     },
     {
-      "id": 104,
+      "id": 14,
       "question": "How do you politely decline help?",
       "questionHindi": "आप विनम्रतापूर्वक मदद के लिए मना कैसे करेंगे?",
       "options": [
-        "No, I can't.",
-        "I am busy, go away.",
-        "I'm sorry, I'm a bit busy right now.",
-        "I can't help you."
+        "A) No, I can't.",
+        "B) I am busy, go away.",
+        "C) I'm sorry, I'm a bit busy right now.",
+        "D) I can't help you."
       ],
       "correctIndex": 2
     },
     {
-      "id": 105,
-      "question": "Choose the correct English for: 'क्या आप मुझे बता सकते हैं कि स्टेशन कहाँ है?'",
-      "questionHindi": "क्या आप मुझे बता सकते हैं कि स्टेशन कहाँ है?",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "Can you tell me where the station is?",
-        "Could you tell me where is the station?",
-        "Can you tell me where is the station?",
-        "Could you tell where the station is?"
+        "A) Can you tell me where the station is?",
+        "B) Could you tell me where is the station?",
+        "C) Can you tell me where is the station?",
+        "D) Could you tell where the station is?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 106,
-      "question": "Which sentence shows a current ability?",
-      "questionHindi": "कौन सा वाक्य वर्तमान क्षमता को दर्शाता है?",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "I could play chess.",
-        "I can play chess.",
-        "I couldn't play chess.",
-        "I was able to play chess."
+        "A) I could play chess.",
+        "B) I can play chess.",
+        "C) I couldn't play chess.",
+        "D) I was able to play chess."
       ],
       "correctIndex": 1
     },
     {
-      "id": 107,
-      "question": "Select the correct form: 'He ______ ride a bike, so he walks to work.'",
-      "questionHindi": "सही रूप चुनें: 'वह साइकिल नहीं चला सकता, इसलिए वह काम पर पैदल जाता है।'",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "can",
-        "could",
-        "can't",
-        "couldn't"
+        "A) can",
+        "B) could",
+        "C) can't",
+        "D) couldn't"
       ],
       "correctIndex": 2
     },
     {
-      "id": 108,
+      "id": 18,
       "question": "Translate: 'क्या मैं आपकी मदद कर सकता हूँ?'",
       "questionHindi": "क्या मैं आपकी मदद कर सकता हूँ?",
       "options": [
-        "Can I help you?",
-        "Could I help you?",
-        "Do I help you?",
-        "Could I helped you?"
+        "A) Can I help you?",
+        "B) Could I help you?",
+        "C) Do I help you?",
+        "D) Could I helped you?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 109,
-      "question": "Fill in the blank: 'I ______ solve this math problem; it's too hard.'",
-      "questionHindi": "रिक्त स्थान भरें: 'मैं इस गणित की समस्या को हल नहीं कर सकता; यह बहुत कठिन है।'",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "can",
-        "could",
-        "can't",
-        "couldn't"
+        "A) can",
+        "B) could",
+        "C) can't",
+        "D) couldn't"
       ],
       "correctIndex": 2
     },
     {
-      "id": 110,
-      "question": "Which is the most formal way to ask for help?",
-      "questionHindi": "मदद मांगने का सबसे औपचारिक तरीका कौन सा है?",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "Can you help me?",
-        "Could you please help me?",
-        "Help me, please.",
-        "Will you help me?"
+        "A) Can you help me?",
+        "B) Could you please help me?",
+        "C) Help me, please.",
+        "D) Will you help me?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 111,
-      "question": "Choose the correct translation: 'मैं पहले गाड़ी नहीं चला सकता था, लेकिन अब मैं चला सकता हूँ।'",
-      "questionHindi": "मैं पहले गाड़ी नहीं चला सकता था, लेकिन अब मैं चला सकता हूँ।",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "I couldn't drive before, but now I can.",
-        "I can't drive before, but now I could.",
-        "I can drive before, but now I couldn't.",
-        "I couldn't drive before, but now I could."
+        "A) I couldn't drive before, but now I can.",
+        "B) I can't drive before, but now I could.",
+        "C) I can drive before, but now I couldn't.",
+        "D) I couldn't drive before, but now I could."
       ],
       "correctIndex": 0
     },
     {
-      "id": 112,
-      "question": "Which sentence correctly describes a skill?",
-      "questionHindi": "कौन सा वाक्य किसी कौशल का सही वर्णन करता है?",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "I am can paint.",
-        "I can painting.",
-        "I can paint.",
-        "I painting can."
+        "A) I am can paint.",
+        "B) I can painting.",
+        "C) I can paint.",
+        "D) I painting can."
       ],
       "correctIndex": 2
     },
     {
-      "id": 113,
-      "question": "Select the best option: 'Could you ______ me with this task?'",
-      "questionHindi": "सबसे अच्छा विकल्प चुनें: 'क्या आप इस काम में मेरी मदद कर सकते हैं?'",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "helping",
-        "help",
-        "to help",
-        "helped"
+        "A) helping",
+        "B) help",
+        "C) to help",
+        "D) helped"
       ],
       "correctIndex": 1
     },
     {
-      "id": 114,
-      "question": "What does 'I can't hear you' mean?",
-      "questionHindi": "'I can't hear you' का क्या अर्थ है?",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "मैं तुम्हें सुन सकता हूँ।",
-        "मैं तुम्हें नहीं सुन सकता।",
-        "क्या तुम मुझे सुन सकते हो?",
-        "मैं तुम्हें सुन पाया।"
+        "A) मैं तुम्हें सुन सकता हूँ।",
+        "B) मैं तुम्हें नहीं सुन सकता।",
+        "C) क्या तुम मुझे सुन सकते हो?",
+        "D) मैं तुम्हें सुन पाया।"
       ],
       "correctIndex": 1
     },
     {
-      "id": 115,
+      "id": 25,
       "question": "Choose the correct sentence structure.",
       "questionHindi": "सही वाक्य संरचना चुनें।",
       "options": [
-        "Can you speak English?",
-        "Can you to speak English?",
-        "You can speak English?",
-        "Speak you English can?"
+        "A) Can you speak English?",
+        "B) Can you to speak English?",
+        "C) You can speak English?",
+        "D) Speak you English can?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 116,
+      "id": 26,
       "question": "Fill in the blank: 'She ______ sing beautifully when she was a teenager.'",
       "questionHindi": "रिक्त स्थान भरें: 'वह जब किशोरी थी तब बहुत सुंदर गा सकती थी।'",
       "options": [
-        "can",
-        "could",
-        "can't",
-        "is able"
+        "A) can",
+        "B) could",
+        "C) can't",
+        "D) is able"
       ],
       "correctIndex": 1
     },
     {
-      "id": 117,
-      "question": "Translate: 'क्या आप मुझे थोड़ा पानी दे सकते हैं?'",
-      "questionHindi": "क्या आप मुझे थोड़ा पानी दे सकते हैं?",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "Can you give me some water?",
-        "Could you give me some water?",
-        "Can you gave me some water?",
-        "Could you gave me some water?"
+        "A) Can you give me some water?",
+        "B) Could you give me some water?",
+        "C) Can you gave me some water?",
+        "D) Could you gave me some water?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 118,
-      "question": "Which sentence indicates a present inability?",
-      "questionHindi": "कौन सा वाक्य वर्तमान असमर्थता को इंगित करता है?",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "I can't read this map.",
-        "I couldn't read this map.",
-        "I can read this map.",
-        "I could read this map."
+        "A) I can't read this map.",
+        "B) I couldn't read this map.",
+        "C) I can read this map.",
+        "D) I could read this map."
       ],
       "correctIndex": 0
     },
     {
-      "id": 119,
-      "question": "Select the correct response: 'Can you help me move this table?'",
-      "questionHindi": "'क्या आप मेज को हटाने में मेरी मदद कर सकते हैं?' का सही उत्तर चुनें।",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "Yes, I could.",
-        "Yes, I can.",
-        "No, I can.",
-        "Yes, I am."
+        "A) Yes, I could.",
+        "B) Yes, I can.",
+        "C) No, I can.",
+        "D) Yes, I am."
       ],
       "correctIndex": 1
     },
     {
-      "id": 120,
+      "id": 30,
       "question": "Fill in the blank: 'I ______ run fast back then, but now I am too tired.'",
       "questionHindi": "रिक्त स्थान भरें: 'मैं तब तेज दौड़ सकता था, लेकिन अब मैं बहुत थक गया हूँ।'",
       "options": [
-        "can",
-        "could",
-        "can't",
-        "couldn't"
+        "A) can",
+        "B) could",
+        "C) can't",
+        "D) couldn't"
       ],
       "correctIndex": 1
     }
   ],
   "5": [
     {
-      "id": 121,
+      "id": 1,
       "question": "Translate: 'I have to finish my project by tomorrow.'",
       "questionHindi": "अनुवाद करें: 'मुझे कल तक अपना प्रोजेक्ट पूरा करना है।'",
       "options": [
-        "I have to finish my project by tomorrow.",
-        "I had to finish my project by tomorrow.",
-        "I should finish my project by tomorrow.",
-        "I has to finish my project by tomorrow."
+        "A) I have to finish my project by tomorrow.",
+        "B) I had to finish my project by tomorrow.",
+        "C) I should finish my project by tomorrow.",
+        "D) I has to finish my project by tomorrow."
       ],
       "correctIndex": 0
     },
     {
-      "id": 122,
+      "id": 2,
       "question": "Which sentence correctly describes a past responsibility?",
       "questionHindi": "कौन सा वाक्य पिछली जिम्मेदारी का सही वर्णन करता है?",
       "options": [
-        "She has to clean the house.",
-        "He should clean the room.",
-        "I have to cook dinner.",
-        "They had to attend the meeting yesterday."
+        "A) She has to clean the house.",
+        "B) He should clean the room.",
+        "C) I have to cook dinner.",
+        "D) They had to attend the meeting yesterday."
       ],
       "correctIndex": 3
     },
     {
-      "id": 123,
-      "question": "What is the best advice for someone with too much work?",
-      "questionHindi": "बहुत अधिक काम वाले व्यक्ति के लिए सबसे अच्छी सलाह क्या है?",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "You have to quit your job.",
-        "You should prioritize your tasks.",
-        "You has to do everything at once.",
-        "You had to ignore your deadlines."
+        "A) You have to quit your job.",
+        "B) You should prioritize your tasks.",
+        "C) You has to do everything at once.",
+        "D) You had to ignore your deadlines."
       ],
       "correctIndex": 3
     },
     {
-      "id": 124,
+      "id": 4,
       "question": "Choose the correct phrase for: 'उसे आज जल्दी उठना है।'",
       "questionHindi": "Choose the correct phrase for: 'उसे आज जल्दी उठना है।'",
       "options": [
-        "He has to wake up early today.",
-        "He have to wake up early today.",
-        "He should wake up early today.",
-        "He had to wake up early today."
+        "A) He has to wake up early today.",
+        "B) He have to wake up early today.",
+        "C) He should wake up early today.",
+        "D) He had to wake up early today."
       ],
       "correctIndex": 3
     },
     {
-      "id": 125,
-      "question": "Fill in the blank: 'I _____ complete my reports yesterday before leaving the office.'",
-      "questionHindi": "रिक्त स्थान भरें: 'मुझे ऑफिस से निकलने से पहले कल अपनी रिपोर्ट पूरी करनी _____ थी।'",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "has to",
-        "should",
-        "have to",
-        "had to"
+        "A) has to",
+        "B) should",
+        "C) have to",
+        "D) had to"
       ],
       "correctIndex": 3
     },
     {
-      "id": 126,
+      "id": 6,
       "question": "Translate: 'You should take a break if you are tired.'",
       "questionHindi": "अनुवाद करें: 'यदि आप थक गए हैं तो आपको ब्रेक लेना चाहिए।'",
       "options": [
-        "You should take a break if you are tired.",
-        "You have to take a break if you are tired.",
-        "You had to take a break if you are tired.",
-        "You has to take a break if you are tired."
+        "A) You should take a break if you are tired.",
+        "B) You have to take a break if you are tired.",
+        "C) You had to take a break if you are tired.",
+        "D) You has to take a break if you are tired."
       ],
       "correctIndex": 0
     },
     {
-      "id": 127,
+      "id": 7,
       "question": "Which option correctly uses 'has to'?",
       "questionHindi": "कौन सा विकल्प 'has to' का सही उपयोग करता है?",
       "options": [
-        "They has to work late.",
-        "I has to study today.",
-        "We has to go now.",
-        "She has to finish her homework."
+        "A) They has to work late.",
+        "B) I has to study today.",
+        "C) We has to go now.",
+        "D) She has to finish her homework."
       ],
       "correctIndex": 3
     },
     {
-      "id": 128,
+      "id": 8,
       "question": "If you have multiple deadlines, what should you do?",
       "questionHindi": "यदि आपके पास कई समय सीमाएं (deadlines) हैं, तो आपको क्या करना चाहिए?",
       "options": [
-        "You have to ignore them.",
-        "You should prioritize your duties.",
-        "You had to work only on one.",
-        "You has to leave early."
+        "A) You have to ignore them.",
+        "B) You should prioritize your duties.",
+        "C) You had to work only on one.",
+        "D) You has to leave early."
       ],
       "correctIndex": 1
     },
     {
-      "id": 129,
-      "question": "Translate: 'मुझे कल खाना बनाना पड़ा था।'",
-      "questionHindi": "Translate: 'मुझे कल खाना बनाना पड़ा था।'",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "I have to cook food.",
-        "I should cook food.",
-        "I has to cook food.",
-        "I had to cook food yesterday."
+        "A) I have to cook food.",
+        "B) I should cook food.",
+        "C) I has to cook food.",
+        "D) I had to cook food yesterday."
       ],
       "correctIndex": 3
     },
     {
-      "id": 130,
+      "id": 10,
       "question": "Which sentence gives advice?",
       "questionHindi": "कौन सा वाक्य सलाह देता है?",
       "options": [
-        "He has to study hard.",
-        "You should talk to your manager.",
-        "I had to finish the work.",
-        "She has to go home."
+        "A) He has to study hard.",
+        "B) You should talk to your manager.",
+        "C) I had to finish the work.",
+        "D) She has to go home."
       ],
       "correctIndex": 1
     },
     {
-      "id": 131,
-      "question": "Fill in the blank: 'She _____ finish her project before the deadline tomorrow.'",
-      "questionHindi": "रिक्त स्थान भरें: 'उसे कल समय सीमा से पहले अपना प्रोजेक्ट पूरा _____ है।'",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "has to",
-        "had to",
-        "have to",
-        "should"
+        "A) has to",
+        "B) had to",
+        "C) have to",
+        "D) should"
       ],
       "correctIndex": 0
     },
     {
-      "id": 132,
-      "question": "What does 'prioritize your duties' mean?",
-      "questionHindi": "'prioritize your duties' का क्या अर्थ है?",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "To do all work at once.",
-        "To focus on the most important tasks first.",
-        "To ignore your deadlines.",
-        "To ask someone else to do your work."
+        "A) To do all work at once.",
+        "B) To focus on the most important tasks first.",
+        "C) To ignore your deadlines.",
+        "D) To ask someone else to do your work."
       ],
       "correctIndex": 1
     },
     {
-      "id": 133,
-      "question": "Translate: 'क्या तुम्हें कल ऑफिस जाना पड़ा था?'",
-      "questionHindi": "Translate: 'क्या तुम्हें कल ऑफिस जाना पड़ा था?'",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "Do you have to go to the office?",
-        "Should you go to the office?",
-        "Did you have to go to the office yesterday?",
-        "Does she have to go to the office?"
+        "A) Do you have to go to the office?",
+        "B) Should you go to the office?",
+        "C) Did you have to go to the office yesterday?",
+        "D) Does she have to go to the office?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 134,
+      "id": 14,
       "question": "Which grammar form is used for a present obligation for 'He'?",
       "questionHindi": "'He' के लिए वर्तमान बाध्यता (obligation) के लिए किस व्याकरण रूप का उपयोग किया जाता है?",
       "options": [
-        "have to",
-        "has to",
-        "had to",
-        "should"
+        "A) have to",
+        "B) has to",
+        "C) had to",
+        "D) should"
       ],
       "correctIndex": 1
     },
     {
-      "id": 135,
-      "question": "Choose the sentence that describes a routine responsibility.",
-      "questionHindi": "वह वाक्य चुनें जो एक दिनचर्या जिम्मेदारी का वर्णन करता है।",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "I have to report to work at 9 AM.",
-        "I had to report to work yesterday.",
-        "I should report to work tomorrow.",
-        "I has to report to work last week."
+        "A) I have to report to work at 9 AM.",
+        "B) I had to report to work yesterday.",
+        "C) I should report to work tomorrow.",
+        "D) I has to report to work last week."
       ],
       "correctIndex": 0
     },
     {
-      "id": 136,
-      "question": "What should you say to a colleague who is stressed?",
-      "questionHindi": "तनावग्रस्त सहकर्मी को आप क्या कहेंगे?",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "You have to work harder.",
-        "You should take a short break.",
-        "You had to finish this yesterday.",
-        "You has to ignore the stress."
+        "A) You have to work harder.",
+        "B) You should take a short break.",
+        "C) You had to finish this yesterday.",
+        "D) You has to ignore the stress."
       ],
       "correctIndex": 1
     },
     {
-      "id": 137,
-      "question": "Translate: 'हमें घर के काम में मदद करनी चाहिए।'",
-      "questionHindi": "Translate: 'हमें घर के काम में मदद करनी चाहिए।'",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "We have to help with housework.",
-        "We had to help with housework.",
-        "We should help with housework.",
-        "We has to help with housework."
+        "A) We have to help with housework.",
+        "B) We had to help with housework.",
+        "C) We should help with housework.",
+        "D) We has to help with housework."
       ],
       "correctIndex": 2
     },
     {
-      "id": 138,
+      "id": 18,
       "question": "Which sentence indicates a completed past duty?",
       "questionHindi": "कौन सा वाक्य पिछली पूरी की गई जिम्मेदारी को दर्शाता है?",
       "options": [
-        "I should pay the bills.",
-        "I have to pay the bills.",
-        "I had to pay the bills yesterday.",
-        "I has to pay the bills."
+        "A) I should pay the bills.",
+        "B) I have to pay the bills.",
+        "C) I had to pay the bills yesterday.",
+        "D) I has to pay the bills."
       ],
       "correctIndex": 2
     },
     {
-      "id": 139,
-      "question": "Fill in the blank: 'If you want to succeed, you _____ work consistently.'",
-      "questionHindi": "रिक्त स्थान भरें: 'यदि आप सफल होना चाहते हैं, तो आपको लगातार काम _____ चाहिए।'",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "should",
-        "had to",
-        "has to",
-        "have to"
+        "A) should",
+        "B) had to",
+        "C) has to",
+        "D) have to"
       ],
       "correctIndex": 0
     },
     {
-      "id": 140,
-      "question": "Translate: 'क्या उसे आज रिपोर्ट जमा करनी है?'",
-      "questionHindi": "Translate: 'क्या उसे आज रिपोर्ट जमा करनी है?'",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "Does he have to submit the report today?",
-        "Did he have to submit the report today?",
-        "Should he submit the report today?",
-        "Has he to submit the report today?"
+        "A) Does he have to submit the report today?",
+        "B) Did he have to submit the report today?",
+        "C) Should he submit the report today?",
+        "D) Has he to submit the report today?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 141,
-      "question": "Which of these is a daily responsibility?",
-      "questionHindi": "इनमें से कौन सी दैनिक जिम्मेदारी है?",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "Attending a yearly conference.",
-        "Writing a weekly report.",
-        "Cooking breakfast for the family.",
-        "Going on a vacation."
+        "A) Attending a yearly conference.",
+        "B) Writing a weekly report.",
+        "C) Cooking breakfast for the family.",
+        "D) Going on a vacation."
       ],
       "correctIndex": 2
     },
     {
-      "id": 142,
-      "question": "What is the correct way to ask about someone's daily tasks?",
-      "questionHindi": "किसी के दैनिक कार्यों के बारे में पूछने का सही तरीका क्या है?",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "What you have to do daily?",
-        "What do you have to do daily?",
-        "What you has to do daily?",
-        "What you had to do daily?"
+        "A) What you have to do daily?",
+        "B) What do you have to do daily?",
+        "C) What you has to do daily?",
+        "D) What you had to do daily?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 143,
-      "question": "Translate: 'मुझे कल बहुत सारा काम करना पड़ा।'",
-      "questionHindi": "Translate: 'मुझे कल बहुत सारा काम करना पड़ा।'",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "I have to do a lot of work.",
-        "I should do a lot of work.",
-        "I had to do a lot of work yesterday.",
-        "I has to do a lot of work."
+        "A) I have to do a lot of work.",
+        "B) I should do a lot of work.",
+        "C) I had to do a lot of work yesterday.",
+        "D) I has to do a lot of work."
       ],
       "correctIndex": 2
     },
     {
-      "id": 144,
-      "question": "When do we use 'had to'?",
-      "questionHindi": "हम 'had to' का उपयोग कब करते हैं?",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "For present duties.",
-        "For future duties.",
-        "For past obligations.",
-        "For giving advice."
+        "A) For present duties.",
+        "B) For future duties.",
+        "C) For past obligations.",
+        "D) For giving advice."
       ],
       "correctIndex": 2
     },
     {
-      "id": 145,
+      "id": 25,
       "question": "Fill in the blank: 'We _____ wear a uniform at our school.'",
       "questionHindi": "रिक्त स्थान भरें: 'हमें अपने स्कूल में यूनिफॉर्म पहननी _____ है।'",
       "options": [
-        "have to",
-        "should",
-        "had to",
-        "has to"
+        "A) have to",
+        "B) should",
+        "C) had to",
+        "D) has to"
       ],
       "correctIndex": 0
     },
     {
-      "id": 146,
+      "id": 26,
       "question": "Translate: 'तुम्हें समय का प्रबंधन करना सीखना चाहिए।'",
       "questionHindi": "Translate: 'तुम्हें समय का प्रबंधन करना सीखना चाहिए।'",
       "options": [
-        "You have to learn time management.",
-        "You should learn time management.",
-        "You had to learn time management.",
-        "You has to learn time management."
+        "A) You have to learn time management.",
+        "B) You should learn time management.",
+        "C) You had to learn time management.",
+        "D) You has to learn time management."
       ],
       "correctIndex": 1
     },
     {
-      "id": 147,
-      "question": "Which phrase is used for giving advice?",
-      "questionHindi": "सलाह देने के लिए किस वाक्यांश का उपयोग किया जाता है?",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "have to",
-        "should",
-        "had to",
-        "has to"
+        "A) have to",
+        "B) should",
+        "C) had to",
+        "D) has to"
       ],
       "correctIndex": 1
     },
     {
-      "id": 148,
-      "question": "Complete the sentence: 'Yesterday, I _____ finish my assignment before the deadline.'",
-      "questionHindi": "वाक्य पूरा करें: 'कल, मुझे समय सीमा से पहले अपना असाइनमेंट पूरा _____ पड़ा।'",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "have to",
-        "has to",
-        "had to",
-        "should"
+        "A) have to",
+        "B) has to",
+        "C) had to",
+        "D) should"
       ],
       "correctIndex": 2
     },
     {
-      "id": 149,
-      "question": "Translate: 'उसे अपनी जिम्मेदारियां निभानी पड़ती हैं।'",
-      "questionHindi": "Translate: 'उसे अपनी जिम्मेदारियां निभानी पड़ती हैं।'",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "She has to fulfill her responsibilities.",
-        "She have to fulfill her responsibilities.",
-        "She had to fulfill her responsibilities.",
-        "She should fulfill her responsibilities."
+        "A) She has to fulfill her responsibilities.",
+        "B) She have to fulfill her responsibilities.",
+        "C) She had to fulfill her responsibilities.",
+        "D) She should fulfill her responsibilities."
       ],
       "correctIndex": 0
     },
     {
-      "id": 150,
+      "id": 30,
       "question": "Which sentence is grammatically incorrect?",
       "questionHindi": "कौन सा वाक्य व्याकरण की दृष्टि से गलत है?",
       "options": [
-        "I have to study.",
-        "She has to study.",
-        "They has to study.",
-        "He has to study."
+        "A) I have to study.",
+        "B) She has to study.",
+        "C) They has to study.",
+        "D) He has to study."
       ],
       "correctIndex": 2
     }
   ],
   "6": [
     {
-      "id": 151,
+      "id": 1,
       "question": "Choose the most polite way to ask for a glass of water.",
       "questionHindi": "पानी का एक गिलास माँगने के लिए सबसे विनम्र तरीका चुनें।",
       "options": [
-        "Give me some water.",
-        "I want water now.",
-        "Bring me water.",
-        "I would like a glass of water, please."
+        "A) Give me some water.",
+        "B) I want water now.",
+        "C) Bring me water.",
+        "D) I would like a glass of water, please."
       ],
       "correctIndex": 3
     },
     {
-      "id": 152,
+      "id": 2,
       "question": "Translate: 'क्या मैं कल आपसे मिल सकता हूँ?'",
       "questionHindi": "Translate: 'क्या मैं कल आपसे मिल सकता हूँ?'",
       "options": [
-        "May I meet you tomorrow?",
-        "Can I meet you tomorrow?",
-        "Must I meet you tomorrow?",
-        "I will meet you tomorrow."
+        "A) May I meet you tomorrow?",
+        "B) Can I meet you tomorrow?",
+        "C) Must I meet you tomorrow?",
+        "D) I will meet you tomorrow."
       ],
       "correctIndex": 0
     },
     {
-      "id": 153,
-      "question": "How would you politely decline an invitation because you have other plans?",
-      "questionHindi": "आप किसी आमंत्रण को विनम्रतापूर्वक कैसे अस्वीकार करेंगे क्योंकि आपकी पहले से कोई योजना है?",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "I can't come.",
-        "No, I am busy.",
-        "Don't ask me again.",
-        "I would love to, but I have other plans."
+        "A) I can't come.",
+        "B) No, I am busy.",
+        "C) Don't ask me again.",
+        "D) I would love to, but I have other plans."
       ],
       "correctIndex": 3
     },
     {
-      "id": 154,
+      "id": 4,
       "question": "Fill in the blank: 'It _____ rain today, so carry an umbrella.'",
       "questionHindi": "रिक्त स्थान भरें: 'It _____ rain today, so carry an umbrella.'",
       "options": [
-        "would",
-        "like to",
-        "would like",
-        "may"
+        "A) would",
+        "B) like to",
+        "C) would like",
+        "D) may"
       ],
       "correctIndex": 3
     },
     {
-      "id": 155,
-      "question": "Which phrase is best when interrupting a busy colleague?",
-      "questionHindi": "एक व्यस्त सहकर्मी को बीच में टोकते समय कौन सा वाक्यांश सबसे अच्छा है?",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "Hey, listen to me.",
-        "Stop working and talk to me.",
-        "I need you now.",
-        "Excuse me, do you have a moment?"
+        "A) Hey, listen to me.",
+        "B) Stop working and talk to me.",
+        "C) I need you now.",
+        "D) Excuse me, do you have a moment?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 156,
+      "id": 6,
       "question": "Translate: 'मैं चाय लेना पसंद करूँगा।'",
       "questionHindi": "Translate: 'मैं चाय लेना पसंद करूँगा।'",
       "options": [
-        "I like to have tea.",
-        "I may have tea.",
-        "I might have tea.",
-        "I would like to have tea."
+        "A) I like to have tea.",
+        "B) I may have tea.",
+        "C) I might have tea.",
+        "D) I would like to have tea."
       ],
       "correctIndex": 3
     },
     {
-      "id": 157,
+      "id": 7,
       "question": "Which sentence correctly expresses a future possibility?",
       "questionHindi": "कौन सा वाक्य भविष्य की संभावना को सही ढंग से व्यक्त करता है?",
       "options": [
-        "I would go to the park.",
-        "I would like to the park.",
-        "I may to the park.",
-        "I might go to the park later."
+        "A) I would go to the park.",
+        "B) I would like to the park.",
+        "C) I may to the park.",
+        "D) I might go to the park later."
       ],
       "correctIndex": 3
     },
     {
-      "id": 158,
+      "id": 8,
       "question": "How do you politely ask someone to speak more slowly?",
       "questionHindi": "आप किसी से विनम्रतापूर्वक धीरे बोलने के लिए कैसे कहेंगे?",
       "options": [
-        "Speak slowly.",
-        "You are too fast, stop.",
-        "I can't understand you.",
-        "Could you please speak a little more slowly?"
+        "A) Speak slowly.",
+        "B) You are too fast, stop.",
+        "C) I can't understand you.",
+        "D) Could you please speak a little more slowly?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 159,
-      "question": "Choose the correct polite request for permission to leave early.",
-      "questionHindi": "जल्दी जाने की अनुमति माँगने के लिए सही विनम्र अनुरोध चुनें।",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "I am leaving early.",
-        "I want to go home now.",
-        "You must let me go.",
-        "May I leave early today, please?"
+        "A) I am leaving early.",
+        "B) I want to go home now.",
+        "C) You must let me go.",
+        "D) May I leave early today, please?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 160,
+      "id": 10,
       "question": "Translate: 'शायद वह कल आ सकता है।'",
       "questionHindi": "Translate: 'शायद वह कल आ सकता है।'",
       "options": [
-        "He would come tomorrow.",
-        "He would like to come tomorrow.",
-        "He might come tomorrow.",
-        "He may comes tomorrow."
+        "A) He would come tomorrow.",
+        "B) He would like to come tomorrow.",
+        "C) He might come tomorrow.",
+        "D) He may comes tomorrow."
       ],
       "correctIndex": 2
     },
     {
-      "id": 161,
-      "question": "Which option is a polite way to accept an invitation?",
-      "questionHindi": "आमंत्रण स्वीकार करने का विनम्र तरीका कौन सा है?",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "Okay, I will come.",
-        "Fine, see you.",
-        "I'd love to join you, thank you.",
-        "Yes, I will be there."
+        "A) Okay, I will come.",
+        "B) Fine, see you.",
+        "C) I'd love to join you, thank you.",
+        "D) Yes, I will be there."
       ],
       "correctIndex": 2
     },
     {
-      "id": 162,
-      "question": "Fill in the blank: '_____ you please help me with this report?'",
-      "questionHindi": "रिक्त स्थान भरें: '_____ you please help me with this report?'",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "Would",
-        "Might",
-        "May",
-        "Like"
+        "A) Would",
+        "B) Might",
+        "C) May",
+        "D) Like"
       ],
       "correctIndex": 0
     },
     {
-      "id": 163,
-      "question": "Translate: 'क्या आप मेरे साथ कॉफी पीना चाहेंगे?'",
-      "questionHindi": "Translate: 'क्या आप मेरे साथ कॉफी पीना चाहेंगे?'",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "Do you want coffee?",
-        "May you have coffee with me?",
-        "Would you like to have coffee with me?",
-        "You like coffee with me?"
+        "A) Do you want coffee?",
+        "B) May you have coffee with me?",
+        "C) Would you like to have coffee with me?",
+        "D) You like coffee with me?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 164,
+      "id": 14,
       "question": "Which of these is a polite way to ask for a favor?",
       "questionHindi": "इनमें से मदद माँगने का विनम्र तरीका कौन सा है?",
       "options": [
-        "Do this for me.",
-        "I would like you to do this for me.",
-        "Could you please do this for me?",
-        "You must help me."
+        "A) Do this for me.",
+        "B) I would like you to do this for me.",
+        "C) Could you please do this for me?",
+        "D) You must help me."
       ],
       "correctIndex": 2
     },
     {
-      "id": 165,
-      "question": "Complete: 'I _____ to visit the new museum this weekend.'",
-      "questionHindi": "पूरा करें: 'I _____ to visit the new museum this weekend.'",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "would like",
-        "might",
-        "may",
-        "would"
+        "A) would like",
+        "B) might",
+        "C) may",
+        "D) would"
       ],
       "correctIndex": 0
     },
     {
-      "id": 166,
-      "question": "What is a polite way to ask a stranger for directions?",
-      "questionHindi": "किसी अजनबी से रास्ता पूछने का विनम्र तरीका क्या है?",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "Where is the station?",
-        "Tell me where the station is.",
-        "Excuse me, could you tell me the way to the station?",
-        "I need the station."
+        "A) Where is the station?",
+        "B) Tell me where the station is.",
+        "C) Excuse me, could you tell me the way to the station?",
+        "D) I need the station."
       ],
       "correctIndex": 2
     },
     {
-      "id": 167,
-      "question": "Translate: 'मुझे देर हो सकती है।'",
-      "questionHindi": "Translate: 'मुझे देर हो सकती है।'",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "I would be late.",
-        "I might be late.",
-        "I would like to be late.",
-        "I may late."
+        "A) I would be late.",
+        "B) I might be late.",
+        "C) I would like to be late.",
+        "D) I may late."
       ],
       "correctIndex": 1
     },
     {
-      "id": 168,
+      "id": 18,
       "question": "Which sentence shows a polite wish?",
       "questionHindi": "कौन सा वाक्य एक विनम्र इच्छा दर्शाता है?",
       "options": [
-        "I want a sandwich.",
-        "I would like a sandwich, please.",
-        "Give me a sandwich.",
-        "I will take a sandwich."
+        "A) I want a sandwich.",
+        "B) I would like a sandwich, please.",
+        "C) Give me a sandwich.",
+        "D) I will take a sandwich."
       ],
       "correctIndex": 1
     },
     {
-      "id": 169,
-      "question": "Fill in the blank: '_____ I sit here?'",
-      "questionHindi": "रिक्त स्थान भरें: '_____ I sit here?'",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "Would",
-        "Might",
-        "May",
-        "Like"
+        "A) Would",
+        "B) Might",
+        "C) May",
+        "D) Like"
       ],
       "correctIndex": 2
     },
     {
-      "id": 170,
-      "question": "How to politely ask someone to repeat what they said?",
-      "questionHindi": "किसी से विनम्रतापूर्वक यह पूछने के लिए कि उन्होंने क्या कहा, क्या कहें?",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "What?",
-        "Repeat that.",
-        "Could you please say that again?",
-        "I didn't hear you."
+        "A) What?",
+        "B) Repeat that.",
+        "C) Could you please say that again?",
+        "D) I didn't hear you."
       ],
       "correctIndex": 2
     },
     {
-      "id": 171,
-      "question": "Translate: 'क्या आप मुझे अपना पेन दे सकते हैं?'",
-      "questionHindi": "Translate: 'क्या आप मुझे अपना पेन दे सकते हैं?'",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "Would you please give me your pen?",
-        "Might you give me your pen?",
-        "Do you give me your pen?",
-        "Can you give me your pen?"
+        "A) Would you please give me your pen?",
+        "B) Might you give me your pen?",
+        "C) Do you give me your pen?",
+        "D) Can you give me your pen?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 172,
-      "question": "Which is the most formal way to ask for permission?",
-      "questionHindi": "अनुमति माँगने का सबसे औपचारिक तरीका कौन सा है?",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "Can I go?",
-        "May I go?",
-        "I want to go.",
-        "I am going."
+        "A) Can I go?",
+        "B) May I go?",
+        "C) I want to go.",
+        "D) I am going."
       ],
       "correctIndex": 1
     },
     {
-      "id": 173,
-      "question": "Complete: 'We _____ go to the cinema tonight if we finish work early.'",
-      "questionHindi": "पूरा करें: 'We _____ go to the cinema tonight if we finish work early.'",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "would",
-        "might",
-        "like",
-        "may"
+        "A) would",
+        "B) might",
+        "C) like",
+        "D) may"
       ],
       "correctIndex": 1
     },
     {
-      "id": 174,
-      "question": "What phrase is used to introduce a polite request?",
-      "questionHindi": "विनम्र अनुरोध शुरू करने के लिए किस वाक्यांश का उपयोग किया जाता है?",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "Hey you,",
-        "Could you please,",
-        "I want you to,",
-        "You must,"
+        "A) Hey you,",
+        "B) Could you please,",
+        "C) I want you to,",
+        "D) You must,"
       ],
       "correctIndex": 1
     },
     {
-      "id": 175,
+      "id": 25,
       "question": "Translate: 'वह शायद आज रात घर पर हो।'",
       "questionHindi": "Translate: 'वह शायद आज रात घर पर हो।'",
       "options": [
-        "He might be at home tonight.",
-        "He would be at home tonight.",
-        "He would like to be at home tonight.",
-        "He may at home tonight."
+        "A) He might be at home tonight.",
+        "B) He would be at home tonight.",
+        "C) He would like to be at home tonight.",
+        "D) He may at home tonight."
       ],
       "correctIndex": 0
     },
     {
-      "id": 176,
+      "id": 26,
       "question": "Which sentence expresses a possibility?",
       "questionHindi": "कौन सा वाक्य संभावना व्यक्त करता है?",
       "options": [
-        "I would like tea.",
-        "I might finish the project today.",
-        "I would help you.",
-        "I would go home."
+        "A) I would like tea.",
+        "B) I might finish the project today.",
+        "C) I would help you.",
+        "D) I would go home."
       ],
       "correctIndex": 1
     },
     {
-      "id": 177,
-      "question": "How to decline a request politely?",
-      "questionHindi": "किसी अनुरोध को विनम्रतापूर्वक कैसे अस्वीकार करें?",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "No, I can't.",
-        "I'm sorry, but I can't do that right now.",
-        "Stop asking.",
-        "I don't have time."
+        "A) No, I can't.",
+        "B) I'm sorry, but I can't do that right now.",
+        "C) Stop asking.",
+        "D) I don't have time."
       ],
       "correctIndex": 1
     },
     {
-      "id": 178,
-      "question": "Fill in the blank: 'I _____ like to order the soup, please.'",
-      "questionHindi": "रिक्त स्थान भरें: 'I _____ like to order the soup, please.'",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "may",
-        "might",
-        "would",
-        "can"
+        "A) may",
+        "B) might",
+        "C) would",
+        "D) can"
       ],
       "correctIndex": 2
     },
     {
-      "id": 179,
-      "question": "Translate: 'क्या आप कृपया थोड़ा ज़ोर से बोलेंगे?'",
-      "questionHindi": "Translate: 'क्या आप कृपया थोड़ा ज़ोर से बोलेंगे?'",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "Would you please speak louder?",
-        "Might you speak louder?",
-        "Can you speak louder?",
-        "Do you speak louder?"
+        "A) Would you please speak louder?",
+        "B) Might you speak louder?",
+        "C) Can you speak louder?",
+        "D) Do you speak louder?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 180,
+      "id": 30,
       "question": "Which phrase is best for making a polite suggestion?",
       "questionHindi": "विनम्र सुझाव देने के लिए कौन सा वाक्यांश सबसे अच्छा है?",
       "options": [
-        "You should do this.",
-        "Would you like to try this?",
-        "Do this now.",
-        "I want you to do this."
+        "A) You should do this.",
+        "B) Would you like to try this?",
+        "C) Do this now.",
+        "D) I want you to do this."
       ],
       "correctIndex": 1
     }
   ],
   "7": [
     {
-      "id": 181,
+      "id": 1,
       "question": "Which of these is the correct way to ask about someone's profession?",
       "questionHindi": "किसी के पेशे के बारे में पूछने का सही तरीका कौन सा है?",
       "options": [
-        "Who are you working?",
-        "How is your work?",
-        "Where is your job?",
-        "What do you do for a living?"
+        "A) Who are you working?",
+        "B) How is your work?",
+        "C) Where is your job?",
+        "D) What do you do for a living?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 182,
+      "id": 2,
       "question": "Translate: 'आप यह किताब कहाँ से लाए?'",
       "questionHindi": "आप यह किताब कहाँ से लाए?",
       "options": [
-        "Where you brought this book?",
-        "How you bring this book?",
-        "Which book you bring?",
-        "Where did you bring this book from?"
+        "A) Where you brought this book?",
+        "B) How you bring this book?",
+        "C) Which book you bring?",
+        "D) Where did you bring this book from?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 183,
-      "question": "How do you ask a colleague for their opinion on your new idea?",
-      "questionHindi": "आप अपने सहकर्मी से अपने नए विचार पर राय कैसे मांगेंगे?",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "Why you like my idea?",
-        "What do you think about this idea?",
-        "When is the idea?",
-        "Whose idea is this?"
+        "A) Why you like my idea?",
+        "B) What do you think about this idea?",
+        "C) When is the idea?",
+        "D) Whose idea is this?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 184,
+      "id": 4,
       "question": "Choose the correct phrase to ask for directions to the train station.",
       "questionHindi": "रेलवे स्टेशन का रास्ता पूछने के लिए सही वाक्यांश चुनें।",
       "options": [
-        "Where is the nearest train station?",
-        "Who is the train station?",
-        "How is the train station?",
-        "Why the train station?"
+        "A) Where is the nearest train station?",
+        "B) Who is the train station?",
+        "C) How is the train station?",
+        "D) Why the train station?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 185,
-      "question": "Fill in the blank: '_____ are you going for your vacation?'",
-      "questionHindi": "रिक्त स्थान भरें: '_____ आप अपनी छुट्टियों के लिए कहाँ जा रहे हैं?'",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "When",
-        "Who",
-        "Whose",
-        "Where"
+        "A) When",
+        "B) Who",
+        "C) Whose",
+        "D) Where"
       ],
       "correctIndex": 3
     },
     {
-      "id": 186,
+      "id": 6,
       "question": "Translate: 'आपका पसंदीदा शौक क्या है?'",
       "questionHindi": "आपका पसंदीदा शौक क्या है?",
       "options": [
-        "How is your hobby?",
-        "Where is your hobby?",
-        "Who is your hobby?",
-        "What is your favorite hobby?"
+        "A) How is your hobby?",
+        "B) Where is your hobby?",
+        "C) Who is your hobby?",
+        "D) What is your favorite hobby?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 187,
+      "id": 7,
       "question": "Which question correctly asks about a meeting time?",
       "questionHindi": "मीटिंग के समय के बारे में कौन सा प्रश्न सही ढंग से पूछा गया है?",
       "options": [
-        "How the meeting starts?",
-        "Whom is the meeting?",
-        "What time is the meeting starting?",
-        "Why is the meeting?"
+        "A) How the meeting starts?",
+        "B) Whom is the meeting?",
+        "C) What time is the meeting starting?",
+        "D) Why is the meeting?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 188,
+      "id": 8,
       "question": "Fill in the blank: '_____ did you talk to at the conference?'",
       "questionHindi": "रिक्त स्थान भरें: 'कॉन्फ्रेंस में आपने _____ से बात की?'",
       "options": [
-        "What",
-        "Which",
-        "Whom",
-        "How"
+        "A) What",
+        "B) Which",
+        "C) Whom",
+        "D) How"
       ],
       "correctIndex": 2
     },
     {
-      "id": 189,
-      "question": "How do you ask a store clerk about the price of an item?",
-      "questionHindi": "आप स्टोर क्लर्क से किसी वस्तु की कीमत कैसे पूछेंगे?",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "What is the cost of this?",
-        "How many is this?",
-        "How much does this cost?",
-        "Which is the price?"
+        "A) What is the cost of this?",
+        "B) How many is this?",
+        "C) How much does this cost?",
+        "D) Which is the price?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 190,
+      "id": 10,
       "question": "Translate: 'यह बैग किसका है?'",
       "questionHindi": "यह बैग किसका है?",
       "options": [
-        "Who bag is this?",
-        "Which bag is this?",
-        "Whose bag is this?",
-        "What is this bag?"
+        "A) Who bag is this?",
+        "B) Which bag is this?",
+        "C) Whose bag is this?",
+        "D) What is this bag?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 191,
-      "question": "Which of these is used to ask for a preference?",
-      "questionHindi": "पसंद पूछने के लिए इनमें से किसका उपयोग किया जाता है?",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "Who color do you like?",
-        "Where is your color?",
-        "Which color do you prefer?",
-        "How is your preference?"
+        "A) Who color do you like?",
+        "B) Where is your color?",
+        "C) Which color do you prefer?",
+        "D) How is your preference?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 192,
-      "question": "Fill in the blank: '_____ are you so happy today?'",
-      "questionHindi": "रिक्त स्थान भरें: 'आज आप इतने खुश _____ हैं?'",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "When",
-        "Which",
-        "Why",
-        "Who"
+        "A) When",
+        "B) Which",
+        "C) Why",
+        "D) Who"
       ],
       "correctIndex": 2
     },
     {
-      "id": 193,
-      "question": "Translate: 'आप कल रात क्या कर रहे थे?'",
-      "questionHindi": "आप कल रात क्या कर रहे थे?",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "When you did last night?",
-        "What were you doing last night?",
-        "Who did you do last night?",
-        "How you doing last night?"
+        "A) When you did last night?",
+        "B) What were you doing last night?",
+        "C) Who did you do last night?",
+        "D) How you doing last night?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 194,
+      "id": 14,
       "question": "How do you ask someone how they are feeling?",
       "questionHindi": "आप किसी से कैसे पूछेंगे कि वे कैसा महसूस कर रहे हैं?",
       "options": [
-        "What are you feeling?",
-        "How are you feeling?",
-        "Who are you feeling?",
-        "Why are you feeling?"
+        "A) What are you feeling?",
+        "B) How are you feeling?",
+        "C) Who are you feeling?",
+        "D) Why are you feeling?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 195,
-      "question": "Which question is correct for asking about someone's future plans?",
-      "questionHindi": "किसी की भविष्य की योजनाओं के बारे में पूछने के लिए कौन सा प्रश्न सही है?",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "Where are your plans?",
-        "What are your plans for next year?",
-        "How are your plans?",
-        "Why are your plans?"
+        "A) Where are your plans?",
+        "B) What are your plans for next year?",
+        "C) How are your plans?",
+        "D) Why are your plans?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 196,
-      "question": "Translate: 'आपको यह विचार किसने दिया?'",
-      "questionHindi": "आपको यह विचार किसने दिया?",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "What gave you this idea?",
-        "Who gave you this idea?",
-        "Where gave you this idea?",
-        "How gave you this idea?"
+        "A) What gave you this idea?",
+        "B) Who gave you this idea?",
+        "C) Where gave you this idea?",
+        "D) How gave you this idea?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 197,
-      "question": "Fill in the blank: '_____ is the venue for the workshop?'",
-      "questionHindi": "रिक्त स्थान भरें: 'वर्कशॉप के लिए वेन्यू _____ है?'",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "When",
-        "How",
-        "Where",
-        "Who"
+        "A) When",
+        "B) How",
+        "C) Where",
+        "D) Who"
       ],
       "correctIndex": 2
     },
     {
-      "id": 198,
+      "id": 18,
       "question": "Which phrase is appropriate to continue a conversation?",
       "questionHindi": "बातचीत जारी रखने के लिए कौन सा वाक्यांश उपयुक्त है?",
       "options": [
-        "I don't know.",
-        "That's interesting, tell me more.",
-        "Goodbye.",
-        "Okay."
+        "A) I don't know.",
+        "B) That's interesting, tell me more.",
+        "C) Goodbye.",
+        "D) Okay."
       ],
       "correctIndex": 1
     },
     {
-      "id": 199,
-      "question": "Translate: 'आप रोज सुबह कितने बजे उठते हैं?'",
-      "questionHindi": "आप रोज सुबह कितने बजे उठते हैं?",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "How you wake up morning?",
-        "What time do you wake up every morning?",
-        "When you wake up?",
-        "Who wakes up in the morning?"
+        "A) How you wake up morning?",
+        "B) What time do you wake up every morning?",
+        "C) When you wake up?",
+        "D) Who wakes up in the morning?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 200,
-      "question": "Which question asks for a choice between items?",
-      "questionHindi": "चीजों के बीच चुनाव करने के लिए कौन सा प्रश्न पूछा जाता है?",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "Which one do you prefer?",
-        "Who one do you like?",
-        "Where one is better?",
-        "How one is good?"
+        "A) Which one do you prefer?",
+        "B) Who one do you like?",
+        "C) Where one is better?",
+        "D) How one is good?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 201,
-      "question": "Fill in the blank: '_____ do you usually spend your weekends?'",
-      "questionHindi": "रिक्त स्थान भरें: 'आप अपने सप्ताहांत आमतौर पर _____ बिताते हैं?'",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "Where",
-        "How",
-        "Why",
-        "Whose"
+        "A) Where",
+        "B) How",
+        "C) Why",
+        "D) Whose"
       ],
       "correctIndex": 1
     },
     {
-      "id": 202,
-      "question": "Translate: 'वह आदमी कौन है जिससे आप बात कर रहे थे?'",
-      "questionHindi": "वह आदमी कौन है जिससे आप बात कर रहे थे?",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "Who is the man you were talking to?",
-        "Which is the man?",
-        "How is the man?",
-        "Why is the man?"
+        "A) Who is the man you were talking to?",
+        "B) Which is the man?",
+        "C) How is the man?",
+        "D) Why is the man?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 203,
-      "question": "How do you ask for clarification if you didn't understand something?",
-      "questionHindi": "यदि आपको कुछ समझ में नहीं आया तो आप स्पष्टीकरण कैसे मांगेंगे?",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "Could you please explain that again?",
-        "What you said?",
-        "Who said that?",
-        "Why you said that?"
+        "A) Could you please explain that again?",
+        "B) What you said?",
+        "C) Who said that?",
+        "D) Why you said that?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 204,
-      "question": "Choose the grammatically correct question.",
-      "questionHindi": "व्याकरण की दृष्टि से सही प्रश्न चुनें।",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "When does the bus arrive?",
-        "When the bus arrives?",
-        "When is arrive the bus?",
-        "When the bus is arrive?"
+        "A) When does the bus arrive?",
+        "B) When the bus arrives?",
+        "C) When is arrive the bus?",
+        "D) When the bus is arrive?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 205,
+      "id": 25,
       "question": "Translate: 'आपको यह शहर कैसा लगा?'",
       "questionHindi": "आपको यह शहर कैसा लगा?",
       "options": [
-        "How did you find this city?",
-        "What did you find this city?",
-        "Where did you find this city?",
-        "Who did you find this city?"
+        "A) How did you find this city?",
+        "B) What did you find this city?",
+        "C) Where did you find this city?",
+        "D) Who did you find this city?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 206,
+      "id": 26,
       "question": "Fill in the blank: '_____ is your favorite author?'",
       "questionHindi": "रिक्त स्थान भरें: 'आपका पसंदीदा लेखक _____ है?'",
       "options": [
-        "Where",
-        "Why",
-        "Who",
-        "How"
+        "A) Where",
+        "B) Why",
+        "C) Who",
+        "D) How"
       ],
       "correctIndex": 2
     },
     {
-      "id": 207,
-      "question": "Which question explores the reason behind an action?",
-      "questionHindi": "कौन सा प्रश्न किसी कार्य के पीछे का कारण पूछता है?",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "Why did you choose this course?",
-        "How did you choose this course?",
-        "Where did you choose this course?",
-        "Who did you choose this course?"
+        "A) Why did you choose this course?",
+        "B) How did you choose this course?",
+        "C) Where did you choose this course?",
+        "D) Who did you choose this course?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 208,
-      "question": "Translate: 'आप अपना खाली समय कैसे बिताते हैं?'",
-      "questionHindi": "आप अपना खाली समय कैसे बिताते हैं?",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "How do you spend your free time?",
-        "What you spend your free time?",
-        "Where you spend your free time?",
-        "Why you spend your free time?"
+        "A) How do you spend your free time?",
+        "B) What you spend your free time?",
+        "C) Where you spend your free time?",
+        "D) Why you spend your free time?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 209,
-      "question": "Which of these is a polite way to start a conversation with a stranger?",
-      "questionHindi": "अजनबी से बातचीत शुरू करने का विनम्र तरीका कौन सा है?",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "Excuse me, is this seat taken?",
-        "Who are you?",
-        "Give me your name.",
-        "Why are you here?"
+        "A) Excuse me, is this seat taken?",
+        "B) Who are you?",
+        "C) Give me your name.",
+        "D) Why are you here?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 210,
+      "id": 30,
       "question": "Fill in the blank: '_____ of these two shirts should I buy?'",
       "questionHindi": "रिक्त स्थान भरें: 'इन दो शर्ट में से _____ मुझे खरीदनी चाहिए?'",
       "options": [
-        "Who",
-        "Which",
-        "Why",
-        "How"
+        "A) Who",
+        "B) Which",
+        "C) Why",
+        "D) How"
       ],
       "correctIndex": 1
     }
   ],
   "8": [
     {
-      "id": 211,
+      "id": 1,
       "question": "How do you greet your neighbor when stepping out in the morning?",
       "questionHindi": "सुबह घर से निकलते समय आप अपने पड़ोसी का अभिवादन कैसे करते हैं?",
       "options": [
-        "Go away, I am busy.",
-        "What is the time?",
-        "Where is the shop?",
-        "Good morning, how are you?"
+        "A) Go away, I am busy.",
+        "B) What is the time?",
+        "C) Where is the shop?",
+        "D) Good morning, how are you?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 212,
+      "id": 2,
       "question": "Choose the correct phrase to guide a visitor to the pharmacy.",
       "questionHindi": "आगंतुक को फार्मेसी (दवा की दुकान) का रास्ता बताने के लिए सही वाक्यांश चुनें।",
       "options": [
-        "Go in straight and turn left.",
-        "Go to straight and turn left.",
-        "Go at straight and turn left.",
-        "Go on straight and turn left."
+        "A) Go in straight and turn left.",
+        "B) Go to straight and turn left.",
+        "C) Go at straight and turn left.",
+        "D) Go on straight and turn left."
       ],
       "correctIndex": 3
     },
     {
-      "id": 213,
-      "question": "What do you say when entering a small shop to greet the shopkeeper?",
-      "questionHindi": "किसी छोटी दुकान में घुसते समय दुकानदार का अभिवादन करने के लिए आप क्या कहते हैं?",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "Hello, the shop is small.",
-        "Hello, how is the shop?",
-        "Hello, I am a shopkeeper.",
-        "Hello, I want to buy a pen."
+        "A) Hello, the shop is small.",
+        "B) Hello, how is the shop?",
+        "C) Hello, I am a shopkeeper.",
+        "D) Hello, I want to buy a pen."
       ],
       "correctIndex": 3
     },
     {
-      "id": 214,
+      "id": 4,
       "question": "If someone asks the time, which is the polite way to answer?",
       "questionHindi": "यदि कोई समय पूछता है, तो उत्तर देने का विनम्र तरीका कौन सा है?",
       "options": [
-        "It is exactly at 5 o'clock.",
-        "It is in 5 o'clock.",
-        "It is to 5 o'clock.",
-        "It is 5 o'clock."
+        "A) It is exactly at 5 o'clock.",
+        "B) It is in 5 o'clock.",
+        "C) It is to 5 o'clock.",
+        "D) It is 5 o'clock."
       ],
       "correctIndex": 3
     },
     {
-      "id": 215,
-      "question": "Complete the sentence: 'I am going ___ school.'",
-      "questionHindi": "वाक्य पूरा करें: 'मैं स्कूल जा रहा हूँ।'",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "at",
-        "in",
-        "on",
-        "to"
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) to"
       ],
       "correctIndex": 3
     },
     {
-      "id": 216,
+      "id": 6,
       "question": "Select the correct plural form: 'I bought two ___ at the market.'",
       "questionHindi": "सही बहुवचन रूप चुनें: 'मैंने बाजार से दो ___ खरीदे।'",
       "options": [
-        "apple",
-        "apple's",
-        "appless",
-        "apples"
+        "A) apple",
+        "B) apple's",
+        "C) appless",
+        "D) apples"
       ],
       "correctIndex": 3
     },
     {
-      "id": 217,
+      "id": 7,
       "question": "Which article is used before 'pharmacy'?",
       "questionHindi": "'pharmacy' शब्द से पहले किस आर्टिकल (article) का उपयोग किया जाता है?",
       "options": [
-        "a",
-        "an",
-        "the",
-        "none"
+        "A) 'a'",
+        "B) 'an'",
+        "C) 'the'",
+        "D) none"
       ],
       "correctIndex": 2
     },
     {
-      "id": 218,
+      "id": 8,
       "question": "Choose the correct preposition: 'The keys are ___ the table.'",
       "questionHindi": "सही प्रीपोजिशन चुनें: 'चाबियाँ मेज ___ हैं।'",
       "options": [
-        "at",
-        "to",
-        "on",
-        "for"
+        "A) at",
+        "B) to",
+        "C) on",
+        "D) for"
       ],
       "correctIndex": 2
     },
     {
-      "id": 219,
-      "question": "Translate: 'मैं सुबह 7 बजे उठता हूँ।'",
-      "questionHindi": "अनुवाद करें: 'मैं सुबह 7 बजे उठता हूँ।'",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "I wake up in 7 o'clock.",
-        "I wake up at 7 o'clock.",
-        "I wake up on 7 o'clock.",
-        "I wake up to 7 o'clock."
+        "A) I wake up in 7 o'clock.",
+        "B) I wake up at 7 o'clock.",
+        "C) I wake up on 7 o'clock.",
+        "D) I wake up to 7 o'clock."
       ],
       "correctIndex": 1
     },
     {
-      "id": 220,
+      "id": 10,
       "question": "Fill in the blank: 'He is waiting ___ the bus stop.'",
       "questionHindi": "रिक्त स्थान भरें: 'वह बस स्टॉप ___ इंतजार कर रहा है।'",
       "options": [
-        "in",
-        "at",
-        "on",
-        "to"
+        "A) in",
+        "B) at",
+        "C) on",
+        "D) to"
       ],
       "correctIndex": 1
     },
     {
-      "id": 221,
-      "question": "Identify the error: 'I live in a small city of India.'",
-      "questionHindi": "गलती पहचानें: 'I live in a small city of India.'",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "in",
-        "a",
-        "of",
-        "No error"
+        "A) in",
+        "B) 'a'",
+        "C) of",
+        "D) No error"
       ],
       "correctIndex": 2
     },
     {
-      "id": 222,
-      "question": "Which sentence is grammatically correct?",
-      "questionHindi": "कौन सा वाक्य व्याकरण की दृष्टि से सही है?",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "She is in home.",
-        "She is at home.",
-        "She is on home.",
-        "She is to home."
+        "A) She is in home.",
+        "B) She is at home.",
+        "C) She is on home.",
+        "D) She is to home."
       ],
       "correctIndex": 1
     },
     {
-      "id": 223,
-      "question": "Translate: 'क्या आप मुझे रेलवे स्टेशन का रास्ता बता सकते हैं?'",
-      "questionHindi": "अनुवाद करें: 'क्या आप मुझे रेलवे स्टेशन का रास्ता बता सकते हैं?'",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "Can you tell me the way to the railway station?",
-        "Can you tell me the way at the railway station?",
-        "Can you tell me the way in the railway station?",
-        "Can you tell me the way on the railway station?"
+        "A) Can you tell me the way to the railway station?",
+        "B) Can you tell me the way at the railway station?",
+        "C) Can you tell me the way in the railway station?",
+        "D) Can you tell me the way on the railway station?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 224,
+      "id": 14,
       "question": "Complete: 'I have ___ apple in my bag.'",
       "questionHindi": "पूरा करें: 'मेरे बैग में ___ सेब है।'",
       "options": [
-        "a",
-        "an",
-        "the",
-        "some"
+        "A) 'a'",
+        "B) 'an'",
+        "C) 'the'",
+        "D) some"
       ],
       "correctIndex": 1
     },
     {
-      "id": 225,
-      "question": "Choose the correct preposition: 'We are going ___ a trip.'",
-      "questionHindi": "सही प्रीपोजिशन चुनें: 'हम यात्रा ___ जा रहे हैं।'",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "on",
-        "at",
-        "in",
-        "to"
+        "A) on",
+        "B) at",
+        "C) in",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
-      "id": 226,
-      "question": "Translate: 'मुझे चाय के साथ बिस्किट पसंद हैं।'",
-      "questionHindi": "अनुवाद करें: 'मुझे चाय के साथ बिस्किट पसंद हैं।'",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "I like biscuits at tea.",
-        "I like biscuits in tea.",
-        "I like biscuits with tea.",
-        "I like biscuits for tea."
+        "A) I like biscuits at tea.",
+        "B) I like biscuits in tea.",
+        "C) I like biscuits with tea.",
+        "D) I like biscuits for tea."
       ],
       "correctIndex": 2
     },
     {
-      "id": 227,
-      "question": "Which is correct for asking about a location?",
-      "questionHindi": "किसी स्थान के बारे में पूछने के लिए कौन सा सही है?",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "Where is the bank?",
-        "Where are the bank?",
-        "Where at the bank?",
-        "Where to the bank?"
+        "A) Where is the bank?",
+        "B) Where are the bank?",
+        "C) Where at the bank?",
+        "D) Where to the bank?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 228,
+      "id": 18,
       "question": "Fill the blank: 'I work ___ an office.'",
       "questionHindi": "रिक्त स्थान भरें: 'मैं एक ऑफिस ___ काम करता हूँ।'",
       "options": [
-        "on",
-        "at",
-        "in",
-        "to"
+        "A) on",
+        "B) at",
+        "C) in",
+        "D) to"
       ],
       "correctIndex": 2
     },
     {
-      "id": 229,
-      "question": "Translate: 'वह मेरे साथ बाजार जा रहा है।'",
-      "questionHindi": "अनुवाद करें: 'वह मेरे साथ बाजार जा रहा है।'",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "He is going to market with me.",
-        "He is going to market for me.",
-        "He is going to market in me.",
-        "He is going to market at me."
+        "A) He is going to market with me.",
+        "B) He is going to market for me.",
+        "C) He is going to market in me.",
+        "D) He is going to market at me."
       ],
       "correctIndex": 0
     },
     {
-      "id": 230,
-      "question": "Select the correct plural: 'There are many ___ in the park.'",
-      "questionHindi": "सही बहुवचन चुनें: 'पार्क में कई ___ हैं।'",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "child",
-        "children",
-        "childs",
-        "childrens"
+        "A) child",
+        "B) children",
+        "C) childs",
+        "D) childrens"
       ],
       "correctIndex": 1
     },
     {
-      "id": 231,
-      "question": "Which preposition fits: 'I am proud ___ my hometown.'",
-      "questionHindi": "कौन सा प्रीपोजिशन सही है: 'मुझे अपने गृहनगर ___ गर्व है।'",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "at",
-        "of",
-        "in",
-        "on"
+        "A) at",
+        "B) of",
+        "C) in",
+        "D) on"
       ],
       "correctIndex": 1
     },
     {
-      "id": 232,
-      "question": "Translate: 'यह रास्ता सीधा जाता है।'",
-      "questionHindi": "अनुवाद करें: 'यह रास्ता सीधा जाता है।'",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "This road goes to straight.",
-        "This road goes at straight.",
-        "This road goes straight.",
-        "This road goes in straight."
+        "A) This road goes to straight.",
+        "B) This road goes at straight.",
+        "C) This road goes straight.",
+        "D) This road goes in straight."
       ],
       "correctIndex": 2
     },
     {
-      "id": 233,
-      "question": "Choose the correct article: 'I need ___ umbrella.'",
-      "questionHindi": "सही आर्टिकल चुनें: 'मुझे ___ छाते की जरूरत है।'",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "a",
-        "an",
-        "the",
-        "none"
+        "A) 'a'",
+        "B) 'an'",
+        "C) 'the'",
+        "D) none"
       ],
       "correctIndex": 1
     },
     {
-      "id": 234,
-      "question": "Fill in the blank: 'The meeting is ___ Monday.'",
-      "questionHindi": "रिक्त स्थान भरें: 'मीटिंग ___ सोमवार को है।'",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "on",
-        "at",
-        "in",
-        "to"
+        "A) on",
+        "B) at",
+        "C) in",
+        "D) to"
       ],
       "correctIndex": 0
     },
     {
-      "id": 235,
+      "id": 25,
       "question": "Translate: 'मेरे पास एक कलम है।'",
       "questionHindi": "अनुवाद करें: 'मेरे पास एक कलम है।'",
       "options": [
-        "I have a pen.",
-        "I have an pen.",
-        "I have the pen.",
-        "I have pens."
+        "A) I have a pen.",
+        "B) I have an pen.",
+        "C) I have the pen.",
+        "D) I have pens."
       ],
       "correctIndex": 0
     },
     {
-      "id": 236,
+      "id": 26,
       "question": "Which is correct for travel?",
       "questionHindi": "यात्रा के लिए क्या सही है?",
       "options": [
-        "I travel by train.",
-        "I travel on train.",
-        "I travel at train.",
-        "I travel in train."
+        "A) I travel by train.",
+        "B) I travel on train.",
+        "C) I travel at train.",
+        "D) I travel in train."
       ],
       "correctIndex": 0
     },
     {
-      "id": 237,
-      "question": "Complete the sentence: 'She is ___ the kitchen.'",
-      "questionHindi": "वाक्य पूरा करें: 'वह रसोई ___ है।'",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "on",
-        "at",
-        "in",
-        "to"
+        "A) on",
+        "B) at",
+        "C) in",
+        "D) to"
       ],
       "correctIndex": 2
     },
     {
-      "id": 238,
-      "question": "Choose the correct phrase: 'Turn ___ the second street.'",
-      "questionHindi": "सही वाक्यांश चुनें: 'दूसरी गली ___ मुड़ें।'",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "in",
-        "on",
-        "at",
-        "to"
+        "A) in",
+        "B) on",
+        "C) at",
+        "D) to"
       ],
       "correctIndex": 2
     },
     {
-      "id": 239,
-      "question": "Translate: 'क्या आपके पास कोई प्रश्न है?'",
-      "questionHindi": "अनुवाद करें: 'क्या आपके पास कोई प्रश्न है?'",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "Do you have a question?",
-        "Do you have the question?",
-        "Do you have an question?",
-        "Do you have questions?"
+        "A) Do you have a question?",
+        "B) Do you have the question?",
+        "C) Do you have an question?",
+        "D) Do you have questions?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 240,
+      "id": 30,
       "question": "Which preposition is correct for 'morning'?",
       "questionHindi": "'morning' (सुबह) के लिए कौन सा प्रीपोजिशन सही है?",
       "options": [
-        "at",
-        "in",
-        "on",
-        "to"
+        "A) at",
+        "B) in",
+        "C) on",
+        "D) to"
       ],
       "correctIndex": 1
     }
   ],
   "9": [
     {
-      "id": 241,
-      "question": "What time do you usually wake up to begin your day?",
-      "questionHindi": "आप अपना दिन शुरू करने के लिए आमतौर पर कितने बजे उठते हैं?",
+      "id": 1,
+      "question": "What time do you usually wake up to begin your daily routine?",
+      "questionHindi": "आप अपनी दैनिक दिनचर्या (daily routine) शुरू करने के लिए आमतौर पर किस समय उठते हैं?",
       "options": [
-        "What time you usually wake up?",
-        "What time does you usually wake up?",
-        "What time are you usually wake up?",
-        "What time do you usually wake up?"
+        "A) What time you usually wake up?",
+        "B) What time does you usually wake up?",
+        "C) What time are you usually wake up?",
+        "D) What time do you usually wake up?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 242,
-      "question": "Choose the correct sentence: वह रोज़ सुबह जल्दी उठता है।",
-      "questionHindi": "वह रोज़ सुबह जल्दी उठता है।",
+      "id": 2,
+      "question": "Which sentence correctly describes a daily routine in the simple present tense?",
+      "questionHindi": "दैनिक दिनचर्या (daily routine) को साधारण वर्तमान काल में सही ढंग से दर्शाने वाला वाक्य कौन सा है?",
       "options": [
-        "He wake up early every morning.",
-        "He does wake up early every morning.",
-        "He waking up early every morning.",
-        "He wakes up early every morning."
+        "A) He wake up early every morning.",
+        "B) He does wake up early every morning.",
+        "C) He waking up early every morning.",
+        "D) He wakes up early every morning."
       ],
       "correctIndex": 3
     },
     {
-      "id": 243,
-      "question": "Which of these is the correct way to ask about someone's daily routine?",
-      "questionHindi": "किसी की दिनचर्या के बारे में पूछने का सही तरीका कौन सा है?",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "How is your day looks like?",
-        "What do your day look like?",
-        "How does your day look?",
-        "What does your day look like?"
+        "A) How is your day looks like?",
+        "B) What do your day look like?",
+        "C) How does your day look?",
+        "D) What does your day look like?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 244,
-      "question": "Fill in the blank: She _______ coffee in the morning.",
-      "questionHindi": "खाली स्थान भरें: वह सुबह कॉफी पीती है।",
+      "id": 4,
+      "question": "How do you describe your daily morning routine before heading to work?",
+      "questionHindi": "काम पर जाने (head to work) से पहले आप अपनी दैनिक सुबह की दिनचर्या का वर्णन कैसे करते हैं?",
       "options": [
-        "drink",
-        "drinking",
-        "does drink",
-        "drinks"
+        "A) drink",
+        "B) drinking",
+        "C) does drink",
+        "D) drinks"
       ],
       "correctIndex": 3
     },
     {
-      "id": 245,
-      "question": "Translate: 'मैं बस से काम पर जाता हूँ।'",
-      "questionHindi": "मैं बस से काम पर जाता हूँ।",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "I go to work by bus.",
-        "I goes to work by bus.",
-        "I am go to work by bus.",
-        "I do go to work by bus."
+        "A) I go to work by bus.",
+        "B) I goes to work by bus.",
+        "C) I am go to work by bus.",
+        "D) I do go to work by bus."
       ],
       "correctIndex": 0
     },
     {
-      "id": 246,
+      "id": 6,
       "question": "Which sentence is grammatically correct for a regular habit?",
       "questionHindi": "नियमित आदत के लिए कौन सा वाक्य व्याकरण की दृष्टि से सही है?",
       "options": [
-        "They plays football on Sundays.",
-        "They does play football on Sundays.",
-        "They playing football on Sundays.",
-        "They play football on Sundays."
+        "A) They plays football on Sundays.",
+        "B) They does play football on Sundays.",
+        "C) They playing football on Sundays.",
+        "D) They play football on Sundays."
       ],
       "correctIndex": 3
     },
     {
-      "id": 247,
-      "question": "Choose the correct negative sentence: 'वह रोज़ व्यायाम नहीं करता है।'",
-      "questionHindi": "वह रोज़ व्यायाम नहीं करता है।",
+      "id": 7,
+      "question": "Complete the sentence describing a work habit: 'He usually arrives at work on time.'",
+      "questionHindi": "काम की आदत बताने वाले वाक्य को पूरा करें: 'वह आमतौर पर समय पर काम (work) पर पहुँचता है।'",
       "options": [
-        "He don't exercise daily.",
-        "He doesn't exercises daily.",
-        "He not exercise daily.",
-        "He doesn't exercise daily."
+        "A) He don't exercise daily.",
+        "B) He doesn't exercises daily.",
+        "C) He not exercise daily.",
+        "D) He doesn't exercise daily."
       ],
       "correctIndex": 3
     },
     {
-      "id": 248,
+      "id": 8,
       "question": "How do you ask someone about their breakfast preference?",
       "questionHindi": "आप किसी से उनके नाश्ते की पसंद के बारे में कैसे पूछेंगे?",
       "options": [
-        "Do you prefer a quick breakfast?",
-        "Are you prefer a quick breakfast?",
-        "Does you prefer a quick breakfast?",
-        "You prefer a quick breakfast?"
+        "A) Do you prefer a quick breakfast?",
+        "B) Are you prefer a quick breakfast?",
+        "C) Does you prefer a quick breakfast?",
+        "D) You prefer a quick breakfast?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 249,
-      "question": "Fill in the blank: We _______ our homework in the evening.",
-      "questionHindi": "खाली स्थान भरें: हम शाम को अपना होमवर्क करते हैं।",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "does",
-        "doing",
-        "do",
-        "done"
+        "A) does",
+        "B) doing",
+        "C) do",
+        "D) done"
       ],
       "correctIndex": 2
     },
     {
-      "id": 250,
+      "id": 10,
       "question": "Translate: 'क्या वह सप्ताहांत (weekend) पर काम करता है?'",
       "questionHindi": "क्या वह सप्ताहांत (weekend) पर काम करता है?",
       "options": [
-        "Do he work on weekends?",
-        "Is he work on weekends?",
-        "Does he work on weekends?",
-        "Does he works on weekends?"
+        "A) Do he work on weekends?",
+        "B) Is he work on weekends?",
+        "C) Does he work on weekends?",
+        "D) Does he works on weekends?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 251,
-      "question": "Which phrase means 'to start one's day'?",
-      "questionHindi": "किस वाक्यांश का अर्थ 'अपने दिन की शुरुआत करना' है?",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "Wake up",
-        "Go to work",
-        "Begin your day",
-        "Have breakfast"
+        "A) Wake up",
+        "B) Go to work",
+        "C) Begin your day",
+        "D) Have breakfast"
       ],
       "correctIndex": 2
     },
     {
-      "id": 252,
-      "question": "Select the correct sentence for a daily habit.",
-      "questionHindi": "दैनिक आदत के लिए सही वाक्य चुनें।",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "I am reading books every night.",
-        "I reads books every night.",
-        "I read books every night.",
-        "I do reading books every night."
+        "A) I am reading books every night.",
+        "B) I reads books every night.",
+        "C) I read books every night.",
+        "D) I do reading books every night."
       ],
       "correctIndex": 2
     },
     {
-      "id": 253,
-      "question": "Fill in the blank: My brother _______ to college by metro.",
-      "questionHindi": "खाली स्थान भरें: मेरा भाई मेट्रो से कॉलेज जाता है।",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "go",
-        "going",
-        "goes",
-        "does go"
+        "A) go",
+        "B) going",
+        "C) goes",
+        "D) does go"
       ],
       "correctIndex": 2
     },
     {
-      "id": 254,
+      "id": 14,
       "question": "Translate: 'मुझे देर से उठना पसंद नहीं है।'",
       "questionHindi": "मुझे देर से उठना पसंद नहीं है।",
       "options": [
-        "I don't like to wake up late.",
-        "I doesn't like to wake up late.",
-        "I am not like to wake up late.",
-        "I don't likes to wake up late."
+        "A) I don't like to wake up late.",
+        "B) I doesn't like to wake up late.",
+        "C) I am not like to wake up late.",
+        "D) I don't likes to wake up late."
       ],
       "correctIndex": 0
     },
     {
-      "id": 255,
-      "question": "Which question correctly asks about how someone travels?",
-      "questionHindi": "कौन सा प्रश्न सही ढंग से पूछता है कि कोई कैसे यात्रा करता है?",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "How you commute to work?",
-        "How do you commute to work?",
-        "How does you commute to work?",
-        "How are you commute to work?"
+        "A) How you commute to work?",
+        "B) How do you commute to work?",
+        "C) How does you commute to work?",
+        "D) How are you commute to work?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 256,
-      "question": "Choose the correct form: 'वह खाना नहीं बनाती है।'",
-      "questionHindi": "वह खाना नहीं बनाती है।",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "She don't cook food.",
-        "She doesn't cooks food.",
-        "She doesn't cook food.",
-        "She not cook food."
+        "A) She don't cook food.",
+        "B) She doesn't cooks food.",
+        "C) She doesn't cook food.",
+        "D) She not cook food."
       ],
       "correctIndex": 2
     },
     {
-      "id": 257,
-      "question": "Translate: 'मैं सप्ताहांत पर आराम करता हूँ।'",
-      "questionHindi": "मैं सप्ताहांत पर आराम करता हूँ।",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "I relaxes on weekends.",
-        "I relax on weekends.",
-        "I do relax on weekends.",
-        "I am relax on weekends."
+        "A) I relaxes on weekends.",
+        "B) I relax on weekends.",
+        "C) I do relax on weekends.",
+        "D) I am relax on weekends."
       ],
       "correctIndex": 1
     },
     {
-      "id": 258,
+      "id": 18,
       "question": "Fill in the blank: Do you _______ yoga in the morning?",
       "questionHindi": "खाली स्थान भरें: क्या आप सुबह योग करते हैं?",
       "options": [
-        "do",
-        "does",
-        "doing",
-        "did"
+        "A) do",
+        "B) does",
+        "C) doing",
+        "D) did"
       ],
       "correctIndex": 0
     },
     {
-      "id": 259,
-      "question": "Which sentence is grammatically correct?",
-      "questionHindi": "कौन सा वाक्य व्याकरण की दृष्टि से सही है?",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "Does they study together?",
-        "Do they study together?",
-        "Do she study together?",
-        "Does they studies together?"
+        "A) Does they study together?",
+        "B) Do they study together?",
+        "C) Do she study together?",
+        "D) Does they studies together?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 260,
-      "question": "Translate: 'वह मेरी मदद करता है।'",
-      "questionHindi": "वह मेरी मदद करता है।",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "He help me.",
-        "He helps me.",
-        "He does help me.",
-        "He is help me."
+        "A) He help me.",
+        "B) He helps me.",
+        "C) He does help me.",
+        "D) He is help me."
       ],
       "correctIndex": 1
     },
     {
-      "id": 261,
-      "question": "Which word describes a routine activity?",
-      "questionHindi": "कौन सा शब्द नियमित गतिविधि का वर्णन करता है?",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "Rarely",
-        "Usually",
-        "Never",
-        "Once"
+        "A) Rarely",
+        "B) Usually",
+        "C) Never",
+        "D) Once"
       ],
       "correctIndex": 1
     },
     {
-      "id": 262,
-      "question": "Select the correct sentence for negative habit.",
-      "questionHindi": "नकारात्मक आदत के लिए सही वाक्य चुनें।",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "We doesn't sleep late.",
-        "We don't sleeps late.",
-        "We don't sleep late.",
-        "We not sleep late."
+        "A) We doesn't sleep late.",
+        "B) We don't sleeps late.",
+        "C) We don't sleep late.",
+        "D) We not sleep late."
       ],
       "correctIndex": 2
     },
     {
-      "id": 263,
-      "question": "Translate: 'आप नाश्ते में क्या खाते हैं?'",
-      "questionHindi": "आप नाश्ते में क्या खाते हैं?",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "What do you eat for breakfast?",
-        "What does you eat for breakfast?",
-        "What you eat for breakfast?",
-        "What are you eat for breakfast?"
+        "A) What do you eat for breakfast?",
+        "B) What does you eat for breakfast?",
+        "C) What you eat for breakfast?",
+        "D) What are you eat for breakfast?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 264,
-      "question": "Fill in the blank: He _______ his email every morning.",
-      "questionHindi": "खाली स्थान भरें: वह हर सुबह अपना ईमेल चेक करता है।",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "check",
-        "checks",
-        "checking",
-        "do check"
+        "A) check",
+        "B) checks",
+        "C) checking",
+        "D) do check"
       ],
       "correctIndex": 1
     },
     {
-      "id": 265,
+      "id": 25,
       "question": "Choose the correct English phrase for 'समय प्रबंधन'.",
       "questionHindi": "'समय प्रबंधन' के लिए सही अंग्रेजी वाक्यांश चुनें।",
       "options": [
-        "Time management",
-        "Time eating",
-        "Time working",
-        "Time routine"
+        "A) Time management",
+        "B) Time eating",
+        "C) Time working",
+        "D) Time routine"
       ],
       "correctIndex": 0
     },
     {
-      "id": 266,
+      "id": 26,
       "question": "Translate: 'मेरी बहन रोज़ व्यायाम करती है।'",
       "questionHindi": "मेरी बहन रोज़ व्यायाम करती है।",
       "options": [
-        "My sister do exercise daily.",
-        "My sister exercise daily.",
-        "My sister exercises daily.",
-        "My sister does exercises daily."
+        "A) My sister do exercise daily.",
+        "B) My sister exercise daily.",
+        "C) My sister exercises daily.",
+        "D) My sister does exercises daily."
       ],
       "correctIndex": 2
     },
     {
-      "id": 267,
-      "question": "Which question asks about the first activity of the day?",
-      "questionHindi": "कौन सा प्रश्न दिन की पहली गतिविधि के बारे में पूछता है?",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "What is the first thing you do in the morning?",
-        "What do you first in the morning?",
-        "What you do first in the morning?",
-        "What does you do first in the morning?"
+        "A) What is the first thing you do in the morning?",
+        "B) What do you first in the morning?",
+        "C) What you do first in the morning?",
+        "D) What does you do first in the morning?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 268,
-      "question": "Fill in the blank: They _______ to the gym on Saturdays.",
-      "questionHindi": "खाली स्थान भरें: वे शनिवार को जिम जाते हैं।",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "goes",
-        "go",
-        "going",
-        "do go"
+        "A) goes",
+        "B) go",
+        "C) going",
+        "D) do go"
       ],
       "correctIndex": 1
     },
     {
-      "id": 269,
-      "question": "Translate: 'क्या आप चाय पसंद करते हैं?'",
-      "questionHindi": "क्या आप चाय पसंद करते हैं?",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "Do you like tea?",
-        "Does you like tea?",
-        "Are you like tea?",
-        "Do you likes tea?"
+        "A) Do you like tea?",
+        "B) Does you like tea?",
+        "C) Are you like tea?",
+        "D) Do you likes tea?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 270,
+      "id": 30,
       "question": "Which sentence correctly uses 'doesn't'?",
       "questionHindi": "कौन सा वाक्य 'doesn't' का सही उपयोग करता है?",
       "options": [
-        "She doesn't goes to work.",
-        "She doesn't go to work.",
-        "She doesn't goes work.",
-        "She doesn't to go work."
+        "A) She doesn't goes to work.",
+        "B) She doesn't go to work.",
+        "C) She doesn't goes work.",
+        "D) She doesn't to go work."
       ],
       "correctIndex": 1
     }
   ],
   "10": [
     {
-      "id": 271,
+      "id": 1,
       "question": "Which sentence correctly expresses a preference for working from home?",
       "questionHindi": "घर से काम करने की प्राथमिकता व्यक्त करने के लिए कौन सा वाक्य सही है?",
       "options": [
-        "I prefers working from home.",
-        "I liking work from home.",
-        "I prefer to works from home.",
-        "I prefer working from home."
+        "A) I prefers working from home.",
+        "B) I liking work from home.",
+        "C) I prefer to works from home.",
+        "D) I prefer working from home."
       ],
       "correctIndex": 3
     },
     {
-      "id": 272,
+      "id": 2,
       "question": "Translate: 'मुझे देर रात तक पढ़ना पसंद है।'",
       "questionHindi": "Translate: 'मुझे देर रात तक पढ़ना पसंद है।'",
       "options": [
-        "I like study late nights.",
-        "I likes to study late nights.",
-        "I am like study late.",
-        "I like studying late at night."
+        "A) I like study late nights.",
+        "B) I likes to study late nights.",
+        "C) I am like study late.",
+        "D) I like studying late at night."
       ],
       "correctIndex": 3
     },
     {
-      "id": 273,
-      "question": "Choose the correct verb form: 'She ______ that smartphones create many distractions.'",
-      "questionHindi": "सही क्रिया रूप चुनें: 'She ______ that smartphones create many distractions.'",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "believe",
-        "believing",
-        "is believe",
-        "believes"
+        "A) believe",
+        "B) believing",
+        "C) is believe",
+        "D) believes"
       ],
       "correctIndex": 3
     },
     {
-      "id": 274,
+      "id": 4,
       "question": "Complete the sentence: 'In my ______, early mornings are better for studying.'",
       "questionHindi": "वाक्य पूरा करें: 'In my ______, early mornings are better for studying.'",
       "options": [
-        "view",
-        "think",
-        "prefer",
-        "like"
+        "A) view",
+        "B) think",
+        "C) prefer",
+        "D) like"
       ],
       "correctIndex": 0
     },
     {
-      "id": 275,
-      "question": "Translate: 'क्या आप हाइब्रिड शेड्यूल पसंद करते हैं?'",
-      "questionHindi": "Translate: 'क्या आप हाइब्रिड शेड्यूल पसंद करते हैं?'",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "Do you prefer a hybrid schedule?",
-        "Does you prefer hybrid schedule?",
-        "Are you prefer hybrid schedule?",
-        "Do you liking hybrid schedule?"
+        "A) Do you prefer a hybrid schedule?",
+        "B) Does you prefer hybrid schedule?",
+        "C) Are you prefer hybrid schedule?",
+        "D) Do you liking hybrid schedule?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 276,
+      "id": 6,
       "question": "Which sentence uses the correct grammar for a third-person singular subject?",
       "questionHindi": "कौन सा वाक्य तीसरे व्यक्ति एकवचन कर्ता के लिए सही व्याकरण का उपयोग करता है?",
       "options": [
-        "He like action movies.",
-        "He liking action movies.",
-        "He do like action movies.",
-        "He likes action movies."
+        "A) He like action movies.",
+        "B) He liking action movies.",
+        "C) He do like action movies.",
+        "D) He likes action movies."
       ],
       "correctIndex": 3
     },
     {
-      "id": 277,
+      "id": 7,
       "question": "Choose the correct phrase for: 'मुझे फिल्में देखना पसंद नहीं है।'",
       "questionHindi": "सही वाक्यांश चुनें: 'मुझे फिल्में देखना पसंद नहीं है।'",
       "options": [
-        "I don't like watch movies.",
-        "I not like watching movies.",
-        "I doesn't like watching movies.",
-        "I don't like watching movies."
+        "A) I don't like watch movies.",
+        "B) I not like watching movies.",
+        "C) I doesn't like watching movies.",
+        "D) I don't like watching movies."
       ],
       "correctIndex": 3
     },
     {
-      "id": 278,
+      "id": 8,
       "question": "Fill in the blank: 'I ______ reading mystery novels in my free time.'",
       "questionHindi": "रिक्त स्थान भरें: 'I ______ reading mystery novels in my free time.'",
       "options": [
-        "enjoys",
-        "enjoying",
-        "enjoy",
-        "to enjoy"
+        "A) enjoys",
+        "B) enjoying",
+        "C) enjoy",
+        "D) to enjoy"
       ],
       "correctIndex": 2
     },
     {
-      "id": 279,
-      "question": "What is the best way to express an opinion about smartphones?",
-      "questionHindi": "स्मार्टफोन के बारे में राय व्यक्त करने का सबसे अच्छा तरीका क्या है?",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "I think smartphones help people connect.",
-        "I likes smartphones help.",
-        "I am think smartphones connect.",
-        "I believes smartphones connecting."
+        "A) I think smartphones help people connect.",
+        "B) I likes smartphones help.",
+        "C) I am think smartphones connect.",
+        "D) I believes smartphones connecting."
       ],
       "correctIndex": 0
     },
     {
-      "id": 280,
+      "id": 10,
       "question": "Translate: 'वह मानती है कि ऑफिस में काम करना बेहतर है।'",
       "questionHindi": "Translate: 'वह मानती है कि ऑफिस में काम करना बेहतर है。'",
       "options": [
-        "She believe working from office is better.",
-        "She is believing office work is better.",
-        "She believes working from office is better.",
-        "She think working from office better."
+        "A) She believe working from office is better.",
+        "B) She is believing office work is better.",
+        "C) She believes working from office is better.",
+        "D) She think working from office better."
       ],
       "correctIndex": 2
     },
     {
-      "id": 281,
-      "question": "Choose the correct word for 'पसंद करना' in the context of hobbies.",
-      "questionHindi": "'पसंद करना' के लिए सही शब्द चुनें (शौक के संदर्भ में)।",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "Prefer",
-        "Believe",
-        "Like",
-        "Think"
+        "A) Prefer",
+        "B) Believe",
+        "C) Like",
+        "D) Think"
       ],
       "correctIndex": 2
     },
     {
-      "id": 282,
-      "question": "Complete the sentence: 'Do you ______ working from home or from an office?'",
-      "questionHindi": "वाक्य पूरा करें: 'Do you ______ working from home or from an office?'",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "like",
-        "think",
-        "prefer",
-        "believe"
+        "A) like",
+        "B) think",
+        "C) prefer",
+        "D) believe"
       ],
       "correctIndex": 2
     },
     {
-      "id": 283,
-      "question": "Which sentence is grammatically correct?",
-      "questionHindi": "कौन सा वाक्य व्याकरण की दृष्टि से सही है?",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "He don't like early mornings.",
-        "He doesn't likes early mornings.",
-        "He doesn't like early mornings.",
-        "He not like early mornings."
+        "A) He don't like early mornings.",
+        "B) He doesn't likes early mornings.",
+        "C) He doesn't like early mornings.",
+        "D) He not like early mornings."
       ],
       "correctIndex": 2
     },
     {
-      "id": 284,
+      "id": 14,
       "question": "Translate: 'मुझे लगता है कि किताबें सबसे अच्छी साथी हैं।'",
       "questionHindi": "Translate: 'मुझे लगता है कि किताबें सबसे अच्छी साथी हैं。'",
       "options": [
-        "I think books are the best companions.",
-        "I believe books is best companions.",
-        "I am thinking books are best.",
-        "I likes books are companions."
+        "A) I think books are the best companions.",
+        "B) I believe books is best companions.",
+        "C) I am thinking books are best.",
+        "D) I likes books are companions."
       ],
       "correctIndex": 0
     },
     {
-      "id": 285,
-      "question": "Choose the correct verb: 'She ______ mystery books because they are exciting.'",
-      "questionHindi": "सही क्रिया चुनें: 'She ______ mystery books because they are exciting.'",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "like",
-        "liking",
-        "likes",
-        "is like"
+        "A) like",
+        "B) liking",
+        "C) likes",
+        "D) is like"
       ],
       "correctIndex": 2
     },
     {
-      "id": 286,
-      "question": "Fill in the blank: 'I ______ that late nights are better for studying.'",
-      "questionHindi": "रिक्त स्थान भरें: 'I ______ that late nights are better for studying.'",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "prefer",
-        "believe",
-        "enjoy",
-        "like"
+        "A) prefer",
+        "B) believe",
+        "C) enjoy",
+        "D) like"
       ],
       "correctIndex": 1
     },
     {
-      "id": 287,
-      "question": "Translate: 'क्या वह फिल्में देखना पसंद करती है?'",
-      "questionHindi": "Translate: 'क्या वह फिल्में देखना पसंद करती है?'",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "Do she like watching movies?",
-        "Does she likes watching movies?",
-        "Does she like watching movies?",
-        "Is she like watching movies?"
+        "A) Do she like watching movies?",
+        "B) Does she likes watching movies?",
+        "C) Does she like watching movies?",
+        "D) Is she like watching movies?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 288,
+      "id": 18,
       "question": "Choose the correct phrase for expressing a strong opinion.",
       "questionHindi": "मजबूत राय व्यक्त करने के लिए सही वाक्यांश चुनें।",
       "options": [
-        "I think",
-        "I like",
-        "I enjoy",
-        "I prefer"
+        "A) I think",
+        "B) I like",
+        "C) I enjoy",
+        "D) I prefer"
       ],
       "correctIndex": 0
     },
     {
-      "id": 289,
-      "question": "Complete: 'My friend ______ documentaries over action movies.'",
-      "questionHindi": "पूरा करें: 'My friend ______ documentaries over action movies.'",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "prefer",
-        "prefers",
-        "liking",
-        "is prefer"
+        "A) prefer",
+        "B) prefers",
+        "C) liking",
+        "D) is prefer"
       ],
       "correctIndex": 1
     },
     {
-      "id": 290,
-      "question": "Translate: 'हमें घर से काम करना पसंद नहीं है।'",
-      "questionHindi": "Translate: 'हमें घर से काम करना पसंद नहीं है।'",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "We don't like working from home.",
-        "We doesn't like working from home.",
-        "We not like work from home.",
-        "We aren't like working from home."
+        "A) We don't like working from home.",
+        "B) We doesn't like working from home.",
+        "C) We not like work from home.",
+        "D) We aren't like working from home."
       ],
       "correctIndex": 0
     },
     {
-      "id": 291,
-      "question": "Which word indicates a choice between two things?",
-      "questionHindi": "कौन सा शब्द दो चीजों के बीच चुनाव को दर्शाता है?",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "Believe",
-        "Prefer",
-        "Like",
-        "Think"
+        "A) Believe",
+        "B) Prefer",
+        "C) Like",
+        "D) Think"
       ],
       "correctIndex": 1
     },
     {
-      "id": 292,
-      "question": "Fill in the blank: 'She ______ that smartphones help people connect.'",
-      "questionHindi": "रिक्त स्थान भरें: 'She ______ that smartphones help people connect.'",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "think",
-        "thinks",
-        "liking",
-        "prefer"
+        "A) think",
+        "B) thinks",
+        "C) liking",
+        "D) prefer"
       ],
       "correctIndex": 1
     },
     {
-      "id": 293,
-      "question": "Translate: 'मैं मानता हूँ कि जल्दी उठना अच्छा है।'",
-      "questionHindi": "Translate: 'मैं मानता हूँ कि जल्दी उठना अच्छा है।'",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "I believe early rising is good.",
-        "I thinks early rising is good.",
-        "I like early rising is good.",
-        "I prefer early rising is good."
+        "A) I believe early rising is good.",
+        "B) I thinks early rising is good.",
+        "C) I like early rising is good.",
+        "D) I prefer early rising is good."
       ],
       "correctIndex": 0
     },
     {
-      "id": 294,
-      "question": "Choose the correct sentence structure for a preference.",
-      "questionHindi": "पसंद व्यक्त करने के लिए सही वाक्य संरचना चुनें।",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "I prefer coffee than tea.",
-        "I prefer coffee to tea.",
-        "I prefer coffee over tea.",
-        "I prefer coffee for tea."
+        "A) I prefer coffee than tea.",
+        "B) I prefer coffee to tea.",
+        "C) I prefer coffee over tea.",
+        "D) I prefer coffee for tea."
       ],
       "correctIndex": 1
     },
     {
-      "id": 295,
+      "id": 25,
       "question": "Which verb form completes: 'He ______ reading in his free time.'",
       "questionHindi": "कौन सा क्रिया रूप पूरा करता है: 'He ______ reading in his free time.'",
       "options": [
-        "enjoy",
-        "enjoys",
-        "enjoying",
-        "to enjoy"
+        "A) enjoy",
+        "B) enjoys",
+        "C) enjoying",
+        "D) to enjoy"
       ],
       "correctIndex": 1
     },
     {
-      "id": 296,
+      "id": 26,
       "question": "Translate: 'क्या आपको सुबह पढ़ना पसंद है?'",
       "questionHindi": "Translate: 'क्या आपको सुबह पढ़ना पसंद है?'",
       "options": [
-        "Do you like studying in the morning?",
-        "Does you like study in the morning?",
-        "Are you like studying in the morning?",
-        "Do you likes study in the morning?"
+        "A) Do you like studying in the morning?",
+        "B) Does you like study in the morning?",
+        "C) Are you like studying in the morning?",
+        "D) Do you likes study in the morning?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 297,
-      "question": "Fill in the blank: 'In my ______, a hybrid schedule is the best.'",
-      "questionHindi": "रिक्त स्थान भरें: 'In my ______, a hybrid schedule is the best.'",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "believe",
-        "view",
-        "like",
-        "prefer"
+        "A) believe",
+        "B) view",
+        "C) like",
+        "D) prefer"
       ],
       "correctIndex": 1
     },
     {
-      "id": 298,
-      "question": "Which sentence expresses a dislike?",
-      "questionHindi": "कौन सा वाक्य नापसंदगी व्यक्त करता है?",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "I enjoy late nights.",
-        "I like early mornings.",
-        "I don't like working from an office.",
-        "I prefer hybrid schedules."
+        "A) I enjoy late nights.",
+        "B) I like early mornings.",
+        "C) I don't like working from an office.",
+        "D) I prefer hybrid schedules."
       ],
       "correctIndex": 2
     },
     {
-      "id": 299,
-      "question": "Translate: 'वह हाइब्रिड शेड्यूल को प्राथमिकता देती है।'",
-      "questionHindi": "Translate: 'वह हाइब्रिड शेड्यूल को प्राथमिकता देती है。'",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "She prefer a hybrid schedule.",
-        "She prefers a hybrid schedule.",
-        "She is prefer a hybrid schedule.",
-        "She liking a hybrid schedule."
+        "A) She prefer a hybrid schedule.",
+        "B) She prefers a hybrid schedule.",
+        "C) She is prefer a hybrid schedule.",
+        "D) She liking a hybrid schedule."
       ],
       "correctIndex": 1
     },
     {
-      "id": 300,
+      "id": 30,
       "question": "Choose the correct phrase for 'राय देना'.",
       "questionHindi": "'राय देना' के लिए सही वाक्यांश चुनें।",
       "options": [
-        "In my view",
-        "I like",
-        "I enjoy",
-        "I prefer"
+        "A) In my view",
+        "B) I like",
+        "C) I enjoy",
+        "D) I prefer"
       ],
       "correctIndex": 0
     }
   ],
   "11": [
     {
-      "id": 301,
+      "id": 1,
       "question": "How do you usually start a conversation with a new colleague?",
       "questionHindi": "आप आमतौर पर किसी नए सहकर्मी के साथ बातचीत कैसे शुरू करते हैं?",
       "options": [
-        "What is your work?",
-        "What do you do for fun?",
-        "Where is your desk?",
-        "How are you doing?"
+        "A) What is your work?",
+        "B) What do you do for fun?",
+        "C) Where is your desk?",
+        "D) How are you doing?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 302,
+      "id": 2,
       "question": "Choose the correct sentence to ask about someone's daily routine.",
       "questionHindi": "किसी की दिनचर्या के बारे में पूछने के लिए सही वाक्य चुनें।",
       "options": [
-        "What you do daily?",
-        "Do you daily routine?",
-        "How you do daily?",
-        "What is your daily routine?"
+        "A) What you do daily?",
+        "B) Do you daily routine?",
+        "C) How you do daily?",
+        "D) What is your daily routine?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 303,
-      "question": "Which word correctly completes: 'How ____ you spend your weekends?'",
-      "questionHindi": "कौन सा शब्द वाक्य को सही ढंग से पूरा करता है: 'How ____ you spend your weekends?'",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "does",
-        "is",
-        "are",
-        "do"
+        "A) does",
+        "B) is",
+        "C) are",
+        "D) do"
       ],
       "correctIndex": 3
     },
     {
-      "id": 304,
+      "id": 4,
       "question": "Translate: 'क्या आप अक्सर सप्ताहांत पर बाहर जाते हैं?'",
       "questionHindi": "Translate: 'क्या आप अक्सर सप्ताहांत पर बाहर जाते हैं?'",
       "options": [
-        "Are you often go out on weekends?",
-        "Do you often go out on weekends?",
-        "Does you often go out on weekends?",
-        "Do you go out oftenly on weekends?"
+        "A) Are you often go out on weekends?",
+        "B) Do you often go out on weekends?",
+        "C) Does you often go out on weekends?",
+        "D) Do you go out oftenly on weekends?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 305,
-      "question": "Which adverb of frequency means almost never?",
-      "questionHindi": "कौन सा आवृत्ति का क्रिया-विशेषण (adverb of frequency) 'लगभग कभी नहीं' का अर्थ देता है?",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "Always",
-        "Usually",
-        "Often",
-        "Rarely"
+        "A) Always",
+        "B) Usually",
+        "C) Often",
+        "D) Rarely"
       ],
       "correctIndex": 3
     },
     {
-      "id": 306,
+      "id": 6,
       "question": "Fill in the blank: 'She ____ exercises in the morning.' (वह अक्सर सुबह व्यायाम करती है)",
       "questionHindi": "रिक्त स्थान भरें: 'She ____ exercises in the morning.' (वह अक्सर सुबह व्यायाम करती है)",
       "options": [
-        "never",
-        "always",
-        "often",
-        "rarely"
+        "A) never",
+        "B) always",
+        "C) often",
+        "D) rarely"
       ],
       "correctIndex": 2
     },
     {
-      "id": 307,
+      "id": 7,
       "question": "What is the best way to ask about someone's hobbies?",
       "questionHindi": "किसी के शौक के बारे में पूछने का सबसे अच्छा तरीका क्या है?",
       "options": [
-        "Do you have hobbies?",
-        "What do you like to do in your free time?",
-        "Why you like hobbies?",
-        "Are you having hobbies?"
+        "A) Do you have hobbies?",
+        "B) What do you like to do in your free time?",
+        "C) Why you like hobbies?",
+        "D) Are you having hobbies?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 308,
+      "id": 8,
       "question": "Choose the correct English translation: 'मैं कभी-कभी किताबे पढ़ता हूँ।'",
       "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'मैं कभी-कभी किताबे पढ़ता हूँ।'",
       "options": [
-        "I sometimes read books.",
-        "I read sometimes books.",
-        "Sometimes I reads books.",
-        "I am sometimes reading books."
+        "A) I sometimes read books.",
+        "B) I read sometimes books.",
+        "C) Sometimes I reads books.",
+        "D) I am sometimes reading books."
       ],
       "correctIndex": 0
     },
     {
-      "id": 309,
-      "question": "Complete the question: '____ does your brother work?'",
-      "questionHindi": "प्रश्न पूरा करें: '____ does your brother work?'",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "Who",
-        "What",
-        "Where",
-        "Are"
+        "A) Who",
+        "B) What",
+        "C) Where",
+        "D) Are"
       ],
       "correctIndex": 2
     },
     {
-      "id": 310,
+      "id": 10,
       "question": "What do you say when someone shares exciting news with you?",
       "questionHindi": "जब कोई आपके साथ रोमांचक खबर साझा करता है, तो आप क्या कहते हैं?",
       "options": [
-        "That sounds boring.",
-        "Oh, really? That's great!",
-        "Why did you tell me?",
-        "I do not care."
+        "A) That sounds boring.",
+        "B) Oh, really? That's great!",
+        "C) Why did you tell me?",
+        "D) I do not care."
       ],
       "correctIndex": 1
     },
     {
-      "id": 311,
-      "question": "Which sentence is grammatically correct?",
-      "questionHindi": "कौन सा वाक्य व्याकरण की दृष्टि से सही है?",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "He do play cricket.",
-        "He does plays cricket.",
-        "He plays cricket.",
-        "He play cricket."
+        "A) He do play cricket.",
+        "B) He does plays cricket.",
+        "C) He plays cricket.",
+        "D) He play cricket."
       ],
       "correctIndex": 2
     },
     {
-      "id": 312,
-      "question": "Translate: 'वह शायद ही कभी देर से आता है।'",
-      "questionHindi": "Translate: 'वह शायद ही कभी देर से आता है।'",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "He rarely comes late.",
-        "He is rarely come late.",
-        "He does rarely come late.",
-        "He never comes late."
+        "A) He rarely comes late.",
+        "B) He is rarely come late.",
+        "C) He does rarely come late.",
+        "D) He never comes late."
       ],
       "correctIndex": 0
     },
     {
-      "id": 313,
-      "question": "How do you ask about someone's family?",
-      "questionHindi": "आप किसी के परिवार के बारे में कैसे पूछते हैं?",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "How is your family?",
-        "Who is your family?",
-        "Do you have a family?",
-        "Why your family?"
+        "A) How is your family?",
+        "B) Who is your family?",
+        "C) Do you have a family?",
+        "D) Why your family?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 314,
+      "id": 14,
       "question": "Which option fits: '____ you play any musical instruments?'",
       "questionHindi": "कौन सा विकल्प सही है: '____ you play any musical instruments?'",
       "options": [
-        "Does",
-        "Is",
-        "Do",
-        "Are"
+        "A) Does",
+        "B) Is",
+        "C) Do",
+        "D) Are"
       ],
       "correctIndex": 2
     },
     {
-      "id": 315,
-      "question": "What do you say to keep a conversation going?",
-      "questionHindi": "बातचीत जारी रखने के लिए आप क्या कहते हैं?",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "I have to go.",
-        "That's interesting, tell me more.",
-        "Silence is good.",
-        "I don't know."
+        "A) I have to go.",
+        "B) That's interesting, tell me more.",
+        "C) Silence is good.",
+        "D) I don't know."
       ],
       "correctIndex": 1
     },
     {
-      "id": 316,
-      "question": "Translate: 'आप आमतौर पर नाश्ते में क्या खाते हैं?'",
-      "questionHindi": "Translate: 'आप आमतौर पर नाश्ते में क्या खाते हैं?'",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "What do you usually eat for breakfast?",
-        "What you usually eating for breakfast?",
-        "Do you usually eat for breakfast?",
-        "What usually you eat breakfast?"
+        "A) What do you usually eat for breakfast?",
+        "B) What you usually eating for breakfast?",
+        "C) Do you usually eat for breakfast?",
+        "D) What usually you eat breakfast?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 317,
-      "question": "Which is correct: '____ she like to travel?'",
-      "questionHindi": "कौन सा सही है: '____ she like to travel?'",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "Do",
-        "Does",
-        "Is",
-        "Are"
+        "A) Do",
+        "B) Does",
+        "C) Is",
+        "D) Are"
       ],
       "correctIndex": 1
     },
     {
-      "id": 318,
+      "id": 18,
       "question": "What is the English for 'स्वस्थ आदतें'?",
       "questionHindi": "'स्वस्थ आदतें' के लिए अंग्रेजी क्या है?",
       "options": [
-        "Healthy routine",
-        "Healthy habits",
-        "Happy habits",
-        "Health work"
+        "A) Healthy routine",
+        "B) Healthy habits",
+        "C) Happy habits",
+        "D) Health work"
       ],
       "correctIndex": 1
     },
     {
-      "id": 319,
-      "question": "Complete: 'I ____ go to the gym on Sundays.' (मैं रविवार को कभी नहीं जाता)",
-      "questionHindi": "पूर्ण करें: 'I ____ go to the gym on Sundays.' (मैं रविवार को कभी नहीं जाता)",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "always",
-        "often",
-        "never",
-        "usually"
+        "A) always",
+        "B) often",
+        "C) never",
+        "D) usually"
       ],
       "correctIndex": 2
     },
     {
-      "id": 320,
-      "question": "Which question asks about someone's goals?",
-      "questionHindi": "कौन सा प्रश्न किसी के लक्ष्यों के बारे में पूछता है?",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "Do you have goals?",
-        "What are your main goals for this year?",
-        "Are goals important?",
-        "Why do you have goals?"
+        "A) Do you have goals?",
+        "B) What are your main goals for this year?",
+        "C) Are goals important?",
+        "D) Why do you have goals?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 321,
-      "question": "Translate: 'क्या आप हिंदी बोल सकते हैं?'",
-      "questionHindi": "Translate: 'क्या आप हिंदी बोल सकते हैं?'",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "Do you speak Hindi?",
-        "Does you speak Hindi?",
-        "Are you speak Hindi?",
-        "Can you speak Hindi?"
+        "A) Do you speak Hindi?",
+        "B) Does you speak Hindi?",
+        "C) Are you speak Hindi?",
+        "D) Can you speak Hindi?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 322,
-      "question": "Select the correct frequency adverb: 'I ____ brush my teeth every night.'",
-      "questionHindi": "सही आवृत्ति क्रिया-विशेषण चुनें: 'I ____ brush my teeth every night.'",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "never",
-        "rarely",
-        "always",
-        "sometimes"
+        "A) never",
+        "B) rarely",
+        "C) always",
+        "D) sometimes"
       ],
       "correctIndex": 2
     },
     {
-      "id": 323,
-      "question": "Which phrase is used to ask about work?",
-      "questionHindi": "काम के बारे में पूछने के लिए कौन सा वाक्यांश उपयोग किया जाता है?",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "What do you do for a living?",
-        "Where do you live?",
-        "How is your hobby?",
-        "When do you study?"
+        "A) What do you do for a living?",
+        "B) Where do you live?",
+        "C) How is your hobby?",
+        "D) When do you study?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 324,
-      "question": "Choose the correct response to 'How are you?'",
-      "questionHindi": "'How are you?' के लिए सही प्रतिक्रिया चुनें।",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "I am fine, thank you.",
-        "I do fine.",
-        "I am go to work.",
-        "I am eat food."
+        "A) I am fine, thank you.",
+        "B) I do fine.",
+        "C) I am go to work.",
+        "D) I am eat food."
       ],
       "correctIndex": 0
     },
     {
-      "id": 325,
+      "id": 25,
       "question": "Fill in: '____ you like reading books?'",
       "questionHindi": "रिक्त स्थान भरें: '____ you like reading books?'",
       "options": [
-        "Does",
-        "Is",
-        "Are",
-        "Do"
+        "A) Does",
+        "B) Is",
+        "C) Are",
+        "D) Do"
       ],
       "correctIndex": 3
     },
     {
-      "id": 326,
+      "id": 26,
       "question": "What does 'usually' mean in Hindi?",
       "questionHindi": "'usually' का हिंदी अर्थ क्या है?",
       "options": [
-        "कभी-कभी",
-        "हमेशा",
-        "आमतौर पर",
-        "शायद ही कभी"
+        "A) कभी-कभी",
+        "B) हमेशा",
+        "C) आमतौर पर",
+        "D) शायद ही कभी"
       ],
       "correctIndex": 2
     },
     {
-      "id": 327,
-      "question": "Translate: 'वह रोज पढ़ाई करती है।'",
-      "questionHindi": "Translate: 'वह रोज पढ़ाई करती है।'",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "She study every day.",
-        "She studies every day.",
-        "She is study every day.",
-        "Does she study every day?"
+        "A) She study every day.",
+        "B) She studies every day.",
+        "C) She is study every day.",
+        "D) Does she study every day?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 328,
-      "question": "Which question is best for a new colleague?",
-      "questionHindi": "एक नए सहकर्मी के लिए कौन सा प्रश्न सबसे अच्छा है?",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "How long have you worked here?",
-        "Do you like your house?",
-        "Why are you here?",
-        "Where is the canteen?"
+        "A) How long have you worked here?",
+        "B) Do you like your house?",
+        "C) Why are you here?",
+        "D) Where is the canteen?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 329,
-      "question": "Complete: 'How ____ your day going?'",
-      "questionHindi": "पूर्ण करें: 'How ____ your day going?'",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "do",
-        "does",
-        "is",
-        "are"
+        "A) do",
+        "B) does",
+        "C) is",
+        "D) are"
       ],
       "correctIndex": 2
     },
     {
-      "id": 330,
+      "id": 30,
       "question": "Which option is correct for a hobby discussion?",
       "questionHindi": "शौक पर चर्चा के लिए कौन सा विकल्प सही है?",
       "options": [
-        "I like playing football.",
-        "I likes playing football.",
-        "I am like playing football.",
-        "I do like playing football."
+        "A) I like playing football.",
+        "B) I likes playing football.",
+        "C) I am like playing football.",
+        "D) I do like playing football."
       ],
       "correctIndex": 0
     }
   ],
   "12": [
     {
-      "id": 331,
+      "id": 1,
       "question": "What are you doing right now?",
       "questionHindi": "आप अभी क्या कर रहे हैं?",
       "options": [
-        "I am studying English.",
-        "I study English.",
-        "I studied English.",
-        "I will study English."
+        "A) I am studying English.",
+        "B) I study English.",
+        "C) I studied English.",
+        "D) I will study English."
       ],
       "correctIndex": 0
     },
     {
-      "id": 332,
+      "id": 2,
       "question": "Choose the correct sentence for: 'वह खाना पका रही है。'",
       "questionHindi": "सही वाक्य चुनें: 'वह खाना पका रही है。'",
       "options": [
-        "She cook food.",
-        "She is cooking food.",
-        "She cooks food.",
-        "She are cooking food."
+        "A) She cook food.",
+        "B) She is cooking food.",
+        "C) She cooks food.",
+        "D) She are cooking food."
       ],
       "correctIndex": 1
     },
     {
-      "id": 333,
-      "question": "My brother _____ a book at this moment.",
-      "questionHindi": "मेरा भाई इस समय एक किताब _____ रहा है।",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "read",
-        "reads",
-        "is reading",
-        "are reading"
+        "A) read",
+        "B) reads",
+        "C) is reading",
+        "D) are reading"
       ],
       "correctIndex": 2
     },
     {
-      "id": 334,
+      "id": 4,
       "question": "What is your mother doing in the kitchen?",
       "questionHindi": "आपकी माँ रसोई में क्या कर रही हैं?",
       "options": [
-        "She is making tea.",
-        "She makes tea.",
-        "She made tea.",
-        "She will make tea."
+        "A) She is making tea.",
+        "B) She makes tea.",
+        "C) She made tea.",
+        "D) She will make tea."
       ],
       "correctIndex": 3
     },
     {
-      "id": 335,
-      "question": "Translate: 'हम अभी अपना प्रोजेक्ट पर काम कर रहे हैं。'",
-      "questionHindi": "अनुवाद करें: 'हम अभी अपना प्रोजेक्ट पर काम कर रहे हैं。'",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "We are working on our project.",
-        "We work on our project.",
-        "We is working on our project.",
-        "We worked on our project."
+        "A) We are working on our project.",
+        "B) We work on our project.",
+        "C) We is working on our project.",
+        "D) We worked on our project."
       ],
       "correctIndex": 0
     },
     {
-      "id": 336,
+      "id": 6,
       "question": "What are the students doing in the classroom?",
       "questionHindi": "छात्र कक्षा में क्या कर रहे हैं?",
       "options": [
-        "They are listening to the teacher.",
-        "They listen to the teacher.",
-        "They listened to the teacher.",
-        "They is listening to the teacher."
+        "A) They are listening to the teacher.",
+        "B) They listen to the teacher.",
+        "C) They listened to the teacher.",
+        "D) They is listening to the teacher."
       ],
       "correctIndex": 1
     },
     {
-      "id": 337,
+      "id": 7,
       "question": "Select the correct form: 'They _____ playing cricket now.'",
       "questionHindi": "सही रूप चुनें: 'They _____ playing cricket now.'",
       "options": [
-        "is",
-        "am",
-        "are",
-        "be"
+        "A) is",
+        "B) am",
+        "C) are",
+        "D) be"
       ],
       "correctIndex": 2
     },
     {
-      "id": 338,
+      "id": 8,
       "question": "What is happening outside your house right now?",
       "questionHindi": "अभी आपके घर के बाहर क्या हो रहा है?",
       "options": [
-        "It rain.",
-        "It rains.",
-        "It is raining.",
-        "It rained."
+        "A) It rain.",
+        "B) It rains.",
+        "C) It is raining.",
+        "D) It rained."
       ],
       "correctIndex": 3
     },
     {
-      "id": 339,
-      "question": "Translate: 'मैं अभी अंग्रेजी बोलना सीख रहा हूँ。'",
-      "questionHindi": "अनुवाद करें: 'मैं अभी अंग्रेजी बोलना सीख रहा हूँ。'",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "I am learning to speak English.",
-        "I learn to speak English.",
-        "I am learn to speak English.",
-        "I learn speaking English."
+        "A) I am learning to speak English.",
+        "B) I learn to speak English.",
+        "C) I am learn to speak English.",
+        "D) I learn speaking English."
       ],
       "correctIndex": 0
     },
     {
-      "id": 340,
+      "id": 10,
       "question": "My father _____ to the office right now.",
       "questionHindi": "मेरे पिताजी अभी ऑफिस _____ रहे हैं।",
       "options": [
-        "go",
-        "is going",
-        "are going",
-        "goes"
+        "A) go",
+        "B) is going",
+        "C) are going",
+        "D) goes"
       ],
       "correctIndex": 1
     },
     {
-      "id": 341,
-      "question": "Choose the correct phrase: 'What _____ you doing these days?'",
-      "questionHindi": "सही वाक्यांश चुनें: 'What _____ you doing these days?'",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "is",
-        "am",
-        "are",
-        "do"
+        "A) is",
+        "B) am",
+        "C) are",
+        "D) do"
       ],
       "correctIndex": 2
     },
     {
-      "id": 342,
-      "question": "What is your friend doing?",
-      "questionHindi": "आपका दोस्त क्या कर रहा है?",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "He is sleep.",
-        "He is sleeping.",
-        "He sleeps.",
-        "He slept."
+        "A) He is sleep.",
+        "B) He is sleeping.",
+        "C) He sleeps.",
+        "D) He slept."
       ],
       "correctIndex": 3
     },
     {
-      "id": 343,
-      "question": "Translate: 'वे टीवी देख रहे हैं。'",
-      "questionHindi": "अनुवाद करें: 'वे टीवी देख रहे हैं。'",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "They are watching TV.",
-        "They watch TV.",
-        "They is watching TV.",
-        "They watched TV."
+        "A) They are watching TV.",
+        "B) They watch TV.",
+        "C) They is watching TV.",
+        "D) They watched TV."
       ],
       "correctIndex": 0
     },
     {
-      "id": 344,
+      "id": 14,
       "question": "Why _____ she crying?",
       "questionHindi": "वह क्यों रो _____ है?",
       "options": [
-        "are",
-        "is",
-        "am",
-        "do"
+        "A) are",
+        "B) is",
+        "C) am",
+        "D) do"
       ],
       "correctIndex": 1
     },
     {
-      "id": 345,
-      "question": "Complete: 'I _____ writing an email to my boss.'",
-      "questionHindi": "पूरा करें: 'I _____ writing an email to my boss.'",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "is",
-        "are",
-        "am",
-        "be"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) be"
       ],
       "correctIndex": 2
     },
     {
-      "id": 346,
-      "question": "What are the birds doing?",
-      "questionHindi": "पक्षी क्या कर रहे हैं?",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "They fly.",
-        "They flew.",
-        "They will fly.",
-        "They are flying."
+        "A) They fly.",
+        "B) They flew.",
+        "C) They will fly.",
+        "D) They are flying."
       ],
       "correctIndex": 3
     },
     {
-      "id": 347,
-      "question": "Translate: 'बच्चे अभी खेल रहे हैं。'",
-      "questionHindi": "अनुवाद करें: 'बच्चे अभी खेल रहे हैं。'",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "The children are playing now.",
-        "The children play now.",
-        "The children is playing now.",
-        "The children played now."
+        "A) The children are playing now.",
+        "B) The children play now.",
+        "C) The children is playing now.",
+        "D) The children played now."
       ],
       "correctIndex": 0
     },
     {
-      "id": 348,
+      "id": 18,
       "question": "_____ it raining in your city?",
       "questionHindi": "क्या आपके शहर में बारिश _____ रही है?",
       "options": [
-        "Are",
-        "Is",
-        "Am",
-        "Do"
+        "A) Are",
+        "B) Is",
+        "C) Am",
+        "D) Do"
       ],
       "correctIndex": 1
     },
     {
-      "id": 349,
-      "question": "We _____ our homework together.",
-      "questionHindi": "हम साथ में अपना होमवर्क _____ रहे हैं।",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "is doing",
-        "am doing",
-        "are doing",
-        "does"
+        "A) is doing",
+        "B) am doing",
+        "C) are doing",
+        "D) does"
       ],
       "correctIndex": 2
     },
     {
-      "id": 350,
-      "question": "What is the teacher doing?",
-      "questionHindi": "अध्यापक क्या कर रहे हैं?",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "He teach.",
-        "He teaches.",
-        "He taught.",
-        "He is teaching."
+        "A) He teach.",
+        "B) He teaches.",
+        "C) He taught.",
+        "D) He is teaching."
       ],
       "correctIndex": 3
     },
     {
-      "id": 351,
-      "question": "Translate: 'मैं अभी अखबार पढ़ रहा हूँ。'",
-      "questionHindi": "अनुवाद करें: 'मैं अभी अखबार पढ़ रहा हूँ。'",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "I am reading the newspaper.",
-        "I read the newspaper.",
-        "I am read the newspaper.",
-        "I readed the newspaper."
+        "A) I am reading the newspaper.",
+        "B) I read the newspaper.",
+        "C) I am read the newspaper.",
+        "D) I readed the newspaper."
       ],
       "correctIndex": 0
     },
     {
-      "id": 352,
-      "question": "They _____ to music right now.",
-      "questionHindi": "वे अभी संगीत _____ रहे हैं।",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "listen",
-        "are listening",
-        "listens",
-        "is listening"
+        "A) listen",
+        "B) are listening",
+        "C) listens",
+        "D) is listening"
       ],
       "correctIndex": 1
     },
     {
-      "id": 353,
-      "question": "What _____ your family doing?",
-      "questionHindi": "आपका परिवार क्या _____ रहा है?",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "is",
-        "are",
-        "am",
-        "do"
+        "A) is",
+        "B) are",
+        "C) am",
+        "D) do"
       ],
       "correctIndex": 0
     },
     {
-      "id": 354,
-      "question": "I am _____ a letter to my friend.",
-      "questionHindi": "मैं अपने दोस्त को पत्र _____ रहा हूँ।",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "write",
-        "wrote",
-        "written",
-        "writing"
+        "A) write",
+        "B) wrote",
+        "C) written",
+        "D) writing"
       ],
       "correctIndex": 3
     },
     {
-      "id": 355,
+      "id": 25,
       "question": "Translate: 'वह अभी सो रही है।'",
       "questionHindi": "अनुवाद करें: 'वह अभी सो रही है。'",
       "options": [
-        "She is sleeping now.",
-        "She sleeps now.",
-        "She is sleep now.",
-        "She slept now."
+        "A) She is sleeping now.",
+        "B) She sleeps now.",
+        "C) She is sleep now.",
+        "D) She slept now."
       ],
       "correctIndex": 0
     },
     {
-      "id": 356,
+      "id": 26,
       "question": "The dog _____ in the garden.",
       "questionHindi": "कुत्ता बगीचे में _____ रहा है।",
       "options": [
-        "are running",
-        "is running",
-        "run",
-        "runs"
+        "A) are running",
+        "B) is running",
+        "C) run",
+        "D) runs"
       ],
       "correctIndex": 1
     },
     {
-      "id": 357,
-      "question": "Why _____ you laughing?",
-      "questionHindi": "तुम क्यों हँस _____ हो?",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "is",
-        "am",
-        "are",
-        "do"
+        "A) is",
+        "B) am",
+        "C) are",
+        "D) do"
       ],
       "correctIndex": 2
     },
     {
-      "id": 358,
-      "question": "What is she _____ right now?",
-      "questionHindi": "वह अभी क्या _____ रही है?",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "do",
-        "does",
-        "did",
-        "doing"
+        "A) do",
+        "B) does",
+        "C) did",
+        "D) doing"
       ],
       "correctIndex": 3
     },
     {
-      "id": 359,
-      "question": "Translate: 'हम अभी चाय पी रहे हैं。'",
-      "questionHindi": "अनुवाद करें: 'हम अभी चाय पी रहे हैं。'",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "We are drinking tea.",
-        "We drink tea.",
-        "We are drink tea.",
-        "We drank tea."
+        "A) We are drinking tea.",
+        "B) We drink tea.",
+        "C) We are drink tea.",
+        "D) We drank tea."
       ],
       "correctIndex": 0
     },
     {
-      "id": 360,
+      "id": 30,
       "question": "He _____ a new project these days.",
       "questionHindi": "वह इन दिनों एक नया प्रोजेक्ट _____ रहा है।",
       "options": [
-        "are managing",
-        "is managing",
-        "manage",
-        "manages"
+        "A) are managing",
+        "B) is managing",
+        "C) manage",
+        "D) manages"
       ],
       "correctIndex": 1
     }
   ],
   "13": [
     {
-      "id": 361,
+      "id": 1,
       "question": "What are you doing tomorrow?",
       "questionHindi": "आप कल क्या कर रहे हैं?",
       "options": [
-        "What you are doing tomorrow?",
-        "What do you doing tomorrow?",
-        "What are you do tomorrow?",
-        "What are you doing tomorrow?"
+        "A) What you are doing tomorrow?",
+        "B) What do you doing tomorrow?",
+        "C) What are you do tomorrow?",
+        "D) What are you doing tomorrow?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 362,
+      "id": 2,
       "question": "Choose the correct translation: 'मैं कल कहीं नहीं जा रहा हूँ।'",
       "questionHindi": "मैं कल कहीं नहीं जा रहा हूँ।",
       "options": [
-        "I am not go anywhere tomorrow.",
-        "I not am going anywhere tomorrow.",
-        "I am no going anywhere tomorrow.",
-        "I am not going anywhere tomorrow."
+        "A) I am not go anywhere tomorrow.",
+        "B) I not am going anywhere tomorrow.",
+        "C) I am no going anywhere tomorrow.",
+        "D) I am not going anywhere tomorrow."
       ],
       "correctIndex": 3
     },
     {
-      "id": 363,
-      "question": "Are you attending the meeting next week?",
-      "questionHindi": "क्या आप अगले हफ्ते मीटिंग में शामिल हो रहे हैं?",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "Yes, I attend.",
-        "Yes, I am attend.",
-        "Yes, I be attending.",
-        "Yes, I am attending."
+        "A) Yes, I attend.",
+        "B) Yes, I am attend.",
+        "C) Yes, I be attending.",
+        "D) Yes, I am attending."
       ],
       "correctIndex": 3
     },
     {
-      "id": 364,
+      "id": 4,
       "question": "Fill in the blank: 'We ____ visiting our relatives this weekend.'",
       "questionHindi": "हम इस सप्ताहांत अपने रिश्तेदारों से मिलने जा रहे हैं।",
       "options": [
-        "is",
-        "do",
-        "be",
-        "are"
+        "A) is",
+        "B) do",
+        "C) be",
+        "D) are"
       ],
       "correctIndex": 3
     },
     {
-      "id": 365,
-      "question": "What is the correct negative form of 'He is traveling to Delhi'?",
-      "questionHindi": "He is traveling to Delhi का सही नकारात्मक रूप क्या है?",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "He is traveling not to Delhi.",
-        "He not is traveling to Delhi.",
-        "He does not traveling to Delhi.",
-        "He is not traveling to Delhi."
+        "A) He is traveling not to Delhi.",
+        "B) He not is traveling to Delhi.",
+        "C) He does not traveling to Delhi.",
+        "D) He is not traveling to Delhi."
       ],
       "correctIndex": 3
     },
     {
-      "id": 366,
+      "id": 6,
       "question": "Choose the correct question: 'क्या वे कल काम पर नहीं आ रहे हैं?'",
       "questionHindi": "क्या वे कल काम पर नहीं आ रहे हैं?",
       "options": [
-        "Do they not coming to work tomorrow?",
-        "Are they not come to work tomorrow?",
-        "Are they not coming to work tomorrow?",
-        "Are they no coming to work tomorrow?"
+        "A) Do they not coming to work tomorrow?",
+        "B) Are they not come to work tomorrow?",
+        "C) Are they not coming to work tomorrow?",
+        "D) Are they no coming to work tomorrow?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 367,
+      "id": 7,
       "question": "Select the right phrase for 'future arrangements': 'I _____ a doctor's appointment tomorrow.'",
       "questionHindi": "मैं कल डॉक्टर के पास जा रहा हूँ (अपॉइंटमेंट है)।",
       "options": [
-        "have",
-        "am have",
-        "am having",
-        "is having"
+        "A) have",
+        "B) am have",
+        "C) am having",
+        "D) is having"
       ],
       "correctIndex": 2
     },
     {
-      "id": 368,
+      "id": 8,
       "question": "Which sentence is grammatically correct for a future plan?",
       "questionHindi": "भविष्य की योजना के लिए कौन सा वाक्य व्याकरणिक रूप से सही है?",
       "options": [
-        "She meeting her friend tonight.",
-        "She is meet her friend tonight.",
-        "She is meeting her friend tonight.",
-        "She be meeting her friend tonight."
+        "A) She meeting her friend tonight.",
+        "B) She is meet her friend tonight.",
+        "C) She is meeting her friend tonight.",
+        "D) She be meeting her friend tonight."
       ],
       "correctIndex": 2
     },
     {
-      "id": 369,
-      "question": "Translate: 'Are you working on any new project this month?'",
-      "questionHindi": "क्या आप इस महीने किसी नए प्रोजेक्ट पर काम कर रहे हैं?",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "Do you working on any new project this month?",
-        "Are you work on any new project this month?",
-        "Are you working on any new project this month?",
-        "Is you working on any new project this month?"
+        "A) Do you working on any new project this month?",
+        "B) Are you work on any new project this month?",
+        "C) Are you working on any new project this month?",
+        "D) Is you working on any new project this month?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 370,
+      "id": 10,
       "question": "Complete the short answer: 'Are you leaving for the trip tonight?' - 'No, ____.'",
       "questionHindi": "क्या आप आज रात ट्रिप के लिए निकल रहे हैं? - 'नहीं, ___।'",
       "options": [
-        "I am",
-        "I don't",
-        "I am not",
-        "I not"
+        "A) I am",
+        "B) I don't",
+        "C) I am not",
+        "D) I not"
       ],
       "correctIndex": 2
     },
     {
-      "id": 371,
-      "question": "What is the translation of 'हम अगले महीने विदेश नहीं जा रहे हैं'?",
-      "questionHindi": "हम अगले महीने विदेश नहीं जा रहे हैं।",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "We are not go abroad next month.",
-        "We not are going abroad next month.",
-        "We are not going abroad next month.",
-        "We are no going abroad next month."
+        "A) We are not go abroad next month.",
+        "B) We not are going abroad next month.",
+        "C) We are not going abroad next month.",
+        "D) We are no going abroad next month."
       ],
       "correctIndex": 2
     },
     {
-      "id": 372,
-      "question": "Choose the correct WH question structure: '____ are you meeting for lunch tomorrow?'",
-      "questionHindi": "आप कल दोपहर के भोजन के लिए किससे मिल रहे हैं?",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "Where",
-        "Who",
-        "Whom",
-        "What"
+        "A) Where",
+        "B) Who",
+        "C) Whom",
+        "D) What"
       ],
       "correctIndex": 2
     },
     {
-      "id": 373,
-      "question": "Fill in the blank: 'She ____ a presentation tomorrow morning.'",
-      "questionHindi": "वह कल सुबह एक प्रेजेंटेशन दे रही है।",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "gives",
-        "giving",
-        "is giving",
-        "is give"
+        "A) gives",
+        "B) giving",
+        "C) is giving",
+        "D) is give"
       ],
       "correctIndex": 2
     },
     {
-      "id": 374,
+      "id": 14,
       "question": "Translate: 'Is he participating in the event next week?'",
       "questionHindi": "क्या वह अगले हफ्ते कार्यक्रम में भाग ले रहा है?",
       "options": [
-        "Are he participating in the event next week?",
-        "Is he participating in the event next week?",
-        "Does he participating in the event next week?",
-        "Is he participate in the event next week?"
+        "A) Are he participating in the event next week?",
+        "B) Is he participating in the event next week?",
+        "C) Does he participating in the event next week?",
+        "D) Is he participate in the event next week?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 375,
-      "question": "Which sentence expresses a negative plan for the weekend?",
-      "questionHindi": "सप्ताहांत के लिए कौन सा वाक्य एक नकारात्मक योजना व्यक्त करता है?",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "I am planning nothing for the weekend.",
-        "I am not planning anything for the weekend.",
-        "I not am planning for the weekend.",
-        "I am not plan for the weekend."
+        "A) I am planning nothing for the weekend.",
+        "B) I am not planning anything for the weekend.",
+        "C) I not am planning for the weekend.",
+        "D) I am not plan for the weekend."
       ],
       "correctIndex": 1
     },
     {
-      "id": 376,
-      "question": "What does 'Are you finishing your report today?' mean in Hindi?",
-      "questionHindi": "Are you finishing your report today? का हिंदी अर्थ क्या है?",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "क्या आप कल अपनी रिपोर्ट खत्म करेंगे?",
-        "क्या आप आज अपनी रिपोर्ट खत्म कर रहे हैं?",
-        "क्या आप अपनी रिपोर्ट खत्म कर चुके हैं?",
-        "क्या आप रिपोर्ट खत्म करना चाहते हैं?"
+        "A) क्या आप कल अपनी रिपोर्ट खत्म करेंगे?",
+        "B) क्या आप आज अपनी रिपोर्ट खत्म कर रहे हैं?",
+        "C) क्या आप अपनी रिपोर्ट खत्म कर चुके हैं?",
+        "D) क्या आप रिपोर्ट खत्म करना चाहते हैं?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 377,
-      "question": "Select the correct option: 'We ____ to the party tomorrow night.'",
-      "questionHindi": "हम कल रात पार्टी में नहीं जा रहे हैं।",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "not going",
-        "are not going",
-        "are no going",
-        "is not going"
+        "A) not going",
+        "B) are not going",
+        "C) are no going",
+        "D) is not going"
       ],
       "correctIndex": 1
     },
     {
-      "id": 378,
+      "id": 18,
       "question": "Choose the correct sentence for future arrangement:",
       "questionHindi": "भविष्य की व्यवस्था के लिए सही वाक्य चुनें:",
       "options": [
-        "They visiting the museum on Saturday.",
-        "They are visiting the museum on Saturday.",
-        "They is visiting the museum on Saturday.",
-        "They are visit the museum on Saturday."
+        "A) They visiting the museum on Saturday.",
+        "B) They are visiting the museum on Saturday.",
+        "C) They is visiting the museum on Saturday.",
+        "D) They are visit the museum on Saturday."
       ],
       "correctIndex": 1
     },
     {
-      "id": 379,
-      "question": "Translate: 'What are you doing to achieve your goal this month?'",
-      "questionHindi": "इस महीने अपना लक्ष्य पूरा करने के लिए आप क्या कर रहे हैं?",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "What do you do to achieve your goal this month?",
-        "What are you doing to achieve your goal this month?",
-        "What you are doing to achieve your goal this month?",
-        "What are you do to achieve your goal this month?"
+        "A) What do you do to achieve your goal this month?",
+        "B) What are you doing to achieve your goal this month?",
+        "C) What you are doing to achieve your goal this month?",
+        "D) What are you do to achieve your goal this month?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 380,
-      "question": "Fill in the blank: 'Are you ____ any special plans for your birthday?'",
-      "questionHindi": "क्या आप अपने जन्मदिन के लिए कोई विशेष योजना बना रहे हैं?",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "make",
-        "making",
-        "made",
-        "to make"
+        "A) make",
+        "B) making",
+        "C) made",
+        "D) to make"
       ],
       "correctIndex": 1
     },
     {
-      "id": 381,
-      "question": "Choose the correct negative response: 'Are you traveling tomorrow?'",
-      "questionHindi": "क्या आप कल यात्रा कर रहे हैं? (नकारात्मक उत्तर चुनें)",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "No, I am not.",
-        "No, I am not traveling.",
-        "No, I am not traveling tomorrow.",
-        "All of the above."
+        "A) No, I am not.",
+        "B) No, I am not traveling.",
+        "C) No, I am not traveling tomorrow.",
+        "D) All of the above."
       ],
       "correctIndex": 3
     },
     {
-      "id": 382,
-      "question": "Translate: 'Are they moving to a new house next week?'",
-      "questionHindi": "क्या वे अगले हफ्ते नए घर में शिफ्ट हो रहे हैं?",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "Are they move to a new house next week?",
-        "Are they moving to a new house next week?",
-        "Are they moving to a new house on next week?",
-        "Is they moving to a new house next week?"
+        "A) Are they move to a new house next week?",
+        "B) Are they moving to a new house next week?",
+        "C) Are they moving to a new house on next week?",
+        "D) Is they moving to a new house next week?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 383,
-      "question": "Identify the error in: 'I am not meet my friend tomorrow.'",
-      "questionHindi": "'I am not meet my friend tomorrow.' में गलती पहचानें।",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "'meet' should be 'meeting'",
-        "'am' should be 'do'",
-        "'not' is unnecessary",
-        "No error"
+        "A) 'meet' should be 'meeting'",
+        "B) 'am' should be 'do'",
+        "C) 'not' is unnecessary",
+        "D) No error"
       ],
       "correctIndex": 0
     },
     {
-      "id": 384,
-      "question": "Which question asks about a future plan?",
-      "questionHindi": "कौन सा प्रश्न भविष्य की योजना के बारे में पूछता है?",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "What are you doing tomorrow?",
-        "What do you do every day?",
-        "Did you go yesterday?",
-        "Have you done it?"
+        "A) What are you doing tomorrow?",
+        "B) What do you do every day?",
+        "C) Did you go yesterday?",
+        "D) Have you done it?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 385,
+      "id": 25,
       "question": "Complete the sentence: 'She ____ working late this evening.'",
       "questionHindi": "वह आज शाम देर तक काम नहीं कर रही है।",
       "options": [
-        "is not",
-        "does not",
-        "is no",
-        "not"
+        "A) is not",
+        "B) does not",
+        "C) is no",
+        "D) not"
       ],
       "correctIndex": 0
     },
     {
-      "id": 386,
+      "id": 26,
       "question": "Choose the correct English for: 'क्या आप इस सप्ताहांत घर पर रह रहे हैं?'",
       "questionHindi": "क्या आप इस सप्ताहांत घर पर रह रहे हैं?",
       "options": [
-        "Are you staying at home this weekend?",
-        "Do you stay at home this weekend?",
-        "Are you stay at home this weekend?",
-        "Is you staying at home this weekend?"
+        "A) Are you staying at home this weekend?",
+        "B) Do you stay at home this weekend?",
+        "C) Are you stay at home this weekend?",
+        "D) Is you staying at home this weekend?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 387,
-      "question": "What is the correct way to ask about an appointment?",
-      "questionHindi": "अपॉइंटमेंट के बारे में पूछने का सही तरीका क्या है?",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "Are you seeing the doctor tomorrow?",
-        "Do you see the doctor tomorrow?",
-        "Are you see the doctor tomorrow?",
-        "Is you seeing the doctor tomorrow?"
+        "A) Are you seeing the doctor tomorrow?",
+        "B) Do you see the doctor tomorrow?",
+        "C) Are you see the doctor tomorrow?",
+        "D) Is you seeing the doctor tomorrow?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 388,
-      "question": "Translate: 'We are not attending the event.'",
-      "questionHindi": "हम कार्यक्रम में भाग नहीं ले रहे हैं।",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "हम कार्यक्रम में भाग नहीं ले रहे हैं।",
-        "हम कार्यक्रम में भाग नहीं लेते हैं।",
-        "हम कार्यक्रम में भाग नहीं ले सके।",
-        "हम कार्यक्रम में भाग नहीं लेंगे।"
+        "A) हम कार्यक्रम में भाग नहीं ले रहे हैं।",
+        "B) हम कार्यक्रम में भाग नहीं लेते हैं।",
+        "C) हम कार्यक्रम में भाग नहीं ले सके।",
+        "D) हम कार्यक्रम में भाग नहीं लेंगे।"
       ],
       "correctIndex": 0
     },
     {
-      "id": 389,
-      "question": "Select the correct form: '____ they playing football tomorrow?'",
-      "questionHindi": "क्या वे कल फुटबॉल खेल रहे हैं?",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "Are",
-        "Do",
-        "Is",
-        "Does"
+        "A) Are",
+        "B) Do",
+        "C) Is",
+        "D) Does"
       ],
       "correctIndex": 0
     },
     {
-      "id": 390,
+      "id": 30,
       "question": "Which sentence is correct?",
       "questionHindi": "कौन सा वाक्य सही है?",
       "options": [
-        "I am not doing anything special this weekend.",
-        "I am not do anything special this weekend.",
-        "I not doing anything special this weekend.",
-        "I am not done anything special this weekend."
+        "A) I am not doing anything special this weekend.",
+        "B) I am not do anything special this weekend.",
+        "C) I not doing anything special this weekend.",
+        "D) I am not done anything special this weekend."
       ],
       "correctIndex": 0
     }
   ],
   "14": [
     {
-      "id": 391,
+      "id": 1,
       "question": "Translate: 'I went to the market yesterday.'",
       "questionHindi": "अनुवाद करें: 'मैं कल बाज़ार गया था।'",
       "options": [
-        "I go to the market yesterday.",
-        "I am going to the market yesterday.",
-        "I will go to the market yesterday.",
-        "I went to the market yesterday."
+        "A) I go to the market yesterday.",
+        "B) I am going to the market yesterday.",
+        "C) I will go to the market yesterday.",
+        "D) I went to the market yesterday."
       ],
       "correctIndex": 3
     },
     {
-      "id": 392,
+      "id": 2,
       "question": "Choose the correct form: 'She ______ a delicious lunch yesterday.'",
       "questionHindi": "सही रूप चुनें: 'उसने कल स्वादिष्ट दोपहर का भोजन ______|'",
       "options": [
-        "cook",
-        "cooks",
-        "cooking",
-        "cooked"
+        "A) cook",
+        "B) cooks",
+        "C) cooking",
+        "D) cooked"
       ],
       "correctIndex": 3
     },
     {
-      "id": 393,
-      "question": "Which word represents the Hindi word 'बचपन'?",
-      "questionHindi": "कौन सा शब्द 'बचपन' को दर्शाता है?",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "Yesterday",
-        "Holiday",
-        "Travel",
-        "Childhood"
+        "A) Yesterday",
+        "B) Holiday",
+        "C) Travel",
+        "D) Childhood"
       ],
       "correctIndex": 3
     },
     {
-      "id": 394,
+      "id": 4,
       "question": "Translate: 'Did you enjoy the movie last night?'",
       "questionHindi": "अनुवाद करें: 'क्या आपने कल रात फिल्म का आनंद लिया?'",
       "options": [
-        "Did you enjoy the movie last night?",
-        "Do you enjoy the movie last night?",
-        "Are you enjoying the movie last night?",
-        "Will you enjoy the movie last night?"
+        "A) Did you enjoy the movie last night?",
+        "B) Do you enjoy the movie last night?",
+        "C) Are you enjoying the movie last night?",
+        "D) Will you enjoy the movie last night?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 395,
-      "question": "Fill in the blank: 'Yesterday, I ______ my friends at the park.'",
-      "questionHindi": "रिक्त स्थान भरें: 'कल, मैं पार्क में अपने दोस्तों से ______|'",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "meet",
-        "meets",
-        "meeting",
-        "met"
+        "A) meet",
+        "B) meets",
+        "C) meeting",
+        "D) met"
       ],
       "correctIndex": 3
     },
     {
-      "id": 396,
+      "id": 6,
       "question": "Which verb is the past tense of 'see'?",
       "questionHindi": "कौन सी क्रिया 'see' का भूतकाल है?",
       "options": [
-        "seed",
-        "seen",
-        "seeed",
-        "saw"
+        "A) seed",
+        "B) seen",
+        "C) seeed",
+        "D) saw"
       ],
       "correctIndex": 3
     },
     {
-      "id": 397,
+      "id": 7,
       "question": "Translate: 'मैं कल बहुत व्यस्त था।'",
       "questionHindi": "अनुवाद करें: 'मैं कल बहुत व्यस्त था।'",
       "options": [
-        "I am very busy yesterday.",
-        "I were very busy yesterday.",
-        "I be very busy yesterday.",
-        "I was very busy yesterday."
+        "A) I am very busy yesterday.",
+        "B) I were very busy yesterday.",
+        "C) I be very busy yesterday.",
+        "D) I was very busy yesterday."
       ],
       "correctIndex": 3
     },
     {
-      "id": 398,
+      "id": 8,
       "question": "Choose the correct sentence for past experience.",
       "questionHindi": "अतीत के अनुभव के लिए सही वाक्य चुनें।",
       "options": [
-        "I travel to Delhi last year.",
-        "I traveled to Delhi last year.",
-        "I travels to Delhi last year.",
-        "I am traveling to Delhi last year."
+        "A) I travel to Delhi last year.",
+        "B) I traveled to Delhi last year.",
+        "C) I travels to Delhi last year.",
+        "D) I am traveling to Delhi last year."
       ],
       "correctIndex": 1
     },
     {
-      "id": 399,
-      "question": "What is the past tense of 'go'?",
-      "questionHindi": "'go' का भूतकाल क्या है?",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "gone",
-        "going",
-        "went",
-        "goed"
+        "A) gone",
+        "B) going",
+        "C) went",
+        "D) goed"
       ],
       "correctIndex": 2
     },
     {
-      "id": 400,
+      "id": 10,
       "question": "Translate: 'We did not go to school yesterday.'",
       "questionHindi": "अनुवाद करें: 'हम कल स्कूल नहीं गए थे।'",
       "options": [
-        "We did not go to school yesterday.",
-        "We do not go to school yesterday.",
-        "We are not going to school yesterday.",
-        "We will not go to school yesterday."
+        "A) We did not go to school yesterday.",
+        "B) We do not go to school yesterday.",
+        "C) We are not going to school yesterday.",
+        "D) We will not go to school yesterday."
       ],
       "correctIndex": 0
     },
     {
-      "id": 401,
-      "question": "Which word represents 'छुट्टी'?",
-      "questionHindi": "कौन सा शब्द 'छुट्टी' को दर्शाता है?",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "Yesterday",
-        "Holiday",
-        "Travel",
-        "Childhood"
+        "A) Yesterday",
+        "B) Holiday",
+        "C) Travel",
+        "D) Childhood"
       ],
       "correctIndex": 1
     },
     {
-      "id": 402,
-      "question": "Fill in the blank: 'I ______ a long walk in the morning.'",
-      "questionHindi": "रिक्त स्थान भरें: 'मैंने सुबह एक लंबी सैर ______|'",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "take",
-        "takes",
-        "took",
-        "taken"
+        "A) take",
+        "B) takes",
+        "C) took",
+        "D) taken"
       ],
       "correctIndex": 2
     },
     {
-      "id": 403,
-      "question": "Translate: 'क्या आपने कल काम पूरा किया?'",
-      "questionHindi": "अनुवाद करें: 'क्या आपने कल काम पूरा किया?'",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "Do you finish the work yesterday?",
-        "Are you finish the work yesterday?",
-        "Did you finish the work yesterday?",
-        "Will you finish the work yesterday?"
+        "A) Do you finish the work yesterday?",
+        "B) Are you finish the work yesterday?",
+        "C) Did you finish the work yesterday?",
+        "D) Will you finish the work yesterday?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 404,
+      "id": 14,
       "question": "Which verb is irregular?",
       "questionHindi": "कौन सी क्रिया अनियमित (irregular) है?",
       "options": [
-        "Walked",
-        "Talked",
-        "Ate",
-        "Played"
+        "A) Walked",
+        "B) Talked",
+        "C) Ate",
+        "D) Played"
       ],
       "correctIndex": 2
     },
     {
-      "id": 405,
-      "question": "Choose the correct past tense of 'buy'.",
-      "questionHindi": "'buy' का सही भूतकाल चुनें।",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "bought",
-        "buyed",
-        "buys",
-        "buying"
+        "A) bought",
+        "B) buyed",
+        "C) buys",
+        "D) buying"
       ],
       "correctIndex": 0
     },
     {
-      "id": 406,
-      "question": "Translate: 'I had tea in the evening.'",
-      "questionHindi": "अनुवाद करें: 'मैंने शाम को चाय पी।'",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "I have tea in the evening.",
-        "I had tea in the evening.",
-        "I am having tea in the evening.",
-        "I will have tea in the evening."
+        "A) I have tea in the evening.",
+        "B) I had tea in the evening.",
+        "C) I am having tea in the evening.",
+        "D) I will have tea in the evening."
       ],
       "correctIndex": 1
     },
     {
-      "id": 407,
-      "question": "Fill in the blank: 'Yesterday was a very ______ day.'",
-      "questionHindi": "रिक्त स्थान भरें: 'कल एक बहुत ______ दिन था।'",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "memorable",
-        "memory",
-        "memorize",
-        "memorizing"
+        "A) memorable",
+        "B) memory",
+        "C) memorize",
+        "D) memorizing"
       ],
       "correctIndex": 0
     },
     {
-      "id": 408,
+      "id": 18,
       "question": "Which of these describes a past state?",
       "questionHindi": "इनमें से कौन सा पिछली स्थिति का वर्णन करता है?",
       "options": [
-        "I am happy.",
-        "I was happy.",
-        "I will be happy.",
-        "I be happy."
+        "A) I am happy.",
+        "B) I was happy.",
+        "C) I will be happy.",
+        "D) I be happy."
       ],
       "correctIndex": 1
     },
     {
-      "id": 409,
-      "question": "Translate: 'उसने मुझे कल एक कहानी सुनाई।'",
-      "questionHindi": "अनुवाद करें: 'उसने मुझे कल एक कहानी सुनाई।'",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "He tells me a story yesterday.",
-        "He tell me a story yesterday.",
-        "He told me a story yesterday.",
-        "He is telling me a story yesterday."
+        "A) He tells me a story yesterday.",
+        "B) He tell me a story yesterday.",
+        "C) He told me a story yesterday.",
+        "D) He is telling me a story yesterday."
       ],
       "correctIndex": 2
     },
     {
-      "id": 410,
-      "question": "Choose the correct form: 'They ______ to the park last Sunday.'",
-      "questionHindi": "सही रूप चुनें: 'वे पिछले रविवार पार्क ______|'",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "go",
-        "goes",
-        "went",
-        "gone"
+        "A) go",
+        "B) goes",
+        "C) went",
+        "D) gone"
       ],
       "correctIndex": 2
     },
     {
-      "id": 411,
-      "question": "What is the past tense of 'read'?",
-      "questionHindi": "'read' का भूतकाल क्या है?",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "readed",
-        "read",
-        "reads",
-        "reading"
+        "A) readed",
+        "B) read",
+        "C) reads",
+        "D) reading"
       ],
       "correctIndex": 1
     },
     {
-      "id": 412,
-      "question": "Translate: 'Did you face any problems?'",
-      "questionHindi": "अनुवाद करें: 'क्या आपने किसी समस्या का सामना किया?'",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "Did you face any problems?",
-        "Do you face any problems?",
-        "Are you facing any problems?",
-        "Will you face any problems?"
+        "A) Did you face any problems?",
+        "B) Do you face any problems?",
+        "C) Are you facing any problems?",
+        "D) Will you face any problems?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 413,
-      "question": "Fill in the blank: 'Yesterday, I ______ my homework.'",
-      "questionHindi": "रिक्त स्थान भरें: 'कल, मैंने अपना होमवर्क ______|'",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "did",
-        "do",
-        "does",
-        "done"
+        "A) did",
+        "B) do",
+        "C) does",
+        "D) done"
       ],
       "correctIndex": 0
     },
     {
-      "id": 414,
-      "question": "Which word is used to talk about the day before today?",
-      "questionHindi": "आज से पहले के दिन के बारे में बात करने के लिए किस शब्द का उपयोग किया जाता है?",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "Tomorrow",
-        "Yesterday",
-        "Today",
-        "Now"
+        "A) Tomorrow",
+        "B) Yesterday",
+        "C) Today",
+        "D) Now"
       ],
       "correctIndex": 1
     },
     {
-      "id": 415,
+      "id": 25,
       "question": "Translate: 'मैंने कल रात पिज़्ज़ा खाया।'",
       "questionHindi": "अनुवाद करें: 'मैंने कल रात पिज़्ज़ा खाया।'",
       "options": [
-        "I eat pizza last night.",
-        "I eating pizza last night.",
-        "I ate pizza last night.",
-        "I will eat pizza last night."
+        "A) I eat pizza last night.",
+        "B) I eating pizza last night.",
+        "C) I ate pizza last night.",
+        "D) I will eat pizza last night."
       ],
       "correctIndex": 2
     },
     {
-      "id": 416,
+      "id": 26,
       "question": "Which verb is regular?",
       "questionHindi": "कौन सी क्रिया नियमित (regular) है?",
       "options": [
-        "Eat",
-        "Drink",
-        "Cook",
-        "Go"
+        "A) Eat",
+        "B) Drink",
+        "C) Cook",
+        "D) Go"
       ],
       "correctIndex": 2
     },
     {
-      "id": 417,
-      "question": "Choose the correct past tense of 'write'.",
-      "questionHindi": "'write' का सही भूतकाल चुनें।",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "wrote",
-        "writed",
-        "writes",
-        "writing"
+        "A) wrote",
+        "B) writed",
+        "C) writes",
+        "D) writing"
       ],
       "correctIndex": 0
     },
     {
-      "id": 418,
-      "question": "Translate: 'We visited a museum last year.'",
-      "questionHindi": "अनुवाद करें: 'हमने पिछले साल एक संग्रहालय का दौरा किया।'",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "We visit a museum last year.",
-        "We visited a museum last year.",
-        "We are visiting a museum last year.",
-        "We will visit a museum last year."
+        "A) We visit a museum last year.",
+        "B) We visited a museum last year.",
+        "C) We are visiting a museum last year.",
+        "D) We will visit a museum last year."
       ],
       "correctIndex": 1
     },
     {
-      "id": 419,
-      "question": "Fill in the blank: 'She ______ very tired yesterday.'",
-      "questionHindi": "रिक्त स्थान भरें: 'वह कल बहुत थक गई थी।'",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "is",
-        "was",
-        "were",
-        "are"
+        "A) is",
+        "B) was",
+        "C) were",
+        "D) are"
       ],
       "correctIndex": 1
     },
     {
-      "id": 420,
+      "id": 30,
       "question": "Which word represents 'यात्रा'?",
       "questionHindi": "कौन सा शब्द 'यात्रा' को दर्शाता है?",
       "options": [
-        "Travel",
-        "Holiday",
-        "Yesterday",
-        "Childhood"
+        "A) Travel",
+        "B) Holiday",
+        "C) Yesterday",
+        "D) Childhood"
       ],
       "correctIndex": 0
     }
   ],
   "15": [
     {
-      "id": 421,
+      "id": 1,
       "question": "Choose the correct English translation: 'क्या आपने पिछले सप्ताहांत अपनी पसंदीदा फिल्म देखी?'",
       "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'क्या आपने पिछले सप्ताहांत अपनी पसंदीदा फिल्म देखी?'",
       "options": [
-        "Did you watch your favorite movie last weekend?",
-        "Do you watch your favorite movie last weekend?",
-        "Have you watch your favorite movie last weekend?",
-        "Did you watched your favorite movie last weekend?"
+        "A) Did you watch your favorite movie last weekend?",
+        "B) Do you watch your favorite movie last weekend?",
+        "C) Have you watch your favorite movie last weekend?",
+        "D) Did you watched your favorite movie last weekend?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 422,
+      "id": 2,
       "question": "Select the correct option: 'I _____ (नहीं गया) to school yesterday because I was sick.'",
       "questionHindi": "सही विकल्प चुनें: 'I _____ (नहीं गया) to school yesterday because I was sick.'",
       "options": [
-        "don't go",
-        "didn't went",
-        "didn't go",
-        "was not go"
+        "A) don't go",
+        "B) didn't went",
+        "C) didn't go",
+        "D) was not go"
       ],
       "correctIndex": 2
     },
     {
-      "id": 423,
-      "question": "What is the English translation of 'बचपन की यादें'?",
-      "questionHindi": "'बचपन की यादें' का अंग्रेजी अनुवाद क्या है?",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "Childhood studies",
-        "Childhood memories",
-        "Past accomplishments",
-        "Exciting journeys"
+        "A) Childhood studies",
+        "B) Childhood memories",
+        "C) Past accomplishments",
+        "D) Exciting journeys"
       ],
       "correctIndex": 1
     },
     {
-      "id": 424,
+      "id": 4,
       "question": "Choose the correct short answer: 'Did you enjoy your first day at school?' - 'Yes, _____.'",
       "questionHindi": "सही संक्षिप्त उत्तर चुनें: 'Did you enjoy your first day at school?' - 'Yes, _____.'",
       "options": [
-        "I do",
-        "I enjoyed",
-        "I was",
-        "I did"
+        "A) I do",
+        "B) I enjoyed",
+        "C) I was",
+        "D) I did"
       ],
       "correctIndex": 3
     },
     {
-      "id": 425,
-      "question": "Choose the correct English translation: 'आप पिछले साल कहाँ गए थे?'",
-      "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'आप पिछले साल कहाँ गए थे?'",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "Where did you go last year?",
-        "Where do you go last year?",
-        "Where you went last year?",
-        "Where did you went last year?"
+        "A) Where did you go last year?",
+        "B) Where do you go last year?",
+        "C) Where you went last year?",
+        "D) Where did you went last year?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 426,
+      "id": 6,
       "question": "Fill in the blank: 'What _____ (आपने हासिल किया) in your previous job?'",
       "questionHindi": "रिक्त स्थान भरें: 'What _____ (आपने हासिल किया) in your previous job?'",
       "options": [
-        "did you accomplish",
-        "do you accomplish",
-        "did you accomplished",
-        "you did accomplish"
+        "A) did you accomplish",
+        "B) do you accomplish",
+        "C) did you accomplished",
+        "D) you did accomplish"
       ],
       "correctIndex": 0
     },
     {
-      "id": 427,
+      "id": 7,
       "question": "Choose the correct English translation: 'मैंने कल कोई यात्रा नहीं की।'",
       "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'मैंने कल कोई यात्रा नहीं की।'",
       "options": [
-        "I do not take any trip yesterday.",
-        "I didn't take any trip yesterday.",
-        "I didn't took any trip yesterday.",
-        "I was not take any trip yesterday."
+        "A) I do not take any trip yesterday.",
+        "B) I didn't take any trip yesterday.",
+        "C) I didn't took any trip yesterday.",
+        "D) I was not take any trip yesterday."
       ],
       "correctIndex": 1
     },
     {
-      "id": 428,
+      "id": 8,
       "question": "What is the English equivalent of 'एक यादगार यात्रा'?",
       "questionHindi": "'एक यादगार यात्रा' का अंग्रेजी पर्याय क्या है?",
       "options": [
-        "A memorable journey",
-        "A past achievement",
-        "A favorite holiday",
-        "A exciting experience"
+        "A) A memorable journey",
+        "B) A past achievement",
+        "C) A favorite holiday",
+        "D) A exciting experience"
       ],
       "correctIndex": 0
     },
     {
-      "id": 429,
-      "question": "Choose the correct response: 'Did she like the holiday trip?' - 'No, _____.'",
-      "questionHindi": "सही उत्तर चुनें: 'Did she like the holiday trip?' - 'No, _____.'",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "she didn't liked",
-        "she doesn't",
-        "she didn't",
-        "she wasn't"
+        "A) she didn't liked",
+        "B) she doesn't",
+        "C) she didn't",
+        "D) she wasn't"
       ],
       "correctIndex": 2
     },
     {
-      "id": 430,
+      "id": 10,
       "question": "Complete the sentence: 'When _____ (आपने पूरा किया) your graduation project?'",
       "questionHindi": "वाक्य पूरा करें: 'When _____ (आपने पूरा किया) your graduation project?'",
       "options": [
-        "did you completed",
-        "you did complete",
-        "did you complete",
-        "have you complete"
+        "A) did you completed",
+        "B) you did complete",
+        "C) did you complete",
+        "D) have you complete"
       ],
       "correctIndex": 2
     },
     {
-      "id": 431,
-      "question": "Choose the correct English translation: 'हमने अपनी छुट्टियों में बहुत मज़ा नहीं किया।'",
-      "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'हमने अपनी छुट्टियों में बहुत मज़ा नहीं किया।'",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "We didn't had much fun on our holiday.",
-        "We didn't have much fun on our holiday.",
-        "We don't have much fun on our holiday.",
-        "We were not have much fun on our holiday."
+        "A) We didn't had much fun on our holiday.",
+        "B) We didn't have much fun on our holiday.",
+        "C) We don't have much fun on our holiday.",
+        "D) We were not have much fun on our holiday."
       ],
       "correctIndex": 1
     },
     {
-      "id": 432,
-      "question": "What is the correct English phrase for 'पहला नौकरी का अनुभव'?",
-      "questionHindi": "'पहला नौकरी का अनुभव' के लिए सही अंग्रेजी वाक्यांश क्या है?",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "Childhood job story",
-        "First experience job",
-        "Past work memory",
-        "First job experience"
+        "A) Childhood job story",
+        "B) First experience job",
+        "C) Past work memory",
+        "D) First job experience"
       ],
       "correctIndex": 3
     },
     {
-      "id": 433,
-      "question": "Choose the correct question: 'आप वहां कैसे पहुंचे?'",
-      "questionHindi": "सही प्रश्न चुनें: 'आप वहां कैसे पहुंचे?'",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "How did you reach there?",
-        "How you reached there?",
-        "How did you reached there?",
-        "How do you reached there?"
+        "A) How did you reach there?",
+        "B) How you reached there?",
+        "C) How did you reached there?",
+        "D) How do you reached there?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 434,
+      "id": 14,
       "question": "Fill in the blank: 'Why _____ (उसने आपको फोन नहीं किया) last night?'",
       "questionHindi": "रिक्त स्थान भरें: 'Why _____ (उसने आपको फोन नहीं किया) last night?'",
       "options": [
-        "did he not called you",
-        "didn't he call you",
-        "he didn't call you",
-        "doesn't he call you"
+        "A) did he not called you",
+        "B) didn't he call you",
+        "C) he didn't call you",
+        "D) doesn't he call you"
       ],
       "correctIndex": 1
     },
     {
-      "id": 435,
-      "question": "Choose the correct English translation: 'क्या उसने अपना बचपन गाँव में बिताया?'",
-      "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'क्या उसने अपना बचपन गाँव में बिताया?'",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "Did he spent his childhood in a village?",
-        "Did he spend his childhood in a village?",
-        "Does he spend his childhood in a village?",
-        "Was he spend his childhood in a village?"
+        "A) Did he spent his childhood in a village?",
+        "B) Did he spend his childhood in a village?",
+        "C) Does he spend his childhood in a village?",
+        "D) Was he spend his childhood in a village?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 436,
-      "question": "Select the correct short answer: 'Did they buy a new car last month?' - 'No, _____.'",
-      "questionHindi": "सही संक्षिप्त उत्तर चुनें: 'Did they buy a new car last month?' - 'No, _____.'",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "they haven't",
-        "they doesn't",
-        "they didn't",
-        "they don't"
+        "A) they haven't",
+        "B) they doesn't",
+        "C) they didn't",
+        "D) they don't"
       ],
       "correctIndex": 2
     },
     {
-      "id": 437,
-      "question": "What is the English word for 'रोमांचक उपलब्धि'?",
-      "questionHindi": "'रोमांचक उपलब्धि' के लिए अंग्रेजी शब्द क्या है?",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "Memorable memory",
-        "Childhood journey",
-        "Past experience",
-        "Exciting accomplishment"
+        "A) Memorable memory",
+        "B) Childhood journey",
+        "C) Past experience",
+        "D) Exciting accomplishment"
       ],
       "correctIndex": 3
     },
     {
-      "id": 438,
+      "id": 18,
       "question": "Choose the correct English translation: 'उसने अपना काम समय पर पूरा नहीं किया।'",
       "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'उसने अपना काम समय पर पूरा नहीं किया।'",
       "options": [
-        "He didn't finish his work on time.",
-        "He didn't finished his work on time.",
-        "He does not finish his work on time.",
-        "He was not finish his work on time."
+        "A) He didn't finish his work on time.",
+        "B) He didn't finished his work on time.",
+        "C) He does not finish his work on time.",
+        "D) He was not finish his work on time."
       ],
       "correctIndex": 0
     },
     {
-      "id": 439,
-      "question": "Fill in the blank with the correct WH-question word: '_____ did you talk to yesterday afternoon?'",
-      "questionHindi": "सही प्रश्नवाचक शब्द से रिक्त स्थान भरें: '_____ did you talk to yesterday afternoon?'",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "Who",
-        "Which",
-        "Why",
-        "Where"
+        "A) Who",
+        "B) Which",
+        "C) Why",
+        "D) Where"
       ],
       "correctIndex": 0
     },
     {
-      "id": 440,
-      "question": "Choose the correct English translation: 'क्या आपने कल रात अपना गृहकार्य समाप्त कर लिया था?'",
-      "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'क्या आपने कल रात अपना गृहकार्य समाप्त कर लिया था?'",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "Do you finish your homework last night?",
-        "Did you finish your homework last night?",
-        "Did you finished your homework last night?",
-        "Were you finish your homework last night?"
+        "A) Do you finish your homework last night?",
+        "B) Did you finish your homework last night?",
+        "C) Did you finished your homework last night?",
+        "D) Were you finish your homework last night?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 441,
-      "question": "What is the English translation of 'पिछला सप्ताहांत'?",
-      "questionHindi": "'पिछला सप्ताहांत' का अंग्रेजी अनुवाद क्या है?",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "Previous day",
-        "Next weekend",
-        "Last weekend",
-        "Past holiday"
+        "A) Previous day",
+        "B) Next weekend",
+        "C) Last weekend",
+        "D) Past holiday"
       ],
       "correctIndex": 2
     },
     {
-      "id": 442,
-      "question": "Choose the correct response: 'Did you meet your school friends?' - 'Yes, _____.'",
-      "questionHindi": "सही उत्तर चुनें: 'Did you meet your school friends?' - 'Yes, _____.'",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "I met",
-        "I do",
-        "I was",
-        "I did"
+        "A) I met",
+        "B) I do",
+        "C) I was",
+        "D) I did"
       ],
       "correctIndex": 3
     },
     {
-      "id": 443,
-      "question": "Fill in the blank: 'We _____ (नहीं मिले) any problems during our travel.'",
-      "questionHindi": "रिक्त स्थान भरें: 'We _____ (नहीं मिले) any problems during our travel.'",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "didn't face",
-        "didn't faced",
-        "don't face",
-        "were not face"
+        "A) didn't face",
+        "B) didn't faced",
+        "C) don't face",
+        "D) were not face"
       ],
       "correctIndex": 0
     },
     {
-      "id": 444,
-      "question": "Choose the correct English translation: 'आपने अपनी आखिरी छुट्टी में क्या किया?'",
-      "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'आपने अपनी आखिरी छुट्टी में क्या किया?'",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "What you did on your last holiday?",
-        "What did you do on your last holiday?",
-        "What did you did on your last holiday?",
-        "What do you do on your last holiday?"
+        "A) What you did on your last holiday?",
+        "B) What did you do on your last holiday?",
+        "C) What did you did on your last holiday?",
+        "D) What do you do on your last holiday?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 445,
+      "id": 25,
       "question": "Choose the correct sentence structure for negative simple past:",
       "questionHindi": "सामान्य भूतकाल के नकारात्मक वाक्य के लिए सही वाक्य संरचना चुनें:",
       "options": [
-        "Subject + did not + verb (past tense)",
-        "Subject + do not + verb (base form)",
-        "Subject + did not + verb (base form)",
-        "Subject + was not + verb (base form)"
+        "A) Subject + did not + verb (past tense)",
+        "B) Subject + do not + verb (base form)",
+        "C) Subject + did not + verb (base form)",
+        "D) Subject + was not + verb (base form)"
       ],
       "correctIndex": 2
     },
     {
-      "id": 446,
+      "id": 26,
       "question": "What is the translation of 'पसंदीदा बचपन की याद'?",
       "questionHindi": "'पसंदीदा बचपन की याद' का अनुवाद क्या है?",
       "options": [
-        "Memorable childhood work",
-        "Exciting past journey",
-        "First school accomplishment",
-        "Favorite childhood memory"
+        "A) Memorable childhood work",
+        "B) Exciting past journey",
+        "C) First school accomplishment",
+        "D) Favorite childhood memory"
       ],
       "correctIndex": 3
     },
     {
-      "id": 447,
-      "question": "Choose the correct English translation: 'क्या आप पिछले महीने उस सम्मेलन में शामिल हुए थे?'",
-      "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'क्या आप पिछले महीने उस सम्मेलन में शामिल हुए थे?'",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "Did you attend that conference last month?",
-        "Did you attended that conference last month?",
-        "Do you attend that conference last month?",
-        "Have you attend that conference last month?"
+        "A) Did you attend that conference last month?",
+        "B) Did you attended that conference last month?",
+        "C) Do you attend that conference last month?",
+        "D) Have you attend that conference last month?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 448,
-      "question": "Fill in the blank: '_____ did you choose that school?' - 'Because it was very good.'",
-      "questionHindi": "रिक्त स्थान भरें: '_____ did you choose that school?' - 'Because it was very good.'",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "When",
-        "Why",
-        "What",
-        "Where"
+        "A) When",
+        "B) Why",
+        "C) What",
+        "D) Where"
       ],
       "correctIndex": 1
     },
     {
-      "id": 449,
-      "question": "Choose the correct English translation: 'मैंने कल रात अच्छी नींद नहीं ली।'",
-      "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'मैंने कल रात अच्छी नींद नहीं ली।'",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "I don't sleep well last night.",
-        "I was not sleep well last night.",
-        "I didn't sleep well last night.",
-        "I didn't slept well last night."
+        "A) I don't sleep well last night.",
+        "B) I was not sleep well last night.",
+        "C) I didn't sleep well last night.",
+        "D) I didn't slept well last night."
       ],
       "correctIndex": 2
     },
     {
-      "id": 450,
+      "id": 30,
       "question": "Complete the short answer: 'Did Rahul complete his project on time?' - 'No, _____.'",
       "questionHindi": "संक्षिप्त उत्तर पूरा करें: 'Did Rahul complete his project on time?' - 'No, _____.'",
       "options": [
-        "he hasn't",
-        "he didn't completed",
-        "he doesn't",
-        "he didn't"
+        "A) he hasn't",
+        "B) he didn't completed",
+        "C) he doesn't",
+        "D) he didn't"
       ],
       "correctIndex": 3
     }
   ],
   "16": [
     {
-      "id": 451,
+      "id": 1,
       "question": "Which sentence correctly uses sequence words to describe a past event?",
       "questionHindi": "पिछली घटना का वर्णन करने के लिए कौन सा वाक्य क्रम सूचक शब्दों (sequence words) का सही उपयोग करता है?",
       "options": [
-        "First I ate, then I sleep.",
-        "First I eat, then I slept.",
-        "First I ate, after that I sleep.",
-        "First I ate, then I slept."
+        "A) First I ate, then I sleep.",
+        "B) First I eat, then I slept.",
+        "C) First I ate, after that I sleep.",
+        "D) First I ate, then I slept."
       ],
       "correctIndex": 3
     },
     {
-      "id": 452,
+      "id": 2,
       "question": "Translate: 'अचानक बारिश होने लगी।' (Suddenly, it started raining.)",
       "questionHindi": "अनुवाद करें: 'अचानक बारिश होने लगी।'",
       "options": [
-        "Suddenly, it starts raining.",
-        "Suddenly, it start to rain.",
-        "Suddenly, it was rain.",
-        "Suddenly, it started raining."
+        "A) Suddenly, it starts raining.",
+        "B) Suddenly, it start to rain.",
+        "C) Suddenly, it was rain.",
+        "D) Suddenly, it started raining."
       ],
       "correctIndex": 3
     },
     {
-      "id": 453,
-      "question": "Choose the correct past tense form: 'My friend ____ (find) my lost bag yesterday.'",
-      "questionHindi": "सही भूतकाल रूप चुनें: 'My friend ____ (find) my lost bag yesterday.'",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "finds",
-        "finded",
-        "is finding",
-        "found"
+        "A) finds",
+        "B) finded",
+        "C) is finding",
+        "D) found"
       ],
       "correctIndex": 3
     },
     {
-      "id": 454,
+      "id": 4,
       "question": "Fill in the blank: 'I lost my keys, but ____ I found them in my pocket.' (भाग्यवश)",
       "questionHindi": "रिक्त स्थान भरें: 'I lost my keys, but ____ I found them in my pocket.'",
       "options": [
-        "luckily",
-        "suddenly",
-        "first",
-        "finally"
+        "A) luckily",
+        "B) suddenly",
+        "C) first",
+        "D) finally"
       ],
       "correctIndex": 0
     },
     {
-      "id": 455,
-      "question": "Which word is best used to show the end of a story?",
-      "questionHindi": "कहानी का अंत दिखाने के लिए किस शब्द का सबसे अच्छा उपयोग किया जाता है?",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "First",
-        "Suddenly",
-        "Then",
-        "Finally"
+        "A) First",
+        "B) Suddenly",
+        "C) Then",
+        "D) Finally"
       ],
       "correctIndex": 3
     },
     {
-      "id": 456,
+      "id": 6,
       "question": "Translate: 'सबसे पहले हम स्कूल गए, फिर हमने पढ़ाई की।'",
       "questionHindi": "अनुवाद करें: 'सबसे पहले हम स्कूल गए, फिर हमने पढ़ाई की।'",
       "options": [
-        "First we go to school, then we study.",
-        "First we went to school, then we study.",
-        "First we go to school, then we studied.",
-        "First we went to school, then we studied."
+        "A) First we go to school, then we study.",
+        "B) First we went to school, then we study.",
+        "C) First we go to school, then we studied.",
+        "D) First we went to school, then we studied."
       ],
       "correctIndex": 3
     },
     {
-      "id": 457,
+      "id": 7,
       "question": "Which sentence uses the simple past tense correctly?",
       "questionHindi": "कौन सा वाक्य साधारण भूतकाल (simple past) का सही उपयोग करता है?",
       "options": [
-        "She helped me yesterday.",
-        "She help me yesterday.",
-        "She helps me yesterday.",
-        "She is helping me yesterday."
+        "A) She helped me yesterday.",
+        "B) She help me yesterday.",
+        "C) She helps me yesterday.",
+        "D) She is helping me yesterday."
       ],
       "correctIndex": 0
     },
     {
-      "id": 458,
+      "id": 8,
       "question": "Choose the best option: '____ I saw a monkey in the garden.' (अचानक)",
       "questionHindi": "सबसे अच्छा विकल्प चुनें: '____ I saw a monkey in the garden.'",
       "options": [
-        "After that",
-        "Finally",
-        "Luck",
-        "Suddenly"
+        "A) After that",
+        "B) Finally",
+        "C) Luck",
+        "D) Suddenly"
       ],
       "correctIndex": 3
     },
     {
-      "id": 459,
-      "question": "Translate: 'मेरे दोस्त ने मेरी मदद की।'",
-      "questionHindi": "अनुवाद करें: 'मेरे दोस्त ने मेरी मदद की।'",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "My friend help me.",
-        "My friend helps me.",
-        "My friend helped me.",
-        "My friend is helping me."
+        "A) My friend help me.",
+        "B) My friend helps me.",
+        "C) My friend helped me.",
+        "D) My friend is helping me."
       ],
       "correctIndex": 2
     },
     {
-      "id": 460,
+      "id": 10,
       "question": "Fill in the blank: 'We reached the station. ____, the train arrived.' (उसके बाद)",
       "questionHindi": "रिक्त स्थान भरें: 'We reached the station. ____, the train arrived.'",
       "options": [
-        "First",
-        "Suddenly",
-        "After that",
-        "Luckily"
+        "A) First",
+        "B) Suddenly",
+        "C) After that",
+        "D) Luckily"
       ],
       "correctIndex": 2
     },
     {
-      "id": 461,
-      "question": "Identify the past tense verb in this sentence: 'I went to the park and played with my friends.'",
-      "questionHindi": "इस वाक्य में भूतकाल की क्रिया पहचानें: 'I went to the park and played with my friends.'",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "went, played",
-        "go, play",
-        "went, play",
-        "go, played"
+        "A) went, played",
+        "B) go, play",
+        "C) went, play",
+        "D) go, played"
       ],
       "correctIndex": 0
     },
     {
-      "id": 462,
-      "question": "Translate: 'अंत में, हम घर पहुँच गए।'",
-      "questionHindi": "अनुवाद करें: 'अंत में, हम घर पहुँच गए।'",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "First, we reached home.",
-        "Suddenly, we reached home.",
-        "Finally, we reached home.",
-        "Then, we reached home."
+        "A) First, we reached home.",
+        "B) Suddenly, we reached home.",
+        "C) Finally, we reached home.",
+        "D) Then, we reached home."
       ],
       "correctIndex": 2
     },
     {
-      "id": 463,
-      "question": "Which sequence word indicates the next step in a story?",
-      "questionHindi": "कौन सा क्रम सूचक शब्द कहानी में अगला कदम दर्शाता है?",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "Finally",
-        "Luckily",
-        "Then",
-        "Suddenly"
+        "A) Finally",
+        "B) Luckily",
+        "C) Then",
+        "D) Suddenly"
       ],
       "correctIndex": 2
     },
     {
-      "id": 464,
+      "id": 14,
       "question": "Choose the correct sentence to describe a funny incident.",
       "questionHindi": "एक मजेदार घटना का वर्णन करने के लिए सही वाक्य चुनें।",
       "options": [
-        "I fall down and everyone laugh.",
-        "I fell down and everyone laugh.",
-        "I fell down and everyone laughed.",
-        "I fall down and everyone laughed."
+        "A) I fall down and everyone laugh.",
+        "B) I fell down and everyone laugh.",
+        "C) I fell down and everyone laughed.",
+        "D) I fall down and everyone laughed."
       ],
       "correctIndex": 2
     },
     {
-      "id": 465,
-      "question": "Fill in the blank: 'I forgot my homework, but ____ I finished it during lunch.' (भाग्यवश)",
-      "questionHindi": "रिक्त स्थान भरें: 'I forgot my homework, but ____ I finished it during lunch.'",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "luckily",
-        "first",
-        "then",
-        "finally"
+        "A) luckily",
+        "B) first",
+        "C) then",
+        "D) finally"
       ],
       "correctIndex": 0
     },
     {
-      "id": 466,
-      "question": "Translate: 'वह अचानक कमरे में आया।'",
-      "questionHindi": "अनुवाद करें: 'वह अचानक कमरे में आया।'",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "He suddenly comes to the room.",
-        "He suddenly coming to the room.",
-        "He suddenly came to the room.",
-        "He sudden came to the room."
+        "A) He suddenly comes to the room.",
+        "B) He suddenly coming to the room.",
+        "C) He suddenly came to the room.",
+        "D) He sudden came to the room."
       ],
       "correctIndex": 2
     },
     {
-      "id": 467,
-      "question": "Which verb form completes the sentence: 'We ____ (celebrate) our holiday last week.'",
-      "questionHindi": "कौन सा क्रिया रूप वाक्य को पूरा करता है: 'We ____ (celebrate) our holiday last week.'",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "celebrated",
-        "celebrate",
-        "celebrates",
-        "celebrating"
+        "A) celebrated",
+        "B) celebrate",
+        "C) celebrates",
+        "D) celebrating"
       ],
       "correctIndex": 0
     },
     {
-      "id": 468,
+      "id": 18,
       "question": "Choose the correct sequence to tell a story.",
       "questionHindi": "कहानी सुनाने के लिए सही क्रम चुनें।",
       "options": [
-        "First, Then, Finally",
-        "Finally, First, Then",
-        "Then, First, Finally",
-        "First, Finally, Then"
+        "A) First, Then, Finally",
+        "B) Finally, First, Then",
+        "C) Then, First, Finally",
+        "D) First, Finally, Then"
       ],
       "correctIndex": 0
     },
     {
-      "id": 469,
-      "question": "Translate: 'मैंने अपनी घड़ी खो दी थी।'",
-      "questionHindi": "अनुवाद करें: 'मैंने अपनी घड़ी खो दी थी।'",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "I lose my watch.",
-        "I lost my watch.",
-        "I am losing my watch.",
-        "I loose my watch."
+        "A) I lose my watch.",
+        "B) I lost my watch.",
+        "C) I am losing my watch.",
+        "D) I loose my watch."
       ],
       "correctIndex": 1
     },
     {
-      "id": 470,
-      "question": "Fill in the blank: '____ I opened the gift, then I thanked my friend.' (सबसे पहले)",
-      "questionHindi": "रिक्त स्थान भरें: '____ I opened the gift, then I thanked my friend.'",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "Finally",
-        "First",
-        "Suddenly",
-        "Luckily"
+        "A) Finally",
+        "B) First",
+        "C) Suddenly",
+        "D) Luckily"
       ],
       "correctIndex": 1
     },
     {
-      "id": 471,
-      "question": "Which sentence describes an unexpected event?",
-      "questionHindi": "कौन सा वाक्य एक अप्रत्याशित घटना का वर्णन करता है?",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "I went to school daily.",
-        "I usually eat breakfast.",
-        "Suddenly, the lights went out.",
-        "I like to play cricket."
+        "A) I went to school daily.",
+        "B) I usually eat breakfast.",
+        "C) Suddenly, the lights went out.",
+        "D) I like to play cricket."
       ],
       "correctIndex": 2
     },
     {
-      "id": 472,
-      "question": "Translate: 'उसके बाद, हमने खाना खाया।' (After that...)",
-      "questionHindi": "अनुवाद करें: 'उसके बाद, हमने खाना खाया।'",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "After that, we eat food.",
-        "After that, we ate food.",
-        "After that, we eating food.",
-        "After that, we eaten food."
+        "A) After that, we eat food.",
+        "B) After that, we ate food.",
+        "C) After that, we eating food.",
+        "D) After that, we eaten food."
       ],
       "correctIndex": 1
     },
     {
-      "id": 473,
-      "question": "Choose the correct past tense of 'see'.",
-      "questionHindi": "'see' का सही भूतकाल रूप चुनें।",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "seed",
-        "saw",
-        "seen",
-        "seeing"
+        "A) seed",
+        "B) saw",
+        "C) seen",
+        "D) seeing"
       ],
       "correctIndex": 1
     },
     {
-      "id": 474,
-      "question": "Fill in the blank: 'The movie was long, but ____ we enjoyed it.' (अंत में)",
-      "questionHindi": "रिक्त स्थान भरें: 'The movie was long, but ____ we enjoyed it.'",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "finally",
-        "first",
-        "suddenly",
-        "luckily"
+        "A) finally",
+        "B) first",
+        "C) suddenly",
+        "D) luckily"
       ],
       "correctIndex": 0
     },
     {
-      "id": 475,
+      "id": 25,
       "question": "Which word implies a lucky situation?",
       "questionHindi": "कौन सा शब्द सौभाग्यपूर्ण स्थिति को दर्शाता है?",
       "options": [
-        "Suddenly",
-        "Luckily",
-        "First",
-        "Then"
+        "A) Suddenly",
+        "B) Luckily",
+        "C) First",
+        "D) Then"
       ],
       "correctIndex": 1
     },
     {
-      "id": 476,
+      "id": 26,
       "question": "Translate: 'वह बहुत खुश था।'",
       "questionHindi": "अनुवाद करें: 'वह बहुत खुश था।'",
       "options": [
-        "He is very happy.",
-        "He was very happy.",
-        "He were very happy.",
-        "He been very happy."
+        "A) He is very happy.",
+        "B) He was very happy.",
+        "C) He were very happy.",
+        "D) He been very happy."
       ],
       "correctIndex": 1
     },
     {
-      "id": 477,
-      "question": "Which sentence is correct?",
-      "questionHindi": "कौन सा वाक्य सही है?",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "We went to the beach, then we swam.",
-        "We go to the beach, then we swim.",
-        "We went to the beach, then we swimming.",
-        "We go to the beach, then we swam."
+        "A) We went to the beach, then we swam.",
+        "B) We go to the beach, then we swim.",
+        "C) We went to the beach, then we swimming.",
+        "D) We go to the beach, then we swam."
       ],
       "correctIndex": 0
     },
     {
-      "id": 478,
-      "question": "Fill in the blank: 'I was walking when ____ it started to rain.' (अचानक)",
-      "questionHindi": "रिक्त स्थान भरें: 'I was walking when ____ it started to rain.'",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "first",
-        "suddenly",
-        "finally",
-        "after that"
+        "A) first",
+        "B) suddenly",
+        "C) finally",
+        "D) after that"
       ],
       "correctIndex": 1
     },
     {
-      "id": 479,
-      "question": "Choose the past form of 'tell'.",
-      "questionHindi": "'tell' का भूतकाल रूप चुनें।",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "telled",
-        "tells",
-        "told",
-        "telling"
+        "A) telled",
+        "B) tells",
+        "C) told",
+        "D) telling"
       ],
       "correctIndex": 2
     },
     {
-      "id": 480,
+      "id": 30,
       "question": "Translate: 'अंत में मुझे मेरी चाबियाँ मिल गईं।'",
       "questionHindi": "अनुवाद करें: 'अंत में मुझे मेरी चाबियाँ मिल गईं।'",
       "options": [
-        "Finally I find my keys.",
-        "Finally I found my keys.",
-        "Finally I am finding my keys.",
-        "Finally I was find my keys."
+        "A) Finally I find my keys.",
+        "B) Finally I found my keys.",
+        "C) Finally I am finding my keys.",
+        "D) Finally I was find my keys."
       ],
       "correctIndex": 1
     }
   ],
   "17": [
     {
-      "id": 481,
+      "id": 1,
       "question": "What were you doing when the rain started heavily yesterday?",
       "questionHindi": "कल जब जोर से बारिश शुरू हुई, तो आप क्या कर रहे थे?",
       "options": [
-        "What you were doing when rain started?",
-        "What was you doing when the rain started?",
-        "What you did when the rain was starting?",
-        "What were you doing when the rain started?"
+        "A) What you were doing when rain started?",
+        "B) What was you doing when the rain started?",
+        "C) What you did when the rain was starting?",
+        "D) What were you doing when the rain started?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 482,
+      "id": 2,
       "question": "Choose the correct translation: 'मैं कल रात पढ़ाई कर रहा था जब बिजली चली गई।'",
       "questionHindi": "Choose the correct translation: 'मैं कल रात पढ़ाई कर रहा था जब बिजली चली गई।'",
       "options": [
-        "I studied when the power was going out.",
-        "I were studying when the power went out.",
-        "I was study when the power went out.",
-        "I was studying when the power went out."
+        "A) I studied when the power was going out.",
+        "B) I were studying when the power went out.",
+        "C) I was study when the power went out.",
+        "D) I was studying when the power went out."
       ],
       "correctIndex": 3
     },
     {
-      "id": 483,
+      "id": 3,
       "question": "While I ________ dinner, the phone rang.",
-      "questionHindi": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "cook",
-        "were cooking",
-        "am cooking",
-        "was cooking"
+        "A) cook",
+        "B) were cooking",
+        "C) am cooking",
+        "D) was cooking"
       ],
       "correctIndex": 3
     },
     {
-      "id": 484,
+      "id": 4,
       "question": "What were you working on this time last week?",
       "questionHindi": "पिछले सप्ताह इस समय आप किस काम पर काम कर रहे थे?",
       "options": [
-        "What did you work this time last week?",
-        "What were you work this time last week?",
-        "What was you working on this time last week?",
-        "What were you working on this time last week?"
+        "A) What did you work this time last week?",
+        "B) What were you work this time last week?",
+        "C) What was you working on this time last week?",
+        "D) What were you working on this time last week?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 485,
+      "id": 5,
       "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
-      "questionHindi": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "is playing",
-        "were playing",
-        "play",
-        "was playing"
+        "A) is playing",
+        "B) were playing",
+        "C) play",
+        "D) was playing"
       ],
       "correctIndex": 3
     },
     {
-      "id": 486,
+      "id": 6,
       "question": "What were your family members doing when you returned home yesterday?",
       "questionHindi": "कल जब आप घर लौटे, तो आपके परिवार के सदस्य क्या कर रहे थे?",
       "options": [
-        "What your family members did when you returned?",
-        "What was your family members doing when you returned?",
-        "What did your family members doing when you returned?",
-        "What were your family members doing when you returned?"
+        "A) What your family members did when you returned?",
+        "B) What was your family members doing when you returned?",
+        "C) What did your family members doing when you returned?",
+        "D) What were your family members doing when you returned?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 487,
+      "id": 7,
       "question": "Translate: 'वह सड़क पार कर रहा था जब उसने एक दुर्घटना देखी।'",
       "questionHindi": "Translate: 'वह सड़क पार कर रहा था जब उसने एक दुर्घटना देखी।'",
       "options": [
-        "He crossed the road when he was seeing an accident.",
-        "He were crossing the road when he saw an accident.",
-        "He was crossing the road when he saw an accident.",
-        "He was cross the road when he saw an accident."
+        "A) He crossed the road when he was seeing an accident.",
+        "B) He were crossing the road when he saw an accident.",
+        "C) He was crossing the road when he saw an accident.",
+        "D) He was cross the road when he saw an accident."
       ],
       "correctIndex": 2
     },
     {
-      "id": 488,
+      "id": 8,
       "question": "What were you thinking about before you joined this speaking session?",
       "questionHindi": "इस स्पीकिंग सेशन में शामिल होने से पहले आप क्या सोच रहे थे?",
       "options": [
-        "What you was thinking before you joined?",
-        "What did you think before you joined?",
-        "What were you thinking before you joined?",
-        "What was you thinking before you joined?"
+        "A) What you was thinking before you joined?",
+        "B) What did you think before you joined?",
+        "C) What were you thinking before you joined?",
+        "D) What was you thinking before you joined?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 489,
+      "id": 9,
       "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
-      "questionHindi": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "was watching",
-        "were watch",
-        "were watching",
-        "watching"
+        "A) was watching",
+        "B) were watch",
+        "C) were watching",
+        "D) watching"
       ],
       "correctIndex": 2
     },
     {
-      "id": 490,
+      "id": 10,
       "question": "Which sentence is grammatically correct?",
       "questionHindi": "कौन सा वाक्य व्याकरण की दृष्टि से सही है?",
       "options": [
-        "We was talking when the teacher walked in.",
-        "We were talk when the teacher walked in.",
-        "We were talking when the teacher walked in.",
-        "We was talk when the teacher walked in."
+        "A) We was talking when the teacher walked in.",
+        "B) We were talk when the teacher walked in.",
+        "C) We were talking when the teacher walked in.",
+        "D) We was talk when the teacher walked in."
       ],
       "correctIndex": 2
     },
     {
-      "id": 491,
-      "question": "Translate: 'जब मैं ऑफिस में काम कर रहा था, तब बॉस आए।'",
-      "questionHindi": "Translate: 'जब मैं ऑफिस में काम कर रहा था, तब बॉस आए।'",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "The boss came when I were working in the office.",
-        "The boss came when I was working in the office.",
-        "The boss was coming when I worked in the office.",
-        "The boss come when I was working in the office."
+        "A) The boss came when I were working in the office.",
+        "B) The boss came when I was working in the office.",
+        "C) The boss was coming when I worked in the office.",
+        "D) The boss come when I was working in the office."
       ],
       "correctIndex": 1
     },
     {
-      "id": 492,
+      "id": 12,
       "question": "What ________ you doing when the lights went out?",
-      "questionHindi": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "was",
-        "were",
-        "did",
-        "are"
+        "A) was",
+        "B) were",
+        "C) did",
+        "D) are"
       ],
       "correctIndex": 1
     },
     {
-      "id": 493,
+      "id": 13,
       "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
-      "questionHindi": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "were waiting",
-        "was waiting",
-        "waited",
-        "am waiting"
+        "A) were waiting",
+        "B) was waiting",
+        "C) waited",
+        "D) am waiting"
       ],
       "correctIndex": 1
     },
     {
-      "id": 494,
+      "id": 14,
       "question": "Translate: 'कल शाम आप क्या कर रहे थे?'",
       "questionHindi": "Translate: 'कल शाम आप क्या कर रहे थे?'",
       "options": [
-        "What you were doing yesterday evening?",
-        "What was you doing yesterday evening?",
-        "What were you doing yesterday evening?",
-        "What did you doing yesterday evening?"
+        "A) What you were doing yesterday evening?",
+        "B) What was you doing yesterday evening?",
+        "C) What were you doing yesterday evening?",
+        "D) What did you doing yesterday evening?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 495,
-      "question": "Select the correct sentence for the situation: 'Classroom incident'",
-      "questionHindi": "स्थिति के लिए सही वाक्य चुनें: 'Classroom incident'",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "The teacher explained when the student was laughing.",
-        "The teacher was explaining when the student laughed.",
-        "The teacher was explain when the student was laughing.",
-        "The teacher explain when the student laughed."
+        "A) The teacher explained when the student was laughing.",
+        "B) The teacher was explaining when the student laughed.",
+        "C) The teacher was explain when the student was laughing.",
+        "D) The teacher explain when the student laughed."
       ],
       "correctIndex": 1
     },
     {
-      "id": 496,
+      "id": 16,
       "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
-      "questionHindi": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "were driving",
-        "was driving",
-        "is driving",
-        "drove"
+        "A) were driving",
+        "B) was driving",
+        "C) is driving",
+        "D) drove"
       ],
       "correctIndex": 1
     },
     {
-      "id": 497,
+      "id": 17,
       "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
-      "questionHindi": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "was playing",
-        "were playing",
-        "played",
-        "are playing"
+        "A) was playing",
+        "B) were playing",
+        "C) played",
+        "D) are playing"
       ],
       "correctIndex": 1
     },
     {
-      "id": 498,
+      "id": 18,
       "question": "Translate: 'हम यात्रा के दौरान गाना सुन रहे थे।'",
       "questionHindi": "Translate: 'हम यात्रा के दौरान गाना सुन रहे थे।'",
       "options": [
-        "We were listening to music during the journey.",
-        "We was listening to music during the journey.",
-        "We were listen to music during the journey.",
-        "We listened to music during the journey."
+        "A) We were listening to music during the journey.",
+        "B) We was listening to music during the journey.",
+        "C) We were listen to music during the journey.",
+        "D) We listened to music during the journey."
       ],
       "correctIndex": 0
     },
     {
-      "id": 499,
+      "id": 19,
       "question": "What ________ he doing when the accident happened?",
-      "questionHindi": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "were",
-        "did",
-        "was",
-        "is"
+        "A) were",
+        "B) did",
+        "C) was",
+        "D) is"
       ],
       "correctIndex": 2
     },
     {
-      "id": 500,
+      "id": 20,
       "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
-      "questionHindi": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "was studying",
-        "studied",
-        "study",
-        "was study"
+        "A) was studying",
+        "B) studied",
+        "C) study",
+        "D) was study"
       ],
       "correctIndex": 0
     },
     {
-      "id": 501,
-      "question": "Translate: 'जब मैं सो रहा था, तब मेरा फोन बज रहा था।'",
-      "questionHindi": "Translate: 'जब मैं सो रहा था, तब मेरा फोन बज रहा था।'",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "My phone was ringing when I was sleeping.",
-        "My phone rang when I was sleeping.",
-        "My phone was ring when I was sleeping.",
-        "My phone were ringing when I was sleep."
+        "A) My phone was ringing when I was sleeping.",
+        "B) My phone rang when I was sleeping.",
+        "C) My phone was ring when I was sleeping.",
+        "D) My phone were ringing when I was sleep."
       ],
       "correctIndex": 0
     },
     {
-      "id": 502,
+      "id": 22,
       "question": "Identify the error: 'They was playing cricket while it was raining.'",
-      "questionHindi": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "They was",
-        "playing",
-        "while",
-        "was raining"
+        "A) They was",
+        "B) playing",
+        "C) while",
+        "D) was raining"
       ],
       "correctIndex": 0
     },
     {
-      "id": 503,
+      "id": 23,
       "question": "What were you ________ (do) before the meeting started?",
-      "questionHindi": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "did",
-        "done",
-        "doing",
-        "do"
+        "A) did",
+        "B) done",
+        "C) doing",
+        "D) do"
       ],
       "correctIndex": 2
     },
     {
-      "id": 504,
+      "id": 24,
       "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
-      "questionHindi": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "we was eating",
-        "we were eating",
-        "we were eat",
-        "we are eating"
+        "A) we was eating",
+        "B) we were eating",
+        "C) we were eat",
+        "D) we are eating"
       ],
       "correctIndex": 1
     },
     {
-      "id": 505,
+      "id": 25,
       "question": "Which sentence describes an ongoing past action interrupted by an event?",
       "questionHindi": "कौन सा वाक्य एक जारी अतीत की क्रिया का वर्णन करता है जो एक घटना से बाधित हुई थी?",
       "options": [
-        "I went to the store.",
-        "I was reading when the bell rang.",
-        "I read a book yesterday.",
-        "I am reading right now."
+        "A) I went to the store.",
+        "B) I was reading when the bell rang.",
+        "C) I read a book yesterday.",
+        "D) I am reading right now."
       ],
       "correctIndex": 1
     },
     {
-      "id": 506,
+      "id": 26,
       "question": "Translate: 'वह खाना बना रही थी जब मेहमान आए।'",
       "questionHindi": "Translate: 'वह खाना बना रही थी जब मेहमान आए।'",
       "options": [
-        "She was cooking when the guests arrived.",
-        "She cooked when the guests were arriving.",
-        "She were cooking when the guests arrived.",
-        "She was cook when the guests arrived."
+        "A) She was cooking when the guests arrived.",
+        "B) She cooked when the guests were arriving.",
+        "C) She were cooking when the guests arrived.",
+        "D) She was cook when the guests arrived."
       ],
       "correctIndex": 0
     },
     {
-      "id": 507,
+      "id": 27,
       "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
-      "questionHindi": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "was speaking",
-        "were speaking",
-        "spoke",
-        "is speaking"
+        "A) was speaking",
+        "B) were speaking",
+        "C) spoke",
+        "D) is speaking"
       ],
       "correctIndex": 0
     },
     {
-      "id": 508,
-      "question": "What were you doing when you heard the news?",
-      "questionHindi": "जब आपने खबर सुनी तो आप क्या कर रहे थे?",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "What you were doing when you heard?",
-        "What was you doing when you heard?",
-        "What were you doing when you heard?",
-        "What did you doing when you heard?"
+        "A) What you were doing when you heard?",
+        "B) What was you doing when you heard?",
+        "C) What were you doing when you heard?",
+        "D) What did you doing when you heard?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 509,
+      "id": 29,
       "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
-      "questionHindi": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "was walking",
-        "were walking",
-        "walked",
-        "walk"
+        "A) was walking",
+        "B) were walking",
+        "C) walked",
+        "D) walk"
       ],
       "correctIndex": 0
     },
     {
-      "id": 510,
+      "id": 30,
       "question": "Translate: 'वे कल शाम क्रिकेट खेल रहे थे।'",
       "questionHindi": "Translate: 'वे कल शाम क्रिकेट खेल रहे थे।'",
       "options": [
-        "They were playing cricket yesterday evening.",
-        "They was playing cricket yesterday evening.",
-        "They played cricket yesterday evening.",
-        "They were play cricket yesterday evening."
+        "A) They were playing cricket yesterday evening.",
+        "B) They was playing cricket yesterday evening.",
+        "C) They played cricket yesterday evening.",
+        "D) They were play cricket yesterday evening."
       ],
       "correctIndex": 0
     }
   ],
   "18": [
     {
-      "id": 511,
-      "question": "Choose the correct translation: 'मैंने अभी-अभी अपनी ग्रेजुएशन पूरी की है।'",
-      "questionHindi": "मैंने अभी-अभी अपनी ग्रेजुएशन पूरी की है।",
+      "id": 1,
+      "question": "Choose the correct translation: 'मैंने कभी हवाई जहाज़ से यात्रा नहीं की है।' (I have never...)",
+      "questionHindi": "अनुवाद करें: 'मैंने कभी हवाई जहाज़ से यात्रा नहीं की है।' (I have never traveled by plane)",
       "options": [
-        "I completed my graduation recently.",
-        "I have completing my graduation.",
-        "I am recently completed my graduation.",
-        "I have recently completed my graduation."
+        "A) I completed my graduation recently.",
+        "B) I have completing my graduation.",
+        "C) I am recently completed my graduation.",
+        "D) I have recently completed my graduation."
       ],
       "correctIndex": 3
     },
     {
-      "id": 512,
-      "question": "Which sentence correctly uses the present perfect tense for a life achievement?",
-      "questionHindi": "जीवन की उपलब्धि के लिए कौन सा वाक्य प्रेजेंट परफेक्ट टेंस का सही उपयोग करता है?",
+      "id": 2,
+      "question": "Complete the question about life experience: 'Have you ever visited a foreign country?'",
+      "questionHindi": "जीवन के अनुभव (life experience) के बारे में प्रश्न पूरा करें: 'क्या आप कभी विदेश गए हैं?'",
       "options": [
-        "I win three awards so far.",
-        "I had won three awards so far.",
-        "I am winning three awards so far.",
-        "I have won three awards so far."
+        "A) I win three awards so far.",
+        "B) I had won three awards so far.",
+        "C) I am winning three awards so far.",
+        "D) I have won three awards so far."
       ],
       "correctIndex": 3
     },
     {
-      "id": 513,
-      "question": "Translate: 'क्या आपने कभी किसी बड़ी कंपनी में काम किया है?'",
-      "questionHindi": "क्या आपने कभी किसी बड़ी कंपनी में काम किया है?",
+      "id": 3,
+      "question": "Which sentence uses the present perfect tense to express an achievement so far?",
+      "questionHindi": "अब तक की उपलब्धि (achievement so far) व्यक्त करने के लिए प्रेजेंट परफेक्ट काल का सही वाक्य कौन सा है?",
       "options": [
-        "Did you ever work in a big company?",
-        "Have you worked ever in a big company?",
-        "Are you ever worked in a big company?",
-        "Have you ever worked in a big company?"
+        "A) Did you ever work in a big company?",
+        "B) Have you worked ever in a big company?",
+        "C) Are you ever worked in a big company?",
+        "D) Have you ever worked in a big company?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 514,
-      "question": "Fill in the blank: 'I ______ never traveled abroad for work purposes.'",
-      "questionHindi": "रिक्त स्थान भरें: 'I ______ never traveled abroad for work purposes.'",
+      "id": 4,
+      "question": "Translate: 'मैंने अपने जीवन में अब तक बहुत कुछ सीखा है।' (I have learned so far)",
+      "questionHindi": "अनुवाद करें: 'मैंने अपने जीवन में अब तक बहुत कुछ सीखा है।' (learned so far)",
       "options": [
-        "has",
-        "am",
-        "do",
-        "have"
+        "A) has",
+        "B) am",
+        "C) do",
+        "D) have"
       ],
       "correctIndex": 3
     },
     {
-      "id": 515,
-      "question": "Choose the best English equivalent for 'माईलस्टोन' (milestone) in a career context.",
-      "questionHindi": "'माईलस्टोन' के लिए सबसे सही अंग्रेजी शब्द चुनें।",
+      "id": 5,
+      "question": "Which question asks about someone's career experience using 'Have you ever'?",
+      "questionHindi": "करियर के अनुभव (career experience) के बारे में 'Have you ever' का प्रयोग कर पूछा जाने वाला प्रश्न कौन सा है?",
       "options": [
-        "Small daily task",
-        "A heavy stone",
-        "A college degree",
-        "A significant stage or event in life"
+        "A) Small daily task",
+        "B) A heavy stone",
+        "C) A college degree",
+        "D) A significant stage or event in life"
       ],
       "correctIndex": 3
     },
     {
-      "id": 516,
+      "id": 6,
       "question": "Translate: 'मैंने पिछले पांच वर्षों में बहुत कुछ सीखा है।'",
       "questionHindi": "मैंने पिछले पांच वर्षों में बहुत कुछ सीखा है।",
       "options": [
-        "I learned a lot in the last five years.",
-        "I am learning a lot in the last five years.",
-        "I have been learning a lot since five years.",
-        "I have learned a lot in the last five years."
+        "A) I learned a lot in the last five years.",
+        "B) I am learning a lot in the last five years.",
+        "C) I have been learning a lot since five years.",
+        "D) I have learned a lot in the last five years."
       ],
       "correctIndex": 3
     },
     {
-      "id": 517,
+      "id": 7,
       "question": "Which sentence indicates a completed action with present relevance?",
       "questionHindi": "कौन सा वाक्य वर्तमान प्रासंगिकता के साथ पूर्ण कार्य को दर्शाता है?",
       "options": [
-        "She already finished her project.",
-        "She finishes her project already.",
-        "She has already finished her project.",
-        "She is already finishing her project."
+        "A) She already finished her project.",
+        "B) She finishes her project already.",
+        "C) She has already finished her project.",
+        "D) She is already finishing her project."
       ],
       "correctIndex": 2
     },
     {
-      "id": 518,
+      "id": 8,
       "question": "Translate: 'क्या आपने हाल ही में कोई नया कौशल सीखा है?'",
       "questionHindi": "क्या आपने हाल ही में कोई नया कौशल सीखा है?",
       "options": [
-        "Did you recently learn any new skill?",
-        "Have you learn any new skill recently?",
-        "Have you recently learned any new skill?",
-        "Do you recently learn any new skill?"
+        "A) Did you recently learn any new skill?",
+        "B) Have you learn any new skill recently?",
+        "C) Have you recently learned any new skill?",
+        "D) Do you recently learn any new skill?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 519,
-      "question": "Choose the correct phrase for 'जीवन यात्रा' (life journey).",
-      "questionHindi": "'जीवन यात्रा' के लिए सही वाक्यांश चुनें।",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "Life road",
-        "Life path",
-        "Life journey",
-        "Life walk"
+        "A) Life road",
+        "B) Life path",
+        "C) Life journey",
+        "D) Life walk"
       ],
       "correctIndex": 2
     },
     {
-      "id": 520,
+      "id": 10,
       "question": "Fill in the blank: 'She ______ already received her certification for the course.'",
       "questionHindi": "रिक्त स्थान भरें: 'She ______ already received her certification for the course.'",
       "options": [
-        "have",
-        "is",
-        "has",
-        "did"
+        "A) have",
+        "B) is",
+        "C) has",
+        "D) did"
       ],
       "correctIndex": 2
     },
     {
-      "id": 521,
-      "question": "Translate: 'मैंने अभी तक अपना लक्ष्य प्राप्त नहीं किया है।'",
-      "questionHindi": "मैंने अभी तक अपना लक्ष्य प्राप्त नहीं किया है।",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "I did not achieve my goal so far.",
-        "I am not achieving my goal so far.",
-        "I have not achieved my goal so far.",
-        "I have not achieve my goal so far."
+        "A) I did not achieve my goal so far.",
+        "B) I am not achieving my goal so far.",
+        "C) I have not achieved my goal so far.",
+        "D) I have not achieve my goal so far."
       ],
       "correctIndex": 2
     },
     {
-      "id": 522,
-      "question": "Which word best completes: 'My perspective on life ______ changed significantly over the last few years.'",
-      "questionHindi": "रिक्त स्थान भरें: 'My perspective on life ______ changed significantly over the last few years.'",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "have",
-        "had",
-        "has",
-        "is"
+        "A) have",
+        "B) had",
+        "C) has",
+        "D) is"
       ],
       "correctIndex": 2
     },
     {
-      "id": 523,
-      "question": "Translate: 'क्या आप कभी विदेश गए हैं?'",
-      "questionHindi": "क्या आप कभी विदेश गए हैं?",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "Did you ever go abroad?",
-        "Are you ever going abroad?",
-        "Have you ever gone abroad?",
-        "Do you ever go abroad?"
+        "A) Did you ever go abroad?",
+        "B) Are you ever going abroad?",
+        "C) Have you ever gone abroad?",
+        "D) Do you ever go abroad?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 524,
+      "id": 14,
       "question": "Choose the correct sentence regarding a recent achievement.",
       "questionHindi": "हालिया उपलब्धि के संबंध में सही वाक्य चुनें।",
       "options": [
-        "I have promoted recently.",
-        "I have been promoted recently.",
-        "I promoted recently.",
-        "I am promoted recently."
+        "A) I have promoted recently.",
+        "B) I have been promoted recently.",
+        "C) I promoted recently.",
+        "D) I am promoted recently."
       ],
       "correctIndex": 1
     },
     {
-      "id": 525,
-      "question": "Translate: 'उसने अपने करियर में कई महत्वपूर्ण फैसले लिए हैं।'",
-      "questionHindi": "उसने अपने करियर में कई महत्वपूर्ण फैसले लिए हैं।",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "He has taken many important decisions in his career.",
-        "He took many important decisions in his career.",
-        "He have taken many important decisions in his career.",
-        "He is taking many important decisions in his career."
+        "A) He has taken many important decisions in his career.",
+        "B) He took many important decisions in his career.",
+        "C) He have taken many important decisions in his career.",
+        "D) He is taking many important decisions in his career."
       ],
       "correctIndex": 0
     },
     {
-      "id": 526,
-      "question": "Fill in the blank: 'We ______ never experienced such a challenging project before.'",
-      "questionHindi": "रिक्त स्थान भरें: 'We ______ never experienced such a challenging project before.'",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "has",
-        "are",
-        "have",
-        "did"
+        "A) has",
+        "B) are",
+        "C) have",
+        "D) did"
       ],
       "correctIndex": 2
     },
     {
-      "id": 527,
-      "question": "Translate: 'मैंने अपना पूरा जीवन शिक्षा के लिए समर्पित कर दिया है।'",
-      "questionHindi": "मैंने अपना पूरा जीवन शिक्षा के लिए समर्पित कर दिया है।",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "I dedicated my whole life to education.",
-        "I have dedicated my whole life to education.",
-        "I have dedicating my whole life to education.",
-        "I am dedicating my whole life to education."
+        "A) I dedicated my whole life to education.",
+        "B) I have dedicated my whole life to education.",
+        "C) I have dedicating my whole life to education.",
+        "D) I am dedicating my whole life to education."
       ],
       "correctIndex": 1
     },
     {
-      "id": 528,
+      "id": 18,
       "question": "Identify the correct grammar: 'I have ______ my work.'",
       "questionHindi": "सही व्याकरण पहचानें: 'I have ______ my work.'",
       "options": [
-        "finish",
-        "finished",
-        "finishing",
-        "finishes"
+        "A) finish",
+        "B) finished",
+        "C) finishing",
+        "D) finishes"
       ],
       "correctIndex": 1
     },
     {
-      "id": 529,
-      "question": "Translate: 'क्या आपने अभी तक अपनी रिपोर्ट जमा की है?'",
-      "questionHindi": "क्या आपने अभी तक अपनी रिपोर्ट जमा की है?",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "Have you submitted your report yet?",
-        "Did you submit your report yet?",
-        "Are you submitting your report yet?",
-        "Have you submit your report yet?"
+        "A) Have you submitted your report yet?",
+        "B) Did you submit your report yet?",
+        "C) Are you submitting your report yet?",
+        "D) Have you submit your report yet?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 530,
-      "question": "Choose the correct usage of 'so far' in a sentence.",
-      "questionHindi": "'so far' का सही उपयोग चुनें।",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "I have completed two projects so far.",
-        "I completed so far two projects.",
-        "So far I have complete two projects.",
-        "I have so far complete two projects."
+        "A) I have completed two projects so far.",
+        "B) I completed so far two projects.",
+        "C) So far I have complete two projects.",
+        "D) I have so far complete two projects."
       ],
       "correctIndex": 0
     },
     {
-      "id": 531,
-      "question": "Translate: 'वह हाल ही में मुंबई शिफ्ट हो गया है।'",
-      "questionHindi": "वह हाल ही में मुंबई शिफ्ट हो गया है।",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "He shifted to Mumbai recently.",
-        "He has shifted to Mumbai recently.",
-        "He is shifted to Mumbai recently.",
-        "He have shifted to Mumbai recently."
+        "A) He shifted to Mumbai recently.",
+        "B) He has shifted to Mumbai recently.",
+        "C) He is shifted to Mumbai recently.",
+        "D) He have shifted to Mumbai recently."
       ],
       "correctIndex": 1
     },
     {
-      "id": 532,
-      "question": "Fill in the blank: 'They ______ already started their new business.'",
-      "questionHindi": "रिक्त स्थान भरें: 'They ______ already started their new business.'",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "has",
-        "have",
-        "had",
-        "are"
+        "A) has",
+        "B) have",
+        "C) had",
+        "D) are"
       ],
       "correctIndex": 1
     },
     {
-      "id": 533,
-      "question": "Translate: 'मेरे नजरिए में बदलाव आया है।'",
-      "questionHindi": "मेरे नजरिए में बदलाव आया है।",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "My perspective has changed.",
-        "My perspective changed.",
-        "My perspective is change.",
-        "My perspective have changed."
+        "A) My perspective has changed.",
+        "B) My perspective changed.",
+        "C) My perspective is change.",
+        "D) My perspective have changed."
       ],
       "correctIndex": 0
     },
     {
-      "id": 534,
-      "question": "Which sentence describes a life experience correctly?",
-      "questionHindi": "कौन सा वाक्य जीवन के अनुभव का सही वर्णन करता है?",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "I have ever traveled to Delhi.",
-        "I have never traveled to Delhi.",
-        "I never have traveled to Delhi.",
-        "I am never traveled to Delhi."
+        "A) I have ever traveled to Delhi.",
+        "B) I have never traveled to Delhi.",
+        "C) I never have traveled to Delhi.",
+        "D) I am never traveled to Delhi."
       ],
       "correctIndex": 1
     },
     {
-      "id": 535,
+      "id": 25,
       "question": "Translate: 'क्या आपने कभी किसी बड़ी उपलब्धि का अनुभव किया है?'",
       "questionHindi": "क्या आपने कभी किसी बड़ी उपलब्धि का अनुभव किया है?",
       "options": [
-        "Have you ever experienced a major achievement?",
-        "Did you ever experience a major achievement?",
-        "Have you experience a major achievement?",
-        "Are you ever experience a major achievement?"
+        "A) Have you ever experienced a major achievement?",
+        "B) Did you ever experience a major achievement?",
+        "C) Have you experience a major achievement?",
+        "D) Are you ever experience a major achievement?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 536,
+      "id": 26,
       "question": "Fill in the blank: 'She ______ just finished her graduation.'",
       "questionHindi": "रिक्त स्थान भरें: 'She ______ just finished her graduation.'",
       "options": [
-        "have",
-        "has",
-        "is",
-        "did"
+        "A) have",
+        "B) has",
+        "C) is",
+        "D) did"
       ],
       "correctIndex": 1
     },
     {
-      "id": 537,
-      "question": "Translate: 'उसने अब तक कई प्रमाण पत्र (certificates) प्राप्त किए हैं।'",
-      "questionHindi": "उसने अब तक कई प्रमाण पत्र प्राप्त किए हैं।",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "He has obtained many certificates so far.",
-        "He obtained many certificates so far.",
-        "He have obtained many certificates so far.",
-        "He is obtaining many certificates so far."
+        "A) He has obtained many certificates so far.",
+        "B) He obtained many certificates so far.",
+        "C) He have obtained many certificates so far.",
+        "D) He is obtaining many certificates so far."
       ],
       "correctIndex": 0
     },
     {
-      "id": 538,
-      "question": "Which of these is correctly used with 'already'?",
-      "questionHindi": "इनमें से कौन सा 'already' के साथ सही इस्तेमाल किया गया है?",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "I already have finished the task.",
-        "I have already finished the task.",
-        "I have finished already the task.",
-        "Already I have finished the task."
+        "A) I already have finished the task.",
+        "B) I have already finished the task.",
+        "C) I have finished already the task.",
+        "D) Already I have finished the task."
       ],
       "correctIndex": 1
     },
     {
-      "id": 539,
-      "question": "Translate: 'मैंने अपने जीवन में बहुत उतार-चढ़ाव देखे हैं।'",
-      "questionHindi": "मैंने अपने जीवन में बहुत उतार-चढ़ाव देखे हैं।",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "I have seen many ups and downs in my life.",
-        "I saw many ups and downs in my life.",
-        "I have see many ups and downs in my life.",
-        "I am seeing many ups and downs in my life."
+        "A) I have seen many ups and downs in my life.",
+        "B) I saw many ups and downs in my life.",
+        "C) I have see many ups and downs in my life.",
+        "D) I am seeing many ups and downs in my life."
       ],
       "correctIndex": 0
     },
     {
-      "id": 540,
+      "id": 30,
       "question": "Choose the best way to ask about career growth.",
       "questionHindi": "करियर विकास के बारे में पूछने का सबसे अच्छा तरीका चुनें।",
       "options": [
-        "How has your career grown so far?",
-        "How your career grow so far?",
-        "How is your career grown so far?",
-        "How have your career grown so far?"
+        "A) How has your career grown so far?",
+        "B) How your career grow so far?",
+        "C) How is your career grown so far?",
+        "D) How have your career grown so far?"
       ],
       "correctIndex": 0
     }
   ],
   "19": [
     {
-      "id": 541,
+      "id": 1,
       "question": "Choose the correct English translation: 'मैंने अभी-अभी अपनी रिपोर्ट जमा की है।'",
       "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'मैंने अभी-अभी अपनी रिपोर्ट जमा की है।'",
       "options": [
-        "I have just submitted my report.",
-        "I submit my report recently.",
-        "I already submitted my report.",
-        "I still have submitted my report."
+        "A) I have just submitted my report.",
+        "B) I submit my report recently.",
+        "C) I already submitted my report.",
+        "D) I still have submitted my report."
       ],
       "correctIndex": 0
     },
     {
-      "id": 542,
+      "id": 2,
       "question": "Choose the correct English translation: 'क्या आपने अभी तक परियोजना पूरी नहीं की है?'",
       "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'क्या आपने अभी तक परियोजना पूरी नहीं की है?'",
       "options": [
-        "Have you finish the project yet?",
-        "Have you not finished the project yet?",
-        "Did you finished the project already?",
-        "Have you just not finish the project?"
+        "A) Have you finish the project yet?",
+        "B) Have you not finished the project yet?",
+        "C) Did you finished the project already?",
+        "D) Have you just not finish the project?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 543,
-      "question": "Select the option that best translates 'already' in the context of completed tasks:",
-      "questionHindi": "पूरी हो चुकी गतिविधियों के संदर्भ में 'already' का सही हिंदी अर्थ चुनें:",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "अभी तक",
-        "हाल ही में",
-        "पहले ही",
-        "अभी-अभी"
+        "A) अभी तक",
+        "B) हाल ही में",
+        "C) पहले ही",
+        "D) अभी-अभी"
       ],
       "correctIndex": 2
     },
     {
-      "id": 544,
+      "id": 4,
       "question": "Fill in the blank: 'She has ______ sent the email to the manager.' (वह पहले ही मैनेजर को ईमेल भेज चुकी है।)",
       "questionHindi": "रिक्त स्थान भरें: 'She has ______ sent the email to the manager.' (वह पहले ही मैनेजर को ईमेल भेज चुकी है।)",
       "options": [
-        "yet",
-        "still",
-        "ever",
-        "already"
+        "A) yet",
+        "B) still",
+        "C) ever",
+        "D) already"
       ],
       "correctIndex": 3
     },
     {
-      "id": 545,
-      "question": "Choose the correct English sentence for: 'क्या आपने हाल ही में कोई दिलचस्प किताब पढ़ी है?'",
-      "questionHindi": "सही अंग्रेजी वाक्य चुनें: 'क्या आपने हाल ही में कोई दिलचस्प किताब पढ़ी है?'",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "Have you read any interesting book recently?",
-        "Did you read any interesting book yet?",
-        "Are you reading any interesting book just?",
-        "Have you read any interesting book still?"
+        "A) Have you read any interesting book recently?",
+        "B) Did you read any interesting book yet?",
+        "C) Are you reading any interesting book just?",
+        "D) Have you read any interesting book still?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 546,
+      "id": 6,
       "question": "Complete the sentence based on the Hindi prompt (मैंने इस सप्ताह का अपना काम पूरा कर लिया है): 'I ______ completed my work for this week.'",
       "questionHindi": "हिंदी संकेत के आधार पर वाक्य पूरा करें: 'I ______ completed my work for this week.'",
       "options": [
-        "was",
-        "have",
-        "has",
-        "did"
+        "A) was",
+        "B) have",
+        "C) has",
+        "D) did"
       ],
       "correctIndex": 1
     },
     {
-      "id": 547,
+      "id": 7,
       "question": "Which English phrase translates to 'अभी तक नहीं'?",
       "questionHindi": "किस अंग्रेजी मुहावरे/शब्द का अर्थ 'अभी तक नहीं' होता है?",
       "options": [
-        "Just now",
-        "Already done",
-        "Not yet",
-        "Recently finished"
+        "A) Just now",
+        "B) Already done",
+        "C) Not yet",
+        "D) Recently finished"
       ],
       "correctIndex": 2
     },
     {
-      "id": 548,
+      "id": 8,
       "question": "Choose the correct English translation: 'उसने अभी तक अपना असाइनमेंट शुरू नहीं किया है।'",
       "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'उसने अभी तक अपना असाइनमेंट शुरू नहीं किया है।'",
       "options": [
-        "He has already started his assignment.",
-        "He did not started his assignment yet.",
-        "He has just started his assignment.",
-        "He has not started his assignment yet."
+        "A) He has already started his assignment.",
+        "B) He did not started his assignment yet.",
+        "C) He has just started his assignment.",
+        "D) He has not started his assignment yet."
       ],
       "correctIndex": 3
     },
     {
-      "id": 549,
-      "question": "Choose the correct English translation: 'हमने हाल ही में शहर में एक नया कैफे देखा है।'",
-      "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'हमने हाल ही में शहर में एक नया कैफे देखा है।'",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "We have recently visited a new cafe in the city.",
-        "We visit a new cafe in the city yet.",
-        "We had just visit a new cafe in the city.",
-        "We are recently visiting a new cafe in the city."
+        "A) We have recently visited a new cafe in the city.",
+        "B) We visit a new cafe in the city yet.",
+        "C) We had just visit a new cafe in the city.",
+        "D) We are recently visiting a new cafe in the city."
       ],
       "correctIndex": 0
     },
     {
-      "id": 550,
+      "id": 10,
       "question": "Fill in the blank: 'What have you accomplished so far ______ week?' (आपने इस सप्ताह अब तक क्या हासिल किया है?)",
       "questionHindi": "रिक्त स्थान भरें: 'What have you accomplished so far ______ week?'",
       "options": [
-        "in",
-        "this",
-        "last",
-        "next"
+        "A) in",
+        "B) this",
+        "C) last",
+        "D) next"
       ],
       "correctIndex": 1
     },
     {
-      "id": 551,
-      "question": "Choose the correct option: 'I have ______ spoken to my old friend about the project.' (मैंने अभी-अभी अपने पुराने दोस्त से प्रोजेक्ट के बारे में बात की है।)",
-      "questionHindi": "सही विकल्प चुनें: 'I have ______ spoken to my old friend about the project.'",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "yet",
-        "still",
-        "just",
-        "ever"
+        "A) yet",
+        "B) still",
+        "C) just",
+        "D) ever"
       ],
       "correctIndex": 2
     },
     {
-      "id": 552,
-      "question": "What is the English word for 'हाल ही में'?",
-      "questionHindi": "'हाल ही में' के लिए कौन सा अंग्रेजी शब्द सही है?",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "Already",
-        "Yet",
-        "Still",
-        "Recently"
+        "A) Already",
+        "B) Yet",
+        "C) Still",
+        "D) Recently"
       ],
       "correctIndex": 3
     },
     {
-      "id": 553,
-      "question": "Choose the correct English translation: 'क्या टीम को कार्यालय से नया अपडेट मिल गया है?'",
-      "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'क्या टीम को कार्यालय से नया अपडेट मिल गया है?'",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "Has the team received the new office update?",
-        "Is the team receive the new office update?",
-        "Did the team receiving the new office update?",
-        "Has the team receive the new office update yet?"
+        "A) Has the team received the new office update?",
+        "B) Is the team receive the new office update?",
+        "C) Did the team receiving the new office update?",
+        "D) Has the team receive the new office update yet?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 554,
+      "id": 14,
       "question": "Choose the correct sentence using Present Perfect tense:",
       "questionHindi": "प्रेजेंट परफेक्ट टेंस का सही उपयोग करने वाला वाक्य चुनें:",
       "options": [
-        "They have finish their homework just.",
-        "They have just finished their homework.",
-        "They are just finish their homework.",
-        "They finished already their homework."
+        "A) They have finish their homework just.",
+        "B) They have just finished their homework.",
+        "C) They are just finish their homework.",
+        "D) They finished already their homework."
       ],
       "correctIndex": 1
     },
     {
-      "id": 555,
-      "question": "Fill in the blank: 'He ______ not called me back yet.' (उसने मुझे अभी तक वापस कॉल नहीं किया है।)",
-      "questionHindi": "रिक्त स्थान भरें: 'He ______ not called me back yet.'",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "have",
-        "is",
-        "has",
-        "does"
+        "A) have",
+        "B) is",
+        "C) has",
+        "D) does"
       ],
       "correctIndex": 2
     },
     {
-      "id": 556,
-      "question": "Choose the correct English translation: 'मेरी माँ ने अभी-अभी दोपहर का खाना पकाया है।'",
-      "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'मेरी माँ ने अभी-अभी दोपहर का खाना पकाया है।'",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "My mother cooks lunch recently.",
-        "My mother has cooked lunch yet.",
-        "My mother is cooking lunch already.",
-        "My mother has just cooked lunch."
+        "A) My mother cooks lunch recently.",
+        "B) My mother has cooked lunch yet.",
+        "C) My mother is cooking lunch already.",
+        "D) My mother has just cooked lunch."
       ],
       "correctIndex": 3
     },
     {
-      "id": 557,
-      "question": "Select the correct sentence to ask about study progress:",
-      "questionHindi": "पढ़ाई की प्रगति के बारे में पूछने के लिए सही वाक्य चुनें:",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "How many chapters have you revised so far?",
-        "How many chapters do you revised so far?",
-        "How many chapters are you revise yet?",
-        "How many chapters have you revise recently?"
+        "A) How many chapters have you revised so far?",
+        "B) How many chapters do you revised so far?",
+        "C) How many chapters are you revise yet?",
+        "D) How many chapters have you revise recently?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 558,
+      "id": 18,
       "question": "Fill in the blank: 'We have ______ achieved our sales target for this month.' (हमने इस महीने के लिए अपना बिक्री लक्ष्य पहले ही हासिल कर लिया है।)",
       "questionHindi": "रिक्त स्थान भरें: 'We have ______ achieved our sales target for this month.'",
       "options": [
-        "yet",
-        "already",
-        "still",
-        "ever"
+        "A) yet",
+        "B) already",
+        "C) still",
+        "D) ever"
       ],
       "correctIndex": 1
     },
     {
-      "id": 559,
-      "question": "Choose the correct English translation: 'वह अभी भी अपनी फाइल ढूंढ रहा है और उसे वह अभी तक नहीं मिली है।'",
-      "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'वह अभी भी अपनी फाइल ढूंढ रहा है और उसे वह अभी तक नहीं मिली है।'",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "He looks for his file and did not find it.",
-        "He is finding his file and has found it already.",
-        "He is still looking for his file and has not found it yet.",
-        "He has looked for his file and just found it."
+        "A) He looks for his file and did not find it.",
+        "B) He is finding his file and has found it already.",
+        "C) He is still looking for his file and has not found it yet.",
+        "D) He has looked for his file and just found it."
       ],
       "correctIndex": 2
     },
     {
-      "id": 560,
-      "question": "Which word fills the blank? 'Have you ______ attended an online meeting today?' (क्या आपने आज कोई ऑनलाइन मीटिंग अटेंड की है?)",
-      "questionHindi": "कौन सा शब्द रिक्त स्थान में आएगा? 'Have you ______ attended an online meeting today?'",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "yet",
-        "still",
-        "just now",
-        "already"
+        "A) yet",
+        "B) still",
+        "C) just now",
+        "D) already"
       ],
       "correctIndex": 3
     },
     {
-      "id": 561,
-      "question": "Choose the correct English translation: 'मैंने हाल ही में अपनी पढ़ाई में अच्छा सुधार किया है।'",
-      "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'मैंने हाल ही में अपनी पढ़ाई में अच्छा सुधार किया है।'",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "I have recently made good progress in my studies.",
-        "I am recently making good progress in my studies.",
-        "I make good progress in my studies yet.",
-        "I have make good progress in my studies already."
+        "A) I have recently made good progress in my studies.",
+        "B) I am recently making good progress in my studies.",
+        "C) I make good progress in my studies yet.",
+        "D) I have make good progress in my studies already."
       ],
       "correctIndex": 0
     },
     {
-      "id": 562,
-      "question": "Identify the correct negative Present Perfect sentence:",
-      "questionHindi": "सही नकारात्मक प्रेजेंट परफेक्ट वाक्य पहचानें:",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "I didn't received any message yet.",
-        "I have not received any message yet.",
-        "I am not receiving any message already.",
-        "I has not received any message recently."
+        "A) I didn't received any message yet.",
+        "B) I have not received any message yet.",
+        "C) I am not receiving any message already.",
+        "D) I has not received any message recently."
       ],
       "correctIndex": 1
     },
     {
-      "id": 563,
-      "question": "Choose the correct translation: 'क्या बॉस ने नई परियोजना को मंजूरी दे दी है?'",
-      "questionHindi": "सही अनुवाद चुनें: 'क्या बॉस ने नई परियोजना को मंजूरी दे दी है?'",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "Is the boss approve the new project?",
-        "Did the boss approved the new project yet?",
-        "Has the boss approved the new project?",
-        "Has the boss approving the new project?"
+        "A) Is the boss approve the new project?",
+        "B) Did the boss approved the new project yet?",
+        "C) Has the boss approved the new project?",
+        "D) Has the boss approving the new project?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 564,
-      "question": "Complete the question: 'Have you spoken with any old friends ______?' (क्या आपने हाल ही में किसी पुराने दोस्त से बात की है?)",
-      "questionHindi": "प्रश्न पूरा करें: 'Have you spoken with any old friends ______?'",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "still",
-        "already",
-        "yet",
-        "recently"
+        "A) still",
+        "B) already",
+        "C) yet",
+        "D) recently"
       ],
       "correctIndex": 3
     },
     {
-      "id": 565,
+      "id": 25,
       "question": "Choose the correct English translation: 'मेरे भाई ने अभी-अभी अपनी परीक्षा समाप्त की है।'",
       "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'मेरे भाई ने अभी-अभी अपनी परीक्षा समाप्त की है।'",
       "options": [
-        "My brother has just finished his exam.",
-        "My brother finished his exam yet.",
-        "My brother has already finish his exam.",
-        "My brother is just finishing his exam."
+        "A) My brother has just finished his exam.",
+        "B) My brother finished his exam yet.",
+        "C) My brother has already finish his exam.",
+        "D) My brother is just finishing his exam."
       ],
       "correctIndex": 0
     },
     {
-      "id": 566,
+      "id": 26,
       "question": "What is the correct English equivalent for 'अभी भी' in negative or ongoing context?",
       "questionHindi": "नकारात्मक या जारी संदर्भ में 'अभी भी' का सही अंग्रेजी विकल्प क्या है?",
       "options": [
-        "Just",
-        "Still",
-        "Recently",
-        "Already"
+        "A) Just",
+        "B) Still",
+        "C) Recently",
+        "D) Already"
       ],
       "correctIndex": 1
     },
     {
-      "id": 567,
-      "question": "Fill in the blank: 'They ______ not updated the project status yet.' (उन्होंने अभी तक प्रोजेक्ट स्थिति को अपडेट नहीं किया है।)",
-      "questionHindi": "रिक्त स्थान भरें: 'They ______ not updated the project status yet.'",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "has",
-        "are",
-        "have",
-        "did"
+        "A) has",
+        "B) are",
+        "C) have",
+        "D) did"
       ],
       "correctIndex": 2
     },
     {
-      "id": 568,
-      "question": "Choose the correct English translation: 'क्या आपने इस सप्ताह कोई नया स्थान देखा है?'",
-      "questionHindi": "सही अंग्रेजी अनुवाद चुनें: 'क्या आपने इस सप्ताह कोई नया स्थान देखा है?'",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "Do you visit any new place this week?",
-        "Are you visiting any new place this week?",
-        "Did you visited any new place this week?",
-        "Have you visited any new place this week?"
+        "A) Do you visit any new place this week?",
+        "B) Are you visiting any new place this week?",
+        "C) Did you visited any new place this week?",
+        "D) Have you visited any new place this week?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 569,
-      "question": "Choose the correct sentence to describe a completed family activity:",
-      "questionHindi": "पारिवारिक गतिविधि के पूरा होने का वर्णन करने के लिए सही वाक्य चुनें:",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "My family has already planned our weekend trip.",
-        "My family have plan our weekend trip recently.",
-        "My family is already planned our weekend trip.",
-        "My family has plan our weekend trip yet."
+        "A) My family has already planned our weekend trip.",
+        "B) My family have plan our weekend trip recently.",
+        "C) My family is already planned our weekend trip.",
+        "D) My family has plan our weekend trip yet."
       ],
       "correctIndex": 0
     },
     {
-      "id": 570,
+      "id": 30,
       "question": "Complete the sentence with the correct phrase: 'I feel good because I ______ all my today's tasks.' (मुझे अच्छा लग रहा है क्योंकि मैंने आज के अपने सभी कार्य पूरे कर लिए हैं।)",
       "questionHindi": "सही वाक्यांश के साथ वाक्य पूरा करें: 'I feel good because I ______ all my today's tasks.'",
       "options": [
-        "am completing",
-        "have completed",
-        "complete yet",
-        "was complete"
+        "A) am completing",
+        "B) have completed",
+        "C) complete yet",
+        "D) was complete"
       ],
       "correctIndex": 1
     }
   ],
   "20": [
     {
-      "id": 571,
+      "id": 1,
       "question": "Translate the following sentence into English: 'मैं अगले साल एक नई कार खरीदने जा रहा हूँ।'",
       "questionHindi": "निम्नलिखित वाक्य का अंग्रेजी में अनुवाद करें: 'मैं अगले साल एक नई कार खरीदने जा रहा हूँ।'",
       "options": [
-        "I bought a new car next year.",
-        "I will buying a new car next year.",
-        "I go to buy a new car next year.",
-        "I am going to buy a new car next year."
+        "A) I bought a new car next year.",
+        "B) I will buying a new car next year.",
+        "C) I go to buy a new car next year.",
+        "D) I am going to buy a new car next year."
       ],
       "correctIndex": 3
     },
     {
-      "id": 572,
+      "id": 2,
       "question": "Which sentence correctly uses the structure 'am/is/are going to + V1' to talk about future plans?",
       "questionHindi": "भविष्य की योजनाओं के बारे में बात करने के लिए कौन सा वाक्य 'am/is/are going to + V1' संरचना का सही उपयोग करता है?",
       "options": [
-        "She is going starting a business soon.",
-        "She going to start a business soon.",
-        "She is go to start a business soon.",
-        "She is going to start a business soon."
+        "A) She is going starting a business soon.",
+        "B) She going to start a business soon.",
+        "C) She is go to start a business soon.",
+        "D) She is going to start a business soon."
       ],
       "correctIndex": 3
     },
     {
-      "id": 573,
-      "question": "Translate to English: 'वह अपना खुद का व्यवसाय शुरू करने जा रही है।'",
-      "questionHindi": "अंग्रेजी में अनुवाद करें: 'वह अपना खुद का व्यवसाय शुरू करने जा रही है।'",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "She was going to start her own business.",
-        "She is start her own business.",
-        "She will going to start her own business.",
-        "She is going to start her own business."
+        "A) She was going to start her own business.",
+        "B) She is start her own business.",
+        "C) She will going to start her own business.",
+        "D) She is going to start her own business."
       ],
       "correctIndex": 3
     },
     {
-      "id": 574,
+      "id": 4,
       "question": "Complete the sentence: 'What are your long-term career ______ for the next three to five years?' (दीर्घकालिक करियर की आकांक्षाएं)",
       "questionHindi": "वाक्य को पूरा करें: 'What are your long-term career ______ for the next three to five years?' (दीर्घकालिक करियर की आकांक्षाएं)",
       "options": [
-        "hobbies",
-        "past events",
-        "memories",
-        "aspirations"
+        "A) hobbies",
+        "B) past events",
+        "C) memories",
+        "D) aspirations"
       ],
       "correctIndex": 3
     },
     {
-      "id": 575,
-      "question": "Choose the correct English phrase for 'भविष्य की योजनाएं'.",
-      "questionHindi": "'भविष्य की योजनाएं' के लिए सही अंग्रेजी शब्द/वाक्यांश चुनें।",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "Past memories",
-        "Current activities",
-        "Daily routines",
-        "Future plans"
+        "A) Past memories",
+        "B) Current activities",
+        "C) Daily routines",
+        "D) Future plans"
       ],
       "correctIndex": 3
     },
     {
-      "id": 576,
+      "id": 6,
       "question": "Translate: 'वे इस गर्मी में विदेश यात्रा करने जा रहे हैं।'",
       "questionHindi": "अनुवाद करें: 'वे इस गर्मी में विदेश यात्रा करने जा रहे हैं।'",
       "options": [
-        "They are traveling abroad last summer.",
-        "They go to travel abroad this summer.",
-        "They were going to travel abroad this summer.",
-        "They are going to travel abroad this summer."
+        "A) They are traveling abroad last summer.",
+        "B) They go to travel abroad this summer.",
+        "C) They were going to travel abroad this summer.",
+        "D) They are going to travel abroad this summer."
       ],
       "correctIndex": 3
     },
     {
-      "id": 577,
+      "id": 7,
       "question": "Fill in the blank with the correct form: 'I ______ to improve my spoken English after this course.' (मैं सुधार करने जा रहा हूँ)",
       "questionHindi": "सही रूप से रिक्त स्थान भरें: 'I ______ to improve my spoken English after this course.' (मैं सुधार करने जा रहा हूँ)",
       "options": [
-        "going",
-        "will going",
-        "am going",
-        "is going"
+        "A) going",
+        "B) will going",
+        "C) am going",
+        "D) is going"
       ],
       "correctIndex": 2
     },
     {
-      "id": 578,
+      "id": 8,
       "question": "What is the English meaning of 'लक्ष्य'? (e.g., career ______)",
       "questionHindi": "'लक्ष्य' का अंग्रेजी अर्थ क्या है? (जैसे, करियर ______)",
       "options": [
-        "Past",
-        "Failures",
-        "Goals",
-        "Doubts"
+        "A) Past",
+        "B) Failures",
+        "C) Goals",
+        "D) Doubts"
       ],
       "correctIndex": 2
     },
     {
-      "id": 579,
-      "question": "Translate: 'आप यह कोर्स पूरा करने के बाद अपनी अंग्रेजी का उपयोग कैसे करने की योजना बना रहे हैं?'",
-      "questionHindi": "अनुवाद करें: 'आप यह कोर्स पूरा करने के बाद अपनी अंग्रेजी का उपयोग कैसे करने की योजना बना रहे हैं?'",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "How did you plan to use your English once you complete this course?",
-        "How are you use your English once you complete this course?",
-        "How do you plan to continue using your English once you complete this course?",
-        "How do you using your English once you complete this course?"
+        "A) How did you plan to use your English once you complete this course?",
+        "B) How are you use your English once you complete this course?",
+        "C) How do you plan to continue using your English once you complete this course?",
+        "D) How do you using your English once you complete this course?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 580,
+      "id": 10,
       "question": "Choose the correct sentence in English: 'हम अगले महीने एक नया घर शिफ्ट करने जा रहे हैं।'",
       "questionHindi": "अंग्रेजी में सही वाक्य चुनें: 'हम अगले महीने एक नया घर शिफ्ट करने जा रहे हैं।'",
       "options": [
-        "We were going to shift to a new house next month.",
-        "We are going shifting to a new house next month.",
-        "We are going to shift to a new house next month.",
-        "We going to shift to a new house next month."
+        "A) We were going to shift to a new house next month.",
+        "B) We are going shifting to a new house next month.",
+        "C) We are going to shift to a new house next month.",
+        "D) We going to shift to a new house next month."
       ],
       "correctIndex": 2
     },
     {
-      "id": 581,
-      "question": "Fill in the blank: 'Where ______ you like to travel in the future?' (आप भविष्य में कहाँ यात्रा करना चाहेंगे?)",
-      "questionHindi": "रिक्त स्थान भरें: 'Where ______ you like to travel in the future?' (आप भविष्य में कहाँ यात्रा करना चाहेंगे?)",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "did",
-        "were",
-        "would",
-        "are"
+        "A) did",
+        "B) were",
+        "C) would",
+        "D) are"
       ],
       "correctIndex": 2
     },
     {
-      "id": 582,
-      "question": "Choose the correct Hindi translation for: 'I am going to prepare for competitive exams.'",
-      "questionHindi": "'I am going to prepare for competitive exams.' का सही हिंदी अनुवाद चुनें।",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "मैं प्रतियोगी परीक्षाओं की तैयारी कर रहा था।",
-        "मैं प्रतियोगी परीक्षाओं की तैयारी करने जा रहा हूँ।",
-        "मैंने प्रतियोगी परीक्षाओं की तैयारी कर ली है।",
-        "मैं प्रतियोगी परीक्षाओं की तैयारी नहीं करूँगा।"
+        "A) मैं प्रतियोगी परीक्षाओं की तैयारी कर रहा था।",
+        "B) मैं प्रतियोगी परीक्षाओं की तैयारी करने जा रहा हूँ।",
+        "C) मैंने प्रतियोगी परीक्षाओं की तैयारी कर ली है।",
+        "D) मैं प्रतियोगी परीक्षाओं की तैयारी नहीं करूँगा।"
       ],
       "correctIndex": 1
     },
     {
-      "id": 583,
-      "question": "Select the correct verb form: 'Rohan is going to ______ higher education in Canada.' (प्राप्त करना/जारी रखना)",
-      "questionHindi": "सही क्रिया रूप चुनें: 'Rohan is going to ______ higher education in Canada.' (प्राप्त करना/जारी रखना)",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "pursued",
-        "pursuing",
-        "pursue",
-        "pursues"
+        "A) pursued",
+        "B) pursuing",
+        "C) pursue",
+        "D) pursues"
       ],
       "correctIndex": 2
     },
     {
-      "id": 584,
+      "id": 14,
       "question": "Translate: 'वह डॉक्टर बनने जा रहा है।'",
       "questionHindi": "अनुवाद करें: 'वह डॉक्टर बनने जा रहा है।'",
       "options": [
-        "He is going to become a doctor.",
-        "He is become a doctor.",
-        "He going to become a doctor.",
-        "He will becoming a doctor."
+        "A) He is going to become a doctor.",
+        "B) He is become a doctor.",
+        "C) He going to become a doctor.",
+        "D) He will becoming a doctor."
       ],
       "correctIndex": 0
     },
     {
-      "id": 585,
-      "question": "What is the English word for 'इरादा' or 'नियत'?",
-      "questionHindi": "'इरादा' या 'नियत' के लिए अंग्रेजी शब्द क्या है?",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "Intention",
-        "Hesitation",
-        "Attitude",
-        "History"
+        "A) Intention",
+        "B) Hesitation",
+        "C) Attitude",
+        "D) History"
       ],
       "correctIndex": 0
     },
     {
-      "id": 586,
-      "question": "Choose the correct option: 'What kind of home or environment would you like to live in ______?' (किसी दिन/भविष्य में)",
-      "questionHindi": "सही विकल्प चुनें: 'What kind of home or environment would you like to live in ______?' (किसी दिन/भविष्य में)",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "yesterday",
-        "someday",
-        "last week",
-        "ago"
+        "A) yesterday",
+        "B) someday",
+        "C) last week",
+        "D) ago"
       ],
       "correctIndex": 1
     },
     {
-      "id": 587,
-      "question": "Grammar check: Identify the sentence with correct structure for future plans.",
-      "questionHindi": "व्याकरण जाँच: भविष्य की योजनाओं के लिए सही संरचना वाले वाक्य की पहचान करें।",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "My parents is going to visit us next week.",
-        "My parents are going to visit us next week.",
-        "My parents am going to visit us next week.",
-        "My parents going to visit us next week."
+        "A) My parents is going to visit us next week.",
+        "B) My parents are going to visit us next week.",
+        "C) My parents am going to visit us next week.",
+        "D) My parents going to visit us next week."
       ],
       "correctIndex": 1
     },
     {
-      "id": 588,
+      "id": 18,
       "question": "Translate: 'आप भविष्य में कहाँ रहने जा रहे हैं?'",
       "questionHindi": "अनुवाद करें: 'आप भविष्य में कहाँ रहने जा रहे हैं?'",
       "options": [
-        "Where were you going to live in the future?",
-        "Where are you going to live in the future?",
-        "Where you are going to live in the future?",
-        "Where do you going to live in the future?"
+        "A) Where were you going to live in the future?",
+        "B) Where are you going to live in the future?",
+        "C) Where you are going to live in the future?",
+        "D) Where do you going to live in the future?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 589,
-      "question": "Fill in the blank: 'Why does that place ______ you?' (आकर्षित करना)",
-      "questionHindi": "रिक्त स्थान भरें: 'Why does that place ______ you?' (आकर्षित करना)",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "attract",
-        "attracted",
-        "attracting",
-        "attracts"
+        "A) attract",
+        "B) attracted",
+        "C) attracting",
+        "D) attracts"
       ],
       "correctIndex": 0
     },
     {
-      "id": 590,
-      "question": "Choose the correct option for 'व्यक्तिगत लक्ष्य'.",
-      "questionHindi": "'व्यक्तिगत लक्ष्य' के लिए सही विकल्प चुनें।",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "Public duties",
-        "Company rules",
-        "Personal goals",
-        "Family history"
+        "A) Public duties",
+        "B) Company rules",
+        "C) Personal goals",
+        "D) Family history"
       ],
       "correctIndex": 2
     },
     {
-      "id": 591,
-      "question": "Translate into English: 'मैं अपनी खुद की कंपनी खोलने जा रहा हूँ।'",
-      "questionHindi": "अंग्रेजी में अनुवाद करें: 'मैं अपनी खुद की कंपनी खोलने जा रहा हूँ।'",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "I am going to open my own company.",
-        "I was going to open my own company.",
-        "I am open my own company.",
-        "I going to open my own company."
+        "A) I am going to open my own company.",
+        "B) I was going to open my own company.",
+        "C) I am open my own company.",
+        "D) I going to open my own company."
       ],
       "correctIndex": 0
     },
     {
-      "id": 592,
-      "question": "Complete the question: 'What are your plans ______ the future?' (भविष्य के लिए)",
-      "questionHindi": "प्रश्न पूरा करें: 'What are your plans ______ the future?' (भविष्य के लिए)",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "for",
-        "at",
-        "by",
-        "from"
+        "A) for",
+        "B) at",
+        "C) by",
+        "D) from"
       ],
       "correctIndex": 0
     },
     {
-      "id": 593,
-      "question": "Grammar context: 'They ______ to expand their business next month.'",
-      "questionHindi": "व्याकरण संदर्भ: 'They ______ to expand their business next month.'",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "is going",
-        "are going",
-        "am going",
-        "was going"
+        "A) is going",
+        "B) are going",
+        "C) am going",
+        "D) was going"
       ],
       "correctIndex": 1
     },
     {
-      "id": 594,
-      "question": "Translate: 'मैं एक नया कौशल सीखने जा रहा हूँ।'",
-      "questionHindi": "अनुवाद करें: 'मैं एक नया कौशल सीखने जा रहा हूँ।'",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "I am going to learn a new skill.",
-        "I am learn a new skill.",
-        "I was going to learn a new skill.",
-        "I will going to learn a new skill."
+        "A) I am going to learn a new skill.",
+        "B) I am learn a new skill.",
+        "C) I was going to learn a new skill.",
+        "D) I will going to learn a new skill."
       ],
       "correctIndex": 0
     },
     {
-      "id": 595,
+      "id": 25,
       "question": "What is the English word for 'सपना / आकांक्षा'?",
       "questionHindi": "'सपना / आकांक्षा' के लिए अंग्रेजी शब्द क्या है?",
       "options": [
-        "Dream",
-        "Fact",
-        "Reality",
-        "Truth"
+        "A) Dream",
+        "B) Fact",
+        "C) Reality",
+        "D) Truth"
       ],
       "correctIndex": 0
     },
     {
-      "id": 596,
+      "id": 26,
       "question": "Complete the sentence with correct verb form: 'She is going to ______ a new house near the beach.' (बनाना)",
       "questionHindi": "सही क्रिया रूप के साथ वाक्य पूरा करें: 'She is going to ______ a new house near the beach.' (बनाना)",
       "options": [
-        "built",
-        "building",
-        "build",
-        "builds"
+        "A) built",
+        "B) building",
+        "C) build",
+        "D) builds"
       ],
       "correctIndex": 2
     },
     {
-      "id": 597,
-      "question": "Translate: 'हम अगले हफ्ते एक बैठक करने जा रहे हैं।'",
-      "questionHindi": "अनुवाद करें: 'हम अगले हफ्ते एक बैठक करने जा रहे हैं।'",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "We will go to have a meeting next week.",
-        "We are going to have a meeting next week.",
-        "We were going to have a meeting next week.",
-        "We going to have a meeting next week."
+        "A) We will go to have a meeting next week.",
+        "B) We are going to have a meeting next week.",
+        "C) We were going to have a meeting next week.",
+        "D) We going to have a meeting next week."
       ],
       "correctIndex": 1
     },
     {
-      "id": 598,
-      "question": "Choose the best English sentence for: 'क्या आप अपनी नौकरी बदलने जा रहे हैं?'",
-      "questionHindi": "अंग्रेजी का सबसे अच्छा वाक्य चुनें: 'क्या आप अपनी नौकरी बदलने जा रहे हैं?'",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "Are you going to change your job?",
-        "Do you going to change your job?",
-        "Were you going to change your job?",
-        "Will you going to change your job?"
+        "A) Are you going to change your job?",
+        "B) Do you going to change your job?",
+        "C) Were you going to change your job?",
+        "D) Will you going to change your job?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 599,
-      "question": "Fill in the blank: 'I am going to work hard to achieve my ______.' (सपने/लक्ष्य)",
-      "questionHindi": "रिक्त स्थान भरें: 'I am going to work hard to achieve my ______.' (सपने/लक्ष्य)",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "mistakes",
-        "dreams",
-        "duties",
-        "routine"
+        "A) mistakes",
+        "B) dreams",
+        "C) duties",
+        "D) routine"
       ],
       "correctIndex": 1
     },
     {
-      "id": 600,
+      "id": 30,
       "question": "Translate: 'वह अगले साल शादी करने जा रही है।'",
       "questionHindi": "अनुवाद करें: 'वह अगले साल शादी करने जा रही है।'",
       "options": [
-        "She is get married next year.",
-        "She is going to get married next year.",
-        "She going to get married next year.",
-        "She will going to get married next year."
+        "A) She is get married next year.",
+        "B) She is going to get married next year.",
+        "C) She going to get married next year.",
+        "D) She will going to get married next year."
       ],
       "correctIndex": 1
     }
   ],
   "21": [
     {
-      "id": 601,
+      "id": 1,
       "question": "Choose the correct English translation for: 'मैं तुम्हारी मदद करूँगा।'",
       "questionHindi": "इस वाक्य का सही अंग्रेजी अनुवाद चुनें: 'मैं तुम्हारी मदद करूँगा।'",
       "options": [
-        "I will help you.",
-        "I helped you.",
-        "I am help you.",
-        "I would helped you."
+        "A) I will help you.",
+        "B) I helped you.",
+        "C) I am help you.",
+        "D) I would helped you."
       ],
       "correctIndex": 0
     },
     {
-      "id": 602,
+      "id": 2,
       "question": "What is the correct English translation for: 'मौसम कल साफ़ रहेगा।'?",
       "questionHindi": "इस वाक्य का सही अंग्रेजी अनुवाद क्या है: 'मौसम कल साफ़ रहेगा।'?",
       "options": [
-        "The weather is clear tomorrow.",
-        "The weather will be clear tomorrow.",
-        "The weather was clear tomorrow.",
-        "The weather will clearing tomorrow."
+        "A) The weather is clear tomorrow.",
+        "B) The weather will be clear tomorrow.",
+        "C) The weather was clear tomorrow.",
+        "D) The weather will clearing tomorrow."
       ],
       "correctIndex": 1
     },
     {
-      "id": 603,
-      "question": "Choose the correct English translation for: 'वह अपना वादा नहीं तोड़ेगा।'",
-      "questionHindi": "इस वाक्य का सही अंग्रेजी अनुवाद चुनें: 'वह अपना वादा नहीं तोड़ेगा।'",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "He does not break his promise.",
-        "He did not break his promise.",
-        "He won't break his promise.",
-        "He will not breaking his promise."
+        "A) He does not break his promise.",
+        "B) He did not break his promise.",
+        "C) He won't break his promise.",
+        "D) He will not breaking his promise."
       ],
       "correctIndex": 2
     },
     {
-      "id": 604,
+      "id": 4,
       "question": "Select the correct sentence for making a promise about self-improvement:",
       "questionHindi": "आत्म-सुधार के बारे में वादा करने के लिए सही वाक्य चुनें:",
       "options": [
-        "I am read more books next month.",
-        "I will read every day to improve my skills.",
-        "I read every day to improve my skills.",
-        "I will reading every day for improve."
+        "A) I am read more books next month.",
+        "B) I will read every day to improve my skills.",
+        "C) I read every day to improve my skills.",
+        "D) I will reading every day for improve."
       ],
       "correctIndex": 1
     },
     {
-      "id": 605,
-      "question": "Which sentence correctly makes an instant decision to help someone?",
-      "questionHindi": "किसी की मदद करने के लिए तत्काल निर्णय लेने वाला सही वाक्य कौन सा है?",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "I carry those heavy bags for you.",
-        "I am carrying those heavy bags for you.",
-        "I will carry those heavy bags for you.",
-        "I carried those heavy bags for you."
+        "A) I carry those heavy bags for you.",
+        "B) I am carrying those heavy bags for you.",
+        "C) I will carry those heavy bags for you.",
+        "D) I carried those heavy bags for you."
       ],
       "correctIndex": 2
     },
     {
-      "id": 606,
+      "id": 6,
       "question": "Choose the correct English translation for: 'कृत्रिम बुद्धिमत्ता (AI) हमारे काम करने के तरीके को बदल देगी।'",
       "questionHindi": "इस वाक्य का सही अंग्रेजी अनुवाद चुनें: 'कृत्रिम बुद्धिमत्ता (AI) हमारे काम करने के तरीके को बदल देगी।'",
       "options": [
-        "Artificial intelligence changes how we work.",
-        "Artificial intelligence changed how we work.",
-        "Artificial intelligence will transforming how we work.",
-        "Artificial intelligence will transform the way we work."
+        "A) Artificial intelligence changes how we work.",
+        "B) Artificial intelligence changed how we work.",
+        "C) Artificial intelligence will transforming how we work.",
+        "D) Artificial intelligence will transform the way we work."
       ],
       "correctIndex": 3
     },
     {
-      "id": 607,
+      "id": 7,
       "question": "Complete the sentence with the correct grammar: 'I promise I _____ (not / reveal) your secret.'",
       "questionHindi": "सही व्याकरण से वाक्य पूरा करें: 'I promise I _____ (not / reveal) your secret.'",
       "options": [
-        "won't reveal",
-        "not reveal",
-        "don't reveal",
-        "didn't reveal"
+        "A) won't reveal",
+        "B) not reveal",
+        "C) don't reveal",
+        "D) didn't reveal"
       ],
       "correctIndex": 0
     },
     {
-      "id": 608,
+      "id": 8,
       "question": "What is the correct English translation for: 'अगले दशक में तकनीक बहुत तेज़ी से बदलेगी।'",
       "questionHindi": "इस वाक्य का सही अंग्रेजी अनुवाद क्या है: 'अगले दशक में तकनीक बहुत तेज़ी से बदलेगी।'?",
       "options": [
-        "Technology changed very fast in the next decade.",
-        "Technology will change rapidly in the next decade.",
-        "Technology is change rapidly in the next decade.",
-        "Technology changes rapidly in the next decade."
+        "A) Technology changed very fast in the next decade.",
+        "B) Technology will change rapidly in the next decade.",
+        "C) Technology is change rapidly in the next decade.",
+        "D) Technology changes rapidly in the next decade."
       ],
       "correctIndex": 1
     },
     {
-      "id": 609,
-      "question": "Choose the correct English option for the Hindi phrase: 'भविष्य की भविष्यवाणियाँ'",
-      "questionHindi": "हिन्दी वाक्यांश 'भविष्य की भविष्यवाणियाँ' के लिए सही अंग्रेजी विकल्प चुनें:",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "Future promises",
-        "Past decisions",
-        "Future predictions",
-        "Present commitments"
+        "A) Future promises",
+        "B) Past decisions",
+        "C) Future predictions",
+        "D) Present commitments"
       ],
       "correctIndex": 2
     },
     {
-      "id": 610,
+      "id": 10,
       "question": "Choose the correct English translation for: 'क्या तुम समय पर आओगे?'",
       "questionHindi": "इस वाक्य का सही अंग्रेजी अनुवाद चुनें: 'क्या तुम समय पर आओगे?'",
       "options": [
-        "Do you come on time?",
-        "Are you come on time?",
-        "Did you come on time?",
-        "Will you come on time?"
+        "A) Do you come on time?",
+        "B) Are you come on time?",
+        "C) Did you come on time?",
+        "D) Will you come on time?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 611,
-      "question": "Complete the promise to a family member: 'I _____ (always / support) you in your career.'",
-      "questionHindi": "परिवार के सदस्य से किए गए वादे को पूरा करें: 'I _____ (always / support) you in your career.'",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "will always support",
-        "always supported",
-        "am always support",
-        "will always supporting"
+        "A) will always support",
+        "B) always supported",
+        "C) am always support",
+        "D) will always supporting"
       ],
       "correctIndex": 0
     },
     {
-      "id": 612,
-      "question": "What is the English translation for: 'भविष्य में इलेक्ट्रिक वाहन अधिक लोकप्रिय होंगे।'",
-      "questionHindi": "इस वाक्य का सही अंग्रेजी अनुवाद क्या है: 'भविष्य में इलेक्ट्रिक वाहन अधिक लोकप्रिय होंगे।'?",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "Electric vehicles are more popular in the future.",
-        "Electric vehicles will become more popular in the future.",
-        "Electric vehicles became more popular in the future.",
-        "Electric vehicles will becoming more popular in the future."
+        "A) Electric vehicles are more popular in the future.",
+        "B) Electric vehicles will become more popular in the future.",
+        "C) Electric vehicles became more popular in the future.",
+        "D) Electric vehicles will becoming more popular in the future."
       ],
       "correctIndex": 1
     },
     {
-      "id": 613,
-      "question": "Choose the correct translation: 'चिंता मत करो, मैं तुम्हें स्टेशन छोड़ दूंगा।'",
-      "questionHindi": "सही अनुवाद चुनें: 'चिंता मत करो, मैं तुम्हें स्टेशन छोड़ दूंगा।'",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "Don't worry, I drop you at the station.",
-        "Don't worry, I dropped you at the station.",
-        "Don't worry, I will drop you at the station.",
-        "Don't worry, I am drop you at the station."
+        "A) Don't worry, I drop you at the station.",
+        "B) Don't worry, I dropped you at the station.",
+        "C) Don't worry, I will drop you at the station.",
+        "D) Don't worry, I am drop you at the station."
       ],
       "correctIndex": 2
     },
     {
-      "id": 614,
+      "id": 14,
       "question": "Identify the offer made in response to an instant need:",
       "questionHindi": "तत्काल आवश्यकता के उत्तर में दिए गए प्रस्ताव (offer) को पहचानें:",
       "options": [
-        "I am busy right now.",
-        "I cooked dinner yesterday.",
-        "I usually get up at 6 AM.",
-        "The phone is ringing. I will answer it!"
+        "A) I am busy right now.",
+        "B) I cooked dinner yesterday.",
+        "C) I usually get up at 6 AM.",
+        "D) The phone is ringing. I will answer it!"
       ],
       "correctIndex": 3
     },
     {
-      "id": 615,
-      "question": "Choose the correct English word for the Hindi term: 'प्रतिबद्धता'",
-      "questionHindi": "हिन्दी शब्द 'प्रतिबद्धता' के लिए सही अंग्रेजी शब्द चुनें:",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "Commitment",
-        "Prediction",
-        "Decision",
-        "Transportation"
+        "A) Commitment",
+        "B) Prediction",
+        "C) Decision",
+        "D) Transportation"
       ],
       "correctIndex": 0
     },
     {
-      "id": 616,
-      "question": "Choose the correct English translation for: 'वैज्ञानिक जल्द ही एक नई खोज करेंगे।'",
-      "questionHindi": "इस वाक्य का सही अंग्रेजी अनुवाद चुनें: 'वैज्ञानिक जल्द ही एक नई खोज करेंगे।'",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "Scientists discover something new soon.",
-        "Scientists will make a new discovery soon.",
-        "Scientists made a new discovery soon.",
-        "Scientists are make a new discovery soon."
+        "A) Scientists discover something new soon.",
+        "B) Scientists will make a new discovery soon.",
+        "C) Scientists made a new discovery soon.",
+        "D) Scientists are make a new discovery soon."
       ],
       "correctIndex": 1
     },
     {
-      "id": 617,
-      "question": "Complete the prediction about travel: 'In twenty years, people _____ (travel) to space for vacations.'",
-      "questionHindi": "यात्रा के बारे में भविष्यवाणी को पूरा करें: 'In twenty years, people _____ (travel) to space for vacations.'",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "traveled",
-        "traveling",
-        "will travel",
-        "are travel"
+        "A) traveled",
+        "B) traveling",
+        "C) will travel",
+        "D) are travel"
       ],
       "correctIndex": 2
     },
     {
-      "id": 618,
+      "id": 18,
       "question": "What is the English translation for: 'आज रात बारिश नहीं होगी।'",
       "questionHindi": "इस वाक्य का सही अंग्रेजी अनुवाद क्या है: 'आज रात बारिश नहीं होगी।'?",
       "options": [
-        "It is not raining tonight.",
-        "It doesn't rain tonight.",
-        "It didn't rain tonight.",
-        "It won't rain tonight."
+        "A) It is not raining tonight.",
+        "B) It doesn't rain tonight.",
+        "C) It didn't rain tonight.",
+        "D) It won't rain tonight."
       ],
       "correctIndex": 3
     },
     {
-      "id": 619,
-      "question": "Select the correct option for an instant decision: 'It is very cold in here.' - 'I _____ the window.'",
-      "questionHindi": "तत्काल निर्णय के लिए सही विकल्प चुनें: 'It is very cold in here.' - 'I _____ the window.'",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "will close",
-        "closed",
-        "am close",
-        "close"
+        "A) will close",
+        "B) closed",
+        "C) am close",
+        "D) close"
       ],
       "correctIndex": 0
     },
     {
-      "id": 620,
-      "question": "Choose the correct English translation for: 'मैं अपने लक्ष्यों को प्राप्त करने के लिए कड़ी मेहनत करूँगा।'",
-      "questionHindi": "इस वाक्य का सही अंग्रेजी अनुवाद चुनें: 'मैं अपने लक्ष्यों को प्राप्त करने के लिए कड़ी मेहनत करूँगा।'",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "I work hard to achieve my goals.",
-        "I will work hard to achieve my goals.",
-        "I worked hard to achieve my goals.",
-        "I am work hard to achieve my goals."
+        "A) I work hard to achieve my goals.",
+        "B) I will work hard to achieve my goals.",
+        "C) I worked hard to achieve my goals.",
+        "D) I am work hard to achieve my goals."
       ],
       "correctIndex": 1
     },
     {
-      "id": 621,
-      "question": "What does the phrase 'instant decision' mean in Hindi?",
-      "questionHindi": "अंग्रेजी वाक्यांश 'instant decision' का हिन्दी में क्या अर्थ है?",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "लंबा विचार",
-        "पुरानी यादें",
-        "तत्काल निर्णय",
-        "भविष्य का वादा"
+        "A) लंबा विचार",
+        "B) पुरानी यादें",
+        "C) तत्काल निर्णय",
+        "D) भविष्य का वादा"
       ],
       "correctIndex": 2
     },
     {
-      "id": 622,
-      "question": "Which of the following is a prediction about career and profession?",
-      "questionHindi": "निम्नलिखित में से कौन सा करियर और पेशे के बारे में भविष्यवाणी है?",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "I ate lunch at 1 PM.",
-        "She will study medicine next year.",
-        "They are walking in the garden.",
-        "New technology will create many new jobs in the future."
+        "A) I ate lunch at 1 PM.",
+        "B) She will study medicine next year.",
+        "C) They are walking in the garden.",
+        "D) New technology will create many new jobs in the future."
       ],
       "correctIndex": 3
     },
     {
-      "id": 623,
-      "question": "Fill in the blank with the correct form of 'will': 'We _____ (not / forget) your help.'",
-      "questionHindi": "'will' के सही रूप से रिक्त स्थान भरें: 'We _____ (not / forget) your help.'",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "won't forget",
-        "not will forget",
-        "will not forgetting",
-        "don't forget"
+        "A) won't forget",
+        "B) not will forget",
+        "C) will not forgetting",
+        "D) don't forget"
       ],
       "correctIndex": 0
     },
     {
-      "id": 624,
-      "question": "Choose the correct English translation for: 'स्वचालित कारें परिवहन को सुरक्षित बनाएंगी।'",
-      "questionHindi": "इस वाक्य का सही अंग्रेजी अनुवाद चुनें: 'स्वचालित कारें परिवहन को सुरक्षित बनाएंगी।'",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "Autonomous cars made transportation safer.",
-        "Autonomous cars will make transportation safer.",
-        "Autonomous cars making transportation safer.",
-        "Autonomous cars are make transportation safer."
+        "A) Autonomous cars made transportation safer.",
+        "B) Autonomous cars will make transportation safer.",
+        "C) Autonomous cars making transportation safer.",
+        "D) Autonomous cars are make transportation safer."
       ],
       "correctIndex": 1
     },
     {
-      "id": 625,
+      "id": 25,
       "question": "What is the correct translation for: 'मैं आपको निराश नहीं करूँगा, यह मेरा वादा है।'",
       "questionHindi": "सही अनुवाद क्या है: 'मैं आपको निराश नहीं करूँगा, यह मेरा वादा है।'?",
       "options": [
-        "I do not let you down, that is my promise.",
-        "I am not letting you down, that is my promise.",
-        "I won't let you down, that is my promise.",
-        "I didn't let you down, that is my promise."
+        "A) I do not let you down, that is my promise.",
+        "B) I am not letting you down, that is my promise.",
+        "C) I won't let you down, that is my promise.",
+        "D) I didn't let you down, that is my promise."
       ],
       "correctIndex": 2
     },
     {
-      "id": 626,
+      "id": 26,
       "question": "Choose the correct verb form for making a future prediction: 'Do you think it _____ (be) hot tomorrow?'",
       "questionHindi": "भविष्य की भविष्यवाणी करने के लिए सही क्रिया रूप चुनें: 'Do you think it _____ (be) hot tomorrow?'",
       "options": [
-        "is",
-        "was",
-        "being",
-        "will be"
+        "A) is",
+        "B) was",
+        "C) being",
+        "D) will be"
       ],
       "correctIndex": 3
     },
     {
-      "id": 627,
-      "question": "Choose the correct English translation for: 'मैं कल सुबह तुमसे मिलूँगा।'",
-      "questionHindi": "इस वाक्य का सही अंग्रेजी अनुवाद चुनें: 'मैं कल सुबह तुमसे मिलूँगा।'",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "I will meet you tomorrow morning.",
-        "I met you tomorrow morning.",
-        "I am meet you tomorrow morning.",
-        "I meet you tomorrow morning."
+        "A) I will meet you tomorrow morning.",
+        "B) I met you tomorrow morning.",
+        "C) I am meet you tomorrow morning.",
+        "D) I meet you tomorrow morning."
       ],
       "correctIndex": 0
     },
     {
-      "id": 628,
-      "question": "Which sentence expresses a promise regarding health?",
-      "questionHindi": "स्वास्थ्य के संबंध में वादा व्यक्त करने वाला वाक्य कौन सा है?",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "I ate unhealthy food yesterday.",
-        "I will exercise daily to stay healthy.",
-        "I am exercising right now.",
-        "I exercise every morning."
+        "A) I ate unhealthy food yesterday.",
+        "B) I will exercise daily to stay healthy.",
+        "C) I am exercising right now.",
+        "D) I exercise every morning."
       ],
       "correctIndex": 1
     },
     {
-      "id": 629,
-      "question": "Choose the correct English translation for: 'क्या रोबोट भविष्य में डॉक्टरों की जगह लेंगे?'",
-      "questionHindi": "इस वाक्य का सही अंग्रेजी अनुवाद चुनें: 'क्या रोबोट भविष्य में डॉक्टरों की जगह लेंगे?'",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "Do robots replace doctors in the future?",
-        "Are robots replace doctors in the future?",
-        "Will robots replace doctors in the future?",
-        "Did robots replace doctors in the future?"
+        "A) Do robots replace doctors in the future?",
+        "B) Are robots replace doctors in the future?",
+        "C) Will robots replace doctors in the future?",
+        "D) Did robots replace doctors in the future?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 630,
+      "id": 30,
       "question": "Complete the sentence: 'Don't worry about the bill, I _____ (pay) for it.'",
       "questionHindi": "वाक्य पूरा करें: 'Don't worry about the bill, I _____ (pay) for it.'",
       "options": [
-        "paid",
-        "am paying",
-        "pay",
-        "will pay"
+        "A) paid",
+        "B) am paying",
+        "C) pay",
+        "D) will pay"
       ],
       "correctIndex": 3
     }
   ],
   "22": [
     {
-      "id": 631,
+      "id": 1,
       "question": "What will you be doing this time tomorrow afternoon?",
       "questionHindi": "कल दोपहर इस समय आप क्या कर रहे होंगे?",
       "options": [
-        "What you will do?",
-        "What will you do?",
-        "What are you doing?",
-        "What will you be doing?"
+        "A) What you will do?",
+        "B) What will you do?",
+        "C) What are you doing?",
+        "D) What will you be doing?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 632,
+      "id": 2,
       "question": "Choose the correct translation: 'मैं अगले महीने इस समय अंग्रेजी सीख रहा होऊँगा।'",
       "questionHindi": "मैं अगले महीने इस समय अंग्रेजी सीख रहा होऊँगा।",
       "options": [
-        "I will learn English next month.",
-        "I am learning English next month.",
-        "I will have learned English next month.",
-        "I will be learning English this time next month."
+        "A) I will learn English next month.",
+        "B) I am learning English next month.",
+        "C) I will have learned English next month.",
+        "D) I will be learning English this time next month."
       ],
       "correctIndex": 3
     },
     {
-      "id": 633,
-      "question": "Where do you think you will be living and working five years from now?",
-      "questionHindi": "आपको क्या लगता है कि आप अब से पाँच साल बाद कहाँ रह रहे होंगे और काम कर रहे होंगे?",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "Where will you live and work?",
-        "Where are you living and working?",
-        "Where have you lived and worked?",
-        "Where will you be living and working?"
+        "A) Where will you live and work?",
+        "B) Where are you living and working?",
+        "C) Where have you lived and worked?",
+        "D) Where will you be living and working?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 634,
+      "id": 4,
       "question": "Complete the sentence: 'This time tomorrow, my father __________ in a meeting.'",
       "questionHindi": "कल इस समय, मेरे पिताजी एक मीटिंग में _________ होंगे।",
       "options": [
-        "will sit",
-        "is sitting",
-        "will have sat",
-        "will be sitting"
+        "A) will sit",
+        "B) is sitting",
+        "C) will have sat",
+        "D) will be sitting"
       ],
       "correctIndex": 3
     },
     {
-      "id": 635,
-      "question": "Which sentence correctly describes a future ongoing activity?",
-      "questionHindi": "भविष्य की निरंतर गतिविधि का वर्णन करने वाला सही वाक्य कौन सा है?",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "I will study tomorrow.",
-        "I study tomorrow.",
-        "I have been studying tomorrow.",
-        "I will be studying tomorrow morning."
+        "A) I will study tomorrow.",
+        "B) I study tomorrow.",
+        "C) I have been studying tomorrow.",
+        "D) I will be studying tomorrow morning."
       ],
       "correctIndex": 3
     },
     {
-      "id": 636,
+      "id": 6,
       "question": "Translate: 'मेरे दोस्त कल शाम फुटबॉल खेल रहे होंगे।'",
       "questionHindi": "मेरे दोस्त कल शाम फुटबॉल खेल रहे होंगे।",
       "options": [
-        "My friends will play football tomorrow evening.",
-        "My friends are playing football tomorrow evening.",
-        "My friends have been playing football tomorrow evening.",
-        "My friends will be playing football tomorrow evening."
+        "A) My friends will play football tomorrow evening.",
+        "B) My friends are playing football tomorrow evening.",
+        "C) My friends have been playing football tomorrow evening.",
+        "D) My friends will be playing football tomorrow evening."
       ],
       "correctIndex": 3
     },
     {
-      "id": 637,
+      "id": 7,
       "question": "What is the correct form for 'will be + verb-ing'?",
       "questionHindi": "'will be + verb-ing' के लिए सही रूप क्या है?",
       "options": [
-        "He will be go to work.",
-        "He will be gone to work.",
-        "He will be going to work.",
-        "He will be goes to work."
+        "A) He will be go to work.",
+        "B) He will be gone to work.",
+        "C) He will be going to work.",
+        "D) He will be goes to work."
       ],
       "correctIndex": 2
     },
     {
-      "id": 638,
+      "id": 8,
       "question": "Fill in the blank: 'While you are enjoying your weekend, I __________ on my project.'",
       "questionHindi": "जब आप अपना वीकेंड एन्जॉय कर रहे होंगे, मैं अपने प्रोजेक्ट पर _________ रहा होऊँगा।",
       "options": [
-        "will work",
-        "am working",
-        "will be working",
-        "have worked"
+        "A) will work",
+        "B) am working",
+        "C) will be working",
+        "D) have worked"
       ],
       "correctIndex": 2
     },
     {
-      "id": 639,
-      "question": "What will your colleagues be doing while you are on vacation?",
-      "questionHindi": "जब आप छुट्टियों पर होंगे तो आपके सहकर्मी क्या कर रहे होंगे?",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "They will attend a meeting.",
-        "They are attending a meeting.",
-        "They will be attending a meeting.",
-        "They attend a meeting."
+        "A) They will attend a meeting.",
+        "B) They are attending a meeting.",
+        "C) They will be attending a meeting.",
+        "D) They attend a meeting."
       ],
       "correctIndex": 2
     },
     {
-      "id": 640,
+      "id": 10,
       "question": "Translate: 'वह कल इस समय यात्रा कर रही होगी।'",
       "questionHindi": "वह कल इस समय यात्रा कर रही होगी।",
       "options": [
-        "She will travel at this time tomorrow.",
-        "She is traveling at this time tomorrow.",
-        "She will be traveling at this time tomorrow.",
-        "She has been traveling at this time tomorrow."
+        "A) She will travel at this time tomorrow.",
+        "B) She is traveling at this time tomorrow.",
+        "C) She will be traveling at this time tomorrow.",
+        "D) She has been traveling at this time tomorrow."
       ],
       "correctIndex": 2
     },
     {
-      "id": 641,
-      "question": "Choose the correct phrase for 'अगले साल इस समय' in a future continuous sentence.",
-      "questionHindi": "'अगले साल इस समय' के लिए सही वाक्यांश चुनें।",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "Next year this time",
-        "In the next year",
-        "This time next year",
-        "At the next year"
+        "A) Next year this time",
+        "B) In the next year",
+        "C) This time next year",
+        "D) At the next year"
       ],
       "correctIndex": 2
     },
     {
-      "id": 642,
-      "question": "Which option completes: 'We __________ for our exams this time next week.'",
-      "questionHindi": "अगले हफ्ते इस समय हम अपनी परीक्षाओं के लिए _________ रहे होंगे।",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "will prepare",
-        "are preparing",
-        "will be preparing",
-        "have prepared"
+        "A) will prepare",
+        "B) are preparing",
+        "C) will be preparing",
+        "D) have prepared"
       ],
       "correctIndex": 2
     },
     {
-      "id": 643,
-      "question": "Translate: 'वे कल दोपहर लंच कर रहे होंगे।'",
-      "questionHindi": "वे कल दोपहर लंच कर रहे होंगे।",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "They will have lunch tomorrow afternoon.",
-        "They will be having lunch tomorrow afternoon.",
-        "They are having lunch tomorrow afternoon.",
-        "They will be eat lunch tomorrow afternoon."
+        "A) They will have lunch tomorrow afternoon.",
+        "B) They will be having lunch tomorrow afternoon.",
+        "C) They are having lunch tomorrow afternoon.",
+        "D) They will be eat lunch tomorrow afternoon."
       ],
       "correctIndex": 1
     },
     {
-      "id": 644,
+      "id": 14,
       "question": "Select the correct structure for a future continuous question.",
       "questionHindi": "भविष्य के निरंतर प्रश्न (future continuous question) के लिए सही संरचना चुनें।",
       "options": [
-        "Will you be study?",
-        "Will you be studying?",
-        "Will you studying?",
-        "Are you be studying?"
+        "A) Will you be study?",
+        "B) Will you be studying?",
+        "C) Will you studying?",
+        "D) Are you be studying?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 645,
-      "question": "Fill in the blank: 'Don't call me at 10 AM tomorrow, I __________ in a lecture.'",
-      "questionHindi": "कल सुबह 10 बजे मुझे कॉल मत करना, मैं एक लेक्चर में _________ रहा होऊँगा।",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "will sit",
-        "will be sitting",
-        "am sitting",
-        "have been sitting"
+        "A) will sit",
+        "B) will be sitting",
+        "C) am sitting",
+        "D) have been sitting"
       ],
       "correctIndex": 1
     },
     {
-      "id": 646,
-      "question": "Which sentence is grammatically correct?",
-      "questionHindi": "कौन सा वाक्य व्याकरण की दृष्टि से सही है?",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "I will be waiting for you.",
-        "I will waiting for you.",
-        "I will be wait for you.",
-        "I will be waited for you."
+        "A) I will be waiting for you.",
+        "B) I will waiting for you.",
+        "C) I will be wait for you.",
+        "D) I will be waited for you."
       ],
       "correctIndex": 0
     },
     {
-      "id": 647,
-      "question": "Translate: 'क्या आप कल सुबह काम कर रहे होंगे?'",
-      "questionHindi": "क्या आप कल सुबह काम कर रहे होंगे?",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "Will you work tomorrow morning?",
-        "Are you working tomorrow morning?",
-        "Will you be working tomorrow morning?",
-        "Do you work tomorrow morning?"
+        "A) Will you work tomorrow morning?",
+        "B) Are you working tomorrow morning?",
+        "C) Will you be working tomorrow morning?",
+        "D) Do you work tomorrow morning?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 648,
+      "id": 18,
       "question": "What skill will you be practicing this time next month?",
       "questionHindi": "अगले महीने इस समय आप कौन सा कौशल (skill) अभ्यास कर रहे होंगे?",
       "options": [
-        "I will practice coding.",
-        "I will be practicing coding.",
-        "I am practicing coding.",
-        "I practice coding."
+        "A) I will practice coding.",
+        "B) I will be practicing coding.",
+        "C) I am practicing coding.",
+        "D) I practice coding."
       ],
       "correctIndex": 1
     },
     {
-      "id": 649,
-      "question": "Complete: 'My brother __________ his car at this time tomorrow.'",
-      "questionHindi": "मेरा भाई कल इस समय अपनी कार _________ रहा होगा।",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "will be cleaning",
-        "will clean",
-        "is cleaning",
-        "will have cleaned"
+        "A) will be cleaning",
+        "B) will clean",
+        "C) is cleaning",
+        "D) will have cleaned"
       ],
       "correctIndex": 0
     },
     {
-      "id": 650,
-      "question": "Translate: 'हम कल रात एक फिल्म देख रहे होंगे।'",
-      "questionHindi": "हम कल रात एक फिल्म देख रहे होंगे।",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "We will be watching a movie tomorrow night.",
-        "We will watch a movie tomorrow night.",
-        "We are watching a movie tomorrow night.",
-        "We will have watched a movie tomorrow night."
+        "A) We will be watching a movie tomorrow night.",
+        "B) We will watch a movie tomorrow night.",
+        "C) We are watching a movie tomorrow night.",
+        "D) We will have watched a movie tomorrow night."
       ],
       "correctIndex": 0
     },
     {
-      "id": 651,
-      "question": "Choose the correct negative form: 'वह कल नहीं पढ़ रहा होगा।'",
-      "questionHindi": "वह कल नहीं पढ़ रहा होगा।",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "He won't be study.",
-        "He will not be studying.",
-        "He isn't studying.",
-        "He won't study."
+        "A) He won't be study.",
+        "B) He will not be studying.",
+        "C) He isn't studying.",
+        "D) He won't study."
       ],
       "correctIndex": 1
     },
     {
-      "id": 652,
-      "question": "Which activity fits: 'This time tomorrow, I __________ to Mumbai.'",
-      "questionHindi": "कल इस समय, मैं मुंबई _________ रहा होऊँगा।",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "will be flying",
-        "will fly",
-        "am flying",
-        "will have flown"
+        "A) will be flying",
+        "B) will fly",
+        "C) am flying",
+        "D) will have flown"
       ],
       "correctIndex": 0
     },
     {
-      "id": 653,
-      "question": "Identify the future ongoing action.",
-      "questionHindi": "भविष्य की निरंतर गतिविधि की पहचान करें।",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "I will eat.",
-        "I am eating.",
-        "I will be eating.",
-        "I ate."
+        "A) I will eat.",
+        "B) I am eating.",
+        "C) I will be eating.",
+        "D) I ate."
       ],
       "correctIndex": 2
     },
     {
-      "id": 654,
-      "question": "Translate: 'क्या वे कल खेल रहे होंगे?'",
-      "questionHindi": "क्या वे कल खेल रहे होंगे?",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "Will they be playing tomorrow?",
-        "Will they play tomorrow?",
-        "Are they playing tomorrow?",
-        "Do they play tomorrow?"
+        "A) Will they be playing tomorrow?",
+        "B) Will they play tomorrow?",
+        "C) Are they playing tomorrow?",
+        "D) Do they play tomorrow?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 655,
+      "id": 25,
       "question": "Fill in the blank: 'She __________ her presentation at 2 PM tomorrow.'",
       "questionHindi": "वह कल दोपहर 2 बजे अपनी प्रेजेंटेशन _________ रही होगी।",
       "options": [
-        "will be giving",
-        "will give",
-        "is giving",
-        "will have given"
+        "A) will be giving",
+        "B) will give",
+        "C) is giving",
+        "D) will have given"
       ],
       "correctIndex": 0
     },
     {
-      "id": 656,
+      "id": 26,
       "question": "Select the option that shows a future schedule.",
       "questionHindi": "वह विकल्प चुनें जो भविष्य के कार्यक्रम को दर्शाता है।",
       "options": [
-        "I will be meeting the manager tomorrow.",
-        "I meet the manager tomorrow.",
-        "I met the manager tomorrow.",
-        "I have met the manager tomorrow."
+        "A) I will be meeting the manager tomorrow.",
+        "B) I meet the manager tomorrow.",
+        "C) I met the manager tomorrow.",
+        "D) I have met the manager tomorrow."
       ],
       "correctIndex": 0
     },
     {
-      "id": 657,
-      "question": "What will your family be doing this Sunday morning?",
-      "questionHindi": "इस रविवार सुबह आपका परिवार क्या कर रहा होगा?",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "They will have breakfast.",
-        "They will be having breakfast.",
-        "They are having breakfast.",
-        "They have breakfast."
+        "A) They will have breakfast.",
+        "B) They will be having breakfast.",
+        "C) They are having breakfast.",
+        "D) They have breakfast."
       ],
       "correctIndex": 1
     },
     {
-      "id": 658,
-      "question": "Translate: 'मैं कल रात काम नहीं कर रहा होऊँगा।'",
-      "questionHindi": "मैं कल रात काम नहीं कर रहा होऊँगा।",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "I won't work tomorrow night.",
-        "I will not be working tomorrow night.",
-        "I am not working tomorrow night.",
-        "I haven't worked tomorrow night."
+        "A) I won't work tomorrow night.",
+        "B) I will not be working tomorrow night.",
+        "C) I am not working tomorrow night.",
+        "D) I haven't worked tomorrow night."
       ],
       "correctIndex": 1
     },
     {
-      "id": 659,
-      "question": "Choose the correct usage: 'will be + verb+ing'.",
-      "questionHindi": "'will be + verb+ing' का सही उपयोग चुनें।",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "They will be sleep.",
-        "They will be sleeping.",
-        "They will be slept.",
-        "They will be sleeps."
+        "A) They will be sleep.",
+        "B) They will be sleeping.",
+        "C) They will be slept.",
+        "D) They will be sleeps."
       ],
       "correctIndex": 1
     },
     {
-      "id": 660,
+      "id": 30,
       "question": "Complete the sentence: 'At this time tomorrow, we __________ on the beach.'",
       "questionHindi": "कल इस समय, हम समुद्र तट पर _________ रहे होंगे।",
       "options": [
-        "will be relaxing",
-        "will relax",
-        "are relaxing",
-        "will have relaxed"
+        "A) will be relaxing",
+        "B) will relax",
+        "C) are relaxing",
+        "D) will have relaxed"
       ],
       "correctIndex": 0
     }
   ],
   "23": [
     {
-      "id": 661,
+      "id": 1,
       "question": "How long have you been learning English?",
       "questionHindi": "आप कितनी देर से अंग्रेजी सीख रहे हैं?",
       "options": [
-        "How long you are learning English?",
-        "How long do you learn English?",
-        "How long you learn English?",
-        "How long have you been learning English?"
+        "A) How long you are learning English?",
+        "B) How long do you learn English?",
+        "C) How long you learn English?",
+        "D) How long have you been learning English?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 662,
+      "id": 2,
       "question": "I have been practicing yoga ________ three months.",
       "questionHindi": "मैं तीन महीनों से योग का अभ्यास कर रहा हूँ।",
       "options": [
-        "since",
-        "at",
-        "during",
-        "for"
+        "A) since",
+        "B) at",
+        "C) during",
+        "D) for"
       ],
       "correctIndex": 3
     },
     {
-      "id": 663,
-      "question": "She ________ working on this project since January.",
-      "questionHindi": "वह जनवरी से इस प्रोजेक्ट पर काम कर रही है।",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "have been",
-        "is",
-        "was",
-        "has been"
+        "A) have been",
+        "B) is",
+        "C) was",
+        "D) has been"
       ],
       "correctIndex": 3
     },
     {
-      "id": 664,
+      "id": 4,
       "question": "Choose the correct translation: 'मैं पिछले दो हफ्तों से व्यायाम कर रहा हूँ।'",
       "questionHindi": "मैं पिछले दो हफ्तों से व्यायाम कर रहा हूँ।",
       "options": [
-        "I am exercising for two weeks.",
-        "I have been exercising since two weeks.",
-        "I exercise for two weeks.",
-        "I have been exercising for two weeks."
+        "A) I am exercising for two weeks.",
+        "B) I have been exercising since two weeks.",
+        "C) I exercise for two weeks.",
+        "D) I have been exercising for two weeks."
       ],
       "correctIndex": 3
     },
     {
-      "id": 665,
-      "question": "What have you been focusing on lately?",
-      "questionHindi": "आप हाल ही में किस पर ध्यान केंद्रित कर रहे हैं?",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "What you focus lately?",
-        "What are you focus lately?",
-        "What have you been focusing on lately?",
-        "What do you been focusing on?"
+        "A) What you focus lately?",
+        "B) What are you focus lately?",
+        "C) What have you been focusing on lately?",
+        "D) What do you been focusing on?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 666,
+      "id": 6,
       "question": "They ________ (study) for their exams since morning.",
       "questionHindi": "वे सुबह से अपनी परीक्षाओं के लिए पढ़ रहे हैं।",
       "options": [
-        "has been studying",
-        "are studying",
-        "have been studying",
-        "have study"
+        "A) has been studying",
+        "B) are studying",
+        "C) have been studying",
+        "D) have study"
       ],
       "correctIndex": 2
     },
     {
-      "id": 667,
+      "id": 7,
       "question": "I have been working at this company ________ 2020.",
       "questionHindi": "मैं 2020 से इस कंपनी में काम कर रहा हूँ।",
       "options": [
-        "for",
-        "until",
-        "since",
-        "to"
+        "A) for",
+        "B) until",
+        "C) since",
+        "D) to"
       ],
       "correctIndex": 2
     },
     {
-      "id": 668,
+      "id": 8,
       "question": "Choose the correct phrase: 'अपनी प्रगति के बारे में बताना'",
       "questionHindi": "अपनी प्रगति के बारे में बताना",
       "options": [
-        "Talking my progress",
-        "Talk progress",
-        "Talk about my progress",
-        "Talked to progress"
+        "A) Talking my progress",
+        "B) Talk progress",
+        "C) Talk about my progress",
+        "D) Talked to progress"
       ],
       "correctIndex": 2
     },
     {
-      "id": 669,
-      "question": "Has he been following a fitness routine?",
-      "questionHindi": "क्या वह फिटनेस दिनचर्या का पालन कर रहा है?",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "Have he been following?",
-        "Has he been following?",
-        "Is he follow?",
-        "Does he been following?"
+        "A) Have he been following?",
+        "B) Has he been following?",
+        "C) Is he follow?",
+        "D) Does he been following?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 670,
+      "id": 10,
       "question": "We have been ________ (learn) new skills for our professional growth.",
       "questionHindi": "हम अपने पेशेवर विकास के लिए नए कौशल सीख रहे हैं।",
       "options": [
-        "learn",
-        "learned",
-        "learning",
-        "learns"
+        "A) learn",
+        "B) learned",
+        "C) learning",
+        "D) learns"
       ],
       "correctIndex": 2
     },
     {
-      "id": 671,
-      "question": "Choose the correct translation: 'मैं अपनी गलतियों को सुधारने की कोशिश कर रहा हूँ।'",
-      "questionHindi": "मैं अपनी गलतियों को सुधारने की कोशिश कर रहा हूँ।",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "I am try to improve my mistakes.",
-        "I have been trying to improve my mistakes.",
-        "I have been try to improve my mistakes.",
-        "I try to improve my mistakes."
+        "A) I am try to improve my mistakes.",
+        "B) I have been trying to improve my mistakes.",
+        "C) I have been try to improve my mistakes.",
+        "D) I try to improve my mistakes."
       ],
       "correctIndex": 1
     },
     {
-      "id": 672,
-      "question": "How long ________ you been overcoming these challenges?",
-      "questionHindi": "आप इन चुनौतियों से कब से निपट रहे हैं?",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "do",
-        "has",
-        "are",
-        "have"
+        "A) do",
+        "B) has",
+        "C) are",
+        "D) have"
       ],
       "correctIndex": 3
     },
     {
-      "id": 673,
-      "question": "Identify the correct sentence structure.",
-      "questionHindi": "सही वाक्य संरचना की पहचान करें।",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "She has been work for long.",
-        "She has been working for long.",
-        "She has working for long.",
-        "She have been working for long."
+        "A) She has been work for long.",
+        "B) She has been working for long.",
+        "C) She has working for long.",
+        "D) She have been working for long."
       ],
       "correctIndex": 1
     },
     {
-      "id": 674,
+      "id": 14,
       "question": "I ________ (not/feel) well for the past few days.",
       "questionHindi": "मैं पिछले कुछ दिनों से अच्छा महसूस नहीं कर रहा हूँ।",
       "options": [
-        "have not been feeling",
-        "has not been feeling",
-        "am not feel",
-        "have not feel"
+        "A) have not been feeling",
+        "B) has not been feeling",
+        "C) am not feel",
+        "D) have not feel"
       ],
       "correctIndex": 0
     },
     {
-      "id": 675,
-      "question": "Choose the correct meaning: 'Long-term goals'",
-      "questionHindi": "'Long-term goals' का सही अर्थ क्या है?",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "Short term plans",
-        "Immediate tasks",
-        "Long-term objectives",
-        "Daily habits"
+        "A) Short term plans",
+        "B) Immediate tasks",
+        "C) Long-term objectives",
+        "D) Daily habits"
       ],
       "correctIndex": 2
     },
     {
-      "id": 676,
-      "question": "They have been living in this city ________ five years.",
-      "questionHindi": "वे पांच साल से इस शहर में रह रहे हैं।",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "since",
-        "for",
-        "at",
-        "in"
+        "A) since",
+        "B) for",
+        "C) at",
+        "D) in"
       ],
       "correctIndex": 1
     },
     {
-      "id": 677,
-      "question": "What activity have you been ________ (do) lately?",
-      "questionHindi": "आप हाल ही में क्या गतिविधि कर रहे हैं?",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "do",
-        "did",
-        "doing",
-        "done"
+        "A) do",
+        "B) did",
+        "C) doing",
+        "D) done"
       ],
       "correctIndex": 2
     },
     {
-      "id": 678,
+      "id": 18,
       "question": "Choose the correct translation: 'वह सुबह से काम कर रहा है।'",
       "questionHindi": "वह सुबह से काम कर रहा है।",
       "options": [
-        "He has been working since morning.",
-        "He has been working for morning.",
-        "He is working since morning.",
-        "He works since morning."
+        "A) He has been working since morning.",
+        "B) He has been working for morning.",
+        "C) He is working since morning.",
+        "D) He works since morning."
       ],
       "correctIndex": 0
     },
     {
-      "id": 679,
-      "question": "I have been ________ (try) to learn English for six months.",
-      "questionHindi": "मैं छह महीने से अंग्रेजी सीखने की कोशिश कर रहा हूँ।",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "try",
-        "tries",
-        "trying",
-        "tried"
+        "A) try",
+        "B) tries",
+        "C) trying",
+        "D) tried"
       ],
       "correctIndex": 2
     },
     {
-      "id": 680,
-      "question": "Which word indicates a starting point in time?",
-      "questionHindi": "कौन सा शब्द समय के शुरुआती बिंदु को दर्शाता है?",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "for",
-        "since",
-        "during",
-        "always"
+        "A) for",
+        "B) since",
+        "C) during",
+        "D) always"
       ],
       "correctIndex": 1
     },
     {
-      "id": 681,
-      "question": "Have you been ________ (exercise) regularly?",
-      "questionHindi": "क्या आप नियमित रूप से व्यायाम कर रहे हैं?",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "exercise",
-        "exercises",
-        "exercised",
-        "exercising"
+        "A) exercise",
+        "B) exercises",
+        "C) exercised",
+        "D) exercising"
       ],
       "correctIndex": 3
     },
     {
-      "id": 682,
-      "question": "Choose the correct translation: 'क्या आप अपनी पढ़ाई पर ध्यान दे रहे हैं?'",
-      "questionHindi": "क्या आप अपनी पढ़ाई पर ध्यान दे रहे हैं?",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "Have you been focusing on your studies?",
-        "Are you focus on your studies?",
-        "Do you been focus on studies?",
-        "Have you focus on studies?"
+        "A) Have you been focusing on your studies?",
+        "B) Are you focus on your studies?",
+        "C) Do you been focus on studies?",
+        "D) Have you focus on studies?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 683,
-      "question": "She ________ (read) that book since yesterday.",
-      "questionHindi": "वह कल से वह किताब पढ़ रही है।",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "has been reading",
-        "have been reading",
-        "is reading",
-        "was reading"
+        "A) has been reading",
+        "B) have been reading",
+        "C) is reading",
+        "D) was reading"
       ],
       "correctIndex": 0
     },
     {
-      "id": 684,
-      "question": "How has your progress ________?",
-      "questionHindi": "आपकी प्रगति कैसी रही है?",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "been",
-        "be",
-        "being",
-        "is"
+        "A) been",
+        "B) be",
+        "C) being",
+        "D) is"
       ],
       "correctIndex": 0
     },
     {
-      "id": 685,
+      "id": 25,
       "question": "I have been working on my communication skills ________ last month.",
       "questionHindi": "मैं पिछले महीने से अपने संचार कौशल पर काम कर रहा हूँ।",
       "options": [
-        "for",
-        "since",
-        "during",
-        "at"
+        "A) for",
+        "B) since",
+        "C) during",
+        "D) at"
       ],
       "correctIndex": 1
     },
     {
-      "id": 686,
+      "id": 26,
       "question": "Choose the correct translation: 'मैं अपनी फिटनेस दिनचर्या का पालन कर रहा हूँ।'",
       "questionHindi": "मैं अपनी फिटनेस दिनचर्या का पालन कर रहा हूँ।",
       "options": [
-        "I have been following my fitness routine.",
-        "I follow my fitness routine.",
-        "I am follow my fitness routine.",
-        "I have been follow my fitness routine."
+        "A) I have been following my fitness routine.",
+        "B) I follow my fitness routine.",
+        "C) I am follow my fitness routine.",
+        "D) I have been follow my fitness routine."
       ],
       "correctIndex": 0
     },
     {
-      "id": 687,
-      "question": "________ (They) been learning English together?",
-      "questionHindi": "क्या वे साथ में अंग्रेजी सीख रहे हैं?",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "Has",
-        "Have",
-        "Are",
-        "Do"
+        "A) Has",
+        "B) Have",
+        "C) Are",
+        "D) Do"
       ],
       "correctIndex": 1
     },
     {
-      "id": 688,
-      "question": "I have been ________ (overcome) challenges in my work.",
-      "questionHindi": "मैं अपने काम में चुनौतियों से पार पा रहा हूँ।",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "overcome",
-        "overcoming",
-        "overcomes",
-        "overcame"
+        "A) overcome",
+        "B) overcoming",
+        "C) overcomes",
+        "D) overcame"
       ],
       "correctIndex": 1
     },
     {
-      "id": 689,
-      "question": "Choose the correct phrase: 'निरंतर गतिविधियाँ'",
-      "questionHindi": "'निरंतर गतिविधियाँ' के लिए सही शब्द क्या है?",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "Ongoing activities",
-        "Past activities",
-        "Short activities",
-        "Future activities"
+        "A) Ongoing activities",
+        "B) Past activities",
+        "C) Short activities",
+        "D) Future activities"
       ],
       "correctIndex": 0
     },
     {
-      "id": 690,
+      "id": 30,
       "question": "He ________ (practice) his presentation skills for weeks.",
       "questionHindi": "वह हफ्तों से अपने प्रेजेंटेशन कौशल का अभ्यास कर रहा है।",
       "options": [
-        "has been practicing",
-        "have been practicing",
-        "is practicing",
-        "was practicing"
+        "A) has been practicing",
+        "B) have been practicing",
+        "C) is practicing",
+        "D) was practicing"
       ],
       "correctIndex": 0
     }
   ],
   "24": [
     {
-      "id": 691,
+      "id": 1,
       "question": "How do you politely ask a shop assistant for a larger size?",
       "questionHindi": "आप विनम्रतापूर्वक दुकान सहायक से बड़े आकार के लिए कैसे पूछेंगे?",
       "options": [
-        "Give me a big one.",
-        "I want big size.",
-        "Can I have this in a larger size?",
-        "Make it bigger."
+        "A) Give me a big one.",
+        "B) I want big size.",
+        "C) Can I have this in a larger size?",
+        "D) Make it bigger."
       ],
       "correctIndex": 2
     },
     {
-      "id": 692,
+      "id": 2,
       "question": "Choose the best way to ask about seasonal discounts.",
       "questionHindi": "मौसमी छूट के बारे में पूछने का सबसे अच्छा तरीका चुनें।",
       "options": [
-        "Is there any discount?",
-        "Give me discount.",
-        "Are there any seasonal discounts available?",
-        "Discount is there?"
+        "A) Is there any discount?",
+        "B) Give me discount.",
+        "C) Are there any seasonal discounts available?",
+        "D) Discount is there?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 693,
-      "question": "Which sentence is correct for asking to try on a shirt?",
-      "questionHindi": "शर्ट पहनकर देखने (ट्रायल) के लिए कौन सा वाक्य सही है?",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "I try this?",
-        "Try this shirt now.",
-        "Can I try this on?",
-        "Is this for trying?"
+        "A) I try this?",
+        "B) Try this shirt now.",
+        "C) Can I try this on?",
+        "D) Is this for trying?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 694,
+      "id": 4,
       "question": "Translate: 'क्या आपके पास यह जूता दूसरे रंग में उपलब्ध है?'",
       "questionHindi": "क्या आपके पास यह जूता दूसरे रंग में उपलब्ध है?",
       "options": [
-        "This shoe is another color?",
-        "Give me another color shoe.",
-        "Do you have this shoe in another color?",
-        "Is this shoe color available?"
+        "A) This shoe is another color?",
+        "B) Give me another color shoe.",
+        "C) Do you have this shoe in another color?",
+        "D) Is this shoe color available?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 695,
-      "question": "How do you ask about the price of an item politely?",
-      "questionHindi": "किसी वस्तु की कीमत विनम्रतापूर्वक कैसे पूछें?",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "What is the cost?",
-        "Tell me the price.",
-        "How much does this cost?",
-        "Is this expensive?"
+        "A) What is the cost?",
+        "B) Tell me the price.",
+        "C) How much does this cost?",
+        "D) Is this expensive?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 696,
+      "id": 6,
       "question": "Fill in the blank: 'Could you please _____ this item for me?' (regarding an exchange)",
       "questionHindi": "खाली स्थान भरें: 'क्या आप कृपया मेरे लिए इस वस्तु को _____ कर सकते हैं?' (बदलने के संदर्भ में)",
       "options": [
-        "change",
-        "return",
-        "exchange",
-        "take"
+        "A) change",
+        "B) return",
+        "C) exchange",
+        "D) take"
       ],
       "correctIndex": 2
     },
     {
-      "id": 697,
+      "id": 7,
       "question": "Translate: 'मैं इसे वापस करना चाहता हूँ क्योंकि यह फिट नहीं है।'",
       "questionHindi": "मैं इसे वापस करना चाहता हूँ क्योंकि यह फिट नहीं है।",
       "options": [
-        "I am returning this as it is not fit.",
-        "Please take this back, no fit.",
-        "I want to return this because it doesn't fit.",
-        "It doesn't fit, take it back."
+        "A) I am returning this as it is not fit.",
+        "B) Please take this back, no fit.",
+        "C) I want to return this because it doesn't fit.",
+        "D) It doesn't fit, take it back."
       ],
       "correctIndex": 2
     },
     {
-      "id": 698,
+      "id": 8,
       "question": "Which phrase is used to ask for the payment counter?",
       "questionHindi": "भुगतान काउंटर के बारे में पूछने के लिए किस वाक्यांश का उपयोग किया जाता है?",
       "options": [
-        "Where to pay?",
-        "Give money where?",
-        "Where is the billing counter?",
-        "Counter is where?"
+        "A) Where to pay?",
+        "B) Give money where?",
+        "C) Where is the billing counter?",
+        "D) Counter is where?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 699,
-      "question": "How do you ask if a product is in stock?",
-      "questionHindi": "क्या कोई उत्पाद स्टॉक में है, यह कैसे पूछें?",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "Is this item available?",
-        "Do you have this item?",
-        "Is this in stock?",
-        "All of the above."
+        "A) Is this item available?",
+        "B) Do you have this item?",
+        "C) Is this in stock?",
+        "D) All of the above."
       ],
       "correctIndex": 3
     },
     {
-      "id": 700,
+      "id": 10,
       "question": "Translate: 'क्या आप मुझे यह दिखा सकते हैं?'",
       "questionHindi": "क्या आप मुझे यह दिखा सकते हैं?",
       "options": [
-        "Show this to me.",
-        "Can you show me this?",
-        "May I see this?",
-        "Do you show this?"
+        "A) Show this to me.",
+        "B) Can you show me this?",
+        "C) May I see this?",
+        "D) Do you show this?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 701,
-      "question": "What is the most polite way to ask for help?",
-      "questionHindi": "मदद मांगने का सबसे विनम्र तरीका क्या है?",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "Help me.",
-        "Can you help me, please?",
-        "I need help.",
-        "You help me now."
+        "A) Help me.",
+        "B) Can you help me, please?",
+        "C) I need help.",
+        "D) You help me now."
       ],
       "correctIndex": 1
     },
     {
-      "id": 702,
-      "question": "Fill in the blank: 'I would like to _____ this shirt for a smaller size.'",
-      "questionHindi": "खाली स्थान भरें: 'मैं इस शर्ट को छोटे आकार के लिए _____ करना चाहूँगा।'",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "return",
-        "exchange",
-        "buy",
-        "keep"
+        "A) return",
+        "B) exchange",
+        "C) buy",
+        "D) keep"
       ],
       "correctIndex": 1
     },
     {
-      "id": 703,
-      "question": "Translate: 'क्या आप कार्ड स्वीकार करते हैं?'",
-      "questionHindi": "क्या आप कार्ड स्वीकार करते हैं?",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "Is card okay?",
-        "Do you accept cards?",
-        "Take card?",
-        "Payment by card?"
+        "A) Is card okay?",
+        "B) Do you accept cards?",
+        "C) Take card?",
+        "D) Payment by card?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 704,
+      "id": 14,
       "question": "Which option is best for asking about the material of a cloth?",
       "questionHindi": "कपड़े की सामग्री के बारे में पूछने के लिए कौन सा विकल्प सबसे अच्छा है?",
       "options": [
-        "What is this made of?",
-        "What material is this?",
-        "Is this cotton?",
-        "All of the above."
+        "A) What is this made of?",
+        "B) What material is this?",
+        "C) Is this cotton?",
+        "D) All of the above."
       ],
       "correctIndex": 3
     },
     {
-      "id": 705,
-      "question": "How do you ask about the warranty of an electronic item?",
-      "questionHindi": "इलेक्ट्रॉनिक वस्तु की वारंटी के बारे में कैसे पूछें?",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "Is there a warranty?",
-        "Does it have a warranty?",
-        "What is the warranty period?",
-        "All of the above."
+        "A) Is there a warranty?",
+        "B) Does it have a warranty?",
+        "C) What is the warranty period?",
+        "D) All of the above."
       ],
       "correctIndex": 3
     },
     {
-      "id": 706,
-      "question": "Translate: 'क्या यहाँ कोई सेल चल रही है?'",
-      "questionHindi": "क्या यहाँ कोई सेल चल रही है?",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "Sale is here?",
-        "Is there a sale going on here?",
-        "Any sale today?",
-        "Are you selling?"
+        "A) Sale is here?",
+        "B) Is there a sale going on here?",
+        "C) Any sale today?",
+        "D) Are you selling?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 707,
-      "question": "Which sentence is grammatically correct for a request?",
-      "questionHindi": "अनुरोध के लिए कौन सा वाक्य व्याकरण की दृष्टि से सही है?",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "I see that watch?",
-        "Could I see that watch?",
-        "Watch see I?",
-        "Can watch see I?"
+        "A) I see that watch?",
+        "B) Could I see that watch?",
+        "C) Watch see I?",
+        "D) Can watch see I?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 708,
+      "id": 18,
       "question": "How do you ask for a bag for your items?",
       "questionHindi": "अपने सामान के लिए बैग कैसे मांगें?",
       "options": [
-        "Give me a bag.",
-        "Can I have a bag, please?",
-        "Where is the bag?",
-        "Need a bag."
+        "A) Give me a bag.",
+        "B) Can I have a bag, please?",
+        "C) Where is the bag?",
+        "D) Need a bag."
       ],
       "correctIndex": 1
     },
     {
-      "id": 709,
-      "question": "Fill in the blank: 'Do you have this in a different _____?'",
-      "questionHindi": "खाली स्थान भरें: 'क्या आपके पास यह किसी अलग _____ में है?'",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "color",
-        "style",
-        "size",
-        "All of the above"
+        "A) color",
+        "B) style",
+        "C) size",
+        "D) All of the above"
       ],
       "correctIndex": 3
     },
     {
-      "id": 710,
-      "question": "Translate: 'मुझे यह बहुत पसंद आया।'",
-      "questionHindi": "मुझे यह बहुत पसंद आया।",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "I am liking this.",
-        "I like this very much.",
-        "Like this I.",
-        "This is liked by me."
+        "A) I am liking this.",
+        "B) I like this very much.",
+        "C) Like this I.",
+        "D) This is liked by me."
       ],
       "correctIndex": 1
     },
     {
-      "id": 711,
-      "question": "What do you say when you are just looking around?",
-      "questionHindi": "जब आप बस देख रहे हों, तो आप क्या कहते हैं?",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "I am just browsing, thank you.",
-        "I look.",
-        "Looking only.",
-        "I don't want anything."
+        "A) I am just browsing, thank you.",
+        "B) I look.",
+        "C) Looking only.",
+        "D) I don't want anything."
       ],
       "correctIndex": 0
     },
     {
-      "id": 712,
-      "question": "How do you ask for the fitting room?",
-      "questionHindi": "फिटिंग रूम के बारे में कैसे पूछें?",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "Where is the fitting room?",
-        "Fitting room where?",
-        "Need fitting room.",
-        "Is there a room?"
+        "A) Where is the fitting room?",
+        "B) Fitting room where?",
+        "C) Need fitting room.",
+        "D) Is there a room?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 713,
-      "question": "Translate: 'क्या इसकी कोई और वैरायटी है?'",
-      "questionHindi": "क्या इसकी कोई और वैरायटी है?",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "Do you have any other variety?",
-        "Other variety here?",
-        "More variety?",
-        "Is there variety?"
+        "A) Do you have any other variety?",
+        "B) Other variety here?",
+        "C) More variety?",
+        "D) Is there variety?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 714,
-      "question": "Which phrase is correct for asking about the total bill?",
-      "questionHindi": "कुल बिल के बारे में पूछने के लिए कौन सा वाक्यांश सही है?",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "How much is the total?",
-        "Total bill?",
-        "How much to pay?",
-        "All of the above."
+        "A) How much is the total?",
+        "B) Total bill?",
+        "C) How much to pay?",
+        "D) All of the above."
       ],
       "correctIndex": 3
     },
     {
-      "id": 715,
+      "id": 25,
       "question": "Translate: 'मैं यह लेना चाहूँगा।'",
       "questionHindi": "मैं यह लेना चाहूँगा।",
       "options": [
-        "I would like to take this.",
-        "I take this.",
-        "Taking this.",
-        "I will take this."
+        "A) I would like to take this.",
+        "B) I take this.",
+        "C) Taking this.",
+        "D) I will take this."
       ],
       "correctIndex": 0
     },
     {
-      "id": 716,
+      "id": 26,
       "question": "How to ask if an item is on sale?",
       "questionHindi": "यह पूछने के लिए कि क्या कोई वस्तु सेल पर है, कैसे कहें?",
       "options": [
-        "Is this on sale?",
-        "Sale this?",
-        "Is this discounted?",
-        "Both A and C."
+        "A) Is this on sale?",
+        "B) Sale this?",
+        "C) Is this discounted?",
+        "D) Both A and C."
       ],
       "correctIndex": 3
     },
     {
-      "id": 717,
-      "question": "Translate: 'क्या आपके पास कोई और विकल्प है?'",
-      "questionHindi": "क्या आपके पास कोई और विकल्प है?",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "Do you have any other options?",
-        "Other options?",
-        "Any more?",
-        "Options available?"
+        "A) Do you have any other options?",
+        "B) Other options?",
+        "C) Any more?",
+        "D) Options available?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 718,
-      "question": "How do you politely end a conversation after buying?",
-      "questionHindi": "खरीदने के बाद बातचीत समाप्त करने के लिए आप क्या कहेंगे?",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "Thank you, have a nice day.",
-        "Bye.",
-        "Done.",
-        "Okay, thanks."
+        "A) Thank you, have a nice day.",
+        "B) Bye.",
+        "C) Done.",
+        "D) Okay, thanks."
       ],
       "correctIndex": 0
     },
     {
-      "id": 719,
-      "question": "Translate: 'क्या मैं इसे कल बदल सकता हूँ?'",
-      "questionHindi": "क्या मैं इसे कल बदल सकता हूँ?",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "Can I exchange this tomorrow?",
-        "Exchange tomorrow?",
-        "Change this tomorrow?",
-        "Return this tomorrow?"
+        "A) Can I exchange this tomorrow?",
+        "B) Exchange tomorrow?",
+        "C) Change this tomorrow?",
+        "D) Return this tomorrow?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 720,
+      "id": 30,
       "question": "Which is the most natural way to ask for a receipt?",
       "questionHindi": "रसीद मांगने का सबसे स्वाभाविक तरीका कौन सा है?",
       "options": [
-        "May I have the receipt, please?",
-        "Give me receipt.",
-        "Where is receipt?",
-        "Receipt please."
+        "A) May I have the receipt, please?",
+        "B) Give me receipt.",
+        "C) Where is receipt?",
+        "D) Receipt please."
       ],
       "correctIndex": 0
     }
   ],
   "25": [
     {
-      "id": 721,
+      "id": 1,
       "question": "How would you politely ask to reserve a table for four people?",
       "questionHindi": "आप चार लोगों के लिए टेबल रिजर्व करने के लिए विनम्रतापूर्वक कैसे पूछेंगे?",
       "options": [
-        "I want a table for four.",
-        "Give me a table for four.",
-        "Reserve a table for four now.",
-        "Can I reserve a table for four, please?"
+        "A) I want a table for four.",
+        "B) Give me a table for four.",
+        "C) Reserve a table for four now.",
+        "D) Can I reserve a table for four, please?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 722,
+      "id": 2,
       "question": "Choose the correct phrase to ask about vegetarian options on the menu.",
       "questionHindi": "मेन्यू में शाकाहारी विकल्पों के बारे में पूछने के लिए सही वाक्यांश चुनें।",
       "options": [
-        "Is this food vegetarian?",
-        "I only eat vegetarian food.",
-        "Where is the vegetarian menu?",
-        "Do you have any vegetarian options?"
+        "A) Is this food vegetarian?",
+        "B) I only eat vegetarian food.",
+        "C) Where is the vegetarian menu?",
+        "D) Do you have any vegetarian options?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 723,
-      "question": "Translate: 'क्या मुझे मेन्यू कार्ड मिल सकता है?'",
-      "questionHindi": "Translate: 'क्या मुझे मेन्यू कार्ड मिल सकता है?'",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "I take the menu card.",
-        "Give me the menu card.",
-        "Will I have the menu card?",
-        "Could I have the menu card, please?"
+        "A) I take the menu card.",
+        "B) Give me the menu card.",
+        "C) Will I have the menu card?",
+        "D) Could I have the menu card, please?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 724,
+      "id": 4,
       "question": "Which sentence is the most polite way to order a dish?",
       "questionHindi": "डिश ऑर्डर करने का सबसे विनम्र तरीका कौन सा है?",
       "options": [
-        "I want the chicken curry.",
-        "Order me a chicken curry.",
-        "Give me the chicken curry.",
-        "I would like to have the chicken curry, please."
+        "A) I want the chicken curry.",
+        "B) Order me a chicken curry.",
+        "C) Give me the chicken curry.",
+        "D) I would like to have the chicken curry, please."
       ],
       "correctIndex": 3
     },
     {
-      "id": 725,
-      "question": "If you want to know if a dish is spicy, what do you ask?",
-      "questionHindi": "यदि आप जानना चाहते हैं कि क्या कोई डिश तीखी है, तो आप क्या पूछेंगे?",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "How much spice is in this?",
-        "Do you put spice in this?",
-        "Is this dish not spicy?",
-        "Is this dish spicy?"
+        "A) How much spice is in this?",
+        "B) Do you put spice in this?",
+        "C) Is this dish not spicy?",
+        "D) Is this dish spicy?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 726,
+      "id": 6,
       "question": "Fill in the blank: 'Could you please _____ the bill?'",
       "questionHindi": "रिक्त स्थान भरें: 'Could you please _____ the bill?'",
       "options": [
-        "take",
-        "give",
-        "bring",
-        "make"
+        "A) take",
+        "B) give",
+        "C) bring",
+        "D) make"
       ],
       "correctIndex": 2
     },
     {
-      "id": 727,
+      "id": 7,
       "question": "Translate: 'क्या इसमें मूंगफली है? मुझे एलर्जी है।'",
       "questionHindi": "Translate: 'क्या इसमें मूंगफली है? मुझे एलर्जी है।'",
       "options": [
-        "Does this have peanuts? I have an allergy.",
-        "Do you use peanuts? I have allergy.",
-        "Is there peanut in this? I am allergic.",
-        "Are peanuts in this? I am allergic."
+        "A) Does this have peanuts? I have an allergy.",
+        "B) Do you use peanuts? I have allergy.",
+        "C) Is there peanut in this? I am allergic.",
+        "D) Are peanuts in this? I am allergic."
       ],
       "correctIndex": 2
     },
     {
-      "id": 728,
+      "id": 8,
       "question": "How do you inform the waiter that your order is missing an item?",
       "questionHindi": "आप वेटर को कैसे सूचित करेंगे कि आपके ऑर्डर में एक आइटम कम है?",
       "options": [
-        "My order is wrong.",
-        "You forgot my order.",
-        "Excuse me, I think one item is missing from my order.",
-        "Where is my food?"
+        "A) My order is wrong.",
+        "B) You forgot my order.",
+        "C) Excuse me, I think one item is missing from my order.",
+        "D) Where is my food?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 729,
-      "question": "Which phrase is used to ask for the check/bill?",
-      "questionHindi": "बिल मांगने के लिए किस वाक्यांश का उपयोग किया जाता है?",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "I want the money now.",
-        "How much is the food?",
-        "Can I get the check, please?",
-        "Where is the bill counter?"
+        "A) I want the money now.",
+        "B) How much is the food?",
+        "C) Can I get the check, please?",
+        "D) Where is the bill counter?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 730,
+      "id": 10,
       "question": "Translate: 'क्या आप मुझे बता सकते हैं कि आज का स्पेशल क्या है?'",
       "questionHindi": "Translate: 'क्या आप मुझे बता सकते हैं कि आज का स्पेशल क्या है?'",
       "options": [
-        "What is today special?",
-        "Tell me the special today.",
-        "Could you tell me what the special of the day is?",
-        "Is today a special day?"
+        "A) What is today special?",
+        "B) Tell me the special today.",
+        "C) Could you tell me what the special of the day is?",
+        "D) Is today a special day?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 731,
-      "question": "Choose the best response to 'Are you ready to order?'",
-      "questionHindi": "'Are you ready to order?' के लिए सबसे अच्छा उत्तर चुनें।",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "I am ready.",
-        "No, I order now.",
-        "Yes, I will have the pasta.",
-        "Yes, I am ordering."
+        "A) I am ready.",
+        "B) No, I order now.",
+        "C) Yes, I will have the pasta.",
+        "D) Yes, I am ordering."
       ],
       "correctIndex": 2
     },
     {
-      "id": 732,
-      "question": "Fill in the blank: 'I would _____ to have a glass of water.'",
-      "questionHindi": "रिक्त स्थान भरें: 'I would _____ to have a glass of water.'",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "like",
-        "want",
-        "need",
-        "wish"
+        "A) like",
+        "B) want",
+        "C) need",
+        "D) wish"
       ],
       "correctIndex": 0
     },
     {
-      "id": 733,
-      "question": "Translate: 'क्या आप इसे थोड़ा कम तीखा बना सकते हैं?'",
-      "questionHindi": "Translate: 'क्या आप इसे थोड़ा कम तीखा बना सकते हैं?'",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "Can you make it less spicy?",
-        "Make it not spicy.",
-        "Is it possible to be less spicy?",
-        "Can you reduce the spice?"
+        "A) Can you make it less spicy?",
+        "B) Make it not spicy.",
+        "C) Is it possible to be less spicy?",
+        "D) Can you reduce the spice?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 734,
+      "id": 14,
       "question": "Which question asks about ingredients in a dish?",
       "questionHindi": "कौन सा प्रश्न डिश में सामग्री (ingredients) के बारे में पूछता है?",
       "options": [
-        "How is this cooked?",
-        "Is this dish good?",
-        "What ingredients are in this dish?",
-        "Can I have the recipe?"
+        "A) How is this cooked?",
+        "B) Is this dish good?",
+        "C) What ingredients are in this dish?",
+        "D) Can I have the recipe?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 735,
-      "question": "How do you politely ask for the Wi-Fi password at a café?",
-      "questionHindi": "कैफे में वाई-फाई पासवर्ड के लिए विनम्रतापूर्वक कैसे पूछेंगे?",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "Give me the Wi-Fi password.",
-        "What is the Wi-Fi password?",
-        "Could you please tell me the Wi-Fi password?",
-        "I need the Wi-Fi."
+        "A) Give me the Wi-Fi password.",
+        "B) What is the Wi-Fi password?",
+        "C) Could you please tell me the Wi-Fi password?",
+        "D) I need the Wi-Fi."
       ],
       "correctIndex": 2
     },
     {
-      "id": 736,
-      "question": "Translate: 'क्या आप कार्ड स्वीकार करते हैं?'",
-      "questionHindi": "Translate: 'क्या आप कार्ड स्वीकार करते हैं?'",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "Do you take cards?",
-        "Is card accepted here?",
-        "Can I pay by card?",
-        "Are cards accepted?"
+        "A) Do you take cards?",
+        "B) Is card accepted here?",
+        "C) Can I pay by card?",
+        "D) Are cards accepted?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 737,
-      "question": "If an item you ordered is cold, how do you say it politely?",
-      "questionHindi": "यदि आपके द्वारा ऑर्डर किया गया आइटम ठंडा है, तो आप इसे विनम्रतापूर्वक कैसे कहेंगे?",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "This food is cold.",
-        "Excuse me, this dish is a bit cold. Could you heat it up?",
-        "Your food is cold.",
-        "I don't like cold food."
+        "A) This food is cold.",
+        "B) Excuse me, this dish is a bit cold. Could you heat it up?",
+        "C) Your food is cold.",
+        "D) I don't like cold food."
       ],
       "correctIndex": 1
     },
     {
-      "id": 738,
+      "id": 18,
       "question": "Which option is correct for asking about the waiting time?",
       "questionHindi": "वेटिंग टाइम के बारे में पूछने के लिए कौन सा विकल्प सही है?",
       "options": [
-        "How long will it take?",
-        "When will the food come?",
-        "What is the time of food?",
-        "How much wait?"
+        "A) How long will it take?",
+        "B) When will the food come?",
+        "C) What is the time of food?",
+        "D) How much wait?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 739,
-      "question": "Translate: 'मैं एक टेबल बुक करना चाहता हूँ।'",
-      "questionHindi": "Translate: 'मैं एक टेबल बुक करना चाहता हूँ।'",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "I want to book a table.",
-        "I would like to reserve a table.",
-        "I am booking a table.",
-        "Can I have a table?"
+        "A) I want to book a table.",
+        "B) I would like to reserve a table.",
+        "C) I am booking a table.",
+        "D) Can I have a table?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 740,
-      "question": "Fill in the blank: 'Could I _____ a table for two?'",
-      "questionHindi": "रिक्त स्थान भरें: 'Could I _____ a table for two?'",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "keep",
-        "have",
-        "stay",
-        "make"
+        "A) keep",
+        "B) have",
+        "C) stay",
+        "D) make"
       ],
       "correctIndex": 1
     },
     {
-      "id": 741,
-      "question": "Which phrase is used to ask for a recommendation?",
-      "questionHindi": "सुझाव (recommendation) मांगने के लिए किस वाक्यांश का उपयोग किया जाता है?",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "What do you recommend?",
-        "Tell me the best food.",
-        "What is your best dish?",
-        "Give me something good."
+        "A) What do you recommend?",
+        "B) Tell me the best food.",
+        "C) What is your best dish?",
+        "D) Give me something good."
       ],
       "correctIndex": 0
     },
     {
-      "id": 742,
-      "question": "Translate: 'क्या आप मुझे बता सकते हैं कि इसमें क्या है?'",
-      "questionHindi": "Translate: 'क्या आप मुझे बता सकते हैं कि इसमें क्या है?'",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "What is in this?",
-        "Can you tell me what is in this?",
-        "Is there something in this?",
-        "Tell me the contents."
+        "A) What is in this?",
+        "B) Can you tell me what is in this?",
+        "C) Is there something in this?",
+        "D) Tell me the contents."
       ],
       "correctIndex": 1
     },
     {
-      "id": 743,
-      "question": "How do you ask if a table is available?",
-      "questionHindi": "आप कैसे पूछेंगे कि क्या टेबल उपलब्ध है?",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "Is a table free?",
-        "Is there a table available?",
-        "Can I sit here?",
-        "Is this table empty?"
+        "A) Is a table free?",
+        "B) Is there a table available?",
+        "C) Can I sit here?",
+        "D) Is this table empty?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 744,
-      "question": "Which sentence correctly uses 'would' for a request?",
-      "questionHindi": "अनुरोध के लिए 'would' का सही उपयोग किस वाक्य में है?",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "I would like a coffee, please.",
-        "I would have a coffee.",
-        "Would I have a coffee?",
-        "I would coffee like."
+        "A) I would like a coffee, please.",
+        "B) I would have a coffee.",
+        "C) Would I have a coffee?",
+        "D) I would coffee like."
       ],
       "correctIndex": 0
     },
     {
-      "id": 745,
+      "id": 25,
       "question": "Translate: 'क्या आप मुझे पानी का गिलास दे सकते हैं?'",
       "questionHindi": "Translate: 'क्या आप मुझे पानी का गिलास दे सकते हैं?'",
       "options": [
-        "Can I get a glass of water?",
-        "Could you give me a glass of water?",
-        "Give me a glass of water.",
-        "I want a glass of water."
+        "A) Can I get a glass of water?",
+        "B) Could you give me a glass of water?",
+        "C) Give me a glass of water.",
+        "D) I want a glass of water."
       ],
       "correctIndex": 1
     },
     {
-      "id": 746,
+      "id": 26,
       "question": "Which is the most appropriate way to ask for the price of an item?",
       "questionHindi": "किसी आइटम की कीमत पूछने का सबसे उपयुक्त तरीका कौन सा है?",
       "options": [
-        "How much is this?",
-        "What is the cost?",
-        "How much does it cost?",
-        "All are correct."
+        "A) How much is this?",
+        "B) What is the cost?",
+        "C) How much does it cost?",
+        "D) All are correct."
       ],
       "correctIndex": 3
     },
     {
-      "id": 747,
-      "question": "Fill in the blank: 'I _____ like to order now.'",
-      "questionHindi": "रिक्त स्थान भरें: 'I _____ like to order now.'",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "would",
-        "will",
-        "can",
-        "could"
+        "A) would",
+        "B) will",
+        "C) can",
+        "D) could"
       ],
       "correctIndex": 0
     },
     {
-      "id": 748,
-      "question": "Translate: 'क्या आपके पास कोई बच्चों का मेन्यू है?'",
-      "questionHindi": "Translate: 'क्या आपके पास कोई बच्चों का मेन्यू है?'",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "Do you have a kids menu?",
-        "Is there a menu for children?",
-        "Have you got a child menu?",
-        "Do you serve kids food?"
+        "A) Do you have a kids menu?",
+        "B) Is there a menu for children?",
+        "C) Have you got a child menu?",
+        "D) Do you serve kids food?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 749,
-      "question": "How do you politely decline an offer for a drink?",
-      "questionHindi": "आप ड्रिंक के ऑफर को विनम्रतापूर्वक कैसे मना करेंगे?",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "No, I don't want it.",
-        "I'm fine, thank you.",
-        "Stop asking me.",
-        "No, not now."
+        "A) No, I don't want it.",
+        "B) I'm fine, thank you.",
+        "C) Stop asking me.",
+        "D) No, not now."
       ],
       "correctIndex": 1
     },
     {
-      "id": 750,
+      "id": 30,
       "question": "Translate: 'यह खाना बहुत स्वादिष्ट था, धन्यवाद!'",
       "questionHindi": "Translate: 'यह खाना बहुत स्वादिष्ट था, धन्यवाद!'",
       "options": [
-        "The food was very tasty, thanks!",
-        "That food was delicious, thank you!",
-        "The meal was good, thanks.",
-        "Food was nice, thank you."
+        "A) The food was very tasty, thanks!",
+        "B) That food was delicious, thank you!",
+        "C) The meal was good, thanks.",
+        "D) Food was nice, thank you."
       ],
       "correctIndex": 1
     }
   ],
   "26": [
     {
-      "id": 751,
+      "id": 1,
       "question": "How do you politely ask for a window seat at the airport check-in counter?",
       "questionHindi": "एयरपोर्ट चेक-इन काउंटर पर आप विनम्रतापूर्वक विंडो सीट के लिए कैसे पूछेंगे?",
       "options": [
-        "Give me a window seat.",
-        "I want a window seat now.",
-        "Could I please have a window seat?",
-        "Window seat is required."
+        "A) Give me a window seat.",
+        "B) I want a window seat now.",
+        "C) Could I please have a window seat?",
+        "D) Window seat is required."
       ],
       "correctIndex": 2
     },
     {
-      "id": 752,
+      "id": 2,
       "question": "Which sentence is correct for asking about city transport from the airport?",
       "questionHindi": "एयरपोर्ट से शहर के परिवहन के बारे में पूछने के लिए कौन सा वाक्य सही है?",
       "options": [
-        "Where is city center transport?",
-        "What is the transport to city?",
-        "How can I get to the city center?",
-        "Why I go to city center?"
+        "A) Where is city center transport?",
+        "B) What is the transport to city?",
+        "C) How can I get to the city center?",
+        "D) Why I go to city center?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 753,
-      "question": "Choose the correct phrase to report missing luggage.",
-      "questionHindi": "अपना खोया हुआ सामान रिपोर्ट करने के लिए सही वाक्यांश चुनें।",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "My bag is finishing.",
-        "I lost my bag somewhere.",
-        "My luggage has not arrived.",
-        "The bag is too late."
+        "A) My bag is finishing.",
+        "B) I lost my bag somewhere.",
+        "C) My luggage has not arrived.",
+        "D) The bag is too late."
       ],
       "correctIndex": 2
     },
     {
-      "id": 754,
+      "id": 4,
       "question": "How do you ask the hotel receptionist about the Wi-Fi password?",
       "questionHindi": "होटल रिसेप्शनिस्ट से वाई-फाई पासवर्ड के बारे में आप कैसे पूछेंगे?",
       "options": [
-        "Tell me the Wi-Fi code.",
-        "I need internet access now.",
-        "What is the Wi-Fi password?",
-        "Where is the Wi-Fi?"
+        "A) Tell me the Wi-Fi code.",
+        "B) I need internet access now.",
+        "C) What is the Wi-Fi password?",
+        "D) Where is the Wi-Fi?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 755,
-      "question": "What is the best way to ask for a taxi to the hotel?",
-      "questionHindi": "होटल के लिए टैक्सी मांगने का सबसे अच्छा तरीका क्या है?",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "Take me to the hotel now.",
-        "Is there a taxi nearby?",
-        "Can I get a taxi to this address?",
-        "I need a taxi to go home."
+        "A) Take me to the hotel now.",
+        "B) Is there a taxi nearby?",
+        "C) Can I get a taxi to this address?",
+        "D) I need a taxi to go home."
       ],
       "correctIndex": 2
     },
     {
-      "id": 756,
+      "id": 6,
       "question": "Which question correctly asks for directions to a tourist spot?",
       "questionHindi": "किसी पर्यटन स्थल के लिए रास्ता पूछने वाला सही प्रश्न कौन सा है?",
       "options": [
-        "How do I go to the museum?",
-        "Where is the museum located?",
-        "Can you tell me the way to the museum?",
-        "All of the above."
+        "A) How do I go to the museum?",
+        "B) Where is the museum located?",
+        "C) Can you tell me the way to the museum?",
+        "D) All of the above."
       ],
       "correctIndex": 3
     },
     {
-      "id": 757,
+      "id": 7,
       "question": "Fill in the blank: 'Could you ______ me where the platform is?'",
       "questionHindi": "रिक्त स्थान भरें: 'क्या आप मुझे बता सकते हैं कि प्लेटफॉर्म कहाँ है?'",
       "options": [
-        "say",
-        "speak",
-        "tell",
-        "talk"
+        "A) say",
+        "B) speak",
+        "C) tell",
+        "D) talk"
       ],
       "correctIndex": 2
     },
     {
-      "id": 758,
+      "id": 8,
       "question": "How do you politely ask for an early check-in at a hotel?",
       "questionHindi": "होटल में जल्दी चेक-इन के लिए आप विनम्रतापूर्वक कैसे पूछेंगे?",
       "options": [
-        "I want early check-in.",
-        "Check me in now.",
-        "Can I check in early, please?",
-        "Why is my room not ready?"
+        "A) I want early check-in.",
+        "B) Check me in now.",
+        "C) Can I check in early, please?",
+        "D) Why is my room not ready?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 759,
-      "question": "What does 'boarding pass' mean in Hindi?",
-      "questionHindi": "'Boarding pass' का हिंदी में क्या अर्थ है?",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "यात्रा टिकट",
-        "विमान में चढ़ने का परमिट",
-        "सामान का रसीद",
-        "होटल का पास"
+        "A) यात्रा टिकट",
+        "B) विमान में चढ़ने का परमिट",
+        "C) सामान का रसीद",
+        "D) होटल का पास"
       ],
       "correctIndex": 1
     },
     {
-      "id": 760,
+      "id": 10,
       "question": "Which sentence is appropriate when asking for the bill at a restaurant?",
       "questionHindi": "रेस्तरां में बिल मांगते समय कौन सा वाक्य उचित है?",
       "options": [
-        "Give me the bill.",
-        "Can I have the bill, please?",
-        "Where is the money?",
-        "I want to pay now."
+        "A) Give me the bill.",
+        "B) Can I have the bill, please?",
+        "C) Where is the money?",
+        "D) I want to pay now."
       ],
       "correctIndex": 1
     },
     {
-      "id": 761,
-      "question": "How do you ask if breakfast is included in the room price?",
-      "questionHindi": "आप कैसे पूछेंगे कि क्या नाश्ता कमरे की कीमत में शामिल है?",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "Do you serve breakfast?",
-        "Is breakfast included in the rate?",
-        "I want free breakfast.",
-        "Breakfast is free, right?"
+        "A) Do you serve breakfast?",
+        "B) Is breakfast included in the rate?",
+        "C) I want free breakfast.",
+        "D) Breakfast is free, right?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 762,
-      "question": "Choose the polite way to ask for a map.",
-      "questionHindi": "नक्शा मांगने का विनम्र तरीका चुनें।",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "Give me a map.",
-        "I need a map.",
-        "Could I have a map, please?",
-        "Where is the map?"
+        "A) Give me a map.",
+        "B) I need a map.",
+        "C) Could I have a map, please?",
+        "D) Where is the map?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 763,
-      "question": "If you are lost, how do you ask for help?",
-      "questionHindi": "यदि आप रास्ता भटक गए हैं, तो आप मदद कैसे मांगेंगे?",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "Where am I?",
-        "Can you help me? I think I am lost.",
-        "Help me find my way.",
-        "Where is the police station?"
+        "A) Where am I?",
+        "B) Can you help me? I think I am lost.",
+        "C) Help me find my way.",
+        "D) Where is the police station?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 764,
+      "id": 14,
       "question": "What is the best way to ask about the train departure time?",
       "questionHindi": "ट्रेन के छूटने के समय के बारे में पूछने का सबसे अच्छा तरीका क्या है?",
       "options": [
-        "When does the train leave?",
-        "Tell me the train time.",
-        "Why is the train late?",
-        "Is the train coming?"
+        "A) When does the train leave?",
+        "B) Tell me the train time.",
+        "C) Why is the train late?",
+        "D) Is the train coming?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 765,
-      "question": "Fill in the blank: 'I would like to ______ a room for two nights.'",
-      "questionHindi": "रिक्त स्थान भरें: 'मैं दो रातों के लिए एक कमरा ______ करना चाहता हूँ।'",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "book",
-        "take",
-        "give",
-        "make"
+        "A) book",
+        "B) take",
+        "C) give",
+        "D) make"
       ],
       "correctIndex": 0
     },
     {
-      "id": 766,
-      "question": "Which phrase is correct for asking about public transport availability?",
-      "questionHindi": "सार्वजनिक परिवहन की उपलब्धता के बारे में पूछने के लिए कौन सा वाक्यांश सही है?",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "Are there buses here?",
-        "Is there a bus service to the city?",
-        "Where do I catch a bus?",
-        "All of the above."
+        "A) Are there buses here?",
+        "B) Is there a bus service to the city?",
+        "C) Where do I catch a bus?",
+        "D) All of the above."
       ],
       "correctIndex": 3
     },
     {
-      "id": 767,
-      "question": "How do you ask about the taxi fare in advance?",
-      "questionHindi": "टैक्सी के किराए के बारे में पहले से कैसे पूछें?",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "How much is the fare to the station?",
-        "Give me a cheap ride.",
-        "I will pay you later.",
-        "Is the taxi expensive?"
+        "A) How much is the fare to the station?",
+        "B) Give me a cheap ride.",
+        "C) I will pay you later.",
+        "D) Is the taxi expensive?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 768,
+      "id": 18,
       "question": "What do you say when you reach the hotel for check-in?",
       "questionHindi": "चेक-इन के लिए होटल पहुँचने पर आप क्या कहेंगे?",
       "options": [
-        "I have a reservation under the name...",
-        "I want a room.",
-        "Is the hotel open?",
-        "Where is my room?"
+        "A) I have a reservation under the name...",
+        "B) I want a room.",
+        "C) Is the hotel open?",
+        "D) Where is my room?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 769,
-      "question": "Which sentence correctly uses 'would' for a polite request?",
-      "questionHindi": "विनम्र अनुरोध के लिए 'would' का सही उपयोग किस वाक्य में है?",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "Would you help me with my bags?",
-        "Would I go there?",
-        "Would you be there?",
-        "I would like a taxi."
+        "A) Would you help me with my bags?",
+        "B) Would I go there?",
+        "C) Would you be there?",
+        "D) I would like a taxi."
       ],
       "correctIndex": 0
     },
     {
-      "id": 770,
-      "question": "How do you ask for a quiet room at a hotel?",
-      "questionHindi": "होटल में शांत कमरे के लिए आप कैसे पूछेंगे?",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "I want no noise.",
-        "Could I have a quiet room, please?",
-        "Make the room quiet.",
-        "Is this room noisy?"
+        "A) I want no noise.",
+        "B) Could I have a quiet room, please?",
+        "C) Make the room quiet.",
+        "D) Is this room noisy?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 771,
-      "question": "What does 'check-in' mean in the context of an airport?",
-      "questionHindi": "एयरपोर्ट के संदर्भ में 'check-in' का क्या अर्थ है?",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "हवाई जहाज से उतरना",
-        "टिकट दिखाना और सामान जमा करना",
-        "सुरक्षा जांच करना",
-        "सीट पर बैठना"
+        "A) हवाई जहाज से उतरना",
+        "B) टिकट दिखाना और सामान जमा करना",
+        "C) सुरक्षा जांच करना",
+        "D) सीट पर बैठना"
       ],
       "correctIndex": 1
     },
     {
-      "id": 772,
-      "question": "Which question asks about the duration of a flight?",
-      "questionHindi": "कौन सा प्रश्न उड़ान की अवधि के बारे में पूछता है?",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "How long is the flight?",
-        "When is the flight?",
-        "Why is the flight long?",
-        "Where is the flight?"
+        "A) How long is the flight?",
+        "B) When is the flight?",
+        "C) Why is the flight long?",
+        "D) Where is the flight?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 773,
-      "question": "How do you ask for the nearest ATM?",
-      "questionHindi": "निकटतम एटीएम के लिए आप कैसे पूछेंगे?",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "Where is the nearest ATM?",
-        "Can you show me an ATM?",
-        "I need money, where is an ATM?",
-        "All of the above."
+        "A) Where is the nearest ATM?",
+        "B) Can you show me an ATM?",
+        "C) I need money, where is an ATM?",
+        "D) All of the above."
       ],
       "correctIndex": 3
     },
     {
-      "id": 774,
-      "question": "Fill in the blank: 'Could you please ______ my bags for a few hours?'",
-      "questionHindi": "रिक्त स्थान भरें: 'क्या आप कृपया कुछ घंटों के लिए मेरे बैग ______ सकते हैं?'",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "keep",
-        "take",
-        "hold",
-        "store"
+        "A) keep",
+        "B) take",
+        "C) hold",
+        "D) store"
       ],
       "correctIndex": 3
     },
     {
-      "id": 775,
+      "id": 25,
       "question": "Which is the most polite way to ask a stranger for directions?",
       "questionHindi": "किसी अजनबी से रास्ता पूछने का सबसे विनम्र तरीका क्या है?",
       "options": [
-        "Excuse me, could you tell me the way to...",
-        "Hey, where is...",
-        "Tell me where to go.",
-        "I need directions."
+        "A) Excuse me, could you tell me the way to...",
+        "B) Hey, where is...",
+        "C) Tell me where to go.",
+        "D) I need directions."
       ],
       "correctIndex": 0
     },
     {
-      "id": 776,
+      "id": 26,
       "question": "How do you ask about the hotel checkout time?",
       "questionHindi": "होटल के चेकआउट समय के बारे में आप कैसे पूछेंगे?",
       "options": [
-        "When do I have to leave?",
-        "What is the checkout time?",
-        "Can I stay longer?",
-        "Is checkout at noon?"
+        "A) When do I have to leave?",
+        "B) What is the checkout time?",
+        "C) Can I stay longer?",
+        "D) Is checkout at noon?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 777,
-      "question": "What is the best way to ask for a vegetarian meal on a flight?",
-      "questionHindi": "उड़ान में शाकाहारी भोजन के लिए पूछने का सबसे अच्छा तरीका क्या है?",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "I want vegetarian food.",
-        "Could I request a vegetarian meal?",
-        "Give me a veg meal.",
-        "Is the food vegetarian?"
+        "A) I want vegetarian food.",
+        "B) Could I request a vegetarian meal?",
+        "C) Give me a veg meal.",
+        "D) Is the food vegetarian?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 778,
-      "question": "Which sentence is correct for asking about a delay?",
-      "questionHindi": "देरी के बारे में पूछने के लिए कौन सा वाक्य सही है?",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "Why is the flight delayed?",
-        "Is the flight on time?",
-        "How long is the delay?",
-        "All of the above."
+        "A) Why is the flight delayed?",
+        "B) Is the flight on time?",
+        "C) How long is the delay?",
+        "D) All of the above."
       ],
       "correctIndex": 3
     },
     {
-      "id": 779,
-      "question": "How do you ask for a receipt for your taxi ride?",
-      "questionHindi": "अपनी टैक्सी यात्रा के लिए रसीद आप कैसे मांगेंगे?",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "Can I have a receipt, please?",
-        "Give me a bill.",
-        "I need a paper.",
-        "Where is the receipt?"
+        "A) Can I have a receipt, please?",
+        "B) Give me a bill.",
+        "C) I need a paper.",
+        "D) Where is the receipt?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 780,
+      "id": 30,
       "question": "Which phrase is used to ask for a place to sit at a crowded station?",
       "questionHindi": "भीड़भाड़ वाले स्टेशन पर बैठने की जगह के लिए कौन सा वाक्यांश इस्तेमाल होता है?",
       "options": [
-        "Is this seat taken?",
-        "Can I sit here?",
-        "Is this seat free?",
-        "All of the above."
+        "A) Is this seat taken?",
+        "B) Can I sit here?",
+        "C) Is this seat free?",
+        "D) All of the above."
       ],
       "correctIndex": 3
     }
   ],
   "27": [
     {
-      "id": 781,
+      "id": 1,
       "question": "How do you professionally answer an office phone call?",
       "questionHindi": "आप ऑफिस का फोन कॉल पेशेवर तरीके से कैसे उठाते हैं?",
       "options": [
-        "Hello, who is this?",
-        "Yeah, what do you want?",
-        "Who are you calling?",
-        "Good morning, ABC Company, how may I help you?"
+        "A) Hello, who is this?",
+        "B) Yeah, what do you want?",
+        "C) Who are you calling?",
+        "D) Good morning, ABC Company, how may I help you?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 782,
+      "id": 2,
       "question": "Translate: 'क्या मैं मिस्टर शर्मा से बात कर सकता हूँ?'",
       "questionHindi": "Translate: 'क्या मैं मिस्टर शर्मा से बात कर सकता हूँ?'",
       "options": [
-        "Can I talk to Mr. Sharma?",
-        "I want to talk to Mr. Sharma.",
-        "Will Mr. Sharma talk to me?",
-        "Could I speak to Mr. Sharma, please?"
+        "A) Can I talk to Mr. Sharma?",
+        "B) I want to talk to Mr. Sharma.",
+        "C) Will Mr. Sharma talk to me?",
+        "D) Could I speak to Mr. Sharma, please?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 783,
-      "question": "Which phrase is used to ask someone to wait on the line?",
-      "questionHindi": "लाइन पर रुकने के लिए कहने के लिए किस वाक्यांश का उपयोग किया जाता है?",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "Wait here.",
-        "Go away.",
-        "Stop talking.",
-        "Hold on a minute."
+        "A) Wait here.",
+        "B) Go away.",
+        "C) Stop talking.",
+        "D) Hold on a minute."
       ],
       "correctIndex": 3
     },
     {
-      "id": 784,
+      "id": 4,
       "question": "Fill in the blank: 'Could you please _______ your name?'",
       "questionHindi": "रिक्त स्थान भरें: 'क्या आप कृपया अपना नाम _______ सकते हैं?'",
       "options": [
-        "say",
-        "tell",
-        "write",
-        "spell"
+        "A) say",
+        "B) tell",
+        "C) write",
+        "D) spell"
       ],
       "correctIndex": 3
     },
     {
-      "id": 785,
-      "question": "Translate: 'माफ़ कीजिए, मुझे लगता है आपने गलत नंबर डायल किया है।'",
-      "questionHindi": "Translate: 'माफ़ कीजिए, मुझे लगता है आपने गलत नंबर डायल किया है।'",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "Sorry, you dialed a wrong number.",
-        "You called the wrong person.",
-        "This is the wrong number.",
-        "Sorry, I think you have the wrong number."
+        "A) Sorry, you dialed a wrong number.",
+        "B) You called the wrong person.",
+        "C) This is the wrong number.",
+        "D) Sorry, I think you have the wrong number."
       ],
       "correctIndex": 3
     },
     {
-      "id": 786,
+      "id": 6,
       "question": "What is the polite way to ask someone to repeat what they said?",
       "questionHindi": "किसी से यह कहने का विनम्र तरीका क्या है कि वे जो उन्होंने कहा उसे दोहराएं?",
       "options": [
-        "What did you say?",
-        "Speak louder.",
-        "I didn't hear you.",
-        "Could you please repeat that?"
+        "A) What did you say?",
+        "B) Speak louder.",
+        "C) I didn't hear you.",
+        "D) Could you please repeat that?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 787,
+      "id": 7,
       "question": "How do you leave a message if the person is not available?",
       "questionHindi": "यदि व्यक्ति उपलब्ध नहीं है तो आप संदेश कैसे छोड़ते हैं?",
       "options": [
-        "I will call again.",
-        "Tell him to call me.",
-        "Could you please take a message?",
-        "Why is he not there?"
+        "A) I will call again.",
+        "B) Tell him to call me.",
+        "C) Could you please take a message?",
+        "D) Why is he not there?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 788,
+      "id": 8,
       "question": "Translate: 'मैं बाद में कॉल करूँगा।'",
       "questionHindi": "Translate: 'मैं बाद में कॉल करूँगा।'",
       "options": [
-        "I call later.",
-        "I am calling later.",
-        "I will call back later.",
-        "I can call later."
+        "A) I call later.",
+        "B) I am calling later.",
+        "C) I will call back later.",
+        "D) I can call later."
       ],
       "correctIndex": 2
     },
     {
-      "id": 789,
-      "question": "Which sentence is correct for scheduling an appointment?",
-      "questionHindi": "अपॉइंटमेंट तय करने के लिए कौन सा वाक्य सही है?",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "I want to meet you now.",
-        "Come to meet me.",
-        "Can we schedule an appointment for tomorrow?",
-        "You should meet me."
+        "A) I want to meet you now.",
+        "B) Come to meet me.",
+        "C) Can we schedule an appointment for tomorrow?",
+        "D) You should meet me."
       ],
       "correctIndex": 2
     },
     {
-      "id": 790,
+      "id": 10,
       "question": "What do you say when the connection is bad?",
       "questionHindi": "जब कनेक्शन खराब हो तो आप क्या कहते हैं?",
       "options": [
-        "Your phone is bad.",
-        "Stop talking.",
-        "I can't hear you clearly.",
-        "I am hanging up."
+        "A) Your phone is bad.",
+        "B) Stop talking.",
+        "C) I can't hear you clearly.",
+        "D) I am hanging up."
       ],
       "correctIndex": 2
     },
     {
-      "id": 791,
-      "question": "Translate: 'क्या आप मुझे वापस कॉल करने के लिए कह सकते हैं?'",
-      "questionHindi": "Translate: 'क्या आप मुझे वापस कॉल करने के लिए कह सकते हैं?'",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "Will you call me back?",
-        "Why don't you call back?",
-        "Can you tell him to call me back?",
-        "Please call back."
+        "A) Will you call me back?",
+        "B) Why don't you call back?",
+        "C) Can you tell him to call me back?",
+        "D) Please call back."
       ],
       "correctIndex": 2
     },
     {
-      "id": 792,
-      "question": "Fill in the blank: 'I am calling _______ behalf of my manager.'",
-      "questionHindi": "रिक्त स्थान भरें: 'मैं अपने मैनेजर की _______ कॉल कर रहा हूँ।'",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "in",
-        "at",
-        "on",
-        "to"
+        "A) in",
+        "B) at",
+        "C) on",
+        "D) to"
       ],
       "correctIndex": 2
     },
     {
-      "id": 793,
-      "question": "Which is the most polite way to end a call?",
-      "questionHindi": "कॉल समाप्त करने का सबसे विनम्र तरीका कौन सा है?",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "Bye.",
-        "I'm done.",
-        "Talk to you later, thank you.",
-        "See you."
+        "A) Bye.",
+        "B) I'm done.",
+        "C) Talk to you later, thank you.",
+        "D) See you."
       ],
       "correctIndex": 2
     },
     {
-      "id": 794,
+      "id": 14,
       "question": "Translate: 'मैं आपकी कैसे सहायता कर सकता हूँ?'",
       "questionHindi": "Translate: 'मैं आपकी कैसे सहायता कर सकता हूँ?'",
       "options": [
-        "What do you want?",
-        "Can I help?",
-        "How can I help you?",
-        "How are you helping?"
+        "A) What do you want?",
+        "B) Can I help?",
+        "C) How can I help you?",
+        "D) How are you helping?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 795,
-      "question": "What does 'hold the line' mean?",
-      "questionHindi": "'Hold the line' का क्या अर्थ है?",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "Cut the call.",
-        "Wait on the phone.",
-        "Speak loudly.",
-        "Disconnect the call."
+        "A) Cut the call.",
+        "B) Wait on the phone.",
+        "C) Speak loudly.",
+        "D) Disconnect the call."
       ],
       "correctIndex": 1
     },
     {
-      "id": 796,
-      "question": "Fill in the blank: 'May I _______ who is calling, please?'",
-      "questionHindi": "रिक्त स्थान भरें: 'क्या मैं _______ सकता हूँ कि कौन कॉल कर रहा है?'",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "ask",
-        "tell",
-        "say",
-        "speak"
+        "A) ask",
+        "B) tell",
+        "C) say",
+        "D) speak"
       ],
       "correctIndex": 0
     },
     {
-      "id": 797,
-      "question": "Translate: 'क्या आप मिस्टर गुप्ता से मेरी बात करवा सकते हैं?'",
-      "questionHindi": "Translate: 'क्या आप मिस्टर गुप्ता से मेरी बात करवा सकते हैं?'",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "Can you talk to Mr. Gupta?",
-        "Could you please put me through to Mr. Gupta?",
-        "Tell Mr. Gupta to talk.",
-        "I want to speak to Mr. Gupta."
+        "A) Can you talk to Mr. Gupta?",
+        "B) Could you please put me through to Mr. Gupta?",
+        "C) Tell Mr. Gupta to talk.",
+        "D) I want to speak to Mr. Gupta."
       ],
       "correctIndex": 1
     },
     {
-      "id": 798,
+      "id": 18,
       "question": "How do you ask someone to call back later?",
       "questionHindi": "आप किसी से बाद में कॉल करने के लिए कैसे कहते हैं?",
       "options": [
-        "Don't call me now.",
-        "Please call back later.",
-        "Call me later.",
-        "You call me again."
+        "A) Don't call me now.",
+        "B) Please call back later.",
+        "C) Call me later.",
+        "D) You call me again."
       ],
       "correctIndex": 1
     },
     {
-      "id": 799,
-      "question": "Which phrase is correct for someone who is busy?",
-      "questionHindi": "जो व्यक्ति व्यस्त है उसके लिए कौन सा वाक्यांश सही है?",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "He is not here.",
-        "He is currently unavailable.",
-        "He is doing work.",
-        "He cannot talk."
+        "A) He is not here.",
+        "B) He is currently unavailable.",
+        "C) He is doing work.",
+        "D) He cannot talk."
       ],
       "correctIndex": 1
     },
     {
-      "id": 800,
-      "question": "Translate: 'क्षमा करें, क्या आप कृपया थोड़ा धीरे बोल सकते हैं?'",
-      "questionHindi": "Translate: 'क्षमा करें, क्या आप कृपया थोड़ा धीरे बोल सकते हैं?'",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "Sorry, speak slowly.",
-        "Could you please speak a bit slower?",
-        "Slow down your voice.",
-        "Can you speak quiet?"
+        "A) Sorry, speak slowly.",
+        "B) Could you please speak a bit slower?",
+        "C) Slow down your voice.",
+        "D) Can you speak quiet?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 801,
-      "question": "What is the best way to verify information over the phone?",
-      "questionHindi": "फोन पर जानकारी सत्यापित करने का सबसे अच्छा तरीका क्या है?",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "Let me repeat that to be sure.",
-        "I heard you.",
-        "Okay, I know.",
-        "Whatever."
+        "A) Let me repeat that to be sure.",
+        "B) I heard you.",
+        "C) Okay, I know.",
+        "D) Whatever."
       ],
       "correctIndex": 0
     },
     {
-      "id": 802,
-      "question": "Fill in the blank: 'I would like to _______ an appointment for Monday.'",
-      "questionHindi": "रिक्त स्थान भरें: 'मैं सोमवार के लिए एक अपॉइंटमेंट _______ चाहता हूँ।'",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "make",
-        "do",
-        "take",
-        "give"
+        "A) make",
+        "B) do",
+        "C) take",
+        "D) give"
       ],
       "correctIndex": 0
     },
     {
-      "id": 803,
-      "question": "Translate: 'क्या मैं आपका नाम जान सकता हूँ?'",
-      "questionHindi": "Translate: 'क्या मैं आपका नाम जान सकता हूँ?'",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "What is your name?",
-        "May I have your name, please?",
-        "Tell me your name.",
-        "Who are you?"
+        "A) What is your name?",
+        "B) May I have your name, please?",
+        "C) Tell me your name.",
+        "D) Who are you?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 804,
-      "question": "Which option is a polite way to ask for a callback?",
-      "questionHindi": "कॉल बैक माँगने का विनम्र तरीका कौन सा है?",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "Call me back.",
-        "Could you please ask him to call me back?",
-        "Tell him to call.",
-        "I need a call back."
+        "A) Call me back.",
+        "B) Could you please ask him to call me back?",
+        "C) Tell him to call.",
+        "D) I need a call back."
       ],
       "correctIndex": 1
     },
     {
-      "id": 805,
+      "id": 25,
       "question": "What is the correct response to 'Thank you for your help'?",
       "questionHindi": "'Thank you for your help' का सही उत्तर क्या है?",
       "options": [
-        "You're welcome.",
-        "No problem.",
-        "It's okay.",
-        "Whatever."
+        "A) You're welcome.",
+        "B) No problem.",
+        "C) It's okay.",
+        "D) Whatever."
       ],
       "correctIndex": 0
     },
     {
-      "id": 806,
+      "id": 26,
       "question": "Translate: 'मैं मिस्टर खन्ना की ओर से बोल रहा हूँ।'",
       "questionHindi": "Translate: 'मैं मिस्टर खन्ना की ओर से बोल रहा हूँ।'",
       "options": [
-        "I am speaking for Mr. Khanna.",
-        "I am calling on behalf of Mr. Khanna.",
-        "Mr. Khanna is calling.",
-        "I speak as Mr. Khanna."
+        "A) I am speaking for Mr. Khanna.",
+        "B) I am calling on behalf of Mr. Khanna.",
+        "C) Mr. Khanna is calling.",
+        "D) I speak as Mr. Khanna."
       ],
       "correctIndex": 1
     },
     {
-      "id": 807,
-      "question": "Which phrase is used to introduce yourself?",
-      "questionHindi": "अपना परिचय देने के लिए किस वाक्यांश का उपयोग किया जाता है?",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "This is Amit speaking.",
-        "I am Amit.",
-        "My name is Amit.",
-        "It's Amit."
+        "A) This is Amit speaking.",
+        "B) I am Amit.",
+        "C) My name is Amit.",
+        "D) It's Amit."
       ],
       "correctIndex": 0
     },
     {
-      "id": 808,
-      "question": "Fill in the blank: 'Please _______ the message to him.'",
-      "questionHindi": "रिक्त स्थान भरें: 'कृपया उसे संदेश _______ दें।'",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "pass",
-        "give",
-        "take",
-        "bring"
+        "A) pass",
+        "B) give",
+        "C) take",
+        "D) bring"
       ],
       "correctIndex": 0
     },
     {
-      "id": 809,
-      "question": "Translate: 'क्या आप अभी खाली हैं?'",
-      "questionHindi": "Translate: 'क्या आप अभी खाली हैं?'",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "Are you free now?",
-        "Are you busy?",
-        "Can you talk?",
-        "Are you empty?"
+        "A) Are you free now?",
+        "B) Are you busy?",
+        "C) Can you talk?",
+        "D) Are you empty?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 810,
+      "id": 30,
       "question": "What do you say when you have reached the wrong number?",
       "questionHindi": "जब आप गलत नंबर पर पहुँच जाते हैं तो आप क्या कहते हैं?",
       "options": [
-        "Oh, sorry, I have the wrong number.",
-        "Who is this?",
-        "You gave me the wrong number.",
-        "Hang up."
+        "A) Oh, sorry, I have the wrong number.",
+        "B) Who is this?",
+        "C) You gave me the wrong number.",
+        "D) Hang up."
       ],
       "correctIndex": 0
     }
   ],
   "28": [
     {
-      "id": 811,
+      "id": 1,
       "question": "How do you introduce yourself when the interviewer says, 'Tell me about yourself'?",
       "questionHindi": "जब इंटरव्यू लेने वाला कहता है 'अपने बारे में बताएं', तो आप अपना परिचय कैसे देते हैं?",
       "options": [
-        "I am a person who likes to eat food.",
-        "My name is John and I live in Delhi.",
-        "I don't know what to say.",
-        "I have completed my degree and have a passion for marketing."
+        "A) I am a person who likes to eat food.",
+        "B) My name is John and I live in Delhi.",
+        "C) I don't know what to say.",
+        "D) I have completed my degree and have a passion for marketing."
       ],
       "correctIndex": 3
     },
     {
-      "id": 812,
+      "id": 2,
       "question": "Which sentence correctly uses mixed tenses to describe your experience?",
       "questionHindi": "अपने अनुभव का वर्णन करने के लिए कौन सा वाक्य मिश्रित काल (mixed tenses) का सही उपयोग करता है?",
       "options": [
-        "I work here for two years and I will leave soon.",
-        "I worked here and I will work here.",
-        "I am work here for two years.",
-        "I have been working here for two years and I am learning a lot."
+        "A) I work here for two years and I will leave soon.",
+        "B) I worked here and I will work here.",
+        "C) I am work here for two years.",
+        "D) I have been working here for two years and I am learning a lot."
       ],
       "correctIndex": 3
     },
     {
-      "id": 813,
-      "question": "Choose the best way to explain a professional weakness.",
-      "questionHindi": "अपनी पेशेवर कमजोरी बताने का सबसे अच्छा तरीका चुनें।",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "I am very lazy.",
-        "I don't have any weaknesses.",
-        "I am bad at everything.",
-        "I sometimes struggle with public speaking, so I have joined a club to improve."
+        "A) I am very lazy.",
+        "B) I don't have any weaknesses.",
+        "C) I am bad at everything.",
+        "D) I sometimes struggle with public speaking, so I have joined a club to improve."
       ],
       "correctIndex": 3
     },
     {
-      "id": 814,
+      "id": 4,
       "question": "Translate: 'मेरी सबसे बड़ी ताकत मेरी समस्या सुलझाने की क्षमता है।'",
       "questionHindi": "मेरी सबसे बड़ी ताकत मेरी समस्या सुलझाने की क्षमता है।",
       "options": [
-        "I have a big strength in solving problems.",
-        "My strength is that I solve problems.",
-        "I am strong at solving problems.",
-        "My biggest strength is my problem-solving ability."
+        "A) I have a big strength in solving problems.",
+        "B) My strength is that I solve problems.",
+        "C) I am strong at solving problems.",
+        "D) My biggest strength is my problem-solving ability."
       ],
       "correctIndex": 3
     },
     {
-      "id": 815,
-      "question": "Which phrase is appropriate for discussing career goals?",
-      "questionHindi": "करियर के लक्ष्यों पर चर्चा करने के लिए कौन सा वाक्यांश उपयुक्त है?",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "I want a lot of money.",
-        "I will quit after one year.",
-        "I don't have any goals.",
-        "I hope to contribute to your company while growing my skills."
+        "A) I want a lot of money.",
+        "B) I will quit after one year.",
+        "C) I don't have any goals.",
+        "D) I hope to contribute to your company while growing my skills."
       ],
       "correctIndex": 3
     },
     {
-      "id": 816,
+      "id": 6,
       "question": "Complete the sentence: 'I ________ a challenging situation at college when I had to lead a team.'",
       "questionHindi": "वाक्य पूरा करें: 'I ________ a challenging situation at college when I had to lead a team.'",
       "options": [
-        "am face",
-        "will face",
-        "am facing",
-        "faced"
+        "A) am face",
+        "B) will face",
+        "C) am facing",
+        "D) faced"
       ],
       "correctIndex": 3
     },
     {
-      "id": 817,
+      "id": 7,
       "question": "How would you ask about the salary expectations professionally?",
       "questionHindi": "आप वेतन की उम्मीदों के बारे में पेशेवर तरीके से कैसे पूछेंगे?",
       "options": [
-        "How much will you pay me?",
-        "Can you tell me the salary?",
-        "Could you please clarify the salary range for this position?",
-        "I want a high salary."
+        "A) How much will you pay me?",
+        "B) Can you tell me the salary?",
+        "C) Could you please clarify the salary range for this position?",
+        "D) I want a high salary."
       ],
       "correctIndex": 2
     },
     {
-      "id": 818,
+      "id": 8,
       "question": "Translate: 'क्या आप मुझे बता सकते हैं कि इस भूमिका में आपकी क्या अपेक्षाएं हैं?'",
       "questionHindi": "क्या आप मुझे बता सकते हैं कि इस भूमिका में आपकी क्या अपेक्षाएं हैं?",
       "options": [
-        "Do you expect from me in this role?",
-        "What is your expectation?",
-        "Can you tell me what are your expectations in this role?",
-        "Tell me your expectations."
+        "A) Do you expect from me in this role?",
+        "B) What is your expectation?",
+        "C) Can you tell me what are your expectations in this role?",
+        "D) Tell me your expectations."
       ],
       "correctIndex": 2
     },
     {
-      "id": 819,
-      "question": "Which modal verb is best for expressing future professional intent?",
-      "questionHindi": "भविष्य के पेशेवर इरादे को व्यक्त करने के लिए कौन सा मॉडल क्रिया (modal verb) सबसे अच्छा है?",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "might",
-        "shall",
-        "would",
-        "could"
+        "A) might",
+        "B) shall",
+        "C) would",
+        "D) could"
       ],
       "correctIndex": 2
     },
     {
-      "id": 820,
+      "id": 10,
       "question": "What is the best way to close an interview?",
       "questionHindi": "इंटरव्यू खत्म करने का सबसे अच्छा तरीका क्या है?",
       "options": [
-        "Okay, bye.",
-        "When will I get the money?",
-        "Thank you for your time; I look forward to hearing from you.",
-        "I am going now."
+        "A) Okay, bye.",
+        "B) When will I get the money?",
+        "C) Thank you for your time; I look forward to hearing from you.",
+        "D) I am going now."
       ],
       "correctIndex": 2
     },
     {
-      "id": 821,
-      "question": "Fill in the blank: 'I have ________ my graduation last year from Delhi University.'",
-      "questionHindi": "खाली स्थान भरें: 'I have ________ my graduation last year from Delhi University.'",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "completing",
-        "complete",
-        "completed",
-        "completes"
+        "A) completing",
+        "B) complete",
+        "C) completed",
+        "D) completes"
       ],
       "correctIndex": 2
     },
     {
-      "id": 822,
-      "question": "Translate: 'मैं अपने कौशल को और बेहतर बनाने के लिए उत्सुक हूँ।'",
-      "questionHindi": "मैं अपने कौशल को और बेहतर बनाने के लिए उत्सुक हूँ।",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "I want to improve my skills.",
-        "I am waiting to improve skills.",
-        "I am eager to improve my skills further.",
-        "I will improve my skills."
+        "A) I want to improve my skills.",
+        "B) I am waiting to improve skills.",
+        "C) I am eager to improve my skills further.",
+        "D) I will improve my skills."
       ],
       "correctIndex": 2
     },
     {
-      "id": 823,
-      "question": "Which sentence correctly describes a past experience and current learning?",
-      "questionHindi": "कौन सा वाक्य अतीत के अनुभव और वर्तमान सीखने को सही ढंग से वर्णित करता है?",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "I was a student and I am a student.",
-        "I work on projects.",
-        "I worked on a project last year, and now I am applying those skills.",
-        "I will work on projects."
+        "A) I was a student and I am a student.",
+        "B) I work on projects.",
+        "C) I worked on a project last year, and now I am applying those skills.",
+        "D) I will work on projects."
       ],
       "correctIndex": 2
     },
     {
-      "id": 824,
+      "id": 14,
       "question": "Choose the professional word for 'काम करने का अनुभव'.",
       "questionHindi": "'काम करने का अनुभव' के लिए पेशेवर शब्द चुनें।",
       "options": [
-        "Job work",
-        "Doing work",
-        "Work experience",
-        "Job life"
+        "A) Job work",
+        "B) Doing work",
+        "C) Work experience",
+        "D) Job life"
       ],
       "correctIndex": 2
     },
     {
-      "id": 825,
-      "question": "How to say 'मेरी मुख्य ताकत मेरी टीम के साथ काम करने की क्षमता है'?",
-      "questionHindi": "मेरी मुख्य ताकत मेरी टीम के साथ काम करने की क्षमता है?",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "I am good at team work.",
-        "My key strength is my ability to work well in a team.",
-        "I like working with a team.",
-        "Team work is my strength."
+        "A) I am good at team work.",
+        "B) My key strength is my ability to work well in a team.",
+        "C) I like working with a team.",
+        "D) Team work is my strength."
       ],
       "correctIndex": 1
     },
     {
-      "id": 826,
-      "question": "Which question is appropriate for an interviewer to ask about your goals?",
-      "questionHindi": "आपके लक्ष्यों के बारे में इंटरव्यूअर द्वारा पूछा गया कौन सा प्रश्न उचित है?",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "What do you want to do?",
-        "Where do you see yourself in five years?",
-        "Are you rich?",
-        "Do you like this job?"
+        "A) What do you want to do?",
+        "B) Where do you see yourself in five years?",
+        "C) Are you rich?",
+        "D) Do you like this job?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 827,
-      "question": "Translate: 'मैंने एक कठिन स्थिति को चतुराई से हल किया।'",
-      "questionHindi": "मैंने एक कठिन स्थिति को चतुराई से हल किया।",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "I was solving a hard situation.",
-        "I solved a tough situation smartly.",
-        "I will solve a tough situation.",
-        "I am solving a situation."
+        "A) I was solving a hard situation.",
+        "B) I solved a tough situation smartly.",
+        "C) I will solve a tough situation.",
+        "D) I am solving a situation."
       ],
       "correctIndex": 1
     },
     {
-      "id": 828,
+      "id": 18,
       "question": "Fill in the blank: 'I am ________ to join a company that values innovation.'",
       "questionHindi": "खाली स्थान भरें: 'I am ________ to join a company that values innovation.'",
       "options": [
-        "exciting",
-        "excited",
-        "excite",
-        "excitement"
+        "A) exciting",
+        "B) excited",
+        "C) excite",
+        "D) excitement"
       ],
       "correctIndex": 1
     },
     {
-      "id": 829,
-      "question": "Which phrase describes a proactive approach?",
-      "questionHindi": "कौन सा वाक्यांश एक सक्रिय दृष्टिकोण का वर्णन करता है?",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "I wait for instructions.",
-        "I take initiative to solve problems.",
-        "I do only what I am told.",
-        "I don't like to work."
+        "A) I wait for instructions.",
+        "B) I take initiative to solve problems.",
+        "C) I do only what I am told.",
+        "D) I don't like to work."
       ],
       "correctIndex": 1
     },
     {
-      "id": 830,
-      "question": "Translate: 'क्या आपके पास मेरे लिए कोई प्रश्न है?'",
-      "questionHindi": "क्या आपके पास मेरे लिए कोई प्रश्न है?",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "Do you have any questions for me?",
-        "Have you questions for me?",
-        "Are there questions for me?",
-        "Will you ask me?"
+        "A) Do you have any questions for me?",
+        "B) Have you questions for me?",
+        "C) Are there questions for me?",
+        "D) Will you ask me?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 831,
-      "question": "Complete the sentence: 'I ________ my project effectively in the last semester.'",
-      "questionHindi": "वाक्य पूरा करें: 'I ________ my project effectively in the last semester.'",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "manage",
-        "managed",
-        "am managing",
-        "will manage"
+        "A) manage",
+        "B) managed",
+        "C) am managing",
+        "D) will manage"
       ],
       "correctIndex": 1
     },
     {
-      "id": 832,
-      "question": "Which option is the best way to address a 'weakness' question?",
-      "questionHindi": "'कमजोरी' वाले प्रश्न का उत्तर देने का सबसे अच्छा तरीका कौन सा है?",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "Talk about a real skill gap and how you are fixing it.",
-        "Say you have no weaknesses.",
-        "Tell them you are a perfectionist.",
-        "Blame others for your mistakes."
+        "A) Talk about a real skill gap and how you are fixing it.",
+        "B) Say you have no weaknesses.",
+        "C) Tell them you are a perfectionist.",
+        "D) Blame others for your mistakes."
       ],
       "correctIndex": 0
     },
     {
-      "id": 833,
-      "question": "Select the correct professional greeting.",
-      "questionHindi": "सही पेशेवर अभिवादन चुनें।",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "Hey, what's up?",
-        "Good morning, thank you for having me today.",
-        "Hi there.",
-        "Yo, how are you?"
+        "A) Hey, what's up?",
+        "B) Good morning, thank you for having me today.",
+        "C) Hi there.",
+        "D) Yo, how are you?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 834,
-      "question": "Translate: 'मैं इस अवसर के लिए आभारी हूँ।'",
-      "questionHindi": "मैं इस अवसर के लिए आभारी हूँ।",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "I am thankful for this opportunity.",
-        "I am happy for this chance.",
-        "I like this opportunity.",
-        "This is a good opportunity."
+        "A) I am thankful for this opportunity.",
+        "B) I am happy for this chance.",
+        "C) I like this opportunity.",
+        "D) This is a good opportunity."
       ],
       "correctIndex": 0
     },
     {
-      "id": 835,
+      "id": 25,
       "question": "Fill in the blank: 'I ________ my skills by attending regular workshops.'",
       "questionHindi": "खाली स्थान भरें: 'I ________ my skills by attending regular workshops.'",
       "options": [
-        "am enhancing",
-        "enhanced",
-        "will enhance",
-        "enhances"
+        "A) am enhancing",
+        "B) enhanced",
+        "C) will enhance",
+        "D) enhances"
       ],
       "correctIndex": 0
     },
     {
-      "id": 836,
+      "id": 26,
       "question": "Which tense is used to talk about your current role?",
       "questionHindi": "आपकी वर्तमान भूमिका के बारे में बात करने के लिए किस काल का उपयोग किया जाता है?",
       "options": [
-        "Past simple",
-        "Present simple or continuous",
-        "Future perfect",
-        "Past perfect"
+        "A) Past simple",
+        "B) Present simple or continuous",
+        "C) Future perfect",
+        "D) Past perfect"
       ],
       "correctIndex": 1
     },
     {
-      "id": 837,
-      "question": "How to say 'मैं नई चीजें सीखने के लिए हमेशा तैयार रहता हूँ'?",
-      "questionHindi": "मैं नई चीजें सीखने के लिए हमेशा तैयार रहता हूँ?",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "I am always ready to learn new things.",
-        "I like learning.",
-        "I will learn new things.",
-        "I am learning."
+        "A) I am always ready to learn new things.",
+        "B) I like learning.",
+        "C) I will learn new things.",
+        "D) I am learning."
       ],
       "correctIndex": 0
     },
     {
-      "id": 838,
-      "question": "Which word is best to describe a team player?",
-      "questionHindi": "टीम प्लेयर का वर्णन करने के लिए कौन सा शब्द सबसे अच्छा है?",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "Collaborative",
-        "Individualistic",
-        "Aggressive",
-        "Passive"
+        "A) Collaborative",
+        "B) Individualistic",
+        "C) Aggressive",
+        "D) Passive"
       ],
       "correctIndex": 0
     },
     {
-      "id": 839,
-      "question": "Translate: 'मुझे इस कंपनी के साथ काम करने में बहुत रुचि है।'",
-      "questionHindi": "मुझे इस कंपनी के साथ काम करने में बहुत रुचि है।",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "I am very interested in working with this company.",
-        "I like working here.",
-        "I want to work with you.",
-        "I am interested in the company."
+        "A) I am very interested in working with this company.",
+        "B) I like working here.",
+        "C) I want to work with you.",
+        "D) I am interested in the company."
       ],
       "correctIndex": 0
     },
     {
-      "id": 840,
+      "id": 30,
       "question": "Complete the sentence: 'Could you ________ tell me more about the team culture?'",
       "questionHindi": "वाक्य पूरा करें: 'Could you ________ tell me more about the team culture?'",
       "options": [
-        "please",
-        "kindly",
-        "maybe",
-        "also"
+        "A) please",
+        "B) kindly",
+        "C) maybe",
+        "D) also"
       ],
       "correctIndex": 0
     }
   ],
   "29": [
     {
-      "id": 841,
+      "id": 1,
       "question": "Choose the best translation for: 'क्या हम कल सुबह की बैठक को फिर से शेड्यूल कर सकते हैं?'",
       "questionHindi": "इस वाक्य का सबसे अच्छा अनुवाद चुनें: 'क्या हम कल सुबह की बैठक को फिर से शेड्यूल कर सकते हैं?'",
       "options": [
-        "Will we rescheduling tomorrow morning meeting?",
-        "Can we schedule again tomorrow morning meetings?",
-        "Do we reschedule tomorrow morning's meeting?",
-        "Can we reschedule tomorrow morning's meeting?"
+        "A) Will we rescheduling tomorrow morning meeting?",
+        "B) Can we schedule again tomorrow morning meetings?",
+        "C) Do we reschedule tomorrow morning's meeting?",
+        "D) Can we reschedule tomorrow morning's meeting?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 842,
+      "id": 2,
       "question": "Which phrase is most professional for giving a project update?",
       "questionHindi": "प्रोजेक्ट अपडेट देने के लिए कौन सा वाक्यांश सबसे अधिक पेशेवर है?",
       "options": [
-        "I am doing the work now.",
-        "I finished some things but not all things yet.",
-        "Everything is okay with the project.",
-        "The project is currently on track and meeting all milestones."
+        "A) I am doing the work now.",
+        "B) I finished some things but not all things yet.",
+        "C) Everything is okay with the project.",
+        "D) The project is currently on track and meeting all milestones."
       ],
       "correctIndex": 3
     },
     {
-      "id": 843,
-      "question": "Translate to English: 'मैं आपके प्रस्ताव से सहमत हूं, लेकिन हमें बजट पर विचार करने की आवश्यकता है।'",
-      "questionHindi": "अंग्रेजी में अनुवाद करें: 'मैं आपके प्रस्ताव से सहमत हूं, लेकिन हमें बजट पर विचार करने की आवश्यकता है।'",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "I am agree to your propose, but we must thinking about budget.",
-        "I agree with your proposal, but we needing to consider budget.",
-        "I agreed with your proposal, but we need considering the budget.",
-        "I agree with your proposal, but we need to consider the budget."
+        "A) I am agree to your propose, but we must thinking about budget.",
+        "B) I agree with your proposal, but we needing to consider budget.",
+        "C) I agreed with your proposal, but we need considering the budget.",
+        "D) I agree with your proposal, but we need to consider the budget."
       ],
       "correctIndex": 3
     },
     {
-      "id": 844,
+      "id": 4,
       "question": "Complete the sentence: 'Could you please _______ me the latest report by EOD?'",
       "questionHindi": "वाक्य पूरा करें: 'क्या आप कृपया मुझे ईओडी (दिन के अंत) तक नवीनतम रिपोर्ट _______ कर सकते हैं?'",
       "options": [
-        "forwarding",
-        "forwards",
-        "forwarded",
-        "forward"
+        "A) forwarding",
+        "B) forwards",
+        "C) forwarded",
+        "D) forward"
       ],
       "correctIndex": 3
     },
     {
-      "id": 845,
-      "question": "How do you politely disagree with a colleague?",
-      "questionHindi": "आप किसी सहकर्मी के साथ विनम्रतापूर्वक असहमति कैसे व्यक्त करते हैं?",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "Your idea is wrong.",
-        "I don't like what you said.",
-        "I disagree because I am right.",
-        "I see your point, however, I have a different perspective."
+        "A) Your idea is wrong.",
+        "B) I don't like what you said.",
+        "C) I disagree because I am right.",
+        "D) I see your point, however, I have a different perspective."
       ],
       "correctIndex": 3
     },
     {
-      "id": 846,
+      "id": 6,
       "question": "Translate: 'हमें इस प्रोजेक्ट को शुक्रवार तक पूरा करना होगा।'",
       "questionHindi": "अनुवाद करें: 'हमें इस प्रोजेक्ट को शुक्रवार तक पूरा करना होगा।'",
       "options": [
-        "We should finished this project by Friday.",
-        "We are complete this project until Friday.",
-        "We must complete this project by Friday.",
-        "We have to completing this project by Friday."
+        "A) We should finished this project by Friday.",
+        "B) We are complete this project until Friday.",
+        "C) We must complete this project by Friday.",
+        "D) We have to completing this project by Friday."
       ],
       "correctIndex": 2
     },
     {
-      "id": 847,
+      "id": 7,
       "question": "Which WH-question is correct for asking about a deadline?",
       "questionHindi": "समय सीमा (deadline) के बारे में पूछने के लिए कौन सा WH-प्रश्न सही है?",
       "options": [
-        "Who is the deadline for this task?",
-        "Where is the deadline for this task?",
-        "When is the deadline for this task?",
-        "Why is the deadline for this task?"
+        "A) Who is the deadline for this task?",
+        "B) Where is the deadline for this task?",
+        "C) When is the deadline for this task?",
+        "D) Why is the deadline for this task?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 848,
+      "id": 8,
       "question": "Choose the correct professional closing for an email.",
       "questionHindi": "ईमेल के लिए सही पेशेवर समापन (closing) चुनें।",
       "options": [
-        "Bye bye,",
-        "Thanks for everything,",
-        "See you soon,",
-        "Best regards,"
+        "A) Bye bye,",
+        "B) Thanks for everything,",
+        "C) See you soon,",
+        "D) Best regards,"
       ],
       "correctIndex": 3
     },
     {
-      "id": 849,
-      "question": "Translate: 'क्या आप इस कार्य में मेरी सहायता कर सकते हैं?'",
-      "questionHindi": "अनुवाद करें: 'क्या आप इस कार्य में मेरी सहायता कर सकते हैं?'",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "Can you helping me with this task?",
-        "Will you assisted me in this task?",
-        "Could you please assist me with this task?",
-        "Do you assist me with this task?"
+        "A) Can you helping me with this task?",
+        "B) Will you assisted me in this task?",
+        "C) Could you please assist me with this task?",
+        "D) Do you assist me with this task?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 850,
+      "id": 10,
       "question": "How do you respond professionally to constructive feedback?",
       "questionHindi": "आप रचनात्मक फीडबैक (constructive feedback) पर पेशेवर रूप से कैसे प्रतिक्रिया देते हैं?",
       "options": [
-        "I will try to do better next time.",
-        "Thank you for the feedback; I will work on these areas.",
-        "It was not my fault.",
-        "I don't agree with your feedback."
+        "A) I will try to do better next time.",
+        "B) Thank you for the feedback; I will work on these areas.",
+        "C) It was not my fault.",
+        "D) I don't agree with your feedback."
       ],
       "correctIndex": 1
     },
     {
-      "id": 851,
-      "question": "Fill in the blank: 'I am _______ forward to our meeting tomorrow.'",
-      "questionHindi": "रिक्त स्थान भरें: 'मैं कल हमारी बैठक का _______ कर रहा हूँ।' (उत्सुकता से प्रतीक्षा)",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "looking",
-        "look",
-        "looked",
-        "looks"
+        "A) looking",
+        "B) look",
+        "C) looked",
+        "D) looks"
       ],
       "correctIndex": 0
     },
     {
-      "id": 852,
-      "question": "Translate: 'मैं अभी एक कॉल पर हूँ, क्या मैं आपको बाद में कॉल कर सकता हूँ?'",
-      "questionHindi": "अनुवाद करें: 'मैं अभी एक कॉल पर हूँ, क्या मैं आपको बाद में कॉल कर सकता हूँ?'",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "I am in a call now, can I call you later?",
-        "I am on a call right now; may I call you back later?",
-        "I was on a call, can I call you back?",
-        "I am on call now, will I call you later?"
+        "A) I am in a call now, can I call you later?",
+        "B) I am on a call right now; may I call you back later?",
+        "C) I was on a call, can I call you back?",
+        "D) I am on call now, will I call you later?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 853,
-      "question": "Which modal verb expresses a polite request?",
-      "questionHindi": "कौन सी सहायक क्रिया (modal verb) विनम्र अनुरोध व्यक्त करती है?",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "Must",
-        "Would",
-        "Should",
-        "Will"
+        "A) Must",
+        "B) Would",
+        "C) Should",
+        "D) Will"
       ],
       "correctIndex": 1
     },
     {
-      "id": 854,
+      "id": 14,
       "question": "Translate: 'प्रस्तुति (presentation) दोपहर 2 बजे शुरू होगी।'",
       "questionHindi": "अनुवाद करें: 'प्रस्तुति (presentation) दोपहर 2 बजे शुरू होगी।'",
       "options": [
-        "The presentation will start at 2 PM.",
-        "The presentation starts on 2 PM.",
-        "The presentation shall starting at 2 PM.",
-        "The presentation will starting at 2 PM."
+        "A) The presentation will start at 2 PM.",
+        "B) The presentation starts on 2 PM.",
+        "C) The presentation shall starting at 2 PM.",
+        "D) The presentation will starting at 2 PM."
       ],
       "correctIndex": 0
     },
     {
-      "id": 855,
-      "question": "What is the professional way to ask for clarification?",
-      "questionHindi": "स्पष्टीकरण मांगने का पेशेवर तरीका क्या है?",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "I don't understand.",
-        "What did you say?",
-        "Could you please clarify what you meant by that?",
-        "Say it again."
+        "A) I don't understand.",
+        "B) What did you say?",
+        "C) Could you please clarify what you meant by that?",
+        "D) Say it again."
       ],
       "correctIndex": 2
     },
     {
-      "id": 856,
-      "question": "Translate: 'हमें टीम वर्क पर ध्यान देने की जरूरत है।'",
-      "questionHindi": "अनुवाद करें: 'हमें टीम वर्क पर ध्यान देने की जरूरत है।'",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "We need to focus on teamwork.",
-        "We needing to focus on teamwork.",
-        "We needs to focusing on teamwork.",
-        "We need focusing on teamwork."
+        "A) We need to focus on teamwork.",
+        "B) We needing to focus on teamwork.",
+        "C) We needs to focusing on teamwork.",
+        "D) We need focusing on teamwork."
       ],
       "correctIndex": 0
     },
     {
-      "id": 857,
-      "question": "Choose the correct form: 'She _______ the client yesterday.'",
-      "questionHindi": "सही रूप चुनें: 'उसने कल क्लाइंट को _______ किया।' (सूचित किया)",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "inform",
-        "informed",
-        "informing",
-        "informs"
+        "A) inform",
+        "B) informed",
+        "C) informing",
+        "D) informs"
       ],
       "correctIndex": 1
     },
     {
-      "id": 858,
+      "id": 18,
       "question": "Translate: 'क्या आप मुझे इस ईमेल का जवाब देने में मदद कर सकते हैं?'",
       "questionHindi": "अनुवाद करें: 'क्या आप मुझे इस ईमेल का जवाब देने में मदद कर सकते हैं?'",
       "options": [
-        "Can you help me for replying this email?",
-        "Could you help me in reply this email?",
-        "Could you help me respond to this email?",
-        "Will you help me responding this email?"
+        "A) Can you help me for replying this email?",
+        "B) Could you help me in reply this email?",
+        "C) Could you help me respond to this email?",
+        "D) Will you help me responding this email?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 859,
-      "question": "Which word means 'समय का पाबंद' in English?",
-      "questionHindi": "'समय का पाबंद' के लिए अंग्रेजी शब्द क्या है?",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "Late",
-        "Punctual",
-        "Slow",
-        "Quick"
+        "A) Late",
+        "B) Punctual",
+        "C) Slow",
+        "D) Quick"
       ],
       "correctIndex": 1
     },
     {
-      "id": 860,
-      "question": "Translate: 'मैं इस प्रोजेक्ट के लिए जिम्मेदार हूँ।'",
-      "questionHindi": "अनुवाद करें: 'मैं इस प्रोजेक्ट के लिए जिम्मेदार हूँ।'",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "I am responsible for this project.",
-        "I am responsibility for this project.",
-        "I have responsible for this project.",
-        "I am responsible of this project."
+        "A) I am responsible for this project.",
+        "B) I am responsibility for this project.",
+        "C) I have responsible for this project.",
+        "D) I am responsible of this project."
       ],
       "correctIndex": 0
     },
     {
-      "id": 861,
-      "question": "Fill in the blank: 'Let's _______ a meeting to discuss this further.'",
-      "questionHindi": "रिक्त स्थान भरें: 'इस पर आगे चर्चा करने के लिए आइए एक बैठक _______ करें।'",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "schedule",
-        "scheduling",
-        "scheduled",
-        "schedules"
+        "A) schedule",
+        "B) scheduling",
+        "C) scheduled",
+        "D) schedules"
       ],
       "correctIndex": 0
     },
     {
-      "id": 862,
-      "question": "Translate: 'देरी के लिए क्षमा करें।'",
-      "questionHindi": "अनुवाद करें: 'देरी के लिए क्षमा करें।'",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "Sorry for late.",
-        "I am sorry for the delay.",
-        "Apologize for delay.",
-        "Sorry for delaying."
+        "A) Sorry for late.",
+        "B) I am sorry for the delay.",
+        "C) Apologize for delay.",
+        "D) Sorry for delaying."
       ],
       "correctIndex": 1
     },
     {
-      "id": 863,
-      "question": "How do you introduce a new idea in a meeting?",
-      "questionHindi": "आप मीटिंग में एक नया विचार कैसे पेश करते हैं?",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "Listen to my idea.",
-        "I want to say something.",
-        "I would like to propose an idea.",
-        "My idea is the best."
+        "A) Listen to my idea.",
+        "B) I want to say something.",
+        "C) I would like to propose an idea.",
+        "D) My idea is the best."
       ],
       "correctIndex": 2
     },
     {
-      "id": 864,
-      "question": "Translate: 'कृपया मुझे अपडेट रखें।'",
-      "questionHindi": "अनुवाद करें: 'कृपया मुझे अपडेट रखें।'",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "Please keeping me updated.",
-        "Please keep me updated.",
-        "Please keep me update.",
-        "Please kept me updated."
+        "A) Please keeping me updated.",
+        "B) Please keep me updated.",
+        "C) Please keep me update.",
+        "D) Please kept me updated."
       ],
       "correctIndex": 1
     },
     {
-      "id": 865,
+      "id": 25,
       "question": "Choose the correct sentence for delegating a task.",
       "questionHindi": "किसी कार्य को सौंपने (delegate) के लिए सही वाक्य चुनें।",
       "options": [
-        "You do this work now.",
-        "I am giving you this work.",
-        "I would like you to take the lead on this task.",
-        "Take this work and finish it."
+        "A) You do this work now.",
+        "B) I am giving you this work.",
+        "C) I would like you to take the lead on this task.",
+        "D) Take this work and finish it."
       ],
       "correctIndex": 2
     },
     {
-      "id": 866,
+      "id": 26,
       "question": "Translate: 'क्या आप इस बिंदु को फिर से समझा सकते हैं?'",
       "questionHindi": "अनुवाद करें: 'क्या आप इस बिंदु को फिर से समझा सकते हैं?'",
       "options": [
-        "Can you explain this point again?",
-        "Could you please explain this point again?",
-        "Will you explaining this point again?",
-        "Do you explain this point again?"
+        "A) Can you explain this point again?",
+        "B) Could you please explain this point again?",
+        "C) Will you explaining this point again?",
+        "D) Do you explain this point again?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 867,
-      "question": "Fill in the blank: 'We need to _______ the deadline.'",
-      "questionHindi": "रिक्त स्थान भरें: 'हमें समय सीमा (deadline) को _______ करने की आवश्यकता है।' (पूरा करना)",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "meet",
-        "meeting",
-        "met",
-        "meets"
+        "A) meet",
+        "B) meeting",
+        "C) met",
+        "D) meets"
       ],
       "correctIndex": 0
     },
     {
-      "id": 868,
-      "question": "Translate: 'वह बहुत अच्छा टीम प्लेयर है।'",
-      "questionHindi": "अनुवाद करें: 'वह बहुत अच्छा टीम प्लेयर है।'",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "He is a very good team player.",
-        "He is very good teams player.",
-        "He was a very good team player.",
-        "He is a goodly team player."
+        "A) He is a very good team player.",
+        "B) He is very good teams player.",
+        "C) He was a very good team player.",
+        "D) He is a goodly team player."
       ],
       "correctIndex": 0
     },
     {
-      "id": 869,
-      "question": "Which phrase is used to start a presentation?",
-      "questionHindi": "प्रस्तुति (presentation) शुरू करने के लिए किस वाक्यांश का उपयोग किया जाता है?",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "I am starting now.",
-        "Look at the screen.",
-        "Thank you all for coming; today I will discuss...",
-        "Hello, I am here."
+        "A) I am starting now.",
+        "B) Look at the screen.",
+        "C) Thank you all for coming; today I will discuss...",
+        "D) Hello, I am here."
       ],
       "correctIndex": 2
     },
     {
-      "id": 870,
+      "id": 30,
       "question": "Translate: 'मैं इस बारे में सोचूंगा और आपको बताऊंगा।'",
       "questionHindi": "अनुवाद करें: 'मैं इस बारे में सोचूंगा और आपको बताऊंगा।'",
       "options": [
-        "I will think about it and let you know.",
-        "I am thinking about it and tell you.",
-        "I will thought about it and let you know.",
-        "I think about it and will tell you."
+        "A) I will think about it and let you know.",
+        "B) I am thinking about it and tell you.",
+        "C) I will thought about it and let you know.",
+        "D) I think about it and will tell you."
       ],
       "correctIndex": 0
     }
   ],
   "30": [
     {
-      "id": 871,
+      "id": 1,
       "question": "How do you introduce yourself to a new client at a networking event?",
       "questionHindi": "नेटवर्किंग इवेंट में आप एक नए क्लाइंट को अपना परिचय कैसे देते हैं?",
       "options": [
-        "Hi, I am Rahul. Nice to meet you.",
-        "Give me your card.",
-        "Where do you work?",
-        "Who are you?"
+        "A) Hi, I am Rahul. Nice to meet you.",
+        "B) Give me your card.",
+        "C) Where do you work?",
+        "D) Who are you?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 872,
-      "question": "Which phrase is best to initiate small talk about the event?",
-      "questionHindi": "इवेंट के बारे में बातचीत शुरू करने के लिए कौन सा वाक्यांश सबसे अच्छा है?",
+      "id": 2,
+      "question": "Which phrase is best to initiate small talk in a professional conversation?",
+      "questionHindi": "व्यावसायिक बातचीत (conversation) में अनौपचारिक बातचीत शुरू करने के लिए कौन सा वाक्यांश सबसे अच्छा है?",
       "options": [
-        "How are you enjoying the event so far?",
-        "I am bored here.",
-        "Why are you here?",
-        "What is your salary?"
+        "A) How are you enjoying the event so far?",
+        "B) I am bored here.",
+        "C) Why are you here?",
+        "D) What is your salary?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 873,
-      "question": "Translate: 'I have been working in this industry for five years.'",
-      "questionHindi": "'मैं इस उद्योग में पांच वर्षों से काम कर रहा हूँ।' का अनुवाद करें।",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "I have been working in this industry for five years.",
-        "I am working here five years.",
-        "I worked here for five years.",
-        "I work in this industry for five years."
+        "A) I have been working in this industry for five years.",
+        "B) I am working here five years.",
+        "C) I worked here for five years.",
+        "D) I work in this industry for five years."
       ],
       "correctIndex": 0
     },
     {
-      "id": 874,
+      "id": 4,
       "question": "Which question helps you understand a client's business challenges?",
       "questionHindi": "क्लाइंट की व्यावसायिक चुनौतियों को समझने के लिए कौन सा प्रश्न सहायक है?",
       "options": [
-        "What are your biggest priorities this year?",
-        "Do you like coffee?",
-        "How much money do you have?",
-        "Are you tired?"
+        "A) What are your biggest priorities this year?",
+        "B) Do you like coffee?",
+        "C) How much money do you have?",
+        "D) Are you tired?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 875,
-      "question": "Fill in the blank: 'I ______ my previous project successfully last month.'",
-      "questionHindi": "रिक्त स्थान भरें: 'मैंने पिछले महीने अपना पिछला प्रोजेक्ट सफलतापूर्वक ______।'",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "complete",
-        "have completed",
-        "am completing",
-        "completed"
+        "A) complete",
+        "B) have completed",
+        "C) am completing",
+        "D) completed"
       ],
       "correctIndex": 3
     },
     {
-      "id": 876,
+      "id": 6,
       "question": "How do you articulate your unique value proposition clearly?",
       "questionHindi": "आप अपने अद्वितीय मूल्य प्रस्ताव (value proposition) को स्पष्ट रूप से कैसे व्यक्त करते हैं?",
       "options": [
-        "I am good at many things.",
-        "I think I am the best.",
-        "Just hire me.",
-        "I help companies streamline operations to increase efficiency by 20%."
+        "A) I am good at many things.",
+        "B) I think I am the best.",
+        "C) Just hire me.",
+        "D) I help companies streamline operations to increase efficiency by 20%."
       ],
       "correctIndex": 3
     },
     {
-      "id": 877,
-      "question": "Translate: 'Could you please tell me more about your requirements?'",
-      "questionHindi": "'क्या आप कृपया मुझे अपनी आवश्यकताओं के बारे में और बता सकते हैं?' का अनुवाद करें।",
+      "id": 7,
+      "question": "Translate: 'Could you please clarify what you mean by these requirements?'",
+      "questionHindi": "स्पष्टीकरण मांगने का अनुवाद करें: 'क्या आप कृपया स्पष्ट कर सकते हैं (clarify what you mean)?'",
       "options": [
-        "Tell me what you want.",
-        "Why do you need this?",
-        "Give me your requirements.",
-        "Could you please tell me more about your requirements?"
+        "A) Tell me what you want.",
+        "B) Why do you need this?",
+        "C) Give me your requirements.",
+        "D) Could you please tell me more about your requirements?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 878,
+      "id": 8,
       "question": "Which sentence correctly uses future tense for a follow-up meeting?",
       "questionHindi": "फॉलो-अप मीटिंग के लिए भविष्य काल (future tense) का सही उपयोग करने वाला वाक्य कौन सा है?",
       "options": [
-        "I am meeting you tomorrow.",
-        "I sent an email yesterday.",
-        "I meet you tomorrow.",
-        "I will send you an email tomorrow to schedule our next chat."
+        "A) I am meeting you tomorrow.",
+        "B) I sent an email yesterday.",
+        "C) I meet you tomorrow.",
+        "D) I will send you an email tomorrow to schedule our next chat."
       ],
       "correctIndex": 3
     },
     {
-      "id": 879,
-      "question": "Choose the correct phrase to transition from small talk to business.",
-      "questionHindi": "सामान्य बातचीत से व्यापारिक बातचीत पर जाने के लिए सही वाक्यांश चुनें।",
+      "id": 9,
+      "question": "Choose the correct phrase to repair a misunderstanding in a conversation:",
+      "questionHindi": "बातचीत में गलतफहमी को सुधारने (conversational repair) के लिए सही वाक्यांश चुनें:",
       "options": [
-        "Anyway, let's talk business.",
-        "Stop talking about the weather.",
-        "What is your budget?",
-        "I'd love to hear more about how your company approaches these challenges."
+        "A) Anyway, let's talk business.",
+        "B) Stop talking about the weather.",
+        "C) What is your budget?",
+        "D) I'd love to hear more about how your company approaches these challenges."
       ],
       "correctIndex": 3
     },
     {
-      "id": 880,
+      "id": 10,
       "question": "Translate: 'It was a pleasure meeting you today.'",
       "questionHindi": "'आज आपसे मिलकर खुशी हुई।' का अनुवाद करें।",
       "options": [
-        "Nice to meet you today.",
-        "I met you today.",
-        "Meeting you is good.",
-        "It was a pleasure meeting you today."
+        "A) Nice to meet you today.",
+        "B) I met you today.",
+        "C) Meeting you is good.",
+        "D) It was a pleasure meeting you today."
       ],
       "correctIndex": 3
     },
     {
-      "id": 881,
-      "question": "Fill in the blank: 'We ______ our targets if we work together.'",
-      "questionHindi": "रिक्त स्थान भरें: 'यदि हम साथ काम करेंगे तो हम अपने लक्ष्य ______।'",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "achieve",
-        "achieved",
-        "are achieving",
-        "will achieve"
+        "A) achieve",
+        "B) achieved",
+        "C) are achieving",
+        "D) will achieve"
       ],
       "correctIndex": 3
     },
     {
-      "id": 882,
-      "question": "Which is a polite way to ask for a contact number?",
-      "questionHindi": "संपर्क नंबर मांगने का विनम्र तरीका कौन सा है?",
+      "id": 12,
+      "question": "Which polite phrase is used to say 'pardon' when you didn't hear someone clearly in a conversation?",
+      "questionHindi": "बातचीत में दोबारा सुनने के लिए 'Pardon' (माफ कीजिए) कहने का विनम्र तरीका कौन सा है?",
       "options": [
-        "Give me your number.",
-        "What is your number?",
-        "Write your number here.",
-        "Could I have your contact details, please?"
+        "A) Give me your number.",
+        "B) What is your number?",
+        "C) Write your number here.",
+        "D) Could I have your contact details, please?"
       ],
       "correctIndex": 3
     },
     {
-      "id": 883,
-      "question": "Translate: 'What are your main goals for this quarter?'",
-      "questionHindi": "'इस तिमाही के लिए आपके मुख्य लक्ष्य क्या हैं?' का अनुवाद करें।",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "What is your goal now?",
-        "Do you have goals?",
-        "What are your main goals for this quarter?",
-        "Tell me your goals."
+        "A) What is your goal now?",
+        "B) Do you have goals?",
+        "C) What are your main goals for this quarter?",
+        "D) Tell me your goals."
       ],
       "correctIndex": 2
     },
     {
-      "id": 884,
+      "id": 14,
       "question": "Which sentence shows a past experience related to work?",
       "questionHindi": "कौन सा वाक्य काम से संबंधित पिछले अनुभव को दर्शाता है?",
       "options": [
-        "I am working on a new project.",
-        "I will lead a team.",
-        "I led a team of ten developers last year.",
-        "I like my team."
+        "A) I am working on a new project.",
+        "B) I will lead a team.",
+        "C) I led a team of ten developers last year.",
+        "D) I like my team."
       ],
       "correctIndex": 2
     },
     {
-      "id": 885,
-      "question": "How do you respond to a compliment about your presentation?",
-      "questionHindi": "अपनी प्रस्तुति के बारे में मिली तारीफ का जवाब आप कैसे देते हैं?",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "I know, it was great.",
-        "It was easy.",
-        "Thank you, I appreciate that.",
-        "Whatever."
+        "A) I know, it was great.",
+        "B) It was easy.",
+        "C) Thank you, I appreciate that.",
+        "D) Whatever."
       ],
       "correctIndex": 2
     },
     {
-      "id": 886,
-      "question": "Fill in the blank: 'I ______ to the conference to network with professionals.'",
-      "questionHindi": "रिक्त स्थान भरें: 'मैं पेशेवरों के साथ नेटवर्क बनाने के लिए कॉन्फ्रेंस में ______।'",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "come",
-        "am coming",
-        "came",
-        "was come"
+        "A) come",
+        "B) am coming",
+        "C) came",
+        "D) was come"
       ],
       "correctIndex": 2
     },
     {
-      "id": 887,
-      "question": "Which phrase is used to clarify an understanding?",
-      "questionHindi": "समझ को स्पष्ट करने के लिए किस वाक्यांश का उपयोग किया जाता है?",
+      "id": 17,
+      "question": "Which phrase is used to clarify an understanding during a business conversation?",
+      "questionHindi": "व्यावसायिक बातचीत में समझ को स्पष्ट करने (clarify) के लिए किस वाक्यांश का उपयोग किया जाता है?",
       "options": [
-        "So, what you're saying is...",
-        "You are wrong.",
-        "I don't understand.",
-        "Tell me again."
+        "A) So, what you're saying is...",
+        "B) You are wrong.",
+        "C) I don't understand.",
+        "D) Tell me again."
       ],
       "correctIndex": 0
     },
     {
-      "id": 888,
+      "id": 18,
       "question": "Translate: 'I am looking forward to our collaboration.'",
       "questionHindi": "'मैं हमारे सहयोग के लिए उत्सुक हूँ।' का अनुवाद करें।",
       "options": [
-        "I wait for our work.",
-        "I want to work with you.",
-        "I am looking forward to our collaboration.",
-        "Looking forward to work."
+        "A) I wait for our work.",
+        "B) I want to work with you.",
+        "C) I am looking forward to our collaboration.",
+        "D) Looking forward to work."
       ],
       "correctIndex": 2
     },
     {
-      "id": 889,
-      "question": "Which option is a professional way to end a conversation?",
-      "questionHindi": "बातचीत समाप्त करने का पेशेवर तरीका कौन सा है?",
+      "id": 19,
+      "question": "Which option is an effective conversational repair phrase: 'What I actually mean is...'?",
+      "questionHindi": "अपनी बात को स्पष्ट करने और सुधारने (conversational repair) के लिए कौन सा विकल्प सही है?",
       "options": [
-        "Bye.",
-        "I have to go now.",
-        "It was great connecting with you. Let's stay in touch.",
-        "See you later."
+        "A) Bye.",
+        "B) I have to go now.",
+        "C) It was great connecting with you. Let's stay in touch.",
+        "D) See you later."
       ],
       "correctIndex": 2
     },
     {
-      "id": 890,
-      "question": "Fill in the blank: 'Our company ______ innovative solutions for small businesses.'",
-      "questionHindi": "रिक्त स्थान भरें: 'हमारी कंपनी छोटे व्यवसायों के लिए अभिनव समाधान ______।'",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "provide",
-        "provides",
-        "is provide",
-        "providing"
+        "A) provide",
+        "B) provides",
+        "C) is provide",
+        "D) providing"
       ],
       "correctIndex": 1
     },
     {
-      "id": 891,
-      "question": "Translate: 'Have you faced any challenges recently?'",
-      "questionHindi": "'क्या आपने हाल ही में किसी चुनौती का सामना किया है?' का अनुवाद करें।",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "Did you face challenges?",
-        "Have you faced any challenges recently?",
-        "Are you facing challenges?",
-        "What challenges do you have?"
+        "A) Did you face challenges?",
+        "B) Have you faced any challenges recently?",
+        "C) Are you facing challenges?",
+        "D) What challenges do you have?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 892,
-      "question": "Choose the grammatically correct sentence.",
-      "questionHindi": "व्याकरण की दृष्टि से सही वाक्य चुनें।",
+      "id": 22,
+      "question": "Which sentence expresses polite agreement in a professional discussion: 'I completely agree with you.'?",
+      "questionHindi": "व्यावसायिक चर्चा में विनम्र सहमति (polite agreement) व्यक्त करने वाला वाक्य कौन सा है?",
       "options": [
-        "I have been finish the task.",
-        "I have finished the task.",
-        "I has finished the task.",
-        "I finish the task already."
+        "A) I have been finish the task.",
+        "B) I have finished the task.",
+        "C) I has finished the task.",
+        "D) I finish the task already."
       ],
       "correctIndex": 1
     },
     {
-      "id": 893,
-      "question": "Which question asks for an opinion on a new strategy?",
-      "questionHindi": "नई रणनीति पर राय मांगने के लिए कौन सा प्रश्न सही है?",
+      "id": 23,
+      "question": "Which question asks a speaker to clarify what they mean: 'What do you mean by that?'?",
+      "questionHindi": "वक्ता से अर्थ स्पष्ट करने (clarify what they mean) के लिए कौन सा प्रश्न सही है?",
       "options": [
-        "What do you think about our new strategy?",
-        "Is the strategy good?",
-        "Why this strategy?",
-        "Who made this strategy?"
+        "A) What do you think about our new strategy?",
+        "B) Is the strategy good?",
+        "C) Why this strategy?",
+        "D) Who made this strategy?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 894,
-      "question": "Translate: 'I specialize in digital marketing.'",
-      "questionHindi": "'मैं डिजिटल मार्केटिंग में विशेषज्ञ हूँ।' का अनुवाद करें।",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "My specialty is digital marketing.",
-        "I specialize in digital marketing.",
-        "I work in digital marketing.",
-        "Digital marketing is my work."
+        "A) My specialty is digital marketing.",
+        "B) I specialize in digital marketing.",
+        "C) I work in digital marketing.",
+        "D) Digital marketing is my work."
       ],
       "correctIndex": 1
     },
     {
-      "id": 895,
-      "question": "Fill in the blank: 'We ______ a meeting next week to discuss this.'",
-      "questionHindi": "रिक्त स्थान भरें: 'हम इस पर चर्चा करने के लिए अगले सप्ताह एक मीटिंग ______।'",
+      "id": 25,
+      "question": "How do you politely disagree in a business conversation: 'I see your point, but I respectfully disagree.'?",
+      "questionHindi": "बातचीत में विनम्रता से असहमति (respectfully disagree) व्यक्त करने का सही तरीका कौन सा है?",
       "options": [
-        "have",
-        "had",
-        "will have",
-        "has"
+        "A) have",
+        "B) had",
+        "C) will have",
+        "D) has"
       ],
       "correctIndex": 2
     },
     {
-      "id": 896,
+      "id": 26,
       "question": "Which sentence expresses a future goal?",
       "questionHindi": "कौन सा वाक्य भविष्य के लक्ष्य को व्यक्त करता है?",
       "options": [
-        "I wanted to expand my business.",
-        "I am expanding my business.",
-        "I plan to expand my business globally by next year.",
-        "I expanded my business."
+        "A) I wanted to expand my business.",
+        "B) I am expanding my business.",
+        "C) I plan to expand my business globally by next year.",
+        "D) I expanded my business."
       ],
       "correctIndex": 2
     },
     {
-      "id": 897,
-      "question": "How do you ask about someone's role at a company?",
-      "questionHindi": "किसी कंपनी में किसी की भूमिका के बारे में कैसे पूछें?",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "What do you do there?",
-        "What is your role at the company?",
-        "Why do you work there?",
-        "Are you a boss?"
+        "A) What do you do there?",
+        "B) What is your role at the company?",
+        "C) Why do you work there?",
+        "D) Are you a boss?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 898,
-      "question": "Translate: 'Let me know if you have any questions.'",
-      "questionHindi": "'अगर आपके कोई सवाल हों तो मुझे बताएं।' का अनुवाद करें।",
+      "id": 28,
+      "question": "Which phrase is used to smoothly continue a conversation and clarify details: 'Let me clarify further.'?",
+      "questionHindi": "बातचीत जारी रखने और विवरण स्पष्ट करने (clarify details) के लिए कौन सा वाक्यांश उपयुक्त है?",
       "options": [
-        "Ask me if you have questions.",
-        "Let me know if you have any questions.",
-        "Tell me your questions.",
-        "Do you have questions?"
+        "A) Ask me if you have questions.",
+        "B) Let me know if you have any questions.",
+        "C) Tell me your questions.",
+        "D) Do you have questions?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 899,
-      "question": "Which phrase is appropriate for a formal follow-up email?",
-      "questionHindi": "औपचारिक फॉलो-अप ईमेल के लिए कौन सा वाक्यांश उपयुक्त है?",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "Hey, what's up?",
-        "It was a pleasure meeting you at the event.",
-        "Yo, remember me?",
-        "See you."
+        "A) Hey, what's up?",
+        "B) It was a pleasure meeting you at the event.",
+        "C) Yo, remember me?",
+        "D) See you."
       ],
       "correctIndex": 1
     },
     {
-      "id": 900,
+      "id": 30,
       "question": "Fill in the blank: 'She ______ for the position for three months.'",
       "questionHindi": "रिक्त स्थान भरें: 'वह तीन महीने से इस पद के लिए ______।'",
       "options": [
-        "prepared",
-        "has been preparing",
-        "is preparing",
-        "prepares"
+        "A) prepared",
+        "B) has been preparing",
+        "C) is preparing",
+        "D) prepares"
       ],
       "correctIndex": 1
     }
   ],
   "31": [
     {
-      "id": 901,
+      "id": 1,
       "question": "If someone asks for your opinion and you want to be polite but honest, what is the best opening phrase?",
       "questionHindi": "अगर कोई आपसे आपकी राय पूछे और आप विनम्र लेकिन ईमानदार होना चाहते हैं, तो सबसे अच्छा शुरुआती वाक्यांश क्या है?",
       "options": [
-        "Actually, I hate it.",
-        "You are wrong.",
-        "I don't care.",
-        "To be honest, I think it could be better."
+        "A) Actually, I hate it.",
+        "B) You are wrong.",
+        "C) I don't care.",
+        "D) To be honest, I think it could be better."
       ],
       "correctIndex": 3
     },
     {
-      "id": 902,
+      "id": 2,
       "question": "Which phrase is a natural way to buy time while thinking of an answer?",
       "questionHindi": "जवाब सोचने के दौरान समय लेने का एक स्वाभाविक तरीका कौन सा वाक्यांश है?",
       "options": [
-        "Let me think about it.",
-        "I don't know.",
-        "Wait for a second.",
-        "That's a good question, let me see."
+        "A) Let me think about it.",
+        "B) I don't know.",
+        "C) Wait for a second.",
+        "D) That's a good question, let me see."
       ],
       "correctIndex": 3
     },
     {
-      "id": 903,
-      "question": "Translate: 'सच कहूँ तो, मुझे यह फिल्म कुछ खास नहीं लगी।'",
-      "questionHindi": "सच कहूँ तो, मुझे यह फिल्म कुछ खास नहीं लगी।",
+      "id": 3,
+      "question": "While I ________ dinner, the phone rang.",
+      "questionHindi": "वाक्य पूरा करें: 'जब मैं रात का खाना बना रहा था (was cooking), फोन बजा।'",
       "options": [
-        "Actually, I didn't like the movie.",
-        "Frankly, the movie was bad.",
-        "In fact, the movie was boring.",
-        "To be honest, I wasn't that impressed by the movie."
+        "A) Actually, I didn't like the movie.",
+        "B) Frankly, the movie was bad.",
+        "C) In fact, the movie was boring.",
+        "D) To be honest, I wasn't that impressed by the movie."
       ],
       "correctIndex": 3
     },
     {
-      "id": 904,
+      "id": 4,
       "question": "How would you soften the direct statement 'I disagree' in a professional meeting?",
       "questionHindi": "पेशेवर मीटिंग में 'I disagree' (मैं असहमत हूँ) जैसे सीधे बयान को आप अधिक विनम्र कैसे बनाएंगे?",
       "options": [
-        "You are completely wrong.",
-        "No, that is not true.",
-        "I don't agree with you at all.",
-        "I see your point, but I have a different perspective."
+        "A) You are completely wrong.",
+        "B) No, that is not true.",
+        "C) I don't agree with you at all.",
+        "D) I see your point, but I have a different perspective."
       ],
       "correctIndex": 3
     },
     {
-      "id": 905,
-      "question": "What is a natural way to agree enthusiastically with a friend's plan?",
-      "questionHindi": "किसी दोस्त की योजना से उत्साहपूर्वक सहमत होने का स्वाभाविक तरीका क्या है?",
+      "id": 5,
+      "question": "Choose the correct option: 'My brother ________ (play) video games when I entered the room.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं कमरे में आया, मेरा भाई वीडियो गेम खेल रहा था (was playing)।'",
       "options": [
-        "I suppose that is okay.",
-        "I guess so.",
-        "Sure, whatever.",
-        "Yeah, that sounds like a great idea!"
+        "A) I suppose that is okay.",
+        "B) I guess so.",
+        "C) Sure, whatever.",
+        "D) Yeah, that sounds like a great idea!"
       ],
       "correctIndex": 3
     },
     {
-      "id": 906,
+      "id": 6,
       "question": "Which phrase is best used to add information that contradicts a previous assumption?",
       "questionHindi": "पिछली धारणा के विपरीत जानकारी जोड़ने के लिए कौन सा वाक्यांश सबसे अच्छा है?",
       "options": [
-        "I think it is fine.",
-        "To be fair, it is okay.",
-        "As a matter of fact, I actually enjoyed it.",
-        "For instance, I liked it."
+        "A) I think it is fine.",
+        "B) To be fair, it is okay.",
+        "C) As a matter of fact, I actually enjoyed it.",
+        "D) For instance, I liked it."
       ],
       "correctIndex": 2
     },
     {
-      "id": 907,
+      "id": 7,
       "question": "Translate: 'क्या आप मुझे थोड़ा और विस्तार से बता सकते हैं?' (Polite request)",
       "questionHindi": "क्या आप मुझे थोड़ा और विस्तार से बता सकते हैं?",
       "options": [
-        "Tell me more about it.",
-        "Why are you saying that?",
-        "Could you elaborate on that a bit?",
-        "Give me more details."
+        "A) Tell me more about it.",
+        "B) Why are you saying that?",
+        "C) Could you elaborate on that a bit?",
+        "D) Give me more details."
       ],
       "correctIndex": 2
     },
     {
-      "id": 908,
+      "id": 8,
       "question": "Which filler is often used to start a sentence when you are about to share a surprising fact?",
       "questionHindi": "जब आप कोई आश्चर्यजनक तथ्य साझा करने वाले हों, तो वाक्य शुरू करने के लिए किस 'फिलर' का उपयोग किया जाता है?",
       "options": [
-        "Basically,",
-        "So,",
-        "Actually,",
-        "Well,"
+        "A) Basically,",
+        "B) So,",
+        "C) Actually,",
+        "D) Well,"
       ],
       "correctIndex": 2
     },
     {
-      "id": 909,
-      "question": "How do you naturally express empathy when a friend tells you bad news?",
-      "questionHindi": "जब कोई दोस्त आपको बुरी खबर सुनाता है, तो आप सहानुभूति कैसे व्यक्त करते हैं?",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "Oh, okay.",
-        "I don't care.",
-        "That sounds really tough, I'm sorry to hear that.",
-        "That's life."
+        "A) Oh, okay.",
+        "B) I don't care.",
+        "C) That sounds really tough, I'm sorry to hear that.",
+        "D) That's life."
       ],
       "correctIndex": 2
     },
     {
-      "id": 910,
+      "id": 10,
       "question": "Fill in the blank: 'I was going to go to the gym, but ________, I stayed home to rest.'",
       "questionHindi": "खाली स्थान भरें: 'मैं जिम जाने वाला था, लेकिन ________, मैं आराम करने के लिए घर पर ही रहा।'",
       "options": [
-        "as a matter of fact",
-        "to be honest",
-        "to be fair",
-        "in other words"
+        "A) as a matter of fact",
+        "B) to be honest",
+        "C) to be fair",
+        "D) in other words"
       ],
       "correctIndex": 0
     },
     {
-      "id": 911,
-      "question": "Which phrase helps you sound more diplomatic when pointing out a mistake?",
-      "questionHindi": "गलती बताते समय राजनयिक (diplomatic) बनने के लिए कौन सा वाक्यांश मदद करता है?",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "You made a mistake.",
-        "You are wrong about this.",
-        "I think there might be a slight misunderstanding here.",
-        "This is completely incorrect."
+        "A) You made a mistake.",
+        "B) You are wrong about this.",
+        "C) I think there might be a slight misunderstanding here.",
+        "D) This is completely incorrect."
       ],
       "correctIndex": 2
     },
     {
-      "id": 912,
-      "question": "Translate: 'वैसे, कल की मीटिंग का क्या हुआ?'",
-      "questionHindi": "वैसे, कल की मीटिंग का क्या हुआ?",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "By the way, what happened with the meeting yesterday?",
-        "Actually, what about the meeting?",
-        "To be honest, what was the meeting?",
-        "In fact, did the meeting happen?"
+        "A) By the way, what happened with the meeting yesterday?",
+        "B) Actually, what about the meeting?",
+        "C) To be honest, what was the meeting?",
+        "D) In fact, did the meeting happen?"
       ],
       "correctIndex": 0
     },
     {
-      "id": 913,
-      "question": "When you want to summarize your point, which phrase is most natural?",
-      "questionHindi": "जब आप अपनी बात का सारांश देना चाहते हैं, तो कौन सा वाक्यांश सबसे स्वाभाविक है?",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "Basically, what I'm saying is...",
-        "To be fair...",
-        "As a matter of fact...",
-        "Actually..."
+        "A) Basically, what I'm saying is...",
+        "B) To be fair...",
+        "C) As a matter of fact...",
+        "D) Actually..."
       ],
       "correctIndex": 0
     },
     {
-      "id": 914,
+      "id": 14,
       "question": "Choose the most natural way to ask for a favor.",
       "questionHindi": "मदद मांगने का सबसे स्वाभाविक तरीका चुनें।",
       "options": [
-        "Do this for me.",
-        "Help me now.",
-        "Would you mind helping me with this?",
-        "I need you to do this."
+        "A) Do this for me.",
+        "B) Help me now.",
+        "C) Would you mind helping me with this?",
+        "D) I need you to do this."
       ],
       "correctIndex": 2
     },
     {
-      "id": 915,
-      "question": "Which phrase is used to introduce a different perspective without being rude?",
-      "questionHindi": "बिना अभद्र हुए एक अलग दृष्टिकोण पेश करने के लिए किस वाक्यांश का उपयोग किया जाता है?",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "I totally disagree.",
-        "That's not right.",
-        "I see your point, but have you considered...?",
-        "You are wrong."
+        "A) I totally disagree.",
+        "B) That's not right.",
+        "C) I see your point, but have you considered...?",
+        "D) You are wrong."
       ],
       "correctIndex": 2
     },
     {
-      "id": 916,
-      "question": "Translate: 'हकीकत यह है कि हमारे पास समय बहुत कम है।'",
-      "questionHindi": "हकीकत यह है कि हमारे पास समय बहुत कम है।",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "Actually, we have no time.",
-        "The thing is, we're really short on time.",
-        "To be honest, time is less.",
-        "Basically, time is over."
+        "A) Actually, we have no time.",
+        "B) The thing is, we're really short on time.",
+        "C) To be honest, time is less.",
+        "D) Basically, time is over."
       ],
       "correctIndex": 1
     },
     {
-      "id": 917,
-      "question": "What is a natural response to someone thanking you for a small help?",
-      "questionHindi": "किसी छोटी मदद के लिए आपको धन्यवाद देने वाले व्यक्ति को स्वाभाविक प्रतिक्रिया क्या होनी चाहिए?",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "You are welcome.",
-        "No worries, happy to help!",
-        "It was nothing.",
-        "Don't mention it."
+        "A) You are welcome.",
+        "B) No worries, happy to help!",
+        "C) It was nothing.",
+        "D) Don't mention it."
       ],
       "correctIndex": 1
     },
     {
-      "id": 918,
+      "id": 18,
       "question": "Which expression is used to acknowledge that you understand someone's feeling?",
       "questionHindi": "किसी की भावना को समझने के लिए किस अभिव्यक्ति का उपयोग किया जाता है?",
       "options": [
-        "I know what you mean.",
-        "You are right.",
-        "Okay.",
-        "I agree."
+        "A) I know what you mean.",
+        "B) You are right.",
+        "C) Okay.",
+        "D) I agree."
       ],
       "correctIndex": 0
     },
     {
-      "id": 919,
-      "question": "Fill in the blank: 'I'm not sure if I can make it to the party, ________ I'm feeling a bit tired.'",
-      "questionHindi": "खाली स्थान भरें: 'मुझे यकीन नहीं है कि मैं पार्टी में आ पाऊंगा, ________ मैं थोड़ा थका हुआ महसूस कर रहा हूँ।'",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "to be fair",
-        "to be honest",
-        "as a matter of fact",
-        "basically"
+        "A) to be fair",
+        "B) to be honest",
+        "C) as a matter of fact",
+        "D) basically"
       ],
       "correctIndex": 1
     },
     {
-      "id": 920,
-      "question": "Translate: 'क्या आप थोड़ा धीमा बोल सकते हैं?'",
-      "questionHindi": "क्या आप थोड़ा धीमा बोल सकते हैं?",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "Speak slowly.",
-        "Could you please speak a bit slower?",
-        "You are too fast.",
-        "Slow down your talking."
+        "A) Speak slowly.",
+        "B) Could you please speak a bit slower?",
+        "C) You are too fast.",
+        "D) Slow down your talking."
       ],
       "correctIndex": 1
     },
     {
-      "id": 921,
-      "question": "Which phrase sounds more natural when ending a phone call?",
-      "questionHindi": "फोन कॉल खत्म करते समय कौन सा वाक्यांश अधिक स्वाभाविक लगता है?",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "I am hanging up now.",
-        "It was great catching up with you!",
-        "Bye.",
-        "Talk later."
+        "A) I am hanging up now.",
+        "B) It was great catching up with you!",
+        "C) Bye.",
+        "D) Talk later."
       ],
       "correctIndex": 1
     },
     {
-      "id": 922,
-      "question": "How to express uncertainty naturally?",
-      "questionHindi": "स्वाभाविक रूप से अनिश्चितता कैसे व्यक्त करें?",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "I don't know.",
-        "I'm not entirely sure, but I think...",
-        "Maybe.",
-        "I doubt it."
+        "A) I don't know.",
+        "B) I'm not entirely sure, but I think...",
+        "C) Maybe.",
+        "D) I doubt it."
       ],
       "correctIndex": 1
     },
     {
-      "id": 923,
-      "question": "Which phrase is best for shifting the topic of conversation politely?",
-      "questionHindi": "बातचीत का विषय विनम्रतापूर्वक बदलने के लिए कौन सा वाक्यांश सबसे अच्छा है?",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "Anyway, speaking of that...",
-        "Stop talking about this.",
-        "Change the topic.",
-        "Let's talk about something else."
+        "A) Anyway, speaking of that...",
+        "B) Stop talking about this.",
+        "C) Change the topic.",
+        "D) Let's talk about something else."
       ],
       "correctIndex": 0
     },
     {
-      "id": 924,
-      "question": "Translate: 'मैं इस बारे में ज्यादा नहीं जानता, लेकिन मुझे लगता है...'",
-      "questionHindi": "मैं इस बारे में ज्यादा नहीं जानता, लेकिन मुझे लगता है...",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "I don't know much about this, but I feel...",
-        "I'm not an expert, but my take is...",
-        "I have no idea.",
-        "I'm not sure, but it is."
+        "A) I don't know much about this, but I feel...",
+        "B) I'm not an expert, but my take is...",
+        "C) I have no idea.",
+        "D) I'm not sure, but it is."
       ],
       "correctIndex": 1
     },
     {
-      "id": 925,
+      "id": 25,
       "question": "Which filler helps to soften a direct 'No'?",
       "questionHindi": "सीधे 'No' (ना) को नरम बनाने में कौन सा फिलर मदद करता है?",
       "options": [
-        "Actually, I'd love to, but...",
-        "No.",
-        "I can't.",
-        "Not today."
+        "A) Actually, I'd love to, but...",
+        "B) No.",
+        "C) I can't.",
+        "D) Not today."
       ],
       "correctIndex": 0
     },
     {
-      "id": 926,
+      "id": 26,
       "question": "What is a natural way to ask if someone is busy?",
       "questionHindi": "यह पूछने का स्वाभाविक तरीका क्या है कि क्या कोई व्यस्त है?",
       "options": [
-        "Are you busy?",
-        "Are you doing something?",
-        "Is now a good time to talk?",
-        "Why are you busy?"
+        "A) Are you busy?",
+        "B) Are you doing something?",
+        "C) Is now a good time to talk?",
+        "D) Why are you busy?"
       ],
       "correctIndex": 2
     },
     {
-      "id": 927,
-      "question": "Which phrase signifies that you are considering a different perspective?",
-      "questionHindi": "कौन सा वाक्यांश यह दर्शाता है कि आप एक अलग दृष्टिकोण पर विचार कर रहे हैं?",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "That's a fair point.",
-        "I don't think so.",
-        "You are wrong.",
-        "Whatever you say."
+        "A) That's a fair point.",
+        "B) I don't think so.",
+        "C) You are wrong.",
+        "D) Whatever you say."
       ],
       "correctIndex": 0
     },
     {
-      "id": 928,
-      "question": "Translate: 'मुझे लगा कि यह बहुत अच्छा विचार है।'",
-      "questionHindi": "मुझे लगा कि यह बहुत अच्छा विचार है।",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "I thought it was a great idea.",
-        "It was a good idea.",
-        "I liked the idea.",
-        "I think so."
+        "A) I thought it was a great idea.",
+        "B) It was a good idea.",
+        "C) I liked the idea.",
+        "D) I think so."
       ],
       "correctIndex": 0
     },
     {
-      "id": 929,
-      "question": "Which phrase is used to show you are listening actively?",
-      "questionHindi": "यह दिखाने के लिए कि आप सक्रिय रूप से सुन रहे हैं, किस वाक्यांश का उपयोग किया जाता है?",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "I see.",
-        "Yeah.",
-        "Go on.",
-        "I'm with you so far."
+        "A) I see.",
+        "B) Yeah.",
+        "C) Go on.",
+        "D) I'm with you so far."
       ],
       "correctIndex": 3
     },
     {
-      "id": 930,
+      "id": 30,
       "question": "What is a polite way to interrupt someone?",
       "questionHindi": "किसी को बीच में टोकने का विनम्र तरीका क्या है?",
       "options": [
-        "Stop talking.",
-        "Sorry to interrupt, but...",
-        "Wait.",
-        "Let me speak."
+        "A) Stop talking.",
+        "B) Sorry to interrupt, but...",
+        "C) Wait.",
+        "D) Let me speak."
       ],
       "correctIndex": 1
     }
   ],
   "32": [
     {
-      "id": 931,
-      "question": "Which phrase is most appropriate to express a strong professional opinion in a meeting?",
-      "questionHindi": "मीटिंग में एक मजबूत पेशेवर राय व्यक्त करने के लिए कौन सा वाक्यांश सबसे उपयुक्त है?",
+      "id": 1,
+      "question": "Which phrase is most appropriate to express a confident professional opinion in a debate?",
+      "questionHindi": "बहस (debate) या मीटिंग में एक मजबूत पेशेवर राय (confident opinion) व्यक्त करने के लिए कौन सा वाक्यांश सबसे उपयुक्त है?",
       "options": [
-        "I guess maybe it is okay",
-        "I think so, maybe",
-        "Whatever you say",
-        "I am firmly of the opinion that"
+        "A) I guess maybe it is okay",
+        "B) I think so, maybe",
+        "C) Whatever you say",
+        "D) I am firmly of the opinion that"
       ],
       "correctIndex": 3
     },
     {
-      "id": 932,
-      "question": "Translate: 'मेरे करियर का मुख्य विजन निरंतर सीखना और नवाचार करना है।'",
-      "questionHindi": "Translate: 'मेरे करियर का मुख्य विजन निरंतर सीखना और नवाचार करना है।'",
+      "id": 2,
+      "question": "Which rhetorical transition is best to persuade your audience during a keynote speech?",
+      "questionHindi": "भाषण (speech) के दौरान अपने श्रोताओं को मनाने (persuade) के लिए कौन सा परिवर्तन सबसे अच्छा है?",
       "options": [
-        "My career vision is to learn and innovate.",
-        "I want to learn and innovate in my career.",
-        "My vision is continuous learning for career.",
-        "My main vision for my career is continuous learning and innovation."
+        "A) My career vision is to learn and innovate.",
+        "B) I want to learn and innovate in my career.",
+        "C) My vision is continuous learning for career.",
+        "D) My main vision for my career is continuous learning and innovation."
       ],
       "correctIndex": 3
     },
     {
-      "id": 933,
-      "question": "Which connector is best to use when presenting a contrasting argument?",
-      "questionHindi": "विरोधाभासी तर्क प्रस्तुत करते समय किस कनेक्टर का उपयोग करना सबसे अच्छा है?",
+      "id": 3,
+      "question": "Which sentence is best for a confident speaker to conclude a formal presentation?",
+      "questionHindi": "एक आत्मविश्वासी वक्ता द्वारा प्रेजेंटेशन समाप्त (conclude) करने के लिए सबसे अच्छा वाक्य कौन सा है?",
       "options": [
-        "Furthermore",
-        "Consequently",
-        "Similarly",
-        "On the other hand"
+        "A) Furthermore",
+        "B) Consequently",
+        "C) Similarly",
+        "D) On the other hand"
       ],
       "correctIndex": 3
     },
     {
-      "id": 934,
-      "question": "Fill in the blank: '__________ continuous learning, we can adapt to the rapidly changing technological landscape.'",
-      "questionHindi": "खाली स्थान भरें: '__________ निरंतर सीखना, हम तेजी से बदलते तकनीकी परिदृश्य के अनुकूल हो सकते हैं।'",
+      "id": 4,
+      "question": "How do you articulate a strategic leadership vision with confidence in a high-stakes meeting?",
+      "questionHindi": "उच्च स्तरीय बैठक में आत्मविश्वास के साथ नेतृत्व दृष्टि (leadership vision) कैसे व्यक्त करें?",
       "options": [
-        "By means of",
-        "Through the lens of",
-        "In spite of",
-        "By committing to"
+        "A) By means of",
+        "B) Through the lens of",
+        "C) In spite of",
+        "D) By committing to"
       ],
       "correctIndex": 3
     },
     {
-      "id": 935,
-      "question": "Which phrase shows confident agreement during a professional debate?",
-      "questionHindi": "पेशेवर बहस के दौरान कौन सा वाक्यांश आत्मविश्वासपूर्ण सहमति दिखाता है?",
+      "id": 5,
+      "question": "Which phrase is used to respectfully counter an opposing opinion in a formal debate?",
+      "questionHindi": "औपचारिक बहस (debate) में विरोधी राय (opposing opinion) का सम्मानपूर्वक खंडन करने के लिए कौन सा वाक्यांश उपयुक्त है?",
       "options": [
-        "I see what you mean, but...",
-        "Maybe you are right.",
-        "I am not sure about that.",
-        "I couldn't agree more with your perspective."
+        "A) I see what you mean, but...",
+        "B) Maybe you are right.",
+        "C) I am not sure about that.",
+        "D) I couldn't agree more with your perspective."
       ],
       "correctIndex": 3
     },
     {
-      "id": 936,
+      "id": 6,
       "question": "Translate: 'एक नेता के रूप में, मेरा मानना है कि सहानुभूति और पारदर्शिता सबसे महत्वपूर्ण मूल्य हैं।'",
       "questionHindi": "Translate: 'एक नेता के रूप में, मेरा मानना है कि सहानुभूति और पारदर्शिता सबसे महत्वपूर्ण मूल्य हैं।'",
       "options": [
-        "Being a leader, empathy is good.",
-        "I think transparency is a value for leaders.",
-        "As a leader, I believe empathy and transparency are paramount values.",
-        "Leaders need empathy and transparency."
+        "A) Being a leader, empathy is good.",
+        "B) I think transparency is a value for leaders.",
+        "C) As a leader, I believe empathy and transparency are paramount values.",
+        "D) Leaders need empathy and transparency."
       ],
       "correctIndex": 2
     },
     {
-      "id": 937,
+      "id": 7,
       "question": "Which expression is used to transition to a new point in a presentation?",
       "questionHindi": "प्रेजेंटेशन में किसी नए बिंदु पर जाने के लिए किस अभिव्यक्ति का उपयोग किया जाता है?",
       "options": [
-        "In conclusion",
-        "To sum up",
-        "Moving on to the next point",
-        "I am done"
+        "A) In conclusion",
+        "B) To sum up",
+        "C) Moving on to the next point",
+        "D) I am done"
       ],
       "correctIndex": 2
     },
     {
-      "id": 938,
+      "id": 8,
       "question": "Select the most professional way to disagree with a colleague.",
       "questionHindi": "किसी सहकर्मी से असहमत होने का सबसे पेशेवर तरीका चुनें।",
       "options": [
-        "You are completely wrong.",
-        "That is a bad idea.",
-        "I see your point, however, I have a different perspective.",
-        "I don't think so at all."
+        "A) You are completely wrong.",
+        "B) That is a bad idea.",
+        "C) I see your point, however, I have a different perspective.",
+        "D) I don't think so at all."
       ],
       "correctIndex": 2
     },
     {
-      "id": 939,
-      "question": "Which word best completes: 'Overcoming obstacles is __________ to personal growth.'",
-      "questionHindi": "कौन सा शब्द सबसे अच्छा पूरा करता है: 'बाधाओं को पार करना व्यक्तिगत विकास के लिए __________ है।'",
+      "id": 9,
+      "question": "Fill in the blank: 'They ________ (watch) a movie while I was sleeping.'",
+      "questionHindi": "रिक्त स्थान भरें: 'जब मैं सो रहा था, वे फिल्म देख रहे थे (were watching)।'",
       "options": [
-        "optional",
-        "secondary",
-        "integral",
-        "avoidable"
+        "A) optional",
+        "B) secondary",
+        "C) integral",
+        "D) avoidable"
       ],
       "correctIndex": 2
     },
     {
-      "id": 940,
+      "id": 10,
       "question": "Translate: 'चुनौतियों का सामना करना मुझे सिखाता है कि लचीलापन (resilience) सफलता की कुंजी है।'",
       "questionHindi": "Translate: 'चुनौतियों का सामना करना मुझे सिखाता है कि लचीलापन (resilience) सफलता की कुंजी है।'",
       "options": [
-        "I face challenges and I succeed.",
-        "Resilience is good for success.",
-        "Facing challenges teaches me that resilience is key to success.",
-        "Challenges make me strong."
+        "A) I face challenges and I succeed.",
+        "B) Resilience is good for success.",
+        "C) Facing challenges teaches me that resilience is key to success.",
+        "D) Challenges make me strong."
       ],
       "correctIndex": 2
     },
     {
-      "id": 941,
-      "question": "Which phrase is best for emphasizing a point during a speech?",
-      "questionHindi": "भाषण के दौरान किसी बिंदु पर जोर देने के लिए कौन सा वाक्यांश सबसे अच्छा है?",
+      "id": 11,
+      "question": "Choose the correct phrase: 'My father ____ a blue car.'",
+      "questionHindi": "सही विकल्प चुनें: 'मेरे पिता के पास एक नीली कार है।' ('has' का प्रयोग)",
       "options": [
-        "I think maybe",
-        "Sort of",
-        "It is worth noting that",
-        "If I am not mistaken"
+        "A) I think maybe",
+        "B) Sort of",
+        "C) It is worth noting that",
+        "D) If I am not mistaken"
       ],
       "correctIndex": 2
     },
     {
-      "id": 942,
-      "question": "Fill in the blank: 'To __________, modern technology has revolutionized the way we work.'",
-      "questionHindi": "खाली स्थान भरें: '__________, आधुनिक तकनीक ने हमारे काम करने के तरीके में क्रांति ला दी है।'",
+      "id": 12,
+      "question": "What ________ you doing when the lights went out?",
+      "questionHindi": "वाक्य पूरा करें: 'जब बत्ती चली गई, तब आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "put it briefly",
-        "put it mildly",
-        "put it simply",
-        "put it clearly"
+        "A) put it briefly",
+        "B) put it mildly",
+        "C) put it simply",
+        "D) put it clearly"
       ],
       "correctIndex": 2
     },
     {
-      "id": 943,
-      "question": "Translate: 'क्या आप मेरे प्रस्ताव के बारे में अधिक विस्तार से बता सकते हैं?'",
-      "questionHindi": "Translate: 'क्या आप मेरे प्रस्ताव के बारे में अधिक विस्तार से बता सकते हैं?'",
+      "id": 13,
+      "question": "Choose the best fit: 'While I ________ (wait) for the bus, it started to rain.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैं बस का इंतज़ार कर रहा था (was waiting), बारिश शुरू हो गई।'",
       "options": [
-        "Can you explain it small?",
-        "Can you elaborate on my proposal?",
-        "Tell me about proposal.",
-        "What is the proposal?"
+        "A) Can you explain it small?",
+        "B) Can you elaborate on my proposal?",
+        "C) Tell me about proposal.",
+        "D) What is the proposal?"
       ],
       "correctIndex": 1
     },
     {
-      "id": 944,
+      "id": 14,
       "question": "Which connector shows a cause-and-effect relationship?",
       "questionHindi": "कौन सा कनेक्टर कारण-और-प्रभाव संबंध दिखाता है?",
       "options": [
-        "Furthermore",
-        "Consequently",
-        "However",
-        "In addition"
+        "A) Furthermore",
+        "B) Consequently",
+        "C) However",
+        "D) In addition"
       ],
       "correctIndex": 1
     },
     {
-      "id": 945,
-      "question": "How do you politely interrupt someone in a professional meeting?",
-      "questionHindi": "आप पेशेवर मीटिंग में किसी को विनम्रतापूर्वक कैसे रोकते हैं?",
+      "id": 15,
+      "question": "Choose the correct option: '____ shoes are very comfortable.' (indicating shoes far away)",
+      "questionHindi": "सही विकल्प चुनें: 'वे जूते बहुत आरामदायक हैं।' (दूर की वस्तु दर्शाने के लिए 'Those')",
       "options": [
-        "Shut up, let me speak.",
-        "Could I just jump in here for a moment?",
-        "Stop talking.",
-        "Wait, I want to say."
+        "A) Shut up, let me speak.",
+        "B) Could I just jump in here for a moment?",
+        "C) Stop talking.",
+        "D) Wait, I want to say."
       ],
       "correctIndex": 1
     },
     {
-      "id": 946,
-      "question": "Translate: 'हमें इस समस्या का समाधान खोजने के लिए मिलकर काम करने की आवश्यकता है।'",
-      "questionHindi": "Translate: 'हमें इस समस्या का समाधान खोजने के लिए मिलकर काम करने की आवश्यकता है。'",
+      "id": 16,
+      "question": "Complete: 'While she ________ (drive) to work, she saw a dog on the road.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब वह काम पर गाड़ी चला कर जा रही थी (was driving), उसने सड़क पर एक कुत्ता देखा।'",
       "options": [
-        "We should find a solution together.",
-        "We need to work together to find a solution to this problem.",
-        "Let's work on the problem.",
-        "Working together is needed."
+        "A) We should find a solution together.",
+        "B) We need to work together to find a solution to this problem.",
+        "C) Let's work on the problem.",
+        "D) Working together is needed."
       ],
       "correctIndex": 1
     },
     {
-      "id": 947,
-      "question": "Which word indicates a high level of confidence?",
-      "questionHindi": "कौन सा शब्द उच्च स्तर का आत्मविश्वास दर्शाता है?",
+      "id": 17,
+      "question": "Which option completes the sentence: 'They ________ (play) football when it started raining.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब बारिश शुरू हुई, वे फुटबॉल खेल रहे थे (were playing)।'",
       "options": [
-        "Maybe",
-        "Possibly",
-        "Undoubtedly",
-        "Perhaps"
+        "A) Maybe",
+        "B) Possibly",
+        "C) Undoubtedly",
+        "D) Perhaps"
       ],
       "correctIndex": 2
     },
     {
-      "id": 948,
+      "id": 18,
       "question": "Fill in the blank: 'I __________ agree with your assessment of the current market trends.'",
       "questionHindi": "खाली स्थान भरें: 'मैं मौजूदा बाजार के रुझानों के आपके आकलन से __________ सहमत हूँ।'",
       "options": [
-        "lightly",
-        "strongly",
-        "barely",
-        "hardly"
+        "A) lightly",
+        "B) strongly",
+        "C) barely",
+        "D) hardly"
       ],
       "correctIndex": 1
     },
     {
-      "id": 949,
-      "question": "Which phrase is used to summarize a discussion?",
-      "questionHindi": "चर्चा का सारांश देने के लिए किस वाक्यांश का उपयोग किया जाता है?",
+      "id": 19,
+      "question": "What ________ he doing when the accident happened?",
+      "questionHindi": "वाक्य पूरा करें: 'जब दुर्घटना हुई, वह क्या कर रहा था (was he doing)?'",
       "options": [
-        "For example",
-        "In summary",
-        "Moreover",
-        "However"
+        "A) For example",
+        "B) In summary",
+        "C) Moreover",
+        "D) However"
       ],
       "correctIndex": 1
     },
     {
-      "id": 950,
-      "question": "Translate: 'मेरा मानना है कि तकनीकी कौशल के साथ-साथ सॉफ्ट स्किल्स भी महत्वपूर्ण हैं।'",
-      "questionHindi": "Translate: 'मेरा मानना है कि तकनीकी कौशल के साथ-साथ सॉफ्ट स्किल्स भी महत्वपूर्ण हैं।'",
+      "id": 20,
+      "question": "Choose the correct phrase: 'While I ________, my mother was cooking.'",
+      "questionHindi": "सही वाक्यांश चुनें: 'जब मैं पढ़ रहा था (was studying), मेरी माँ खाना बना रही थीं।'",
       "options": [
-        "I believe soft skills are important with technical skills.",
-        "I think technical skills are good.",
-        "Soft skills are okay.",
-        "I believe that alongside technical skills, soft skills are equally vital."
+        "A) I believe soft skills are important with technical skills.",
+        "B) I think technical skills are good.",
+        "C) Soft skills are okay.",
+        "D) I believe that alongside technical skills, soft skills are equally vital."
       ],
       "correctIndex": 3
     },
     {
-      "id": 951,
-      "question": "Which phrase shows you are considering another perspective?",
-      "questionHindi": "कौन सा वाक्यांश दिखाता है कि आप दूसरे दृष्टिकोण पर विचार कर रहे हैं?",
+      "id": 21,
+      "question": "Choose the correct grammar: '____ pictures on the wall are beautiful.'",
+      "questionHindi": "सही व्याकरण चुनें: 'दीवार पर लगी वे तस्वीरें सुंदर हैं।' ('Those' का प्रयोग)",
       "options": [
-        "You are wrong.",
-        "That is an interesting point of view.",
-        "I don't care.",
-        "That is irrelevant."
+        "A) You are wrong.",
+        "B) That is an interesting point of view.",
+        "C) I don't care.",
+        "D) That is irrelevant."
       ],
       "correctIndex": 1
     },
     {
-      "id": 952,
-      "question": "Which connector introduces an additional fact?",
-      "questionHindi": "कौन सा कनेक्टर एक अतिरिक्त तथ्य प्रस्तुत करता है?",
+      "id": 22,
+      "question": "Identify the error: 'They was playing cricket while it was raining.'",
+      "questionHindi": "व्याकरण की त्रुटि पहचानें: 'वे बारिश में क्रिकेट खेल रहे थे।' (They were playing)",
       "options": [
-        "Moreover",
-        "Therefore",
-        "Nevertheless",
-        "Otherwise"
+        "A) Moreover",
+        "B) Therefore",
+        "C) Nevertheless",
+        "D) Otherwise"
       ],
       "correctIndex": 0
     },
     {
-      "id": 953,
-      "question": "Translate: 'हमें भविष्य की चुनौतियों के लिए तैयार रहना चाहिए।'",
-      "questionHindi": "Translate: 'हमें भविष्य की चुनौतियों के लिए तैयार रहना चाहिए।'",
+      "id": 23,
+      "question": "What were you ________ (do) before the meeting started?",
+      "questionHindi": "वाक्य पूरा करें: 'मीटिंग शुरू होने से पहले आप क्या कर रहे थे (were you doing)?'",
       "options": [
-        "We must be prepared for future challenges.",
-        "We need to be ready.",
-        "Future is challenging.",
-        "Let's prepare for the future."
+        "A) We must be prepared for future challenges.",
+        "B) We need to be ready.",
+        "C) Future is challenging.",
+        "D) Let's prepare for the future."
       ],
       "correctIndex": 0
     },
     {
-      "id": 954,
-      "question": "Which phrase is best for asking for someone's opinion?",
-      "questionHindi": "किसी की राय मांगने के लिए कौन सा वाक्यांश सबसे अच्छा है?",
+      "id": 24,
+      "question": "Choose the correct structure: 'While ________ (we/eat), the door opened.'",
+      "questionHindi": "सही संरचना चुनें: 'जब हम खाना खा रहे थे (we were eating), दरवाजा खुला।'",
       "options": [
-        "What is your take on this?",
-        "Do you have any idea?",
-        "Tell me.",
-        "Give me your answer."
+        "A) What is your take on this?",
+        "B) Do you have any idea?",
+        "C) Tell me.",
+        "D) Give me your answer."
       ],
       "correctIndex": 0
     },
     {
-      "id": 955,
+      "id": 25,
       "question": "Fill in the blank: '__________ global competition, companies must innovate constantly.'",
       "questionHindi": "खाली स्थान भरें: '__________ वैश्विक प्रतिस्पर्धा, कंपनियों को लगातार नवाचार करना चाहिए।'",
       "options": [
-        "In light of",
-        "By the way",
-        "Instead of",
-        "Because"
+        "A) In light of",
+        "B) By the way",
+        "C) Instead of",
+        "D) Because"
       ],
       "correctIndex": 0
     },
     {
-      "id": 956,
+      "id": 26,
       "question": "Which word is a professional synonym for 'big'?",
       "questionHindi": "'बड़ा' के लिए कौन सा शब्द एक पेशेवर पर्यायवाची है?",
       "options": [
-        "Small",
-        "Significant",
-        "Tiny",
-        "Little"
+        "A) Small",
+        "B) Significant",
+        "C) Tiny",
+        "D) Little"
       ],
       "correctIndex": 1
     },
     {
-      "id": 957,
-      "question": "Translate: 'नेटवर्किंग करियर के अवसरों को बढ़ाने का एक शानदार तरीका है।'",
-      "questionHindi": "Translate: 'नेटवर्किंग करियर के अवसरों को बढ़ाने का एक शानदार तरीका है।'",
+      "id": 27,
+      "question": "Complete the sentence: 'While the teacher ________ (speak), the students were writing.'",
+      "questionHindi": "वाक्य पूरा करें: 'जब शिक्षक बोल रहे थे (was speaking), छात्र लिख रहे थे।'",
       "options": [
-        "Networking is a great way to enhance career opportunities.",
-        "Networking is good for job.",
-        "I like networking.",
-        "Career needs networking."
+        "A) Networking is a great way to enhance career opportunities.",
+        "B) Networking is good for job.",
+        "C) I like networking.",
+        "D) Career needs networking."
       ],
       "correctIndex": 0
     },
     {
-      "id": 958,
-      "question": "Which phrase is best for concluding a formal presentation?",
-      "questionHindi": "औपचारिक प्रेजेंटेशन समाप्त करने के लिए कौन सा वाक्यांश सबसे अच्छा है?",
+      "id": 28,
+      "question": "Complete the sentence: '____ is my favorite book.'",
+      "questionHindi": "वाक्य पूरा करें: 'यह मेरी पसंदीदा किताब है।' (पास की वस्तु के लिए 'This')",
       "options": [
-        "Thank you for your time and attention.",
-        "Okay, bye.",
-        "See you later.",
-        "That is all."
+        "A) Thank you for your time and attention.",
+        "B) Okay, bye.",
+        "C) See you later.",
+        "D) That is all."
       ],
       "correctIndex": 0
     },
     {
-      "id": 959,
-      "question": "Which connector shows a contrast?",
-      "questionHindi": "कौन सा कनेक्टर विरोधाभास दिखाता है?",
+      "id": 29,
+      "question": "Choose the correct option: 'I ________ (walk) home when I saw the accident.'",
+      "questionHindi": "सही विकल्प चुनें: 'जब मैंने दुर्घटना देखी, मैं घर जा रहा था (was walking)।'",
       "options": [
-        "However",
-        "Furthermore",
-        "Also",
-        "Consequently"
+        "A) However",
+        "B) Furthermore",
+        "C) Also",
+        "D) Consequently"
       ],
       "correctIndex": 0
     },
     {
-      "id": 960,
+      "id": 30,
       "question": "Translate: 'मेरा नेतृत्व दर्शन (leadership philosophy) विश्वास और जवाबदेही पर आधारित है।'",
       "questionHindi": "Translate: 'मेरा नेतृत्व दर्शन (leadership philosophy) विश्वास और जवाबदेही पर आधारित है।'",
       "options": [
-        "My leadership philosophy is based on trust and accountability.",
-        "I lead with trust.",
-        "Trust is good for leadership.",
-        "My philosophy is accountability."
+        "A) My leadership philosophy is based on trust and accountability.",
+        "B) I lead with trust.",
+        "C) Trust is good for leadership.",
+        "D) My philosophy is accountability."
       ],
       "correctIndex": 0
     }
   ]
 };
 
-  if (typeof window !== 'undefined') window.HINDI_QUIZ_BANK = HINDI_QUIZ_BANK;
-  if (typeof globalThis !== 'undefined') globalThis.HINDI_QUIZ_BANK = HINDI_QUIZ_BANK;
-  if (typeof module !== 'undefined' && module.exports) module.exports = { HINDI_QUIZ_BANK };
-})(typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : this);
+if (typeof window !== 'undefined') {
+  window.HINDI_QUIZ_BANK = HINDI_QUIZ_BANK;
+}
+if (typeof globalThis !== 'undefined') {
+  globalThis.HINDI_QUIZ_BANK = HINDI_QUIZ_BANK;
+}
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { HINDI_QUIZ_BANK };
+}

@@ -530,20 +530,36 @@ function checkAndAutoApprovePaidStudent(targetAdm, targetEmail) {
 
     var cleanAdm = (targetAdm || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
     var cleanEmail = (targetEmail || "").toString().trim().toLowerCase();
-    var admDigits = cleanAdm.replace(/[^0-9]/g, "");
+    var rawDigits = (targetAdm || targetEmail || "").toString().replace(/[^0-9]/g, "");
+    var targetPhone10 = rawDigits.length >= 10 ? rawDigits.slice(-10) : "";
 
     var foundPaid = null;
     for (var i = headerRowIndex + 1; i < paidData.length; i++) {
       var row = paidData[i];
       var pAdm = admIdx >= 0 ? (row[admIdx] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "") : "";
       var pEmail = emailIdx >= 0 ? (row[emailIdx] || "").toString().trim().toLowerCase() : "";
-      var pAdmDigits = pAdm.replace(/[^0-9]/g, "");
+      var pPhoneRaw = phoneIdx >= 0 ? (row[phoneIdx] || "").toString().replace(/[^0-9]/g, "") : "";
+      var pPhone10 = pPhoneRaw.length >= 10 ? pPhoneRaw.slice(-10) : "";
 
       var isExactAdm = cleanAdm && pAdm && (cleanAdm === pAdm);
       var isExactEmail = cleanEmail && pEmail && (cleanEmail === pEmail);
-      var isDigitMatch = admDigits && pAdmDigits && (admDigits.length >= 2) && (admDigits === pAdmDigits);
+      var isExactPhone = targetPhone10 && pPhone10 && (targetPhone10 === pPhone10);
 
-      if (isExactAdm || isExactEmail || isDigitMatch) {
+      // SECURITY FIX: NEVER use loose digit matching (e.g. admDigits === pAdmDigits)
+      // which previously collided unrelated students sharing digits (e.g. "01" or "25").
+      // When both email and admission # are provided, they must match the same record.
+      var isMatch = false;
+      if (cleanAdm && cleanEmail) {
+        if (isExactAdm && isExactEmail) isMatch = true;
+        else if (isExactAdm && !pEmail) isMatch = true;
+        else if (isExactEmail && !pAdm) isMatch = true;
+      } else if (cleanAdm) {
+        isMatch = isExactAdm || isExactPhone;
+      } else if (cleanEmail) {
+        isMatch = isExactEmail;
+      }
+
+      if (isMatch) {
         var rawCourse = courseIdx >= 0 ? (row[courseIdx] || "").toString().trim() : "MAL TO ENG";
         var normCourse = "MAL TO ENG";
         var cUpper = rawCourse.toUpperCase();
@@ -573,14 +589,24 @@ function checkAndAutoApprovePaidStudent(targetAdm, targetEmail) {
     var stdRows = stdSheet.getDataRange().getValues();
     var existingRowIndex = -1;
 
+    var sHeaders = (stdRows[0] || []).map(function(h) { return (h || "").toString().trim().toLowerCase().replace(/[^a-z0-9]/g, ""); });
+    var sAdmCol = findColumnIndex(sHeaders, ["admissionnumber", "admission", "adm"]);
+    var sEmailCol = findColumnIndex(sHeaders, ["email"]);
+    var sAppCol = findColumnIndex(sHeaders, ["approved"]);
+    var sStatCol = findColumnIndex(sHeaders, ["status"]);
+    if (sAdmCol < 0) sAdmCol = 1;
+    if (sEmailCol < 0) sEmailCol = 3;
+    if (sAppCol < 0) sAppCol = 7;
+    if (sStatCol < 0) sStatCol = 8;
+
     for (var j = 1; j < stdRows.length; j++) {
-      var sAdm = (stdRows[j][1] || "").toString().trim().toUpperCase();
-      var sEmail = (stdRows[j][3] || "").toString().trim().toLowerCase();
+      var sAdm = (stdRows[j][sAdmCol] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+      var sEmail = (stdRows[j][sEmailCol] || "").toString().trim().toLowerCase();
       if ((foundPaid.admissionNumber && sAdm === foundPaid.admissionNumber) ||
           (foundPaid.email && sEmail === foundPaid.email)) {
         existingRowIndex = j + 1;
-        stdSheet.getRange(j + 1, 8).setValue("TRUE");   // Column H = Approved
-        stdSheet.getRange(j + 1, 9).setValue("Active"); // Column I = Status
+        stdSheet.getRange(j + 1, sAppCol + 1).setValue("TRUE");   // Approved
+        stdSheet.getRange(j + 1, sStatCol + 1).setValue("Active"); // Status
         break;
       }
     }
@@ -632,42 +658,91 @@ function handleLoginStudent(data) {
   var adm = (data.admissionNumber || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
   var deviceToken = data.deviceToken || ("DEV-" + Math.floor(100000 + Math.random() * 900000));
 
+  var rawTargetDigits = (data.admissionNumber || data.email || "").toString().replace(/[^0-9]/g, "");
+  var targetPhone10 = rawTargetDigits.length >= 10 ? rawTargetDigits.slice(-10) : "";
+
   var rows = sheet.getDataRange().getValues();
+  if (!rows || rows.length <= 1) return { success: false, message: "No registered students found." };
+
+  // DYNAMIC HEADER LOOKUP — NEVER HARDCODE COLUMN INDICES!
+  var headers = (rows[0] || []).map(function(h) { return (h || "").toString().trim().toLowerCase().replace(/[^a-z0-9]/g, ""); });
+  var idCol = findColumnIndex(headers, ["studentid", "id"]);
+  var admCol = findColumnIndex(headers, ["admissionnumber", "admission", "adm"]);
+  var nameCol = findColumnIndex(headers, ["name", "fullname"]);
+  var emailCol = findColumnIndex(headers, ["email"]);
+  var phoneCol = findColumnIndex(headers, ["phone", "whatsappnumber", "whatsapp", "mobile"]);
+  var courseCol = findColumnIndex(headers, ["course", "coursename", "coursecode"]);
+  var imgCol = findColumnIndex(headers, ["profileimage", "image"]);
+  var appCol = findColumnIndex(headers, ["approved"]);
+  var statusCol = findColumnIndex(headers, ["status"]);
+  var dateCol = findColumnIndex(headers, ["createddate", "date", "timestamp"]);
+  var tokenCol = findColumnIndex(headers, ["activedevicetoken", "devicetoken"]);
+
+  if (admCol < 0) admCol = 1;
+  if (nameCol < 0) nameCol = 2;
+  if (emailCol < 0) emailCol = 3;
+  if (phoneCol < 0) phoneCol = 4;
+  if (courseCol < 0) courseCol = 5;
+  if (imgCol < 0) imgCol = 6;
+  if (appCol < 0) appCol = 7;
+  if (statusCol < 0) statusCol = 8;
+  if (dateCol < 0) dateCol = 9;
 
   for (var i = 1; i < rows.length; i++) {
-    var rAdm = (rows[i][1] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
-    var rEmail = (rows[i][3] || "").toString().trim().toLowerCase();
+    var rRow = rows[i];
+    var rAdm = admCol >= 0 ? (rRow[admCol] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "") : "";
+    var rEmail = emailCol >= 0 ? (rRow[emailCol] || "").toString().trim().toLowerCase() : "";
+    var rPhoneRaw = phoneCol >= 0 ? (rRow[phoneCol] || "").toString().replace(/[^0-9]/g, "") : "";
+    var rPhone10 = rPhoneRaw.length >= 10 ? rPhoneRaw.slice(-10) : "";
 
-    if ((email && rEmail === email) || (adm && rAdm === adm)) {
-      var isApproved = rows[i][7] === true || (rows[i][7] || "").toString().toUpperCase() === 'TRUE';
+    var matchAdm = adm && rAdm && (adm === rAdm);
+    var matchEmail = email && rEmail && (email === rEmail);
+    var matchPhone = targetPhone10 && rPhone10 && (targetPhone10 === rPhone10);
+
+    // SECURITY: If student provided BOTH email and admission #, both must match the SAME student record!
+    // Never allow Student A's email + Student B's admission # to log into Student B's account!
+    var isMatch = false;
+    if (email && adm) {
+      if (matchEmail && matchAdm) isMatch = true;
+      else if (matchEmail && !rAdm) isMatch = true;
+      else if (matchAdm && !rEmail) isMatch = true;
+    } else if (email) {
+      isMatch = matchEmail;
+    } else if (adm) {
+      isMatch = matchAdm || matchPhone;
+    }
+
+    if (isMatch) {
+      var sAppRaw = appCol >= 0 ? rRow[appCol] : true;
+      var isApproved = sAppRaw === true || (sAppRaw || "").toString().toUpperCase() === 'TRUE';
       if (!isApproved) {
         return { success: false, message: "Your access application is pending admin approval." };
       }
 
-      var rawPhone = (rows[i][4] || "").toString().trim();
+      var rawPhone = phoneCol >= 0 ? (rRow[phoneCol] || "").toString().trim() : "";
       var cleanPhone = (rawPhone.indexOf("#") >= 0 || rawPhone.toUpperCase().indexOf("ERROR") >= 0 || rawPhone.toUpperCase().indexOf("REF") >= 0) ? "" : rawPhone;
 
       return {
         success: true,
         deviceToken: deviceToken,
         student: {
-          studentId: rows[i][0],
-          admissionNumber: rows[i][1],
-          name: rows[i][2],
-          email: rows[i][3],
+          studentId: idCol >= 0 ? rRow[idCol] : ("STD-" + i),
+          admissionNumber: (admCol >= 0 && rRow[admCol]) ? rRow[admCol] : (rAdm || adm),
+          name: (nameCol >= 0 && rRow[nameCol]) ? rRow[nameCol] : "Student",
+          email: (emailCol >= 0 && rRow[emailCol]) ? rRow[emailCol] : (rEmail || email),
           phone: cleanPhone,
-          course: rows[i][5],
-          profileImage: rows[i][6],
+          course: (courseCol >= 0 && rRow[courseCol]) ? rRow[courseCol] : "MAL TO ENG",
+          profileImage: (imgCol >= 0 && rRow[imgCol]) ? rRow[imgCol] : "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80",
           approved: true,
-          status: rows[i][8],
-          createdDate: rows[i][9],
+          status: (statusCol >= 0 && rRow[statusCol]) ? rRow[statusCol] : "Active",
+          createdDate: (dateCol >= 0 && rRow[dateCol]) ? rRow[dateCol] : new Date().toISOString().split('T')[0],
           activeDeviceToken: deviceToken
         }
       };
     }
   }
 
-  // Auto-approve paid student fallback check on login attempt
+  // Auto-approve paid student fallback check on login attempt (strict exact matching)
   var paidStudent = checkAndAutoApprovePaidStudent(adm, email);
   if (paidStudent) {
     var rawPaidPhone = (paidStudent.phone || "").toString().trim();
@@ -692,7 +767,7 @@ function handleLoginStudent(data) {
     };
   }
 
-  return { success: false, message: "Invalid email or admission number." };
+  return { success: false, message: "Invalid email or admission number. Please check your credentials or request access below." };
 }
 
 function handleLoginAdmin(data) {
@@ -721,17 +796,27 @@ function handleAdminResetStudentDevice(data) {
   var sheet = getFlexibleSheet(ss, "Students");
   if (!sheet) return { success: false, message: "Students sheet missing." };
 
-  var targetAdm = (data.admissionNumber || "").toString().trim().toUpperCase();
+  var targetAdm = (data.admissionNumber || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
   var targetEmail = (data.email || "").toString().trim().toLowerCase();
 
   var rows = sheet.getDataRange().getValues();
+  if (!rows || rows.length <= 1) return { success: false, message: "Student not found." };
+
+  var headers = (rows[0] || []).map(function(h) { return (h || "").toString().trim().toLowerCase().replace(/[^a-z0-9]/g, ""); });
+  var admCol = findColumnIndex(headers, ["admissionnumber", "admission", "adm"]);
+  var emailCol = findColumnIndex(headers, ["email"]);
+  var tokenCol = findColumnIndex(headers, ["activedevicetoken", "devicetoken"]);
+
+  if (admCol < 0) admCol = 1;
+  if (emailCol < 0) emailCol = 3;
+  if (tokenCol < 0) tokenCol = 10;
+
   for (var i = 1; i < rows.length; i++) {
-    var rAdm = (rows[i][1] || "").toString().trim().toUpperCase();
-    var rEmail = (rows[i][3] || "").toString().trim().toLowerCase();
+    var rAdm = admCol >= 0 ? (rows[i][admCol] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "") : "";
+    var rEmail = emailCol >= 0 ? (rows[i][emailCol] || "").toString().trim().toLowerCase() : "";
 
     if ((targetAdm && rAdm === targetAdm) || (targetEmail && rEmail === targetEmail)) {
-      sheet.getRange(i + 1, 11).setValue(""); // Clear Column K ActiveDeviceToken
-      sheet.getRange(i + 1, 12).setValue(new Date());
+      sheet.getRange(i + 1, tokenCol + 1).setValue(""); // Clear ActiveDeviceToken
       return { success: true, message: "Reset device lock successfully!" };
     }
   }
@@ -1584,9 +1669,17 @@ function forceApproveAllPaidRequests() {
 
         var isExactAdm = rAdm && pAdm && (rAdm === pAdm);
         var isExactEmail = rEmail && pEmail && (rEmail === pEmail);
-        var isDigitMatch = rAdmDigits && pAdmDigits && (rAdmDigits.length >= 2) && (rAdmDigits === pAdmDigits);
 
-        if (isExactAdm || isExactEmail || isDigitMatch) {
+        var isMatch = false;
+        if (rAdm && rEmail) {
+          isMatch = (isExactAdm && isExactEmail) || (isExactAdm && !pEmail) || (isExactEmail && !pAdm);
+        } else if (rAdm) {
+          isMatch = isExactAdm;
+        } else if (rEmail) {
+          isMatch = isExactEmail;
+        }
+
+        if (isMatch) {
           reqSheet.getRange(reqIdx + 1, 7).setValue("Approved"); // Column G = Status
           approvedCount++;
           break;

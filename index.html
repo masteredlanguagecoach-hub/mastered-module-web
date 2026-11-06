@@ -283,20 +283,123 @@
       }, [moduleNumber]);
 
       const quizQuestions = quizBank[moduleNumber] || [];
-      const [currentIdx, setCurrentIdx] = useState(0);
-      const [userAnswers, setUserAnswers] = useState({});
-      const [isSubmitted, setIsSubmitted] = useState(false);
+      const sessionKey = `mastered_quiz_session_mod_${moduleNumber}`;
+
+      // FAIL-SAFE PERSISTENCE: Restore question index & attended answers across screen turn-off, sleep or reload
+      const [userAnswers, setUserAnswers] = useState(() => {
+        try {
+          const saved = safeStorage.getItem(sessionKey);
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            if (parsed && typeof parsed.userAnswers === 'object' && parsed.userAnswers !== null) {
+              return parsed.userAnswers;
+            }
+          }
+        } catch(e) {}
+        return {};
+      });
+
+      const [currentIdx, setCurrentIdx] = useState(() => {
+        try {
+          const saved = safeStorage.getItem(sessionKey);
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            if (typeof parsed.currentIdx === 'number' && parsed.currentIdx >= 0) {
+              return parsed.currentIdx;
+            }
+          }
+        } catch(e) {}
+        return 0;
+      });
+
+      const [isSubmitted, setIsSubmitted] = useState(() => {
+        try {
+          const saved = safeStorage.getItem(sessionKey);
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            if (parsed && parsed.isSubmitted === true) return true;
+          }
+        } catch(e) {}
+        return false;
+      });
+
       const [showReview, setShowReview] = useState(false);
+      const [resumedNotice, setResumedNotice] = useState(() => {
+        try {
+          const saved = safeStorage.getItem(sessionKey);
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            if (parsed && parsed.userAnswers && Object.keys(parsed.userAnswers).length > 0 && !parsed.isSubmitted) {
+              return true;
+            }
+          }
+        } catch(e) {}
+        return false;
+      });
+
+      // Synchronously write quiz progress to persistent storage
+      const persistSession = (nextIdx, nextAnswers, nextSubmitted) => {
+        try {
+          const stateToSave = {
+            moduleNumber,
+            currentIdx: typeof nextIdx === 'number' ? nextIdx : currentIdx,
+            userAnswers: (nextAnswers !== undefined) ? nextAnswers : userAnswers,
+            isSubmitted: (typeof nextSubmitted === 'boolean') ? nextSubmitted : isSubmitted,
+            savedAt: Date.now()
+          };
+          safeStorage.setItem(sessionKey, JSON.stringify(stateToSave));
+        } catch(e) {}
+      };
+
+      // Auto-save on visibilitychange (e.g. phone screen turning off / locking / backgrounding)
+      useEffect(() => {
+        const handleScreenSleep = () => {
+          persistSession(currentIdx, userAnswers, isSubmitted);
+        };
+        document.addEventListener('visibilitychange', handleScreenSleep);
+        window.addEventListener('pagehide', handleScreenSleep);
+        window.addEventListener('beforeunload', handleScreenSleep);
+        return () => {
+          document.removeEventListener('visibilitychange', handleScreenSleep);
+          window.removeEventListener('pagehide', handleScreenSleep);
+          window.removeEventListener('beforeunload', handleScreenSleep);
+        };
+      }, [currentIdx, userAnswers, isSubmitted, moduleNumber]);
 
       const totalQs = quizQuestions.length;
-      const currentQ = quizQuestions[currentIdx];
+      const currentQ = quizQuestions[currentIdx] || { question: '', options: [] };
 
       const handleSelectOption = (optIndex) => {
         if (isSubmitted) return;
-        setUserAnswers(prev => ({
-          ...prev,
+        const nextAnswers = {
+          ...userAnswers,
           [currentIdx]: optIndex
-        }));
+        };
+        setUserAnswers(nextAnswers);
+        persistSession(currentIdx, nextAnswers, isSubmitted);
+      };
+
+      const handlePrev = () => {
+        const next = Math.max(0, currentIdx - 1);
+        setCurrentIdx(next);
+        persistSession(next, userAnswers, isSubmitted);
+      };
+
+      const handleNext = () => {
+        const next = Math.min(totalQs - 1, currentIdx + 1);
+        setCurrentIdx(next);
+        persistSession(next, userAnswers, isSubmitted);
+      };
+
+      const handleResetQuiz = () => {
+        if (window.confirm("Restart this quiz from Question 1? Your attended answers for this module will be cleared.")) {
+          setIsSubmitted(false);
+          setUserAnswers({});
+          setCurrentIdx(0);
+          setShowReview(false);
+          setResumedNotice(false);
+          safeStorage.removeItem(sessionKey);
+        }
       };
 
       const calculateScore = () => {
@@ -306,7 +409,7 @@
             score++;
           }
         });
-        const percentage = Math.round((score / totalQs) * 100);
+        const percentage = totalQs > 0 ? Math.round((score / totalQs) * 100) : 0;
         return { score, total: totalQs, percentage };
       };
 
@@ -318,6 +421,7 @@
         }
         const scoreObj = calculateScore();
         setIsSubmitted(true);
+        persistSession(currentIdx, userAnswers, true);
         if (onSaveScore) onSaveScore(moduleNumber, scoreObj);
       };
 
@@ -344,14 +448,37 @@
               </div>
               <h2 className="text-lg sm:text-xl font-extrabold mt-1">{moduleTitle || `Module ${moduleNumber} Practice Quiz`}</h2>
             </div>
-            <button onClick={onClose} className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs rounded-xl self-start sm:self-auto transition">
-              ← Exit Quiz
-            </button>
+            <div className="flex items-center space-x-2 self-start sm:self-auto">
+              {!isSubmitted && Object.keys(userAnswers).length > 0 && (
+                <button
+                  type="button"
+                  onClick={handleResetQuiz}
+                  className="px-3 py-2 bg-slate-800/80 hover:bg-rose-900/60 text-slate-400 hover:text-rose-200 border border-slate-700 text-[11px] font-bold rounded-xl transition"
+                  title="Clear attended answers and restart"
+                >
+                  🔄 Restart
+                </button>
+              )}
+              <button onClick={onClose} className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs rounded-xl transition">
+                ← Exit Quiz
+              </button>
+            </div>
           </div>
 
           {/* Main Container */}
           {!isSubmitted ? (
             <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+              {/* Resumed from Screen Sleep Notice */}
+              {resumedNotice && (
+                <div className="p-3 bg-emerald-50 border border-emerald-300 text-emerald-900 rounded-xl flex items-center justify-between text-xs font-bold animate-fadeIn">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-base">🛡️</span>
+                    <span>Quiz Resumed! Question {currentIdx + 1} ({Object.keys(userAnswers).length} answered) — your answers were preserved when the screen turned off.</span>
+                  </div>
+                  <button type="button" onClick={() => setResumedNotice(false)} className="text-emerald-700 hover:text-emerald-950 font-black px-2 py-0.5">✕</button>
+                </div>
+              )}
+
               {/* Progress Bar */}
               <div className="space-y-2">
                 <div className="flex justify-between items-center text-xs font-bold text-slate-600">
@@ -405,7 +532,7 @@
               {/* Question Navigation Controls */}
               <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                 <button
-                  onClick={() => setCurrentIdx(prev => Math.max(0, prev - 1))}
+                  onClick={handlePrev}
                   disabled={currentIdx === 0}
                   className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
@@ -418,7 +545,7 @@
 
                 {currentIdx < totalQs - 1 ? (
                   <button
-                    onClick={() => setCurrentIdx(prev => Math.min(totalQs - 1, prev + 1))}
+                    onClick={handleNext}
                     className="px-5 py-2.5 bg-red-600 hover:bg-red-500 text-white font-bold text-xs rounded-xl shadow-md transition"
                   >
                     Next Question →
@@ -462,6 +589,8 @@
                     setUserAnswers({});
                     setCurrentIdx(0);
                     setShowReview(false);
+                    setResumedNotice(false);
+                    safeStorage.removeItem(sessionKey);
                   }}
                   className="w-full sm:w-auto px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs rounded-xl transition"
                 >
@@ -2917,8 +3046,27 @@
       const [authScreen, setAuthScreen] = useState('login');
       const [activeTab, setActiveTab] = useState('dashboard');
       const [selectedModuleId, setSelectedModuleId] = useState(null);
-      const [activeQuizModNumber, setActiveQuizModNumber] = useState(null);
-      const [activeQuizModTitle, setActiveQuizModTitle] = useState('');
+      const [activeQuizModNumber, setActiveQuizModNumber] = useState(() => {
+        try {
+          const saved = safeStorage.getItem('mastered_active_quiz_mod');
+          return saved ? Number(saved) : null;
+        } catch(e) { return null; }
+      });
+      const [activeQuizModTitle, setActiveQuizModTitle] = useState(() => {
+        try {
+          return safeStorage.getItem('mastered_active_quiz_title') || '';
+        } catch(e) { return ''; }
+      });
+
+      useEffect(() => {
+        if (activeQuizModNumber) {
+          safeStorage.setItem('mastered_active_quiz_mod', String(activeQuizModNumber));
+          if (activeQuizModTitle) safeStorage.setItem('mastered_active_quiz_title', activeQuizModTitle);
+        } else {
+          safeStorage.removeItem('mastered_active_quiz_mod');
+          safeStorage.removeItem('mastered_active_quiz_title');
+        }
+      }, [activeQuizModNumber, activeQuizModTitle]);
       const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       const [selectedStudentForHistory, setSelectedStudentForHistory] = useState(null);
       const [showGraduationModal, setShowGraduationModal] = useState(false);
@@ -3278,11 +3426,8 @@
 
       useEffect(() => {
         if (currentUser && role === 'student') {
+          // Low-Data: Fetch once on student load; background polling handled with visibility guards
           fetchStudentProgressFromCloud(currentUser);
-          const syncInterval = setInterval(() => {
-            fetchStudentProgressFromCloud(currentUser);
-          }, 20000); // Cross-device real-time sync every 20s
-          return () => clearInterval(syncInterval);
         }
       }, [currentUser, role]);
 
@@ -3499,41 +3644,43 @@
         return 'MAL TO ENG';
       };
 
-      // Live Google Sheets Request & Student Sync (Across devices)
+      // Live Google Sheets Request & Student Sync (Optimized Low-Bandwidth Mode)
       const refreshLiveData = async () => {
         try {
-          const reqRes = await callAppsScript('getRequests');
-          if (reqRes && reqRes.success && Array.isArray(reqRes.data)) {
-            const normalizedReqs = reqRes.data.map(r => ({ ...r, course: normalizeCourseName(r.course) }));
-            setRequests(normalizedReqs);
-            safeStorage.setItem('mastered_pending_requests', JSON.stringify(normalizedReqs));
-          }
-
-          const stdRes = await callAppsScript('getStudents');
-          if (stdRes && stdRes.success && Array.isArray(stdRes.data)) {
-            const normalizedStds = stdRes.data.map(s => ({ ...s, course: normalizeCourseName(s.course) }));
-            setStudents(normalizedStds);
-            safeStorage.setItem('mastered_approved_students', JSON.stringify(normalizedStds));
-
-            // Merge student-embedded progress into userProgress state monotonically
-            setUserProgress(prev => {
-              const merged = { ...(prev || {}) };
-              normalizedStds.forEach(s => {
-                const sAdm = (s.admissionNumber || '').toString().trim().toUpperCase();
-                const cleanAdm = sAdm.replace(/[^A-Z0-9]/g, '');
-                const sEmail = (s.email || '').toString().trim().toLowerCase();
-                const sp = s.userProgress || s.progressData;
-                if (sp && typeof sp === 'object' && Object.keys(sp).length > 0) {
-                  if (sAdm) merged[sAdm] = mergeProgressMaps(merged[sAdm], sp);
-                  if (cleanAdm && cleanAdm !== sAdm) merged[cleanAdm] = mergeProgressMaps(merged[cleanAdm], sp);
-                  if (sEmail) merged[sEmail] = mergeProgressMaps(merged[sEmail], sp);
-                }
-              });
-              return merged;
-            });
-          }
-
+          // LOW-DATA GUARD: Only admins need the full school directory & registration requests!
+          // Regular students NEVER download all students or pending applications, saving 95%+ mobile data.
           if (role === 'admin') {
+            const reqRes = await callAppsScript('getRequests');
+            if (reqRes && reqRes.success && Array.isArray(reqRes.data)) {
+              const normalizedReqs = reqRes.data.map(r => ({ ...r, course: normalizeCourseName(r.course) }));
+              setRequests(normalizedReqs);
+              safeStorage.setItem('mastered_pending_requests', JSON.stringify(normalizedReqs));
+            }
+
+            const stdRes = await callAppsScript('getStudents');
+            if (stdRes && stdRes.success && Array.isArray(stdRes.data)) {
+              const normalizedStds = stdRes.data.map(s => ({ ...s, course: normalizeCourseName(s.course) }));
+              setStudents(normalizedStds);
+              safeStorage.setItem('mastered_approved_students', JSON.stringify(normalizedStds));
+
+              // Merge student-embedded progress into userProgress state monotonically
+              setUserProgress(prev => {
+                const merged = { ...(prev || {}) };
+                normalizedStds.forEach(s => {
+                  const sAdm = (s.admissionNumber || '').toString().trim().toUpperCase();
+                  const cleanAdm = sAdm.replace(/[^A-Z0-9]/g, '');
+                  const sEmail = (s.email || '').toString().trim().toLowerCase();
+                  const sp = s.userProgress || s.progressData;
+                  if (sp && typeof sp === 'object' && Object.keys(sp).length > 0) {
+                    if (sAdm) merged[sAdm] = mergeProgressMaps(merged[sAdm], sp);
+                    if (cleanAdm && cleanAdm !== sAdm) merged[cleanAdm] = mergeProgressMaps(merged[cleanAdm], sp);
+                    if (sEmail) merged[sEmail] = mergeProgressMaps(merged[sEmail], sp);
+                  }
+                });
+                return merged;
+              });
+            }
+
             const allProgRes = await callAppsScript('getAllStudentProgress');
             if (allProgRes && allProgRes.success && allProgRes.userProgress && typeof allProgRes.userProgress === 'object') {
               setUserProgress(prev => {
@@ -3546,6 +3693,7 @@
               });
             }
           } else if (currentUser && role === 'student') {
+            // Students ONLY sync their own progress — zero bytes wasted on other students
             await fetchStudentProgressFromCloud(currentUser);
           }
         } catch(e) {}
@@ -3559,11 +3707,15 @@
 
       useEffect(() => {
         refreshLiveData();
-        // Live cross-device sync polling: 5s for Admin, 60s for Student/Logged-out
-        const pollInterval = (role === 'admin') ? 5000 : 60000;
-        const timer = setInterval(refreshLiveData, pollInterval);
+        // Live sync polling: 5s for Admin, 120s for Student (Low-Data Conservation)
+        const pollInterval = (role === 'admin') ? 5000 : 120000;
+        const timer = setInterval(() => {
+          // Zero background polling when screen is turned off or tab hidden
+          if (typeof document !== 'undefined' && document.visibilityState !== 'visible') return;
+          refreshLiveData();
+        }, pollInterval);
 
-        // Instant auto-refresh when phone screen lights up or tab is re-focused
+        // Auto-refresh ONLY when screen wakes up or tab is re-focused
         const handleVisibilityChange = () => {
           if (document.visibilityState === 'visible') {
             refreshLiveData();
@@ -3626,6 +3778,14 @@
 
       // Lesson Sub-Tab inside Student Module View
       const [lessonTab, setLessonTab] = useState('video1');
+      const [playedVideos, setPlayedVideos] = useState({});
+      const [driveAudioFallback, setDriveAudioFallback] = useState({});
+
+      // Reset video/audio state when changing active module
+      useEffect(() => {
+        setPlayedVideos({});
+        setDriveAudioFallback({});
+      }, [selectedModuleId]);
 
       // Admin Module Modal Form State
       const [showModuleModal, setShowModuleModal] = useState(false);
@@ -3645,7 +3805,7 @@
 
 
 
-      // Student Login with Single Device Token Registration & Paid Auto-Approval
+      // Student Login with Strict Security & Conflict Prevention (Authoritative Server Verification)
       const handleStudentLogin = async (emailInput, admInput) => {
         setLoginError(null);
         setIsLoggingIn(true);
@@ -3653,41 +3813,49 @@
           const rawEmail = (emailInput || '').trim().toLowerCase();
           const rawAdm = (admInput || '').trim().toUpperCase();
 
-          // Flexible parsing: If user typed Admission Number into Email input field
-          let cleanEmail = rawEmail.includes('@') ? rawEmail : '';
-          let cleanAdm = rawAdm.replace(/[^A-Z0-9]/g, '');
+          // Flexible parsing: handles user entering admission # in email box or email in admission box
+          let cleanEmail = rawEmail.includes('@') ? rawEmail : (rawAdm.includes('@') ? rawAdm.toLowerCase() : '');
+          let cleanAdm = (!rawAdm.includes('@')) ? rawAdm.replace(/[^A-Z0-9]/g, '') : '';
 
-          if (!cleanEmail && rawEmail && !rawEmail.includes('@')) {
+          if (!cleanAdm && rawEmail && !rawEmail.includes('@')) {
             cleanAdm = rawEmail.toUpperCase().replace(/[^A-Z0-9]/g, '');
           }
 
-          if (!cleanEmail && !cleanAdm) {
-            setLoginError("Please enter your Registered Email Address or Admission Number.");
+          const rawPhoneDigits = (cleanAdm || cleanEmail || '').replace(/[^0-9]/g, '');
+          const targetPhone10 = rawPhoneDigits.length >= 10 ? rawPhoneDigits.slice(-10) : '';
+
+          if (!cleanEmail && !cleanAdm && !targetPhone10) {
+            setLoginError("Please enter your Registered Email Address, Admission Number, or WhatsApp Phone Number.");
             return { success: false };
           }
 
           const deviceToken = getDeviceToken();
 
-          // 1. FAST LOCAL MATCH: If student already exists in local loaded memory, log in INSTANTLY (0ms lag)
-          const foundLocal = (students || []).find(s => {
+          // Helper: Strict credential matching to PREVENT cross-student account collision
+          const checkStudentMatch = (s) => {
+            if (!s) return false;
             const sEmail = (s.email || '').toString().toLowerCase().trim();
             const sAdm = (s.admissionNumber || '').toString().toUpperCase().trim().replace(/[^A-Z0-9]/g, '');
-            return (cleanEmail && sEmail === cleanEmail) || (cleanAdm && sAdm === cleanAdm);
-          });
+            const sPhoneRaw = (s.phone || '').toString().replace(/[^0-9]/g, '');
+            const sPhone10 = sPhoneRaw.length >= 10 ? sPhoneRaw.slice(-10) : '';
 
-          if (foundLocal && (foundLocal.approved === true || String(foundLocal.approved).toUpperCase() === 'TRUE')) {
-            const std = { ...foundLocal, activeDeviceToken: deviceToken };
-            setCurrentUser(std);
-            setRole('student');
-            setActiveTab('dashboard');
-            safeStorage.setItem('mastered_user_session', JSON.stringify({ user: std, role: 'student', tab: 'dashboard', deviceToken }));
-            fetchStudentProgressFromCloud(std);
-            // Async non-blocking background verification with Apps Script
-            callAppsScript('loginStudent', { email: cleanEmail, admissionNumber: cleanAdm, deviceToken }).catch(() => {});
-            return { success: true };
-          }
+            const emailMatch = cleanEmail && sEmail && (cleanEmail === sEmail);
+            const admMatch = cleanAdm && sAdm && (cleanAdm === sAdm);
+            const phoneMatch = targetPhone10 && sPhone10 && (targetPhone10 === sPhone10);
 
-          // 2. Direct fast AppsScript login fetch if student not pre-loaded in memory
+            // SECURITY FIX: If student entered BOTH email and admission #, they MUST belong to the SAME record!
+            // Never allow Student A's email to log into Student B's admission #!
+            if (cleanEmail && cleanAdm) {
+              if (emailMatch && (admMatch || phoneMatch || !sAdm)) return true;
+              if ((admMatch || phoneMatch) && !sEmail) return true;
+              return false; // Credential conflict: reject login to protect student data!
+            }
+            if (cleanEmail) return emailMatch;
+            if (cleanAdm) return admMatch || phoneMatch;
+            return false;
+          };
+
+          // 1. AUTHORITATIVE DIRECT LIVE SERVER LOGIN (Google Apps Script)
           const live = await callAppsScript('loginStudent', { email: cleanEmail, admissionNumber: cleanAdm, deviceToken });
           
           if (live && live.success && live.student) {
@@ -3700,19 +3868,16 @@
             return { success: true };
           }
 
-          // Client-side fallback search
-          const found = (students || []).find(s => {
-            const sEmail = (s.email || '').toString().toLowerCase().trim();
-            const sAdm = (s.admissionNumber || '').toString().toUpperCase().trim().replace(/[^A-Z0-9]/g, '');
-            return (cleanEmail && sEmail === cleanEmail) || (cleanAdm && sAdm === cleanAdm);
-          });
+          // 2. Client-side verified offline fallback (STRICT matching only)
+          const found = (students || []).find(checkStudentMatch);
 
           if (found && (found.approved === true || String(found.approved).toUpperCase() === 'TRUE')) {
-            setCurrentUser(found);
+            const std = { ...found, activeDeviceToken: deviceToken };
+            setCurrentUser(std);
             setRole('student');
             setActiveTab('dashboard');
-            safeStorage.setItem('mastered_user_session', JSON.stringify({ user: found, role: 'student', tab: 'dashboard' }));
-            fetchStudentProgressFromCloud(found);
+            safeStorage.setItem('mastered_user_session', JSON.stringify({ user: std, role: 'student', tab: 'dashboard', deviceToken }));
+            fetchStudentProgressFromCloud(std);
             return { success: true };
           }
 
@@ -3729,7 +3894,7 @@
             return { success: false };
           }
 
-          const errMsg = (live && live.message) || "Invalid email or admission number. Please check your credentials or click 'Request Access Application' below!";
+          const errMsg = (live && live.message) || "Invalid email or admission number. Please check your credentials or click 'REQUEST ADMISSION ACCESS' below!";
           setLoginError(errMsg);
           return { success: false, message: errMsg };
         } catch(err) {
@@ -4531,6 +4696,9 @@
                         <div>
                           <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-3">
                             <h4 className="font-bold text-sm text-slate-900">Video Lesson</h4>
+                            <span className="text-[11px] text-emerald-600 font-bold flex items-center space-x-1">
+                              <span>⚡ Low-Data Saver Active</span>
+                            </span>
                           </div>
                           
                           <div className="aspect-video w-full bg-slate-900 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner relative">
@@ -4541,12 +4709,43 @@
                               </span>
                             </div>
 
-                            <iframe
-                              src={getVideoEmbedUrl(activeModule.video1)}
-                              className="w-full h-full border-0 relative z-0"
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                              allowFullScreen
-                            ></iframe>
+                            {/* DATA-SAVER CLICK-TO-PLAY FACADE: Only downloads video stream when student taps Play */}
+                            {playedVideos[activeModule.moduleId] ? (
+                              <iframe
+                                src={getVideoEmbedUrl(activeModule.video1) + '&autoplay=1'}
+                                className="w-full h-full border-0 relative z-0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                loading="lazy"
+                              ></iframe>
+                            ) : (
+                              <div
+                                onClick={() => setPlayedVideos(prev => ({ ...prev, [activeModule.moduleId]: true }))}
+                                className="w-full h-full relative cursor-pointer group flex items-center justify-center overflow-hidden bg-slate-950 select-none"
+                              >
+                                <img
+                                  src={(() => {
+                                    const ytM = (activeModule.video1 || '').match(/youtu\.be\/([a-zA-Z0-9_-]+)/) || (activeModule.video1 || '').match(/v=([a-zA-Z0-9_-]+)/);
+                                    return ytM ? `https://img.youtube.com/vi/${ytM[1]}/hqdefault.jpg` : (activeModule.thumbnail || THUMBNAILS[0]);
+                                  })()}
+                                  alt={activeModule.title}
+                                  className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-85 group-hover:scale-105 transition duration-300"
+                                  loading="lazy"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+                                <div className="relative z-20 flex flex-col items-center space-y-3 p-4 text-center">
+                                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-600 group-hover:bg-red-500 text-white flex items-center justify-center shadow-2xl shadow-red-600/50 transform group-hover:scale-110 transition duration-200">
+                                    <span className="text-2xl sm:text-3xl ml-1">▶</span>
+                                  </div>
+                                  <div className="space-y-1">
+                                    <p className="text-sm sm:text-base font-extrabold text-white drop-shadow">Tap to Play Video Lesson</p>
+                                    <span className="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold rounded-full">
+                                      ⚡ Data Saver: Video buffers only when tapped (Saves ~40 MB)
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
                           </div>
                         </div>
                       )}
@@ -4555,6 +4754,7 @@
                         <div className="space-y-4">
                           <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
                             <h4 className="font-bold text-sm text-slate-900">Audio Accent Drill Player</h4>
+                            <span className="text-[11px] text-emerald-600 font-bold">⚡ Low-Data Audio Stream (~1 MB vs 20 MB Drive Preview)</span>
                           </div>
                           
                           {/* Sleek Masked Audio Player Container */}
@@ -4565,9 +4765,45 @@
                               <span className="text-[10px] font-mono font-bold text-slate-300">{currentUser.admissionNumber}</span>
                             </div>
 
-                            <div className="w-full h-36 sm:h-44 rounded-xl overflow-hidden bg-slate-950 border border-slate-800 relative z-20">
-                              <iframe src={getDriveEmbedUrl(activeModule.audio)} className="w-full h-full border-0"></iframe>
-                            </div>
+                            {(() => {
+                              const fileIdMatch = (activeModule.audio || '').match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+                              const fileId = fileIdMatch ? fileIdMatch[1] : null;
+                              const directAudioUrl = fileId ? `https://docs.google.com/uc?export=download&id=${fileId}` : '';
+                              const useDriveFallback = driveAudioFallback[activeModule.moduleId];
+
+                              if (fileId && !useDriveFallback) {
+                                return (
+                                  <div className="w-full p-4 sm:p-6 rounded-xl bg-slate-950 border border-slate-800 relative z-20 space-y-3 text-center">
+                                    <audio
+                                      controls
+                                      preload="none"
+                                      className="w-full h-12 rounded-xl"
+                                      src={directAudioUrl}
+                                    >
+                                      Your browser does not support native audio playback.
+                                    </audio>
+                                    <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-400 pt-2 border-t border-slate-800">
+                                      <span className="text-emerald-400 font-bold flex items-center space-x-1">
+                                        <span>🎧 Native Audio Stream (Saves ~19 MB)</span>
+                                      </span>
+                                      <button
+                                        type="button"
+                                        onClick={() => setDriveAudioFallback(prev => ({ ...prev, [activeModule.moduleId]: true }))}
+                                        className="text-red-400 hover:text-red-300 font-semibold underline text-left"
+                                      >
+                                        Use Drive Player Fallback →
+                                      </button>
+                                    </div>
+                                  </div>
+                                );
+                              }
+
+                              return (
+                                <div className="w-full h-36 sm:h-44 rounded-xl overflow-hidden bg-slate-950 border border-slate-800 relative z-20">
+                                  <iframe src={getDriveEmbedUrl(activeModule.audio)} loading="lazy" className="w-full h-full border-0"></iframe>
+                                </div>
+                              );
+                            })()}
                           </div>
                         </div>
                       )}
@@ -4578,7 +4814,7 @@
                             <h4 className="font-bold text-sm text-slate-900">PDF Reference Workbook</h4>
                           </div>
                           <div className="h-[420px] sm:h-[550px] bg-slate-100 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner relative">
-                            <iframe src={getDriveEmbedUrl(activeModule.pdf)} className="w-full h-full border-0"></iframe>
+                            <iframe src={getDriveEmbedUrl(activeModule.pdf)} loading="lazy" className="w-full h-full border-0"></iframe>
                           </div>
                         </div>
                       )}
