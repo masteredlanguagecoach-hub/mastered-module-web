@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -1369,9 +1369,10 @@
         mergedMod.percentage = Math.max(tPct, sPct);
         mergedMod.verifiedSentences = Math.max(Number(tVal.verifiedSentences) || 0, Number(sVal.verifiedSentences) || 0);
 
-        // AI Mission completion & proof
-        mergedMod.aiMissionCompleted = Boolean(tVal.aiMissionCompleted || sVal.aiMissionCompleted || tVal.aiMissionProof || sVal.aiMissionProof);
+        // AI Mission completion & proof: STRICT integrity, only true if percentage >= 100
+        mergedMod.aiMissionCompleted = (Number(mergedMod.percentage) >= 100);
         mergedMod.aiMissionProof = sVal.aiMissionProof || tVal.aiMissionProof || null;
+        if (mergedMod.percentage >= 100) mergedMod.status = 'COMPLETED';
 
         // Deep merge quizScores
         const tQuiz = (tVal.quizScores && typeof tVal.quizScores === 'object') ? tVal.quizScores : {};
@@ -1400,6 +1401,56 @@
         result[mKey] = mergedMod;
       }
       return result;
+    }
+
+    // Deep Sanitizer: Removes synthetic/fake 100% cascade completions while strictly preserving real quiz submissions and uploaded proofs
+    function sanitizeProgressMap(progMap) {
+      if (!progMap || typeof progMap !== 'object') return {};
+      const cleaned = { ...progMap };
+
+      let fake100Count = 0;
+      let total100Count = 0;
+      for (let m = 1; m <= 32; m++) {
+        const k = `MOD-${m < 10 ? '0' + m : m}`;
+        const mObj = cleaned[k] || cleaned[`MOD-${m}`];
+        if (mObj && typeof mObj === 'object') {
+          const pct = Number(mObj.percentage) || 0;
+          const hasQuiz = (mObj.quizScores && typeof mObj.quizScores === 'object' && Object.keys(mObj.quizScores).length > 0);
+          const hasProof = Boolean(mObj.aiMissionProof);
+          if (pct >= 100) {
+            total100Count++;
+            if (!hasQuiz && !hasProof) fake100Count++;
+          }
+        }
+      }
+
+      const isCascade = (fake100Count >= 2 || total100Count >= 5);
+
+      for (let m = 1; m <= 32; m++) {
+        const k = `MOD-${m < 10 ? '0' + m : m}`;
+        const kShort = `MOD-${m}`;
+        const mObj = cleaned[k] || cleaned[kShort];
+        if (mObj && typeof mObj === 'object') {
+          const copyObj = { ...mObj };
+          const pct = Number(copyObj.percentage) || 0;
+          const hasQuiz = (copyObj.quizScores && typeof copyObj.quizScores === 'object' && Object.keys(copyObj.quizScores).length > 0);
+          const hasProof = Boolean(copyObj.aiMissionProof);
+
+          if (isCascade && !hasQuiz && !hasProof) {
+            copyObj.percentage = 0;
+            copyObj.aiMissionCompleted = false;
+            copyObj.status = 'NOT_STARTED';
+            copyObj.verifiedSentences = 0;
+          } else {
+            copyObj.percentage = pct;
+            copyObj.aiMissionCompleted = (pct >= 100);
+            if (pct >= 100) copyObj.status = 'COMPLETED';
+          }
+          cleaned[k] = copyObj;
+          cleaned[kShort] = copyObj;
+        }
+      }
+      return cleaned;
     }
 
     // Comprehensive Student History & Analytics Modal Component
@@ -1463,6 +1514,9 @@
         } catch(e) {}
       }
 
+      // Always sanitize progress data to remove any legacy fake 100% cascade artifacts
+      progData = sanitizeProgressMap(progData);
+
       let totalAiMissions = 0;
       let totalAiSum = 0;
       let totalQuizzesTaken = 0;
@@ -1474,7 +1528,7 @@
       modules.forEach(m => {
         const modKey = `MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
         const mData = progData[modKey] || progData[m.moduleId] || {};
-        const aiPct = Number(mData.percentage) || (mData.aiMissionCompleted || mData.aiMissionProof ? 100 : 0);
+        const aiPct = Number(mData.percentage) || 0;
         
         if (aiPct > 0) {
           totalAiMissions++;
@@ -1496,12 +1550,12 @@
 
       if (highestMissionLevel === 0) {
         const directLvl = Number(student.mclLevel || student.latestMissionLevel || student.level || progData.latestMissionLevel || progData.missionLevel || progData.level || progData.latestLevel) || 0;
-        const directPct = Number(student.codeProgress || student.latestProgress || progData.latestCodeProgress || progData.codeProgress || progData.progress) || 100;
+        const directPct = Number(student.codeProgress || student.latestProgress || progData.latestCodeProgress || progData.codeProgress || progData.progress) || 0;
         if (directLvl > 0) {
           highestMissionLevel = directLvl;
           highestMissionProgress = directPct;
-          if (totalAiMissions === 0) totalAiMissions = directLvl;
-          if (totalAiSum === 0) totalAiSum = directLvl * 100;
+          if (totalAiMissions === 0) totalAiMissions = 1;
+          if (totalAiSum === 0) totalAiSum = directPct;
         }
       }
 
@@ -1607,7 +1661,13 @@
                             <h5 className="font-bold text-slate-900">{m.title.replace(/^Module \d+:\s*/, '')}</h5>
                           </div>
                           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-500">
-                           <span>AI Mission: {((Number(mData.percentage) > 0) || mData.aiMissionCompleted || aiProof) ? `✅ ${Number(mData.percentage) || 100}%` : '⚪ Pending'}</span>
+                           {(() => {
+                             const p = Number(mData.percentage) || 0;
+                             if (p >= 100) return <span className="text-emerald-700 font-bold">AI Mission: ✅ 100% (Completed)</span>;
+                             if (p > 0) return <span className="text-amber-700 font-bold">AI Mission: 🔄 {p}% (In Progress)</span>;
+                             if (aiProof) return <span className="text-purple-700 font-bold">AI Mission: 📸 Proof Submitted</span>;
+                             return <span className="text-slate-400">AI Mission: ⚪ Pending (0%)</span>;
+                           })()}
                           </div>
                         </div>
 
@@ -1720,7 +1780,7 @@
       for (let m = 1; m <= 32; m++) {
         const k = `MOD-${m < 10 ? '0' + m : m}`;
         const mObj = currentStudentProg[k] || currentStudentProg[`MOD-${m}`];
-        const pct = mObj ? (Number(mObj.percentage) || (mObj.aiMissionCompleted ? 100 : 0)) : 0;
+        const pct = mObj ? (Number(mObj.percentage) || 0) : 0;
         if (pct > 0 && m > highestActiveLevel) {
           highestActiveLevel = m;
         }
@@ -1821,8 +1881,8 @@
           percentage: Math.max(Number(existingMod.percentage) || 0, targetPct),
           verifiedSentences: Math.max(Number(existingMod.verifiedSentences) || 0, targetVerified),
           status: isDone ? 'COMPLETED' : (existingMod.status || 'IN_PROGRESS'),
-          // FIX: only mark truly completed missions — never auto-complete at 1%
-          aiMissionCompleted: isDone || Boolean(existingMod.aiMissionCompleted),
+          // STRICT: Only mark completed if earned percentage is 100%
+          aiMissionCompleted: (Math.max(Number(existingMod.percentage) || 0, targetPct) >= 100),
           lastUpdated: new Date().toISOString()
         };
 
@@ -3128,6 +3188,8 @@
         return 'MAL TO ENG';
       });
 
+      const [isCleaningDatabase, setIsCleaningDatabase] = useState(false);
+
       const handleSwitchCourse = (newCourse) => {
         setSelectedCourse(newCourse);
         safeStorage.setItem('mastered_selected_course', newCourse);
@@ -3236,6 +3298,13 @@
               }
             } catch(e) {}
           }
+
+          // Startup sanitizer: Clean all cached maps of fake 100% cascade data immediately
+          if (initial && typeof initial === 'object') {
+            for (const k of Object.keys(initial)) {
+              initial[k] = sanitizeProgressMap(initial[k]);
+            }
+          }
         } catch(e) {}
         return (initial && typeof initial === 'object') ? initial : {};
       });
@@ -3329,28 +3398,30 @@
               parsedProgMap = { ...rawData };
             }
 
-            // Synthesize level & progress from latestLevel if returned, preserving verifiedSentences
-            if (res.latestLevel && Number(res.latestLevel) > 0) {
-              const latestLvl = Math.min(32, Math.max(1, Number(res.latestLevel)));
-              const rawProg = (res.latestProgress !== undefined && res.latestProgress !== null && !isNaN(res.latestProgress)) ? Number(res.latestProgress) : (res.latestCodeProgress !== undefined ? Number(res.latestCodeProgress) : null);
-              const latestProg = rawProg !== null ? rawProg : 0;
-              for (let lvl = 1; lvl <= latestLvl; lvl++) {
-                const modKey = `MOD-${lvl < 10 ? '0' + lvl : lvl}`;
-                const modKeyShort = `MOD-${lvl}`;
-                if (!parsedProgMap[modKey]) parsedProgMap[modKey] = {};
-                const targetPct = (lvl === latestLvl) ? latestProg : 100;
-                const tSentences = (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission) ? window.MasteredCurriculum.getTargetForMission(lvl) : (lvl <= 8 ? 30 : (lvl <= 23 ? 40 : 50));
-                
-                if (parsedProgMap[modKey].percentage === undefined || Number(parsedProgMap[modKey].percentage) < targetPct) {
-                  parsedProgMap[modKey].percentage = targetPct;
-                  parsedProgMap[modKey].aiMissionCompleted = targetPct >= 100 || Boolean(parsedProgMap[modKey].aiMissionCompleted);
-                }
-                if (parsedProgMap[modKey].verifiedSentences === undefined || Number(parsedProgMap[modKey].verifiedSentences) === 0) {
-                  parsedProgMap[modKey].verifiedSentences = Math.round((targetPct / 100) * tSentences);
-                }
-                parsedProgMap[modKeyShort] = parsedProgMap[modKey];
+            // Populate single active level ONLY if parsedProgMap has no modules yet, NEVER cascade fake 100% to other modules!
+            let hasAnyModule = false;
+            for (const k of Object.keys(parsedProgMap)) {
+              if (k.startsWith('MOD-') || k.startsWith('HIND-MOD-')) {
+                hasAnyModule = true;
+                break;
               }
             }
+            if (!hasAnyModule && res.latestLevel && Number(res.latestLevel) > 0) {
+              const latestLvl = Math.min(32, Math.max(1, Number(res.latestLevel)));
+              const rawProg = (res.latestProgress !== undefined && res.latestProgress !== null && !isNaN(res.latestProgress)) ? Number(res.latestProgress) : (res.latestCodeProgress !== undefined ? Number(res.latestCodeProgress) : 0);
+              const latestProg = Math.min(100, Math.max(0, Number(rawProg) || 0));
+              const modKey = `MOD-${latestLvl < 10 ? '0' + latestLvl : latestLvl}`;
+              const modKeyShort = `MOD-${latestLvl}`;
+              parsedProgMap[modKey] = {
+                percentage: latestProg,
+                aiMissionCompleted: (latestProg >= 100),
+                status: latestProg >= 100 ? 'COMPLETED' : (latestProg > 0 ? 'IN_PROGRESS' : 'NOT_STARTED')
+              };
+              parsedProgMap[modKeyShort] = parsedProgMap[modKey];
+            }
+
+            // Always sanitize progress map to neutralize any fake 100% cascade data
+            parsedProgMap = sanitizeProgressMap(parsedProgMap);
 
             // Normalize and mirror across key aliases (MOD-01, MOD-1, HIND-MOD-01)
             for (let lvl = 1; lvl <= 32; lvl++) {
@@ -3686,7 +3757,8 @@
               setUserProgress(prev => {
                 const merged = { ...(prev || {}) };
                 for (const k of Object.keys(allProgRes.userProgress)) {
-                  merged[k] = mergeProgressMaps(merged[k], allProgRes.userProgress[k]);
+                  // Direct set with sanitation so cleaned cloud data is not poisoned by old local cache
+                  merged[k] = sanitizeProgressMap(allProgRes.userProgress[k]);
                 }
                 safeStorage.setItem('mastered_all_students_progress', JSON.stringify(merged));
                 return merged;
@@ -4197,6 +4269,39 @@
           } catch(err) {
             showToast("✅ Progress reset request dispatched.");
           }
+        }
+      };
+
+      // Sanitize & Clean Fake 100% Progress in Google Sheets DB (Admin Action)
+      const handleCleanDatabaseFakeProgress = async () => {
+        if (!confirm("🧹 CLEAN FAKE 100% PROGRESS FROM DATABASE?\n\nThis will scan the Google Sheets database (StudentProgress sheet) and remove all fake 100% cascaded completions across all student accounts.\n\nLegitimate quiz scores and real student activity will be safely preserved.\n\nDo you want to proceed?")) {
+          return;
+        }
+
+        setIsCleaningDatabase(true);
+        showToast("⏳ Sanitizing database & cleaning fake 100% progress in Google Sheets...");
+
+        try {
+          const res = await callAppsScript('cleanAllFakeProgress');
+          if (res && res.success) {
+            showToast(`✅ ${res.message || 'Database sanitized successfully!'}`);
+            // Flush poisoned local cache
+            safeStorage.removeItem('mastered_all_students_progress');
+            setUserProgress(prev => {
+              const fresh = {};
+              for (const k of Object.keys(prev || {})) {
+                fresh[k] = sanitizeProgressMap(prev[k]);
+              }
+              return fresh;
+            });
+            await refreshLiveData();
+          } else {
+            showToast(`⚠️ ${res?.message || 'Database clean request finished.'}`);
+          }
+        } catch(err) {
+          showToast(`❌ Failed to clean database: ${err.message || 'Network error'}`);
+        } finally {
+          setIsCleaningDatabase(false);
         }
       };
 
@@ -4854,7 +4959,7 @@
                             const modKey = `MOD-${activeModule.moduleNumber < 10 ? '0' + activeModule.moduleNumber : activeModule.moduleNumber}`;
                             const modKeyShort = `MOD-${activeModule.moduleNumber}`;
                             const mProg = currentStudentProg[activeModule.moduleId] || currentStudentProg[modKey] || currentStudentProg[modKeyShort] || {};
-                            const curPct = Number(mProg.percentage) || (mProg.aiMissionCompleted ? 100 : 0);
+                            const curPct = Number(mProg.percentage) || 0;
                             const tTarget = (window.MasteredCurriculum && window.MasteredCurriculum.getTargetForMission)
                               ? window.MasteredCurriculum.getTargetForMission(activeModule.moduleNumber)
                               : (activeModule.moduleNumber <= 8 ? 30 : (activeModule.moduleNumber <= 23 ? 40 : 50));
@@ -4937,7 +5042,7 @@
                       const modKeyShort = `MOD-${m.moduleNumber}`;
                       const hindKey = `HIND-MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
                       const mProg = currentStudentProg[m.moduleId] || currentStudentProg[modKey] || currentStudentProg[modKeyShort] || currentStudentProg[hindKey] || {};
-                      const aiPct = Number(mProg.percentage) || (mProg.aiMissionCompleted || mProg.aiMissionProof ? 100 : 0);
+                      const aiPct = Number(mProg.percentage) || 0;
                       dashAiSum += aiPct;
                       if (aiPct >= 100) {
                         dashAiCompleted++;
@@ -5221,8 +5326,8 @@
                           const mProg = currentStudentProg[m.moduleId] || currentStudentProg[modKey] || currentStudentProg[modKeyShort] || currentStudentProg[hindKey] || {};
                           const qScores = mProg.quizScores || {};
                           const qObj = qScores[modNum] || (currentStudentProg.quizScores && currentStudentProg.quizScores[modNum]);
-                          const aiPct = Number(mProg.percentage) || (mProg.aiMissionCompleted || mProg.aiMissionProof ? 100 : 0);
-                          const aiDone = Boolean(aiPct > 0 || mProg.aiMissionCompleted || mProg.aiMissionProof);
+                          const aiPct = Number(mProg.percentage) || 0;
+                          const aiDone = Boolean(aiPct >= 100);
                           const aiPart = Math.round(aiPct / 2);
                           const quizPart = qObj ? Math.round((qObj.percentage || 0) / 2) : 0;
                           const growthPercentage = Math.min(100, aiPart + quizPart);
@@ -5350,6 +5455,14 @@
                           </div>
                           <div className="flex items-center space-x-2">
                             <button onClick={handleManualRefresh} className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl shrink-0">🔄 Refresh</button>
+                            <button
+                              onClick={handleCleanDatabaseFakeProgress}
+                              disabled={isCleaningDatabase}
+                              className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-bold text-xs rounded-xl shrink-0 transition shadow-sm flex items-center space-x-1"
+                              title="Scans Google Sheets and cleans fake 100% cascade progress while preserving real quizzes and uploads"
+                            >
+                              <span>{isCleaningDatabase ? '⏳ Cleaning...' : '🧹 Clean Database Fake 100%'}</span>
+                            </button>
                             <button onClick={handleResetAllStudentProgress} className="px-3.5 py-2 bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold text-xs rounded-xl shrink-0 transition">⚡ Reset All Progress (0%)</button>
                           </div>
                         </div>
@@ -5402,6 +5515,7 @@
                                         });
                                         if (matchKey) pMap = userProgress[matchKey] || {};
                                       }
+                                      pMap = sanitizeProgressMap(pMap);
 
                                       let maxLvl = 0;
                                       let maxPct = 0;
@@ -5409,7 +5523,7 @@
                                       modules.forEach(m => {
                                         const modKey = `MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
                                         const mD = pMap[modKey] || pMap[m.moduleId] || {};
-                                        const pct = Number(mD.percentage) || (mD.aiMissionCompleted || mD.aiMissionProof ? 100 : 0);
+                                        const pct = Number(mD.percentage) || 0;
                                         if (pct > 0) {
                                           aiSum += pct;
                                           if (m.moduleNumber > maxLvl) {
@@ -5423,7 +5537,7 @@
 
                                       if (maxLvl === 0) {
                                         const directLvl = Number(s.mclLevel || s.latestMissionLevel || s.level || pMap?.latestMissionLevel || pMap?.missionLevel || pMap?.level || pMap?.latestLevel) || 0;
-                                        const directPct = Number(s.codeProgress || s.latestProgress || pMap?.latestCodeProgress || pMap?.codeProgress || pMap?.progress) || 100;
+                                        const directPct = Number(s.codeProgress || s.latestProgress || pMap?.latestCodeProgress || pMap?.codeProgress || pMap?.progress) || 0;
                                         if (directLvl > 0) {
                                           maxLvl = directLvl;
                                           maxPct = directPct;

@@ -129,6 +129,11 @@ function routeActionObj(action, data) {
     case 'approveRequest':
       return handleApproveRequest(data);
 
+    case 'cleanAllFakeProgress':
+    case 'adminCleanAllFakeProgress':
+    case 'repairFakeProgress':
+      return handleAdminCleanAllFakeProgress();
+
     default:
       return handleGetModules();
   }
@@ -413,10 +418,8 @@ function handleVerifyMclCode(data) {
   // Update Progress
   currentModObj.percentage = decoded.progress;
   currentModObj.lastUpdated = new Date().toISOString();
-  if (decoded.progress > 0) {
-    currentModObj.aiMissionCompleted = true;
-  }
-  if (decoded.progress === 100) {
+  currentModObj.aiMissionCompleted = (decoded.progress >= 100);
+  if (decoded.progress >= 100) {
     currentModObj.status = "COMPLETED";
     // Unlock next mission
     var nextModNum = decoded.mission + 1;
@@ -425,17 +428,11 @@ function handleVerifyMclCode(data) {
       if (!userProgObj[nextModKey]) userProgObj[nextModKey] = {};
       userProgObj[nextModKey].unlocked = true;
     }
+  } else {
+    currentModObj.status = "IN_PROGRESS";
   }
 
-  // Synthesize level 1 to (decoded.mission - 1) as completed
-  for (var lvl = 1; lvl < decoded.mission; lvl++) {
-    var pKey = "MOD-" + (lvl < 10 ? "0" + lvl : lvl);
-    if (!userProgObj[pKey]) userProgObj[pKey] = {};
-    if (!userProgObj[pKey].percentage || Number(userProgObj[pKey].percentage) < 100) {
-      userProgObj[pKey].percentage = 100;
-      userProgObj[pKey].aiMissionCompleted = true;
-    }
-  }
+  // Strict: NEVER synthesize fake 100% for prior missions. Each mission must be earned!
 
   if (!currentModObj.history) currentModObj.history = [];
   currentModObj.history.push({
@@ -1098,8 +1095,12 @@ function handleSaveStudentProgress(data) {
         var mergedMod = Object.assign({}, exVal, inVal);
         mergedMod.percentage = Math.max(Number(exVal.percentage) || 0, Number(inVal.percentage) || 0);
         mergedMod.verifiedSentences = Math.max(Number(exVal.verifiedSentences) || 0, Number(inVal.verifiedSentences) || 0);
-        mergedMod.aiMissionCompleted = Boolean(exVal.aiMissionCompleted || inVal.aiMissionCompleted || exVal.aiMissionProof || inVal.aiMissionProof);
+        // Strict integrity: aiMissionCompleted is ONLY true if percentage is >= 100
+        mergedMod.aiMissionCompleted = (Number(mergedMod.percentage) >= 100);
         mergedMod.aiMissionProof = inVal.aiMissionProof || exVal.aiMissionProof || null;
+        if (mergedMod.percentage >= 100) {
+          mergedMod.status = "COMPLETED";
+        }
 
         var mergedQuizzes = Object.assign({}, exVal.quizScores || {});
         var inQuizzes = inVal.quizScores || {};
@@ -1126,7 +1127,7 @@ function handleSaveStudentProgress(data) {
     var k = "MOD-" + (m < 10 ? "0" + m : m);
     var mObj = existingObj[k] || existingObj["MOD-" + m];
     if (mObj) {
-      var pct = Number(mObj.percentage) || (mObj.aiMissionCompleted ? 100 : 0);
+      var pct = Number(mObj.percentage) || 0;
       if (pct >= 100 && m < 32) {
         if (m + 1 > highestLvl) highestLvl = m + 1;
       } else if (pct > 0 && m >= highestLvl) {
@@ -1242,19 +1243,34 @@ function extractStudentProgressFromRow(row, headers, stripProofs) {
     }
   }
 
-  // 5. Build module progress objects for all levels up to foundLevel (CAPPED AT 32 TO PREVENT V8 RangeError)
-  if (foundLevel >= 1 && foundLevel <= 32) {
-    for (var lvl = 1; lvl <= foundLevel; lvl++) {
-      var modKey = "MOD-" + (lvl < 10 ? "0" + lvl : lvl);
-      if (!progObj[modKey]) progObj[modKey] = {};
-      var targetPct = (lvl === foundLevel) ? (foundProgress !== null && foundProgress !== undefined ? foundProgress : 100) : 100;
-      if (progObj[modKey].percentage === undefined || Number(progObj[modKey].percentage) < targetPct) {
-        progObj[modKey].percentage = targetPct;
-        progObj[modKey].aiMissionCompleted = targetPct >= 100 || Boolean(progObj[modKey].aiMissionCompleted);
-      }
-      var targetSentences = (lvl <= 8 ? 30 : (lvl <= 23 ? 40 : 50));
-      if (progObj[modKey].verifiedSentences === undefined || Number(progObj[modKey].verifiedSentences) === 0) {
-        progObj[modKey].verifiedSentences = Math.round((targetPct / 100) * targetSentences);
+  // 5. If progObj has no modules yet and foundLevel is recorded, populate THAT SINGLE level only. NEVER synthesize fake 100% for other modules!
+  var hasModules = false;
+  for (var k in progObj) {
+    if (k && k.indexOf("MOD-") === 0) {
+      hasModules = true;
+      break;
+    }
+  }
+
+  if (!hasModules && foundLevel >= 1 && foundLevel <= 32) {
+    var singleKey = "MOD-" + (foundLevel < 10 ? "0" + foundLevel : foundLevel);
+    var p = (foundProgress !== null && foundProgress !== undefined) ? foundProgress : 0;
+    progObj[singleKey] = {
+      percentage: p,
+      aiMissionCompleted: (p >= 100),
+      status: (p >= 100 ? "COMPLETED" : (p > 0 ? "IN_PROGRESS" : "NOT_STARTED"))
+    };
+  }
+
+  // Strict integrity check on all modules in progObj:
+  // aiMissionCompleted is ONLY true if percentage is >= 100
+  for (var modKey in progObj) {
+    if (progObj[modKey] && typeof progObj[modKey] === "object") {
+      var modPct = Number(progObj[modKey].percentage) || 0;
+      progObj[modKey].percentage = modPct;
+      progObj[modKey].aiMissionCompleted = (modPct >= 100);
+      if (modPct >= 100) {
+        progObj[modKey].status = "COMPLETED";
       }
     }
   }
@@ -1264,7 +1280,6 @@ function extractStudentProgressFromRow(row, headers, stripProofs) {
     for (var mKey in progObj) {
       if (progObj[mKey] && typeof progObj[mKey] === "object") {
         if (progObj[mKey].aiMissionProof) {
-          progObj[mKey].aiMissionCompleted = true;
           delete progObj[mKey].aiMissionProof;
         }
       }
@@ -1317,7 +1332,7 @@ function handleGetStudentProgress(data) {
     var k = "MOD-" + (m < 10 ? "0" + m : m);
     var mObj = progObj[k] || progObj["MOD-" + m];
     if (mObj) {
-      var pct = Number(mObj.percentage) || (mObj.aiMissionCompleted ? 100 : 0);
+      var pct = Number(mObj.percentage) || 0;
       if (pct >= 100 && m < 32) {
         if (m + 1 > highestLvl) highestLvl = m + 1;
       } else if (pct > 0 && m >= highestLvl) {
@@ -1367,6 +1382,159 @@ function handleAdminGetAllStudentProgress() {
   }
 
   return { success: true, userProgress: allProgMap };
+}
+
+/**
+ * Clean & Sanitize Fake 100% Progress from Database
+ * Can be run directly from Google Apps Script Editor ("Run" -> adminCleanAllFakeProgress)
+ * or via API action: 'cleanAllFakeProgress'
+ */
+function adminCleanAllFakeProgress() {
+  return handleAdminCleanAllFakeProgress();
+}
+
+function handleAdminCleanAllFakeProgress() {
+  var ss = getMasteredSpreadsheet();
+  var sheet = getFlexibleSheet(ss, "StudentProgress");
+  if (!sheet) {
+    return { success: false, message: "StudentProgress sheet not found in spreadsheet." };
+  }
+
+  ensureStudentProgressHeaders(sheet);
+  var rows = sheet.getDataRange().getValues();
+  if (rows.length <= 1) {
+    return { success: true, message: "No student records found to sanitize.", cleanedStudents: 0 };
+  }
+
+  var headers = rows[0] || [];
+  var admCol = findColumnIndex(headers, ["admissionnumber", "admission", "adm"]);
+  var jsonCol = findColumnIndex(headers, ["progressjson", "json"]);
+  var levelCol = findColumnIndex(headers, ["latestmissionlevel", "missionlevel", "level"]);
+  var progCol = findColumnIndex(headers, ["latestcodeprogress", "codeprogress", "progress"]);
+  var codeCol = findColumnIndex(headers, ["latestmclcode", "mclcode", "code"]);
+  var dateCol = findColumnIndex(headers, ["lastupdated", "updated", "date"]);
+
+  if (admCol < 0) admCol = 0;
+  if (jsonCol < 0) jsonCol = (headers.length >= 6 ? 5 : 2);
+  if (levelCol < 0) levelCol = (headers.length >= 6 ? 3 : -1);
+  if (progCol < 0) progCol = (headers.length >= 6 ? 4 : -1);
+
+  var cleanedCount = 0;
+  var totalRowsChecked = 0;
+
+  for (var i = 1; i < rows.length; i++) {
+    totalRowsChecked++;
+    var rawJson = (rows[i][jsonCol] || "").toString().trim();
+    if (!rawJson || rawJson.indexOf("{") < 0) continue;
+
+    var progObj = null;
+    try {
+      progObj = JSON.parse(rawJson);
+    } catch(e) {
+      continue;
+    }
+    if (!progObj || typeof progObj !== "object") continue;
+
+    var changed = false;
+    var rowMclCode = (codeCol >= 0 && rows[i][codeCol]) ? rows[i][codeCol].toString().trim() : "";
+    var decoded = decodeMcl1(rowMclCode);
+    var validMclMission = (decoded && decoded.success && decoded.mission >= 1 && decoded.mission <= 32) ? decoded.mission : 0;
+    var validMclProgress = (decoded && decoded.success) ? Math.min(Math.max(decoded.progress || 0, 0), 100) : 0;
+
+    // First scan: Detect if student was infected by fake 100% cascade
+    var fake100Count = 0;
+    var total100Count = 0;
+    for (var m = 1; m <= 32; m++) {
+      var k = "MOD-" + (m < 10 ? "0" + m : m);
+      var mObj = progObj[k] || progObj["MOD-" + m];
+      if (mObj && typeof mObj === "object") {
+        var pct = Number(mObj.percentage) || 0;
+        var hasQuiz = (mObj.quizScores && typeof mObj.quizScores === "object" && Object.keys(mObj.quizScores).length > 0);
+        var hasProof = Boolean(mObj.aiMissionProof);
+        if (pct >= 100) {
+          total100Count++;
+          if (!hasQuiz && !hasProof && m !== validMclMission) {
+            fake100Count++;
+          }
+        }
+      }
+    }
+
+    var isCascadeInfected = (fake100Count >= 2 || total100Count >= 5);
+
+    for (var m = 1; m <= 32; m++) {
+      var k = "MOD-" + (m < 10 ? "0" + m : m);
+      var mObj = progObj[k] || progObj["MOD-" + m];
+      if (!mObj || typeof mObj !== "object") continue;
+
+      var pct = Number(mObj.percentage) || 0;
+      var hasQuiz = (mObj.quizScores && typeof mObj.quizScores === "object" && Object.keys(mObj.quizScores).length > 0);
+      var hasProof = Boolean(mObj.aiMissionProof);
+      var isMclActive = (m === validMclMission);
+
+      // Clean fake 100% completions
+      if (isCascadeInfected && !hasQuiz && !hasProof && !isMclActive) {
+        if (pct > 0 || mObj.aiMissionCompleted || mObj.status === "COMPLETED") {
+          mObj.percentage = 0;
+          mObj.aiMissionCompleted = false;
+          mObj.status = "NOT_STARTED";
+          mObj.verifiedSentences = 0;
+          changed = true;
+        }
+      } else {
+        // Enforce strict rule: aiMissionCompleted is ONLY true if pct >= 100
+        var shouldBeCompleted = (pct >= 100);
+        if (mObj.aiMissionCompleted !== shouldBeCompleted) {
+          mObj.aiMissionCompleted = shouldBeCompleted;
+          changed = true;
+        }
+        if (pct >= 100 && mObj.status !== "COMPLETED") {
+          mObj.status = "COMPLETED";
+          changed = true;
+        }
+      }
+      progObj[k] = mObj;
+    }
+
+    // Recompute real highest level and progress
+    var trueHighestLvl = 1;
+    var trueHighestProg = 0;
+    for (var m = 1; m <= 32; m++) {
+      var k = "MOD-" + (m < 10 ? "0" + m : m);
+      var mObj = progObj[k];
+      if (mObj) {
+        var p = Number(mObj.percentage) || 0;
+        if (p >= 100 && m < 32) {
+          if (m + 1 > trueHighestLvl) trueHighestLvl = m + 1;
+        } else if (p > 0 && m >= trueHighestLvl) {
+          trueHighestLvl = m;
+          trueHighestProg = p;
+        }
+      }
+    }
+
+    if (validMclMission > 0 && validMclMission >= trueHighestLvl) {
+      trueHighestLvl = validMclMission;
+      trueHighestProg = validMclProgress;
+    }
+
+    if (changed) {
+      var cleanJsonStr = JSON.stringify(progObj);
+      sheet.getRange(i + 1, jsonCol + 1).setValue(cleanJsonStr);
+      if (levelCol >= 0) sheet.getRange(i + 1, levelCol + 1).setValue(trueHighestLvl);
+      if (progCol >= 0) sheet.getRange(i + 1, progCol + 1).setValue(trueHighestProg);
+      if (dateCol >= 0) sheet.getRange(i + 1, dateCol + 1).setValue(new Date());
+      cleanedCount++;
+    }
+  }
+
+  Logger.log("adminCleanAllFakeProgress finished. Total rows checked: " + totalRowsChecked + ", Fake 100% rows cleaned: " + cleanedCount);
+  return {
+    success: true,
+    message: "Sanitization complete! Cleaned " + cleanedCount + " student records with fake 100% progress.",
+    cleanedStudents: cleanedCount,
+    totalChecked: totalRowsChecked
+  };
 }
 
 function handleUpdateProgress(data) {
