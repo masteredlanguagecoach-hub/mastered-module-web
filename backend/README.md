@@ -45,3 +45,38 @@ Follow this simple guide to deploy your secure backend using **Google Sheets** a
 2. Go to **Settings** in the Admin Sidebar.
 3. Paste your **Web App URL** and click **Save Configuration** & **Test API Connection**.
 4. You are now running live on your Google Sheets & Apps Script infrastructure!
+
+---
+
+## 5. Updating an Existing Deployment & Sanitizing Database
+
+Whenever `backend/Code.gs` is updated with bug fixes or improvements, follow these steps:
+
+### Step 5.1: Copy Updated Code
+1. Open your Google Sheet and click **Extensions** → **Apps Script**.
+2. Open `Code.gs` in the editor.
+3. Replace the entire contents with the updated `backend/Code.gs` file.
+4. Click **Save** (💾 or `Ctrl+S`).
+
+### Step 5.2: Create and Deploy New Version (Required)
+Google Apps Script requires publishing a **New Version** for changes to take effect on the Web App URL:
+1. Click **Deploy** → **Manage deployments** (top right).
+2. Click the **Edit** icon (pencil ✏️) next to the active Web App deployment.
+3. In the **Version** dropdown, select **New version**.
+4. Enter a description, e.g. `Accurate Progress, No Demotion & Safe Sanitization`.
+5. Ensure **Execute as** is `Me` and **Who has access** is `Anyone`.
+6. Click **Deploy**.
+7. Your existing Web App URL remains unchanged and now runs the latest logic!
+
+### Step 5.3: Clean Existing Database Fake 100% Cascade Progress
+To clean legacy fake 100% completions in existing Google Sheets database rows:
+- **Option A (From Apps Script Editor):**
+  1. In the function dropdown at the top, select `adminCleanAllFakeProgress`.
+  2. Click **Run**.
+  3. Inspect the Execution Log to view how many student records were sanitized.
+- **Option B (From Admin Portal UI):**
+  1. Log into the portal as Admin.
+  2. Go to **Student Directory** (`activeTab === 'admin-students'`).
+  3. Click **"🧹 Clean Database Fake 100%"**.
+  4. The system will sanitize the Google Sheets database live and refresh real student progress.
+

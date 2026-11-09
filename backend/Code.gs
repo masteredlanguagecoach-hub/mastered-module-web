@@ -385,34 +385,47 @@ function handleVerifyMclCode(data) {
   var userProgObj = {};
 
   for (var i = 1; i < rows.length; i++) {
-    var rowAdm = (rows[i][0] || "").toString().trim().toUpperCase();
-    var rowEmail = (rows[i][1] || "").toString().trim().toLowerCase();
+    var rowAdm = (rows[i][admCol] || "").toString().trim().toUpperCase();
+    var rowEmail = (rows[i][emailCol] || "").toString().trim().toLowerCase();
     var rowAdmClean = rowAdm.replace(/[^A-Z0-9]/g, "");
 
-    var isAdmMatch = cleanUserAdm && rowAdmClean && (cleanUserAdm === rowAdmClean || cleanUserAdm.indexOf(rowAdmClean) >= 0 || rowAdmClean.indexOf(cleanUserAdm) >= 0);
-    var isDecodedMatch = cleanDecodedAdm && rowAdmClean && (cleanDecodedAdm === rowAdmClean || cleanDecodedAdm.indexOf(rowAdmClean) >= 0 || rowAdmClean.indexOf(cleanDecodedAdm) >= 0);
+    var isAdmMatch = cleanUserAdm && rowAdmClean && (cleanUserAdm === rowAdmClean);
+    var isDecodedMatch = cleanDecodedAdm && rowAdmClean && (cleanDecodedAdm === rowAdmClean);
     var isEmailMatch = userEmail && rowEmail && (userEmail === rowEmail);
 
     if (isAdmMatch || isDecodedMatch || isEmailMatch) {
       rowIndex = i + 1;
-      var col2 = (rows[i][2] || "").toString().trim();
-      var col5 = (rows[i][5] || "").toString().trim();
-      if (col5 && col5.indexOf("{") >= 0) {
-        try { userProgObj = JSON.parse(col5); } catch(e) {}
-      } else if (col2 && col2.indexOf("{") >= 0) {
-        try { userProgObj = JSON.parse(col2); } catch(e) {}
+      var rawJson = jsonCol >= 0 ? (rows[i][jsonCol] || "").toString().trim() : "";
+      var rawCol2 = codeCol >= 0 ? (rows[i][codeCol] || "").toString().trim() : "";
+      if (rawJson && rawJson.indexOf("{") >= 0) {
+        try { userProgObj = JSON.parse(rawJson); } catch(e) {}
+      } else if (rawCol2 && rawCol2.indexOf("{") >= 0) {
+        try { userProgObj = JSON.parse(rawCol2); } catch(e) {}
       }
       break;
     }
   }
 
-  var modKey = "MOD-" + (decoded.mission < 10 ? "0" + decoded.mission : decoded.mission);
-  var currentModObj = userProgObj[modKey] || {};
+  var kPad = decoded.mission < 10 ? "0" + decoded.mission : "" + decoded.mission;
+  var modKey = "MOD-" + kPad;
+  var modKeyShort = "MOD-" + decoded.mission;
+  var hindKey = "HIND-MOD-" + kPad;
+  var hindKeyShort = "HIND-MOD-" + decoded.mission;
+  var currentModObj = userProgObj[modKey] || userProgObj[modKeyShort] || userProgObj[hindKey] || userProgObj[hindKeyShort] || {};
   var currentPct = Number(currentModObj.percentage) || 0;
 
   // Check 15: Never Reduce Progress Rule
   if (decoded.progress <= currentPct) {
     return { success: false, message: "NO NEW PROGRESS (Current progress: " + currentPct + "%)" };
+  }
+
+  // Detect course boundary (30 for Hindi, 32 for Malayalam)
+  var maxCourseModules = 32;
+  for (var k in userProgObj) {
+    if (k && k.indexOf("HIND-MOD-") === 0) {
+      maxCourseModules = 30;
+      break;
+    }
   }
 
   // Update Progress
@@ -421,10 +434,11 @@ function handleVerifyMclCode(data) {
   currentModObj.aiMissionCompleted = (decoded.progress >= 100);
   if (decoded.progress >= 100) {
     currentModObj.status = "COMPLETED";
-    // Unlock next mission
+    // Unlock next mission if within course bounds
     var nextModNum = decoded.mission + 1;
-    if (nextModNum <= 33) {
-      var nextModKey = "MOD-" + (nextModNum < 10 ? "0" + nextModNum : nextModNum);
+    if (nextModNum <= maxCourseModules) {
+      var nextModPad = nextModNum < 10 ? "0" + nextModNum : "" + nextModNum;
+      var nextModKey = "MOD-" + nextModPad;
       if (!userProgObj[nextModKey]) userProgObj[nextModKey] = {};
       userProgObj[nextModKey].unlocked = true;
     }
@@ -442,6 +456,12 @@ function handleVerifyMclCode(data) {
   });
 
   userProgObj[modKey] = currentModObj;
+  userProgObj[modKeyShort] = currentModObj;
+  userProgObj[hindKey] = currentModObj;
+  userProgObj[hindKeyShort] = currentModObj;
+  userProgObj.latestMissionLevel = decoded.mission;
+  userProgObj.latestProgress = decoded.progress;
+
   var updatedProgressStr = JSON.stringify(userProgObj);
   var now = new Date();
   var targetAdm = userAdm || decoded.admissionNumber;
@@ -1070,12 +1090,21 @@ function handleSaveStudentProgress(data) {
 
   var foundRow = -1;
   var existingObj = {};
+  var rowExistingLvl = 0;
+  var rowExistingProg = 0;
 
   for (var i = 1; i < rows.length; i++) {
     var rowAdm = (rows[i][admCol] || "").toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
     var rowEmail = (rows[i][emailCol] || "").toString().trim().toLowerCase();
     if ((admClean && rowAdm === admClean) || (email && rowEmail === email)) {
       foundRow = i + 1;
+      if (levelCol >= 0 && !isNaN(rows[i][levelCol])) {
+        var pLvl = parseInt(rows[i][levelCol], 10);
+        if (pLvl >= 1 && pLvl <= 32) rowExistingLvl = pLvl;
+      }
+      if (progCol >= 0 && !isNaN(rows[i][progCol])) {
+        rowExistingProg = Math.min(Math.max(parseInt(rows[i][progCol], 10) || 0, 0), 100);
+      }
       var rawJson = (rows[i][jsonCol] || "").toString().trim();
       if (rawJson && rawJson.indexOf("{") >= 0) {
         try { existingObj = JSON.parse(rawJson); } catch(e) {}
@@ -1083,6 +1112,10 @@ function handleSaveStudentProgress(data) {
       break;
     }
   }
+
+  // Sanitize incoming and existing progress to prevent persisting fake cascade completions
+  incomingObj = sanitizeStudentProgressMap(incomingObj);
+  existingObj = sanitizeStudentProgressMap(existingObj);
 
   // Monotonic deep merge: Always preserve the highest scores and achievements
   for (var mKey in incomingObj) {
@@ -1119,17 +1152,29 @@ function handleSaveStudentProgress(data) {
     }
   }
 
-  var finalProgressStr = JSON.stringify(existingObj);
+  var maxCourseModules = 32;
+  for (var k in existingObj) {
+    if (k && k.indexOf("HIND-MOD-") === 0) {
+      maxCourseModules = 30;
+      break;
+    }
+  }
 
   var highestLvl = 1;
   var highestProg = 0;
-  for (var m = 1; m <= 32; m++) {
-    var k = "MOD-" + (m < 10 ? "0" + m : m);
-    var mObj = existingObj[k] || existingObj["MOD-" + m];
+  for (var m = 1; m <= maxCourseModules; m++) {
+    var kPad = m < 10 ? "0" + m : "" + m;
+    var mObj = existingObj["MOD-" + kPad] || existingObj["MOD-" + m] || existingObj["HIND-MOD-" + kPad] || existingObj["HIND-MOD-" + m];
     if (mObj) {
       var pct = Number(mObj.percentage) || 0;
-      if (pct >= 100 && m < 32) {
-        if (m + 1 > highestLvl) highestLvl = m + 1;
+      if (pct >= 100 && m < maxCourseModules) {
+        if (m + 1 > highestLvl) {
+          highestLvl = m + 1;
+          highestProg = 0;
+        }
+      } else if (pct >= 100 && m >= maxCourseModules) {
+        highestLvl = maxCourseModules;
+        highestProg = pct;
       } else if (pct > 0 && m >= highestLvl) {
         highestLvl = m;
         highestProg = pct;
@@ -1137,12 +1182,20 @@ function handleSaveStudentProgress(data) {
     }
   }
 
-  if (data.latestLevel && Number(data.latestLevel) > highestLvl) {
-    highestLvl = Number(data.latestLevel);
+  // Preserve recorded level from incoming data, existing progress object, or sheet row
+  var directLvl = Number(data.latestLevel || data.latestMissionLevel || (data.userProgress && data.userProgress.latestMissionLevel) || existingObj.latestMissionLevel || rowExistingLvl) || 0;
+  var directProg = Number(data.latestProgress !== undefined ? data.latestProgress : ((data.userProgress && data.userProgress.latestProgress !== undefined) ? data.userProgress.latestProgress : (existingObj.latestProgress !== undefined ? existingObj.latestProgress : rowExistingProg))) || 0;
+  if (directLvl > highestLvl) {
+    highestLvl = directLvl;
+    highestProg = directProg;
+  } else if (directLvl === highestLvl) {
+    highestProg = Math.max(highestProg, directProg);
   }
-  if (data.latestMissionLevel && Number(data.latestMissionLevel) > highestLvl) {
-    highestLvl = Number(data.latestMissionLevel);
-  }
+
+  existingObj.latestMissionLevel = highestLvl;
+  existingObj.latestProgress = highestProg;
+
+  var finalProgressStr = JSON.stringify(existingObj);
 
   if (foundRow > 0) {
     sheet.getRange(foundRow, jsonCol + 1).setValue(finalProgressStr);
@@ -1153,6 +1206,49 @@ function handleSaveStudentProgress(data) {
     sheet.appendRow([adm, email, "", highestLvl, highestProg, finalProgressStr, now]);
   }
   return { success: true, userProgress: existingObj, latestLevel: highestLvl, latestMissionLevel: highestLvl, latestProgress: highestProg };
+}
+
+function sanitizeStudentProgressMap(progObj) {
+  if (!progObj || typeof progObj !== "object") return {};
+  var cleaned = Object.assign({}, progObj);
+  var activeRecordedLevel = Number(cleaned.latestMissionLevel || cleaned.missionLevel || cleaned.level || cleaned.latestLevel) || 0;
+  var activeRecordedProg = Number(cleaned.latestProgress !== undefined ? cleaned.latestProgress : (cleaned.codeProgress !== undefined ? cleaned.codeProgress : (cleaned.latestCodeProgress !== undefined ? cleaned.latestCodeProgress : (cleaned.progress !== undefined ? cleaned.progress : 0)))) || 0;
+
+  for (var m = 1; m <= 32; m++) {
+    var kPad = m < 10 ? "0" + m : "" + m;
+    var keys = ["MOD-" + kPad, "MOD-" + m, "HIND-MOD-" + kPad, "HIND-MOD-" + m];
+    for (var ki = 0; ki < keys.length; ki++) {
+      var k = keys[ki];
+      var mObj = cleaned[k];
+      if (mObj && typeof mObj === "object") {
+        var copyObj = Object.assign({}, mObj);
+        var pct = Number(copyObj.percentage) || 0;
+        var hasQuiz = (copyObj.quizScores && typeof copyObj.quizScores === "object" && Object.keys(copyObj.quizScores).length > 0);
+        var hasProof = Boolean(copyObj.aiMissionProof);
+        var hasPractice = (Number(copyObj.verifiedSentences) > 0);
+        var isRecordedActive = (m === activeRecordedLevel && activeRecordedProg >= 100);
+
+        if (pct >= 100 && !hasQuiz && !hasProof && !hasPractice && !isRecordedActive) {
+          copyObj.percentage = 0;
+          copyObj.aiMissionCompleted = false;
+          copyObj.status = "NOT_STARTED";
+          copyObj.verifiedSentences = 0;
+        } else {
+          copyObj.percentage = pct;
+          copyObj.aiMissionCompleted = (pct >= 100);
+          if (pct >= 100) {
+            copyObj.status = "COMPLETED";
+          } else if (pct > 0) {
+            copyObj.status = "IN_PROGRESS";
+          } else {
+            copyObj.status = "NOT_STARTED";
+          }
+        }
+        cleaned[k] = copyObj;
+      }
+    }
+  }
+  return cleaned;
 }
 
 function extractStudentProgressFromRow(row, headers, stripProofs) {
@@ -1230,13 +1326,13 @@ function extractStudentProgressFromRow(row, headers, stripProofs) {
         foundProgress = Math.min(Math.max(decoded.progress || 0, 0), 100);
       }
     } else {
-      var mMatch = foundMclCode.match(/(?:MCL|LEVEL|MOD)?[-_\s]*0*(\d{1,2})[-_\s]*0*(\d{1,3})/i);
+      var mMatch = foundMclCode.match(/(?:MCL|LEVEL|MOD)[-_\s]*0*(\d{1,2})(?:[-_\s]+0*(\d{1,3}))?/i);
       if (mMatch) {
         var rLvl = parseInt(mMatch[1], 10);
-        var rProg = parseInt(mMatch[2], 10);
-        if (rLvl >= 1 && rLvl <= 32 && rLvl > foundLevel) {
+        var rProg = mMatch[2] ? parseInt(mMatch[2], 10) : undefined;
+        if (rLvl >= 1 && rLvl <= 32 && rLvl >= foundLevel) {
           foundLevel = rLvl;
-          var rawProgVal = (rProg !== undefined && rProg !== null && !isNaN(rProg)) ? Number(rProg) : 100;
+          var rawProgVal = (rProg !== undefined && rProg !== null && !isNaN(rProg)) ? Number(rProg) : 0;
           foundProgress = Math.min(Math.max(rawProgVal, 0), 100);
         }
       }
@@ -1246,21 +1342,31 @@ function extractStudentProgressFromRow(row, headers, stripProofs) {
   // 5. If progObj has no modules yet and foundLevel is recorded, populate THAT SINGLE level only. NEVER synthesize fake 100% for other modules!
   var hasModules = false;
   for (var k in progObj) {
-    if (k && k.indexOf("MOD-") === 0) {
+    if (k && (k.indexOf("MOD-") === 0 || k.indexOf("HIND-MOD-") === 0)) {
       hasModules = true;
       break;
     }
   }
 
-  if (!hasModules && foundLevel >= 1 && foundLevel <= 32) {
-    var singleKey = "MOD-" + (foundLevel < 10 ? "0" + foundLevel : foundLevel);
+  if (foundLevel >= 1 && foundLevel <= 32) {
     var p = (foundProgress !== null && foundProgress !== undefined) ? foundProgress : 0;
-    progObj[singleKey] = {
-      percentage: p,
-      aiMissionCompleted: (p >= 100),
-      status: (p >= 100 ? "COMPLETED" : (p > 0 ? "IN_PROGRESS" : "NOT_STARTED"))
-    };
+    if (!hasModules) {
+      var singleKey = "MOD-" + (foundLevel < 10 ? "0" + foundLevel : foundLevel);
+      var singleKeyShort = "MOD-" + foundLevel;
+      var singleObj = {
+        percentage: p,
+        aiMissionCompleted: (p >= 100),
+        status: (p >= 100 ? "COMPLETED" : (p > 0 ? "IN_PROGRESS" : "NOT_STARTED"))
+      };
+      progObj[singleKey] = singleObj;
+      progObj[singleKeyShort] = singleObj;
+    }
+    progObj.latestMissionLevel = foundLevel;
+    progObj.latestProgress = p;
   }
+
+  // Strict sanitization: Eliminate any fake cascade 100% completions where module has no quiz, no proof, and no verifiedSentences
+  progObj = sanitizeStudentProgressMap(progObj);
 
   // Strict integrity check on all modules in progObj:
   // aiMissionCompleted is ONLY true if percentage is >= 100
@@ -1311,30 +1417,53 @@ function handleGetStudentProgress(data) {
 
   var progObj = {};
 
+  var foundRowLevel = 0;
+  var foundRowProg = 0;
   for (var i = 1; i < rows.length; i++) {
     var row = rows[i];
     var rowAdm = (row[admCol] || "").toString().trim().toUpperCase();
     var rowEmail = (row[emailCol] || "").toString().trim().toLowerCase();
     var rowAdmClean = rowAdm.replace(/[^A-Z0-9]/g, "");
 
-    var isAdmMatch = admClean && rowAdmClean && (admClean === rowAdmClean || admClean.indexOf(rowAdmClean) >= 0 || rowAdmClean.indexOf(admClean) >= 0);
+    var isAdmMatch = admClean && rowAdmClean && (admClean === rowAdmClean);
     var isEmailMatch = email && rowEmail && (email === rowEmail);
 
     if (isAdmMatch || isEmailMatch) {
+      var levelCol = findColumnIndex(headers, ["latestmissionlevel", "missionlevel", "level"]);
+      if (levelCol >= 0 && !isNaN(row[levelCol])) {
+        var parsedL = parseInt(row[levelCol], 10);
+        if (parsedL >= 1 && parsedL <= 32) foundRowLevel = parsedL;
+      }
+      var progCol = findColumnIndex(headers, ["latestcodeprogress", "codeprogress", "progress"]);
+      if (progCol >= 0 && !isNaN(row[progCol])) {
+        var parsedP = parseInt(row[progCol], 10);
+        if (parsedP >= 0 && parsedP <= 100) foundRowProg = parsedP;
+      }
       progObj = extractStudentProgressFromRow(row, headers, false); // Single student gets full proof
+      break;
+    }
+  }
+
+  var maxCourseModules = 32;
+  for (var k in progObj) {
+    if (k && k.indexOf("HIND-MOD-") === 0) {
+      maxCourseModules = 30;
       break;
     }
   }
 
   var highestLvl = 0;
   var highestProg = 0;
-  for (var m = 1; m <= 32; m++) {
-    var k = "MOD-" + (m < 10 ? "0" + m : m);
-    var mObj = progObj[k] || progObj["MOD-" + m];
+  for (var m = 1; m <= maxCourseModules; m++) {
+    var kPad = m < 10 ? "0" + m : "" + m;
+    var mObj = progObj["MOD-" + kPad] || progObj["MOD-" + m] || progObj["HIND-MOD-" + kPad] || progObj["HIND-MOD-" + m];
     if (mObj) {
       var pct = Number(mObj.percentage) || 0;
-      if (pct >= 100 && m < 32) {
+      if (pct >= 100 && m < maxCourseModules) {
         if (m + 1 > highestLvl) highestLvl = m + 1;
+      } else if (pct >= 100 && m >= maxCourseModules) {
+        highestLvl = maxCourseModules;
+        highestProg = pct;
       } else if (pct > 0 && m >= highestLvl) {
         highestLvl = m;
         highestProg = pct;
@@ -1342,11 +1471,22 @@ function handleGetStudentProgress(data) {
     }
   }
 
+  var effectiveLvl = Math.max(highestLvl || 1, foundRowLevel || 1);
+  var effectiveProg = highestProg;
+  if (foundRowLevel > highestLvl) {
+    effectiveProg = foundRowProg;
+  } else if (foundRowLevel === highestLvl) {
+    effectiveProg = Math.max(highestProg, foundRowProg);
+  }
+
+  progObj.latestMissionLevel = effectiveLvl;
+  progObj.latestProgress = effectiveProg;
+
   return {
     success: true,
     userProgress: progObj,
-    latestLevel: highestLvl || 1,
-    latestProgress: highestProg || 0
+    latestLevel: effectiveLvl,
+    latestProgress: effectiveProg
   };
 }
 
@@ -1441,71 +1581,120 @@ function handleAdminCleanAllFakeProgress() {
     var validMclMission = (decoded && decoded.success && decoded.mission >= 1 && decoded.mission <= 32) ? decoded.mission : 0;
     var validMclProgress = (decoded && decoded.success) ? Math.min(Math.max(decoded.progress || 0, 0), 100) : 0;
 
-    // First scan: Detect if student was infected by fake 100% cascade
+    if (!validMclMission && rowMclCode) {
+      var mMatch = rowMclCode.match(/(?:MCL|LEVEL|MOD)[-_\s]*0*(\d{1,2})(?:[-_\s]+0*(\d{1,3}))?/i);
+      if (mMatch) {
+        var rLvl = parseInt(mMatch[1], 10);
+        var rProg = mMatch[2] ? parseInt(mMatch[2], 10) : 0;
+        if (rLvl >= 1 && rLvl <= 32) {
+          validMclMission = rLvl;
+          validMclProgress = Math.min(Math.max(rProg, 0), 100);
+        }
+      }
+    }
+    if (!validMclMission && levelCol >= 0 && !isNaN(rows[i][levelCol])) {
+      var pLvl = parseInt(rows[i][levelCol], 10);
+      if (pLvl >= 1 && pLvl <= 32) {
+        validMclMission = pLvl;
+        if (progCol >= 0 && !isNaN(rows[i][progCol])) {
+          validMclProgress = Math.min(Math.max(parseInt(rows[i][progCol], 10) || 0, 0), 100);
+        }
+      }
+    }
+
+    // First scan: Detect if student was infected by fake 100% cascade (inspect each module once, avoiding alias multi-count)
     var fake100Count = 0;
     var total100Count = 0;
     for (var m = 1; m <= 32; m++) {
-      var k = "MOD-" + (m < 10 ? "0" + m : m);
-      var mObj = progObj[k] || progObj["MOD-" + m];
-      if (mObj && typeof mObj === "object") {
-        var pct = Number(mObj.percentage) || 0;
-        var hasQuiz = (mObj.quizScores && typeof mObj.quizScores === "object" && Object.keys(mObj.quizScores).length > 0);
-        var hasProof = Boolean(mObj.aiMissionProof);
+      var kPad = m < 10 ? "0" + m : "" + m;
+      var mCheckObj = progObj["MOD-" + kPad] || progObj["MOD-" + m] || progObj["HIND-MOD-" + kPad] || progObj["HIND-MOD-" + m];
+      if (mCheckObj && typeof mCheckObj === "object") {
+        var pct = Number(mCheckObj.percentage) || 0;
+        var hasQuiz = (mCheckObj.quizScores && typeof mCheckObj.quizScores === "object" && Object.keys(mCheckObj.quizScores).length > 0);
+        var hasProof = Boolean(mCheckObj.aiMissionProof);
+        var hasPractice = (Number(mCheckObj.verifiedSentences) > 0);
+        var isMclActive = (m === validMclMission && validMclProgress >= 100);
         if (pct >= 100) {
           total100Count++;
-          if (!hasQuiz && !hasProof && m !== validMclMission) {
+          if (!hasQuiz && !hasProof && !hasPractice && !isMclActive) {
             fake100Count++;
           }
         }
       }
     }
 
-    var isCascadeInfected = (fake100Count >= 2 || total100Count >= 5);
-
     for (var m = 1; m <= 32; m++) {
-      var k = "MOD-" + (m < 10 ? "0" + m : m);
-      var mObj = progObj[k] || progObj["MOD-" + m];
-      if (!mObj || typeof mObj !== "object") continue;
+      var kPad = m < 10 ? "0" + m : "" + m;
+      var modKeys = ["MOD-" + kPad, "MOD-" + m, "HIND-MOD-" + kPad, "HIND-MOD-" + m];
+      for (var mki = 0; mki < modKeys.length; mki++) {
+        var k = modKeys[mki];
+        var mObj = progObj[k];
+        if (!mObj || typeof mObj !== "object") continue;
 
-      var pct = Number(mObj.percentage) || 0;
-      var hasQuiz = (mObj.quizScores && typeof mObj.quizScores === "object" && Object.keys(mObj.quizScores).length > 0);
-      var hasProof = Boolean(mObj.aiMissionProof);
-      var isMclActive = (m === validMclMission);
+        var pct = Number(mObj.percentage) || 0;
+        var hasQuiz = (mObj.quizScores && typeof mObj.quizScores === "object" && Object.keys(mObj.quizScores).length > 0);
+        var hasProof = Boolean(mObj.aiMissionProof);
+        var isMclActive = (m === validMclMission && validMclProgress >= 100);
+        var hasPractice = (Number(mObj.verifiedSentences) > 0);
 
-      // Clean fake 100% completions
-      if (isCascadeInfected && !hasQuiz && !hasProof && !isMclActive) {
-        if (pct > 0 || mObj.aiMissionCompleted || mObj.status === "COMPLETED") {
-          mObj.percentage = 0;
-          mObj.aiMissionCompleted = false;
-          mObj.status = "NOT_STARTED";
-          mObj.verifiedSentences = 0;
-          changed = true;
+        // Clean fake 100% completions strictly; NEVER wipe legitimate partial progress (< 100%)
+        if (pct >= 100 && !hasQuiz && !hasProof && !isMclActive && !hasPractice) {
+          if (pct > 0 || mObj.aiMissionCompleted || mObj.status === "COMPLETED") {
+            mObj.percentage = 0;
+            mObj.aiMissionCompleted = false;
+            mObj.status = "NOT_STARTED";
+            mObj.verifiedSentences = 0;
+            changed = true;
+          }
+        } else {
+          // Enforce strict rule: aiMissionCompleted is ONLY true if pct >= 100
+          var shouldBeCompleted = (pct >= 100);
+          if (mObj.aiMissionCompleted !== shouldBeCompleted) {
+            mObj.aiMissionCompleted = shouldBeCompleted;
+            changed = true;
+          }
+          if (pct >= 100) {
+            if (mObj.status !== "COMPLETED") {
+              mObj.status = "COMPLETED";
+              changed = true;
+            }
+          } else if (pct > 0) {
+            if (mObj.status !== "IN_PROGRESS") {
+              mObj.status = "IN_PROGRESS";
+              changed = true;
+            }
+          } else {
+            if (mObj.status !== "NOT_STARTED") {
+              mObj.status = "NOT_STARTED";
+              changed = true;
+            }
+          }
         }
-      } else {
-        // Enforce strict rule: aiMissionCompleted is ONLY true if pct >= 100
-        var shouldBeCompleted = (pct >= 100);
-        if (mObj.aiMissionCompleted !== shouldBeCompleted) {
-          mObj.aiMissionCompleted = shouldBeCompleted;
-          changed = true;
-        }
-        if (pct >= 100 && mObj.status !== "COMPLETED") {
-          mObj.status = "COMPLETED";
-          changed = true;
-        }
+        progObj[k] = mObj;
       }
-      progObj[k] = mObj;
     }
 
-    // Recompute real highest level and progress
+    // Recompute real highest level and progress respecting course boundary
+    var maxCourseModules = 32;
+    for (var k in progObj) {
+      if (k && k.indexOf("HIND-MOD-") === 0) {
+        maxCourseModules = 30;
+        break;
+      }
+    }
+
     var trueHighestLvl = 1;
     var trueHighestProg = 0;
-    for (var m = 1; m <= 32; m++) {
-      var k = "MOD-" + (m < 10 ? "0" + m : m);
-      var mObj = progObj[k];
+    for (var m = 1; m <= maxCourseModules; m++) {
+      var kPad = m < 10 ? "0" + m : "" + m;
+      var mObj = progObj["MOD-" + kPad] || progObj["MOD-" + m] || progObj["HIND-MOD-" + kPad] || progObj["HIND-MOD-" + m];
       if (mObj) {
         var p = Number(mObj.percentage) || 0;
-        if (p >= 100 && m < 32) {
+        if (p >= 100 && m < maxCourseModules) {
           if (m + 1 > trueHighestLvl) trueHighestLvl = m + 1;
+        } else if (p >= 100 && m >= maxCourseModules) {
+          trueHighestLvl = maxCourseModules;
+          trueHighestProg = p;
         } else if (p > 0 && m >= trueHighestLvl) {
           trueHighestLvl = m;
           trueHighestProg = p;
@@ -1513,10 +1702,17 @@ function handleAdminCleanAllFakeProgress() {
       }
     }
 
-    if (validMclMission > 0 && validMclMission >= trueHighestLvl) {
-      trueHighestLvl = validMclMission;
-      trueHighestProg = validMclProgress;
+    if (validMclMission > 0) {
+      if (validMclMission > trueHighestLvl) {
+        trueHighestLvl = validMclMission;
+        trueHighestProg = validMclProgress;
+      } else if (validMclMission === trueHighestLvl) {
+        trueHighestProg = Math.max(trueHighestProg, validMclProgress);
+      }
     }
+
+    progObj.latestMissionLevel = trueHighestLvl;
+    progObj.latestProgress = trueHighestProg;
 
     if (changed) {
       var cleanJsonStr = JSON.stringify(progObj);
@@ -1607,23 +1803,34 @@ function handleSubmitQuizScore(data) {
       }
     }
 
-    var modKey = "MOD-" + (modNum < 10 ? "0" + modNum : "" + modNum);
-    if (!currentProgObj[modKey]) currentProgObj[modKey] = { percentage: 0 };
-    if (!currentProgObj[modKey].quizScores) currentProgObj[modKey].quizScores = {};
+    var kPad = modNum < 10 ? "0" + modNum : "" + modNum;
+    var modKey = "MOD-" + kPad;
+    var modKeyShort = "MOD-" + modNum;
+    var hindKey = "HIND-MOD-" + kPad;
+    var hindKeyShort = "HIND-MOD-" + modNum;
 
-    var existingQ = currentProgObj[modKey].quizScores[modNum] || {};
+    var existingMod = currentProgObj[modKey] || currentProgObj[modKeyShort] || currentProgObj[hindKey] || currentProgObj[hindKeyShort] || { percentage: 0 };
+    if (!existingMod.quizScores) existingMod.quizScores = {};
+
+    var existingQ = existingMod.quizScores[modNum] || {};
     var existingPct = Number(existingQ.percentage) || 0;
     var finalPct = Math.max(existingPct, pct);
     var finalScore = (finalPct === pct) ? score : (existingQ.score !== undefined ? existingQ.score : score);
     var finalTotal = (finalPct === pct) ? total : (existingQ.total !== undefined ? existingQ.total : total);
 
-    currentProgObj[modKey].quizScores[modNum] = {
+    var quizScoreObj = {
       score: finalScore,
       total: finalTotal,
       percentage: finalPct,
       passed: finalPct >= 70,
       date: now.toISOString()
     };
+    existingMod.quizScores[modNum] = quizScoreObj;
+
+    currentProgObj[modKey] = existingMod;
+    currentProgObj[modKeyShort] = existingMod;
+    currentProgObj[hindKey] = existingMod;
+    currentProgObj[hindKeyShort] = existingMod;
 
     var progJson = JSON.stringify(currentProgObj);
 
@@ -1714,6 +1921,8 @@ function handleAdminGetStudents() {
     var cleanAdmKey = adm.toUpperCase().replace(/[^A-Z0-9]/g, "");
     var cleanEmailKey = sEmail.toLowerCase();
     var stdProg = progMap[cleanAdmKey] || progMap[cleanEmailKey] || progMap[adm.toUpperCase()] || {};
+    var sLvl = Number(stdProg.latestMissionLevel || stdProg.level || stdProg.missionLevel) || 0;
+    var sProg = Number(stdProg.latestProgress || stdProg.progress || stdProg.latestCodeProgress) || 0;
 
     list.push({
       studentId: stdId,
@@ -1727,7 +1936,9 @@ function handleAdminGetStudents() {
       status: sStatus,
       createdDate: sDate,
       activeDeviceToken: sToken,
-      userProgress: stdProg
+      userProgress: stdProg,
+      latestMissionLevel: sLvl,
+      latestProgress: sProg
     });
   }
 
