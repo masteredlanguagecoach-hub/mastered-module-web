@@ -1,107 +1,94 @@
-# Project: 32-Mission Bilingual Quiz Re-Creation and Portal Integration
+# Project: Mastered Language Coach - Persistence, Session, Data & Thermal Optimization
 
 ## Architecture
-- **Frontend SPA**: `index.html` (React 18 via Babel Standalone, Tailwind CSS).
-  - `StudentQuizView`: Component for question presentation, multiple-choice selection, timer, hints (`questionMl`, `questionHindi`), scoring, and answer review.
-  - `StudentQuizzesHub`: Mission selection grid displaying module cards and quiz scores for all 32 missions in Malayalam and Hindi modes.
-  - Active bank state: `window.ACTIVE_QUIZ_BANK`, `window.QUIZ_BANK`, `window.HINDI_QUIZ_BANK`.
-- **Quiz Data Banks**:
-  - `assets/quizData.js`: `QUIZ_BANK` containing 32 mission keys (`"1"` to `"32"`), each with exactly 30 questions (960 questions total). Schema: `{ id: 1..30, question: string, questionMl: string, options: [string x 4], correctIndex: 0..3 }`.
-  - `assets/hindiQuizData.js`: `HINDI_QUIZ_BANK` containing 32 mission keys (`"1"` to `"32"`), each with exactly 30 questions (960 questions total). Schema: `{ id: 1..30, question: string, questionHindi: string, options: [string x 4], correctIndex: 0..3 }`.
-- **Curriculum & Specification Source of Truth**:
-  - `C:\Users\user\Downloads\Missions.pdf.pdf` & `assets/aiCoach/curriculum.js` (`OFFICIAL_CURRICULUM`): 32 missions with objectives, situations, grammar foci, speaking topics, starter prompts.
-  - Synthesized Specification: `.agents/teamwork/teamwork_spec_miner_survey_missions/spec_report.md`.
-- **Data Flow**:
-  1. Student selects Mission (1 to 32) and language mode (Malayalam vs Hindi).
-  2. `index.html` pulls the 30 mission questions from `QUIZ_BANK[missionId]` or `HINDI_QUIZ_BANK[missionId]`.
-  3. UI displays question text, vernacular hint (`questionMl` or `questionHindi`), and 4 randomized/labeled options A, B, C, D.
-  4. On submission, `calculateScore()` checks `userAnswers[idx] === q.correctIndex`, calculates percentage, and renders feedback.
-  5. Monotonic score saved to `localStorage` and synced to Google Sheets via `callAppsScript('submitQuizScore')`.
+- **Frontend Web Application**: `index.html` (React 18 via Babel Standalone, Tailwind CSS, Web Speech API).
+  - Authentication & Session: `safeStorage` abstraction managing `localStorage` and `sessionStorage`, `currentUser` state, `handleLogout`.
+  - Student Dashboard & Views: Student profile, mission selection grid (32 Malayalam / 30 Hindi modules), History Modal, Admin Table.
+  - Voice Coach Call: `AiMissionPromptModal`, Coach Sarah audio loop (`assets/aiCoach/speech.js`), conversation state machine (`assets/aiCoach/engine.js`), visualizer (`assets/aiCoach/ui.js`).
+  - Network & Sync: `callAppsScript` communicating with Google Apps Script Web App endpoint, offline sync queue.
+- **Backend Service**: `backend/Code.gs` (Google Apps Script Web App).
+  - Actions: `saveStudentProgress`, `updateProgress`, `getStudentProgress`, `getAllStudentProgress`, `getStudents`, `submitQuizScore`, `verifyMclCode`.
+  - Storage: Google Sheets ("StudentProgress", "ApprovedStudents", "QuizScores").
+- **Secondary React SPA**: `src/App.tsx`, `src/services/googleSheetsService.ts` (Admin / student directory portal).
 
 ---
 
 ## Feature Inventory
 | # | Feature | Description | Milestone | Source |
 |---|---------|-------------|-----------|--------|
-| F1 | Authoritative 32-Mission Curriculum Specification | Extract and document all 32 missions, objectives, situations, grammar, vocabulary | Survey | `Missions.pdf`, `curriculum.js` |
-| F2 | Mission-Aligned Malayalam Quiz Bank (960 Qs) | 32 missions x 30 questions in `assets/quizData.js` matching `QUIZ_BANK` schema, fixing M19-21 option corruption and M27 Q30 correctIndex | M1 | R1, Survey |
-| F3 | Mission-Aligned Hindi Quiz Bank (960 Qs) | 32 missions x 30 questions in `assets/hindiQuizData.js` matching `HINDI_QUIZ_BANK` schema, adding missing M31-M32, eliminating 99.6% Option A bias | M2 | R2, Survey |
-| F4 | Dual Environment Export Compatibility | Support both browser (`window.QUIZ_BANK` / `window.HINDI_QUIZ_BANK`) and Node.js (`module.exports`) in both quiz files | M1, M2 | Survey, R4 |
-| F5 | Portal Vernacular Hint & Review Rendering | Support `{currentQ.questionHindi || currentQ.questionMl}` in `StudentQuizView` active view and answer review in `index.html` | M3 | R3, Survey |
-| F6 | Portal Active Bank Fallback Precedence | Resolve `window.ACTIVE_QUIZ_BANK` fallback race condition in `index.html` to prevent accidental Hindi defaulting for Malayalam students | M3 | R3, Survey |
-| F7 | Portal 32-Mission Support for Hindi Mode | Extend `assets/hindiModulesData.js` or `index.html` to ensure missions 31 and 32 are fully accessible in Hindi mode | M3 | R3, Survey |
-| F8 | Automated Standalone Verification Test Suite | Standalone script (`scratch/verify_quizzes.cjs`) validating all 1,920 questions, schemas, IDs, bounds, and distributions | Final | R4 |
-| F9 | E2E Dual-Track Testing & Adversarial Hardening | Comprehensive 4-tier opaque-box E2E test suite (`scratch/test_e2e_quiz_portal.cjs`) + Tier 5 adversarial stress testing | Final | Project Pattern |
+| F1 | Permanent Session Persistence in `localStorage` | Re-enable `localStorage` read/write in `safeStorage` for `mastered_user_session`, eliminating tab-close/sleep logouts | M1 | R2, Survey 2 |
+| F2 | Removal of Startup LocalStorage Purge | Eliminate destructive `localStorage.removeItem('mastered_user_session')` and progress wipe on app boot | M1 | R2, Survey 2 |
+| F3 | Seamless Auth State Initialization | Initialize `currentUser` synchronously from stored session to eliminate login flash and `'MTR777'` fallbacks | M1 | R2, Survey 2 |
+| F4 | In-Progress Work Retention | Retain active quiz drafts (`mastered_quiz_session_mod_*`), selected mission, and speech turns across reloads/sleep | M1 | R2, Survey 2 |
+| F5 | Functional Explicit Sign Out | Ensure `handleLogout` cleanly purges all session keys from both `sessionStorage` and `localStorage` | M1 | R2, Survey 2 |
+| F6 | Student-Scoped Progress Queries | Strictly query student's own progress (`getStudentProgress&admissionNumber=...`, ~4.3 KB) instead of all students (13.77 MB) | M2 | R3, Survey 3 |
+| F7 | Redundant Student Polling Elimination | Eliminate periodic student background polling (set from 120s to 0s) in favor of on-demand/event-driven sync | M2 | R3, Survey 3 |
+| F8 | Admin Polling & Network Throttling | Throttle Admin polling to 30s-60s with `visibilityState` guards; gate `fetchAllStudents` in `src/App.tsx` behind Admin | M2 | R3, Survey 3 |
+| F9 | Lazy-Loaded Media & Assets | Apply `loading="lazy"` to module thumbnails and lazy-load audio/video assets on demand | M2 | R3, Survey 3 |
+| F10 | Audio Visualizer Decoupled from React State | Remove 60-120 FPS `setVoiceAudioLevel` re-render loop; update 12 waveform bars directly via DOM refs or 10 FPS isolated component | M3 | R4, Survey 3 |
+| F11 | Speech Loop Circuit Breakers | Cap rapid SpeechRecognition restarts and implement exponential backoff on unrecoverable speech errors | M3 | R4, Survey 3 |
+| F12 | Background Mic & Audio Context Suspension | Listen to `visibilitychange` to pause AudioContext and mic hardware when tab is hidden or screen is locked | M3 | R4, Survey 3 |
+| F13 | Duplicate Startup Hook Cleanup | Deduplicate redundant startup `useEffect` hooks fetching cloud progress in `index.html` | M3 | R4, Survey 3 |
+| F14 | Safe Database Sync on End Session | Fix `TypeError` in `syncVoiceProgressToDatabase` (`index.html:1971`) with safe fallback chain `(cleanAdm || rawAdm || email)` | M4 | R1, Survey 1 |
+| F15 | End Session Duplicate POST Race Elimination | Prevent concurrent POST requests from `engine.js` `saveHandler` and `handleEndCall` via an in-flight save mutex | M4 | R1, Survey 1 |
+| F16 | In-Flight Fetch Keepalive & Unload Beacon | Add `{ keepalive: true }` to `fetch()` in `callAppsScript` and add `navigator.sendBeacon` fallback on page unload | M4 | R1, Survey 1 |
+| F17 | Persistent Offline Sync Queue | Store failed or timed-out progress saves in `mastered_pending_sync_queue` and auto-retry on network reconnection | M4 | R1, Survey 1 |
+| F18 | Dashboard, History & Admin View Sync | Harmonize course length divisor (30 for Hindi, 32 for Malayalam) and direct progress fallback across all 3 views | M4 | R1, Survey 1 |
+| F19 | Backend Concurrency Locks & Active `updateProgress` | Implement `LockService` in `backend/Code.gs` write actions, activate `handleUpdateProgress`, and fix aggressive sanitizer | M4 | R1, R5, Survey 1 |
+| F20 | Automated Scratch Verification & GAS Instructions | Ensure all automated tests in `scratch/` pass cleanly and document exact GAS deployment steps | Final | R5, All |
 
 ---
 
 ## Milestones
 | # | Name | Scope | Dependencies | Status |
 |---|------|-------|-------------|--------|
-| M1 | Mission-Aligned Malayalam Quiz Bank | F2, F4: Re-create 960 questions for 32 missions in `assets/quizData.js` | none | DONE |
-| M2 | Mission-Aligned Hindi Quiz Bank | F3, F4: Re-create 960 questions for 32 missions in `assets/hindiQuizData.js` | none | IN_PROGRESS |
-| M3 | Web Portal Integration & Error Fixing | F5, F6, F7: Fix `index.html` and `assets/hindiModulesData.js` for 32 missions | none | IN_PROGRESS |
-| Final | 100% Verification Pass & Adversarial Hardening | F8, F9: Phase 1 (1,920 questions verification + Tiers 1-4 E2E) + Phase 2 (Tier 5 adversarial hardening) | M1, M2, M3 | PLANNED |
+| M1 | Permanent Session Persistence & Data Retention | F1, F2, F3, F4, F5: `safeStorage` in `localStorage`, remove boot purge, synchronous auth restore, in-progress draft retention, clean sign-out | none | DONE |
+| M2 | Network Data Consumption & Polling Optimization | F6, F7, F8, F9: 0s student polling, single-student queries, Admin poll throttling, lazy media assets | none | DONE |
+| M3 | Device Performance & Thermal Optimization | F10, F11, F12, F13: Decouple 60-120 FPS audio visualizer, speech loop circuit breaker, background mic suspension | none | DONE |
+| M4 | Reliable Database Persistence on End Session & View Sync | F14, F15, F16, F17, F18, F19: End session sync fix, concurrency mutex, keepalive/beacon, offline queue, view math harmonization, `backend/Code.gs` locks & updateProgress | M1 | DONE |
+| Final | 100% E2E Pass & Adversarial Hardening | F20: Clean pass across all `scratch/` test suites, adversarial validation, GAS deployment guide | M1, M2, M3, M4 | IN_PROGRESS (convId: 7a10bc45-a45e-4985-8c93-51b7a7d3af7c) |
 
 ---
 
 ## Interface Contracts
-### `assets/quizData.js` (`QUIZ_BANK`)
-- Structure: Object with string keys `"1"` through `"32"`.
-- Each key maps to an array of exactly 30 question objects.
-- Each question object conforms strictly to:
-  ```typescript
-  interface QuizQuestionMl {
-    id: number;           // Sequential integer 1 to 30
-    question: string;     // English sentence / question prompt
-    questionMl: string;   // Malayalam translation or contextual hint
-    options: string[];    // Exactly 4 options: ["A) ...", "B) ...", "C) ...", "D) ..."]
-    correctIndex: number; // Integer in range [0, 3]
-  }
-  ```
-- Export contract:
-  ```javascript
-  if (typeof window !== 'undefined') { window.QUIZ_BANK = QUIZ_BANK; }
-  if (typeof module !== 'undefined' && module.exports) { module.exports = { QUIZ_BANK }; }
-  ```
+### `safeStorage` Contract (`index.html`)
+- `getItem(key: string): string | null`:
+  - Checks `sessionStorage` first.
+  - If null, checks `localStorage`.
+  - Must NOT block `mastered_user_session`, `mastered_progress*`, `mastered_quiz_session*`.
+- `setItem(key: string, value: string): void`:
+  - Writes to `sessionStorage`.
+  - Also writes to `localStorage` for `mastered_user_session`, `mastered_progress*`, `mastered_quiz_session*`, `mastered_device_token`, `mastered_selected_mission*`, `mastered_conversation*`.
+- `removeItem(key: string): void`:
+  - Clears from both `sessionStorage` and `localStorage`.
 
-### `assets/hindiQuizData.js` (`HINDI_QUIZ_BANK`)
-- Structure: Object with string keys `"1"` through `"32"`.
-- Each key maps to an array of exactly 30 question objects.
-- Each question object conforms strictly to:
-  ```typescript
-  interface QuizQuestionHindi {
-    id: number;           // Sequential integer 1 to 30
-    question: string;     // English sentence / question prompt
-    questionHindi: string;// Hindi translation or contextual hint
-    options: string[];    // Exactly 4 options: ["A) ...", "B) ...", "C) ...", "D) ..."]
-    correctIndex: number; // Integer in range [0, 3]
-  }
-  ```
-- Export contract:
-  ```javascript
-  if (typeof window !== 'undefined') { window.HINDI_QUIZ_BANK = HINDI_QUIZ_BANK; }
-  if (typeof module !== 'undefined' && module.exports) { module.exports = { HINDI_QUIZ_BANK }; }
-  ```
+### Data Fetching Contract (`index.html`)
+- Student Clients:
+  - Must NEVER call `getAllStudentProgress` or `getStudents`.
+  - Must call `getStudentProgress&admissionNumber=${cleanAdm}` (~4.3 KB).
+  - Background polling interval: 0ms (no interval polling).
+- Admin Clients:
+  - Background polling interval: 30,000ms (30s) or higher.
+  - Polling gated by `document.visibilityState === 'visible'`.
 
-### `index.html` ↔ Quiz Banks
-- In Malayalam mode (`selectedCourse !== 'HIND TO ENG'`):
-  - Uses `window.QUIZ_BANK[missionId]`.
-  - Renders `questionMl` as contextual hint.
-- In Hindi mode (`selectedCourse === 'HIND TO ENG'`):
-  - Uses `window.HINDI_QUIZ_BANK[missionId]`.
-  - Renders `questionHindi` as contextual hint.
-- All 32 missions must be selectable and render without crashing.
-- Evaluation: `userAnswers[idx] === q.correctIndex`.
+### Audio Visualizer Contract (`assets/aiCoach/speech.js` & `index.html`)
+- Audio monitoring runs via Web Audio `AnalyserNode`.
+- Visualizer DOM updates MUST NOT trigger React state updates or component re-renders.
+- 12 visualizer bar elements updated directly via DOM element style properties or isolated, throttled (<=10 FPS) canvas/component.
+
+### End Session Database Save Contract (`index.html` ↔ `backend/Code.gs`)
+- Save Payload: `{ action: 'saveStudentProgress', admissionNumber: cleanAdm, email: userEmail, moduleNumber: num, percentage: pct, verifiedSentences: count, status: 'IN_PROGRESS' | 'COMPLETED', timestamp: ISOString }`
+- Mutex: Only one in-flight POST per student save.
+- Network transport: `fetch(url, { method: 'POST', keepalive: true, body: ... })` with `navigator.sendBeacon` fallback.
+- Backend: `LockService.getScriptLock().waitLock(15000)` ensures atomic read-modify-write on Google Sheets.
 
 ---
 
 ## Code Layout
-- `assets/quizData.js`: Malayalam quiz bank (owned by M1 Worker).
-- `assets/hindiQuizData.js`: Hindi quiz bank (owned by M2 Worker).
-- `index.html`: Web portal UI and quiz view (owned by M3 Worker).
-- `assets/hindiModulesData.js`: Hindi module metadata (owned by M3 Worker).
-- `scratch/verify_quizzes.cjs`: Standalone verification test script (owned by Verification / Final Worker).
-- `scratch/test_e2e_quiz_portal.cjs`: E2E 4-tier test runner (owned by E2E Test Writer).
-- `TEST_INFRA.md`: E2E testing framework specification (owned by E2E Test Writer).
-- `TEST_READY.md`: E2E test completion signal (owned by E2E Test Writer).
+- `index.html`: Main SPA (owned by M1 for auth/storage, M2 for polling/network, M3 for visualizer/thermal, M4 for end-session sync & dashboard math).
+- `assets/aiCoach/speech.js`: Audio pipeline & speech recognition (owned by M3 for visualizer decoupling, circuit breakers, visibility listeners).
+- `assets/aiCoach/engine.js`: Conversation state machine (owned by M4 for End Call saveHandler race elimination).
+- `assets/aiCoach/ui.js`: Visualizer UI helpers (owned by M3).
+- `src/App.tsx`: Secondary React app (owned by M2 for `fetchAllStudents` admin gating).
+- `backend/Code.gs`: Google Apps Script backend (owned by M4 for `LockService`, `handleUpdateProgress`, sanitizer fixes).
+- `scratch/`: Automated test scripts (read by all, maintained for verification).

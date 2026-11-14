@@ -126,54 +126,38 @@
     const safeStorage = {
       getItem: (key) => {
         try {
-          const sVal = sessionStorage.getItem(key);
-          if (sVal !== null) return sVal;
-          if (key && (key.startsWith('mastered_progress') || key.startsWith('mastered_all_students') || key.startsWith('mastered_approved') || key.startsWith('mastered_pending') || key.startsWith('mastered_quiz_session') || key.startsWith('mastered_user_session'))) {
-            return null;
-          }
-          return localStorage.getItem(key);
-        } catch(e) { return null; }
+          const lVal = localStorage.getItem(key);
+          if (lVal !== null && lVal !== undefined) return lVal;
+          return sessionStorage.getItem(key);
+        } catch(e) {
+          try { return sessionStorage.getItem(key); } catch(e2) { return null; }
+        }
       },
       setItem: (key, val) => {
         try {
+          localStorage.setItem(key, val);
           sessionStorage.setItem(key, val);
-          if (key === 'mastered_device_token') {
-            localStorage.setItem(key, val);
-          }
         } catch(e) {
           try {
             sessionStorage.setItem(key, val);
-          } catch(e2) {}
+          } catch(e2) {
+            try { localStorage.setItem(key, val); } catch(e3) {}
+          }
         }
       },
       removeItem: (key) => {
         try {
-          sessionStorage.removeItem(key);
           localStorage.removeItem(key);
+          sessionStorage.removeItem(key);
         } catch(e) {}
       },
       clear: () => {
         try {
-          sessionStorage.clear();
           localStorage.clear();
+          sessionStorage.clear();
         } catch(e) {}
       }
     };
-
-    // Purge legacy stale long-term student progress caches from localStorage on portal startup
-    try {
-      localStorage.removeItem('mastered_progress');
-      localStorage.removeItem('mastered_all_students_progress');
-      localStorage.removeItem('mastered_approved_students');
-      localStorage.removeItem('mastered_pending_requests');
-      localStorage.removeItem('mastered_user_session');
-      for (let i = localStorage.length - 1; i >= 0; i--) {
-        const k = localStorage.key(i);
-        if (k && (k.startsWith('mastered_progress') || k.startsWith('mastered_all_students') || k.startsWith('mastered_approved') || k.startsWith('mastered_pending') || k.startsWith('mastered_quiz_session') || k.startsWith('mastered_user_session'))) {
-          localStorage.removeItem(k);
-        }
-      }
-    } catch(e) {}
 
     // Transparent PNG Logo Asset
     const LOGO_SRC = "assets/logo.png";
@@ -216,6 +200,22 @@
       const scriptUrl = (typeof LIVE_APPS_SCRIPT_URL !== 'undefined' && LIVE_APPS_SCRIPT_URL) || "https://script.google.com/macros/s/AKfycbyTe-hZJIaev4qvK_aDR7ipOidSpJetZhwGC195ECn5lwVRiP4K-IL4sLXtopjAj8Ox/exec";
       if (!scriptUrl || scriptUrl.includes('undefined')) return { success: false, message: "AppsScript URL not configured" };
 
+      // Feature F6 Security & Bandwidth Guard: Students must NEVER fetch all students or global directory
+      if (action === 'getAllStudentProgress' || action === 'getStudents') {
+        let currentRole = null;
+        try {
+          const session = safeStorage.getItem('mastered_user_session');
+          if (session) {
+            const parsed = JSON.parse(session);
+            currentRole = parsed.role;
+          }
+        } catch(e) {}
+        if (currentRole === 'student') {
+          console.warn(`[Security/Bandwidth] Blocked student role from requesting ${action}`);
+          return { success: false, message: `Access denied: action ${action} not permitted for students` };
+        }
+      }
+
       // Build hybrid payload containing both top-level and nested properties
       const bodyObj = { action, payload, ...payload };
       const postBody = JSON.stringify(bodyObj);
@@ -257,11 +257,28 @@
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: postBody,
           redirect: "follow",
+          keepalive: true,
           signal: controller.signal
         });
         clearTimeout(timeoutId);
         const json = await response.json();
-        if (json && json.success !== undefined) return json;
+        if (json && json.success !== undefined) {
+          // Feature F17: Clean matching pending item from queue on successful save
+          if (action === 'saveStudentProgress' || action === 'updateProgress') {
+            try {
+              const rawQ = safeStorage.getItem('mastered_pending_sync_queue');
+              if (rawQ) {
+                const q = JSON.parse(rawQ);
+                if (Array.isArray(q)) {
+                  const filtered = q.filter(it => !(it.action === action && it.payload?.admissionNumber === payload?.admissionNumber && (!payload?.moduleNumber || it.payload?.moduleNumber === payload?.moduleNumber)));
+                  if (filtered.length > 0) safeStorage.setItem('mastered_pending_sync_queue', JSON.stringify(filtered));
+                  else safeStorage.removeItem('mastered_pending_sync_queue');
+                }
+              }
+            } catch(e) {}
+          }
+          return json;
+        }
       } catch(err) {
         console.warn(`POST fetch for ${action} warning:`, err);
       }
@@ -275,11 +292,81 @@
           const response = await fetch(getUrl, { method: "GET", redirect: "follow", signal: controller2.signal });
           clearTimeout(timeoutId2);
           const json = await response.json();
-          if (json && json.success !== undefined) return json;
+          if (json && json.success !== undefined) {
+            // Feature F17: Clean matching pending item on successful fallback
+            if (action === 'saveStudentProgress' || action === 'updateProgress') {
+              try {
+                const rawQ = safeStorage.getItem('mastered_pending_sync_queue');
+                if (rawQ) {
+                  const q = JSON.parse(rawQ);
+                  if (Array.isArray(q)) {
+                    const filtered = q.filter(it => !(it.action === action && it.payload?.admissionNumber === payload?.admissionNumber && (!payload?.moduleNumber || it.payload?.moduleNumber === payload?.moduleNumber)));
+                    if (filtered.length > 0) safeStorage.setItem('mastered_pending_sync_queue', JSON.stringify(filtered));
+                    else safeStorage.removeItem('mastered_pending_sync_queue');
+                  }
+                }
+              } catch(e) {}
+            }
+            return json;
+          }
         } catch(err) {}
       }
 
+      // Persistent Offline Queue: buffer failed progress saves if both attempts fail (Feature F17)
+      if (action === 'saveStudentProgress' || action === 'updateProgress') {
+        try {
+          const queue = JSON.parse(safeStorage.getItem('mastered_pending_sync_queue') || '[]');
+          queue.push({ action, payload, timestamp: new Date().toISOString() });
+          safeStorage.setItem('mastered_pending_sync_queue', JSON.stringify(queue));
+        } catch(e) {}
+      }
+
       return { success: false, message: "Network request timed out. Operating in fast local mode." };
+    }
+
+    // Automatic Offline Sync Queue Drain on Reconnection and App Boot (Feature F17)
+    async function drainOfflineSyncQueue() {
+      try {
+        const raw = safeStorage.getItem('mastered_pending_sync_queue');
+        if (!raw) return;
+        const queue = JSON.parse(raw);
+        if (!Array.isArray(queue) || queue.length === 0) return;
+        const remaining = [];
+        for (const item of queue) {
+          try {
+            const res = await callAppsScript(item.action, item.payload);
+            if (!res || !res.success) remaining.push(item);
+          } catch(e) {
+            remaining.push(item);
+          }
+        }
+        if (remaining.length > 0) {
+          safeStorage.setItem('mastered_pending_sync_queue', JSON.stringify(remaining));
+        } else {
+          safeStorage.removeItem('mastered_pending_sync_queue');
+        }
+      } catch(e) {}
+    }
+
+    if (typeof window !== 'undefined') {
+      window.drainOfflineSyncQueue = drainOfflineSyncQueue;
+      window.addEventListener('online', drainOfflineSyncQueue);
+
+      // Emergency unload beacon for pending sync items (Feature F16)
+      const handleEmergencyBeaconUnload = () => {
+        try {
+          const raw = safeStorage.getItem('mastered_pending_sync_queue');
+          if (raw && typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function' && LIVE_APPS_SCRIPT_URL) {
+            const queue = JSON.parse(raw);
+            if (Array.isArray(queue) && queue.length > 0) {
+              const latestItem = queue[queue.length - 1];
+              navigator.sendBeacon(LIVE_APPS_SCRIPT_URL, JSON.stringify(latestItem.payload || latestItem));
+            }
+          }
+        } catch(e) {}
+      };
+      window.addEventListener('pagehide', handleEmergencyBeaconUnload);
+      window.addEventListener('beforeunload', handleEmergencyBeaconUnload);
     }
 
     // Interactive Student Quiz Component
@@ -1174,7 +1261,7 @@
                 {/* Recording Viewport Box */}
                 <div className="bg-slate-900 rounded-2xl overflow-hidden aspect-video relative flex items-center justify-center text-white shadow-inner">
                   {recordedUrl ? (
-                    <video src={recordedUrl} controls className="w-full h-full object-cover" />
+                    <video src={recordedUrl} controls preload="none" className="w-full h-full object-cover" />
                   ) : mediaStream ? (
                     <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
                   ) : (
@@ -1308,7 +1395,7 @@
                     {graduation.videoUrl && (
                       <div className="aspect-video bg-slate-900 rounded-xl overflow-hidden shadow-inner">
                         {graduation.videoUrl.startsWith('data:video') || graduation.videoUrl.startsWith('blob:') ? (
-                          <video src={graduation.videoUrl} controls className="w-full h-full object-cover" />
+                          <video src={graduation.videoUrl} controls preload="none" className="w-full h-full object-cover" />
                         ) : (
                           <iframe src={graduation.videoUrl} className="w-full h-full border-0"></iframe>
                         )}
@@ -1438,10 +1525,17 @@
     // Deep Sanitizer: Removes synthetic/fake 100% cascade completions while strictly preserving real quiz submissions, uploaded proofs, and verified active level
     function sanitizeProgressMap(progMap) {
       if (!progMap || typeof progMap !== 'object') return {};
-      const cleaned = { ...progMap };
+      const cleaned = {};
 
-      const activeRecordedLevel = Number(cleaned.latestMissionLevel || cleaned.missionLevel || cleaned.level || cleaned.latestLevel) || 0;
-      const activeRecordedProg = Number(cleaned.latestProgress !== undefined ? cleaned.latestProgress : (cleaned.codeProgress !== undefined ? cleaned.codeProgress : (cleaned.latestCodeProgress !== undefined ? cleaned.latestCodeProgress : (cleaned.progress !== undefined ? cleaned.progress : 0)))) || 0;
+      const activeRecordedLevel = Number(progMap.latestMissionLevel || progMap.missionLevel || progMap.level || progMap.latestLevel) || 0;
+      const activeRecordedProg = Number(progMap.latestProgress !== undefined ? progMap.latestProgress : (progMap.codeProgress !== undefined ? progMap.codeProgress : (progMap.latestCodeProgress !== undefined ? progMap.latestCodeProgress : (progMap.progress !== undefined ? progMap.progress : 0)))) || 0;
+
+      // Retain ONLY valid module keys and quiz/proof data, stripping all non-module contamination
+      for (const k of Object.keys(progMap)) {
+        if (k.startsWith('MOD-') || k.startsWith('HIND-MOD-') || k === 'quizScores' || k === 'aiMissionProof') {
+          cleaned[k] = progMap[k];
+        }
+      }
 
       for (let m = 1; m <= 32; m++) {
         const kPad = m < 10 ? '0' + m : '' + m;
@@ -1455,9 +1549,12 @@
             const hasProof = Boolean(copyObj.aiMissionProof);
             const hasPractice = (Number(copyObj.verifiedSentences) > 0);
             const isRecordedActive = (m === activeRecordedLevel && activeRecordedProg >= 100);
+            const isOmittedOrNullVerified = (copyObj.verifiedSentences === undefined || copyObj.verifiedSentences === null);
+            const isExplicitlyCompleted = (copyObj.status === 'COMPLETED' || copyObj.aiMissionCompleted === true || copyObj.completed === true);
+            const isPreservedWithoutVerified = isExplicitlyCompleted && (isOmittedOrNullVerified || copyObj.verifiedSentences === 0) && (activeRecordedLevel === 0 || m <= activeRecordedLevel);
 
             // Clean fake 100% completions strictly; never wipe legitimate partial progress (< 100%)
-            if (pct >= 100 && !hasQuiz && !hasProof && !hasPractice && !isRecordedActive) {
+            if (pct >= 100 && !hasQuiz && !hasProof && !hasPractice && !isRecordedActive && !isPreservedWithoutVerified) {
               copyObj.percentage = 0;
               copyObj.aiMissionCompleted = false;
               copyObj.status = 'NOT_STARTED';
@@ -1478,6 +1575,111 @@
         }
       }
       return cleaned;
+    }
+
+    // Feature F18: Unified, Authoritative Student Metrics Calculation across Dashboard, History, and Admin Views
+    function computeAuthoritativeStudentMetrics(student, rawProgMap, modulesList) {
+      const sCourse = (student?.course || '').toString().toUpperCase();
+      const progMap = sanitizeProgressMap(rawProgMap || {});
+      const hasHindKeys = Object.keys(progMap).some(k => k.startsWith('HIND-MOD-'));
+      const isHindi = sCourse.indexOf('HIND') >= 0 || hasHindKeys;
+      const courseDivisor = isHindi ? 30 : 32;
+
+      let aiSum = 0;
+      let completedCount = 0;
+      let activeLvl = 0;
+      let activeProg = 0;
+      let quizTaken = 0;
+      let quizScoreSum = 0;
+      let quizzesPassed = 0;
+
+      for (let m = 1; m <= courseDivisor; m++) {
+        const kPad = m < 10 ? '0' + m : '' + m;
+        const modKey = `MOD-${kPad}`;
+        const modKeyShort = `MOD-${m}`;
+        const hindKey = `HIND-MOD-${kPad}`;
+        const hindKeyShort = `HIND-MOD-${m}`;
+        const mData = progMap[modKey] || progMap[modKeyShort] || progMap[hindKey] || progMap[hindKeyShort] || {};
+        const aiPct = Number(mData.percentage) || 0;
+
+        aiSum += aiPct;
+        if (aiPct >= 100) {
+          completedCount++;
+          if (m < courseDivisor && m + 1 > activeLvl) {
+            activeLvl = m + 1;
+            activeProg = 0;
+          } else if (m === courseDivisor) {
+            activeLvl = courseDivisor;
+            activeProg = Math.min(100, Math.max(0, aiPct));
+          }
+        } else if (aiPct > 0 && m >= activeLvl) {
+          activeLvl = m;
+          activeProg = aiPct;
+        }
+
+        const qScores = mData.quizScores || {};
+        const qObj = qScores[m] || (progMap.quizScores && progMap.quizScores[m]);
+        if (qObj) {
+          quizTaken++;
+          quizScoreSum += (Number(qObj.percentage) || 0);
+          if (Number(qObj.percentage) >= 70) quizzesPassed++;
+        }
+      }
+
+      // Harmonized Direct progress fallback (e.g. from Sheets columns or newly registered student)
+      const directLvl = Number(student?.mclLevel || student?.latestMissionLevel || student?.level || progMap?.latestMissionLevel || progMap?.missionLevel || progMap?.level || progMap?.latestLevel) || 0;
+      const directProg = Number(student?.codeProgress || student?.latestProgress || progMap?.latestCodeProgress || progMap?.codeProgress || progMap?.progress) || 0;
+
+      if (directLvl > activeLvl) {
+        activeLvl = directLvl;
+        activeProg = directProg;
+        if (directProg > 0 && aiSum === 0) {
+          aiSum = directProg;
+        }
+      } else if (directLvl === activeLvl && directProg > activeProg) {
+        activeProg = directProg;
+        if (directProg > 0 && aiSum === 0) {
+          aiSum = directProg;
+        }
+      } else if (directProg > 0 && aiSum === 0) {
+        aiSum = directProg;
+      }
+
+      if (activeLvl === 0) {
+        for (let m = 1; m <= courseDivisor; m++) {
+          const kPad = m < 10 ? '0' + m : '' + m;
+          const mData = progMap[`MOD-${kPad}`] || progMap[`MOD-${m}`] || progMap[`HIND-MOD-${kPad}`] || progMap[`HIND-MOD-${m}`];
+          if (mData && typeof mData === 'object' && m > activeLvl) {
+            activeLvl = m;
+            activeProg = Number(mData.percentage) || 0;
+          }
+        }
+        if (activeLvl === 0) activeLvl = 1;
+      }
+
+      const aiGrowthPct = Math.min(100, Math.round(aiSum / courseDivisor));
+      // Dynamic course length divisor: 30 for Hindi (Math.round((completedCount / 30) * 100)), 32 for Malayalam (Math.round((completedCount / 32) * 100))
+      const completedModulesPct = Math.min(100, Math.round((completedCount / courseDivisor) * 100));
+      const quizCompletionPct = Math.min(100, Math.round((quizzesPassed / courseDivisor) * 100));
+      const quizAvgScore = quizTaken > 0 ? Math.round(quizScoreSum / quizTaken) : 0;
+      const totalGrowth = Math.min(100, Math.round((aiGrowthPct + quizCompletionPct) / 2));
+
+      return {
+        isHindi,
+        courseDivisor,
+        aiSum,
+        aiGrowthPct,
+        completedCount,
+        completedModulesPct,
+        activeLvl,
+        activeProg,
+        quizzesPassed,
+        quizTaken,
+        quizScoreSum,
+        quizCompletionPct,
+        quizAvgScore,
+        totalGrowth
+      };
     }
 
     // Comprehensive Student History & Analytics Modal Component
@@ -1552,75 +1754,18 @@
         ? ((typeof window !== 'undefined' && window.HINDI_30_MODULES) || (typeof HINDI_30_MODULES !== 'undefined' ? HINDI_30_MODULES : modules))
         : modules;
 
-      let totalAiMissions = 0;
-      let totalAiSum = 0;
-      let totalQuizzesTaken = 0;
-      let totalQuizScoreSum = 0;
-      let totalQuizzesPassed = 0;
-      let highestMissionLevel = 0;
-      let highestMissionProgress = 0;
-
-      targetModules.forEach(m => {
-        const modKey = `MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
-        const modKeyShort = `MOD-${m.moduleNumber}`;
-        const hindKey = `HIND-MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
-        const hindKeyShort = `HIND-MOD-${m.moduleNumber}`;
-        const mData = progData[modKey] || progData[modKeyShort] || progData[m.moduleId] || progData[hindKey] || progData[hindKeyShort] || {};
-        const aiPct = Number(mData.percentage) || 0;
-        
-        if (aiPct > 0) {
-          totalAiMissions++;
-          totalAiSum += aiPct;
-          if (m.moduleNumber > highestMissionLevel) {
-            highestMissionLevel = m.moduleNumber;
-            highestMissionProgress = aiPct;
-          }
-        }
-
-        const qScores = mData.quizScores || {};
-        const qObj = qScores[m.moduleNumber] || (progData.quizScores && progData.quizScores[m.moduleNumber]);
-        if (qObj) {
-          totalQuizzesTaken++;
-          totalQuizScoreSum += (Number(qObj.percentage) || 0);
-          if (Number(qObj.percentage) >= 70) totalQuizzesPassed++;
-        }
-      });
-
-      const directLvl = Number(student.mclLevel || student.latestMissionLevel || student.level || progData.latestMissionLevel || progData.missionLevel || progData.level || progData.latestLevel) || 0;
-      const directPct = Number(student.codeProgress || student.latestProgress || progData.latestCodeProgress || progData.codeProgress || progData.progress) || 0;
-      if (directLvl > highestMissionLevel) {
-        highestMissionLevel = directLvl;
-        highestMissionProgress = directPct;
-        if (directPct > 0) {
-          if (totalAiMissions === 0) totalAiMissions = 1;
-          if (totalAiSum === 0) totalAiSum = directPct;
-        }
-      } else if (directLvl === highestMissionLevel && directPct > highestMissionProgress) {
-        highestMissionProgress = directPct;
-        if (directPct > 0 && totalAiSum === 0) {
-          totalAiMissions = 1;
-          totalAiSum = directPct;
-        }
-      }
-
-      if (highestMissionLevel === 0) {
-        targetModules.forEach(m => {
-          const modKey = `MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
-          const modKeyShort = `MOD-${m.moduleNumber}`;
-          const hindKey = `HIND-MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
-          const hindKeyShort = `HIND-MOD-${m.moduleNumber}`;
-          const mData = progData[modKey] || progData[modKeyShort] || progData[m.moduleId] || progData[hindKey] || progData[hindKeyShort];
-          if (mData && typeof mData === 'object' && m.moduleNumber > highestMissionLevel) {
-            highestMissionLevel = m.moduleNumber;
-            highestMissionProgress = Number(mData.percentage) || 0;
-          }
-        });
-      }
-
-      const aiMissionPct = Math.min(100, Math.round(totalAiSum / (targetModules.length || 1)));
-      const quizCompletionPct = Math.min(100, Math.round((totalQuizzesPassed / (targetModules.length || 1)) * 100));
-      const quizAvgScore = totalQuizzesTaken > 0 ? Math.round(totalQuizScoreSum / totalQuizzesTaken) : 0;
-      const overallPercentage = Math.min(100, Math.round((aiMissionPct + quizCompletionPct) / 2));
+      // Harmonized authoritative calculation across all views (Feature F18)
+      const metrics = computeAuthoritativeStudentMetrics(student, progData, targetModules);
+      const {
+        aiGrowthPct: aiMissionPct,
+        completedCount: totalAiCompleted,
+        quizCompletionPct,
+        quizAvgScore,
+        totalGrowth: overallPercentage,
+        activeLvl: highestMissionLevel,
+        activeProg: highestMissionProgress,
+        courseDivisor
+      } = metrics;
 
       const displayPhone = (() => {
         const p = (student.phone || '').toString().trim();
@@ -1775,57 +1920,6 @@
       const cleanAdm = admNum.replace(/[^A-Z0-9]/g, '');
       const studentEmail = (currentUser?.email || '').toLowerCase().trim();
 
-      const [voiceSubMode, setVoiceSubMode] = useState('VOICE'); // 'VOICE' (Live) | 'TEXT' (Fallback)
-      const [voiceTranscript, setVoiceTranscript] = useState('');
-      const [voiceFeedback, setVoiceFeedback] = useState('');
-      const [voiceState, setVoiceState] = useState('IDLE');
-      const [voiceAudioLevel, setVoiceAudioLevel] = useState(0);
-      const [voiceSpeechSpeed, setVoiceSpeechSpeed] = useState(0.96);
-      const [voiceTextInput, setVoiceTextInput] = useState('');
-      const [voiceVerifiedCount, setVoiceVerifiedCount] = useState(0);
-      const [voiceSessionEnded, setVoiceSessionEnded] = useState(false);
-      const [voiceSessionSummary, setVoiceSessionSummary] = useState(() => {
-        try {
-          const saved = cleanAdm ? safeStorage.getItem(`mastered_session_summary_${cleanAdm}`) : null;
-          return saved ? JSON.parse(saved) : null;
-        } catch(e) { return null; }
-      });
-      const [coachMode, setCoachMode] = useState('STRUCTURED');
-      const [activePromptText, setActivePromptText] = useState('');
-      const [conversationTurns, setConversationTurns] = useState(() => {
-        try {
-          const saved = cleanAdm ? safeStorage.getItem(`mastered_conversation_${cleanAdm}`) : null;
-          return saved ? JSON.parse(saved) : [];
-        } catch(e) { return []; }
-      });
-      const [showRegistrationModal, setShowRegistrationModal] = useState(false);
-      const voiceSessionRef = useRef(null);
-      const voicePipelineRef = useRef(null);
-      const activePromptRef = useRef('');
-      const handleStudentVoiceTurnRef = useRef(null);
-      const [callDuration, setCallDuration] = useState(0);
-
-      useEffect(() => {
-        let timer = null;
-        if (voiceState !== 'IDLE' && voiceState !== 'ENDING' && voiceState !== 'ERROR') {
-          timer = setInterval(() => {
-            setCallDuration(prev => prev + 1);
-          }, 1000);
-        } else {
-          setCallDuration(0);
-        }
-        return () => {
-          if (timer) clearInterval(timer);
-        };
-      }, [voiceState]);
-
-      const formattedDuration = `${Math.floor(callDuration / 60).toString().padStart(2, '0')}:${(callDuration % 60).toString().padStart(2, '0')}`;
-
-      const updateActivePrompt = (newPrompt) => {
-        activePromptRef.current = newPrompt;
-        setActivePromptText(newPrompt);
-      };
-
       // Retrieve student's current authoritative module progress map
       const currentStudentProg = (typeof getCurrentStudentProgressMap === 'function') 
         ? getCurrentStudentProgressMap() 
@@ -1878,12 +1972,74 @@
         ? modProgObj.verifiedSentences 
         : Math.round((currentPct / 100) * tSentences);
 
+      const [voiceSubMode, setVoiceSubMode] = useState('VOICE'); // 'VOICE' (Live) | 'TEXT' (Fallback)
+      const [voiceTranscript, setVoiceTranscript] = useState('');
+      const [voiceFeedback, setVoiceFeedback] = useState('');
+      const [voiceState, setVoiceState] = useState('IDLE');
+      const [voiceAudioLevel, setVoiceAudioLevel] = useState(0);
+      // Feature F10: Decoupled visualizer DOM element refs (zero React re-renders during active voice audio streaming)
+      const barRefs = useRef([]);
+      // Feature F15: In-flight save mutex to prevent concurrent POST races
+      const isSavingRef = useRef(false);
+      const inFlightSavePromiseRef = useRef(null);
+      const isUserExplicitSelectionRef = useRef(false);
+      const voiceStateRef = useRef(voiceState);
+      useEffect(() => {
+        voiceStateRef.current = voiceState;
+      }, [voiceState]);
+      const [voiceSpeechSpeed, setVoiceSpeechSpeed] = useState(0.96);
+      const [voiceTextInput, setVoiceTextInput] = useState('');
+      const [voiceVerifiedCount, setVoiceVerifiedCount] = useState(() => missionVerified);
+      const [voiceSessionEnded, setVoiceSessionEnded] = useState(false);
+      const [voiceSessionSummary, setVoiceSessionSummary] = useState(() => {
+        try {
+          const saved = cleanAdm ? safeStorage.getItem(`mastered_session_summary_${cleanAdm}`) : null;
+          return saved ? JSON.parse(saved) : null;
+        } catch(e) { return null; }
+      });
+      const [coachMode, setCoachMode] = useState('STRUCTURED');
+      const [activePromptText, setActivePromptText] = useState('');
+      const [conversationTurns, setConversationTurns] = useState(() => {
+        try {
+          const saved = cleanAdm ? safeStorage.getItem(`mastered_conversation_${cleanAdm}`) : null;
+          return saved ? JSON.parse(saved) : [];
+        } catch(e) { return []; }
+      });
+      const [showRegistrationModal, setShowRegistrationModal] = useState(false);
+      const voiceSessionRef = useRef(null);
+      const voicePipelineRef = useRef(null);
+      const activePromptRef = useRef('');
+      const handleStudentVoiceTurnRef = useRef(null);
+      const [callDuration, setCallDuration] = useState(0);
+
+      useEffect(() => {
+        let timer = null;
+        if (voiceState !== 'IDLE' && voiceState !== 'ENDING' && voiceState !== 'ERROR') {
+          timer = setInterval(() => {
+            setCallDuration(prev => prev + 1);
+          }, 1000);
+        } else {
+          setCallDuration(0);
+        }
+        return () => {
+          if (timer) clearInterval(timer);
+        };
+      }, [voiceState]);
+
+      const formattedDuration = `${Math.floor(callDuration / 60).toString().padStart(2, '0')}:${(callDuration % 60).toString().padStart(2, '0')}`;
+
+      const updateActivePrompt = (newPrompt) => {
+        activePromptRef.current = newPrompt;
+        setActivePromptText(newPrompt);
+      };
+
       const missionInfo = (window.MasteredCurriculum && window.MasteredCurriculum.getMission) 
         ? window.MasteredCurriculum.getMission(activeMissionNumber)
         : { title: `Module ${activeMissionNumber}`, targetSentences: tSentences, grammarFocus: 'English Fluency', situation: 'Speaking Practice', starterPrompts: ['Please speak your answer aloud in full sentences.'] };
 
       const handleSwitchMission = (newMNum) => {
         if (!newMNum || newMNum < 1 || newMNum > 32) return;
+        isUserExplicitSelectionRef.current = true;
         if (voicePipelineRef.current && voicePipelineRef.current.isSessionActive) {
           voicePipelineRef.current.endLiveSession();
         }
@@ -1968,13 +2124,19 @@
         // even if the student never practiced them. That was the root cause of fake progress.
         // Now progress reflects ONLY actual practice. Monotonic merge still prevents downgrades.
 
-        const userKey = (currentUser?.admissionNumber || currentUser?.studentId || currentUser?.email || admNum).toString().trim().toUpperCase();
+        // Feature F14: Safe student identity resolution fallback chain (cleanAdm || rawAdm || email)
+        const rawAdm = (currentUser?.admissionNumber || currentUser?.studentId || admNum || '').toString().trim();
+        const cleanAdmResolved = rawAdm.replace(/[^A-Z0-9]/gi, '').toUpperCase();
+        const userEmail = (currentUser?.email || studentEmail || '').toString().trim().toLowerCase();
+        const safeStudentKey = (cleanAdmResolved || rawAdm || userEmail || 'STUDENT').toString().trim().toUpperCase();
+        const userKey = safeStudentKey;
 
         // 1. Update userProgress WITHOUT spreading module keys into root
         setUserProgress(prev => {
           const newState = {
             ...(prev || {}),
             ...(userKey ? { [userKey]: updatedStudentMap } : {}),
+            ...(cleanAdmResolved ? { [cleanAdmResolved]: updatedStudentMap } : {}),
             ...(cleanAdm ? { [cleanAdm]: updatedStudentMap } : {}),
             ...(admNum ? { [admNum]: updatedStudentMap } : {})
           };
@@ -1983,8 +2145,9 @@
         });
 
         // 2. Write clean student module map directly to localStorage
-        if (cleanAdm) safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(updatedStudentMap));
-        if (userKey && userKey !== cleanAdm) safeStorage.setItem(`mastered_progress_${userKey}`, JSON.stringify(updatedStudentMap));
+        const storageAdm = cleanAdmResolved || cleanAdm;
+        if (storageAdm) safeStorage.setItem(`mastered_progress_${storageAdm}`, JSON.stringify(updatedStudentMap));
+        if (userKey && userKey !== storageAdm) safeStorage.setItem(`mastered_progress_${userKey}`, JSON.stringify(updatedStudentMap));
 
         // 3. Keep currentUser and mastered_user_session synchronously updated
         if (typeof setCurrentUser === 'function') {
@@ -2021,24 +2184,45 @@
         }
 
         // 4. Save active mission selection
-        if (cleanAdm) {
-          safeStorage.setItem(`mastered_selected_mission_${cleanAdm}`, String(targetMisNum));
+        if (storageAdm) {
+          safeStorage.setItem(`mastered_selected_mission_${storageAdm}`, String(targetMisNum));
         }
 
-        // 5. Cloud persistence via Google Apps Script
-        try {
-          if (typeof callAppsScript === 'function') {
-            await callAppsScript('saveStudentProgress', {
-              admissionNumber: currentUser?.admissionNumber || admNum,
-              email: currentUser?.email || studentEmail,
-              userProgress: updatedStudentMap,
-              latestMissionLevel: targetMisNum,
-              latestProgress: targetPct
-            });
-          }
-        } catch(err) {
-          console.warn('Voice progress database sync saved locally, cloud deferred:', err);
+        // Feature F15: End Session In-Flight Save Mutex Coordination
+        if (isSavingRef.current && inFlightSavePromiseRef.current) {
+          return inFlightSavePromiseRef.current;
         }
+
+        // 5. Standardized Cloud persistence via Google Apps Script (Feature F14 & F15)
+        const savePayload = {
+          action: 'saveStudentProgress',
+          admissionNumber: storageAdm || rawAdm || 'STUDENT',
+          email: userEmail,
+          moduleNumber: targetMisNum,
+          percentage: targetPct,
+          verifiedSentences: targetVerified,
+          status: isDone ? 'COMPLETED' : (progressData.status || 'IN_PROGRESS'),
+          timestamp: new Date().toISOString(),
+          userProgress: updatedStudentMap,
+          latestMissionLevel: targetMisNum,
+          latestProgress: targetPct
+        };
+
+        isSavingRef.current = true;
+        inFlightSavePromiseRef.current = (async () => {
+          try {
+            if (typeof callAppsScript === 'function') {
+              return await callAppsScript('saveStudentProgress', savePayload);
+            }
+          } catch(err) {
+            console.warn('Voice progress database sync saved locally, cloud deferred:', err);
+          } finally {
+            isSavingRef.current = false;
+            inFlightSavePromiseRef.current = null;
+          }
+        })();
+
+        return inFlightSavePromiseRef.current;
       };
 
       const handleEndMissionAndContinue = async () => {
@@ -2122,7 +2306,7 @@
         const targetObj = freshProg[targetKey] || freshProg[`MOD-${activeMissionNumber}`];
         if (targetObj && typeof targetObj.verifiedSentences === 'number') {
           const storedVerified = targetObj.verifiedSentences;
-          if (storedVerified > voiceVerifiedCount) {
+          if (storedVerified !== voiceVerifiedCount) {
             setVoiceVerifiedCount(storedVerified);
             if (voiceSessionRef.current) {
               voiceSessionRef.current.verifiedSentences = storedVerified;
@@ -2132,7 +2316,54 @@
             }
           }
         }
-      }, [userProgress, currentUser, activeMissionNumber]);
+      }, [userProgress, currentUser, activeMissionNumber, missionVerified]);
+
+      // Auto-persist in-progress voice practice state on visibilitychange / pagehide / beforeunload
+      useEffect(() => {
+        const handleUnloadOrSleep = () => {
+          if (!cleanAdm) return;
+          try {
+            if (activeMissionNumber && activeMissionNumber >= 1 && activeMissionNumber <= 32) {
+              const currentStored = Number(safeStorage.getItem(`mastered_selected_mission_${cleanAdm}`)) || 0;
+              if (isUserExplicitSelectionRef.current || currentStored <= 0 || activeMissionNumber >= currentStored) {
+                safeStorage.setItem(`mastered_selected_mission_${cleanAdm}`, String(activeMissionNumber));
+              }
+            }
+            if (conversationTurns && conversationTurns.length > 0) {
+              safeStorage.setItem(`mastered_conversation_${cleanAdm}`, JSON.stringify(conversationTurns.slice(-6)));
+            }
+            if (voiceSessionSummary) {
+              safeStorage.setItem(`mastered_session_summary_${cleanAdm}`, JSON.stringify(voiceSessionSummary));
+            }
+            // Emergency sendBeacon fallback on page unload (Feature F16)
+            if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function' && LIVE_APPS_SCRIPT_URL) {
+              const bSentences = Number(voiceVerifiedCount) || 0;
+              const bTarget = tSentences || 30;
+              const bPct = Math.min(100, Math.round((bSentences / bTarget) * 100));
+              const beaconPayload = JSON.stringify({
+                action: 'saveStudentProgress',
+                admissionNumber: cleanAdm,
+                email: studentEmail,
+                moduleNumber: activeMissionNumber,
+                percentage: bPct,
+                verifiedSentences: bSentences,
+                status: (bSentences >= bTarget) ? 'COMPLETED' : 'IN_PROGRESS',
+                timestamp: new Date().toISOString()
+              });
+              navigator.sendBeacon(LIVE_APPS_SCRIPT_URL, beaconPayload);
+            }
+          } catch(e) {}
+        };
+
+        window.addEventListener('pagehide', handleUnloadOrSleep);
+        window.addEventListener('beforeunload', handleUnloadOrSleep);
+        document.addEventListener('visibilitychange', handleUnloadOrSleep);
+        return () => {
+          window.removeEventListener('pagehide', handleUnloadOrSleep);
+          window.removeEventListener('beforeunload', handleUnloadOrSleep);
+          document.removeEventListener('visibilitychange', handleUnloadOrSleep);
+        };
+      }, [cleanAdm, activeMissionNumber, conversationTurns, voiceSessionSummary]);
 
       // Instant coach filler responses - spoken immediately while Gemini generates the full reply
       const COACH_FILLERS = ["I see!", "Got it!", "Interesting!", "Great, tell me more!", "Mm-hmm!", "Nice!", "Okay!", "Sure!", "I hear you!"];
@@ -2313,10 +2544,24 @@
           const pipeline = new speechModule.LiveVoicePipeline({
             speechRate: voiceSpeechSpeed || 0.96,
             onStateChange: (newState) => {
+              voiceStateRef.current = newState;
               setVoiceState(newState);
             },
             onAudioLevel: (lvl) => {
-              setVoiceAudioLevel(lvl);
+              // Feature F10: Decoupled visualizer audio level updates from React state
+              // Directly mutates DOM element style heights (0 parent component re-renders per second)
+              if (barRefs.current && barRefs.current.length) {
+                const isSpeaking = voiceStateRef.current === 'SPEAKING';
+                const base = isSpeaking ? 14 : 4;
+                const factors = [0.4, 0.7, 1.0, 0.8, 0.5, 0.9, 1.2, 0.6, 0.8, 0.5, 0.7, 0.4];
+                for (let i = 0; i < 12; i++) {
+                  const el = barRefs.current[i];
+                  if (el) {
+                    const h = Math.max(4, Math.min(32, Math.round((lvl * factors[i] * 0.4) + base)));
+                    el.style.height = `${h}px`;
+                  }
+                }
+              }
             },
             onTranscriptUpdate: (fullText) => {
               setVoiceTranscript(fullText);
@@ -2447,19 +2692,25 @@
         // 2. Immediately reset UI visual state and timers
         setVoiceState('IDLE');
         setVoiceAudioLevel(0);
+        if (barRefs.current) {
+          for (let i = 0; i < barRefs.current.length; i++) {
+            if (barRefs.current[i]) barRefs.current[i].style.height = '4px';
+          }
+        }
         setCallDuration(0);
         setVoiceTranscript('');
 
         // 3. Retrieve session summary safely via endSession, generateDailyReport, or dispatchCommand
+        // Feature F15: Pass { skipSave: true } to eliminate concurrent saveHandler dispatch from engine.js
         const session = voiceSessionRef.current;
         let summary = null;
         if (session) {
           try {
             if (typeof session.endSession === 'function') {
-              const res = session.endSession();
+              const res = session.endSession({ skipSave: true });
               summary = (res && res.summary) ? res.summary : res;
             } else if (typeof session.generateDailyReport === 'function') {
-              summary = session.generateDailyReport();
+              summary = session.generateDailyReport({ skipSave: true });
             } else if (typeof session.dispatchCommand === 'function') {
               const res = session.dispatchCommand('END SESSION');
               summary = (res && res.summary) ? res.summary : res;
@@ -2491,7 +2742,16 @@
           summary.progressPct = Math.min(100, Math.round((voiceVerifiedCount / (tSentences || 1)) * 100));
         }
 
-        // 4. Safely sync profile progress to database so spoken progress is never lost
+        // 4. Immediately present Session Summary to student (zero UI latency)
+        setVoiceSessionSummary(summary);
+        if (cleanAdm) safeStorage.setItem(`mastered_session_summary_${cleanAdm}`, JSON.stringify(summary));
+        setVoiceSessionEnded(true);
+
+        if (showToast) {
+          showToast('📞 Call ended. Spoken progress saved!');
+        }
+
+        // 5. Authoritatively sync profile progress to database with in-flight mutex & keepalive (Features F14, F15, F16)
         try {
           if (voiceSessionRef.current && typeof voiceSessionRef.current.getProfile === 'function') {
             await syncVoiceProgressToDatabase(voiceSessionRef.current.getProfile());
@@ -2507,15 +2767,6 @@
           }
         } catch (syncErr) {
           console.warn('[handleEndCall] Database sync warning:', syncErr);
-        }
-
-        // 5. Present Session Summary
-        setVoiceSessionSummary(summary);
-        if (cleanAdm) safeStorage.setItem(`mastered_session_summary_${cleanAdm}`, JSON.stringify(summary));
-        setVoiceSessionEnded(true);
-
-        if (showToast) {
-          showToast('📞 Call ended. Spoken progress saved!');
         }
       };
 
@@ -2857,17 +3108,18 @@
                           </span>
                         </div>
 
-                        {/* Smooth 12-Bar Dynamic Waveform */}
+                        {/* Smooth 12-Bar Dynamic Waveform (Feature F10: Decoupled via barRefs) */}
                         <div className="flex items-center justify-center space-x-1.5 h-8 py-1">
                           {[0.4, 0.7, 1.0, 0.8, 0.5, 0.9, 1.2, 0.6, 0.8, 0.5, 0.7, 0.4].map((factor, idx) => {
-                            const barHeight = Math.max(4, Math.min(32, Math.round((voiceAudioLevel * factor * 0.4) + (voiceState === 'SPEAKING' ? 14 : 4))));
+                            const initialHeight = voiceState === 'SPEAKING' ? 14 : 4;
                             return (
                               <div
                                 key={idx}
-                                className={`w-1.5 rounded-full transition-all duration-100 ${
+                                ref={el => { barRefs.current[idx] = el; }}
+                                className={`w-1.5 rounded-full transition-all duration-75 ${
                                   voiceState === 'LISTENING' ? 'bg-emerald-400' : (voiceState === 'SPEAKING' ? 'bg-indigo-400' : 'bg-slate-700')
                                 }`}
-                                style={{ height: `${barHeight}px` }}
+                                style={{ height: `${initialHeight}px` }}
                               ></div>
                             );
                           })}
@@ -3176,10 +3428,38 @@
     }
 
     function App() {
-      const [currentUser, setCurrentUser] = useState(null);
-      const [role, setRole] = useState(null);
+      const [currentUser, setCurrentUser] = useState(() => {
+        try {
+          const saved = safeStorage.getItem('mastered_user_session');
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            if (parsed && parsed.user && parsed.role) return parsed.user;
+          }
+        } catch(e) {}
+        return null;
+      });
+      const [role, setRole] = useState(() => {
+        try {
+          const saved = safeStorage.getItem('mastered_user_session');
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            if (parsed && parsed.role) return parsed.role;
+          }
+        } catch(e) {}
+        return null;
+      });
       const [authScreen, setAuthScreen] = useState('login');
-      const [activeTab, setActiveTab] = useState('dashboard');
+      const [activeTab, setActiveTab] = useState(() => {
+        try {
+          const saved = safeStorage.getItem('mastered_user_session');
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            if (parsed && parsed.tab) return parsed.tab;
+            if (parsed && parsed.role === 'admin') return 'admin-dashboard';
+          }
+        } catch(e) {}
+        return 'dashboard';
+      });
       const [selectedModuleId, setSelectedModuleId] = useState(null);
       const [activeQuizModNumber, setActiveQuizModNumber] = useState(() => {
         try {
@@ -3212,6 +3492,8 @@
       const [toast, setToast] = useState(null);
       const [isLoggingIn, setIsLoggingIn] = useState(false);
       const [loginError, setLoginError] = useState(null);
+      // Feature F13: Deduplication ref for in-flight cloud progress fetch requests
+      const inFlightProgressFetchRef = useRef(null);
 
       const showToast = (msg) => {
         setToast(msg);
@@ -3345,19 +3627,34 @@
 
       const [userProgress, setUserProgress] = useState(() => {
         let initial = {};
+        let cleanAdm = null;
         try {
           const session = safeStorage.getItem('mastered_user_session');
           if (session) {
             const parsed = JSON.parse(session);
             const adm = (parsed && parsed.user) ? (parsed.user.admissionNumber || parsed.user.studentId) : null;
             if (adm) {
-              const cleanAdm = adm.toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+              cleanAdm = adm.toString().trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
               const studentSaved = safeStorage.getItem(`mastered_progress_${cleanAdm}`) || safeStorage.getItem(`mastered_progress_${adm}`);
               if (studentSaved) {
                 const p = JSON.parse(studentSaved);
                 if (p && typeof p === 'object') {
-                  initial[cleanAdm] = p;
-                  initial[adm] = p;
+                  let unnested = p;
+                  for (let depth = 0; depth < 5; depth++) {
+                    if (!unnested || typeof unnested !== 'object') break;
+                    if (unnested['MOD-01'] || unnested['MOD-1'] || unnested['HIND-MOD-01'] || unnested['HIND-MOD-1']) break;
+                    const subKeys = Object.keys(unnested).filter(k => unnested[k] && typeof unnested[k] === 'object');
+                    if (subKeys.length === 1) {
+                      unnested = unnested[subKeys[0]];
+                    } else if (subKeys.length > 1) {
+                      if (unnested[cleanAdm]) { unnested = unnested[cleanAdm]; }
+                      else if (unnested.userProgress) { unnested = unnested.userProgress; }
+                      else break;
+                    } else break;
+                  }
+                  initial[cleanAdm] = unnested;
+                  initial[adm] = unnested;
+                  safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(unnested));
                 }
               }
             }
@@ -3368,7 +3665,11 @@
               const parsedAll = JSON.parse(allSaved);
               if (parsedAll && typeof parsedAll === 'object') {
                 for (const k of Object.keys(parsedAll)) {
-                  initial[k] = mergeProgressMaps(initial[k], parsedAll[k]);
+                  if (initial[k]) {
+                    initial[k] = mergeProgressMaps(initial[k], parsedAll[k]);
+                  } else {
+                    initial[k] = parsedAll[k];
+                  }
                 }
               }
             } catch(e) {}
@@ -3378,6 +3679,9 @@
           if (initial && typeof initial === 'object') {
             for (const k of Object.keys(initial)) {
               initial[k] = sanitizeProgressMap(initial[k]);
+            }
+            if (cleanAdm && initial[cleanAdm]) {
+              safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(initial[cleanAdm]));
             }
           }
         } catch(e) {}
@@ -3437,32 +3741,49 @@
         });
       };
 
+      // Feature F6: Alphanumeric Sanitization for Student Admission Numbers
+      const cleanAdmissionNumber = (adm) => {
+        if (!adm) return '';
+        return String(adm).trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+      };
+      if (typeof window !== 'undefined') {
+        window.cleanAdmissionNumber = cleanAdmissionNumber;
+      }
+
       const fetchStudentProgressFromCloud = async (userObj) => {
         if (!userObj) return;
         const rawAdm = (userObj.admissionNumber || userObj.studentId || '').toString().trim().toUpperCase();
-        const cleanAdm = rawAdm.replace(/[^A-Z0-9]/g, '');
+        const cleanAdm = cleanAdmissionNumber(rawAdm);
         const email = (userObj.email || '').toString().trim().toLowerCase();
         if (!rawAdm && !cleanAdm && !email) return;
 
-        try {
-          let res = await callAppsScript('getStudentProgress', {
-            admissionNumber: rawAdm || cleanAdm,
-            email: email
-          });
+        // Feature F13: Deduplicate concurrent in-flight progress fetch requests for the same student
+        const syncKey = cleanAdm || rawAdm || email;
+        if (inFlightProgressFetchRef.current && inFlightProgressFetchRef.current.key === syncKey) {
+          return inFlightProgressFetchRef.current.promise;
+        }
+
+        const executeFetch = async () => {
+          try {
+            // Feature F6: Strictly query student's own progress (~4.3 KB payload)
+            let res = await callAppsScript('getStudentProgress', {
+              admissionNumber: cleanAdm || rawAdm,
+              email: email
+            });
 
           // Resilient Fallback: If getStudentProgress fails or errors, call saveStudentProgress with current local progress
           // As verified live, saveStudentProgress performs monotonic merge in Google Sheets and returns the latest cloud progress!
           if (!res || !res.success) {
             const currentLocalProg = getCurrentStudentProgressMap();
             res = await callAppsScript('saveStudentProgress', {
-              admissionNumber: rawAdm || cleanAdm,
+              admissionNumber: cleanAdm || rawAdm,
               email: email,
               userProgress: currentLocalProg || {}
             });
           }
 
           if (res && res.success) {
-            const rawData = res.userProgress || res.data || res.progress || res.studentProgress;
+            const rawData = res.userProgress || (res.data && res.data.userProgress) || res.progress || res.studentProgress || res.data;
             let parsedProgMap = {};
 
             if (Array.isArray(rawData)) {
@@ -3475,7 +3796,18 @@
                 }
               });
             } else if (rawData && typeof rawData === 'object') {
-              parsedProgMap = { ...rawData };
+              for (const k of Object.keys(rawData)) {
+                if (k.startsWith('MOD-') || k.startsWith('HIND-MOD-') || k === 'quizScores' || k === 'aiMissionProof') {
+                  parsedProgMap[k] = rawData[k];
+                } else if (k === 'userProgress' && rawData[k] && typeof rawData[k] === 'object') {
+                  const sub = rawData[k];
+                  for (const sk of Object.keys(sub)) {
+                    if (sk.startsWith('MOD-') || sk.startsWith('HIND-MOD-') || sk === 'quizScores' || sk === 'aiMissionProof') {
+                      parsedProgMap[sk] = sub[sk];
+                    }
+                  }
+                }
+              }
             }
 
             // Populate single active level ONLY if parsedProgMap has no modules yet, NEVER cascade fake 100% to other modules!
@@ -3490,8 +3822,6 @@
               const latestLvl = Math.min(32, Math.max(1, Number(res.latestLevel)));
               const rawProg = (res.latestProgress !== undefined && res.latestProgress !== null && !isNaN(res.latestProgress)) ? Number(res.latestProgress) : (res.latestCodeProgress !== undefined ? Number(res.latestCodeProgress) : 0);
               const latestProg = Math.min(100, Math.max(0, Number(rawProg) || 0));
-              parsedProgMap.latestMissionLevel = latestLvl;
-              parsedProgMap.latestProgress = latestProg;
 
               if (!hasAnyModule) {
                 const modKey = `MOD-${latestLvl < 10 ? '0' + latestLvl : latestLvl}`;
@@ -3533,15 +3863,23 @@
                   localHasHigher = true;
                 }
 
+                // Ensure ONLY flat module keys and quizScores are written to storage
+                const cleanStudentProg = {};
+                for (const k of Object.keys(mergedStudentProg)) {
+                  if (k.startsWith('MOD-') || k.startsWith('HIND-MOD-') || k === 'quizScores' || k === 'aiMissionProof') {
+                    cleanStudentProg[k] = mergedStudentProg[k];
+                  }
+                }
+
                 const allStudentsProg = {
                   ...prev,
-                  ...(cleanAdm ? { [cleanAdm]: mergedStudentProg } : {}),
-                  ...(rawAdm ? { [rawAdm]: mergedStudentProg } : {}),
-                  ...(email ? { [email]: mergedStudentProg } : {})
+                  ...(cleanAdm ? { [cleanAdm]: cleanStudentProg } : {}),
+                  ...(rawAdm ? { [rawAdm]: cleanStudentProg } : {}),
+                  ...(email ? { [email]: cleanStudentProg } : {})
                 };
                 safeStorage.setItem('mastered_all_students_progress', JSON.stringify(allStudentsProg));
-                if (cleanAdm) safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(mergedStudentProg));
-                if (rawAdm && rawAdm !== cleanAdm) safeStorage.setItem(`mastered_progress_${rawAdm}`, JSON.stringify(mergedStudentProg));
+                if (cleanAdm) safeStorage.setItem(`mastered_progress_${cleanAdm}`, JSON.stringify(cleanStudentProg));
+                if (rawAdm && rawAdm !== cleanAdm) safeStorage.setItem(`mastered_progress_${rawAdm}`, JSON.stringify(cleanStudentProg));
                 return allStudentsProg;
               });
 
@@ -3593,14 +3931,21 @@
             }
           }
         } catch(e) {}
+        };
+
+        const fetchPromise = executeFetch();
+        inFlightProgressFetchRef.current = { key: syncKey, promise: fetchPromise };
+        try {
+          return await fetchPromise;
+        } finally {
+          if (inFlightProgressFetchRef.current && inFlightProgressFetchRef.current.key === syncKey) {
+            inFlightProgressFetchRef.current = null;
+          }
+        }
       };
 
-      useEffect(() => {
-        if (currentUser && role === 'student') {
-          // Low-Data: Fetch once on student load; background polling handled with visibility guards
-          fetchStudentProgressFromCloud(currentUser);
-        }
-      }, [currentUser, role]);
+      // Feature F13: Redundant duplicate startup useEffect hook eliminated.
+      // Authoritative cloud progress initialization is consolidated into the single startup hook below.
 
       // Helper to get active student progress map across all devices
       const getCurrentStudentProgressMap = () => {
@@ -3894,14 +4239,23 @@
       };
 
       useEffect(() => {
+        if (typeof drainOfflineSyncQueue === 'function') {
+          drainOfflineSyncQueue();
+        }
         refreshLiveData();
-        // Live sync polling: 5s for Admin, 120s for Student (Low-Data Conservation)
-        const pollInterval = (role === 'admin') ? 5000 : 120000;
-        const timer = setInterval(() => {
-          // Zero background polling when screen is turned off or tab hidden
-          if (typeof document !== 'undefined' && document.visibilityState !== 'visible') return;
-          refreshLiveData();
-        }, pollInterval);
+        // Features F7 & F8: Network Polling Optimization
+        // Regular Students: 0 ms background polling (eliminated; sync is purely event-driven)
+        // Admin: throttled to 30s (30,000 ms), strictly paused when tab is hidden or device asleep
+        const studentPollInterval = 0; // F7: 0s student polling interval (eliminated)
+        const adminPollInterval = 30000; // F8: >=30s admin polling interval
+        let timer = null;
+        if (role === 'admin') {
+          timer = setInterval(() => {
+            // Zero background polling when screen is turned off or tab hidden
+            if (typeof document !== 'undefined' && document.visibilityState !== 'visible') return;
+            refreshLiveData();
+          }, adminPollInterval);
+        }
 
         // Auto-refresh ONLY when screen wakes up or tab is re-focused
         const handleVisibilityChange = () => {
@@ -3917,7 +4271,7 @@
           window.removeEventListener('visibilitychange', handleVisibilityChange);
           window.removeEventListener('focus', handleVisibilityChange);
         };
-      }, [role, currentUser]);
+      }, [currentUser?.admissionNumber, role]);
 
       // Save sanitized individual student module map strictly under admission key (NO NESTING)
       useEffect(() => {
@@ -4053,6 +4407,7 @@
             setActiveTab('dashboard');
             safeStorage.setItem('mastered_user_session', JSON.stringify({ user: std, role: 'student', tab: 'dashboard', deviceToken }));
             fetchStudentProgressFromCloud(std);
+            if (typeof drainOfflineSyncQueue === 'function') drainOfflineSyncQueue();
             return { success: true };
           }
 
@@ -4066,6 +4421,7 @@
             setActiveTab('dashboard');
             safeStorage.setItem('mastered_user_session', JSON.stringify({ user: std, role: 'student', tab: 'dashboard', deviceToken }));
             fetchStudentProgressFromCloud(std);
+            if (typeof drainOfflineSyncQueue === 'function') drainOfflineSyncQueue();
             return { success: true };
           }
 
@@ -4127,7 +4483,29 @@
         setAuthScreen('login');
         setSelectedModuleId(null);
         setMobileMenuOpen(false);
+
+        // Feature F5: Comprehensive sign-out storage purge across both storage layers
         safeStorage.removeItem('mastered_user_session');
+        safeStorage.removeItem('mastered_active_quiz_mod');
+        safeStorage.removeItem('mastered_active_quiz_title');
+
+        const prefixesToRemove = [
+          'mastered_quiz_session_',
+          'mastered_conversation_',
+          'mastered_selected_mission_',
+          'mastered_session_summary_'
+        ];
+
+        [localStorage, sessionStorage].forEach(store => {
+          try {
+            const keys = Object.keys(store);
+            keys.forEach(k => {
+              if (prefixesToRemove.some(prefix => k.startsWith(prefix))) {
+                store.removeItem(k);
+              }
+            });
+          } catch(e) {}
+        });
       };
 
       const [isSubmittingRequest, setIsSubmittingRequest] = useState(false);
@@ -5145,73 +5523,22 @@
                 ) : (
                   /* Student Dashboard / Modules List View */
                   (() => {
-                    let dashAiSum = 0;
-                    let dashAiCompleted = 0;
-                    let dashQuizTaken = 0;
-                    let dashQuizScoreSum = 0;
-                    let dashQuizzesPassed = 0;
-                    let activeMissionLevel = 0;
-                    let activeMissionProg = 0;
-
-                    modules.forEach(m => {
-                      const modKey = `MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
-                      const modKeyShort = `MOD-${m.moduleNumber}`;
-                      const hindKey = `HIND-MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
-                      const hindKeyShort = `HIND-MOD-${m.moduleNumber}`;
-                      const mProg = currentStudentProg[m.moduleId] || currentStudentProg[modKey] || currentStudentProg[modKeyShort] || currentStudentProg[hindKey] || currentStudentProg[hindKeyShort] || {};
-                      const aiPct = Number(mProg.percentage) || 0;
-                      dashAiSum += aiPct;
-                      if (aiPct >= 100) {
-                        dashAiCompleted++;
-                        if (m.moduleNumber < (modules.length || 32) && m.moduleNumber + 1 > activeMissionLevel) {
-                          activeMissionLevel = m.moduleNumber + 1;
-                          activeMissionProg = 0;
-                        } else if (m.moduleNumber === (modules.length || 32)) {
-                          activeMissionLevel = (modules.length || 32);
-                          activeMissionProg = Math.min(100, Math.max(0, aiPct));
-                        }
-                      } else if (aiPct > 0 && m.moduleNumber >= activeMissionLevel) {
-                        activeMissionLevel = m.moduleNumber;
-                        activeMissionProg = aiPct;
-                      }
-
-                      const qScores = mProg.quizScores || {};
-                      const qObj = qScores[m.moduleNumber] || (currentStudentProg.quizScores && currentStudentProg.quizScores[m.moduleNumber]);
-                      if (qObj) {
-                        dashQuizTaken++;
-                        dashQuizScoreSum += (Number(qObj.percentage) || 0);
-                        if (Number(qObj.percentage) >= 70) dashQuizzesPassed++;
-                      }
-                    });
-
-                    // Check if student has a recorded level (such as Level 32 with 0% progress) higher than or matching activeMissionLevel
-                    const directLvl = Number(currentUser?.mclLevel || currentUser?.latestMissionLevel || currentStudentProg?.latestMissionLevel || currentStudentProg?.missionLevel || currentStudentProg?.level || currentStudentProg?.latestLevel) || 0;
-                    const directProg = Number(currentUser?.codeProgress || currentUser?.latestProgress || currentStudentProg?.latestProgress || currentStudentProg?.latestCodeProgress || currentStudentProg?.progress) || 0;
-                    if (directLvl > activeMissionLevel) {
-                      activeMissionLevel = directLvl;
-                      activeMissionProg = directProg;
-                    } else if (directLvl === activeMissionLevel && directProg > activeMissionProg) {
-                      activeMissionProg = directProg;
-                    }
-
-                    if (activeMissionLevel === 0) {
-                      modules.forEach(m => {
-                        const modKey = `MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
-                        const modKeyShort = `MOD-${m.moduleNumber}`;
-                        const hindKey = `HIND-MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
-                        const hindKeyShort = `HIND-MOD-${m.moduleNumber}`;
-                        const mProg = currentStudentProg[m.moduleId] || currentStudentProg[modKey] || currentStudentProg[modKeyShort] || currentStudentProg[hindKey] || currentStudentProg[hindKeyShort];
-                        if (mProg && typeof mProg === 'object' && m.moduleNumber > activeMissionLevel) {
-                          activeMissionLevel = m.moduleNumber;
-                          activeMissionProg = Number(mProg.percentage) || 0;
-                        }
-                      });
-                    }
-
-                    const dashAiPct = Math.min(100, Math.round(dashAiSum / (modules.length || 1)));
-                    const dashQuizCompletionPct = Math.min(100, Math.round((dashQuizzesPassed / (modules.length || 1)) * 100));
-                    const dashQuizAvgScore = dashQuizTaken > 0 ? Math.round(dashQuizScoreSum / dashQuizTaken) : 0;
-                    const dashTotalGrowth = Math.min(100, Math.round((dashAiPct + dashQuizCompletionPct) / 2));
+                    // Feature F18: Authoritative Harmonized Metrics Calculation
+                    const metrics = computeAuthoritativeStudentMetrics(currentUser, currentStudentProg, modules);
+                    const {
+                      aiGrowthPct: dashAiPct,
+                      completedCount: dashAiCompleted,
+                      completedModulesPct: dashCompletedModulesPct,
+                      quizzesPassed: dashQuizzesPassed,
+                      quizTaken: dashQuizTaken,
+                      quizScoreSum: dashQuizScoreSum,
+                      quizCompletionPct: dashQuizCompletionPct,
+                      quizAvgScore: dashQuizAvgScore,
+                      totalGrowth: dashTotalGrowth,
+                      activeLvl: activeMissionLevel,
+                      activeProg: activeMissionProg,
+                      courseDivisor
+                    } = metrics;
 
                     return (
                       <div className="space-y-4 sm:space-y-6">
@@ -5478,7 +5805,7 @@
                             <div key={m.moduleId} className="p-4 sm:p-5 bg-white border border-slate-200 hover:border-red-500 rounded-2xl sm:rounded-3xl shadow-sm space-y-3 flex flex-col justify-between transition">
                               <div className="space-y-3">
                                 <div className="aspect-video w-full bg-slate-100 rounded-xl sm:rounded-2xl overflow-hidden relative">
-                                  <img src={m.thumbnail} alt={m.title} className="w-full h-full object-cover" />
+                                  <img src={m.thumbnail} alt={m.title} className="w-full h-full object-cover" loading="lazy" />
                                   <span className="absolute top-2 left-2 bg-slate-900 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-md border border-red-600/40">Level {modNum}</span>
                                 </div>
                                 <h4 className="font-bold text-sm sm:text-base text-slate-900">{m.title}</h4>
@@ -5657,59 +5984,15 @@
                                         });
                                         if (matchKey) pMap = userProgress[matchKey] || {};
                                       }
-                                      pMap = sanitizeProgressMap(pMap);
 
-                                      let maxLvl = 0;
-                                      let maxPct = 0;
-                                      let aiSum = 0;
-                                      modules.forEach(m => {
-                                        const modKey = `MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
-                                        const modKeyShort = `MOD-${m.moduleNumber}`;
-                                        const hindKey = `HIND-MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
-                                        const hindKeyShort = `HIND-MOD-${m.moduleNumber}`;
-                                        const mD = pMap[modKey] || pMap[modKeyShort] || pMap[m.moduleId] || pMap[hindKey] || pMap[hindKeyShort] || {};
-                                        const pct = Number(mD.percentage) || 0;
-                                        if (pct > 0) {
-                                          aiSum += pct;
-                                          if (m.moduleNumber > maxLvl) {
-                                            maxLvl = m.moduleNumber;
-                                            maxPct = pct;
-                                          }
-                                        }
-                                      });
-
-                                      const directLvl = Number(s.mclLevel || s.latestMissionLevel || s.level || pMap?.latestMissionLevel || pMap?.missionLevel || pMap?.level || pMap?.latestLevel) || 0;
-                                      const directPct = Number(s.codeProgress || s.latestProgress || pMap?.latestCodeProgress || pMap?.codeProgress || pMap?.progress) || 0;
-                                      if (directLvl > maxLvl) {
-                                        maxLvl = directLvl;
-                                        maxPct = directPct;
-                                        if (directPct > 0 && aiSum === 0) {
-                                          aiSum = directPct;
-                                        }
-                                      } else if (directLvl === maxLvl && directPct > maxPct) {
-                                        maxPct = directPct;
-                                        if (directPct > 0 && aiSum === 0) {
-                                          aiSum = directPct;
-                                        }
-                                      }
-
-                                      if (maxLvl === 0) {
-                                        modules.forEach(m => {
-                                          const modKey = `MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
-                                          const modKeyShort = `MOD-${m.moduleNumber}`;
-                                          const hindKey = `HIND-MOD-${m.moduleNumber < 10 ? '0' + m.moduleNumber : m.moduleNumber}`;
-                                          const hindKeyShort = `HIND-MOD-${m.moduleNumber}`;
-                                          const mD = pMap[modKey] || pMap[modKeyShort] || pMap[m.moduleId] || pMap[hindKey] || pMap[hindKeyShort];
-                                          if (mD && typeof mD === 'object' && m.moduleNumber > maxLvl) {
-                                            maxLvl = m.moduleNumber;
-                                            maxPct = Number(mD.percentage) || 0;
-                                          }
-                                        });
-                                      }
-
-                                      const isStdHindi = (s.course || '').toUpperCase().indexOf('HIND') >= 0 || Object.keys(pMap).some(k => k.startsWith('HIND-MOD-'));
-                                      const stdModCount = isStdHindi ? 30 : (modules.length || 32);
-                                      const aiTotalPct = Math.round(aiSum / (stdModCount || 1));
+                                      // Feature F18: Authoritative Harmonized Metrics Calculation across Admin Views
+                                      const metrics = computeAuthoritativeStudentMetrics(s, pMap, modules);
+                                      const {
+                                        aiGrowthPct: aiTotalPct,
+                                        activeLvl: maxLvl,
+                                        activeProg: maxPct,
+                                        courseDivisor: stdModCount
+                                      } = metrics;
 
                                       if (maxLvl > 0) {
                                         return (
@@ -5852,7 +6135,7 @@
                           <div key={m.moduleId} className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between">
                             <div>
                               <div className="aspect-video bg-slate-100 relative">
-                                <img src={m.thumbnail} alt={m.title} className="w-full h-full object-cover" />
+                                <img src={m.thumbnail} alt={m.title} className="w-full h-full object-cover" loading="lazy" />
                                 <div className="absolute top-2.5 left-2.5 bg-slate-900 text-white px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold shadow-md border border-red-600/40">
                                   Module {m.moduleNumber}
                                 </div>

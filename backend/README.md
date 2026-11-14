@@ -63,12 +63,18 @@ Google Apps Script requires publishing a **New Version** for changes to take eff
 1. Click **Deploy** → **Manage deployments** (top right).
 2. Click the **Edit** icon (pencil ✏️) next to the active Web App deployment.
 3. In the **Version** dropdown, select **New version**.
-4. Enter a description, e.g. `Accurate Progress, No Demotion & Safe Sanitization`.
+4. Enter a description, e.g. `M4 Reliable DB Persistence, Concurrency Locks & Active updateProgress`.
 5. Ensure **Execute as** is `Me` and **Who has access** is `Anyone`.
 6. Click **Deploy**.
 7. Your existing Web App URL remains unchanged and now runs the latest logic!
 
-### Step 5.3: Clean Existing Database Fake 100% Cascade Progress
+### Step 5.3: Concurrency Locks & Active Update Handlers (Milestone 4 Updates)
+The updated `backend/Code.gs` introduces enterprise-grade concurrency and persistence guarantees:
+- **LockService Concurrency Locks**: Every write action (`saveStudentProgress`, `updateProgress`, `submitQuizScore`) acquires a 15,000 ms script lock (`LockService.getScriptLock().waitLock(15000)`) and safely releases it in a `finally` block (`lock.releaseLock()`). This eliminates concurrent race condition corruptions when students complete missions simultaneously.
+- **Active `updateProgress` Writes**: Directly updates module progress rows in the `StudentProgress` sheet for both full map payloads and discrete module updates (`{ admissionNumber, moduleNumber, percentage, verifiedSentences, status }`).
+- **Non-Destructive Sanitizer**: Valid completed missions (`status === 'COMPLETED'` or `aiMissionCompleted === true`) are strictly preserved even when `verifiedSentences` is omitted or null, while legacy fake 100% cascade artifacts are safely cleaned.
+
+### Step 5.4: Clean Existing Database Fake 100% Cascade Progress
 To clean legacy fake 100% completions in existing Google Sheets database rows:
 - **Option A (From Apps Script Editor):**
   1. In the function dropdown at the top, select `adminCleanAllFakeProgress`.

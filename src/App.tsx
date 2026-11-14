@@ -58,18 +58,31 @@ export function App() {
 
   // Load Data
   const loadData = async () => {
-    const [st, req, mod, ann, lg] = await Promise.all([
-      fetchAllStudents(),
-      fetchAllRequests(),
+    // Feature F8 / Bandwidth Optimization:
+    // Only load general public catalog (modules and announcements) on initial boot / student views
+    const [mod, ann] = await Promise.all([
       fetchModules(),
-      fetchAnnouncements(),
-      fetchSystemLogs()
+      fetchAnnouncements()
     ]);
-    setStudents(st);
-    setRequests(req);
     setModules(mod);
     setAnnouncements(ann);
-    setLogs(lg);
+
+    // Feature F8: Gate fetchAllStudents, fetchAllRequests, and fetchSystemLogs strictly behind admin role.
+    // Regular students must NEVER trigger fetchAllStudents on startup, preventing massive data consumption.
+    if (role === 'admin') {
+      const [st, req, lg] = await Promise.all([
+        fetchAllStudents(),
+        fetchAllRequests(),
+        fetchSystemLogs()
+      ]);
+      setStudents(st);
+      setRequests(req);
+      setLogs(lg);
+    } else {
+      setStudents([]);
+      setRequests([]);
+      setLogs([]);
+    }
 
     if (currentUser && role === 'student') {
       const pr = await fetchStudentProgress((currentUser as Student).studentId);

@@ -1058,6 +1058,23 @@ function handleApproveRequest(data) {
 }
 
 function handleSaveStudentProgress(data) {
+  var lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(15000);
+  } catch (e) {
+    return { success: false, message: "Could not obtain script lock: " + e.message };
+  }
+
+  try {
+    return handleSaveStudentProgressCore(data);
+  } finally {
+    try {
+      lock.releaseLock();
+    } catch(e) {}
+  }
+}
+
+function handleSaveStudentProgressCore(data) {
   var ss = getMasteredSpreadsheet();
   var sheet = getFlexibleSheet(ss, "StudentProgress");
   if (!sheet) {
@@ -1072,6 +1089,28 @@ function handleSaveStudentProgress(data) {
   var admClean = adm.replace(/[^A-Z0-9]/g, "");
   var incomingObj = data.userProgress || {};
   var now = new Date();
+
+  // Feature F19: Activate single-module progress updates if userProgress map omitted
+  if ((!data.userProgress || Object.keys(data.userProgress).length === 0) && (data.moduleNumber || data.module || data.modNum)) {
+    var rawMNum = parseInt(data.moduleNumber || data.module || data.modNum, 10);
+    if (!isNaN(rawMNum) && rawMNum >= 1 && rawMNum <= 32) {
+      var kP = rawMNum < 10 ? "0" + rawMNum : "" + rawMNum;
+      var isCompleted = (Number(data.percentage) >= 100) || (data.status === 'COMPLETED');
+      var singleMod = {
+        percentage: Number(data.percentage) || 0,
+        verifiedSentences: (data.verifiedSentences !== undefined && data.verifiedSentences !== null) ? Number(data.verifiedSentences) : 0,
+        status: isCompleted ? 'COMPLETED' : (data.status || 'IN_PROGRESS'),
+        aiMissionCompleted: isCompleted,
+        lastUpdated: (data.timestamp || now.toISOString())
+      };
+      incomingObj = {
+        ["MOD-" + kP]: singleMod,
+        ["MOD-" + rawMNum]: singleMod,
+        latestMissionLevel: rawMNum,
+        latestProgress: Number(data.percentage) || 0
+      };
+    }
+  }
 
   var rows = sheet.getDataRange().getValues();
   var headers = rows[0] || [];
@@ -1227,8 +1266,13 @@ function sanitizeStudentProgressMap(progObj) {
         var hasProof = Boolean(copyObj.aiMissionProof);
         var hasPractice = (Number(copyObj.verifiedSentences) > 0);
         var isRecordedActive = (m === activeRecordedLevel && activeRecordedProg >= 100);
+        // Non-destructive protection: never reset valid completed modules to 0% just because verifiedSentences was omitted or null
+        var isOmittedOrNullVerified = (copyObj.verifiedSentences === undefined || copyObj.verifiedSentences === null);
+        var isExplicitlyCompleted = (copyObj.status === "COMPLETED" || copyObj.aiMissionCompleted === true || copyObj.completed === true);
+        // Preserves valid completed modules within recorded level; modules outside recorded level or without completion remain unverified (!isOmittedOrNullVerified && !isExplicitlyCompleted)
+        var isPreservedWithoutVerified = isExplicitlyCompleted && (isOmittedOrNullVerified || copyObj.verifiedSentences === 0) && (activeRecordedLevel === 0 || m <= activeRecordedLevel);
 
-        if (pct >= 100 && !hasQuiz && !hasProof && !hasPractice && !isRecordedActive) {
+        if (pct >= 100 && !hasQuiz && !hasProof && !hasPractice && !isRecordedActive && !isPreservedWithoutVerified) {
           copyObj.percentage = 0;
           copyObj.aiMissionCompleted = false;
           copyObj.status = "NOT_STARTED";
@@ -1734,7 +1778,20 @@ function handleAdminCleanAllFakeProgress() {
 }
 
 function handleUpdateProgress(data) {
-  return { success: true, message: "Progress recorded." };
+  var lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(15000);
+  } catch (e) {
+    return { success: false, message: "Could not obtain script lock: " + e.message };
+  }
+
+  try {
+    return handleSaveStudentProgressCore(data);
+  } finally {
+    try {
+      lock.releaseLock();
+    } catch(e) {}
+  }
 }
 
 function getItemVal(obj, keys) {
@@ -1754,100 +1811,113 @@ function getItemVal(obj, keys) {
 }
 
 function handleSubmitQuizScore(data) {
-  var ss = getMasteredSpreadsheet();
-  var sheet = getFlexibleSheet(ss, "QuizResults");
-  if (!sheet) {
-    sheet = ss.insertSheet("QuizResults");
-    sheet.appendRow(["Timestamp", "AdmissionNumber", "StudentName", "ModuleNumber", "Score", "Total", "Percentage", "Passed"]);
+  var lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(15000);
+  } catch (e) {
+    return { success: false, message: "Could not obtain script lock: " + e.message };
   }
 
-  var adm = (data.admissionNumber || "").toString().trim().toUpperCase();
-  var name = (data.studentName || data.name || "").toString().trim();
-  var modNum = parseInt(data.moduleNumber) || 1;
-  var score = parseInt(data.score) || 0;
-  var total = parseInt(data.total) || 0;
-  var pct = parseInt(data.percentage) || Math.round((score / (total || 1)) * 100);
-  var passed = pct >= 70 ? "YES" : "NO";
-  var now = new Date();
+  try {
+    var ss = getMasteredSpreadsheet();
+    var sheet = getFlexibleSheet(ss, "QuizResults");
+    if (!sheet) {
+      sheet = ss.insertSheet("QuizResults");
+      sheet.appendRow(["Timestamp", "AdmissionNumber", "StudentName", "ModuleNumber", "Score", "Total", "Percentage", "Passed"]);
+    }
 
-  sheet.appendRow([now, adm, name, modNum, score, total, pct, passed]);
+    var adm = (data.admissionNumber || "").toString().trim().toUpperCase();
+    var name = (data.studentName || data.name || "").toString().trim();
+    var modNum = parseInt(data.moduleNumber) || 1;
+    var score = parseInt(data.score) || 0;
+    var total = parseInt(data.total) || 0;
+    var pct = parseInt(data.percentage) || Math.round((score / (total || 1)) * 100);
+    var passed = pct >= 70 ? "YES" : "NO";
+    var now = new Date();
 
-  // Update StudentProgress map as well
-  var progSheet = getFlexibleSheet(ss, "StudentProgress");
-  if (!progSheet) {
-    progSheet = ss.insertSheet("StudentProgress");
-  }
-  ensureStudentProgressHeaders(progSheet);
+    sheet.appendRow([now, adm, name, modNum, score, total, pct, passed]);
 
-  if (adm) {
-    var pRows = progSheet.getDataRange().getValues();
-    var pHeaders = pRows[0] || [];
-    var admCol = findColumnIndex(pHeaders, ["admissionnumber", "admission", "adm"]);
-    var jsonCol = findColumnIndex(pHeaders, ["progressjson", "progress", "json"]);
-    var dateCol = findColumnIndex(pHeaders, ["lastupdated", "updated", "date", "timestamp"]);
-    if (admCol < 0) admCol = 0;
-    if (jsonCol < 0) jsonCol = (pHeaders.length > 2 ? pHeaders.length - 2 : 2);
-    if (dateCol < 0) dateCol = (pHeaders.length > 3 ? pHeaders.length - 1 : 3);
+    // Update StudentProgress map as well
+    var progSheet = getFlexibleSheet(ss, "StudentProgress");
+    if (!progSheet) {
+      progSheet = ss.insertSheet("StudentProgress");
+    }
+    ensureStudentProgressHeaders(progSheet);
 
-    var foundIdx = -1;
-    var currentProgObj = {};
-    var admClean = adm.replace(/[^A-Z0-9]/g, "");
+    if (adm) {
+      var pRows = progSheet.getDataRange().getValues();
+      var pHeaders = pRows[0] || [];
+      var admCol = findColumnIndex(pHeaders, ["admissionnumber", "admission", "adm"]);
+      var jsonCol = findColumnIndex(pHeaders, ["progressjson", "progress", "json"]);
+      var dateCol = findColumnIndex(pHeaders, ["lastupdated", "updated", "date", "timestamp"]);
+      if (admCol < 0) admCol = 0;
+      if (jsonCol < 0) jsonCol = (pHeaders.length > 2 ? pHeaders.length - 2 : 2);
+      if (dateCol < 0) dateCol = (pHeaders.length > 3 ? pHeaders.length - 1 : 3);
 
-    for (var i = 1; i < pRows.length; i++) {
-      var rAdm = (pRows[i][admCol] || "").toString().trim().toUpperCase();
-      var rAdmClean = rAdm.replace(/[^A-Z0-9]/g, "");
-      if (rAdm === adm || (admClean && rAdmClean === admClean)) {
-        foundIdx = i + 1;
-        currentProgObj = extractStudentProgressFromRow(pRows[i], pHeaders);
-        break;
+      var foundIdx = -1;
+      var currentProgObj = {};
+      var admClean = adm.replace(/[^A-Z0-9]/g, "");
+
+      for (var i = 1; i < pRows.length; i++) {
+        var rAdm = (pRows[i][admCol] || "").toString().trim().toUpperCase();
+        var rAdmClean = rAdm.replace(/[^A-Z0-9]/g, "");
+        if (rAdm === adm || (admClean && rAdmClean === admClean)) {
+          foundIdx = i + 1;
+          currentProgObj = extractStudentProgressFromRow(pRows[i], pHeaders);
+          break;
+        }
+      }
+
+      var kPad = modNum < 10 ? "0" + modNum : "" + modNum;
+      var modKey = "MOD-" + kPad;
+      var modKeyShort = "MOD-" + modNum;
+      var hindKey = "HIND-MOD-" + kPad;
+      var hindKeyShort = "HIND-MOD-" + modNum;
+
+      var existingMod = currentProgObj[modKey] || currentProgObj[modKeyShort] || currentProgObj[hindKey] || currentProgObj[hindKeyShort] || { percentage: 0 };
+      if (!existingMod.quizScores) existingMod.quizScores = {};
+
+      var existingQ = existingMod.quizScores[modNum] || {};
+      var existingPct = Number(existingQ.percentage) || 0;
+      var finalPct = Math.max(existingPct, pct);
+      var finalScore = (finalPct === pct) ? score : (existingQ.score !== undefined ? existingQ.score : score);
+      var finalTotal = (finalPct === pct) ? total : (existingQ.total !== undefined ? existingQ.total : total);
+
+      var quizScoreObj = {
+        score: finalScore,
+        total: finalTotal,
+        percentage: finalPct,
+        passed: finalPct >= 70,
+        date: now.toISOString()
+      };
+      existingMod.quizScores[modNum] = quizScoreObj;
+
+      currentProgObj[modKey] = existingMod;
+      currentProgObj[modKeyShort] = existingMod;
+      currentProgObj[hindKey] = existingMod;
+      currentProgObj[hindKeyShort] = existingMod;
+
+      var progJson = JSON.stringify(currentProgObj);
+
+      if (foundIdx > 0) {
+        progSheet.getRange(foundIdx, jsonCol + 1).setValue(progJson);
+        progSheet.getRange(foundIdx, dateCol + 1).setValue(now);
+      } else {
+        var newRow = [];
+        for (var c = 0; c < pHeaders.length; c++) newRow.push("");
+        newRow[admCol] = adm;
+        newRow[jsonCol] = progJson;
+        newRow[dateCol] = now;
+        progSheet.appendRow(newRow);
       }
     }
 
-    var kPad = modNum < 10 ? "0" + modNum : "" + modNum;
-    var modKey = "MOD-" + kPad;
-    var modKeyShort = "MOD-" + modNum;
-    var hindKey = "HIND-MOD-" + kPad;
-    var hindKeyShort = "HIND-MOD-" + modNum;
-
-    var existingMod = currentProgObj[modKey] || currentProgObj[modKeyShort] || currentProgObj[hindKey] || currentProgObj[hindKeyShort] || { percentage: 0 };
-    if (!existingMod.quizScores) existingMod.quizScores = {};
-
-    var existingQ = existingMod.quizScores[modNum] || {};
-    var existingPct = Number(existingQ.percentage) || 0;
-    var finalPct = Math.max(existingPct, pct);
-    var finalScore = (finalPct === pct) ? score : (existingQ.score !== undefined ? existingQ.score : score);
-    var finalTotal = (finalPct === pct) ? total : (existingQ.total !== undefined ? existingQ.total : total);
-
-    var quizScoreObj = {
-      score: finalScore,
-      total: finalTotal,
-      percentage: finalPct,
-      passed: finalPct >= 70,
-      date: now.toISOString()
-    };
-    existingMod.quizScores[modNum] = quizScoreObj;
-
-    currentProgObj[modKey] = existingMod;
-    currentProgObj[modKeyShort] = existingMod;
-    currentProgObj[hindKey] = existingMod;
-    currentProgObj[hindKeyShort] = existingMod;
-
-    var progJson = JSON.stringify(currentProgObj);
-
-    if (foundIdx > 0) {
-      progSheet.getRange(foundIdx, jsonCol + 1).setValue(progJson);
-      progSheet.getRange(foundIdx, dateCol + 1).setValue(now);
-    } else {
-      var newRow = [];
-      for (var c = 0; c < pHeaders.length; c++) newRow.push("");
-      newRow[admCol] = adm;
-      newRow[jsonCol] = progJson;
-      newRow[dateCol] = now;
-      progSheet.appendRow(newRow);
-    }
+    return { success: true, message: "Quiz score recorded live in database!" };
+  } finally {
+    try {
+      lock.releaseLock();
+    } catch(e) {}
   }
-
-  return { success: true, message: "Quiz score recorded live in database!" };
 }
 
 function handleAdminGetStudents() {

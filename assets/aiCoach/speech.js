@@ -289,6 +289,12 @@
     this.isFillerPlaying = false;
     this.pendingCoachResponse = null;
     this.fillerSafetyTimer = null;
+    // Feature F11: Circuit breaker state
+    this.recentRestarts = [];
+    this.circuitBreakerTripped = false;
+    // Feature F12: Visibility state handler
+    this.visibilityChangeHandler = null;
+    this.wasActiveBeforeHidden = null;
 
     if (typeof window !== 'undefined') {
       window.__masteredActivePipeline = this;
@@ -427,6 +433,19 @@
     this.isSessionActive = true;
     this.transitionTo(STATES.LISTENING);
     this.beginListeningLoop();
+
+    // Feature F12: Background mic & AudioContext suspension on visibilitychange
+    if (typeof document !== 'undefined') {
+      if (this.visibilityChangeHandler) {
+        document.removeEventListener('visibilitychange', this.visibilityChangeHandler);
+      }
+      var self = this;
+      this.visibilityChangeHandler = function () {
+        self.handleVisibilityChange();
+      };
+      document.addEventListener('visibilitychange', this.visibilityChangeHandler);
+    }
+
     return true;
   };
 
@@ -507,6 +526,7 @@
       this.recognition.onstart = function () {
         self.isStarting = false;
         self.isListening = true;
+        self.circuitBreakerTripped = false;
       };
 
       this.recognition.onresult = function (event) {
@@ -551,6 +571,8 @@
     }
 
     this.consecutiveErrors = 0;
+    this.recentRestarts = [];
+    this.circuitBreakerTripped = false;
 
     var interimText = '';
     var finalText = '';
@@ -761,6 +783,23 @@
     var now = Date.now();
     var minGap = isMobile ? 450 : 200;
 
+    // Feature F11: Rapid restart circuit breaker protection (max 3 restarts within 5s)
+    this.recentRestarts = (this.recentRestarts || []).filter(function (t) {
+      return (now - t) < 5000;
+    });
+    if (this.recentRestarts.length >= 3) {
+      this.circuitBreakerTripped = true;
+      console.warn('[LiveVoicePipeline] Speech loop circuit breaker tripped: max 3 restarts within 5s');
+      if (this.onError) {
+        this.onError({
+          error: 'circuit-breaker-tripped',
+          message: 'Speech recognition restarted too rapidly (circuit breaker active). Pausing auto-restart.',
+          circuitBreaker: true
+        });
+      }
+      return;
+    }
+
     if (now - this.lastStartAttempt < minGap) {
       if (this.restartDebounceTimer) {
         clearTimeout(this.restartDebounceTimer);
@@ -772,6 +811,7 @@
       return;
     }
 
+    this.recentRestarts.push(now);
     this.lastStartAttempt = now;
     this.isStarting = true;
 
@@ -788,6 +828,7 @@
       this.recognition.start();
     } catch (e) {
       this.isStarting = false;
+      this.lastStartAttempt = 0;
       var self = this;
       if (this.restartDebounceTimer) {
         clearTimeout(this.restartDebounceTimer);
@@ -1124,28 +1165,157 @@
     }
     if (this.silenceTimer) {
       clearTimeout(this.silenceTimer);
+      this.silenceTimer = null;
+    }
+    // Feature F12: Suspend AudioContext to stop Web Audio DSP loops & hardware mic power draw
+    if (this.audioContext && this.audioContext.state === 'running') {
+      try { this.audioContext.suspend(); } catch (e) {}
+    }
+    // Feature F12: Cancel visualizer animation frame
+    if (this.animFrameId && typeof window !== 'undefined' && window.cancelAnimationFrame) {
+      window.cancelAnimationFrame(this.animFrameId);
+      this.animFrameId = null;
+    }
+    // Feature F12: Pause speech recognition
+    if (this.recognition && (this.isListening || this.isStarting)) {
+      try {
+        if (typeof this.recognition.abort === 'function') {
+          this.recognition.abort();
+        } else if (typeof this.recognition.stop === 'function') {
+          this.recognition.stop();
+        }
+      } catch (e) {}
+      this.isListening = false;
+      this.isStarting = false;
     }
     this.transitionTo(STATES.PAUSED);
   };
 
   LiveVoicePipeline.prototype.resumeListening = function () {
     if (this.state === STATES.PAUSED) {
+      // Feature F12: Resume AudioContext if suspended
+      if (this.audioContext && this.audioContext.state === 'suspended') {
+        try { this.audioContext.resume(); } catch (e) {}
+      }
+      // Feature F12: Restart visualizer animation loop
+      if (this.analyser && !this.animFrameId) {
+        this.monitorAudioEnergy();
+      }
       this.accumulatedTranscript = '';
       this.transitionTo(STATES.LISTENING);
       this.restartListening();
     }
   };
 
-  LiveVoicePipeline.prototype.handleSpeechError = function (event) {
-    if (event.error === 'no-speech') {
-      return;
+  // Feature F12: Document visibility change handler
+  LiveVoicePipeline.prototype.handleVisibilityChange = function () {
+    if (typeof document === 'undefined') return;
+    if (document.visibilityState === 'hidden') {
+      // Document hidden (tab switch or screen lock): suspend audio hardware & animation loops
+      if (this.audioContext && this.audioContext.state === 'running') {
+        try { this.audioContext.suspend(); } catch (e) {}
+      }
+      if (this.animFrameId && typeof window !== 'undefined' && window.cancelAnimationFrame) {
+        window.cancelAnimationFrame(this.animFrameId);
+        this.animFrameId = null;
+      }
+      if (this.recognition && (this.isListening || this.isStarting)) {
+        try {
+          if (typeof this.recognition.abort === 'function') {
+            this.recognition.abort();
+          } else if (typeof this.recognition.stop === 'function') {
+            this.recognition.stop();
+          }
+        } catch (e) {}
+        this.isListening = false;
+        this.isStarting = false;
+      }
+      if (this.synth) {
+        try { this.synth.cancel(); } catch (e) {}
+      }
+      if (this.isSessionActive && this.state !== STATES.PAUSED && this.state !== STATES.ENDING && this.state !== STATES.IDLE) {
+        this.wasActiveBeforeHidden = this.state;
+        this.pauseListening();
+      }
+    } else if (document.visibilityState === 'visible') {
+      // Document visible (tab focus or screen unlock): resume audio processing if session active
+      if (this.isSessionActive) {
+        if (this.audioContext && this.audioContext.state === 'suspended') {
+          try { this.audioContext.resume(); } catch (e) {}
+        }
+        if (this.analyser && !this.animFrameId) {
+          this.monitorAudioEnergy();
+        }
+        if (this.state === STATES.PAUSED && this.wasActiveBeforeHidden) {
+          this.wasActiveBeforeHidden = null;
+          this.resumeListening();
+        }
+      }
     }
+  };
+
+  LiveVoicePipeline.prototype.handleSpeechError = function (event) {
+    if (!event) return;
+
     if (event.error === 'aborted') {
       return;
     }
 
+    // Feature F11: Unrecoverable errors halt immediately, clean up recognition state, and surface actionable message
+    if (event.error === 'not-allowed' || event.error === 'service-not-allowed' || event.error === 'audio-capture') {
+      this.isStarting = false;
+      this.isListening = false;
+      if (this.restartDebounceTimer) {
+        clearTimeout(this.restartDebounceTimer);
+        this.restartDebounceTimer = null;
+      }
+      if (this.recognition) {
+        try {
+          if (typeof this.recognition.abort === 'function') {
+            this.recognition.abort();
+          } else if (typeof this.recognition.stop === 'function') {
+            this.recognition.stop();
+          }
+        } catch (e) {}
+        this.recognition = null;
+      }
+      var msg = "Microphone or speech recognition permission error.";
+      if (event.error === 'not-allowed') {
+        msg = "Microphone permission was denied. Please allow microphone access in your browser settings to continue.";
+      } else if (event.error === 'service-not-allowed') {
+        msg = "Speech recognition service is not allowed by your browser or network.";
+      } else if (event.error === 'audio-capture') {
+        msg = "No microphone was found. Please ensure your microphone is plugged in and enabled.";
+      }
+      if (this.onError) {
+        this.onError({
+          error: event.error,
+          message: msg,
+          unrecoverable: true
+        });
+      }
+      this.transitionTo(STATES.IDLE, { error: event.error, message: msg });
+      return;
+    }
+
+    // Feature F11: Non-fatal transient error handling (no-speech)
+    if (event.error === 'no-speech') {
+      var self = this;
+      if (this.state === STATES.LISTENING && this.isSessionActive) {
+        setTimeout(function () {
+          if (self.state === STATES.LISTENING && self.isSessionActive) {
+            self.restartListening();
+          }
+        }, 500);
+      }
+      return;
+    }
+
+    // Feature F11: Exponential backoff on transient errors (network, etc.): 500ms -> 1000ms -> 2000ms -> 4000ms
     this.consecutiveErrors = (this.consecutiveErrors || 0) + 1;
+    var expDelay = Math.min(4000, 500 * Math.pow(2, Math.min(this.consecutiveErrors - 1, 3)));
     var backoffDelay = Math.min(3000, 250 * Math.pow(1.3, Math.min(this.consecutiveErrors, 5)));
+    var finalDelay = Math.max(expDelay, backoffDelay);
 
     if (this.state === STATES.LISTENING || this.state === STATES.RECOVERING) {
       var self = this;
@@ -1155,7 +1325,7 @@
           self.transitionTo(STATES.LISTENING);
           self.restartListening();
         }
-      }, backoffDelay);
+      }, finalDelay);
     }
   };
 
@@ -1305,6 +1475,18 @@
     // 12. Close audio context
     if (this.audioContext && this.audioContext.state !== 'closed') {
       try { this.audioContext.close(); } catch (e) {}
+    }
+
+    // Feature F11: Reset circuit breaker and error tracking
+    this.recentRestarts = [];
+    this.consecutiveErrors = 0;
+    this.circuitBreakerTripped = false;
+    this.wasActiveBeforeHidden = null;
+
+    // Feature F12: Remove visibilitychange event listener to prevent memory leaks
+    if (typeof document !== 'undefined' && this.visibilityChangeHandler) {
+      document.removeEventListener('visibilitychange', this.visibilityChangeHandler);
+      this.visibilityChangeHandler = null;
     }
 
     // 13. Final state transition to IDLE

@@ -2174,7 +2174,7 @@
     };
   };
 
-  AiCoachSession.prototype.endSession = function () {
+  AiCoachSession.prototype.endSession = function (options) {
     var curDetails = this.getMissionDetails();
     var summary = {
       admissionNumber: this.profile.admissionNumber,
@@ -2192,14 +2192,22 @@
       ]
     };
 
-    if (this.saveHandler) {
+    // Feature F15: Duplicate POST Race Elimination - skipSave coordination
+    var skipSave = Boolean(options && (options.skipSave === true || options.saveHandled === true));
+    if (this.saveHandler && !skipSave) {
       try {
-        this.saveHandler(this.getProfile());
+        var saveResult = this.saveHandler(this.getProfile());
         summary.saveConfirmed = true;
+        if (saveResult && typeof saveResult.then === 'function') {
+          summary.savePromise = saveResult;
+        }
       } catch (err) {
         summary.saveConfirmed = false;
         summary.saveError = err.toString();
       }
+    } else if (skipSave) {
+      summary.saveConfirmed = true;
+      summary.saveDelegated = true;
     }
 
     return {
@@ -2225,7 +2233,7 @@
   AiCoachSession.prototype.generateDailyReport = function (options) {
     var res = null;
     try {
-      res = this.endSession();
+      res = this.endSession(options);
     } catch (err) {
       res = null;
     }
