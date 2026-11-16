@@ -421,11 +421,9 @@ function handleVerifyMclCode(data) {
 
   // Detect course boundary (30 for Hindi, 32 for Malayalam)
   var maxCourseModules = 32;
-  for (var k in userProgObj) {
-    if (k && k.indexOf("HIND-MOD-") === 0) {
-      maxCourseModules = 30;
-      break;
-    }
+  var sCourse = (userProgObj && userProgObj.course) || (decoded && decoded.course) || "";
+  if (sCourse.toString().toUpperCase().indexOf("HIND") >= 0) {
+    maxCourseModules = 30;
   }
 
   // Update Progress
@@ -1192,11 +1190,9 @@ function handleSaveStudentProgressCore(data) {
   }
 
   var maxCourseModules = 32;
-  for (var k in existingObj) {
-    if (k && k.indexOf("HIND-MOD-") === 0) {
-      maxCourseModules = 30;
-      break;
-    }
+  var sCourse = (data && (data.course || (data.user && data.user.course))) || (existingObj && existingObj.course) || "";
+  if (sCourse.toString().toUpperCase().indexOf("HIND") >= 0) {
+    maxCourseModules = 30;
   }
 
   var highestLvl = 1;
@@ -1266,13 +1262,8 @@ function sanitizeStudentProgressMap(progObj) {
         var hasProof = Boolean(copyObj.aiMissionProof);
         var hasPractice = (Number(copyObj.verifiedSentences) > 0);
         var isRecordedActive = (m === activeRecordedLevel && activeRecordedProg >= 100);
-        // Non-destructive protection: never reset valid completed modules to 0% just because verifiedSentences was omitted or null
-        var isOmittedOrNullVerified = (copyObj.verifiedSentences === undefined || copyObj.verifiedSentences === null);
-        var isExplicitlyCompleted = (copyObj.status === "COMPLETED" || copyObj.aiMissionCompleted === true || copyObj.completed === true);
-        // Preserves valid completed modules within recorded level; modules outside recorded level or without completion remain unverified (!isOmittedOrNullVerified && !isExplicitlyCompleted)
-        var isPreservedWithoutVerified = isExplicitlyCompleted && (isOmittedOrNullVerified || copyObj.verifiedSentences === 0) && (activeRecordedLevel === 0 || m <= activeRecordedLevel);
 
-        if (pct >= 100 && !hasQuiz && !hasProof && !hasPractice && !isRecordedActive && !isPreservedWithoutVerified) {
+        if (pct >= 100 && !hasQuiz && !hasProof && !hasPractice && !isRecordedActive) {
           copyObj.percentage = 0;
           copyObj.aiMissionCompleted = false;
           copyObj.status = "NOT_STARTED";
@@ -1489,11 +1480,9 @@ function handleGetStudentProgress(data) {
   }
 
   var maxCourseModules = 32;
-  for (var k in progObj) {
-    if (k && k.indexOf("HIND-MOD-") === 0) {
-      maxCourseModules = 30;
-      break;
-    }
+  var sCourse = (data && (data.course || (data.user && data.user.course))) || (progObj && progObj.course) || "";
+  if (sCourse.toString().toUpperCase().indexOf("HIND") >= 0) {
+    maxCourseModules = 30;
   }
 
   var highestLvl = 0;
@@ -1598,6 +1587,7 @@ function handleAdminCleanAllFakeProgress() {
   var codeCol = findColumnIndex(headers, ["latestmclcode", "mclcode", "code"]);
   var dateCol = findColumnIndex(headers, ["lastupdated", "updated", "date"]);
 
+  var courseCol = findColumnIndex(headers, ["course", "learningcourse"]);
   if (admCol < 0) admCol = 0;
   if (jsonCol < 0) jsonCol = (headers.length >= 6 ? 5 : 2);
   if (levelCol < 0) levelCol = (headers.length >= 6 ? 3 : -1);
@@ -1720,11 +1710,9 @@ function handleAdminCleanAllFakeProgress() {
 
     // Recompute real highest level and progress respecting course boundary
     var maxCourseModules = 32;
-    for (var k in progObj) {
-      if (k && k.indexOf("HIND-MOD-") === 0) {
-        maxCourseModules = 30;
-        break;
-      }
+    var rowCourse = (courseCol >= 0 && rows[i][courseCol]) ? rows[i][courseCol].toString().toUpperCase() : ((progObj && progObj.course) ? progObj.course.toString().toUpperCase() : "");
+    if (rowCourse.indexOf("HIND") >= 0) {
+      maxCourseModules = 30;
     }
 
     var trueHighestLvl = 1;

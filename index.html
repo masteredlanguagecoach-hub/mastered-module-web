@@ -1549,12 +1549,9 @@
             const hasProof = Boolean(copyObj.aiMissionProof);
             const hasPractice = (Number(copyObj.verifiedSentences) > 0);
             const isRecordedActive = (m === activeRecordedLevel && activeRecordedProg >= 100);
-            const isOmittedOrNullVerified = (copyObj.verifiedSentences === undefined || copyObj.verifiedSentences === null);
-            const isExplicitlyCompleted = (copyObj.status === 'COMPLETED' || copyObj.aiMissionCompleted === true || copyObj.completed === true);
-            const isPreservedWithoutVerified = isExplicitlyCompleted && (isOmittedOrNullVerified || copyObj.verifiedSentences === 0) && (activeRecordedLevel === 0 || m <= activeRecordedLevel);
 
             // Clean fake 100% completions strictly; never wipe legitimate partial progress (< 100%)
-            if (pct >= 100 && !hasQuiz && !hasProof && !hasPractice && !isRecordedActive && !isPreservedWithoutVerified) {
+            if (pct >= 100 && !hasQuiz && !hasProof && !hasPractice && !isRecordedActive) {
               copyObj.percentage = 0;
               copyObj.aiMissionCompleted = false;
               copyObj.status = 'NOT_STARTED';
@@ -1581,9 +1578,12 @@
     function computeAuthoritativeStudentMetrics(student, rawProgMap, modulesList) {
       const sCourse = (student?.course || '').toString().toUpperCase();
       const progMap = sanitizeProgressMap(rawProgMap || {});
-      const hasHindKeys = Object.keys(progMap).some(k => k.startsWith('HIND-MOD-'));
-      const isHindi = sCourse.indexOf('HIND') >= 0 || hasHindKeys;
-      const courseDivisor = isHindi ? 30 : 32;
+      // Authoritative divisor: If modulesList is provided (array with length > 0), use its length!
+      // Otherwise check student's registered course (Hindi: 30, Malayalam: 32). NEVER check hasHindKeys!
+      const courseDivisor = (Array.isArray(modulesList) && modulesList.length > 0)
+        ? modulesList.length
+        : ((sCourse.indexOf('HIND') >= 0) ? 30 : 32);
+      const isHindi = (courseDivisor === 30);
 
       let aiSum = 0;
       let completedCount = 0;
@@ -4062,11 +4062,17 @@
         fetchStudentProgressFromCloud(student);
       };
 
-      // 100% Course Graduation Video Status
+      // 100% Course Graduation Video Status: STRICT GATE - Must have passed all quizzes and completed all missions!
       const is100PercentGraduated = (() => {
         const activeProg = getCurrentStudentProgressMap();
         if (!activeProg || typeof activeProg !== 'object') return false;
-        const finalModNum = modules.length || 32;
+        const totalMods = (Array.isArray(modules) && modules.length > 0) ? modules.length : 32;
+        const metrics = computeAuthoritativeStudentMetrics(currentUser, activeProg, modules);
+        // STRICT GATE: Must have passed all quizzes and earned 100% total growth
+        if (metrics.totalGrowth < 100 || metrics.quizzesPassed < totalMods || metrics.completedCount < totalMods) {
+          return false;
+        }
+        const finalModNum = totalMods;
         const kPad = finalModNum < 10 ? '0' + finalModNum : '' + finalModNum;
         const finalMod = activeProg[`MOD-${kPad}`] || activeProg[`MOD-${finalModNum}`] || activeProg[`HIND-MOD-${kPad}`] || activeProg[`HIND-MOD-${finalModNum}`];
         const finalQuiz = (finalMod && finalMod.quizScores && (finalMod.quizScores[finalModNum] || finalMod.quizScores[String(finalModNum)])) ||
