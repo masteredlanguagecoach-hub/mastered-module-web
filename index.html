@@ -1550,8 +1550,8 @@
             const hasPractice = (Number(copyObj.verifiedSentences) > 0);
             const isRecordedActive = (m === activeRecordedLevel && activeRecordedProg >= 100);
 
-            // Clean fake 100% completions strictly; never wipe legitimate partial progress (< 100%)
-            if (pct >= 100 && !hasQuiz && !hasProof && !hasPractice && !isRecordedActive) {
+            // Clean fake 100% completions strictly; never wipe legitimate partial progress (< 100%) or quiz scores
+            if (pct >= 100 && !hasProof && !hasPractice && !isRecordedActive) {
               copyObj.percentage = 0;
               copyObj.aiMissionCompleted = false;
               copyObj.status = 'NOT_STARTED';
@@ -1600,7 +1600,17 @@
         const hindKey = `HIND-MOD-${kPad}`;
         const hindKeyShort = `HIND-MOD-${m}`;
         const mData = progMap[modKey] || progMap[modKeyShort] || progMap[hindKey] || progMap[hindKeyShort] || {};
-        const aiPct = Number(mData.percentage) || 0;
+        const vSentences = Number(mData.verifiedSentences) || 0;
+        const hasProof = Boolean(mData.aiMissionProof);
+        const targetSentences = (m <= 8 ? 30 : (m <= 23 ? 40 : 50));
+        let aiPct = 0;
+        if (hasProof) {
+          aiPct = 100;
+        } else if (vSentences > 0) {
+          aiPct = Math.min(100, Math.round((vSentences / targetSentences) * 100));
+        } else if (Number(mData.percentage) > 0 && Number(mData.percentage) < 100) {
+          aiPct = Number(mData.percentage);
+        }
 
         aiSum += aiPct;
         if (aiPct >= 100) {
@@ -1748,17 +1758,17 @@
 
       // Resolve appropriate course modules (Hindi 30 modules or Malayalam 32 modules)
       const studentCourse = (student.course || '').toUpperCase();
-      const hasHindKeys = Object.keys(progData).some(k => k.startsWith('HIND-MOD-'));
-      const isStudentHindi = studentCourse.indexOf('HIND') >= 0 || hasHindKeys;
+      const isStudentHindi = studentCourse.indexOf('HIND') >= 0;
       const targetModules = isStudentHindi
         ? ((typeof window !== 'undefined' && window.HINDI_30_MODULES) || (typeof HINDI_30_MODULES !== 'undefined' ? HINDI_30_MODULES : modules))
-        : modules;
+        : ((typeof window !== 'undefined' && window.EXACT_32_MODULES) || (typeof EXACT_32_MODULES !== 'undefined' ? EXACT_32_MODULES : modules));
 
       // Harmonized authoritative calculation across all views (Feature F18)
       const metrics = computeAuthoritativeStudentMetrics(student, progData, targetModules);
       const {
         aiGrowthPct: aiMissionPct,
         completedCount: totalAiCompleted,
+        quizzesPassed: totalQuizzesPassed,
         quizCompletionPct,
         quizAvgScore,
         totalGrowth: overallPercentage,
@@ -1818,7 +1828,7 @@
               <div className="bg-gradient-to-br from-purple-900 to-indigo-950 text-white p-4.5 rounded-2xl border border-purple-800/50 space-y-1">
                 <span className="text-[10px] text-purple-300 font-extrabold uppercase tracking-wider">🤖 AI Mission Progress</span>
                 <h4 className="text-2xl font-black text-purple-200">{aiMissionPct}%</h4>
-                <p className="text-[10px] text-purple-300 font-medium">AI Speaking Missions ({totalAiMissions}/{targetModules.length} Missions)</p>
+                <p className="text-[10px] text-purple-300 font-medium">AI Speaking Missions ({totalAiCompleted}/{targetModules.length} Missions)</p>
               </div>
 
               {/* Card 2: Quiz Progress */}
@@ -1866,11 +1876,14 @@
                           </div>
                           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-500">
                            {(() => {
-                             const p = Number(mData.percentage) || 0;
-                             if (p >= 100) return <span className="text-emerald-700 font-bold">AI Mission: ✅ 100% (Completed)</span>;
-                             if (p > 0) return <span className="text-amber-700 font-bold">AI Mission: 🔄 {p}% (In Progress)</span>;
-                             if (aiProof) return <span className="text-purple-700 font-bold">AI Mission: 📸 Proof Submitted</span>;
-                             return <span className="text-slate-400">AI Mission: ⚪ Pending (0%)</span>;
+                             const v = Number(mData.verifiedSentences) || 0;
+                             const hasProof = Boolean(aiProof);
+                             const target = (m.moduleNumber <= 8 ? 30 : (m.moduleNumber <= 23 ? 40 : 50));
+                             const pct = hasProof ? 100 : (v > 0 ? Math.min(100, Math.round((v / target) * 100)) : 0);
+                             if (pct >= 100) return <span className="text-emerald-700 font-bold">AI Mission: ✅ 100% ({v}/{target} Spoken)</span>;
+                             if (pct > 0) return <span className="text-amber-700 font-bold">AI Mission: 🔄 {pct}% ({v}/{target} Spoken)</span>;
+                             if (hasProof) return <span className="text-purple-700 font-bold">AI Mission: 📸 Proof Submitted</span>;
+                             return <span className="text-slate-400">AI Mission: ⚪ Pending (0 Spoken)</span>;
                            })()}
                           </div>
                         </div>

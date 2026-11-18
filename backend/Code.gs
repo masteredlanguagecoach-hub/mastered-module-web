@@ -1263,7 +1263,7 @@ function sanitizeStudentProgressMap(progObj) {
         var hasPractice = (Number(copyObj.verifiedSentences) > 0);
         var isRecordedActive = (m === activeRecordedLevel && activeRecordedProg >= 100);
 
-        if (pct >= 100 && !hasQuiz && !hasProof && !hasPractice && !isRecordedActive) {
+        if (pct >= 100 && !hasProof && !hasPractice && !isRecordedActive) {
           copyObj.percentage = 0;
           copyObj.aiMissionCompleted = false;
           copyObj.status = "NOT_STARTED";
@@ -1650,7 +1650,7 @@ function handleAdminCleanAllFakeProgress() {
         var isMclActive = (m === validMclMission && validMclProgress >= 100);
         if (pct >= 100) {
           total100Count++;
-          if (!hasQuiz && !hasProof && !hasPractice && !isMclActive) {
+          if (!hasProof && !hasPractice && !isMclActive) {
             fake100Count++;
           }
         }
@@ -1671,8 +1671,8 @@ function handleAdminCleanAllFakeProgress() {
         var isMclActive = (m === validMclMission && validMclProgress >= 100);
         var hasPractice = (Number(mObj.verifiedSentences) > 0);
 
-        // Clean fake 100% completions strictly; NEVER wipe legitimate partial progress (< 100%)
-        if (pct >= 100 && !hasQuiz && !hasProof && !isMclActive && !hasPractice) {
+        // Clean fake 100% completions strictly; NEVER wipe legitimate partial progress (< 100%) or quiz scores
+        if (pct >= 100 && !hasProof && !isMclActive && !hasPractice) {
           if (pct > 0 || mObj.aiMissionCompleted || mObj.status === "COMPLETED") {
             mObj.percentage = 0;
             mObj.aiMissionCompleted = false;
